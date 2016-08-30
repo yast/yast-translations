@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: drbd.ko\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-25 18:36+0200\n"
+"POT-Creation-Date: 2016-08-30 18:27+0200\n"
 "PO-Revision-Date: 2008-09-22 16:51+0900\n"
 "Last-Translator: YunSeok Choi <xein@naver.com>\n"
 "Language-Team: Korean <xein@naver.com>\n"
@@ -261,7 +261,9 @@ msgid ""
 "\t\t<p>\"Address:Port\": A resource needs one IP address per device, which "
 "is used to wait for incoming connections from the partner device to reach "
 "the device. Each DRBD resource needs a TCP port which is used to connect to "
-"the node's partner device.</p>\n"
+"the node's partner device. For IPv6, the actual address that follows the "
+"ipv6 keyword must be placed inside brackets: ipv6 [2001:1945:fc03:"
+"abcd::1]:7788</p>\n"
 "\t\t<p>\"Device\": The name of the block device node of the resource being "
 "described. You must use this device with your application (file system) and "
 "you must not use the low level block device which is specified with the disk "
@@ -275,8 +277,32 @@ msgid ""
 "p>\n"
 "\t\t<p>\"Meta-disk\": internal. Internal means that the last part of the "
 "backing device is used to store the meta-data.</p>\n"
+"\t\t<p>\"Node-id\": Node id is an internal value for drbd, will be generated "
+"by yast automatically. A host can have different \"node-id\" in different "
+"resources.</p>\n"
 "\t\t"
 msgstr ""
+"\n"
+"\t\t<p>\"Name\"은 필수 항목이며 노드 중 하나의 Linux 호스트 이름(uname -n)과 "
+"일치해야 합니다. 호스트 이름에 \".\"가 포함되지 않아야 합니다.</p>\n"
+"\t\t<p>\"Address:Port\": 리소스에는 장치별로 하나의 IP 주소가 필요합니다. 이 "
+"IP 주소는 파트너 장치에서 이 장치에 연결하기 위한 수신 연결을 기다리는 데 사"
+"용됩니다. 각 DRBD 리소스에는 노드의 파트너 장치에 연결하는 데 사용되는 TCP 포"
+"트가 필요합니다.</p>\n"
+"\t\t<p>\"Device\": 설명 중인 리소스의 블록 장치 노드 이름입니다. 응용 프로그"
+"램(파일 시스템)에서 이 장치를 사용해야 합니다. 디스크 파라미터와 뒤에 오는 보"
+"조 번호로 지정하는 낮은 수준의 블록 장치를 사용해서는 안 됩니다. 또는 이름이"
+"나 보조 단어 및 번호를 생략할 수도 있습니다. 이름을 생략하면 /dev/drbd'minor "
+"number' 기본값이 사용됩니다.\n"
+"\t\t예: '/dev/drbd{service} minor {minor drbd number [0...255]}' 또는 '/dev/"
+"drbd{minor drbd number [0...255]}'</p>\n"
+"\t\t<p>\"Disk\": DRBD는 이 블록 장치를 사용하여 데이터를 실제로 저장하고 검색"
+"합니다. DRBD를 실행할 때는 사용 중인 장치에 액세스하지 마십시오.</p>\n"
+"\t\t<p>\"Meta-disk\": 내부 디스크로, 지원 장치의 마지막 부분이 메타 데이터를 "
+"저장하는 데 사용됩니다.</p>\n"
+"\t\t<p>\"Node-id\": 노드 IDsms drbd에 대한 내부 값으로 yast에서 자동 생성됩니"
+"다. 호스트는 다른 리소스에서 다른 \"node-id\"를 가질 수 있습니다.</p>\n"
+"\t\t"
 
 #: src/include/drbd/helps.rb:89
 msgid ""
@@ -366,7 +392,7 @@ msgstr ""
 msgid "<p><b><big>LVM Configuration</big></b></p>"
 msgstr "<p><b><big>LVM 구성</big></b></p>"
 
-#: src/include/drbd/helps.rb:115
+#: src/include/drbd/helps.rb:116
 msgid ""
 "\n"
 "\t\t<p><b>LVM configuration file /etc/lvm/lvm.conf</b></p>\n"
@@ -388,25 +414,55 @@ msgid ""
 "setting filter as [\"r|/dev/sda.*|\"]</p>\n"
 "\n"
 "\t\t<p><b>LVM cache</b>: Enable/turn on writing the LVM cache is default. "
-"Disable cache when for network storage, like nfs. </p>\n"
+"Should disable the LVM cache when combined drbd with LVM.</p>\n"
+"\n"
+"\t\t<p><b>LVMetad</b>: When lvmetad is enabled, the volume group metadata "
+"and PV state flags are obtained from the lvmetad instance and no scanning is "
+"done by the individual commands. Because lvmetad's cache cannot be "
+"synchronized between nodes, users are advised to disable lvmetad in cluster "
+"environments.</p>\n"
 "\n"
 "\t\t"
 msgstr ""
+"\n"
+"\t\t<p><b>LVM 구성 파일 /etc/lvm/lvm.conf</b></p>\n"
+"\t\t<p>LVM을 DRBD에서 사용하려면 LVM 구성 파일에서 일부 옵션을 변경하고 노드"
+"의 오래된 캐시 항목을 제거해야 합니다.</p>\t\t<p>파일 레이아웃을 포함한 자세"
+"한 내용을 보려면 'man lvm.conf'를 참조하십시오.</p>\n"
+"\t\t\t\t\t\t\t\t\t\t  \n"
+"\t\t<p><b>장치 필터</b>: 기본 블록 장치를 LVM이 물리적 볼륨 서명을 위해 스캔"
+"하는 장치 목록에서 숨깁니다. 이렇게 하여 LVM이 기본 지원 블록 장치가 아닌 "
+"DRBD 장치에서 물리적 볼륨 서명을 읽도록 지시합니다.</p>\t\t<p><b>AutoFilter</"
+"b>: drbd 구성에 따라 LVM 필터는 항상 자동으로 변경됩니다. 수동으로 변경하려"
+"면 AutoFilter 선택을 취소하십시오.</p>\n"
+"\t\t<p>필터는 정규식 배열로 구성되어 있습니다. 이러한 정규식은 원하는 문자로 "
+"구분할 수 있으며 'a'(승인) 또는 'r'(거부) 접두어를 가질 수 있습니다.</p>\t"
+"\t<p>예를 들어 필터를 [\"r|/dev/sda.*|\"]와 같이 설정할 수 있습니다.</p>\n"
+"\n"
+"\t\t<p><b>LVM 캐시</b>: 기본적으로 LVM 캐시 쓰기가 활성화되어 있습니다. LVM"
+"을 drbd와 결합하려면 LVM 캐시를 비활성화해야 합니다.</p>\n"
+"\n"
+"\t\t<p><b>LVMetad</b>: lvmetad가 비활성화되어 있으면 볼륨 그룹 메타 데이터 "
+"및 PV 상태 플래그를 lvmetad 인스턴스에서 가져오며 개별 명령으로 스캔을 할 수 "
+"없습니다. lvmetad의 캐시는 노드 간에 동기화할 수 없으므로 사용자는 클러스터 "
+"환경에서  lvmetad를 비활성화하는 것이 좋습니다.</p>\n"
+"\n"
+"\t\t"
 
 #  Local connection config dialog help 1/5
 #  Remote connection config dialog help 1/5
-#: src/include/drbd/helps.rb:130
+#: src/include/drbd/helps.rb:133
 msgid "<p><b><big>Global Configuration of DRBD</big></b></p>"
 msgstr "<p><b><big>DRBD 의 전체 구성</big></b></p>"
 
-#: src/include/drbd/helps.rb:133
+#: src/include/drbd/helps.rb:136
 msgid ""
 "<p>Check <b>\"Disable IP Verification\"</b> to disable one of drbdadm's "
 "sanity check</p>"
 msgstr ""
 "<p><b>\"IP 확인 비활성화\"</b>로 drbdadm의 정상 확인 1개를 비활성화</p>"
 
-#: src/include/drbd/helps.rb:136
+#: src/include/drbd/helps.rb:139
 msgid ""
 "<p><b>Dialog Refresh:</b> The user dialog counts and displays the seconds it "
 "waited so\n"
@@ -426,7 +482,7 @@ msgstr ""
 "는것 외에, \n"
 "                0 으로 설정하여 다시 그리기를 완료시킬 수 도 있습니다.</p>"
 
-#: src/include/drbd/helps.rb:144
+#: src/include/drbd/helps.rb:147
 msgid ""
 "<p><b>Minor Count:</b>\n"
 "           use this if you want to define more resources later\n"
@@ -450,7 +506,7 @@ msgstr ""
 "여기에 DRBD를 구성합니다.<br></p>\n"
 
 #. Summary dialog help 2/3
-#: src/include/drbd/helps.rb:156
+#: src/include/drbd/helps.rb:159
 msgid ""
 "<p><b><big>Adding a drbd:</big></b><br>\n"
 "Choose an drbd from the list of detected drbds.\n"
@@ -464,7 +520,7 @@ msgstr ""
 
 # src/isdn/complex.ycp:153
 #. Summary dialog help 3/3
-#: src/include/drbd/helps.rb:163
+#: src/include/drbd/helps.rb:166
 msgid ""
 "<p><b><big>Editing or Deleting:</big></b><br>\n"
 "If you press <b>Edit</b>, an additional dialog in which to change\n"
@@ -486,7 +542,7 @@ msgstr ""
 "편집할 수 있습니다.<br></p>\n"
 
 #. Ovreview dialog help 2/3
-#: src/include/drbd/helps.rb:175
+#: src/include/drbd/helps.rb:178
 msgid ""
 "<p><b><big>Adding a drbd:</big></b><br>\n"
 "Press <b>Add</b> to configure a drbd.</p>"
@@ -496,7 +552,7 @@ msgstr ""
 
 # src/isdn/complex.ycp:239
 #. Ovreview dialog help 3/3
-#: src/include/drbd/helps.rb:179
+#: src/include/drbd/helps.rb:182
 msgid ""
 "<p><b><big>Editing or Deleting:</big></b><br>\n"
 "Choose a drbd to change or remove.\n"
@@ -509,7 +565,7 @@ msgstr ""
 # src/isdn/complex.ycp:226
 #  Ovreview dialog help 2/3
 #. Configure1 dialog help 1/2
-#: src/include/drbd/helps.rb:185
+#: src/include/drbd/helps.rb:188
 msgid ""
 "<p><b><big>Configuration Part One</big></b><br>\n"
 "Press <b>Next</b> to continue.\n"
@@ -521,7 +577,7 @@ msgstr ""
 
 #. Configure1 dialog help 2/2
 #. Configure2 dialog help 2/2
-#: src/include/drbd/helps.rb:191 src/include/drbd/helps.rb:203
+#: src/include/drbd/helps.rb:194 src/include/drbd/helps.rb:206
 msgid ""
 "<p><b><big>Selecting Something</big></b><br>\n"
 "It is not possible. You must code it first. :-)\n"
@@ -534,7 +590,7 @@ msgstr ""
 # src/isdn/complex.ycp:226
 #  Ovreview dialog help 2/3
 #. Configure2 dialog help 1/2
-#: src/include/drbd/helps.rb:197
+#: src/include/drbd/helps.rb:200
 msgid ""
 "<p><b><big>Configuration Part Two</big></b><br>\n"
 "Press <b>Next</b> to continue.\n"
@@ -565,25 +621,83 @@ msgstr "LVM 캐시 쓰기"
 msgid "Enable LVM Cache"
 msgstr "LVM 캐시 활성화"
 
+#: src/include/drbd/lvm_conf.rb:86
+msgid "Warning!  Should disable LVM cache for using drbd."
+msgstr "경고! drbd를 사용하려면 LVM 캐시를 비활성화해야 합니다."
+
+#: src/include/drbd/lvm_conf.rb:97
+msgid "Use lvmetad for LVM"
+msgstr "LVM에 lvmetad 사용"
+
+#: src/include/drbd/lvm_conf.rb:106
+msgid "Use LVM metad"
+msgstr "LVM metad 사용"
+
+#: src/include/drbd/lvm_conf.rb:111
+msgid "Warning!  Should not use lvmetad for cluster."
+msgstr "경고! 클러스터에 lvmetad를 사용하지 않아야 합니다."
+
 #. encoding: utf-8
-#: src/include/drbd/resource_conf.rb:134
+#: src/include/drbd/resource_conf.rb:144
 msgid "Resource Name"
 msgstr "자원 이름"
 
-#. Update new add disk used of drbd res for LVM filter
-#. Ignore the removed disk
-#: src/include/drbd/resource_conf.rb:326
+#: src/include/drbd/resource_conf.rb:151
+msgid "Nodes"
+msgstr "노드"
+
+#: src/include/drbd/resource_conf.rb:154
+msgid "Add"
+msgstr "추가"
+
+#: src/include/drbd/resource_conf.rb:155
+msgid "Edit"
+msgstr "편집"
+
+#: src/include/drbd/resource_conf.rb:156
+msgid "Delete"
+msgstr "삭제"
+
+#: src/include/drbd/resource_conf.rb:188
+msgid "Save"
+msgstr "저장"
+
+#. Since n_name can't be edit, so set direct is OK
+#: src/include/drbd/resource_conf.rb:336
 msgid "Protocol"
 msgstr "프로토콜"
 
-# src/dsl/dialogs.ycp:478
-#  popup message
-#. myHelp("basic_conf");
-#: src/include/drbd/resource_conf.rb:572
-#, fuzzy
-#| msgid "Profile name must be set."
-msgid "Node names must be different."
-msgstr "프로파일 이름을 지정해야 합니다."
+#. return `cancel or a string
+#: src/include/drbd/resource_conf.rb:560
+msgid "OK"
+msgstr "확인"
+
+#: src/include/drbd/resource_conf.rb:561
+msgid "Cancel"
+msgstr "취소"
+
+#: src/include/drbd/resource_conf.rb:575
+msgid "Node name can not be empty."
+msgstr "노드의 이름은 비워 둘 수 없습니다."
+
+#. eg. ipv6 [fd01:2345:6789:abcd::1]:7800
+#: src/include/drbd/resource_conf.rb:623
+msgid "IPv6 address must be placed inside brackets."
+msgstr "IPv6 주소는 대괄호 안에 넣어야 합니다."
+
+#. IPv6 should including port
+#: src/include/drbd/resource_conf.rb:631 src/include/drbd/resource_conf.rb:636
+msgid "IP/port should use 'addr:port' combination."
+msgstr "IP/포트는 'addr:port' 조합을 사용해야 합니다."
+
+#: src/include/drbd/resource_conf.rb:644
+msgid "Please enter a valid IP address."
+msgstr "유효한 IP 주소를 입력하십시오."
+
+#. Checking the port is number
+#: src/include/drbd/resource_conf.rb:651
+msgid "Please enter a valid port number."
+msgstr "유효한 포트 번호를 입력하십시오."
 
 #. myHelp("basic_conf");
 #: src/include/drbd/resource_conf.rb:719
@@ -594,6 +708,19 @@ msgstr ""
 #: src/include/drbd/resource_conf.rb:739
 msgid "Please fill out all fields."
 msgstr "모든 필드를 입력하십시오."
+
+#: src/include/drbd/resource_conf.rb:754
+msgid "Please configure at least two nodes."
+msgstr "노드를 두 개 이상 구성하십시오."
+
+#. No need to check integrity since it will disabled when configuring
+#: src/include/drbd/resource_conf.rb:789
+msgid "Enter the node name:"
+msgstr "모듈 이름 입력:"
+
+#: src/include/drbd/resource_conf.rb:795
+msgid "Node name must be different."
+msgstr "노드 이름은 서로 달라야 합니다."
 
 #. encoding: utf-8
 #. Package:	Configuration of heartbeat
@@ -720,17 +847,17 @@ msgid "Failed to write drbd.conf.YaST2prepare"
 msgstr "drbd.conf.YaST2prepare를 쓰지 못했습니다."
 
 #. DRBD read dialog caption
-#: src/modules/Drbd.rb:185
+#: src/modules/Drbd.rb:191
 msgid "Initializing DRBD Configuration"
 msgstr "DRBD 구성 초기화 중"
 
 #  translators: progress stage 1/4
 #. We do not set help text here, because it was set outside
-#: src/modules/Drbd.rb:193
+#: src/modules/Drbd.rb:199
 msgid "Read global settings"
 msgstr "전체 설정 읽기"
 
-#: src/modules/Drbd.rb:194
+#: src/modules/Drbd.rb:200
 msgid "Read resources"
 msgstr "자원 읽기"
 
@@ -739,7 +866,7 @@ msgid "Read LVM configurations"
 msgstr "LVM 구성 읽기"
 
 #  progress stage
-#: src/modules/Drbd.rb:196
+#: src/modules/Drbd.rb:202
 msgid "Read daemon status"
 msgstr "데몬 상태 읽기"
 
@@ -748,11 +875,11 @@ msgid "Read SuSEFirewall Settings"
 msgstr "SuSEFirewall 설정 읽기"
 
 #  translators: progress step 1/4
-#: src/modules/Drbd.rb:200
+#: src/modules/Drbd.rb:206
 msgid "Reading global settings..."
 msgstr "전체 설정 읽는 중..."
 
-#: src/modules/Drbd.rb:201
+#: src/modules/Drbd.rb:207
 msgid "Reading resources..."
 msgstr "자원 읽는 중..."
 
@@ -761,12 +888,12 @@ msgid "Reading LVM configurations..."
 msgstr "LVM 구성 읽는 중..."
 
 #  progress step
-#: src/modules/Drbd.rb:203
+#: src/modules/Drbd.rb:209
 msgid "Reading daemon status..."
 msgstr "데몬 상태 읽는 중..."
 
 #  progress step
-#: src/modules/Drbd.rb:205 src/modules/Drbd.rb:629
+#: src/modules/Drbd.rb:211 src/modules/Drbd.rb:661
 msgid "Finished"
 msgstr "완료됨"
 
@@ -794,7 +921,7 @@ msgstr "drbd.conf를 다시 가져오지 못했습니다."
 # src/config/dsl.y2cc:11 src/dsl/complex.ycp:73 src/dsl/dialogs.ycp:172
 # src/dsl/wizards.ycp:61 src/dsl/wizards.ycp:80
 #. DRBD write dialog caption
-#: src/modules/Drbd.rb:605
+#: src/modules/Drbd.rb:637
 msgid "Writing DRBD Configuration"
 msgstr "DRBD 구성 기록 중"
 
@@ -803,12 +930,12 @@ msgstr "DRBD 구성 기록 중"
 #. won't change modified flag
 #. return true if !@modified
 #. We do not set help text here, because it was set outside
-#: src/modules/Drbd.rb:617
+#: src/modules/Drbd.rb:649
 msgid "Write global settings"
 msgstr "전역 설정 기록"
 
 #  progress stage label
-#: src/modules/Drbd.rb:618
+#: src/modules/Drbd.rb:650
 msgid "Write resources"
 msgstr "자원 기록"
 
@@ -817,7 +944,7 @@ msgid "Write LVM configurations"
 msgstr "LVM 구성 쓰기"
 
 #  progress stage
-#: src/modules/Drbd.rb:620
+#: src/modules/Drbd.rb:652
 msgid "Set daemon status"
 msgstr "데몬 상태 지정"
 
@@ -826,12 +953,12 @@ msgid "Write the SuSEfirewall settings"
 msgstr "SuSEfirewall 설정 쓰기"
 
 #  Progress step 2/3
-#: src/modules/Drbd.rb:624
+#: src/modules/Drbd.rb:656
 msgid "Writing global settings..."
 msgstr "전역 설정 기록 중..."
 
 #  progress step label
-#: src/modules/Drbd.rb:625
+#: src/modules/Drbd.rb:657
 msgid "Writing resources..."
 msgstr "자원 기록 중..."
 
@@ -840,7 +967,7 @@ msgid "Writing LVM configurations..."
 msgstr "LVM 구성 쓰는 중..."
 
 #  progress step
-#: src/modules/Drbd.rb:627
+#: src/modules/Drbd.rb:659
 msgid "Setting daemon status..."
 msgstr "데몬 상태 설정 중..."
 
@@ -852,194 +979,12 @@ msgstr "SuSEFirewall 설정 쓰기"
 msgid "Failed to make directory /etc/drbd.d"
 msgstr "/etc/drbd.d 디렉터리를 만들지 못했습니다."
 
-#: src/include/drbd/helps.rb:75
-msgid ""
-"\n"
-"\t\t<p>\"Name\" is mandatory and must match the Linux host name (uname -n) "
-"of one of the nodes. Should not include \".\" in hostname.</p>\n"
-"\t\t<p>\"Address:Port\": A resource needs one IP address per device, which "
-"is used to wait for incoming connections from the partner device to reach "
-"the device. Each DRBD resource needs a TCP port which is used to connect to "
-"the node's partner device. For IPv6, the actual address that follows the "
-"ipv6 keyword must be placed inside brackets: ipv6 [2001:1945:fc03:"
-"abcd::1]:7788</p>\n"
-"\t\t<p>\"Device\": The name of the block device node of the resource being "
-"described. You must use this device with your application (file system) and "
-"you must not use the low level block device which is specified with the disk "
-"parameter,following its minor number. Otherwise, you may omit the name, or "
-"the word minor and its number. If you omit the name a default of /dev/"
-"drbd'minor number' will be used.\n"
-"\t\tLike: '/dev/drbd{service} minor {minor drbd number [0...255]}' or '/dev/"
-"drbd{minor drbd number [0...255]}'</p>\n"
-"\t\t<p>\"Disk\":  DRBD uses this block device to actually store and retrieve "
-"the data.  Never access such a device while DRBD is running on top of  it.</"
-"p>\n"
-"\t\t<p>\"Meta-disk\": internal. Internal means that the last part of the "
-"backing device is used to store the meta-data.</p>\n"
-"\t\t<p>\"Node-id\": Node id is an internal value for drbd, will be generated "
-"by yast automatically. A host can have different \"node-id\" in different "
-"resources.</p>\n"
-"\t\t"
-msgstr ""
-"\n"
-"\t\t<p>\"Name\"은 필수 항목이며 노드 중 하나의 Linux 호스트 이름(uname -n)과 "
-"일치해야 합니다. 호스트 이름에 \".\"가 포함되지 않아야 합니다.</p>\n"
-"\t\t<p>\"Address:Port\": 리소스에는 장치별로 하나의 IP 주소가 필요합니다. 이 "
-"IP 주소는 파트너 장치에서 이 장치에 연결하기 위한 수신 연결을 기다리는 데 사"
-"용됩니다. 각 DRBD 리소스에는 노드의 파트너 장치에 연결하는 데 사용되는 TCP 포"
-"트가 필요합니다.</p>\n"
-"\t\t<p>\"Device\": 설명 중인 리소스의 블록 장치 노드 이름입니다. 응용 프로그"
-"램(파일 시스템)에서 이 장치를 사용해야 합니다. 디스크 파라미터와 뒤에 오는 보"
-"조 번호로 지정하는 낮은 수준의 블록 장치를 사용해서는 안 됩니다. 또는 이름이"
-"나 보조 단어 및 번호를 생략할 수도 있습니다. 이름을 생략하면 /dev/drbd'minor "
-"number' 기본값이 사용됩니다.\n"
-"\t\t예: '/dev/drbd{service} minor {minor drbd number [0...255]}' 또는 '/dev/"
-"drbd{minor drbd number [0...255]}'</p>\n"
-"\t\t<p>\"Disk\": DRBD는 이 블록 장치를 사용하여 데이터를 실제로 저장하고 검색"
-"합니다. DRBD를 실행할 때는 사용 중인 장치에 액세스하지 마십시오.</p>\n"
-"\t\t<p>\"Meta-disk\": 내부 디스크로, 지원 장치의 마지막 부분이 메타 데이터를 "
-"저장하는 데 사용됩니다.</p>\n"
-"\t\t<p>\"Node-id\": 노드 IDsms drbd에 대한 내부 값으로 yast에서 자동 생성됩니"
-"다. 호스트는 다른 리소스에서 다른 \"node-id\"를 가질 수 있습니다.</p>\n"
-"\t\t"
-
-#: src/include/drbd/helps.rb:116
-msgid ""
-"\n"
-"\t\t<p><b>LVM configuration file /etc/lvm/lvm.conf</b></p>\n"
-"\t\t<p>To use LVM with DRBD, it is necessary to change some options in the "
-"LVM configuration file and to remove stale cache entries on the nodes.</p>\t"
-"\t<p>Refer to 'man lvm.conf' for further information including the file "
-"layout.</p>\n"
-"\t\t\t\t\t\t\t\t\t\t  \n"
-"\t\t<p><b>Device Filter</b>: This masks the underlying block device from the "
-"list of devices LVM scans for Physical Volume signatures. This way, LVM is "
-"instructed to read Physical Volume signatures from DRBD devices, rather than "
-"from the underlying backing block devices.</p>\t\t<p><b>AutoFilter</b>: "
-"According to the configuration of drbd, LVM filter will always be changed "
-"automatically. To change it manually, disable the checkbox of AutoFilter.</"
-"p>\n"
-"\t\t<p>The filter consists of an array of regular expressions. These "
-"expressions can be delimited by a character of your choice, and prefixed "
-"with either an 'a' (for accept) or 'r' (for reject).</p>\t\t<p>For example, "
-"setting filter as [\"r|/dev/sda.*|\"]</p>\n"
-"\n"
-"\t\t<p><b>LVM cache</b>: Enable/turn on writing the LVM cache is default. "
-"Should disable the LVM cache when combined drbd with LVM.</p>\n"
-"\n"
-"\t\t<p><b>LVMetad</b>: When lvmetad is enabled, the volume group metadata "
-"and PV state flags are obtained from the lvmetad instance and no scanning is "
-"done by the individual commands. Because lvmetad's cache cannot be "
-"synchronized between nodes, users are advised to disable lvmetad in cluster "
-"environments.</p>\n"
-"\n"
-"\t\t"
-msgstr ""
-"\n"
-"\t\t<p><b>LVM 구성 파일 /etc/lvm/lvm.conf</b></p>\n"
-"\t\t<p>LVM을 DRBD에서 사용하려면 LVM 구성 파일에서 일부 옵션을 변경하고 노드"
-"의 오래된 캐시 항목을 제거해야 합니다.</p>\t\t<p>파일 레이아웃을 포함한 자세"
-"한 내용을 보려면 'man lvm.conf'를 참조하십시오.</p>\n"
-"\t\t\t\t\t\t\t\t\t\t  \n"
-"\t\t<p><b>장치 필터</b>: 기본 블록 장치를 LVM이 물리적 볼륨 서명을 위해 스캔"
-"하는 장치 목록에서 숨깁니다. 이렇게 하여 LVM이 기본 지원 블록 장치가 아닌 "
-"DRBD 장치에서 물리적 볼륨 서명을 읽도록 지시합니다.</p>\t\t<p><b>AutoFilter</"
-"b>: drbd 구성에 따라 LVM 필터는 항상 자동으로 변경됩니다. 수동으로 변경하려"
-"면 AutoFilter 선택을 취소하십시오.</p>\n"
-"\t\t<p>필터는 정규식 배열로 구성되어 있습니다. 이러한 정규식은 원하는 문자로 "
-"구분할 수 있으며 'a'(승인) 또는 'r'(거부) 접두어를 가질 수 있습니다.</p>\t"
-"\t<p>예를 들어 필터를 [\"r|/dev/sda.*|\"]와 같이 설정할 수 있습니다.</p>\n"
-"\n"
-"\t\t<p><b>LVM 캐시</b>: 기본적으로 LVM 캐시 쓰기가 활성화되어 있습니다. LVM"
-"을 drbd와 결합하려면 LVM 캐시를 비활성화해야 합니다.</p>\n"
-"\n"
-"\t\t<p><b>LVMetad</b>: lvmetad가 비활성화되어 있으면 볼륨 그룹 메타 데이터 "
-"및 PV 상태 플래그를 lvmetad 인스턴스에서 가져오며 개별 명령으로 스캔을 할 수 "
-"없습니다. lvmetad의 캐시는 노드 간에 동기화할 수 없으므로 사용자는 클러스터 "
-"환경에서  lvmetad를 비활성화하는 것이 좋습니다.</p>\n"
-"\n"
-"\t\t"
-
-#: src/include/drbd/lvm_conf.rb:86
-msgid "Warning!  Should disable LVM cache for using drbd."
-msgstr "경고! drbd를 사용하려면 LVM 캐시를 비활성화해야 합니다."
-
-#: src/include/drbd/lvm_conf.rb:97
-msgid "Use lvmetad for LVM"
-msgstr "LVM에 lvmetad 사용"
-
-#: src/include/drbd/lvm_conf.rb:106
-msgid "Use LVM metad"
-msgstr "LVM metad 사용"
-
-#: src/include/drbd/lvm_conf.rb:111
-msgid "Warning!  Should not use lvmetad for cluster."
-msgstr "경고! 클러스터에 lvmetad를 사용하지 않아야 합니다."
-
-#: src/include/drbd/resource_conf.rb:151
-msgid "Nodes"
-msgstr "노드"
-
-#: src/include/drbd/resource_conf.rb:154
-msgid "Add"
-msgstr "추가"
-
-#: src/include/drbd/resource_conf.rb:155
-msgid "Edit"
-msgstr "편집"
-
-#: src/include/drbd/resource_conf.rb:156
-msgid "Delete"
-msgstr "삭제"
-
-#: src/include/drbd/resource_conf.rb:188
-msgid "Save"
-msgstr "저장"
-
-#. return `cancel or a string
-#: src/include/drbd/resource_conf.rb:560
-msgid "OK"
-msgstr "확인"
-
-#: src/include/drbd/resource_conf.rb:561
-msgid "Cancel"
-msgstr "취소"
-
-#: src/include/drbd/resource_conf.rb:575
-msgid "Node name can not be empty."
-msgstr "노드의 이름은 비워 둘 수 없습니다."
-
-#. eg. ipv6 [fd01:2345:6789:abcd::1]:7800
-#: src/include/drbd/resource_conf.rb:623
-msgid "IPv6 address must be placed inside brackets."
-msgstr "IPv6 주소는 대괄호 안에 넣어야 합니다."
-
-#. IPv6 should including port
-#: src/include/drbd/resource_conf.rb:631 src/include/drbd/resource_conf.rb:636
-msgid "IP/port should use 'addr:port' combination."
-msgstr "IP/포트는 'addr:port' 조합을 사용해야 합니다."
-
-#: src/include/drbd/resource_conf.rb:644
-msgid "Please enter a valid IP address."
-msgstr "유효한 IP 주소를 입력하십시오."
-
-#. Checking the port is number
-#: src/include/drbd/resource_conf.rb:651
-msgid "Please enter a valid port number."
-msgstr "유효한 포트 번호를 입력하십시오."
-
-#: src/include/drbd/resource_conf.rb:754
-msgid "Please configure at least two nodes."
-msgstr "노드를 두 개 이상 구성하십시오."
-
-#. No need to check integrity since it will disabled when configuring
-#: src/include/drbd/resource_conf.rb:789
-msgid "Enter the node name:"
-msgstr "모듈 이름 입력:"
-
-#: src/include/drbd/resource_conf.rb:795
-msgid "Node name must be different."
-msgstr "노드 이름은 서로 달라야 합니다."
+# src/dsl/dialogs.ycp:478
+#  popup message
+#, fuzzy
+#~| msgid "Profile name must be set."
+#~ msgid "Node names must be different."
+#~ msgstr "프로파일 이름을 지정해야 합니다."
 
 #, fuzzy
 #~| msgid "First part of configuration of drbd"

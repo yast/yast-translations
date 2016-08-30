@@ -19,7 +19,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: YaST (@memory@)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-25 18:36+0200\n"
+"POT-Creation-Date: 2016-08-30 18:27+0200\n"
 "PO-Revision-Date: 2015-09-13 15:25+0200\n"
 "Last-Translator: Sarah Kriesch <ada.lovelace@gmx.de>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
@@ -245,7 +245,7 @@ msgstr ""
 "\t\t"
 
 #: src/include/drbd/helps.rb:66 src/include/drbd/helps.rb:72
-#: src/include/drbd/helps.rb:85
+#: src/include/drbd/helps.rb:86
 msgid "<p><b><big>Resource Configuration of DRBD</big></b></p>"
 msgstr "<p><b><big>Ressourcen Konfiguration von DRBD</big></b></p>"
 
@@ -267,7 +267,9 @@ msgid ""
 "\t\t<p>\"Address:Port\": A resource needs one IP address per device, which "
 "is used to wait for incoming connections from the partner device to reach "
 "the device. Each DRBD resource needs a TCP port which is used to connect to "
-"the node's partner device.</p>\n"
+"the node's partner device. For IPv6, the actual address that follows the "
+"ipv6 keyword must be placed inside brackets: ipv6 [2001:1945:fc03:"
+"abcd::1]:7788</p>\n"
 "\t\t<p>\"Device\": The name of the block device node of the resource being "
 "described. You must use this device with your application (file system) and "
 "you must not use the low level block device which is specified with the disk "
@@ -281,34 +283,40 @@ msgid ""
 "p>\n"
 "\t\t<p>\"Meta-disk\": internal. Internal means that the last part of the "
 "backing device is used to store the meta-data.</p>\n"
+"\t\t<p>\"Node-id\": Node id is an internal value for drbd, will be generated "
+"by yast automatically. A host can have different \"node-id\" in different "
+"resources.</p>\n"
 "\t\t"
 msgstr ""
 "\n"
-"\t\t<p>Der \"Name\" ist erforderlich und muss zum Linux-Hostnamen (uname -n) "
-"eines der Knoten passen. Er sollte keinen \".\" im Hostnamen beinhalten.</"
-"p>\n"
-"\t\t<p>\"Address:Port\": Eine Ressource braucht eine IP-Adresse pro Gerät, "
-"die verwendet wird, um auf eingehende Verbindungen vom Partner-Gerät zu "
-"warten, um das Gerät zu erreichen. Jede DRBD-Ressource braucht einen TCP-"
-"Port, der verwendet  wird, um die Partner-Geräte der Knoten zu verbinden.</"
-"p>\n"
-"\t\t<p>\"Device\": Der Name des Nodes vom Block Device der Ressource ist "
-"beschrieben. Sie müssen dieses Device mit Ihrer Anwendung (Filesystem) "
-"verbinden und Sie dürfen nicht das niedrigere Block Device verwenden, das "
-"mit dem Festplatten-Parameter festgelegt ist, gefolgt von seiner kleinen "
-"Nummer. Andernfalls lassen Sie den Namen weg, oder das niedrigere Wort und "
-"seine Nummer. Wenn Sie den Namen weg lassen, wird als Standard /dev/"
-"drbd'kleinere Zahl' verwendet.\n"
-"\t\tWie: '/dev/drbd{Dienst} minor {kleinere DRBD-Nummer [0...255]}' oder '/"
-"dev/drbd{kleinere DRBD-Nummer [0...255]}'</p>\n"
-"\t\t<p>\"Disk\":  DRBD verwendet dieses Block Device um die Daten aktuell zu "
-"speichern und zu erreichen. Greifen Sie auf kein solches Device zu, so lange "
-"while DRBD darüber läuft.</p>\n"
-"\t\t<p>\"Meta-disk\": internal. Internal bedeutet, dass der letzte Teil des "
-"Backing Devices verwendet wird, um die Metadaten zu speichern.</p>\n"
+"\t\t<p>\"Name\" ist obligatorisch und muss mit dem Linux-Hostnamen (uname -"
+"n) für einen der Knoten übereinstimmen. Der Hostname darf keinen Punkt (\"."
+"\") enthalten.</p>\n"
+"\t\t<p>\"Adresse:Port\": Eine Ressource benötigt eine IP-Adresse pro Gerät, "
+"mit der auf eingehende Verbindungen des Partnergeräts zum Gerät gewartet "
+"wird. Jede DRBD-Ressource benötigt einen TCP-Port, über den eine Verbindung "
+"zum Partnergerät des Knotens hergestellt wird. Bei IPv6 muss der "
+"tatsächliche Adressteil, der auf das Schlüsselwort \"ipv6\" folgt, in "
+"eckigen Klammern stehen: ipv6 [2001:1945:fc03:abcd::1]:7788</p>\n"
+"\t\t<p>\"Gerät\": Name des Blockgeräteknotens der beschriebenen Ressource. "
+"Sie müssen dieses Gerät in der Anwendung (Dateisystem) verwenden, nicht das "
+"Low-Level-Blockgerät, das nach der niedrigsten Nummer mit dem "
+"Datenträgerparameter angegeben wird. Ansonsten können Sie den Dateinamen "
+"bzw. die Angabe 'minor' und die zugehörige Nummer auslassen. Wenn Sie den "
+"Namen auslassen, wird standardmäßig /dev/drbd'niedrigste Nummer' verwendet.\n"
+"\t\tBeispiel: '/dev/drbd{Dienst} minor {niedrigste DRBD-Nummer [0...255]}' "
+"oder '/dev/drbd{niedrigste DRBD-Nummer [0...255]}'</p>\n"
+"\t\t<p>\"Datenträger\":  Dieses Blockgerät wird zum Speichern und Abrufen "
+"der Daten durch DRBD verwendet. Greifen Sie nicht auf dieses Gerät zu, wenn "
+"DRBD darauf ausgeführt wird.</p>\n"
+"\t\t<p>\"Meta-Datenträger\": Intern. 'Intern' bedeutet, dass die Metadaten "
+"im letzten Bereich des Sicherungsgeräts gespeichert werden.</p>\n"
+"\t\t<p>\"Knoten-ID\": Die Knoten-ID ist ein interner, von yast automatisch "
+"generierter Wert für DRBD. Für die unterschiedlichen Ressourcen kann ein "
+"Host verschiedene \"Knoten-IDs\" haben.</p>\n"
 "\t\t"
 
-#: src/include/drbd/helps.rb:88
+#: src/include/drbd/helps.rb:89
 msgid ""
 "\n"
 "\t\t<p><b>Protocol</b></p>\n"
@@ -401,11 +409,11 @@ msgstr ""
 "ist 127. (Minimum: 7, Maximum: 3843)</p>\n"
 "\t\t"
 
-#: src/include/drbd/helps.rb:112
+#: src/include/drbd/helps.rb:113
 msgid "<p><b><big>LVM Configuration</big></b></p>"
 msgstr "<p><b><big>LVM-Konfiguration</big></b></p>"
 
-#: src/include/drbd/helps.rb:115
+#: src/include/drbd/helps.rb:116
 msgid ""
 "\n"
 "\t\t<p><b>LVM configuration file /etc/lvm/lvm.conf</b></p>\n"
@@ -427,42 +435,51 @@ msgid ""
 "setting filter as [\"r|/dev/sda.*|\"]</p>\n"
 "\n"
 "\t\t<p><b>LVM cache</b>: Enable/turn on writing the LVM cache is default. "
-"Disable cache when for network storage, like nfs. </p>\n"
+"Should disable the LVM cache when combined drbd with LVM.</p>\n"
+"\n"
+"\t\t<p><b>LVMetad</b>: When lvmetad is enabled, the volume group metadata "
+"and PV state flags are obtained from the lvmetad instance and no scanning is "
+"done by the individual commands. Because lvmetad's cache cannot be "
+"synchronized between nodes, users are advised to disable lvmetad in cluster "
+"environments.</p>\n"
 "\n"
 "\t\t"
 msgstr ""
 "\n"
 "\t\t<p><b>LVM-Konfigurationsdatei /etc/lvm/lvm.conf</b></p>\n"
-"\t\t<p>Um LVM mit DRBD zu verwenden, ist es notwendig einige Optionen in der "
-"LVM-Konfigurationsdatei zu ändern und veraltete Cache-Einträge auf den Nodes "
-"zu löschen.</p>\t\t<p>Verweis auf 'man lvm.conf' für weitere Informationen, "
-"die das Datei-Layout beinhalten.</p>\n"
+"\t\t<p>Zur Verwendung von LVM mit DRBD müssen Sie einige Optionen in der LVM-"
+"Konfigurationsdatei ändern und veraltete Cache-Einträge aus den Knoten "
+"entfernen.</p>\t\t<p>Weitere Informationen (z. B. das Dateilayout) finden "
+"Sie unter 'man lvm.conf'.</p>\n"
 "\t\t\t\t\t\t\t\t\t\t  \n"
-"\t\t<p><b>Device-Filter</b>: Dieser überdeckt das darunter liegende Block "
-"Device aus der Liste der Devices, die LVM für Physikalische Volume-"
-"Signaturen scannt. Auf diesem Weg ist LVM eher darauf angewiesen die "
-"Physikalischen Volume-Signaturen der DRBD-Devices zu lesen, als die der "
-"darunterliegenden Träger Block Devices.</p>\t\t<p><b>Auto-Filter</b>: "
-"Entsprechend der DRBD-Konfiguration wird der LVM-Filter immer automatisch "
-"geändert. Um es manuell anzupassen deaktiviert man das Kontrollkästchen von "
-"Auto-Filter.</p>\n"
-"\t\t<p>Der Filter besteht aus einem Array aus Regulären Ausdrücken (regular "
-"expressions). Diese Ausdrücke können durch ein Zeichen ihrer Wahl "
-"eingeschränkt, und vorangestellt mit entweder einem 'a' (für accept) oder "
-"einem 'r' (für reject) werden.</p>\t\t<p>Als Beispiel die Einstellungen "
-"eines Filters als [\"r|/dev/sda.*|\"]</p>\n"
+"\t\t<p><b>Gerätefilter</b>: Hiermit wird das zugrunde liegende Block-Gerät "
+"in der Liste der Geräte maskiert, die LVM auf Signaturen für physische "
+"Volumes scannt. So wird LVM angewiesen, die Signaturen für physische Volumes "
+"aus DRBD-Geräten auszulesen statt aus den zugrunde liegenden unterstützenden "
+"Block-Geräten.</p>\t\t<p><b>AutoFilter</b>: Der LVM-Filter wird gemäß der "
+"DRBD-Konfiguration stets automatisch geändert. Soll der Filter manuell "
+"geändert werden, deaktivieren Sie die Option 'AutoFilter'.</p>\n"
+"\t\t<p>Der Filter besteht aus einem Array regulärer Ausdrücke, die jeweils "
+"durch ein Zeichen Ihrer Wahl getrennt sind und das Präfix 'a' (akzeptieren) "
+"oder 'r' (ablehnen) enthalten.</p>\t\t<p>Beispiel für einen Filter: [\"r|/"
+"dev/sda.*|\"]</p>\n"
 "\n"
-"\t\t<p><b>LVM-Cache</b>: Die Aktivierung/ Umstellung auf das Schreiben in "
-"den LVM-Cache ist Standard. Deaktivieren Sie den Cache, wenn Sie ihn für ein "
-"Netzwerk-Storage, wie NFS, verwenden. </p>\n"
+"\t\t<p><b>LVM-Cache</b>: Das Schreiben in den LVM-Cache ist standardmäßig "
+"aktiviert. Bei Verwendung von DRBD mit LVM deaktivieren Sie den Cache. </p>\n"
+"\n"
+"\t\t</p><b>LVMetad</b>: Wenn LVMetad aktiviert ist, werden die Volume-"
+"Gruppen-Metadaten und die PV-Status-Flags aus der LVMetad-Instanz abgerufen, "
+"und die einzelnen Befehle führen keinen Scanvorgang aus. Da der Cache von "
+"LVMetad nicht zwischen den Knoten synchronisiert werden kann, sollten die "
+"Benutzer LVMetad in Cluster-Umgebungen deaktivieren.</p>\n"
 "\n"
 "\t\t"
 
-#: src/include/drbd/helps.rb:130
+#: src/include/drbd/helps.rb:133
 msgid "<p><b><big>Global Configuration of DRBD</big></b></p>"
 msgstr "<p><b><big>Globale DRBD-Konfiguration</big></b></p>"
 
-#: src/include/drbd/helps.rb:133
+#: src/include/drbd/helps.rb:136
 msgid ""
 "<p>Check <b>\"Disable IP Verification\"</b> to disable one of drbdadm's "
 "sanity check</p>"
@@ -470,7 +487,7 @@ msgstr ""
 "<p>Aktivieren Sie <b>\" IP-Überprüfung deaktivieren\"</b> um eine der "
 "drbdadm-Sicherheitsprüfungen zu deaktivieren</p>"
 
-#: src/include/drbd/helps.rb:136
+#: src/include/drbd/helps.rb:139
 msgid ""
 "<p><b>Dialog Refresh:</b> The user dialog counts and displays the seconds it "
 "waited so\n"
@@ -492,7 +509,7 @@ msgstr ""
 "angezeigt,\n"
 "                die Eingabe von 0 stoppt die Anzeige vollständig. </p>"
 
-#: src/include/drbd/helps.rb:144
+#: src/include/drbd/helps.rb:147
 msgid ""
 "<p><b>Minor Count:</b>\n"
 "           use this if you want to define more resources later\n"
@@ -507,7 +524,7 @@ msgstr ""
 "           wie sie in der Konfiguration in dieser Datei genannt werden. </p>"
 
 #. Summary dialog help 1/3
-#: src/include/drbd/helps.rb:152
+#: src/include/drbd/helps.rb:155
 msgid ""
 "<p><b><big>DRBD Configuration</big></b><br>\n"
 "Configure drbd here.<br></p>\n"
@@ -516,7 +533,7 @@ msgstr ""
 "Hier DRBD konfigurieren.<br></p>\n"
 
 #. Summary dialog help 2/3
-#: src/include/drbd/helps.rb:156
+#: src/include/drbd/helps.rb:159
 msgid ""
 "<p><b><big>Adding a drbd:</big></b><br>\n"
 "Choose an drbd from the list of detected drbds.\n"
@@ -530,7 +547,7 @@ msgstr ""
 "Dann <b>Konfigurieren</b> drücken.</p>\n"
 
 #. Summary dialog help 3/3
-#: src/include/drbd/helps.rb:163
+#: src/include/drbd/helps.rb:166
 msgid ""
 "<p><b><big>Editing or Deleting:</big></b><br>\n"
 "If you press <b>Edit</b>, an additional dialog in which to change\n"
@@ -541,7 +558,7 @@ msgstr ""
 "Dialogfenster, in dem Sie die Konfiguration ändern können.</p>\n"
 
 #. Ovreview dialog help 1/3
-#: src/include/drbd/helps.rb:169
+#: src/include/drbd/helps.rb:172
 msgid ""
 "<p><b><big>DRBD Configuration Overview</big></b><br>\n"
 "Obtain an overview of installed drbds. Additionally\n"
@@ -552,7 +569,7 @@ msgstr ""
 "Zusätzlich bearbeiten Sie Ihre Konfigurationen.<br></p>\n"
 
 #. Ovreview dialog help 2/3
-#: src/include/drbd/helps.rb:175
+#: src/include/drbd/helps.rb:178
 msgid ""
 "<p><b><big>Adding a drbd:</big></b><br>\n"
 "Press <b>Add</b> to configure a drbd.</p>"
@@ -561,7 +578,7 @@ msgstr ""
 "<b>Hinzufügen</b> drücken um ein DRBD hinzuzufügen.</p>"
 
 #. Ovreview dialog help 3/3
-#: src/include/drbd/helps.rb:179
+#: src/include/drbd/helps.rb:182
 msgid ""
 "<p><b><big>Editing or Deleting:</big></b><br>\n"
 "Choose a drbd to change or remove.\n"
@@ -572,7 +589,7 @@ msgstr ""
 "Dann wie gewünscht <b>Bearbeiten</b> oder <b>Löschen</b> drücken.</p>\n"
 
 #. Configure1 dialog help 1/2
-#: src/include/drbd/helps.rb:185
+#: src/include/drbd/helps.rb:188
 msgid ""
 "<p><b><big>Configuration Part One</big></b><br>\n"
 "Press <b>Next</b> to continue.\n"
@@ -584,7 +601,7 @@ msgstr ""
 
 #. Configure1 dialog help 2/2
 #. Configure2 dialog help 2/2
-#: src/include/drbd/helps.rb:191 src/include/drbd/helps.rb:203
+#: src/include/drbd/helps.rb:194 src/include/drbd/helps.rb:206
 msgid ""
 "<p><b><big>Selecting Something</big></b><br>\n"
 "It is not possible. You must code it first. :-)\n"
@@ -595,7 +612,7 @@ msgstr ""
 " </p>"
 
 #. Configure2 dialog help 1/2
-#: src/include/drbd/helps.rb:197
+#: src/include/drbd/helps.rb:200
 msgid ""
 "<p><b><big>Configuration Part Two</big></b><br>\n"
 "Press <b>Next</b> to continue.\n"
@@ -606,51 +623,128 @@ msgstr ""
 " <br></p>\n"
 
 #. Default is always true (auto)
-#: src/include/drbd/lvm_conf.rb:36
+#: src/include/drbd/lvm_conf.rb:44
 msgid "LVM Filter Configuration of DRBD"
 msgstr "LVM-Filter-Konfiguration von DRBD"
 
-#: src/include/drbd/lvm_conf.rb:44
+#: src/include/drbd/lvm_conf.rb:52
 msgid "Modify LVM Device filter Automatically"
 msgstr "Automatisches modifizieren des LVM-Geräte-Filters"
 
-#: src/include/drbd/lvm_conf.rb:54
+#: src/include/drbd/lvm_conf.rb:62
 msgid "Device Filter"
 msgstr "Device-Filter"
 
-#: src/include/drbd/lvm_conf.rb:64
+#: src/include/drbd/lvm_conf.rb:72
 msgid "Writing the LVM cache"
 msgstr "Der LVM-Cache wird geschrieben ..."
 
-#: src/include/drbd/lvm_conf.rb:73
+#: src/include/drbd/lvm_conf.rb:81
 msgid "Enable LVM Cache"
 msgstr "LVM-Cache aktivieren"
 
+#: src/include/drbd/lvm_conf.rb:86
+msgid "Warning!  Should disable LVM cache for using drbd."
+msgstr ""
+"Warnung! Der LVM-Cache muss zur Verwendung von DRBD deaktiviert werden."
+
+#: src/include/drbd/lvm_conf.rb:97
+msgid "Use lvmetad for LVM"
+msgstr "lvmetad für LVM verwenden"
+
+#: src/include/drbd/lvm_conf.rb:106
+msgid "Use LVM metad"
+msgstr "LVM-Metad verwenden"
+
+#: src/include/drbd/lvm_conf.rb:111
+msgid "Warning!  Should not use lvmetad for cluster."
+msgstr "Warnung! lvmetad soll nicht für Cluster verwendet werden."
+
 #. encoding: utf-8
-#: src/include/drbd/resource_conf.rb:134
+#: src/include/drbd/resource_conf.rb:144
 msgid "Resource Name"
 msgstr "Ressource-Name "
 
-#. Update new add disk used of drbd res for LVM filter
-#. Ignore the removed disk
-#: src/include/drbd/resource_conf.rb:326
+#: src/include/drbd/resource_conf.rb:151
+msgid "Nodes"
+msgstr "Knoten"
+
+#: src/include/drbd/resource_conf.rb:154
+msgid "Add"
+msgstr "Hinzufügen"
+
+#: src/include/drbd/resource_conf.rb:155
+msgid "Edit"
+msgstr "Bearbeiten"
+
+#: src/include/drbd/resource_conf.rb:156
+msgid "Delete"
+msgstr "Löschen"
+
+#: src/include/drbd/resource_conf.rb:188
+msgid "Save"
+msgstr "Speichern"
+
+#. Since n_name can't be edit, so set direct is OK
+#: src/include/drbd/resource_conf.rb:336
 msgid "Protocol"
 msgstr "Protokoll"
 
-#. myHelp("basic_conf");
-#: src/include/drbd/resource_conf.rb:572
-msgid "Node names must be different."
-msgstr "Node-Namen müssen unterschiedlich sein."
+#. return `cancel or a string
+#: src/include/drbd/resource_conf.rb:560
+msgid "OK"
+msgstr "OK"
 
-#: src/include/drbd/resource_conf.rb:578
+#: src/include/drbd/resource_conf.rb:561
+msgid "Cancel"
+msgstr "Abbrechen"
+
+#: src/include/drbd/resource_conf.rb:575
+msgid "Node name can not be empty."
+msgstr "Der Knotenname darf nicht leer sein."
+
+#. eg. ipv6 [fd01:2345:6789:abcd::1]:7800
+#: src/include/drbd/resource_conf.rb:623
+msgid "IPv6 address must be placed inside brackets."
+msgstr "Die IPv6-Adresse muss in eckigen Klammern stehen."
+
+#. IPv6 should including port
+#: src/include/drbd/resource_conf.rb:631 src/include/drbd/resource_conf.rb:636
+msgid "IP/port should use 'addr:port' combination."
+msgstr "IP/Port sollte eine 'addr:port'-Kombination sein."
+
+#: src/include/drbd/resource_conf.rb:644
+msgid "Please enter a valid IP address."
+msgstr "Geben Sie eine gültige IP-Adresse ein."
+
+#. Checking the port is number
+#: src/include/drbd/resource_conf.rb:651
+msgid "Please enter a valid port number."
+msgstr "Geben Sie eine gültige Portnummer ein."
+
+#. myHelp("basic_conf");
+#: src/include/drbd/resource_conf.rb:719
 msgid "Node names must not include \".\" , using the local hostname."
 msgstr ""
 "Node-Namen müssen einen \".\" beinhalten, wo der lokale Hostname verwendet "
 "wird."
 
-#: src/include/drbd/resource_conf.rb:608
+#: src/include/drbd/resource_conf.rb:739
 msgid "Please fill out all fields."
 msgstr "Bitte alle Felder ausfüllen."
+
+#: src/include/drbd/resource_conf.rb:754
+msgid "Please configure at least two nodes."
+msgstr "Konfigurieren Sie mindestens zwei Knoten."
+
+#. No need to check integrity since it will disabled when configuring
+#: src/include/drbd/resource_conf.rb:789
+msgid "Enter the node name:"
+msgstr "Geben Sie den Knotennamen ein:"
+
+#: src/include/drbd/resource_conf.rb:795
+msgid "Node name must be different."
+msgstr "Die Knotennamen müssen unterschiedlich sein."
 
 #. encoding: utf-8
 #. Package:	Configuration of heartbeat
@@ -756,72 +850,72 @@ msgstr "Initialisierung ..."
 #.
 #. Representation of the configuration of drbd.
 #. Input and output routines.
-#: src/modules/Drbd.rb:110
+#: src/modules/Drbd.rb:114
 msgid "Failed to merge separated DRBD conf files\n"
 msgstr ""
 "Das zusammenführen der separaten DRBD-Konfigurationsdateien ist "
 "fehlgeschlagen\n"
 
-#: src/modules/Drbd.rb:132
+#: src/modules/Drbd.rb:136
 msgid "Failed to write drbd.conf.YaST2prepare"
 msgstr "Schreiben der drbd.conf.YaST2prepare fehlgeschlagen"
 
 #. DRBD read dialog caption
-#: src/modules/Drbd.rb:185
+#: src/modules/Drbd.rb:191
 msgid "Initializing DRBD Configuration"
 msgstr "DRBD-Konfiguration initialisieren"
 
 #. We do not set help text here, because it was set outside
-#: src/modules/Drbd.rb:193
+#: src/modules/Drbd.rb:199
 msgid "Read global settings"
 msgstr "Globale Einstellungen lesen"
 
-#: src/modules/Drbd.rb:194
+#: src/modules/Drbd.rb:200
 msgid "Read resources"
 msgstr "Ressourcen lesen"
 
-#: src/modules/Drbd.rb:195
+#: src/modules/Drbd.rb:201
 msgid "Read LVM configurations"
 msgstr "Einlesen der LVM-Konfigurationen"
 
-#: src/modules/Drbd.rb:196
+#: src/modules/Drbd.rb:202
 msgid "Read daemon status"
 msgstr "Daemon-Status lesen"
 
-#: src/modules/Drbd.rb:197 src/modules/Drbd.rb:204
+#: src/modules/Drbd.rb:203 src/modules/Drbd.rb:210
 msgid "Read SuSEFirewall Settings"
 msgstr "SuSEFirewall-Einstellungen einlesen"
 
-#: src/modules/Drbd.rb:200
+#: src/modules/Drbd.rb:206
 msgid "Reading global settings..."
 msgstr "Globale Einstellungen werden gelesen ..."
 
-#: src/modules/Drbd.rb:201
+#: src/modules/Drbd.rb:207
 msgid "Reading resources..."
 msgstr "Ressourcen werden gelesen ..."
 
-#: src/modules/Drbd.rb:202
+#: src/modules/Drbd.rb:208
 msgid "Reading LVM configurations..."
 msgstr "LVM-Konfiguration wird eingelesen ..."
 
-#: src/modules/Drbd.rb:203
+#: src/modules/Drbd.rb:209
 msgid "Reading daemon status..."
 msgstr "Daemon-Status wird gelesen ..."
 
-#: src/modules/Drbd.rb:205 src/modules/Drbd.rb:629
+#: src/modules/Drbd.rb:211 src/modules/Drbd.rb:661
 msgid "Finished"
 msgstr "Fertig"
 
 #. new_map = remove(new_map, key);
-#: src/modules/Drbd.rb:497
+#: src/modules/Drbd.rb:514
 msgid "Failed to backup drbd.conf"
 msgstr "Sicherung der drbd.conf fehlgeschlagen"
 
-#: src/modules/Drbd.rb:506
+#: src/modules/Drbd.rb:523
 msgid "Failed to clean drbd.conf for drbdadm test"
 msgstr "Säuberung der drbd.conf für drbdadm test fehlgeschlagen"
 
-#: src/modules/Drbd.rb:530
+#: src/modules/Drbd.rb:547
 msgid ""
 "Invalid configuration of resource %1\n"
 "%2"
@@ -829,12 +923,12 @@ msgstr ""
 "Ungültige Konfiguration der Ressource %1\n"
 "%2"
 
-#: src/modules/Drbd.rb:549
+#: src/modules/Drbd.rb:566
 msgid "Failed to bring drbd.conf back"
 msgstr "Zurückbringen der drbd.conf fehlgeschlagen"
 
 #. DRBD write dialog caption
-#: src/modules/Drbd.rb:605
+#: src/modules/Drbd.rb:637
 msgid "Writing DRBD Configuration"
 msgstr "DRBD-Konfiguration wird geschrieben"
 
@@ -842,250 +936,152 @@ msgstr "DRBD-Konfiguration wird geschrieben"
 #. won't change modified flag
 #. return true if !@modified
 #. We do not set help text here, because it was set outside
-#: src/modules/Drbd.rb:617
+#: src/modules/Drbd.rb:649
 msgid "Write global settings"
 msgstr "Globale Einstellungen schreiben"
 
-#: src/modules/Drbd.rb:618
+#: src/modules/Drbd.rb:650
 msgid "Write resources"
 msgstr "Ressourcen schreiben"
 
-#: src/modules/Drbd.rb:619
+#: src/modules/Drbd.rb:651
 msgid "Write LVM configurations"
 msgstr "LVM-Konfiguration schreiben"
 
-#: src/modules/Drbd.rb:620
+#: src/modules/Drbd.rb:652
 msgid "Set daemon status"
 msgstr "Daemon-Status setzen"
 
-#: src/modules/Drbd.rb:621
+#: src/modules/Drbd.rb:653
 msgid "Write the SuSEfirewall settings"
 msgstr "SuSEfirewall-Einstellungen schreiben"
 
-#: src/modules/Drbd.rb:624
+#: src/modules/Drbd.rb:656
 msgid "Writing global settings..."
 msgstr "Globale Einstellungen werden geschrieben ..."
 
-#: src/modules/Drbd.rb:625
+#: src/modules/Drbd.rb:657
 msgid "Writing resources..."
 msgstr "Ressourcen werden geschrieben ..."
 
-#: src/modules/Drbd.rb:626
+#: src/modules/Drbd.rb:658
 msgid "Writing LVM configurations..."
 msgstr "LVM-Konfiguration schreiben..."
 
-#: src/modules/Drbd.rb:627
+#: src/modules/Drbd.rb:659
 msgid "Setting daemon status..."
 msgstr "Daemon-Status wird gesetzt ..."
 
-#: src/modules/Drbd.rb:628
+#: src/modules/Drbd.rb:660
 msgid "Writing the SuSEFirewall settings"
 msgstr "SuSEFirewall-Einstellungen werden geschrieben ..."
 
-#: src/modules/Drbd.rb:639
+#: src/modules/Drbd.rb:671
 msgid "Failed to make directory /etc/drbd.d"
 msgstr "Erstellung des Verzeichnisses /etc/drbd.d fehlgeschlagen"
 
-#: src/include/drbd/helps.rb:75
-msgid ""
-"\n"
-"\t\t<p>\"Name\" is mandatory and must match the Linux host name (uname -n) "
-"of one of the nodes. Should not include \".\" in hostname.</p>\n"
-"\t\t<p>\"Address:Port\": A resource needs one IP address per device, which "
-"is used to wait for incoming connections from the partner device to reach "
-"the device. Each DRBD resource needs a TCP port which is used to connect to "
-"the node's partner device. For IPv6, the actual address that follows the "
-"ipv6 keyword must be placed inside brackets: ipv6 [2001:1945:fc03:"
-"abcd::1]:7788</p>\n"
-"\t\t<p>\"Device\": The name of the block device node of the resource being "
-"described. You must use this device with your application (file system) and "
-"you must not use the low level block device which is specified with the disk "
-"parameter,following its minor number. Otherwise, you may omit the name, or "
-"the word minor and its number. If you omit the name a default of /dev/"
-"drbd'minor number' will be used.\n"
-"\t\tLike: '/dev/drbd{service} minor {minor drbd number [0...255]}' or '/dev/"
-"drbd{minor drbd number [0...255]}'</p>\n"
-"\t\t<p>\"Disk\":  DRBD uses this block device to actually store and retrieve "
-"the data.  Never access such a device while DRBD is running on top of  it.</"
-"p>\n"
-"\t\t<p>\"Meta-disk\": internal. Internal means that the last part of the "
-"backing device is used to store the meta-data.</p>\n"
-"\t\t<p>\"Node-id\": Node id is an internal value for drbd, will be generated "
-"by yast automatically. A host can have different \"node-id\" in different "
-"resources.</p>\n"
-"\t\t"
-msgstr ""
-"\n"
-"\t\t<p>\"Name\" ist obligatorisch und muss mit dem Linux-Hostnamen (uname -"
-"n) für einen der Knoten übereinstimmen. Der Hostname darf keinen Punkt (\"."
-"\") enthalten.</p>\n"
-"\t\t<p>\"Adresse:Port\": Eine Ressource benötigt eine IP-Adresse pro Gerät, "
-"mit der auf eingehende Verbindungen des Partnergeräts zum Gerät gewartet "
-"wird. Jede DRBD-Ressource benötigt einen TCP-Port, über den eine Verbindung "
-"zum Partnergerät des Knotens hergestellt wird. Bei IPv6 muss der "
-"tatsächliche Adressteil, der auf das Schlüsselwort \"ipv6\" folgt, in "
-"eckigen Klammern stehen: ipv6 [2001:1945:fc03:abcd::1]:7788</p>\n"
-"\t\t<p>\"Gerät\": Name des Blockgeräteknotens der beschriebenen Ressource. "
-"Sie müssen dieses Gerät in der Anwendung (Dateisystem) verwenden, nicht das "
-"Low-Level-Blockgerät, das nach der niedrigsten Nummer mit dem "
-"Datenträgerparameter angegeben wird. Ansonsten können Sie den Dateinamen "
-"bzw. die Angabe 'minor' und die zugehörige Nummer auslassen. Wenn Sie den "
-"Namen auslassen, wird standardmäßig /dev/drbd'niedrigste Nummer' verwendet.\n"
-"\t\tBeispiel: '/dev/drbd{Dienst} minor {niedrigste DRBD-Nummer [0...255]}' "
-"oder '/dev/drbd{niedrigste DRBD-Nummer [0...255]}'</p>\n"
-"\t\t<p>\"Datenträger\":  Dieses Blockgerät wird zum Speichern und Abrufen "
-"der Daten durch DRBD verwendet. Greifen Sie nicht auf dieses Gerät zu, wenn "
-"DRBD darauf ausgeführt wird.</p>\n"
-"\t\t<p>\"Meta-Datenträger\": Intern. 'Intern' bedeutet, dass die Metadaten "
-"im letzten Bereich des Sicherungsgeräts gespeichert werden.</p>\n"
-"\t\t<p>\"Knoten-ID\": Die Knoten-ID ist ein interner, von yast automatisch "
-"generierter Wert für DRBD. Für die unterschiedlichen Ressourcen kann ein "
-"Host verschiedene \"Knoten-IDs\" haben.</p>\n"
-"\t\t"
+#~ msgid ""
+#~ "\n"
+#~ "\t\t<p>\"Name\" is mandatory and must match the Linux host name (uname -"
+#~ "n) of one of the nodes. Should not include \".\" in hostname.</p>\n"
+#~ "\t\t<p>\"Address:Port\": A resource needs one IP address per device, "
+#~ "which is used to wait for incoming connections from the partner device to "
+#~ "reach the device. Each DRBD resource needs a TCP port which is used to "
+#~ "connect to the node's partner device.</p>\n"
+#~ "\t\t<p>\"Device\": The name of the block device node of the resource "
+#~ "being described. You must use this device with your application (file "
+#~ "system) and you must not use the low level block device which is "
+#~ "specified with the disk parameter,following its minor number. Otherwise, "
+#~ "you may omit the name, or the word minor and its number. If you omit the "
+#~ "name a default of /dev/drbd'minor number' will be used.\n"
+#~ "\t\tLike: '/dev/drbd{service} minor {minor drbd number [0...255]}' or '/"
+#~ "dev/drbd{minor drbd number [0...255]}'</p>\n"
+#~ "\t\t<p>\"Disk\":  DRBD uses this block device to actually store and "
+#~ "retrieve the data.  Never access such a device while DRBD is running on "
+#~ "top of  it.</p>\n"
+#~ "\t\t<p>\"Meta-disk\": internal. Internal means that the last part of the "
+#~ "backing device is used to store the meta-data.</p>\n"
+#~ "\t\t"
+#~ msgstr ""
+#~ "\n"
+#~ "\t\t<p>Der \"Name\" ist erforderlich und muss zum Linux-Hostnamen (uname -"
+#~ "n) eines der Knoten passen. Er sollte keinen \".\" im Hostnamen "
+#~ "beinhalten.</p>\n"
+#~ "\t\t<p>\"Address:Port\": Eine Ressource braucht eine IP-Adresse pro "
+#~ "Gerät, die verwendet wird, um auf eingehende Verbindungen vom Partner-"
+#~ "Gerät zu warten, um das Gerät zu erreichen. Jede DRBD-Ressource braucht "
+#~ "einen TCP-Port, der verwendet  wird, um die Partner-Geräte der Knoten zu "
+#~ "verbinden.</p>\n"
+#~ "\t\t<p>\"Device\": Der Name des Nodes vom Block Device der Ressource ist "
+#~ "beschrieben. Sie müssen dieses Device mit Ihrer Anwendung (Filesystem) "
+#~ "verbinden und Sie dürfen nicht das niedrigere Block Device verwenden, das "
+#~ "mit dem Festplatten-Parameter festgelegt ist, gefolgt von seiner kleinen "
+#~ "Nummer. Andernfalls lassen Sie den Namen weg, oder das niedrigere Wort "
+#~ "und seine Nummer. Wenn Sie den Namen weg lassen, wird als Standard /dev/"
+#~ "drbd'kleinere Zahl' verwendet.\n"
+#~ "\t\tWie: '/dev/drbd{Dienst} minor {kleinere DRBD-Nummer [0...255]}' oder "
+#~ "'/dev/drbd{kleinere DRBD-Nummer [0...255]}'</p>\n"
+#~ "\t\t<p>\"Disk\":  DRBD verwendet dieses Block Device um die Daten aktuell "
+#~ "zu speichern und zu erreichen. Greifen Sie auf kein solches Device zu, so "
+#~ "lange while DRBD darüber läuft.</p>\n"
+#~ "\t\t<p>\"Meta-disk\": internal. Internal bedeutet, dass der letzte Teil "
+#~ "des Backing Devices verwendet wird, um die Metadaten zu speichern.</p>\n"
+#~ "\t\t"
 
-#: src/include/drbd/helps.rb:116
-msgid ""
-"\n"
-"\t\t<p><b>LVM configuration file /etc/lvm/lvm.conf</b></p>\n"
-"\t\t<p>To use LVM with DRBD, it is necessary to change some options in the "
-"LVM configuration file and to remove stale cache entries on the nodes.</p>\t"
-"\t<p>Refer to 'man lvm.conf' for further information including the file "
-"layout.</p>\n"
-"\t\t\t\t\t\t\t\t\t\t  \n"
-"\t\t<p><b>Device Filter</b>: This masks the underlying block device from the "
-"list of devices LVM scans for Physical Volume signatures. This way, LVM is "
-"instructed to read Physical Volume signatures from DRBD devices, rather than "
-"from the underlying backing block devices.</p>\t\t<p><b>AutoFilter</b>: "
-"According to the configuration of drbd, LVM filter will always be changed "
-"automatically. To change it manually, disable the checkbox of AutoFilter.</"
-"p>\n"
-"\t\t<p>The filter consists of an array of regular expressions. These "
-"expressions can be delimited by a character of your choice, and prefixed "
-"with either an 'a' (for accept) or 'r' (for reject).</p>\t\t<p>For example, "
-"setting filter as [\"r|/dev/sda.*|\"]</p>\n"
-"\n"
-"\t\t<p><b>LVM cache</b>: Enable/turn on writing the LVM cache is default. "
-"Should disable the LVM cache when combined drbd with LVM.</p>\n"
-"\n"
-"\t\t<p><b>LVMetad</b>: When lvmetad is enabled, the volume group metadata "
-"and PV state flags are obtained from the lvmetad instance and no scanning is "
-"done by the individual commands. Because lvmetad's cache cannot be "
-"synchronized between nodes, users are advised to disable lvmetad in cluster "
-"environments.</p>\n"
-"\n"
-"\t\t"
-msgstr ""
-"\n"
-"\t\t<p><b>LVM-Konfigurationsdatei /etc/lvm/lvm.conf</b></p>\n"
-"\t\t<p>Zur Verwendung von LVM mit DRBD müssen Sie einige Optionen in der LVM-"
-"Konfigurationsdatei ändern und veraltete Cache-Einträge aus den Knoten "
-"entfernen.</p>\t\t<p>Weitere Informationen (z. B. das Dateilayout) finden "
-"Sie unter 'man lvm.conf'.</p>\n"
-"\t\t\t\t\t\t\t\t\t\t  \n"
-"\t\t<p><b>Gerätefilter</b>: Hiermit wird das zugrunde liegende Block-Gerät "
-"in der Liste der Geräte maskiert, die LVM auf Signaturen für physische "
-"Volumes scannt. So wird LVM angewiesen, die Signaturen für physische Volumes "
-"aus DRBD-Geräten auszulesen statt aus den zugrunde liegenden unterstützenden "
-"Block-Geräten.</p>\t\t<p><b>AutoFilter</b>: Der LVM-Filter wird gemäß der "
-"DRBD-Konfiguration stets automatisch geändert. Soll der Filter manuell "
-"geändert werden, deaktivieren Sie die Option 'AutoFilter'.</p>\n"
-"\t\t<p>Der Filter besteht aus einem Array regulärer Ausdrücke, die jeweils "
-"durch ein Zeichen Ihrer Wahl getrennt sind und das Präfix 'a' (akzeptieren) "
-"oder 'r' (ablehnen) enthalten.</p>\t\t<p>Beispiel für einen Filter: [\"r|/"
-"dev/sda.*|\"]</p>\n"
-"\n"
-"\t\t<p><b>LVM-Cache</b>: Das Schreiben in den LVM-Cache ist standardmäßig "
-"aktiviert. Bei Verwendung von DRBD mit LVM deaktivieren Sie den Cache. </p>\n"
-"\n"
-"\t\t</p><b>LVMetad</b>: Wenn LVMetad aktiviert ist, werden die Volume-"
-"Gruppen-Metadaten und die PV-Status-Flags aus der LVMetad-Instanz abgerufen, "
-"und die einzelnen Befehle führen keinen Scanvorgang aus. Da der Cache von "
-"LVMetad nicht zwischen den Knoten synchronisiert werden kann, sollten die "
-"Benutzer LVMetad in Cluster-Umgebungen deaktivieren.</p>\n"
-"\n"
-"\t\t"
+#~ msgid ""
+#~ "\n"
+#~ "\t\t<p><b>LVM configuration file /etc/lvm/lvm.conf</b></p>\n"
+#~ "\t\t<p>To use LVM with DRBD, it is necessary to change some options in "
+#~ "the LVM configuration file and to remove stale cache entries on the nodes."
+#~ "</p>\t\t<p>Refer to 'man lvm.conf' for further information including the "
+#~ "file layout.</p>\n"
+#~ "\t\t\t\t\t\t\t\t\t\t  \n"
+#~ "\t\t<p><b>Device Filter</b>: This masks the underlying block device from "
+#~ "the list of devices LVM scans for Physical Volume signatures. This way, "
+#~ "LVM is instructed to read Physical Volume signatures from DRBD devices, "
+#~ "rather than from the underlying backing block devices.</p>\t"
+#~ "\t<p><b>AutoFilter</b>: According to the configuration of drbd, LVM "
+#~ "filter will always be changed automatically. To change it manually, "
+#~ "disable the checkbox of AutoFilter.</p>\n"
+#~ "\t\t<p>The filter consists of an array of regular expressions. These "
+#~ "expressions can be delimited by a character of your choice, and prefixed "
+#~ "with either an 'a' (for accept) or 'r' (for reject).</p>\t\t<p>For "
+#~ "example, setting filter as [\"r|/dev/sda.*|\"]</p>\n"
+#~ "\n"
+#~ "\t\t<p><b>LVM cache</b>: Enable/turn on writing the LVM cache is default. "
+#~ "Disable cache when for network storage, like nfs. </p>\n"
+#~ "\n"
+#~ "\t\t"
+#~ msgstr ""
+#~ "\n"
+#~ "\t\t<p><b>LVM-Konfigurationsdatei /etc/lvm/lvm.conf</b></p>\n"
+#~ "\t\t<p>Um LVM mit DRBD zu verwenden, ist es notwendig einige Optionen in "
+#~ "der LVM-Konfigurationsdatei zu ändern und veraltete Cache-Einträge auf "
+#~ "den Nodes zu löschen.</p>\t\t<p>Verweis auf 'man lvm.conf' für weitere "
+#~ "Informationen, die das Datei-Layout beinhalten.</p>\n"
+#~ "\t\t\t\t\t\t\t\t\t\t  \n"
+#~ "\t\t<p><b>Device-Filter</b>: Dieser überdeckt das darunter liegende Block "
+#~ "Device aus der Liste der Devices, die LVM für Physikalische Volume-"
+#~ "Signaturen scannt. Auf diesem Weg ist LVM eher darauf angewiesen die "
+#~ "Physikalischen Volume-Signaturen der DRBD-Devices zu lesen, als die der "
+#~ "darunterliegenden Träger Block Devices.</p>\t\t<p><b>Auto-Filter</b>: "
+#~ "Entsprechend der DRBD-Konfiguration wird der LVM-Filter immer automatisch "
+#~ "geändert. Um es manuell anzupassen deaktiviert man das Kontrollkästchen "
+#~ "von Auto-Filter.</p>\n"
+#~ "\t\t<p>Der Filter besteht aus einem Array aus Regulären Ausdrücken "
+#~ "(regular expressions). Diese Ausdrücke können durch ein Zeichen ihrer "
+#~ "Wahl eingeschränkt, und vorangestellt mit entweder einem 'a' (für accept) "
+#~ "oder einem 'r' (für reject) werden.</p>\t\t<p>Als Beispiel die "
+#~ "Einstellungen eines Filters als [\"r|/dev/sda.*|\"]</p>\n"
+#~ "\n"
+#~ "\t\t<p><b>LVM-Cache</b>: Die Aktivierung/ Umstellung auf das Schreiben in "
+#~ "den LVM-Cache ist Standard. Deaktivieren Sie den Cache, wenn Sie ihn für "
+#~ "ein Netzwerk-Storage, wie NFS, verwenden. </p>\n"
+#~ "\n"
+#~ "\t\t"
 
-#: src/include/drbd/lvm_conf.rb:86
-msgid "Warning!  Should disable LVM cache for using drbd."
-msgstr ""
-"Warnung! Der LVM-Cache muss zur Verwendung von DRBD deaktiviert werden."
-
-#: src/include/drbd/lvm_conf.rb:97
-msgid "Use lvmetad for LVM"
-msgstr "lvmetad für LVM verwenden"
-
-#: src/include/drbd/lvm_conf.rb:106
-msgid "Use LVM metad"
-msgstr "LVM-Metad verwenden"
-
-#: src/include/drbd/lvm_conf.rb:111
-msgid "Warning!  Should not use lvmetad for cluster."
-msgstr "Warnung! lvmetad soll nicht für Cluster verwendet werden."
-
-#: src/include/drbd/resource_conf.rb:151
-msgid "Nodes"
-msgstr "Knoten"
-
-#: src/include/drbd/resource_conf.rb:154
-msgid "Add"
-msgstr "Hinzufügen"
-
-#: src/include/drbd/resource_conf.rb:155
-msgid "Edit"
-msgstr "Bearbeiten"
-
-#: src/include/drbd/resource_conf.rb:156
-msgid "Delete"
-msgstr "Löschen"
-
-#: src/include/drbd/resource_conf.rb:188
-msgid "Save"
-msgstr "Speichern"
-
-#. return `cancel or a string
-#: src/include/drbd/resource_conf.rb:560
-msgid "OK"
-msgstr "OK"
-
-#: src/include/drbd/resource_conf.rb:561
-msgid "Cancel"
-msgstr "Abbrechen"
-
-#: src/include/drbd/resource_conf.rb:575
-msgid "Node name can not be empty."
-msgstr "Der Knotenname darf nicht leer sein."
-
-#. eg. ipv6 [fd01:2345:6789:abcd::1]:7800
-#: src/include/drbd/resource_conf.rb:623
-msgid "IPv6 address must be placed inside brackets."
-msgstr "Die IPv6-Adresse muss in eckigen Klammern stehen."
-
-#. IPv6 should including port
-#: src/include/drbd/resource_conf.rb:631 src/include/drbd/resource_conf.rb:636
-msgid "IP/port should use 'addr:port' combination."
-msgstr "IP/Port sollte eine 'addr:port'-Kombination sein."
-
-#: src/include/drbd/resource_conf.rb:644
-msgid "Please enter a valid IP address."
-msgstr "Geben Sie eine gültige IP-Adresse ein."
-
-#. Checking the port is number
-#: src/include/drbd/resource_conf.rb:651
-msgid "Please enter a valid port number."
-msgstr "Geben Sie eine gültige Portnummer ein."
-
-#: src/include/drbd/resource_conf.rb:754
-msgid "Please configure at least two nodes."
-msgstr "Konfigurieren Sie mindestens zwei Knoten."
-
-#. No need to check integrity since it will disabled when configuring
-#: src/include/drbd/resource_conf.rb:789
-msgid "Enter the node name:"
-msgstr "Geben Sie den Knotennamen ein:"
-
-#: src/include/drbd/resource_conf.rb:795
-msgid "Node name must be different."
-msgstr "Die Knotennamen müssen unterschiedlich sein."
+#~ msgid "Node names must be different."
+#~ msgstr "Node-Namen müssen unterschiedlich sein."
 
 #~ msgid "First part of DRBD configuration"
 #~ msgstr "Erster Teil der DRBD-Konfiguration"

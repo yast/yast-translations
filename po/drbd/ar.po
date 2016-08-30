@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: YaST (@memory@)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-25 18:36+0200\n"
+"POT-Creation-Date: 2016-08-30 18:27+0200\n"
 "PO-Revision-Date: 2015-05-21 09:13+0300\n"
 "Last-Translator: malhargan <malham1@gmail.com>\n"
 "Language-Team: سوزي\n"
@@ -231,7 +231,7 @@ msgstr ""
 "\t\t"
 
 #: src/include/drbd/helps.rb:66 src/include/drbd/helps.rb:72
-#: src/include/drbd/helps.rb:85
+#: src/include/drbd/helps.rb:86
 msgid "<p><b><big>Resource Configuration of DRBD</big></b></p>"
 msgstr "<p><b><big>إعدادات موارد DRBD</big></b></p>"
 
@@ -253,7 +253,9 @@ msgid ""
 "\t\t<p>\"Address:Port\": A resource needs one IP address per device, which "
 "is used to wait for incoming connections from the partner device to reach "
 "the device. Each DRBD resource needs a TCP port which is used to connect to "
-"the node's partner device.</p>\n"
+"the node's partner device. For IPv6, the actual address that follows the "
+"ipv6 keyword must be placed inside brackets: ipv6 [2001:1945:fc03:"
+"abcd::1]:7788</p>\n"
 "\t\t<p>\"Device\": The name of the block device node of the resource being "
 "described. You must use this device with your application (file system) and "
 "you must not use the low level block device which is specified with the disk "
@@ -267,8 +269,34 @@ msgid ""
 "p>\n"
 "\t\t<p>\"Meta-disk\": internal. Internal means that the last part of the "
 "backing device is used to store the meta-data.</p>\n"
+"\t\t<p>\"Node-id\": Node id is an internal value for drbd, will be generated "
+"by yast automatically. A host can have different \"node-id\" in different "
+"resources.</p>\n"
 "\t\t"
 msgstr ""
+"\n"
+"\t\t<p>\"الاسم\" إلزامي ويجب أن يطابق اسم مضيف Linux‏ (uname -n) في واحدة من "
+"العقد. يجب عدم تضمين \".\" في اسم المضيف.</p>\n"
+"\t\t<p>\"العنوان:المنفذ\": يحتاج المورد إلى عنوان IP واحد لكل جهاز، يتم "
+"استخدامه في انتظار الاتصالات الواردة من الجهاز الشريك لتصل إلى الجهاز. "
+"ويحتاج كل مورد DRBD إلى منفذ TCP يتم استخدامه للاتصال بالجهاز الشريك للعقدة. "
+"وبالنسبة إلى IPv6، يجب وضع العنوان الفعلي الذي يتبع كلمة مرور ipv6 بين "
+"أقواس:‏ ipv6 ‏[2001:1945:fc03:abcd::1]:7788‏</p>\n"
+"\t\t<p>‏\"الجهاز\": هو اسم عقدة جهاز الحظر للمورد الذي يتم وصفه، ويجب استخدام "
+"هذا الجهاز مع التطبيق لديك (نظام الملف) ويجب أيضًا عدم استخدام جهاز حظر "
+"المستوى الأقل المحدد بمعلمة القرص، بعد الرقم الثانوي. وبخلاف ذلك، يمكنك حذف "
+"الاسم أو الكلمة الثانوية ورقمها. وفي حال حذفت الاسم، يتم استخدام /dev/"
+"drbd'minor number' افتراضيًا. \n"
+"\t\tمثل: '/dev/drbd{service} minor {minor drbd number [0...255]}' أو '/dev/"
+"drbd{minor drbd number [0...255]}'</p>\n"
+"\t\t<p>\"القرص\": يستخدم DRBD جهاز الحظر هذا فعليًا لتخزين البيانات "
+"واستعادتها. يجب عدم الوصول نهائيًا إلى هذا الجهاز أثناء تشغيل DRBD فوقه.</p>\n"
+"\t\t<p>\"قرص تعريف\": داخلي. ويُقصد بداخلي أن الجزء الأخير من جهاز النسخ "
+"الاحتياطي يُستخدم في تخزين بيانات التعريف.‏</p>\n"
+"\t\t<p>‏\"‏معرف العقدة\"‏: ‏معرف العقدة هو قيمة داخلية من أجل drbd، وسيقوم yast "
+"بإنشائها تلقائيًا. يمكن أن يكون للمضيف \"معرف عقدة\" مختلف في موارد مختلفة.‏</"
+"p>\n"
+"\t\t"
 
 #: src/include/drbd/helps.rb:89
 msgid ""
@@ -363,7 +391,7 @@ msgstr ""
 msgid "<p><b><big>LVM Configuration</big></b></p>"
 msgstr "<p><b><big>تكوين LVM</big></b></p>"
 
-#: src/include/drbd/helps.rb:115
+#: src/include/drbd/helps.rb:116
 msgid ""
 "\n"
 "\t\t<p><b>LVM configuration file /etc/lvm/lvm.conf</b></p>\n"
@@ -385,23 +413,55 @@ msgid ""
 "setting filter as [\"r|/dev/sda.*|\"]</p>\n"
 "\n"
 "\t\t<p><b>LVM cache</b>: Enable/turn on writing the LVM cache is default. "
-"Disable cache when for network storage, like nfs. </p>\n"
+"Should disable the LVM cache when combined drbd with LVM.</p>\n"
+"\n"
+"\t\t<p><b>LVMetad</b>: When lvmetad is enabled, the volume group metadata "
+"and PV state flags are obtained from the lvmetad instance and no scanning is "
+"done by the individual commands. Because lvmetad's cache cannot be "
+"synchronized between nodes, users are advised to disable lvmetad in cluster "
+"environments.</p>\n"
 "\n"
 "\t\t"
 msgstr ""
+"\n"
+"\t\t<p><b>ملف تكوين LVM /etc/lvm/lvm.conf</b></p>\n"
+"\t\t<p> لاستخدام LVM مع DRBD، يجب تغيير بعض الخيارات في ملف تكوين LVM لإزالة "
+"إدخالات الذاكرة المؤقتة القديمة في العقد.</p>\t\t<p>راجع 'man lvm.conf' "
+"لمزيد من المعلومات ومنها تخطيط الملف.</p>\n"
+"\t\t\t\t\t\t\t\t\t\t  \n"
+"\t\t<p><b>عامل تصفية الجهاز</b>: يقوم بإخفاء جهاز قطعة التخزين الأساسي من "
+"قائمة الأجهزة التي يقوم LVM بمسحها بحثًا عن توقيعات الحجم الفعلي. وبهذا يقرأ "
+"LVM توقيعات الحجم الفعلي من أجهزة DRBD بدلاً من أجهزة قطعة التخزين الأساسية.</"
+"p>\t\t<p><b>عامل التصفية التلقائي</b>: طبقًا لتكوين drbd، سيتم تغيير عامل "
+"تصفية LVM دائمًا تلقائيًا. لتغييره يدويًا، قم بتعطيل مربع اختيار عامل التصفية "
+"التلقائي.</p>\n"
+"\t\t<p>يتكون عامل التصفية من مجموعة من التعبيرات العادية. يمكن فصل هذه "
+"التعبيرات بحرف من اختيارك ومسبوق بأي من 'ق' (للقبول) أو 'ر' (للرفض).</p>\t"
+"\t<p>على سبيل المثال، إعداد عامل التصفية على [\"r|/dev/sda.*|\"]</p>\n"
+"\n"
+"\t\t<p><b>ذاكرة LVM المؤقتة</b>: تمكين/تشغيل كتابة ذاكرة LVM المؤقتة "
+"افتراضيًا. في حالة تعطيل ذاكرة LVM المؤقتة عند مزج drbd مع LVM.</p>\n"
+"\n"
+"\t\t<p><b>LVMetad</b>: عند تمكين lvmetad، يتم الحصول على علامات حالة PV "
+"وبيانات تعريف مجموعة وحدات التخزين من مثيل lvmetad ولا يتم إجراء أي عملية "
+"مسح من خلال الأوامر الفردية. ونظرًا لتعذر إمكانية مزامنة الذاكرة المؤقتة لـ "
+"lvmetad بين العقد، يُنصح المستخدمون بتعطيل lvmetad في بيئات المجموعات "
+"المتماثلة.</p>\n"
+"\n"
+"\t\t"
 
-#: src/include/drbd/helps.rb:130
+#: src/include/drbd/helps.rb:133
 msgid "<p><b><big>Global Configuration of DRBD</big></b></p>"
 msgstr "<p><b><big>إعدادات DRBD العالمية</big></b></p>"
 
-#: src/include/drbd/helps.rb:133
+#: src/include/drbd/helps.rb:136
 msgid ""
 "<p>Check <b>\"Disable IP Verification\"</b> to disable one of drbdadm's "
 "sanity check</p>"
 msgstr ""
 "<p>تحقق من <b>\"تعطيل التحقق من IP\"</b> لتعطيل فحص سلامة drbdadm's</p>"
 
-#: src/include/drbd/helps.rb:136
+#: src/include/drbd/helps.rb:139
 msgid ""
 "<p><b>Dialog Refresh:</b> The user dialog counts and displays the seconds it "
 "waited so\n"
@@ -420,7 +480,7 @@ msgstr ""
 "                سيطبع حوار 'تحديث-الحوار' عد كل ثواني\n"
 "                قم بتعيينها إلى 0 لتعطيل إعادة الرسم بشكل كامل.</p>"
 
-#: src/include/drbd/helps.rb:144
+#: src/include/drbd/helps.rb:147
 msgid ""
 "<p><b>Minor Count:</b>\n"
 "           use this if you want to define more resources later\n"
@@ -435,7 +495,7 @@ msgstr ""
 "           بالضبط كما ذكر في ملف إعداد العديد من الأجهزة.</p>"
 
 #. Summary dialog help 1/3
-#: src/include/drbd/helps.rb:152
+#: src/include/drbd/helps.rb:155
 msgid ""
 "<p><b><big>DRBD Configuration</big></b><br>\n"
 "Configure drbd here.<br></p>\n"
@@ -444,7 +504,7 @@ msgstr ""
 "إعدادات drbd هنا.<br></p>\n"
 
 #. Summary dialog help 2/3
-#: src/include/drbd/helps.rb:156
+#: src/include/drbd/helps.rb:159
 msgid ""
 "<p><b><big>Adding a drbd:</big></b><br>\n"
 "Choose an drbd from the list of detected drbds.\n"
@@ -457,7 +517,7 @@ msgstr ""
 "ثم اضغط على <b>إعداد</b>.</p>\n"
 
 #. Summary dialog help 3/3
-#: src/include/drbd/helps.rb:163
+#: src/include/drbd/helps.rb:166
 msgid ""
 "<p><b><big>Editing or Deleting:</big></b><br>\n"
 "If you press <b>Edit</b>, an additional dialog in which to change\n"
@@ -468,7 +528,7 @@ msgstr ""
 "الإعدادات.</p>\n"
 
 #. Ovreview dialog help 1/3
-#: src/include/drbd/helps.rb:169
+#: src/include/drbd/helps.rb:172
 msgid ""
 "<p><b><big>DRBD Configuration Overview</big></b><br>\n"
 "Obtain an overview of installed drbds. Additionally\n"
@@ -479,7 +539,7 @@ msgstr ""
 " تحرير هذه الإعدادات.<br></p>\n"
 
 #. Ovreview dialog help 2/3
-#: src/include/drbd/helps.rb:175
+#: src/include/drbd/helps.rb:178
 msgid ""
 "<p><b><big>Adding a drbd:</big></b><br>\n"
 "Press <b>Add</b> to configure a drbd.</p>"
@@ -488,7 +548,7 @@ msgstr ""
 "اضغط <b>إضافة</b> لإعداد Drbd جديد يدويًا.</p>"
 
 #. Ovreview dialog help 3/3
-#: src/include/drbd/helps.rb:179
+#: src/include/drbd/helps.rb:182
 msgid ""
 "<p><b><big>Editing or Deleting:</big></b><br>\n"
 "Choose a drbd to change or remove.\n"
@@ -499,7 +559,7 @@ msgstr ""
 "اضغط بعد ذلك <b>تحرير</b> أو <b>حذف</b> حسب الحاجة.</p>\n"
 
 #. Configure1 dialog help 1/2
-#: src/include/drbd/helps.rb:185
+#: src/include/drbd/helps.rb:188
 msgid ""
 "<p><b><big>Configuration Part One</big></b><br>\n"
 "Press <b>Next</b> to continue.\n"
@@ -511,7 +571,7 @@ msgstr ""
 
 #. Configure1 dialog help 2/2
 #. Configure2 dialog help 2/2
-#: src/include/drbd/helps.rb:191 src/include/drbd/helps.rb:203
+#: src/include/drbd/helps.rb:194 src/include/drbd/helps.rb:206
 msgid ""
 "<p><b><big>Selecting Something</big></b><br>\n"
 "It is not possible. You must code it first. :-)\n"
@@ -522,7 +582,7 @@ msgstr ""
 " </p>"
 
 #. Configure2 dialog help 1/2
-#: src/include/drbd/helps.rb:197
+#: src/include/drbd/helps.rb:200
 msgid ""
 "<p><b><big>Configuration Part Two</big></b><br>\n"
 "Press <b>Next</b> to continue.\n"
@@ -553,29 +613,105 @@ msgstr "جارٍ كتابة ذاكرة LVM المؤقتة"
 msgid "Enable LVM Cache"
 msgstr "تمكين ذاكرة LVM المؤقتة"
 
+#: src/include/drbd/lvm_conf.rb:86
+msgid "Warning!  Should disable LVM cache for using drbd."
+msgstr "تحذير! يجب تعطيل الذاكرة المؤقتة لـ LVM لاستخدام drbd."
+
+#: src/include/drbd/lvm_conf.rb:97
+msgid "Use lvmetad for LVM"
+msgstr "استخدام lvmetad لـ LVM"
+
+#: src/include/drbd/lvm_conf.rb:106
+msgid "Use LVM metad"
+msgstr "استخدام LVM metad"
+
+#: src/include/drbd/lvm_conf.rb:111
+msgid "Warning!  Should not use lvmetad for cluster."
+msgstr "تحذير! يجب عدم استخدام lvmetad للمجموعة المتماثلة."
+
 #. encoding: utf-8
-#: src/include/drbd/resource_conf.rb:134
+#: src/include/drbd/resource_conf.rb:144
 msgid "Resource Name"
 msgstr "اسم المصدر"
 
-#. Update new add disk used of drbd res for LVM filter
-#. Ignore the removed disk
-#: src/include/drbd/resource_conf.rb:326
+#: src/include/drbd/resource_conf.rb:151
+msgid "Nodes"
+msgstr "العقد"
+
+#: src/include/drbd/resource_conf.rb:154
+msgid "Add"
+msgstr "إضافة"
+
+#: src/include/drbd/resource_conf.rb:155
+msgid "Edit"
+msgstr "تحرير"
+
+#: src/include/drbd/resource_conf.rb:156
+msgid "Delete"
+msgstr "حذف"
+
+#: src/include/drbd/resource_conf.rb:188
+msgid "Save"
+msgstr "حفظ"
+
+#. Since n_name can't be edit, so set direct is OK
+#: src/include/drbd/resource_conf.rb:336
 msgid "Protocol"
 msgstr "بروتوكول"
 
-#. myHelp("basic_conf");
-#: src/include/drbd/resource_conf.rb:572
-msgid "Node names must be different."
-msgstr "يجب أن يكون للعقدة أسماء مختلفة."
+#. return `cancel or a string
+#: src/include/drbd/resource_conf.rb:560
+msgid "OK"
+msgstr "موافق"
 
-#: src/include/drbd/resource_conf.rb:578
+#: src/include/drbd/resource_conf.rb:561
+msgid "Cancel"
+msgstr "إلغاء"
+
+#: src/include/drbd/resource_conf.rb:575
+msgid "Node name can not be empty."
+msgstr "لا يمكن ترك اسم العقدة فارغًا."
+
+#. eg. ipv6 [fd01:2345:6789:abcd::1]:7800
+#: src/include/drbd/resource_conf.rb:623
+msgid "IPv6 address must be placed inside brackets."
+msgstr "يجب وضع عنوان IPv6 داخل أقواس."
+
+#. IPv6 should including port
+#: src/include/drbd/resource_conf.rb:631 src/include/drbd/resource_conf.rb:636
+msgid "IP/port should use 'addr:port' combination."
+msgstr "يجب أن يستخدم عنوان IP‏/‏المنفذ المجموعة 'addr:port'‏.‏"
+
+#: src/include/drbd/resource_conf.rb:644
+msgid "Please enter a valid IP address."
+msgstr "الرجاء إدخال عنوان IP صالح."
+
+#. Checking the port is number
+#: src/include/drbd/resource_conf.rb:651
+msgid "Please enter a valid port number."
+msgstr "الرجاء إدخال رقم منفذ صالح."
+
+#. myHelp("basic_conf");
+#: src/include/drbd/resource_conf.rb:719
 msgid "Node names must not include \".\" , using the local hostname."
 msgstr "اسم العقدة يجب أن يحتوي على \".\" ,لإستخدام اسم مضيف محلي."
 
-#: src/include/drbd/resource_conf.rb:608
+#: src/include/drbd/resource_conf.rb:739
 msgid "Please fill out all fields."
 msgstr "يرجى ملء جميع الحقول."
+
+#: src/include/drbd/resource_conf.rb:754
+msgid "Please configure at least two nodes."
+msgstr "الرجاء تكوين عقدتين على الأقل."
+
+#. No need to check integrity since it will disabled when configuring
+#: src/include/drbd/resource_conf.rb:789
+msgid "Enter the node name:"
+msgstr "إدخال اسم العقدة:"
+
+#: src/include/drbd/resource_conf.rb:795
+msgid "Node name must be different."
+msgstr "يجب أن يكون اسم العقدة مختلفًا."
 
 #. encoding: utf-8
 #. Package:	Configuration of heartbeat
@@ -680,25 +816,25 @@ msgstr "تهيئة..."
 #.
 #. Representation of the configuration of drbd.
 #. Input and output routines.
-#: src/modules/Drbd.rb:110
+#: src/modules/Drbd.rb:114
 msgid "Failed to merge separated DRBD conf files\n"
 msgstr "فشل في دمج ملفات conf DRBD المنفصلة\n"
 
-#: src/modules/Drbd.rb:132
+#: src/modules/Drbd.rb:136
 msgid "Failed to write drbd.conf.YaST2prepare"
 msgstr "فشل في كتابة drbd.conf.YaST2prepare"
 
 #. DRBD read dialog caption
-#: src/modules/Drbd.rb:185
+#: src/modules/Drbd.rb:191
 msgid "Initializing DRBD Configuration"
 msgstr "تهيئة إعداد DRBD"
 
 #. We do not set help text here, because it was set outside
-#: src/modules/Drbd.rb:193
+#: src/modules/Drbd.rb:199
 msgid "Read global settings"
 msgstr "قراءة الإعدادات العالمية"
 
-#: src/modules/Drbd.rb:194
+#: src/modules/Drbd.rb:200
 msgid "Read resources"
 msgstr "قراءة المصادر"
 
@@ -706,7 +842,7 @@ msgstr "قراءة المصادر"
 msgid "Read LVM configurations"
 msgstr "قراءة تكوينات LVM"
 
-#: src/modules/Drbd.rb:196
+#: src/modules/Drbd.rb:202
 msgid "Read daemon status"
 msgstr "قراءة حالة البرنامج الخفي"
 
@@ -714,11 +850,11 @@ msgstr "قراءة حالة البرنامج الخفي"
 msgid "Read SuSEFirewall Settings"
 msgstr "قراءة إعدادات جدار حماية SUSE"
 
-#: src/modules/Drbd.rb:200
+#: src/modules/Drbd.rb:206
 msgid "Reading global settings..."
 msgstr "يتم الآن قراءة الإعدادات العالمية..."
 
-#: src/modules/Drbd.rb:201
+#: src/modules/Drbd.rb:207
 msgid "Reading resources..."
 msgstr "يتم الآن قراءة المصادر..."
 
@@ -726,24 +862,24 @@ msgstr "يتم الآن قراءة المصادر..."
 msgid "Reading LVM configurations..."
 msgstr "جارٍ قراءة تكوينات LVM..."
 
-#: src/modules/Drbd.rb:203
+#: src/modules/Drbd.rb:209
 msgid "Reading daemon status..."
 msgstr "يتم الآن قراءة حالة البرنامج الخفي..."
 
-#: src/modules/Drbd.rb:205 src/modules/Drbd.rb:629
+#: src/modules/Drbd.rb:211 src/modules/Drbd.rb:661
 msgid "Finished"
 msgstr "انتهى"
 
 #. new_map = remove(new_map, key);
-#: src/modules/Drbd.rb:497
+#: src/modules/Drbd.rb:514
 msgid "Failed to backup drbd.conf"
 msgstr "فشل النسخ الاحتياطي drbd.conf"
 
-#: src/modules/Drbd.rb:506
+#: src/modules/Drbd.rb:523
 msgid "Failed to clean drbd.conf for drbdadm test"
 msgstr "فشل تنظيف drbd.conf لاختبار drbdadm"
 
-#: src/modules/Drbd.rb:530
+#: src/modules/Drbd.rb:547
 msgid ""
 "Invalid configuration of resource %1\n"
 "%2"
@@ -751,12 +887,12 @@ msgstr ""
 "إعداد غير صحيح لمورد %1\n"
 "%2"
 
-#: src/modules/Drbd.rb:549
+#: src/modules/Drbd.rb:566
 msgid "Failed to bring drbd.conf back"
 msgstr "فشل في إعادة التحقق من drbd.conf"
 
 #. DRBD write dialog caption
-#: src/modules/Drbd.rb:605
+#: src/modules/Drbd.rb:637
 msgid "Writing DRBD Configuration"
 msgstr "كتابة إعداد DRBD"
 
@@ -764,11 +900,11 @@ msgstr "كتابة إعداد DRBD"
 #. won't change modified flag
 #. return true if !@modified
 #. We do not set help text here, because it was set outside
-#: src/modules/Drbd.rb:617
+#: src/modules/Drbd.rb:649
 msgid "Write global settings"
 msgstr "كتابة الإعدادات العالمية"
 
-#: src/modules/Drbd.rb:618
+#: src/modules/Drbd.rb:650
 msgid "Write resources"
 msgstr "كتابة المصادر"
 
@@ -776,7 +912,7 @@ msgstr "كتابة المصادر"
 msgid "Write LVM configurations"
 msgstr "كتابة تكوينات LVM"
 
-#: src/modules/Drbd.rb:620
+#: src/modules/Drbd.rb:652
 msgid "Set daemon status"
 msgstr "تعيين حالة البرنامج الخفي"
 
@@ -784,11 +920,11 @@ msgstr "تعيين حالة البرنامج الخفي"
 msgid "Write the SuSEfirewall settings"
 msgstr "كتابة إعدادات SuSEfirewall"
 
-#: src/modules/Drbd.rb:624
+#: src/modules/Drbd.rb:656
 msgid "Writing global settings..."
 msgstr "يتم الآن كتابة الإعدادات العالمية..."
 
-#: src/modules/Drbd.rb:625
+#: src/modules/Drbd.rb:657
 msgid "Writing resources..."
 msgstr "يتم الآن كتابة المصادر..."
 
@@ -796,7 +932,7 @@ msgstr "يتم الآن كتابة المصادر..."
 msgid "Writing LVM configurations..."
 msgstr "جارٍ كتابة تكوينات LVM..."
 
-#: src/modules/Drbd.rb:627
+#: src/modules/Drbd.rb:659
 msgid "Setting daemon status..."
 msgstr "يتم الآن إعداد حالة البرنامج الخفي..."
 
@@ -804,202 +940,12 @@ msgstr "يتم الآن إعداد حالة البرنامج الخفي..."
 msgid "Writing the SuSEFirewall settings"
 msgstr "كتابة إعدادات SuSEFirewall"
 
-#: src/modules/Drbd.rb:639
+#: src/modules/Drbd.rb:671
 msgid "Failed to make directory /etc/drbd.d"
 msgstr "فشل في إنشاء مجلد /etc/drbd.d"
 
-#: src/include/drbd/helps.rb:75
-msgid ""
-"\n"
-"\t\t<p>\"Name\" is mandatory and must match the Linux host name (uname -n) "
-"of one of the nodes. Should not include \".\" in hostname.</p>\n"
-"\t\t<p>\"Address:Port\": A resource needs one IP address per device, which "
-"is used to wait for incoming connections from the partner device to reach "
-"the device. Each DRBD resource needs a TCP port which is used to connect to "
-"the node's partner device. For IPv6, the actual address that follows the "
-"ipv6 keyword must be placed inside brackets: ipv6 [2001:1945:fc03:"
-"abcd::1]:7788</p>\n"
-"\t\t<p>\"Device\": The name of the block device node of the resource being "
-"described. You must use this device with your application (file system) and "
-"you must not use the low level block device which is specified with the disk "
-"parameter,following its minor number. Otherwise, you may omit the name, or "
-"the word minor and its number. If you omit the name a default of /dev/"
-"drbd'minor number' will be used.\n"
-"\t\tLike: '/dev/drbd{service} minor {minor drbd number [0...255]}' or '/dev/"
-"drbd{minor drbd number [0...255]}'</p>\n"
-"\t\t<p>\"Disk\":  DRBD uses this block device to actually store and retrieve "
-"the data.  Never access such a device while DRBD is running on top of  it.</"
-"p>\n"
-"\t\t<p>\"Meta-disk\": internal. Internal means that the last part of the "
-"backing device is used to store the meta-data.</p>\n"
-"\t\t<p>\"Node-id\": Node id is an internal value for drbd, will be generated "
-"by yast automatically. A host can have different \"node-id\" in different "
-"resources.</p>\n"
-"\t\t"
-msgstr ""
-"\n"
-"\t\t<p>\"الاسم\" إلزامي ويجب أن يطابق اسم مضيف Linux‏ (uname -n) في واحدة من "
-"العقد. يجب عدم تضمين \".\" في اسم المضيف.</p>\n"
-"\t\t<p>\"العنوان:المنفذ\": يحتاج المورد إلى عنوان IP واحد لكل جهاز، يتم "
-"استخدامه في انتظار الاتصالات الواردة من الجهاز الشريك لتصل إلى الجهاز. "
-"ويحتاج كل مورد DRBD إلى منفذ TCP يتم استخدامه للاتصال بالجهاز الشريك للعقدة. "
-"وبالنسبة إلى IPv6، يجب وضع العنوان الفعلي الذي يتبع كلمة مرور ipv6 بين "
-"أقواس:‏ ipv6 ‏[2001:1945:fc03:abcd::1]:7788‏</p>\n"
-"\t\t<p>‏\"الجهاز\": هو اسم عقدة جهاز الحظر للمورد الذي يتم وصفه، ويجب استخدام "
-"هذا الجهاز مع التطبيق لديك (نظام الملف) ويجب أيضًا عدم استخدام جهاز حظر "
-"المستوى الأقل المحدد بمعلمة القرص، بعد الرقم الثانوي. وبخلاف ذلك، يمكنك حذف "
-"الاسم أو الكلمة الثانوية ورقمها. وفي حال حذفت الاسم، يتم استخدام /dev/"
-"drbd'minor number' افتراضيًا. \n"
-"\t\tمثل: '/dev/drbd{service} minor {minor drbd number [0...255]}' أو '/dev/"
-"drbd{minor drbd number [0...255]}'</p>\n"
-"\t\t<p>\"القرص\": يستخدم DRBD جهاز الحظر هذا فعليًا لتخزين البيانات "
-"واستعادتها. يجب عدم الوصول نهائيًا إلى هذا الجهاز أثناء تشغيل DRBD فوقه.</p>\n"
-"\t\t<p>\"قرص تعريف\": داخلي. ويُقصد بداخلي أن الجزء الأخير من جهاز النسخ "
-"الاحتياطي يُستخدم في تخزين بيانات التعريف.‏</p>\n"
-"\t\t<p>‏\"‏معرف العقدة\"‏: ‏معرف العقدة هو قيمة داخلية من أجل drbd، وسيقوم yast "
-"بإنشائها تلقائيًا. يمكن أن يكون للمضيف \"معرف عقدة\" مختلف في موارد مختلفة.‏</"
-"p>\n"
-"\t\t"
-
-#: src/include/drbd/helps.rb:116
-msgid ""
-"\n"
-"\t\t<p><b>LVM configuration file /etc/lvm/lvm.conf</b></p>\n"
-"\t\t<p>To use LVM with DRBD, it is necessary to change some options in the "
-"LVM configuration file and to remove stale cache entries on the nodes.</p>\t"
-"\t<p>Refer to 'man lvm.conf' for further information including the file "
-"layout.</p>\n"
-"\t\t\t\t\t\t\t\t\t\t  \n"
-"\t\t<p><b>Device Filter</b>: This masks the underlying block device from the "
-"list of devices LVM scans for Physical Volume signatures. This way, LVM is "
-"instructed to read Physical Volume signatures from DRBD devices, rather than "
-"from the underlying backing block devices.</p>\t\t<p><b>AutoFilter</b>: "
-"According to the configuration of drbd, LVM filter will always be changed "
-"automatically. To change it manually, disable the checkbox of AutoFilter.</"
-"p>\n"
-"\t\t<p>The filter consists of an array of regular expressions. These "
-"expressions can be delimited by a character of your choice, and prefixed "
-"with either an 'a' (for accept) or 'r' (for reject).</p>\t\t<p>For example, "
-"setting filter as [\"r|/dev/sda.*|\"]</p>\n"
-"\n"
-"\t\t<p><b>LVM cache</b>: Enable/turn on writing the LVM cache is default. "
-"Should disable the LVM cache when combined drbd with LVM.</p>\n"
-"\n"
-"\t\t<p><b>LVMetad</b>: When lvmetad is enabled, the volume group metadata "
-"and PV state flags are obtained from the lvmetad instance and no scanning is "
-"done by the individual commands. Because lvmetad's cache cannot be "
-"synchronized between nodes, users are advised to disable lvmetad in cluster "
-"environments.</p>\n"
-"\n"
-"\t\t"
-msgstr ""
-"\n"
-"\t\t<p><b>ملف تكوين LVM /etc/lvm/lvm.conf</b></p>\n"
-"\t\t<p> لاستخدام LVM مع DRBD، يجب تغيير بعض الخيارات في ملف تكوين LVM لإزالة "
-"إدخالات الذاكرة المؤقتة القديمة في العقد.</p>\t\t<p>راجع 'man lvm.conf' "
-"لمزيد من المعلومات ومنها تخطيط الملف.</p>\n"
-"\t\t\t\t\t\t\t\t\t\t  \n"
-"\t\t<p><b>عامل تصفية الجهاز</b>: يقوم بإخفاء جهاز قطعة التخزين الأساسي من "
-"قائمة الأجهزة التي يقوم LVM بمسحها بحثًا عن توقيعات الحجم الفعلي. وبهذا يقرأ "
-"LVM توقيعات الحجم الفعلي من أجهزة DRBD بدلاً من أجهزة قطعة التخزين الأساسية.</"
-"p>\t\t<p><b>عامل التصفية التلقائي</b>: طبقًا لتكوين drbd، سيتم تغيير عامل "
-"تصفية LVM دائمًا تلقائيًا. لتغييره يدويًا، قم بتعطيل مربع اختيار عامل التصفية "
-"التلقائي.</p>\n"
-"\t\t<p>يتكون عامل التصفية من مجموعة من التعبيرات العادية. يمكن فصل هذه "
-"التعبيرات بحرف من اختيارك ومسبوق بأي من 'ق' (للقبول) أو 'ر' (للرفض).</p>\t"
-"\t<p>على سبيل المثال، إعداد عامل التصفية على [\"r|/dev/sda.*|\"]</p>\n"
-"\n"
-"\t\t<p><b>ذاكرة LVM المؤقتة</b>: تمكين/تشغيل كتابة ذاكرة LVM المؤقتة "
-"افتراضيًا. في حالة تعطيل ذاكرة LVM المؤقتة عند مزج drbd مع LVM.</p>\n"
-"\n"
-"\t\t<p><b>LVMetad</b>: عند تمكين lvmetad، يتم الحصول على علامات حالة PV "
-"وبيانات تعريف مجموعة وحدات التخزين من مثيل lvmetad ولا يتم إجراء أي عملية "
-"مسح من خلال الأوامر الفردية. ونظرًا لتعذر إمكانية مزامنة الذاكرة المؤقتة لـ "
-"lvmetad بين العقد، يُنصح المستخدمون بتعطيل lvmetad في بيئات المجموعات "
-"المتماثلة.</p>\n"
-"\n"
-"\t\t"
-
-#: src/include/drbd/lvm_conf.rb:86
-msgid "Warning!  Should disable LVM cache for using drbd."
-msgstr "تحذير! يجب تعطيل الذاكرة المؤقتة لـ LVM لاستخدام drbd."
-
-#: src/include/drbd/lvm_conf.rb:97
-msgid "Use lvmetad for LVM"
-msgstr "استخدام lvmetad لـ LVM"
-
-#: src/include/drbd/lvm_conf.rb:106
-msgid "Use LVM metad"
-msgstr "استخدام LVM metad"
-
-#: src/include/drbd/lvm_conf.rb:111
-msgid "Warning!  Should not use lvmetad for cluster."
-msgstr "تحذير! يجب عدم استخدام lvmetad للمجموعة المتماثلة."
-
-#: src/include/drbd/resource_conf.rb:151
-msgid "Nodes"
-msgstr "العقد"
-
-#: src/include/drbd/resource_conf.rb:154
-msgid "Add"
-msgstr "إضافة"
-
-#: src/include/drbd/resource_conf.rb:155
-msgid "Edit"
-msgstr "تحرير"
-
-#: src/include/drbd/resource_conf.rb:156
-msgid "Delete"
-msgstr "حذف"
-
-#: src/include/drbd/resource_conf.rb:188
-msgid "Save"
-msgstr "حفظ"
-
-#. return `cancel or a string
-#: src/include/drbd/resource_conf.rb:560
-msgid "OK"
-msgstr "موافق"
-
-#: src/include/drbd/resource_conf.rb:561
-msgid "Cancel"
-msgstr "إلغاء"
-
-#: src/include/drbd/resource_conf.rb:575
-msgid "Node name can not be empty."
-msgstr "لا يمكن ترك اسم العقدة فارغًا."
-
-#. eg. ipv6 [fd01:2345:6789:abcd::1]:7800
-#: src/include/drbd/resource_conf.rb:623
-msgid "IPv6 address must be placed inside brackets."
-msgstr "يجب وضع عنوان IPv6 داخل أقواس."
-
-#. IPv6 should including port
-#: src/include/drbd/resource_conf.rb:631 src/include/drbd/resource_conf.rb:636
-msgid "IP/port should use 'addr:port' combination."
-msgstr "يجب أن يستخدم عنوان IP‏/‏المنفذ المجموعة 'addr:port'‏.‏"
-
-#: src/include/drbd/resource_conf.rb:644
-msgid "Please enter a valid IP address."
-msgstr "الرجاء إدخال عنوان IP صالح."
-
-#. Checking the port is number
-#: src/include/drbd/resource_conf.rb:651
-msgid "Please enter a valid port number."
-msgstr "الرجاء إدخال رقم منفذ صالح."
-
-#: src/include/drbd/resource_conf.rb:754
-msgid "Please configure at least two nodes."
-msgstr "الرجاء تكوين عقدتين على الأقل."
-
-#. No need to check integrity since it will disabled when configuring
-#: src/include/drbd/resource_conf.rb:789
-msgid "Enter the node name:"
-msgstr "إدخال اسم العقدة:"
-
-#: src/include/drbd/resource_conf.rb:795
-msgid "Node name must be different."
-msgstr "يجب أن يكون اسم العقدة مختلفًا."
+#~ msgid "Node names must be different."
+#~ msgstr "يجب أن يكون للعقدة أسماء مختلفة."
 
 #~ msgid "First part of DRBD configuration"
 #~ msgstr "الجزء الأول من إعداد DRBD"

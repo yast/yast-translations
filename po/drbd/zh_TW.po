@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: YaST (@memory@)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-25 18:36+0200\n"
+"POT-Creation-Date: 2016-08-30 18:27+0200\n"
 "PO-Revision-Date: 2012-05-28 16:07+0800\n"
 "Last-Translator: Ray Chen <swyear@opensuse.org>\n"
 "Language-Team: Chinese Traditional <kde-i18n-doc@kde.org>\n"
@@ -249,7 +249,9 @@ msgid ""
 "\t\t<p>\"Address:Port\": A resource needs one IP address per device, which "
 "is used to wait for incoming connections from the partner device to reach "
 "the device. Each DRBD resource needs a TCP port which is used to connect to "
-"the node's partner device.</p>\n"
+"the node's partner device. For IPv6, the actual address that follows the "
+"ipv6 keyword must be placed inside brackets: ipv6 [2001:1945:fc03:"
+"abcd::1]:7788</p>\n"
 "\t\t<p>\"Device\": The name of the block device node of the resource being "
 "described. You must use this device with your application (file system) and "
 "you must not use the low level block device which is specified with the disk "
@@ -263,8 +265,31 @@ msgid ""
 "p>\n"
 "\t\t<p>\"Meta-disk\": internal. Internal means that the last part of the "
 "backing device is used to store the meta-data.</p>\n"
+"\t\t<p>\"Node-id\": Node id is an internal value for drbd, will be generated "
+"by yast automatically. A host can have different \"node-id\" in different "
+"resources.</p>\n"
 "\t\t"
 msgstr ""
+"\n"
+"\t\t「名稱」是強制欄位，並且必須與其中一個節點的 Linux 主機名稱 (uname -n) 相"
+"符。主機名稱中不應包含「.」。\n"
+"\t\t「位址:連接埠」︰資源需要每個裝置對應一個 IP 位址，用於等待各自夥伴裝置的"
+"內送連接連至該裝置。每個 DRBD 資源都需要一個 TCP 連接埠，用於連接至節點的夥伴"
+"裝置。對於 IPv6，跟在 ipv6 關鍵字後面的實際位址必須放在括號內︰ipv6 "
+"[2001:1945:fc03:abcd::1]:7788</p>\n"
+"\t\t<p>「裝置」︰所描述資源的區塊裝置節點的名稱。您必須將此裝置與您的應用程"
+"式 (檔案系統) 配合使用，並且不能使用以磁碟參數 (次要編號後面) 指定的低層級區"
+"塊裝置。或者，您可以省略名稱或單字「minor」及其編號。如果您省略名稱，系統將使"
+"用預設值 /dev/drbd「次要編號」。\n"
+"\t\t例如︰「/dev/drbd{服務} minor {次要 DRBD 編號 [0...255]}」或「/dev/"
+"drbd{次要 DRBD 編號 [0...255]}」\n"
+"\t\t「磁碟」︰DRBD 實際上使用此區塊裝置來儲存和取回資料。當 DRBD 在此類裝置上"
+"執行時，切勿存取該裝置。\n"
+"\t\t「中繼磁碟」︰內部。「內部」表示該支援裝置的最後一部分用於儲存中繼資"
+"料。\n"
+"\t\t「節點 ID」︰節點 ID 是 drbd 的內部值，yast 將會自動產生該值。主機的不同"
+"資源中可以具有不同的「節點 ID」。\n"
+"\t\t"
 
 #: src/include/drbd/helps.rb:89
 msgid ""
@@ -351,7 +376,7 @@ msgstr ""
 msgid "<p><b><big>LVM Configuration</big></b></p>"
 msgstr "<p><b><big>LVM 組態</big></b></p>"
 
-#: src/include/drbd/helps.rb:115
+#: src/include/drbd/helps.rb:116
 msgid ""
 "\n"
 "\t\t<p><b>LVM configuration file /etc/lvm/lvm.conf</b></p>\n"
@@ -373,12 +398,40 @@ msgid ""
 "setting filter as [\"r|/dev/sda.*|\"]</p>\n"
 "\n"
 "\t\t<p><b>LVM cache</b>: Enable/turn on writing the LVM cache is default. "
-"Disable cache when for network storage, like nfs. </p>\n"
+"Should disable the LVM cache when combined drbd with LVM.</p>\n"
+"\n"
+"\t\t<p><b>LVMetad</b>: When lvmetad is enabled, the volume group metadata "
+"and PV state flags are obtained from the lvmetad instance and no scanning is "
+"done by the individual commands. Because lvmetad's cache cannot be "
+"synchronized between nodes, users are advised to disable lvmetad in cluster "
+"environments.</p>\n"
 "\n"
 "\t\t"
 msgstr ""
+"\n"
+"\t\t<p><b>LVM 組態檔案 /etc/lvm/lvm.conf</b></p>\n"
+"\t\t<p>若要將 LVM 與 DRBD 配合使用，需要在 LVM 組態檔案中變更某些選項，並移除"
+"節點上已過時的快取項目。</p>\t\t<p>如需更多資訊 (包括檔案配置)，請參閱「man "
+"lvm.conf」。</p>\n"
+"\t\t\t\t\t\t\t\t\t\t  \n"
+"\t\t<p><b>裝置過濾器</b>：於 LVM 在其中掃描實體磁碟區簽名的裝置清單中遮罩基礎"
+"區塊裝置。這樣，便可以指示 LVM 從 DRBD 裝置而非基礎支援區塊裝置中讀取實體磁碟"
+"區簽名。</p>\t\t<p><b>自動過濾器</b>：依據 DRBD 組態，LVM 過濾器將永遠自動變"
+"更。若要手動變更該過濾器，請取消核取「自動過濾器」核取方塊。</p>\n"
+"\t\t<p>該過濾器由一系列規則運算式組成。這些運算式可以使用您選擇的字元來分隔，"
+"並可加上字首「a」(表示接受) 或「r」(表示拒絕)。</p>\t\t<p>例如，將過濾器設定"
+"為 [\"r|/dev/sda.*|\"]</p>\n"
+"\n"
+"\t\t<p><b>LVM 快取</b>︰預設值為啟用/開啟寫入 LVM 快取。當 DRBD 與 LVM 結合使"
+"用時，應停用 LVM 快取。</p>\n"
+"\n"
+"\t\t<p><b>LVMetad</b>︰如果啟用 lvmetad，系統會從 lvmetad 例項獲取磁碟區群組"
+"中繼資料和 PV 狀態旗標，並且個別指令不會執行掃描。由於 lvmetad 的快取無法與節"
+"點之間同步，建議使用者在叢集環境中停用 lvmetad。</p>\n"
+"\n"
+"\t\t"
 
-#: src/include/drbd/helps.rb:130
+#: src/include/drbd/helps.rb:133
 msgid "<p><b><big>Global Configuration of DRBD</big></b></p>"
 msgstr "<p><b><big>DRBD 全域設定</big></b></p>"
 
@@ -443,7 +496,7 @@ msgstr ""
 "然後按<b>「設定」</b>。</p>\n"
 
 #. Summary dialog help 3/3
-#: src/include/drbd/helps.rb:163
+#: src/include/drbd/helps.rb:166
 msgid ""
 "<p><b><big>Editing or Deleting:</big></b><br>\n"
 "If you press <b>Edit</b>, an additional dialog in which to change\n"
@@ -485,7 +538,7 @@ msgstr ""
 "然後視需要按<b>「編輯」</b>或<b>「刪除」</b>。</p>\n"
 
 #. Configure1 dialog help 1/2
-#: src/include/drbd/helps.rb:185
+#: src/include/drbd/helps.rb:188
 msgid ""
 "<p><b><big>Configuration Part One</big></b><br>\n"
 "Press <b>Next</b> to continue.\n"
@@ -497,7 +550,7 @@ msgstr ""
 
 #. Configure1 dialog help 2/2
 #. Configure2 dialog help 2/2
-#: src/include/drbd/helps.rb:191 src/include/drbd/helps.rb:203
+#: src/include/drbd/helps.rb:194 src/include/drbd/helps.rb:206
 msgid ""
 "<p><b><big>Selecting Something</big></b><br>\n"
 "It is not possible. You must code it first. :-)\n"
@@ -508,7 +561,7 @@ msgstr ""
 " </p>"
 
 #. Configure2 dialog help 1/2
-#: src/include/drbd/helps.rb:197
+#: src/include/drbd/helps.rb:200
 msgid ""
 "<p><b><big>Configuration Part Two</big></b><br>\n"
 "Press <b>Next</b> to continue.\n"
@@ -539,21 +592,83 @@ msgstr "寫入 LVM 快取"
 msgid "Enable LVM Cache"
 msgstr "啟用 LVM 快取"
 
+#: src/include/drbd/lvm_conf.rb:86
+msgid "Warning!  Should disable LVM cache for using drbd."
+msgstr "警告！應停用 LVM 快取以使用 drbd。"
+
+#: src/include/drbd/lvm_conf.rb:97
+msgid "Use lvmetad for LVM"
+msgstr "對 LVM 使用 lvmetad"
+
+#: src/include/drbd/lvm_conf.rb:106
+msgid "Use LVM metad"
+msgstr "使用 LVM metad"
+
+#: src/include/drbd/lvm_conf.rb:111
+msgid "Warning!  Should not use lvmetad for cluster."
+msgstr "警告！不應對叢集使用 lvmetad。"
+
 #. encoding: utf-8
-#: src/include/drbd/resource_conf.rb:134
+#: src/include/drbd/resource_conf.rb:144
 msgid "Resource Name"
 msgstr "來源名稱"
 
-#. Update new add disk used of drbd res for LVM filter
-#. Ignore the removed disk
-#: src/include/drbd/resource_conf.rb:326
+#: src/include/drbd/resource_conf.rb:151
+msgid "Nodes"
+msgstr "節點"
+
+#: src/include/drbd/resource_conf.rb:154
+msgid "Add"
+msgstr "新增"
+
+#: src/include/drbd/resource_conf.rb:155
+msgid "Edit"
+msgstr "編輯"
+
+#: src/include/drbd/resource_conf.rb:156
+msgid "Delete"
+msgstr "刪除"
+
+#: src/include/drbd/resource_conf.rb:188
+msgid "Save"
+msgstr "儲存"
+
+#. Since n_name can't be edit, so set direct is OK
+#: src/include/drbd/resource_conf.rb:336
 msgid "Protocol"
 msgstr "協定"
 
-#. myHelp("basic_conf");
-#: src/include/drbd/resource_conf.rb:572
-msgid "Node names must be different."
-msgstr "結點名稱必須不同。"
+#. return `cancel or a string
+#: src/include/drbd/resource_conf.rb:560
+msgid "OK"
+msgstr "確定"
+
+#: src/include/drbd/resource_conf.rb:561
+msgid "Cancel"
+msgstr "取消"
+
+#: src/include/drbd/resource_conf.rb:575
+msgid "Node name can not be empty."
+msgstr "節點名稱不能為空白。"
+
+#. eg. ipv6 [fd01:2345:6789:abcd::1]:7800
+#: src/include/drbd/resource_conf.rb:623
+msgid "IPv6 address must be placed inside brackets."
+msgstr "IPv6 位址必須放在括號內。"
+
+#. IPv6 should including port
+#: src/include/drbd/resource_conf.rb:631 src/include/drbd/resource_conf.rb:636
+msgid "IP/port should use 'addr:port' combination."
+msgstr "IP/連接埠應使用「位址:連接埠」組合。"
+
+#: src/include/drbd/resource_conf.rb:644
+msgid "Please enter a valid IP address."
+msgstr "請輸入有效的 IP 位址。"
+
+#. Checking the port is number
+#: src/include/drbd/resource_conf.rb:651
+msgid "Please enter a valid port number."
+msgstr "請輸入有效的連接埠號碼。"
 
 #. myHelp("basic_conf");
 #: src/include/drbd/resource_conf.rb:719
@@ -563,6 +678,19 @@ msgstr "節點名稱不能包含「.」，請使用本地主機名稱。"
 #: src/include/drbd/resource_conf.rb:739
 msgid "Please fill out all fields."
 msgstr "請填寫所有欄位。"
+
+#: src/include/drbd/resource_conf.rb:754
+msgid "Please configure at least two nodes."
+msgstr "請至少設定兩個節點。"
+
+#. No need to check integrity since it will disabled when configuring
+#: src/include/drbd/resource_conf.rb:789
+msgid "Enter the node name:"
+msgstr "輸入節點名稱︰"
+
+#: src/include/drbd/resource_conf.rb:795
+msgid "Node name must be different."
+msgstr "節點名稱必須互不相同。"
 
 #. encoding: utf-8
 #. Package:	Configuration of heartbeat
@@ -676,16 +804,16 @@ msgid "Failed to write drbd.conf.YaST2prepare"
 msgstr "無法寫入 drbd.conf.YaST2prepare"
 
 #. DRBD read dialog caption
-#: src/modules/Drbd.rb:185
+#: src/modules/Drbd.rb:191
 msgid "Initializing DRBD Configuration"
 msgstr "正在啟始化 DRBD 組態"
 
 #. We do not set help text here, because it was set outside
-#: src/modules/Drbd.rb:193
+#: src/modules/Drbd.rb:199
 msgid "Read global settings"
 msgstr "讀取全域設定"
 
-#: src/modules/Drbd.rb:194
+#: src/modules/Drbd.rb:200
 msgid "Read resources"
 msgstr "讀取資源"
 
@@ -693,7 +821,7 @@ msgstr "讀取資源"
 msgid "Read LVM configurations"
 msgstr "讀取 LVM 組態"
 
-#: src/modules/Drbd.rb:196
+#: src/modules/Drbd.rb:202
 msgid "Read daemon status"
 msgstr "讀取精靈狀態"
 
@@ -701,11 +829,11 @@ msgstr "讀取精靈狀態"
 msgid "Read SuSEFirewall Settings"
 msgstr "讀取 SuSEFirewall 設定"
 
-#: src/modules/Drbd.rb:200
+#: src/modules/Drbd.rb:206
 msgid "Reading global settings..."
 msgstr "讀取全域設定..."
 
-#: src/modules/Drbd.rb:201
+#: src/modules/Drbd.rb:207
 msgid "Reading resources..."
 msgstr "正在讀取資源..."
 
@@ -713,11 +841,11 @@ msgstr "正在讀取資源..."
 msgid "Reading LVM configurations..."
 msgstr "正在讀取 LVM 組態..."
 
-#: src/modules/Drbd.rb:203
+#: src/modules/Drbd.rb:209
 msgid "Reading daemon status..."
 msgstr "正在讀取精靈狀態..."
 
-#: src/modules/Drbd.rb:205 src/modules/Drbd.rb:629
+#: src/modules/Drbd.rb:211 src/modules/Drbd.rb:661
 msgid "Finished"
 msgstr "已完成"
 
@@ -743,7 +871,7 @@ msgid "Failed to bring drbd.conf back"
 msgstr "無法取回 drbd.conf"
 
 #. DRBD write dialog caption
-#: src/modules/Drbd.rb:605
+#: src/modules/Drbd.rb:637
 msgid "Writing DRBD Configuration"
 msgstr "正在寫入 DRBD 組態"
 
@@ -751,11 +879,11 @@ msgstr "正在寫入 DRBD 組態"
 #. won't change modified flag
 #. return true if !@modified
 #. We do not set help text here, because it was set outside
-#: src/modules/Drbd.rb:617
+#: src/modules/Drbd.rb:649
 msgid "Write global settings"
 msgstr "寫入全域設定"
 
-#: src/modules/Drbd.rb:618
+#: src/modules/Drbd.rb:650
 msgid "Write resources"
 msgstr "寫入資源"
 
@@ -763,7 +891,7 @@ msgstr "寫入資源"
 msgid "Write LVM configurations"
 msgstr "寫入 LVM 組態"
 
-#: src/modules/Drbd.rb:620
+#: src/modules/Drbd.rb:652
 msgid "Set daemon status"
 msgstr "設定精靈狀態"
 
@@ -771,11 +899,11 @@ msgstr "設定精靈狀態"
 msgid "Write the SuSEfirewall settings"
 msgstr "寫入 SuSEfirewall 設定"
 
-#: src/modules/Drbd.rb:624
+#: src/modules/Drbd.rb:656
 msgid "Writing global settings..."
 msgstr "正在寫入全域設定..."
 
-#: src/modules/Drbd.rb:625
+#: src/modules/Drbd.rb:657
 msgid "Writing resources..."
 msgstr "正在寫入資源..."
 
@@ -783,7 +911,7 @@ msgstr "正在寫入資源..."
 msgid "Writing LVM configurations..."
 msgstr "正在寫入 LVM 組態..."
 
-#: src/modules/Drbd.rb:627
+#: src/modules/Drbd.rb:659
 msgid "Setting daemon status..."
 msgstr "正在設定精靈狀態..."
 
@@ -795,191 +923,8 @@ msgstr "正在寫入 SuSEFirewall 設定"
 msgid "Failed to make directory /etc/drbd.d"
 msgstr "無法建立目錄 /etc/drbd.d"
 
-#: src/include/drbd/helps.rb:75
-msgid ""
-"\n"
-"\t\t<p>\"Name\" is mandatory and must match the Linux host name (uname -n) "
-"of one of the nodes. Should not include \".\" in hostname.</p>\n"
-"\t\t<p>\"Address:Port\": A resource needs one IP address per device, which "
-"is used to wait for incoming connections from the partner device to reach "
-"the device. Each DRBD resource needs a TCP port which is used to connect to "
-"the node's partner device. For IPv6, the actual address that follows the "
-"ipv6 keyword must be placed inside brackets: ipv6 [2001:1945:fc03:"
-"abcd::1]:7788</p>\n"
-"\t\t<p>\"Device\": The name of the block device node of the resource being "
-"described. You must use this device with your application (file system) and "
-"you must not use the low level block device which is specified with the disk "
-"parameter,following its minor number. Otherwise, you may omit the name, or "
-"the word minor and its number. If you omit the name a default of /dev/"
-"drbd'minor number' will be used.\n"
-"\t\tLike: '/dev/drbd{service} minor {minor drbd number [0...255]}' or '/dev/"
-"drbd{minor drbd number [0...255]}'</p>\n"
-"\t\t<p>\"Disk\":  DRBD uses this block device to actually store and retrieve "
-"the data.  Never access such a device while DRBD is running on top of  it.</"
-"p>\n"
-"\t\t<p>\"Meta-disk\": internal. Internal means that the last part of the "
-"backing device is used to store the meta-data.</p>\n"
-"\t\t<p>\"Node-id\": Node id is an internal value for drbd, will be generated "
-"by yast automatically. A host can have different \"node-id\" in different "
-"resources.</p>\n"
-"\t\t"
-msgstr ""
-"\n"
-"\t\t「名稱」是強制欄位，並且必須與其中一個節點的 Linux 主機名稱 (uname -n) 相"
-"符。主機名稱中不應包含「.」。\n"
-"\t\t「位址:連接埠」︰資源需要每個裝置對應一個 IP 位址，用於等待各自夥伴裝置的"
-"內送連接連至該裝置。每個 DRBD 資源都需要一個 TCP 連接埠，用於連接至節點的夥伴"
-"裝置。對於 IPv6，跟在 ipv6 關鍵字後面的實際位址必須放在括號內︰ipv6 "
-"[2001:1945:fc03:abcd::1]:7788</p>\n"
-"\t\t<p>「裝置」︰所描述資源的區塊裝置節點的名稱。您必須將此裝置與您的應用程"
-"式 (檔案系統) 配合使用，並且不能使用以磁碟參數 (次要編號後面) 指定的低層級區"
-"塊裝置。或者，您可以省略名稱或單字「minor」及其編號。如果您省略名稱，系統將使"
-"用預設值 /dev/drbd「次要編號」。\n"
-"\t\t例如︰「/dev/drbd{服務} minor {次要 DRBD 編號 [0...255]}」或「/dev/"
-"drbd{次要 DRBD 編號 [0...255]}」\n"
-"\t\t「磁碟」︰DRBD 實際上使用此區塊裝置來儲存和取回資料。當 DRBD 在此類裝置上"
-"執行時，切勿存取該裝置。\n"
-"\t\t「中繼磁碟」︰內部。「內部」表示該支援裝置的最後一部分用於儲存中繼資"
-"料。\n"
-"\t\t「節點 ID」︰節點 ID 是 drbd 的內部值，yast 將會自動產生該值。主機的不同"
-"資源中可以具有不同的「節點 ID」。\n"
-"\t\t"
-
-#: src/include/drbd/helps.rb:116
-msgid ""
-"\n"
-"\t\t<p><b>LVM configuration file /etc/lvm/lvm.conf</b></p>\n"
-"\t\t<p>To use LVM with DRBD, it is necessary to change some options in the "
-"LVM configuration file and to remove stale cache entries on the nodes.</p>\t"
-"\t<p>Refer to 'man lvm.conf' for further information including the file "
-"layout.</p>\n"
-"\t\t\t\t\t\t\t\t\t\t  \n"
-"\t\t<p><b>Device Filter</b>: This masks the underlying block device from the "
-"list of devices LVM scans for Physical Volume signatures. This way, LVM is "
-"instructed to read Physical Volume signatures from DRBD devices, rather than "
-"from the underlying backing block devices.</p>\t\t<p><b>AutoFilter</b>: "
-"According to the configuration of drbd, LVM filter will always be changed "
-"automatically. To change it manually, disable the checkbox of AutoFilter.</"
-"p>\n"
-"\t\t<p>The filter consists of an array of regular expressions. These "
-"expressions can be delimited by a character of your choice, and prefixed "
-"with either an 'a' (for accept) or 'r' (for reject).</p>\t\t<p>For example, "
-"setting filter as [\"r|/dev/sda.*|\"]</p>\n"
-"\n"
-"\t\t<p><b>LVM cache</b>: Enable/turn on writing the LVM cache is default. "
-"Should disable the LVM cache when combined drbd with LVM.</p>\n"
-"\n"
-"\t\t<p><b>LVMetad</b>: When lvmetad is enabled, the volume group metadata "
-"and PV state flags are obtained from the lvmetad instance and no scanning is "
-"done by the individual commands. Because lvmetad's cache cannot be "
-"synchronized between nodes, users are advised to disable lvmetad in cluster "
-"environments.</p>\n"
-"\n"
-"\t\t"
-msgstr ""
-"\n"
-"\t\t<p><b>LVM 組態檔案 /etc/lvm/lvm.conf</b></p>\n"
-"\t\t<p>若要將 LVM 與 DRBD 配合使用，需要在 LVM 組態檔案中變更某些選項，並移除"
-"節點上已過時的快取項目。</p>\t\t<p>如需更多資訊 (包括檔案配置)，請參閱「man "
-"lvm.conf」。</p>\n"
-"\t\t\t\t\t\t\t\t\t\t  \n"
-"\t\t<p><b>裝置過濾器</b>：於 LVM 在其中掃描實體磁碟區簽名的裝置清單中遮罩基礎"
-"區塊裝置。這樣，便可以指示 LVM 從 DRBD 裝置而非基礎支援區塊裝置中讀取實體磁碟"
-"區簽名。</p>\t\t<p><b>自動過濾器</b>：依據 DRBD 組態，LVM 過濾器將永遠自動變"
-"更。若要手動變更該過濾器，請取消核取「自動過濾器」核取方塊。</p>\n"
-"\t\t<p>該過濾器由一系列規則運算式組成。這些運算式可以使用您選擇的字元來分隔，"
-"並可加上字首「a」(表示接受) 或「r」(表示拒絕)。</p>\t\t<p>例如，將過濾器設定"
-"為 [\"r|/dev/sda.*|\"]</p>\n"
-"\n"
-"\t\t<p><b>LVM 快取</b>︰預設值為啟用/開啟寫入 LVM 快取。當 DRBD 與 LVM 結合使"
-"用時，應停用 LVM 快取。</p>\n"
-"\n"
-"\t\t<p><b>LVMetad</b>︰如果啟用 lvmetad，系統會從 lvmetad 例項獲取磁碟區群組"
-"中繼資料和 PV 狀態旗標，並且個別指令不會執行掃描。由於 lvmetad 的快取無法與節"
-"點之間同步，建議使用者在叢集環境中停用 lvmetad。</p>\n"
-"\n"
-"\t\t"
-
-#: src/include/drbd/lvm_conf.rb:86
-msgid "Warning!  Should disable LVM cache for using drbd."
-msgstr "警告！應停用 LVM 快取以使用 drbd。"
-
-#: src/include/drbd/lvm_conf.rb:97
-msgid "Use lvmetad for LVM"
-msgstr "對 LVM 使用 lvmetad"
-
-#: src/include/drbd/lvm_conf.rb:106
-msgid "Use LVM metad"
-msgstr "使用 LVM metad"
-
-#: src/include/drbd/lvm_conf.rb:111
-msgid "Warning!  Should not use lvmetad for cluster."
-msgstr "警告！不應對叢集使用 lvmetad。"
-
-#: src/include/drbd/resource_conf.rb:151
-msgid "Nodes"
-msgstr "節點"
-
-#: src/include/drbd/resource_conf.rb:154
-msgid "Add"
-msgstr "新增"
-
-#: src/include/drbd/resource_conf.rb:155
-msgid "Edit"
-msgstr "編輯"
-
-#: src/include/drbd/resource_conf.rb:156
-msgid "Delete"
-msgstr "刪除"
-
-#: src/include/drbd/resource_conf.rb:188
-msgid "Save"
-msgstr "儲存"
-
-#. return `cancel or a string
-#: src/include/drbd/resource_conf.rb:560
-msgid "OK"
-msgstr "確定"
-
-#: src/include/drbd/resource_conf.rb:561
-msgid "Cancel"
-msgstr "取消"
-
-#: src/include/drbd/resource_conf.rb:575
-msgid "Node name can not be empty."
-msgstr "節點名稱不能為空白。"
-
-#. eg. ipv6 [fd01:2345:6789:abcd::1]:7800
-#: src/include/drbd/resource_conf.rb:623
-msgid "IPv6 address must be placed inside brackets."
-msgstr "IPv6 位址必須放在括號內。"
-
-#. IPv6 should including port
-#: src/include/drbd/resource_conf.rb:631 src/include/drbd/resource_conf.rb:636
-msgid "IP/port should use 'addr:port' combination."
-msgstr "IP/連接埠應使用「位址:連接埠」組合。"
-
-#: src/include/drbd/resource_conf.rb:644
-msgid "Please enter a valid IP address."
-msgstr "請輸入有效的 IP 位址。"
-
-#. Checking the port is number
-#: src/include/drbd/resource_conf.rb:651
-msgid "Please enter a valid port number."
-msgstr "請輸入有效的連接埠號碼。"
-
-#: src/include/drbd/resource_conf.rb:754
-msgid "Please configure at least two nodes."
-msgstr "請至少設定兩個節點。"
-
-#. No need to check integrity since it will disabled when configuring
-#: src/include/drbd/resource_conf.rb:789
-msgid "Enter the node name:"
-msgstr "輸入節點名稱︰"
-
-#: src/include/drbd/resource_conf.rb:795
-msgid "Node name must be different."
-msgstr "節點名稱必須互不相同。"
+#~ msgid "Node names must be different."
+#~ msgstr "結點名稱必須不同。"
 
 #, fuzzy
 #~| msgid ""
