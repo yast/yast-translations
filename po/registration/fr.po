@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: registration\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-09-28 18:17+0200\n"
+"POT-Creation-Date: 2016-08-30 18:29+0200\n"
 "PO-Revision-Date: 2015-10-05 20:11+0100\n"
 "Last-Translator: Benoît Monin <benoit.monin@gmx.fr>\n"
 "Language-Team: French <opensuse-fr@opensuse.org>\n"
@@ -25,39 +25,6 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: Lokalize 2.0\n"
 "X-Poedit-Language: French\n"
-
-#. Constructor
-#.
-#. @param services    [Array<SlpServiceClass::Service] List of services to show.
-#. @param heading     [String] Text to be shown as dialog heading. A default text
-#. will be used if it's not specified.
-#. @param description [String] Text to be shown as description. A default text
-#. will be used if it's not specified.
-#: src/lib/registration/ui/regservice_selection_dialog.rb:64
-msgid "Local Registration Servers"
-msgstr "Serveurs d'enregistrement locaux"
-
-#: src/lib/registration/ui/regservice_selection_dialog.rb:65
-msgid ""
-"Select a detected registration server from the list\n"
-"or the default SUSE registration server."
-msgstr ""
-"Sélectionnez un serveur d'enregistrement détecté dans la liste\n"
-"ou le serveur d'enregistrement SUSE par défaut."
-
-#. error popup
-#: src/clients/discover_registration_services.rb:68
-#, fuzzy
-#| msgid "Use custom registration server "
-msgid "No registration server selected."
-msgstr "Aucun serveur d'enregistrement sélectionné."
-
-#. Default registration server
-#.
-#. return [String] Returns a string representing the default SCC service.
-#: src/lib/registration/ui/regservice_selection_dialog.rb:102
-msgid "SUSE Customer Center (%s)"
-msgstr "SUSE Customer Center (%s)"
 
 #. popup message
 #. popup message
@@ -76,9 +43,9 @@ msgstr "Connexion au serveur d'enregistrement"
 #. dialog title
 #. display and run a dialog for updating the current registration
 #. @return [Symbol] user input
-#: src/clients/inst_scc.rb:186
+#: src/clients/inst_scc.rb:189
 #: src/lib/registration/ui/autoyast_config_dialog.rb:104
-#: src/lib/registration/ui/base_system_registration_dialog.rb:48
+#: src/lib/registration/ui/base_system_registration_dialog.rb:61
 #: src/lib/registration/ui/migration_repos_workflow.rb:287
 #: src/lib/registration/ui/registered_system_dialog.rb:37
 #: src/lib/registration/ui/registration_update_dialog.rb:41
@@ -254,25 +221,19 @@ msgstr "Empreinte SHA1 : "
 msgid "SHA256 Fingerprint: "
 msgstr "Empreinte SHA256 : "
 
-#. Error popup
-#: src/lib/registration/connect_helpers.rb:296
-msgid ""
-"Network is not configured, the registration server cannot be reached.\n"
-"Do you want to configure the network now?"
-msgstr ""
-"Le réseau n'est pas configuré, le serveur d'enregistrement ne peut pas être "
-"contacté.\n"
-"Voulez-vous configurer le réseau maintenant ?"
-
-#: src/lib/registration/connect_helpers.rb:303
-msgid "Network error, check the network configuration."
-msgstr "Erreur réseau. Vérifiez la configuration du réseau."
-
 #. FIXME: to not break existing translation, this typo should be fixed
 #. later after SP2: time -> timed
 #: src/lib/registration/connect_helpers.rb:80
 msgid "Connection time out."
 msgstr "Timeout de la connexion."
+
+#: src/lib/registration/connect_helpers.rb:81
+msgid ""
+"Make sure that the registration server is reachable and\n"
+"the connection is reliable."
+msgstr ""
+"Vérifiez que le serveur d'enregistrement est joignable et que\n"
+"la connexion est fiable."
 
 #. TRANSLATORS: additional hint for an error message
 #: src/lib/registration/connect_helpers.rb:91
@@ -301,34 +262,30 @@ msgstr ""
 "Patientez juste quelques minutes après vous être connecté, puis réessayez \n"
 "la mise à niveau."
 
-# TLABEL online_update_2002_03_14_2340__8
 #. add the hint to the error details
 #. update the message when an old SMT server is found
 #. Error popup
 #. update the message when an old SMT server is found
-#: src/lib/registration/connect_helpers.rb:113
-#: src/lib/registration/connect_helpers.rb:118
-#: src/lib/registration/connect_helpers.rb:121
-#: src/lib/registration/connect_helpers.rb:128
-#: src/lib/registration/connect_helpers.rb:179
-#: src/lib/registration/connect_helpers.rb:182
-#, fuzzy
-#| msgid "Registration Code"
-msgid "Registration failed."
-msgstr "L'enregistrement a échoué."
+#: src/lib/registration/connect_helpers.rb:111
+#: src/lib/registration/connect_helpers.rb:116
+#: src/lib/registration/connect_helpers.rb:119
+#: src/lib/registration/connect_helpers.rb:126
+#: src/lib/registration/connect_helpers.rb:177
+#: src/lib/registration/connect_helpers.rb:181
+msgid "Connection to registration server failed."
+msgstr "Échec de la connexion au serveur d'enregistrement."
 
 #: src/lib/registration/connect_helpers.rb:121
 msgid "Registration client error."
 msgstr "Erreur lors de l'enregistrement du client."
 
-#: src/lib/registration/connect_helpers.rb:125
-#, fuzzy
+#: src/lib/registration/connect_helpers.rb:123
 msgid ""
 "Registration server error.\n"
-"Retry registration later."
+"Retry the operation later."
 msgstr ""
-"Erreur du serveur d'enregistrement.\n"
-"Réessayez l'enregistrement ultérieurement."
+"Erreur liée au serveur d'enregistrement.\n"
+"Réessayez cette opération ultérieurement."
 
 #. error message
 #: src/lib/registration/connect_helpers.rb:165
@@ -367,15 +324,14 @@ msgstr "Importation du certificat SSL"
 msgid "Importing '%s' certificate..."
 msgstr "Importation du certificat '%s'..."
 
-#. try to use a translatable message first, if not found then use
-#. the original error message from openSSL
-#: src/lib/registration/connect_helpers.rb:261
+#. workaround after string freeze
+#: src/lib/registration/connect_helpers.rb:264
 msgid "Secure connection error: %s"
 msgstr "Erreur de connexion sécurisée : %s"
 
 #. TRANSLATORS: error message, %s is a server URL,
 #. e.g. https://smt.example.com
-#: src/lib/registration/connect_helpers.rb:280
+#: src/lib/registration/connect_helpers.rb:283
 msgid ""
 "An old registration server was detected at\n"
 "%s.\n"
@@ -387,6 +343,27 @@ msgstr ""
 "Veillez à ce que le produit le plus récent prenant en charge le nouveau "
 "protocole \n"
 "d'enregistrement soit installé sur le serveur."
+
+#. FIXME: use a better message, this one has been reused after the text freeze
+#. error message, the entered URL is not valid.
+#: src/lib/registration/connect_helpers.rb:295
+#: src/lib/registration/ui/base_system_registration_dialog.rb:544
+msgid "Invalid URL."
+msgstr "URL non valide."
+
+#. Error popup
+#: src/lib/registration/connect_helpers.rb:299
+msgid ""
+"Network is not configured, the registration server cannot be reached.\n"
+"Do you want to configure the network now?"
+msgstr ""
+"Le réseau n'est pas configuré, le serveur d'enregistrement ne peut pas être "
+"contacté.\n"
+"Voulez-vous configurer le réseau maintenant ?"
+
+#: src/lib/registration/connect_helpers.rb:306
+msgid "Network error, check the network configuration."
+msgstr "Erreur réseau. Vérifiez la configuration du réseau."
 
 #. progress step title
 #: src/lib/registration/finish_dialog.rb:35
@@ -635,29 +612,35 @@ msgid_plural "Enter the registration codes into the fields below."
 msgstr[0] "Saisissez le code d'enregistrement dans le champ ci-dessous."
 msgstr[1] "Saisissez les codes d'enregistrement dans les champs ci-dessous."
 
-#: src/lib/registration/ui/addon_selection_base_dialog.rb:93
+#. create the main dialog definition
+#. @return [Yast::Term] the main UI dialog term
+#: src/lib/registration/ui/addon_selection_base_dialog.rb:90
+msgid "&Filter Out Beta Versions"
+msgstr "&Filtrer les versions bêta"
+
+#: src/lib/registration/ui/addon_selection_base_dialog.rb:92
 msgid "Details"
 msgstr "Détails"
 
 #. addon description widget
 #. @return [Yast::Term] the addon details widget
-#: src/lib/registration/ui/addon_selection_base_dialog.rb:103
+#: src/lib/registration/ui/addon_selection_base_dialog.rb:102
 msgid "Select an extension or a module to show details here"
 msgstr "Sélectionnez une extension ou un module pour en afficher les détails."
 
 #. checkbox label for an unavailable extension
 #. (%s is an extension name)
-#: src/lib/registration/ui/addon_selection_base_dialog.rb:116
+#: src/lib/registration/ui/addon_selection_base_dialog.rb:115
 msgid "%s (not available)"
 msgstr "%s (non disponible)"
 
 #. check if the count of addons requiring a reg. code fits two columns
-#: src/lib/registration/ui/addon_selection_base_dialog.rb:254
+#: src/lib/registration/ui/addon_selection_base_dialog.rb:253
 msgid "YaST allows to select at most %s extensions or modules."
 msgstr "YaST permet de sélectionner au maximum %s extensions ou modules."
 
 #. help text (2/3)
-#: src/lib/registration/ui/addon_selection_base_dialog.rb:265
+#: src/lib/registration/ui/addon_selection_base_dialog.rb:264
 msgid ""
 "<p>Please note, that some extensions or modules might need specific "
 "registration code.</p>"
@@ -666,7 +649,7 @@ msgstr ""
 "code d'enregistrement spécifique.</p>"
 
 #. help text (3/3)
-#: src/lib/registration/ui/addon_selection_base_dialog.rb:268
+#: src/lib/registration/ui/addon_selection_base_dialog.rb:267
 msgid ""
 "<p>If you want to remove any extension or module you need to loginto the "
 "SUSE Customer Center and remove them manually there.</p>"
@@ -763,11 +746,11 @@ msgstr "Voulez-vous vraiment effacer '%s' ?"
 msgid "Extension or Module &Identifier"
 msgstr "&Identificateur d'extension ou de module"
 
-#: src/lib/registration/ui/autoyast_addon_dialog.rb:186
+#: src/lib/registration/ui/autoyast_addon_dialog.rb:185
 msgid "&Version"
 msgstr "&Version"
 
-#: src/lib/registration/ui/autoyast_addon_dialog.rb:187
+#: src/lib/registration/ui/autoyast_addon_dialog.rb:186
 msgid "&Architecture"
 msgstr "&Architecture"
 
@@ -828,7 +811,7 @@ msgstr ""
 
 # TLABEL printer_2002_08_07_0216__262
 #. Translators: Text for UI Label - capitalized
-#: src/lib/registration/ui/autoyast_config_dialog.rb:128
+#: src/lib/registration/ui/autoyast_config_dialog.rb:127
 msgid "Server Settings"
 msgstr "Paramètres du serveur"
 
@@ -852,7 +835,7 @@ msgid "Optional SSL Server Certificate Fingerprint"
 msgstr "Empreinte du certificat de serveur SSL facultatif"
 
 # TLABEL lilo_2002_03_14_2340__74
-#: src/lib/registration/ui/autoyast_config_dialog.rb:155
+#: src/lib/registration/ui/autoyast_config_dialog.rb:154
 msgid "none"
 msgstr "aucun"
 
@@ -867,11 +850,19 @@ msgstr "Empreinte du certificat SSL"
 msgid "Register Extensions or Modules..."
 msgstr "Enregistrer les extensions ou modules..."
 
-#. button label
-#: src/lib/registration/ui/base_system_registration_dialog.rb:84
-#, fuzzy
-msgid "&Local Registration Server..."
-msgstr "Serveur d'enregistrement &local..."
+#. TRANSLATORS: radio button; %s is a host name.
+#: src/lib/registration/ui/base_system_registration_dialog.rb:254
+msgid "Register System via %s"
+msgstr "Enregistrer le système via %s"
+
+#. TRANSLATORS: radio button
+#: src/lib/registration/ui/base_system_registration_dialog.rb:297
+msgid "Register System via local SMT Server"
+msgstr "Enregistrer le système via un serveur SMT local"
+
+#: src/lib/registration/ui/base_system_registration_dialog.rb:308
+msgid "&Local Registration Server URL"
+msgstr "URL du serveur d'enregistrement &local"
 
 #: src/lib/registration/ui/base_system_registration_dialog.rb:322
 msgid "&Skip Registration"
@@ -891,6 +882,10 @@ msgstr "&Enregistrer à nouveau les extensions ou les modules"
 msgid "The system is already registered."
 msgstr "Le système est déjà enregistré."
 
+#: src/lib/registration/ui/base_system_registration_dialog.rb:344
+msgid "Please select your preferred method of registration."
+msgstr "Sélectionnez votre méthode d'enregistrement préférée."
+
 #. help text
 #: src/lib/registration/ui/base_system_registration_dialog.rb:360
 msgid ""
@@ -901,60 +896,25 @@ msgstr ""
 "système afin d'obtenir les mises à jour et les extensions."
 
 #. Popup question: confirm skipping the registration
-#: src/lib/registration/ui/base_system_registration_dialog.rb:177
-#, fuzzy
+#: src/lib/registration/ui/base_system_registration_dialog.rb:369
 msgid ""
 "If you do not register your system we will not be able\n"
 "to grant you access to the update repositories.\n"
 "\n"
 "You can register after the installation or visit our\n"
-"Customer Center for online registration.\n"
-"\n"
-"Really skip the registration now?"
+"Customer Center for online registration."
 msgstr ""
-"Si vous n'enregistrez pas votre système, nous ne pourrons\n"
-"pas vous donner accès aux dépôts de mise à jour.\n"
+"Si vous n'enregistrez pas votre système, nous ne pourrons pas\n"
+"vous fournir d'accès aux dépôts de mise à jour.\n"
 "\n"
-"Vous pouvez vous enregistrer après l'installation ou visiter\n"
-"le SUSE customer center pour un enregistrement en ligne.\n"
-"\n"
-"Voulez-vous vraiment passer l'enregistrement ?"
+"Vous pouvez vous enregistrer après l'installation ou visiter notre\n"
+"Customer Center pour un enregistrement en ligne."
 
-#. label text describing the registration (1/2)
-#. use \n to split to more lines if needed (use max. 76 chars/line)
-#: src/lib/registration/ui/base_system_registration_dialog.rb:194
-#, fuzzy
-msgid ""
-"Please enter a registration or evaluation code for this product and your\n"
-"User Name/E-mail address from the SUSE Customer Center in the fields below.\n"
-"Access to security and general software updates is only possible on\n"
-"a registered system."
-msgstr ""
-"Merci d'entrer un code d'enregistrement ou d'évaluation pour ce produit\n"
-"ainsi que votre nom d'utilisateur/adresse électronique pour le SUSE\n"
-"Customer Center dans les champs ci-dessous. L'accès aux mises à jour de\n"
-"sécurité et des logiciels est uniquement possible sur un système enregistré."
-
-#. label text describing the registration (2/2),
-#. not displayed in installed system
-#. use \n to split to more lines if needed (use max. 76 chars/line)
-#: src/lib/registration/ui/base_system_registration_dialog.rb:206
-#, fuzzy
-msgid ""
-"If you skip product registration now, remember to register after\n"
-"installation has completed."
-msgstr ""
-"Si vous passez l'enregistrement du produit maintenant, pensez à le faire\n"
-"une fois l'installation terminée."
-
-# TLABEL printer_2002_08_07_0216__69
 #. UI term for the network configuration button (or empty if not needed)
 #. @return [Yast::Term] UI term
-#: src/lib/registration/ui/base_system_registration_dialog.rb:218
-#, fuzzy
-#| msgid "Novell Customer Center Configuration"
-msgid "Network Configuration..."
-msgstr "Configuration du réseau..."
+#: src/lib/registration/ui/base_system_registration_dialog.rb:381
+msgid "Net&work Configuration..."
+msgstr "Configuration &réseau..."
 
 #. SSL error message
 #: src/lib/registration/ui/import_certificate_dialog.rb:23
@@ -978,45 +938,42 @@ msgstr "Faire confiance et impor&ter"
 
 #. help text (RichText) for importing a SSL certificate (1/5)
 #: src/lib/registration/ui/import_certificate_dialog.rb:122
-#, fuzzy
 msgid ""
-"<p>Secure connection (HTTPS) uses SSL certificates for verifying the "
-"authenticity of the server and for encrypting the transferred data.</p>"
+"<p>Secure connections (e.g. HTTPS) use SSL certificates for verifying the "
+"authenticity of the server and encrypting the data being transferred.</p>"
 msgstr ""
-"<p>La connexion sécurisée (HTTPS) utilise des certificats SSL pour vérifier "
-"l'authenticité du serveur et pour chiffrer les données transférées.</p>"
+"<p>Les connexions sécurisées (par exemple, HTTPS) emploient des certificats "
+"SSL pour vérifier l'authenticité du serveur et chiffrer les données en cours "
+"de transfert.</p>"
 
 #. help text (RichText) for importing a SSL certificate (2/5)
-#: src/lib/registration/ui/import_certificate_dialog.rb:126
-#, fuzzy
+#: src/lib/registration/ui/import_certificate_dialog.rb:127
 msgid ""
-"<p>You can choose to import the certificate it into the list of known "
-"certificate autohorities (CA), meaning that you trust the subject and the "
+"<p>You can choose to import the certificate into the list of known "
+"certificate authorities (CA), meaning that you trust the subject and the "
 "issuer of the unknown certificate.</p>"
 msgstr ""
-"<p>Vous pouvez choisir d'importer le certificat dans la liste des autorités "
-"de certification (CA) connues, indiquant que vous faites confiance au sujet "
-"et à l'émetteur du certificat inconnu.<p>"
+"<p>Vous pouvez décider d'importer le certificat dans la liste des autorités "
+"de certification (CA) reconnues, ce qui signifie que vous faites confiance à "
+"l'objet et à l'émetteur du certificat inconnu.</p>"
 
 #. help text (RichText) for importing a SSL certificate (3/5)
-#: src/lib/registration/ui/import_certificate_dialog.rb:131
-#, fuzzy
+#: src/lib/registration/ui/import_certificate_dialog.rb:132
 msgid ""
-"<p>Importing a certificate will allow to use for example a self-signed "
+"<p>Importing a certificate will, for example, allow you to use a self-signed "
 "certificate.</p>"
 msgstr ""
-"<p>Importer un certificat vous permet d'utiliser un certificat auto-signé "
-"par exemple.</p>"
+"<p>L'importation d'un certificat vous permet, par exemple, d'employer un "
+"certificat auto-signé.</p>"
 
 #. help text (RichText) for importing a SSL certificate (4/5)
-#: src/lib/registration/ui/import_certificate_dialog.rb:135
-#, fuzzy
+#: src/lib/registration/ui/import_certificate_dialog.rb:136
 msgid ""
-"<p><b>Important:</b> You should verify the fingerprint of the certificate to "
-"be sure you import the genuine certificate from the requested server.</p>"
+"<p><b>Important:</b> You should always verify the fingerprints of "
+"certificates you import to ensure they are genuine.</p>"
 msgstr ""
-"<p><b>Important:</b> Vous devriez vérifier l'empreinte du certificat pour "
-"être sur que vous importez le véritable certificat du serveur</p>"
+"<p><b>Important :</b> vous devez toujours vérifier que les empreintes des "
+"certificats que vous importez sont authentiques.</p>"
 
 #. help text (RichText) for importing a SSL certificate (5/5)
 #: src/lib/registration/ui/import_certificate_dialog.rb:140
@@ -1026,17 +983,6 @@ msgid ""
 msgstr ""
 "<p><b>Importer un certificat inconnu sans vérification présente un risque de "
 "sécurité important.</b></p>"
-
-#. FIXME: use a better message, this one has been reused after the text freeze
-#. error message, the entered URL is not valid.
-#: src/lib/registration/connect_helpers.rb:292
-#: src/lib/registration/ui/base_system_registration_dialog.rb:544
-msgid "Invalid URL."
-msgstr "URL non valide."
-
-#: src/lib/registration/ui/base_system_registration_dialog.rb:308
-msgid "&Local Registration Server URL"
-msgstr "URL du serveur d'enregistrement &local"
 
 #. TRANSLATORS: error message, %s are details
 #. TRANSLATORS: error message, %s are details
@@ -1279,6 +1225,36 @@ msgstr ""
 "La mise à niveau automatique de l'enregistrement a échoué.\n"
 "Vous pouvez enregistrer manuellement le système en partant de zéro."
 
+#. Constructor
+#.
+#. @param services    [Array<SlpServiceClass::Service] List of services to show.
+#. @param heading     [String] Text to be shown as dialog heading. A default text
+#. will be used if it's not specified.
+#. @param description [String] Text to be shown as description. A default text
+#. will be used if it's not specified.
+#: src/lib/registration/ui/regservice_selection_dialog.rb:64
+msgid "Local Registration Servers"
+msgstr "Serveurs d'enregistrement locaux"
+
+#: src/lib/registration/ui/regservice_selection_dialog.rb:65
+msgid ""
+"Select a detected registration server from the list\n"
+"or the default SUSE registration server."
+msgstr ""
+"Sélectionnez un serveur d'enregistrement détecté dans la liste\n"
+"ou le serveur d'enregistrement SUSE par défaut."
+
+#: src/lib/registration/ui/regservice_selection_dialog.rb:67
+msgid "No registration server selected"
+msgstr "Aucun serveur d'enregistrement n'est sélectionné."
+
+#. Default registration server
+#.
+#. return [String] Returns a string representing the default SCC service.
+#: src/lib/registration/ui/regservice_selection_dialog.rb:102
+msgid "SUSE Customer Center (%s)"
+msgstr "SUSE Customer Center (%s)"
+
 #. @return [Array<Yast::SlpServiceClass::Service>]
 #: src/lib/registration/url_helpers.rb:220
 msgid "Searching..."
@@ -1288,141 +1264,119 @@ msgstr "Recherche..."
 msgid "Looking up local registration servers..."
 msgstr "Recherche des serveurs d'enregistrement locaux..."
 
-#: src/lib/registration/connect_helpers.rb:81
-msgid ""
-"Make sure that the registration server is reachable and\n"
-"the connection is reliable."
-msgstr ""
-"Vérifiez que le serveur d'enregistrement est joignable et que\n"
-"la connexion est fiable."
+#, fuzzy
+#~| msgid "Use custom registration server "
+#~ msgid "No registration server selected."
+#~ msgstr "Aucun serveur d'enregistrement sélectionné."
 
-#. add the hint to the error details
-#. update the message when an old SMT server is found
-#. Error popup
-#. update the message when an old SMT server is found
-#: src/lib/registration/connect_helpers.rb:111
-#: src/lib/registration/connect_helpers.rb:116
-#: src/lib/registration/connect_helpers.rb:119
-#: src/lib/registration/connect_helpers.rb:126
-#: src/lib/registration/connect_helpers.rb:177
-#: src/lib/registration/connect_helpers.rb:181
-msgid "Connection to registration server failed."
-msgstr "Échec de la connexion au serveur d'enregistrement."
+# TLABEL online_update_2002_03_14_2340__8
+#, fuzzy
+#~| msgid "Registration Code"
+#~ msgid "Registration failed."
+#~ msgstr "L'enregistrement a échoué."
 
-#: src/lib/registration/connect_helpers.rb:123
-msgid ""
-"Registration server error.\n"
-"Retry the operation later."
-msgstr ""
-"Erreur liée au serveur d'enregistrement.\n"
-"Réessayez cette opération ultérieurement."
+#, fuzzy
+#~ msgid ""
+#~ "Registration server error.\n"
+#~ "Retry registration later."
+#~ msgstr ""
+#~ "Erreur du serveur d'enregistrement.\n"
+#~ "Réessayez l'enregistrement ultérieurement."
 
-#. create the main dialog definition
-#. @return [Yast::Term] the main UI dialog term
-#: src/lib/registration/ui/addon_selection_base_dialog.rb:91
-msgid "&Filter Out Beta Versions"
-msgstr "&Filtrer les versions bêta"
+#, fuzzy
+#~ msgid "&Local Registration Server..."
+#~ msgstr "Serveur d'enregistrement &local..."
 
-#. TRANSLATORS: radio button; %s is a host name.
-#: src/lib/registration/ui/base_system_registration_dialog.rb:254
-msgid "Register System via %s"
-msgstr "Enregistrer le système via %s"
+#, fuzzy
+#~ msgid ""
+#~ "If you do not register your system we will not be able\n"
+#~ "to grant you access to the update repositories.\n"
+#~ "\n"
+#~ "You can register after the installation or visit our\n"
+#~ "Customer Center for online registration.\n"
+#~ "\n"
+#~ "Really skip the registration now?"
+#~ msgstr ""
+#~ "Si vous n'enregistrez pas votre système, nous ne pourrons\n"
+#~ "pas vous donner accès aux dépôts de mise à jour.\n"
+#~ "\n"
+#~ "Vous pouvez vous enregistrer après l'installation ou visiter\n"
+#~ "le SUSE customer center pour un enregistrement en ligne.\n"
+#~ "\n"
+#~ "Voulez-vous vraiment passer l'enregistrement ?"
 
-#. TRANSLATORS: radio button
-#: src/lib/registration/ui/base_system_registration_dialog.rb:297
-msgid "Register System via local SMT Server"
-msgstr "Enregistrer le système via un serveur SMT local"
+#, fuzzy
+#~ msgid ""
+#~ "Please enter a registration or evaluation code for this product and your\n"
+#~ "User Name/E-mail address from the SUSE Customer Center in the fields "
+#~ "below.\n"
+#~ "Access to security and general software updates is only possible on\n"
+#~ "a registered system."
+#~ msgstr ""
+#~ "Merci d'entrer un code d'enregistrement ou d'évaluation pour ce produit\n"
+#~ "ainsi que votre nom d'utilisateur/adresse électronique pour le SUSE\n"
+#~ "Customer Center dans les champs ci-dessous. L'accès aux mises à jour de\n"
+#~ "sécurité et des logiciels est uniquement possible sur un système "
+#~ "enregistré."
 
-#: src/lib/registration/ui/base_system_registration_dialog.rb:344
-msgid "Please select your preferred method of registration."
-msgstr "Sélectionnez votre méthode d'enregistrement préférée."
+#, fuzzy
+#~ msgid ""
+#~ "If you skip product registration now, remember to register after\n"
+#~ "installation has completed."
+#~ msgstr ""
+#~ "Si vous passez l'enregistrement du produit maintenant, pensez à le faire\n"
+#~ "une fois l'installation terminée."
 
-#. Popup question: confirm skipping the registration
-#: src/lib/registration/ui/base_system_registration_dialog.rb:369
-msgid ""
-"If you do not register your system we will not be able\n"
-"to grant you access to the update repositories.\n"
-"\n"
-"You can register after the installation or visit our\n"
-"Customer Center for online registration."
-msgstr ""
-"Si vous n'enregistrez pas votre système, nous ne pourrons pas\n"
-"vous fournir d'accès aux dépôts de mise à jour.\n"
-"\n"
-"Vous pouvez vous enregistrer après l'installation ou visiter notre\n"
-"Customer Center pour un enregistrement en ligne."
+# TLABEL printer_2002_08_07_0216__69
+#, fuzzy
+#~| msgid "Novell Customer Center Configuration"
+#~ msgid "Network Configuration..."
+#~ msgstr "Configuration du réseau..."
 
-#. UI term for the network configuration button (or empty if not needed)
-#. @return [Yast::Term] UI term
-#: src/lib/registration/ui/base_system_registration_dialog.rb:381
-msgid "Net&work Configuration..."
-msgstr "Configuration &réseau..."
+#, fuzzy
+#~ msgid ""
+#~ "<p>Secure connection (HTTPS) uses SSL certificates for verifying the "
+#~ "authenticity of the server and for encrypting the transferred data.</p>"
+#~ msgstr ""
+#~ "<p>La connexion sécurisée (HTTPS) utilise des certificats SSL pour "
+#~ "vérifier l'authenticité du serveur et pour chiffrer les données "
+#~ "transférées.</p>"
 
-#. help text (RichText) for importing a SSL certificate (1/5)
-#: src/lib/registration/ui/import_certificate_dialog.rb:122
-msgid ""
-"<p>Secure connections (e.g. HTTPS) use SSL certificates for verifying the "
-"authenticity of the server and encrypting the data being transferred.</p>"
-msgstr ""
-"<p>Les connexions sécurisées (par exemple, HTTPS) emploient des certificats "
-"SSL pour vérifier l'authenticité du serveur et chiffrer les données en cours "
-"de transfert.</p>"
+#, fuzzy
+#~ msgid ""
+#~ "<p>You can choose to import the certificate it into the list of known "
+#~ "certificate autohorities (CA), meaning that you trust the subject and the "
+#~ "issuer of the unknown certificate.</p>"
+#~ msgstr ""
+#~ "<p>Vous pouvez choisir d'importer le certificat dans la liste des "
+#~ "autorités de certification (CA) connues, indiquant que vous faites "
+#~ "confiance au sujet et à l'émetteur du certificat inconnu.<p>"
 
-#. help text (RichText) for importing a SSL certificate (2/5)
-#: src/lib/registration/ui/import_certificate_dialog.rb:127
-msgid ""
-"<p>You can choose to import the certificate into the list of known "
-"certificate authorities (CA), meaning that you trust the subject and the "
-"issuer of the unknown certificate.</p>"
-msgstr ""
-"<p>Vous pouvez décider d'importer le certificat dans la liste des autorités "
-"de certification (CA) reconnues, ce qui signifie que vous faites confiance à "
-"l'objet et à l'émetteur du certificat inconnu.</p>"
+#, fuzzy
+#~ msgid ""
+#~ "<p>Importing a certificate will allow to use for example a self-signed "
+#~ "certificate.</p>"
+#~ msgstr ""
+#~ "<p>Importer un certificat vous permet d'utiliser un certificat auto-signé "
+#~ "par exemple.</p>"
 
-#. help text (RichText) for importing a SSL certificate (3/5)
-#: src/lib/registration/ui/import_certificate_dialog.rb:132
-msgid ""
-"<p>Importing a certificate will, for example, allow you to use a self-signed "
-"certificate.</p>"
-msgstr ""
-"<p>L'importation d'un certificat vous permet, par exemple, d'employer un "
-"certificat auto-signé.</p>"
+#, fuzzy
+#~ msgid ""
+#~ "<p><b>Important:</b> You should verify the fingerprint of the certificate "
+#~ "to be sure you import the genuine certificate from the requested server.</"
+#~ "p>"
+#~ msgstr ""
+#~ "<p><b>Important:</b> Vous devriez vérifier l'empreinte du certificat pour "
+#~ "être sur que vous importez le véritable certificat du serveur</p>"
 
-#. help text (RichText) for importing a SSL certificate (4/5)
-#: src/lib/registration/ui/import_certificate_dialog.rb:136
-msgid ""
-"<p><b>Important:</b> You should always verify the fingerprints of "
-"certificates you import to ensure they are genuine.</p>"
-msgstr ""
-"<p><b>Important :</b> vous devez toujours vérifier que les empreintes des "
-"certificats que vous importez sont authentiques.</p>"
+#~ msgid "Service selection"
+#~ msgstr "Sélection du service"
 
-#: src/lib/registration/ui/regservice_selection_dialog.rb:67
-msgid "No registration server selected"
-msgstr "Aucun serveur d'enregistrement n'est sélectionné."
+#~ msgid "Select a detected service from the list."
+#~ msgstr "Sélectionnez un service détecté dans la liste."
 
-#. Constructor
-#.
-#. @param services        [Array<SlpServiceClass::Service>] list of services to show
-#. @param heading         [String] Dialog's heading. If nil (or not specified), a default
-#. heading will be used).
-#. @param description     [String] Dialog's description (to be shown on top of the list).
-#. If nil (or not specified) a default description will be used.
-#. @param no_selected_msg [String] Message to be shown when no service was selected
-#. If nil (or not specified) a default description will be used.
-#. @param initial         [SlpServiceClass::Service] initially selected service. If nil
-#. (or not specified) the first service will be used.
-#: src/lib/slp/dialogs/service_selection.rb:78
-msgid "Service selection"
-msgstr "Sélection du service"
-
-#: src/lib/slp/dialogs/service_selection.rb:79
-msgid "Select a detected service from the list."
-msgstr "Sélectionnez un service détecté dans la liste."
-
-#: src/lib/slp/dialogs/service_selection.rb:80
-msgid "No service was selected."
-msgstr "Aucun service n'a été sélectionné."
+#~ msgid "No service was selected."
+#~ msgstr "Aucun service n'a été sélectionné."
 
 #, fuzzy
 #~ msgid "Migration Repositories"
