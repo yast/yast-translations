@@ -1,29 +1,29 @@
-#!/bin/sh
+#!/bin/bash -e
 
-if ! test -f /usr/share/YaST2/data/devtools/bin/y2makepot ; then
-	echo "Please install yast2-devtools!"
+if ! test -e ../devtools/build-tools/scripts/y2makepot ; then
+	echo "Please checkout yast properly"
 	exit 1
 fi
 
-cd ../yast-meta
-git pull
-export PATH=$PWD:$PATH
-cd ../yast-checkout
-y2m pull
 cd ..
+meta/y2m pull
 
-TRANDIR=$PWD/yast-translations
+TRANDIR=$PWD/translations/po
+y2makepot=$PWD/devtools/build-tools/scripts/y2makepot
 
-cd ../yast-checkout
 shopt -s nullglob
 for DIR in * ; do
-	cd $DIR
-	/usr/share/YaST2/data/devtools/bin/y2makepot
+	[ "$DIR" != 'translations' ] || continue
+	pushd $DIR
+	$y2makepot
 	for POT in *.pot ; do
 		DOMAIN=${POT%.pot}
+		if grep -q "^$DOMAIN.pot" $TRANDIR/OBSOLETE_POT_FILES; then
+			continue
+		fi
 		mkdir -p $TRANDIR/$DOMAIN
 		cp -a $POT $TRANDIR/$DOMAIN/
-		cd $TRANDIR/$DOMAIN
+		pushd $TRANDIR/$DOMAIN
 		git add $POT
 		for PO in *.po ; do
 			msgmerge --previous --lang=${PO%.po} $PO $POT -o $PO.new
@@ -31,7 +31,7 @@ for DIR in * ; do
 			git add $PO
 		done
 		git commit -m "Automatic update of $DOMAIN."
-		cd -
+		popd
 	done
-	cd ..
+	popd
 done

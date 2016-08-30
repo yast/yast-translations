@@ -1,13 +1,13 @@
 #!/bin/bash
 
-cd ../yast-translations
 shopt -s nullglob
-for DIR in * ; do
+for DIR in po/* ; do
+	DOMAIN="${DIR##*/}"
 	if ! test -d "$DIR" ; then
 		continue
 	fi
-	if ! test -f "$DIR/$DIR.pot" ; then
-		echo "$DIR: Missing $DIR.pot"
+	if ! test -f "$DIR/$DOMAIN.pot" ; then
+		echo "$DIR: Missing $DOMAIN.pot"
 	fi
 	HAS_PO=true
 	eval test \" $DIR/*.po \" = \"\ \"
