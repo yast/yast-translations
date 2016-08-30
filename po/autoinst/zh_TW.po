@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: autoinst\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-09-28 18:16+0200\n"
+"POT-Creation-Date: 2016-08-30 18:26+0200\n"
 "PO-Revision-Date: 2012-05-28 11:50+0800\n"
 "Last-Translator: Ray Chen <swyear@opensuse.org>\n"
 "Language-Team: Chinese Traditional <kde-i18n-doc@kde.org>\n"
@@ -34,7 +34,7 @@ msgstr "正在讀取組態資料..."
 
 #: src/clients/autoinst_test_clone.rb:16 src/clients/autoyast.rb:123
 #: src/include/autoinstall/conftree.rb:622
-#: src/include/autoinstall/dialogs.rb:333 src/modules/Profile.rb:352
+#: src/include/autoinstall/dialogs.rb:333 src/modules/Profile.rb:364
 msgid "This may take a while"
 msgstr "這可能需要一些時間"
 
@@ -54,14 +54,13 @@ msgstr "AutoYast"
 
 #. command line options
 #. Init variables
-#. Import users configuration from the profile
-#.
+#. unique id
 #. Backup
 #. Now check if there any classes defined in theis pre final control file
 #: src/clients/autoyast.rb:114 src/clients/ayast_setup.rb:148
-#: src/clients/inst_autoinit.rb:188 src/clients/inst_autosetup.rb:410
-#: src/clients/inst_autosetup_upgrade.rb:484
-#: src/modules/AutoInstallRules.rb:1001
+#: src/clients/inst_autoinit.rb:184 src/clients/inst_autosetup.rb:457
+#: src/clients/inst_autosetup_upgrade.rb:492
+#: src/modules/AutoInstallRules.rb:997
 msgid ""
 "Error while parsing the control file.\n"
 "Check the log files for more details or fix the\n"
@@ -264,7 +263,7 @@ msgid "Select a file from the table first."
 msgstr "請先從表格選取檔案。"
 
 #. Help text for last dialog of base installation
-#: src/clients/inst_autoconfigure.rb:35
+#: src/clients/inst_autoconfigure.rb:38
 msgid ""
 "<p>\n"
 "Please wait while the system is being configured.\n"
@@ -275,54 +274,41 @@ msgstr ""
 "</p>"
 
 #. Progress bar that displays overall progress in this dialog
-#: src/clients/inst_autoconfigure.rb:60
+#: src/clients/inst_autoconfigure.rb:63
 msgid "Progress"
 msgstr "進度"
 
 #. Dialog title for autoyast dialog
-#: src/clients/inst_autoconfigure.rb:69
+#: src/clients/inst_autoconfigure.rb:72
 msgid "Configuring System according to auto-install settings"
 msgstr "根據自動安裝設定來設定系統組態"
 
 #. TRANSLATORS: Error message, %s is replaced by newline-separated
-#. list of unsupported sections of the profile
-#. Do not translate words in brackets
-#: src/clients/inst_autoconfigure.rb:88
-msgid ""
-"These sections of AutoYaST profile are not supported anymore:\n"
-"\n"
-"%s\n"
-"\n"
-"Please, use, e.g., <scripts/> or <files/> to change the configuration."
-msgstr ""
-
-#. TRANSLATORS: Error message, %s is replaced by newline-separated
 #. list of unknown sections of the profile
 #. Do not translate words in brackets
-#: src/clients/inst_autoconfigure.rb:103
+#: src/clients/inst_autoconfigure.rb:94
 msgid ""
-"These sections of AutoYaST profile cannot be processed on this system:\n"
-"\n"
-"%s\n"
-"\n"
-"Maybe they were misspelled or your profile does not contain all the needed "
-"YaST packages in <software/> section."
+"These sections of AutoYaST profile cannot be processed on this system:"
+"<br><br>%s<br><br>Maybe they were misspelled or your profile does not "
+"contain all the needed YaST packages in &lt;software/&gt; section."
 msgstr ""
+"在此系統上無法處理 AutoYaST 設定檔的以下區段：<br><br>%s<br><br>這些區段可能"
+"拼寫不當，或者設定檔的 &lt;software/&gt; 區段中未包含全部所需的 YaST 套件。"
 
 #. determine name of client, if not use default name
 #. Call::Function(module_auto, ["Import", eval(Profile::current[resource]:$[])   ]);
-#: src/clients/inst_autoconfigure.rb:192 src/clients/inst_autoconfigure.rb:221
-#: src/clients/inst_autoconfigure.rb:234
+#: src/clients/inst_autoconfigure.rb:184 src/clients/inst_autoconfigure.rb:213
+#: src/clients/inst_autoconfigure.rb:226
 msgid "Configuring %1"
 msgstr "正在設定 %1 組態"
 
-#: src/clients/inst_autoconfigure.rb:194 src/clients/inst_autoconfigure.rb:223
-#: src/clients/inst_autoconfigure.rb:236
+#: src/clients/inst_autoconfigure.rb:186 src/clients/inst_autoconfigure.rb:215
+#: src/clients/inst_autoconfigure.rb:228
 msgid "Not Configuring %1"
 msgstr "未設定 %1 組態"
 
 #. online update
-#: src/clients/inst_autoconfigure.rb:288
+#: src/clients/inst_autoconfigure.rb:280
 msgid "Executing Post-Scripts"
 msgstr "正在執行安裝後程序檔"
 
@@ -338,12 +324,12 @@ msgid "Activating systemd default target"
 msgstr "正在啟用 systemd 預設目標"
 
 #. Just in case, remove this file to avoid reconfiguring...
-#: src/clients/inst_autoconfigure.rb:342
+#: src/clients/inst_autoconfigure.rb:341
 msgid "Finishing Configuration"
 msgstr "正在完成組態"
 
 #. NetworkInterfaces::Write( ".*" );
-#: src/clients/inst_autoconfigure.rb:448
+#: src/clients/inst_autoconfigure.rb:447
 msgid "Processing resource %1"
 msgstr "處理資源 %1"
 
@@ -403,7 +389,14 @@ msgstr ""
 "執行影像程序失敗：\n"
 "%1"
 
-#. import "Arch";
+#. encoding: utf-8
+#. File:	clients/inst_autoinit.ycp
+#. Package:	Auto-installation
+#. Summary:	Parses XML Profile for automatic installation
+#. Authors:	Anas Nashif <nashif@suse.de>
+#.
+#. $Id$
+#.
 #. encoding: utf-8
 #. File:	clients/autoinst_post.ycp
 #. Package:	Auto-installation
@@ -412,7 +405,7 @@ msgstr ""
 #. the system as described in the profile file.
 #.
 #. $Id$
-#: src/clients/inst_autoinit.rb:37 src/clients/inst_autopost.rb:48
+#: src/clients/inst_autoinit.rb:38 src/clients/inst_autopost.rb:48
 msgid ""
 "<p>\n"
 "Please wait while the system is prepared for autoinstallation.</p>\n"
@@ -420,59 +413,50 @@ msgstr ""
 "<p>\n"
 "正在準備系統以進行自動安裝，請稍候。</p>\n"
 
-#: src/clients/inst_autoinit.rb:41
+#: src/clients/inst_autoinit.rb:42
 msgid "Probe hardware"
 msgstr "偵測硬體"
 
-#: src/clients/inst_autoinit.rb:42
+#: src/clients/inst_autoinit.rb:43
 msgid "Retrieve & Read Control File"
 msgstr "取回並讀取控制檔案"
 
-#: src/clients/inst_autoinit.rb:43
+#: src/clients/inst_autoinit.rb:44
 msgid "Parse control file"
 msgstr "分析控制檔案"
 
-#: src/clients/inst_autoinit.rb:44 src/clients/inst_autoinit.rb:201
+#. Checking profile for unsupported sections.
+#: src/clients/inst_autoinit.rb:45 src/clients/inst_autoinit.rb:199
 msgid "Initial Configuration"
 msgstr "啟始組態"
 
-#: src/clients/inst_autoinit.rb:49 src/clients/inst_autopost.rb:66
+#: src/clients/inst_autoinit.rb:50 src/clients/inst_autopost.rb:66
 msgid "Preparing System for Automatic Installation"
 msgstr "正在準備系統，以進行自動安裝"
 
 #. progress bar length
-#: src/clients/inst_autoinit.rb:57
+#: src/clients/inst_autoinit.rb:58
 msgid "Preprobing stage"
 msgstr "預先偵測階段"
 
-#. // moved to autoset to fulfill fate #301193
-#. // the DASD section in an autoyast profile can't be changed via pre-script
-#. //
-#. if( Arch::s390 () && AutoinstConfig::remoteProfile == true ) {
-#. y2milestone("arch=s390 and remote_profile=true");
-#. symbol ret = processProfile();
-#. if( ret != `ok ) {
-#. return ret;
-#. }
-#. y2milestone("processProfile=ok");
-#. profileFetched = true;
-#.
-#. // FIXME: the hardcoded stuff should be in the control.xml later
-#. if( haskey(Profile::current, "dasd") ) {
-#. y2milestone("dasd found");
-#. Call::Function("dasd_auto", ["Import", Profile::current["dasd"]:$[] ]);
-#. }
-#. if( haskey(Profile::current, "zfcp") ) {
-#. y2milestone("zfcp found");
-#. Call::Function("zfcp_auto", ["Import", Profile::current["zfcp"]:$[] ]);
-#. }
-#. }
-#: src/clients/inst_autoinit.rb:90
+#: src/clients/inst_autoinit.rb:69
 msgid "Probing hardware..."
 msgstr "正在偵測硬體..."
 
+#. TRANSLATORS: Error message, %s is replaced by newline-separated
+#. list of unsupported sections of the profile
+#. Do not translate words in brackets
+#: src/clients/inst_autoinit.rb:128
+msgid ""
+"These sections of AutoYaST profile are not supported anymore:<br><br>"
+"%s<br><br>Please, use, e.g., &lt;scripts/&gt; or &lt;files/&gt; to change "
+"the configuration."
+msgstr ""
+"不再支援 AutoYaST 設定檔的以下區段：<br><br>%s<br><br>請使用 &lt;scripts/"
+"&gt; 或 &lt;files/&gt; 等標記變更組態。"
+
 #. Set reporting behaviour to default, changed later if required
-#: src/clients/inst_autoinit.rb:183
+#: src/clients/inst_autoinit.rb:179
 msgid "Parsing control file"
 msgstr "正在分析控制檔案"
 
@@ -516,35 +500,35 @@ msgstr "正在檢查 %1 所需要的套件..."
 #. Uwe Gansert <ug@suse.de>
 #.
 #. $Id: inst_autosetup.ycp 61521 2010-03-29 09:10:07Z ug $
-#: src/clients/inst_autosetup.rb:53 src/clients/inst_autosetup_upgrade.rb:47
+#: src/clients/inst_autosetup.rb:51 src/clients/inst_autosetup_upgrade.rb:43
 msgid "<P>Please wait while the system is prepared for autoinstallation.</P>"
 msgstr "<P>正在準備系統以進行自動安裝，請稍候。</P>"
 
-#: src/clients/inst_autosetup.rb:57 src/clients/inst_autosetup_upgrade.rb:52
+#: src/clients/inst_autosetup.rb:55 src/clients/inst_autosetup_upgrade.rb:48
 msgid "Execute pre-install user scripts"
 msgstr "執行預先安裝使用者程序檔"
 
-#: src/clients/inst_autosetup.rb:58 src/clients/inst_autosetup_upgrade.rb:51
+#: src/clients/inst_autosetup.rb:56 src/clients/inst_autosetup_upgrade.rb:47
 msgid "Configure General Settings "
 msgstr "設定一般設定組態 "
 
-#: src/clients/inst_autosetup.rb:59 src/clients/inst_autosetup_upgrade.rb:53
+#: src/clients/inst_autosetup.rb:57 src/clients/inst_autosetup_upgrade.rb:49
 msgid "Set up language"
 msgstr "設定語言"
 
-#: src/clients/inst_autosetup.rb:60
+#: src/clients/inst_autosetup.rb:58
 msgid "Create partition plans"
 msgstr "建立分割區計畫"
 
-#: src/clients/inst_autosetup.rb:61 src/clients/inst_autosetup_upgrade.rb:56
+#: src/clients/inst_autosetup.rb:59 src/clients/inst_autosetup_upgrade.rb:52
 msgid "Configure Bootloader"
 msgstr "設定 Bootloader"
 
-#: src/clients/inst_autosetup.rb:62 src/clients/inst_autosetup_upgrade.rb:54
+#: src/clients/inst_autosetup.rb:60 src/clients/inst_autosetup_upgrade.rb:50
 msgid "Registration"
 msgstr "註冊"
 
-#: src/clients/inst_autosetup.rb:63 src/clients/inst_autosetup_upgrade.rb:55
+#: src/clients/inst_autosetup.rb:61 src/clients/inst_autosetup_upgrade.rb:51
 msgid "Configure Software selections"
 msgstr "設定軟體選項組態"
 
@@ -556,11 +540,19 @@ msgstr "設定 Systemd 預設目標"
 msgid "Configure users and groups"
 msgstr "設定使用者和群組"
 
-#: src/clients/inst_autosetup.rb:69 src/clients/inst_autosetup_upgrade.rb:61
+#: src/clients/inst_autosetup.rb:64
+msgid "Import SSH keys/settings"
+msgstr "輸入 SSH 金鑰/設定"
+
+#: src/clients/inst_autosetup.rb:65
+msgid "Confirm License"
+msgstr "確認授權"
+
+#: src/clients/inst_autosetup.rb:69 src/clients/inst_autosetup_upgrade.rb:57
 msgid "Executing pre-install user scripts..."
 msgstr "正在執行預先安裝使用者程序檔..."
 
-#: src/clients/inst_autosetup.rb:70 src/clients/inst_autosetup_upgrade.rb:60
+#: src/clients/inst_autosetup.rb:70 src/clients/inst_autosetup_upgrade.rb:56
 msgid "Configuring general settings..."
 msgstr "正在設定一般設定..."
 
@@ -572,7 +564,7 @@ msgstr "正在設定語言..."
 msgid "Creating partition plans..."
 msgstr "正在建立分割區計畫..."
 
-#: src/clients/inst_autosetup.rb:73 src/clients/inst_autosetup_upgrade.rb:65
+#: src/clients/inst_autosetup.rb:73 src/clients/inst_autosetup_upgrade.rb:61
 msgid "Configuring Bootloader..."
 msgstr "正在設定 Bootloader 組態..."
 
@@ -580,7 +572,7 @@ msgstr "正在設定 Bootloader 組態..."
 msgid "Registering the system..."
 msgstr "正在註冊系統..."
 
-#: src/clients/inst_autosetup.rb:75 src/clients/inst_autosetup_upgrade.rb:64
+#: src/clients/inst_autosetup.rb:75 src/clients/inst_autosetup_upgrade.rb:60
 msgid "Configuring Software selections..."
 msgstr "正在設定軟體選項組態..."
 
@@ -592,7 +584,15 @@ msgstr "正在設定 Systemd 預設目標..."
 msgid "Importing users and groups configuration..."
 msgstr "正在輸入使用者和群組組態..."
 
-#: src/clients/inst_autosetup.rb:81 src/clients/inst_autosetup_upgrade.rb:69
+#: src/clients/inst_autosetup.rb:78
+msgid "Importing SSH keys/settings..."
+msgstr "正在輸入 SSH 金鑰/設定..."
+
+#: src/clients/inst_autosetup.rb:79
+msgid "Confirming License..."
+msgstr "正在確認授權..."
+
+#: src/clients/inst_autosetup.rb:83 src/clients/inst_autosetup_upgrade.rb:65
 msgid "Preparing System for Automated Installation"
 msgstr "正在準備系統，以進行自動安裝"
 
@@ -608,12 +608,12 @@ msgstr "正在處理附加產品..."
 #. Set it in the Language module.
 #.
 #. Set it in the Language module.
-#: src/clients/inst_autosetup.rb:202 src/clients/inst_autosetup_upgrade.rb:149
+#: src/clients/inst_autosetup.rb:210 src/clients/inst_autosetup_upgrade.rb:145
 msgid "Configuring language..."
 msgstr "正在設定語言組態..."
 
 #. Yes, do not set Storage testsuite here as we want really GUI with proposal
-#: src/clients/inst_autosetup.rb:290
+#: src/clients/inst_autosetup.rb:298
 msgid ""
 "Error while configuring partitions.\n"
 "Try again.\n"
@@ -621,8 +621,9 @@ msgstr ""
 "設定分割區時發生錯誤。\n"
 "請再試一次。\n"
 
-#. Software
-#: src/clients/inst_autosetup.rb:344
+#. Adding selections (defined in PackageAI) to libzypp and solving
+#. package dependencies.
+#: src/clients/inst_autosetup.rb:361
 msgid ""
 "Error while configuring software selections.\n"
 "Try again.\n"
@@ -632,55 +633,55 @@ msgstr ""
 
 #. ReportingDialog()
 #. @return sumbol
-#: src/clients/report_auto.rb:103
+#: src/clients/report_auto.rb:99
 msgid "Messages"
 msgstr "訊息"
 
-#: src/clients/report_auto.rb:109
+#: src/clients/report_auto.rb:105
 msgid "Sho&w messages"
 msgstr "顯示訊息(&W)"
 
-#: src/clients/report_auto.rb:117
+#: src/clients/report_auto.rb:113
 msgid "Lo&g messages"
 msgstr "記錄訊息(&G)"
 
-#: src/clients/report_auto.rb:128
+#: src/clients/report_auto.rb:124
 msgid "&Time-out (in sec.)"
 msgstr "逾時 (秒)(&T)"
 
-#: src/clients/report_auto.rb:140
+#: src/clients/report_auto.rb:136
 msgid "Warnings"
 msgstr "警告"
 
-#: src/clients/report_auto.rb:146
+#: src/clients/report_auto.rb:142
 msgid "Sh&ow warnings"
 msgstr "顯示警告(&O)"
 
-#: src/clients/report_auto.rb:154
+#: src/clients/report_auto.rb:150
 msgid "Log wa&rnings"
 msgstr "記錄警告(&R)"
 
-#: src/clients/report_auto.rb:165
+#: src/clients/report_auto.rb:161
 msgid "Time-out (in s&ec.)"
 msgstr "逾時 (秒)(&E)"
 
-#: src/clients/report_auto.rb:177
+#: src/clients/report_auto.rb:173
 msgid "Errors"
 msgstr "錯誤"
 
-#: src/clients/report_auto.rb:183
+#: src/clients/report_auto.rb:179
 msgid "Show error&s"
 msgstr "顯示錯誤(&S)"
 
-#: src/clients/report_auto.rb:191
+#: src/clients/report_auto.rb:187
 msgid "&Log errors"
 msgstr "記錄錯誤(&L)"
 
-#: src/clients/report_auto.rb:202
+#: src/clients/report_auto.rb:198
 msgid "Time-o&ut (in sec.)"
 msgstr "逾時 (秒)(&U)"
 
-#: src/clients/report_auto.rb:217
+#: src/clients/report_auto.rb:213
 msgid ""
 "<p>Depending on your experience, you can skip, log, and show (with time-"
 "out)\n"
@@ -689,7 +690,7 @@ msgstr ""
 "<p>視您的經驗而定，您可以跳過、記錄和顯示 (含逾時)\n"
 "安裝訊息。</p> \n"
 
-#: src/clients/report_auto.rb:223
+#: src/clients/report_auto.rb:219
 msgid ""
 "<p>It is recommended to show all  <b>messages</b> with time-out.\n"
 "Warnings can be skipped in some places, but should not be ignored.</p>\n"
@@ -697,17 +698,17 @@ msgstr ""
 "<p>建議您顯示所有含逾時的<b>「訊息」</b>。\n"
 "某些地方可以跳過警告，但是不應該忽略。</p>\n"
 
-#: src/clients/report_auto.rb:230
+#: src/clients/report_auto.rb:226
 msgid "Messages and Logging"
 msgstr "訊息和記錄"
 
 #. Select packages
 #. @return [Symbol]
-#: src/clients/software_auto.rb:87
+#: src/clients/software_auto.rb:88
 msgid "Software Selection"
 msgstr "軟體選項"
 
-#: src/clients/software_auto.rb:88
+#: src/clients/software_auto.rb:89
 msgid ""
 "<p>\n"
 "Select one of the following <b>base</b> selections and click <i>Detailed<i> "
@@ -723,20 +724,20 @@ msgstr ""
 #. AutoinstSoftware::pmInit();
 #. string mainRepo = "http://10.10.0.162/SLES11/DVD1/";
 #. string mainRepo = "ftp://10.10.0.100/install/SLP/openSUSE-11.2/x86_64/DVD1/";
-#: src/clients/software_auto.rb:120
+#: src/clients/software_auto.rb:121
 msgid "Location of the installation source (like http://myhost/11.3/DVD1/)"
 msgstr "安裝來源的位置 (像是 http://myhost/11.3/DVD1/)"
 
-#: src/clients/software_auto.rb:128
+#: src/clients/software_auto.rb:129
 msgid ""
 "The inst-source of this system (you can't create images if you choose this)"
 msgstr "此系統的安裝來源(如果選擇此項，將無法建立影像)"
 
-#: src/clients/software_auto.rb:164
+#: src/clients/software_auto.rb:165
 msgid "using that installation source failed"
 msgstr "使用安裝來源失敗"
 
-#: src/clients/software_auto.rb:189
+#: src/clients/software_auto.rb:190
 msgid "Reading package database..."
 msgstr "正在讀取套件資料庫..."
 
@@ -993,10 +994,15 @@ msgstr "儲存未儲存的變更到磁碟區組群嗎？"
 msgid "Volgroup device name"
 msgstr "磁碟區組群裝置名稱"
 
+#. FIXME: why not pass the variable always?
+#: src/include/autoinstall/ask.rb:540
+msgid "A user defined script is running. This may take a while."
+msgstr "正在執行使用者定義的程序檔。這可能需要一些時間。"
+
 #. Shows a dialog when 'control file' can't be found
 #. @param [String] original Original value
 #. @return [String] new value
-#: src/include/autoinstall/autoinst_dialogs.rb:21
+#: src/include/autoinstall/autoinst_dialogs.rb:22
 msgid ""
 "<p>\n"
 "A profile for this machine could not be found or retrieved.\n"
@@ -1014,11 +1020,11 @@ msgstr ""
 "正在使用規則或以主機名稱為基礎的控制檔案，請重新啟動\n"
 "安裝程序，並請確定可存取控制檔案。</p>\n"
 
-#: src/include/autoinstall/autoinst_dialogs.rb:30
+#: src/include/autoinstall/autoinst_dialogs.rb:31
 msgid "System Profile Location"
 msgstr "系統設定檔位置"
 
-#: src/include/autoinstall/autoinst_dialogs.rb:45
+#: src/include/autoinstall/autoinst_dialogs.rb:46
 msgid "&Profile Location:"
 msgstr "設定檔位置(&P)："
 
@@ -1026,11 +1032,11 @@ msgstr "設定檔位置(&P)："
 #. Below this label, all targets are listed that can be used as
 #. installation target
 #. heading text
-#: src/include/autoinstall/autoinst_dialogs.rb:117
+#: src/include/autoinstall/autoinst_dialogs.rb:118
 msgid "Choose a hard disk"
 msgstr "選擇硬碟"
 
-#: src/include/autoinstall/autoinst_dialogs.rb:124
+#: src/include/autoinstall/autoinst_dialogs.rb:125
 msgid "No disks found."
 msgstr "找不到磁碟。"
 
@@ -1039,7 +1045,7 @@ msgstr "找不到磁碟。"
 #. "Preparing Hard Disk - Step 1" is the description of the dialog what to
 #. do while the following locale is the help description
 #. help part 1 of 1
-#: src/include/autoinstall/autoinst_dialogs.rb:132
+#: src/include/autoinstall/autoinst_dialogs.rb:133
 msgid ""
 "<p>\n"
 "All hard disks automatically detected on your system\n"
@@ -1052,13 +1058,13 @@ msgstr ""
 "</p>"
 
 #. force help text width
-#: src/include/autoinstall/autoinst_dialogs.rb:154
+#: src/include/autoinstall/autoinst_dialogs.rb:155
 msgid "Hard Disk Selection"
 msgstr "硬碟選項"
 
 #. there is a selection from that one option has to be
 #. chosen - at the moment no option is chosen
-#: src/include/autoinstall/autoinst_dialogs.rb:177
+#: src/include/autoinstall/autoinst_dialogs.rb:178
 msgid "Select one of the options to continue."
 msgstr "請選取其中一個選項以繼續。"
 
@@ -1611,7 +1617,7 @@ msgstr "警告"
 #. list<any> l = [ "key1",0,"key3" ];
 #. m[ l ] = v;
 #. @return [Hash]
-#: src/include/autoinstall/dialogs.rb:410 src/modules/Profile.rb:807
+#: src/include/autoinstall/dialogs.rb:410 src/modules/Profile.rb:819
 msgid "Checking XML with RNG validation..."
 msgstr "正在以 RNG 驗證檢查 XML..."
 
@@ -1621,7 +1627,7 @@ msgid "Section %1: "
 msgstr "區段 %1："
 
 #. jing validation -- validates complete xml profile
-#: src/include/autoinstall/dialogs.rb:459 src/modules/Profile.rb:819
+#: src/include/autoinstall/dialogs.rb:459 src/modules/Profile.rb:831
 msgid "Checking XML with RNC validation..."
 msgstr "正在以 RNC 驗證檢查 XML..."
 
@@ -2016,67 +2022,6 @@ msgstr ""
 "準備。\n"
 "</p>\n"
 
-#. autoyast tried to read a file but had no success.
-#: src/include/autoinstall/io.rb:123
-msgid "Cannot find URL '%1' via protocol HTTP(S). Server returned code %2."
-msgstr "無法透過 HTTP(S) 協定找到 URL '%1'。伺服器傳回代碼 %2。"
-
-#. autoyast tried to read a file but had no success.
-#: src/include/autoinstall/io.rb:143
-msgid "Cannot find URL '%1' via protocol FTP. Server returned code %2."
-msgstr "無法透過 FTP 協定找到 URL '%1'。伺服器傳回代碼 %2。"
-
-#. FIXME: I have doubts this will ever work. Too early.
-#: src/include/autoinstall/io.rb:159
-msgid "Reading file on %1/%2 failed.\n"
-msgstr "無法讀取 %1/%2 上的檔案。\n"
-
-#: src/include/autoinstall/io.rb:175
-msgid "Reading file on %1 failed.\n"
-msgstr "無法讀取 %1 上的檔案。\n"
-
-#. autoyast tried to mount the CD but had no success.
-#. autoyast tried to mount a NFS directory which failed
-#. autoyast tried to mount a NFS directory which failed
-#: src/include/autoinstall/io.rb:237 src/include/autoinstall/io.rb:293
-#: src/include/autoinstall/io.rb:337
-msgid "Mounting %1 failed."
-msgstr "無法裝載 %1。"
-
-#. autoyast tried to read a file but had no success.
-#: src/include/autoinstall/io.rb:268
-msgid "Reading a file on CD failed. Path: %1/%2."
-msgstr "無法讀取 CD 上的檔案。路徑：%1/%2."
-
-#. autoyast tried to copy a file via NFS which failed
-#. autoyast tried to copy a file via NFS which failed
-#: src/include/autoinstall/io.rb:316 src/include/autoinstall/io.rb:360
-msgid "Remote file %1 cannot be retrieved"
-msgstr "無法取回遠端檔案 %1"
-
-#. this is workaround for bnc#849767
-#. because of changes in autoyast startup this code is now
-#. called much sooner (before Storage stuff is initialized)
-#. call dummy method to trigger Storage initialization
-#: src/include/autoinstall/io.rb:485
-msgid "%1 is not mounted and mount failed"
-msgstr "%1 未掛載且掛載失敗"
-
-#. autoyast tried to copy a file but that file can't be found
-#: src/include/autoinstall/io.rb:505
-msgid "File %1 cannot be found"
-msgstr "找不到檔案 %1"
-
-#. Device
-#: src/include/autoinstall/io.rb:527
-msgid "Cannot find URL '%1' via protocol TFTP."
-msgstr "無法透過 TFTP 協定找到 URL '%1'。"
-
-#. the user wanted autoyast to fetch it's profile via an unknown protocol
-#: src/include/autoinstall/io.rb:534
-msgid "Unknown protocol %1."
-msgstr "未知協定 %1。"
-
 #. Script Configuration
 #. @return  script configuration dialog
 #: src/include/autoinstall/script_dialogs.rb:30
@@ -2354,14 +2299,14 @@ msgstr "無法剖析規則檔案。XML 剖析程式報告：\n"
 #. @param [String] result_profile the resulting control file path
 #. @return [Boolean] true on success
 #. autoyast has read the autoyast configuration file but something went wrong
-#: src/modules/AutoInstallRules.rb:909 src/modules/Profile.rb:738
+#: src/modules/AutoInstallRules.rb:905 src/modules/Profile.rb:750
 msgid ""
 "The XML parser reported an error while parsing the autoyast profile. The "
 "error message is:\n"
 msgstr "XML 剖析程式報告在剖析 autoyast 設定檔時發生錯誤。錯誤訊息為：\n"
 
 #. backdoor for merging problems.
-#: src/modules/AutoInstallRules.rb:1054
+#: src/modules/AutoInstallRules.rb:1050
 msgid ""
 "\n"
 "User-defined classes could not be retrieved.  Make sure all classes \n"
@@ -2377,45 +2322,61 @@ msgstr ""
 
 #. The line above needs to be fixed when we have more attributes
 #. comment will look like this: "(description=BLA BLA)"
-#: src/modules/AutoinstConfig.rb:278
+#: src/modules/AutoinstConfig.rb:289
 msgid "Choose Profile"
 msgstr "選擇 Profile"
 
+#. Nothing returned by SLP query
+#: src/modules/AutoinstConfig.rb:312
+#, fuzzy
+#| msgid "The resulting autoyast profile can be found in %s."
+msgid "No 'autoyast' provider has been found via SLP."
+msgstr "可以在 %s 中找到產生的 autoyast 設定檔。"
+
+#. There is no profile defined/found anywhere
+#: src/modules/AutoinstConfig.rb:357
+#, fuzzy
+#| msgid "Path to AutoYaST profile"
+msgid ""
+"Invalid AutoYaST profile URL\n"
+"%{url}"
+msgstr "AutoYast 設定檔的路徑"
+
 #. SetProtocolMessage ()
 #. @return [void]
-#: src/modules/AutoinstConfig.rb:334
+#: src/modules/AutoinstConfig.rb:384
 msgid "Retrieving control file from floppy."
 msgstr "正在從磁片取回控制檔案。"
 
-#: src/modules/AutoinstConfig.rb:337
+#: src/modules/AutoinstConfig.rb:387
 msgid "Retrieving control file (%1) from TFTP server: %2."
 msgstr "從 TFTP 伺服器取回控制檔案 (%1)：%2。"
 
-#: src/modules/AutoinstConfig.rb:343
+#: src/modules/AutoinstConfig.rb:393
 msgid "Retrieving control file (%1) from NFS server: %2."
 msgstr "從 NFS 伺服器取回控制檔案 (%1)：%2。"
 
-#: src/modules/AutoinstConfig.rb:349
+#: src/modules/AutoinstConfig.rb:399
 msgid "Retrieving control file (%1) from HTTP server: %2."
 msgstr "從 HTTP 伺服器取回控制檔案 (%1)：%2。"
 
-#: src/modules/AutoinstConfig.rb:355
+#: src/modules/AutoinstConfig.rb:405
 msgid "Retrieving control file (%1) from FTP server: %2."
 msgstr "從 FTP 伺服器取回控制檔案 (%1)：%2。"
 
-#: src/modules/AutoinstConfig.rb:361
+#: src/modules/AutoinstConfig.rb:411
 msgid "Copying control file from file: %1."
 msgstr "從檔案複製控制檔案：%1。"
 
-#: src/modules/AutoinstConfig.rb:366
+#: src/modules/AutoinstConfig.rb:416
 msgid "Copying control file from device: /dev/%1."
 msgstr "從裝置複製控制檔案：/dev/%1。"
 
-#: src/modules/AutoinstConfig.rb:370
+#: src/modules/AutoinstConfig.rb:420
 msgid "Copying control file from default location."
 msgstr "從預設位置複製控制檔案。"
 
-#: src/modules/AutoinstConfig.rb:372
+#: src/modules/AutoinstConfig.rb:422
 msgid "Source unknown."
 msgstr "不明的來源。"
 
@@ -2425,7 +2386,7 @@ msgstr "不明的來源。"
 #. {
 #. local_rules_file = (string)WFM::Args(1);
 #. }
-#: src/modules/AutoinstConfig.rb:452
+#: src/modules/AutoinstConfig.rb:502
 msgid ""
 "<h3>AutoYaST Configuration Management System</h3>\n"
 "<p>Almost all resources of the control file can be\n"
@@ -2435,7 +2396,7 @@ msgstr ""
 "<p>幾乎所有控制檔案的資源，都可以\n"
 "使用組態管理系統來設定。</p>\n"
 
-#: src/modules/AutoinstConfig.rb:457
+#: src/modules/AutoinstConfig.rb:507
 msgid ""
 "<p>Most of the modules used to create the configuration are identical to "
 "those available\n"
@@ -2451,7 +2412,7 @@ msgstr ""
 "使用 AutoYaST 安裝其他系統時，可以使用該控制檔案。\n"
 "</p>\n"
 
-#: src/modules/AutoinstConfig.rb:464
+#: src/modules/AutoinstConfig.rb:514
 msgid ""
 "<p>In addition to the existing and familiar modules,\n"
 "new interfaces were created for special and complex configurations, "
@@ -2582,7 +2543,7 @@ msgstr "無法重新使用 volume 群組 %1。這個 volume 群組不存在。"
 
 #. if no feeder (PV) was found for current volume group
 #. the next instructions taints result
-#: src/modules/AutoinstPartPlan.rb:282
+#: src/modules/AutoinstPartPlan.rb:289
 msgid "Volume group '%1' must have at least one physical volume. Provide one."
 msgstr "Volume group '%1' 至少要有1個 physical volume。請提供。"
 
@@ -2592,71 +2553,71 @@ msgstr "Volume group '%1' 至少要有1個 physical volume。請提供。"
 #. @return  [String] configuration summary dialog
 #. return Summary of configuration
 #. @return  [String] configuration summary dialog
-#: src/modules/AutoinstPartPlan.rb:682 src/modules/AutoinstStorage.rb:913
+#: src/modules/AutoinstPartPlan.rb:703 src/modules/AutoinstStorage.rb:913
 msgid "Drives"
 msgstr "磁碟機"
 
 #. We are counting harddisks only (type CT_DISK)
-#: src/modules/AutoinstPartPlan.rb:697
+#: src/modules/AutoinstPartPlan.rb:709
 msgid "%s drive in total"
 msgid_plural "%s drives in total"
 msgstr[0] "%s 磁碟機總計"
 
-#: src/modules/AutoinstPartPlan.rb:716
+#: src/modules/AutoinstPartPlan.rb:728
 msgid "Not yet cloned."
 msgstr "尚未複製。"
 
 #. Return Summary
 #. @return [String] summary
-#: src/modules/AutoinstScripts.rb:328
+#: src/modules/AutoinstScripts.rb:343
 msgid "Preinstallation Scripts"
 msgstr "安裝前程序檔"
 
-#: src/modules/AutoinstScripts.rb:341
+#: src/modules/AutoinstScripts.rb:356
 msgid "Postinstallation Scripts"
 msgstr "安裝後程序檔"
 
-#: src/modules/AutoinstScripts.rb:354
+#: src/modules/AutoinstScripts.rb:369
 msgid "Chroot Scripts"
 msgstr "Chroot 程序檔"
 
-#: src/modules/AutoinstScripts.rb:367
+#: src/modules/AutoinstScripts.rb:382
 msgid "Init Scripts"
 msgstr "Init 程序檔"
 
-#: src/modules/AutoinstScripts.rb:380
+#: src/modules/AutoinstScripts.rb:395
 msgid "Postpartitioning Scripts"
 msgstr "分割後程序檔"
 
 #. return type of script as formatted string
 #. @param script type
 #. @return [String] type as translated string
-#: src/modules/AutoinstScripts.rb:475
+#: src/modules/AutoinstScripts.rb:490
 msgid "Pre"
 msgstr "預先"
 
-#: src/modules/AutoinstScripts.rb:477
+#: src/modules/AutoinstScripts.rb:492
 msgid "Post"
 msgstr "後置"
 
-#: src/modules/AutoinstScripts.rb:479
+#: src/modules/AutoinstScripts.rb:494
 msgid "Init"
 msgstr "Init"
 
-#: src/modules/AutoinstScripts.rb:481
+#: src/modules/AutoinstScripts.rb:496
 msgid "Chroot"
 msgstr "Chroot"
 
-#: src/modules/AutoinstScripts.rb:483
+#: src/modules/AutoinstScripts.rb:498
 msgid "Postpartitioning"
 msgstr "磁碟分割之後"
 
-#: src/modules/AutoinstScripts.rb:485
+#: src/modules/AutoinstScripts.rb:500
 msgid "Unknown"
 msgstr "未知的"
 
 #. warning text during the installation. %1 is a list of package names
-#: src/modules/AutoinstSoftware.rb:172
+#: src/modules/AutoinstSoftware.rb:174
 msgid ""
 "These packages could not be found in the software repositories:\n"
 "%1"
@@ -2666,35 +2627,35 @@ msgstr ""
 
 #. 4 means "already exists"
 #. Add add-ons
-#: src/modules/AutoinstSoftware.rb:327 src/modules/AutoinstSoftware.rb:347
+#: src/modules/AutoinstSoftware.rb:329 src/modules/AutoinstSoftware.rb:349
 msgid "Adding repo %1 failed"
 msgstr "加入套件庫 %1 失敗"
 
 #. Install
-#: src/modules/AutoinstSoftware.rb:375
+#: src/modules/AutoinstSoftware.rb:377
 msgid ""
 "Image creation failed while pattern installation. Please check /tmp/ay_image."
 "log"
 msgstr "在安裝樣式過程中影像建立失敗。 請查看 /tmp/ay_image.log"
 
-#: src/modules/AutoinstSoftware.rb:383
+#: src/modules/AutoinstSoftware.rb:385
 msgid "Creating Image - installing packages"
 msgstr "建立影像 - 正在安裝套件"
 
-#: src/modules/AutoinstSoftware.rb:393
+#: src/modules/AutoinstSoftware.rb:395
 msgid ""
 "Image creation failed while package installation. Please check /tmp/ay_image."
 "log"
 msgstr "當安裝套件時影響建立失敗。請查看 /tmp/ay_image.log"
 
 #. Popup::Message( _("in the next file dialog you have to choose the target directory to save the image") );
-#: src/modules/AutoinstSoftware.rb:404
+#: src/modules/AutoinstSoftware.rb:406
 msgid "Store image to ..."
 msgstr "正在儲存影像檔到 ..."
 
 #. Compress image:
 #. tar cfz /srv/www/htdocs/image.tar.gz --exclude="proc*"  .
-#: src/modules/AutoinstSoftware.rb:433
+#: src/modules/AutoinstSoftware.rb:435
 msgid ""
 "You can do changes to the image now in %1/\n"
 "If you press the ok-button, the image will be compressed and can't be "
@@ -2703,16 +2664,16 @@ msgstr ""
 "您可以對此影像進行變更在 %1/\n"
 "如果您按下確定按鈕，此影像將被壓縮且不再允許變更。"
 
-#: src/modules/AutoinstSoftware.rb:447
+#: src/modules/AutoinstSoftware.rb:449
 msgid "Image compressing failed in '%1'. Please check /tmp/ay_image.log"
 msgstr "影像壓縮失敗在 '%1'。請查看 /tmp/ay_image.log"
 
-#: src/modules/AutoinstSoftware.rb:454
+#: src/modules/AutoinstSoftware.rb:456
 msgid "Image created successfully"
 msgstr "成功建立影像"
 
 #. copy a directory (ends with / in directory.yast)
-#: src/modules/AutoinstSoftware.rb:490
+#: src/modules/AutoinstSoftware.rb:492
 msgid ""
 "can not get the directory.yast file at `%1`.\n"
 "You can create that file with 'ls -F > directory.yast' if it's missing."
@@ -2721,30 +2682,30 @@ msgstr ""
 "如果沒有此檔案，可以用 'ls -F > directory.yast' 建立。"
 
 #. don't copy subdirs. They have to be mentioned explicit. Copy only files from that dir.
-#: src/modules/AutoinstSoftware.rb:524
+#: src/modules/AutoinstSoftware.rb:526
 msgid "can not read '%1'. Try again?"
 msgstr "無法讀取 '%1'。要再試一次嗎？"
 
 #. copy a file
-#: src/modules/AutoinstSoftware.rb:542
+#: src/modules/AutoinstSoftware.rb:544
 msgid "can not read '%1'. ISO creation failed"
 msgstr "無法讀取 '%1'。建立 ISO 失敗"
 
 #. we will have the image.tar.gz and autoinst.xml on the root of the DVD/CD
-#: src/modules/AutoinstSoftware.rb:572
+#: src/modules/AutoinstSoftware.rb:574
 msgid "Preparing ISO Filestructure ..."
 msgstr "正在準備 ISO 目錄結構 ..."
 
 #. prepare and save isolinux.cfg boot menu of the media
-#: src/modules/AutoinstSoftware.rb:621
+#: src/modules/AutoinstSoftware.rb:623
 msgid "boot config for the DVD"
 msgstr "DVD 開機設定"
 
-#: src/modules/AutoinstSoftware.rb:625
+#: src/modules/AutoinstSoftware.rb:627
 msgid "Ok"
 msgstr "確定"
 
-#: src/modules/AutoinstSoftware.rb:628
+#: src/modules/AutoinstSoftware.rb:630
 msgid ""
 "You can do changes to the ISO now in %1, like adding a complete different "
 "AutoYaST XML file.\n"
@@ -2755,43 +2716,43 @@ msgstr ""
 
 #. create the actual ISO file
 #. Popup::Message( _("Please choose a place where you want to save the ISO file in the next dialog") );
-#: src/modules/AutoinstSoftware.rb:647
+#: src/modules/AutoinstSoftware.rb:649
 msgid "Store ISO image to ..."
 msgstr "儲存 ISO 影像到 ..."
 
-#: src/modules/AutoinstSoftware.rb:648
+#: src/modules/AutoinstSoftware.rb:650
 msgid "Creating ISO File ..."
 msgstr "正在建立 ISO 檔案..."
 
-#: src/modules/AutoinstSoftware.rb:669
+#: src/modules/AutoinstSoftware.rb:671
 msgid "ISO successfully created at %1"
 msgstr "已成功建立 ISO 在 %1"
 
 #. Summary
 #. @return Html formatted configuration summary
-#: src/modules/AutoinstSoftware.rb:745
+#: src/modules/AutoinstSoftware.rb:753
 msgid "Selected Patterns"
 msgstr "選定模式"
 
-#: src/modules/AutoinstSoftware.rb:755
+#: src/modules/AutoinstSoftware.rb:763
 msgid "Individually Selected Packages"
 msgstr "個別選取的套件"
 
-#: src/modules/AutoinstSoftware.rb:761
+#: src/modules/AutoinstSoftware.rb:769
 msgid "Packages to Remove"
 msgstr "要移除的套件"
 
-#: src/modules/AutoinstSoftware.rb:768
+#: src/modules/AutoinstSoftware.rb:776
 msgid "Force Kernel Package"
 msgstr "強制核心套件"
 
 #. set SoftLock to avoid the installation of recommended patterns (#159466)
-#: src/modules/AutoinstSoftware.rb:858
+#: src/modules/AutoinstSoftware.rb:871
 msgid "Could not set patterns: %1."
 msgstr "無法設定模式：%1。"
 
 #. Solve dependencies
-#: src/modules/AutoinstSoftware.rb:919
+#: src/modules/AutoinstSoftware.rb:932
 msgid ""
 "The package resolver run failed. Please check your software section in the "
 "autoyast profile."
@@ -2840,14 +2801,14 @@ msgstr "磁碟 '%1' 無法被儲存後端找到"
 
 #. Prepare Profile for saving and remove empty data structs
 #. @return [void]
-#: src/modules/Profile.rb:351
+#: src/modules/Profile.rb:363
 msgid "Collecting configuration data..."
 msgstr "正在收集組態資料..."
 
 #. Save YCP data into XML
 #. @param  path to file
 #. @return	[Boolean] true on success
-#: src/modules/Profile.rb:454
+#: src/modules/Profile.rb:466
 msgid "Encrypted AutoYaST profile. Enter the password twice."
 msgstr "加密 AutoYaST 剖析檔。輸入密碼 2 次"
 
@@ -2855,14 +2816,14 @@ msgstr "加密 AutoYaST 剖析檔。輸入密碼 2 次"
 #.
 #. @param [String] dir - directory to store section xml files in
 #. @return	  - list of filenames
-#: src/modules/Profile.rb:528
+#: src/modules/Profile.rb:540
 msgid "Could not write section %1 to file %2."
 msgstr "無法寫入區段 %1 到檔案 %2。"
 
 #. Read XML into  YCP data
 #. @param  path to file
 #. @return	[Boolean]
-#: src/modules/Profile.rb:695 src/modules/ProfileLocation.rb:190
+#: src/modules/Profile.rb:707 src/modules/ProfileLocation.rb:190
 msgid "Encrypted AutoYaST profile. Enter the correct password."
 msgstr "加密 AutoYaST 剖析檔。輸入正確的密碼。"
 
@@ -2880,50 +2841,38 @@ msgstr "取得設定檔時發生錯誤：\n"
 msgid "&OK"
 msgstr "確定(&O)"
 
-#. TRANSLATORS: Error message, %s is replaced by newline-separated
-#. list of unknown sections of the profile
-#. Do not translate words in brackets
-#: src/clients/inst_autoconfigure.rb:94
-msgid ""
-"These sections of AutoYaST profile cannot be processed on this system:"
-"<br><br>%s<br><br>Maybe they were misspelled or your profile does not "
-"contain all the needed YaST packages in &lt;software/&gt; section."
-msgstr ""
-"在此系統上無法處理 AutoYaST 設定檔的以下區段：<br><br>%s<br><br>這些區段可能"
-"拼寫不當，或者設定檔的 &lt;software/&gt; 區段中未包含全部所需的 YaST 套件。"
+#~ msgid "Cannot find URL '%1' via protocol HTTP(S). Server returned code %2."
+#~ msgstr "無法透過 HTTP(S) 協定找到 URL '%1'。伺服器傳回代碼 %2。"
 
-#. TRANSLATORS: Error message, %s is replaced by newline-separated
-#. list of unsupported sections of the profile
-#. Do not translate words in brackets
-#: src/clients/inst_autoinit.rb:128
-msgid ""
-"These sections of AutoYaST profile are not supported anymore:<br><br>"
-"%s<br><br>Please, use, e.g., &lt;scripts/&gt; or &lt;files/&gt; to change "
-"the configuration."
-msgstr ""
-"不再支援 AutoYaST 設定檔的以下區段：<br><br>%s<br><br>請使用 &lt;scripts/"
-"&gt; 或 &lt;files/&gt; 等標記變更組態。"
+#~ msgid "Cannot find URL '%1' via protocol FTP. Server returned code %2."
+#~ msgstr "無法透過 FTP 協定找到 URL '%1'。伺服器傳回代碼 %2。"
 
-#: src/clients/inst_autosetup.rb:64
-msgid "Import SSH keys/settings"
-msgstr "輸入 SSH 金鑰/設定"
+#~ msgid "Reading file on %1/%2 failed.\n"
+#~ msgstr "無法讀取 %1/%2 上的檔案。\n"
 
-#: src/clients/inst_autosetup.rb:65
-msgid "Confirm License"
-msgstr "確認授權"
+#~ msgid "Reading file on %1 failed.\n"
+#~ msgstr "無法讀取 %1 上的檔案。\n"
 
-#: src/clients/inst_autosetup.rb:78
-msgid "Importing SSH keys/settings..."
-msgstr "正在輸入 SSH 金鑰/設定..."
+#~ msgid "Mounting %1 failed."
+#~ msgstr "無法裝載 %1。"
 
-#: src/clients/inst_autosetup.rb:79
-msgid "Confirming License..."
-msgstr "正在確認授權..."
+#~ msgid "Reading a file on CD failed. Path: %1/%2."
+#~ msgstr "無法讀取 CD 上的檔案。路徑：%1/%2."
 
-#. FIXME: why not pass the variable always?
-#: src/include/autoinstall/ask.rb:540
-msgid "A user defined script is running. This may take a while."
-msgstr "正在執行使用者定義的程序檔。這可能需要一些時間。"
+#~ msgid "Remote file %1 cannot be retrieved"
+#~ msgstr "無法取回遠端檔案 %1"
+
+#~ msgid "%1 is not mounted and mount failed"
+#~ msgstr "%1 未掛載且掛載失敗"
+
+#~ msgid "File %1 cannot be found"
+#~ msgstr "找不到檔案 %1"
+
+#~ msgid "Cannot find URL '%1' via protocol TFTP."
+#~ msgstr "無法透過 TFTP 協定找到 URL '%1'。"
+
+#~ msgid "Unknown protocol %1."
+#~ msgstr "未知協定 %1。"
 
 #~ msgid "Configure runlevel"
 #~ msgstr "設定 runlevel"

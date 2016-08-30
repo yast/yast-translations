@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: autoinst.ko\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-09-28 18:16+0200\n"
+"POT-Creation-Date: 2016-08-30 18:26+0200\n"
 "PO-Revision-Date: 2009-11-04 16:58+0900\n"
 "Last-Translator: Yunseok Choi <xein@naver.com>\n"
 "Language-Team: Korean <xein@naver.com>\n"
@@ -33,7 +33,7 @@ msgstr "구성 데이터 읽는 중..."
 
 #: src/clients/autoinst_test_clone.rb:16 src/clients/autoyast.rb:123
 #: src/include/autoinstall/conftree.rb:622
-#: src/include/autoinstall/dialogs.rb:333 src/modules/Profile.rb:352
+#: src/include/autoinstall/dialogs.rb:333 src/modules/Profile.rb:364
 msgid "This may take a while"
 msgstr "약간의 시간이 소요될 수 있습니다."
 
@@ -54,14 +54,13 @@ msgstr "AutoYast"
 
 #. command line options
 #. Init variables
-#. Import users configuration from the profile
-#.
+#. unique id
 #. Backup
 #. Now check if there any classes defined in theis pre final control file
 #: src/clients/autoyast.rb:114 src/clients/ayast_setup.rb:148
-#: src/clients/inst_autoinit.rb:188 src/clients/inst_autosetup.rb:410
-#: src/clients/inst_autosetup_upgrade.rb:484
-#: src/modules/AutoInstallRules.rb:1001
+#: src/clients/inst_autoinit.rb:184 src/clients/inst_autosetup.rb:457
+#: src/clients/inst_autosetup_upgrade.rb:492
+#: src/modules/AutoInstallRules.rb:997
 msgid ""
 "Error while parsing the control file.\n"
 "Check the log files for more details or fix the\n"
@@ -269,7 +268,7 @@ msgstr "첫번째 테이블에서 파일을 선택하십시오."
 
 #  Help text for last dialog of base installation
 #. Help text for last dialog of base installation
-#: src/clients/inst_autoconfigure.rb:35
+#: src/clients/inst_autoconfigure.rb:38
 msgid ""
 "<p>\n"
 "Please wait while the system is being configured.\n"
@@ -281,57 +280,45 @@ msgstr ""
 
 #  Progress bar that displays overall progress in this dialog
 #. Progress bar that displays overall progress in this dialog
-#: src/clients/inst_autoconfigure.rb:60
+#: src/clients/inst_autoconfigure.rb:63
 msgid "Progress"
 msgstr "처리"
 
 #  Dialog title for SuSEconfig dialog
 #. Dialog title for autoyast dialog
-#: src/clients/inst_autoconfigure.rb:69
+#: src/clients/inst_autoconfigure.rb:72
 msgid "Configuring System according to auto-install settings"
 msgstr "자동설치 설정에 따라서 시스템을 설정중입니다."
 
 #. TRANSLATORS: Error message, %s is replaced by newline-separated
-#. list of unsupported sections of the profile
-#. Do not translate words in brackets
-#: src/clients/inst_autoconfigure.rb:88
-msgid ""
-"These sections of AutoYaST profile are not supported anymore:\n"
-"\n"
-"%s\n"
-"\n"
-"Please, use, e.g., <scripts/> or <files/> to change the configuration."
-msgstr ""
-
-#. TRANSLATORS: Error message, %s is replaced by newline-separated
 #. list of unknown sections of the profile
 #. Do not translate words in brackets
-#: src/clients/inst_autoconfigure.rb:103
+#: src/clients/inst_autoconfigure.rb:94
 msgid ""
-"These sections of AutoYaST profile cannot be processed on this system:\n"
-"\n"
-"%s\n"
-"\n"
-"Maybe they were misspelled or your profile does not contain all the needed "
-"YaST packages in <software/> section."
+"These sections of AutoYaST profile cannot be processed on this system:"
+"<br><br>%s<br><br>Maybe they were misspelled or your profile does not "
+"contain all the needed YaST packages in &lt;software/&gt; section."
 msgstr ""
+"다음 AutoYaST 프로파일 섹션은 이 시스템에서 처리할 수 없습니다.<br><br>"
+"%s<br><br>철자가 틀렸거나 프로필에 &lt;software/&gt; 섹션의 모든 필수 YaST 패"
+"키지가 없을 수 있습니다."
 
 # src/config/proxy.y2cc:21
 #. determine name of client, if not use default name
 #. Call::Function(module_auto, ["Import", eval(Profile::current[resource]:$[])   ]);
-#: src/clients/inst_autoconfigure.rb:192 src/clients/inst_autoconfigure.rb:221
-#: src/clients/inst_autoconfigure.rb:234
+#: src/clients/inst_autoconfigure.rb:184 src/clients/inst_autoconfigure.rb:213
+#: src/clients/inst_autoconfigure.rb:226
 msgid "Configuring %1"
 msgstr "%1 설정"
 
 # src/clients/lan_auto.ycp:58
-#: src/clients/inst_autoconfigure.rb:194 src/clients/inst_autoconfigure.rb:223
-#: src/clients/inst_autoconfigure.rb:236
+#: src/clients/inst_autoconfigure.rb:186 src/clients/inst_autoconfigure.rb:215
+#: src/clients/inst_autoconfigure.rb:228
 msgid "Not Configuring %1"
 msgstr "%1 설정 안함"
 
 #. online update
-#: src/clients/inst_autoconfigure.rb:288
+#: src/clients/inst_autoconfigure.rb:280
 msgid "Executing Post-Scripts"
 msgstr "포스트-스크립트 실행 중"
 
@@ -349,7 +336,7 @@ msgstr "시스템 기본 대상 활성화"
 # src/config/dsl.y2cc:11 src/dsl/complex.ycp:73 src/dsl/dialogs.ycp:172
 # src/dsl/wizards.ycp:61 src/dsl/wizards.ycp:80
 #. Just in case, remove this file to avoid reconfiguring...
-#: src/clients/inst_autoconfigure.rb:342
+#: src/clients/inst_autoconfigure.rb:341
 msgid "Finishing Configuration"
 msgstr "설정 완료 중"
 
@@ -414,7 +401,14 @@ msgstr ""
 "이미지 스크립트 실행 실패:\n"
 "%1"
 
-#. import "Arch";
+#. encoding: utf-8
+#. File:	clients/inst_autoinit.ycp
+#. Package:	Auto-installation
+#. Summary:	Parses XML Profile for automatic installation
+#. Authors:	Anas Nashif <nashif@suse.de>
+#.
+#. $Id$
+#.
 #. encoding: utf-8
 #. File:	clients/autoinst_post.ycp
 #. Package:	Auto-installation
@@ -423,7 +417,7 @@ msgstr ""
 #. the system as described in the profile file.
 #.
 #. $Id$
-#: src/clients/inst_autoinit.rb:37 src/clients/inst_autopost.rb:48
+#: src/clients/inst_autoinit.rb:38 src/clients/inst_autopost.rb:48
 msgid ""
 "<p>\n"
 "Please wait while the system is prepared for autoinstallation.</p>\n"
@@ -431,23 +425,24 @@ msgstr ""
 "<p>\n"
 "시스템이 자동설치를 위해 준비하는 동안 기다려 주십시요.</p>\n"
 
-#: src/clients/inst_autoinit.rb:41
+#: src/clients/inst_autoinit.rb:42
 msgid "Probe hardware"
 msgstr "하드웨어 검사"
 
-#: src/clients/inst_autoinit.rb:42
+#: src/clients/inst_autoinit.rb:43
 msgid "Retrieve & Read Control File"
 msgstr "갱신 및 제어파일 읽기"
 
-#: src/clients/inst_autoinit.rb:43
+#: src/clients/inst_autoinit.rb:44
 msgid "Parse control file"
 msgstr "제어파일 분석"
 
-#: src/clients/inst_autoinit.rb:44 src/clients/inst_autoinit.rb:201
+#. Checking profile for unsupported sections.
+#: src/clients/inst_autoinit.rb:45 src/clients/inst_autoinit.rb:199
 msgid "Initial Configuration"
 msgstr "초기 구성"
 
-#: src/clients/inst_autoinit.rb:49 src/clients/inst_autopost.rb:66
+#: src/clients/inst_autoinit.rb:50 src/clients/inst_autopost.rb:66
 msgid "Preparing System for Automatic Installation"
 msgstr "자동 설치를 위해서 시스템을 준비하는 중"
 
@@ -455,38 +450,28 @@ msgstr "자동 설치를 위해서 시스템을 준비하는 중"
 # src/modem/complex.ycp:207 src/provider/complex.ycp:186
 #  command line help text for the test action
 #. progress bar length
-#: src/clients/inst_autoinit.rb:57
+#: src/clients/inst_autoinit.rb:58
 msgid "Preprobing stage"
 msgstr "사전 검사 단계"
 
-#. // moved to autoset to fulfill fate #301193
-#. // the DASD section in an autoyast profile can't be changed via pre-script
-#. //
-#. if( Arch::s390 () && AutoinstConfig::remoteProfile == true ) {
-#. y2milestone("arch=s390 and remote_profile=true");
-#. symbol ret = processProfile();
-#. if( ret != `ok ) {
-#. return ret;
-#. }
-#. y2milestone("processProfile=ok");
-#. profileFetched = true;
-#.
-#. // FIXME: the hardcoded stuff should be in the control.xml later
-#. if( haskey(Profile::current, "dasd") ) {
-#. y2milestone("dasd found");
-#. Call::Function("dasd_auto", ["Import", Profile::current["dasd"]:$[] ]);
-#. }
-#. if( haskey(Profile::current, "zfcp") ) {
-#. y2milestone("zfcp found");
-#. Call::Function("zfcp_auto", ["Import", Profile::current["zfcp"]:$[] ]);
-#. }
-#. }
-#: src/clients/inst_autoinit.rb:90
+#: src/clients/inst_autoinit.rb:69
 msgid "Probing hardware..."
 msgstr "하드웨어 검사 중..."
 
+#. TRANSLATORS: Error message, %s is replaced by newline-separated
+#. list of unsupported sections of the profile
+#. Do not translate words in brackets
+#: src/clients/inst_autoinit.rb:128
+msgid ""
+"These sections of AutoYaST profile are not supported anymore:<br><br>"
+"%s<br><br>Please, use, e.g., &lt;scripts/&gt; or &lt;files/&gt; to change "
+"the configuration."
+msgstr ""
+"다음 AutoYaST 프로파일 섹션은 더 이상 지원되지 않습니다.<br><br>%s<br><br>구"
+"성을 변경하려면 &lt;scripts/&gt; 또는 &lt;files/&gt; 등을 사용하십시오."
+
 #. Set reporting behaviour to default, changed later if required
-#: src/clients/inst_autoinit.rb:183
+#: src/clients/inst_autoinit.rb:179
 msgid "Parsing control file"
 msgstr "제어파일 분석중"
 
@@ -531,36 +516,36 @@ msgstr "%1 에 필요한 꾸러미 확인 중..."
 #. Uwe Gansert <ug@suse.de>
 #.
 #. $Id: inst_autosetup.ycp 61521 2010-03-29 09:10:07Z ug $
-#: src/clients/inst_autosetup.rb:53 src/clients/inst_autosetup_upgrade.rb:47
+#: src/clients/inst_autosetup.rb:51 src/clients/inst_autosetup_upgrade.rb:43
 msgid "<P>Please wait while the system is prepared for autoinstallation.</P>"
 msgstr "<P>자동 설치를 위해 시스템을 준비하는 동안 잠시 기다려 주세요.</P>"
 
-#: src/clients/inst_autosetup.rb:57 src/clients/inst_autosetup_upgrade.rb:52
+#: src/clients/inst_autosetup.rb:55 src/clients/inst_autosetup_upgrade.rb:48
 msgid "Execute pre-install user scripts"
 msgstr "선행 사용자 스크립트 실행"
 
-#: src/clients/inst_autosetup.rb:58 src/clients/inst_autosetup_upgrade.rb:51
+#: src/clients/inst_autosetup.rb:56 src/clients/inst_autosetup_upgrade.rb:47
 msgid "Configure General Settings "
 msgstr "일반 설정사항 설정(&C)"
 
-#: src/clients/inst_autosetup.rb:59 src/clients/inst_autosetup_upgrade.rb:53
+#: src/clients/inst_autosetup.rb:57 src/clients/inst_autosetup_upgrade.rb:49
 msgid "Set up language"
 msgstr "언어 설정"
 
-#: src/clients/inst_autosetup.rb:60
+#: src/clients/inst_autosetup.rb:58
 msgid "Create partition plans"
 msgstr "파티션 계획 만들기"
 
-#: src/clients/inst_autosetup.rb:61 src/clients/inst_autosetup_upgrade.rb:56
+#: src/clients/inst_autosetup.rb:59 src/clients/inst_autosetup_upgrade.rb:52
 msgid "Configure Bootloader"
 msgstr "부트로더 설정"
 
 #  dialog caption
-#: src/clients/inst_autosetup.rb:62 src/clients/inst_autosetup_upgrade.rb:54
+#: src/clients/inst_autosetup.rb:60 src/clients/inst_autosetup_upgrade.rb:50
 msgid "Registration"
 msgstr "등록"
 
-#: src/clients/inst_autosetup.rb:63 src/clients/inst_autosetup_upgrade.rb:55
+#: src/clients/inst_autosetup.rb:61 src/clients/inst_autosetup_upgrade.rb:51
 msgid "Configure Software selections"
 msgstr "소프트웨어 선택 설정"
 
@@ -572,11 +557,19 @@ msgstr "Systemd 기본 대상 구성"
 msgid "Configure users and groups"
 msgstr "사용자 및 그룹 구성"
 
-#: src/clients/inst_autosetup.rb:69 src/clients/inst_autosetup_upgrade.rb:61
+#: src/clients/inst_autosetup.rb:64
+msgid "Import SSH keys/settings"
+msgstr "SSH 키/설정 임포트"
+
+#: src/clients/inst_autosetup.rb:65
+msgid "Confirm License"
+msgstr "라이센스 확인"
+
+#: src/clients/inst_autosetup.rb:69 src/clients/inst_autosetup_upgrade.rb:57
 msgid "Executing pre-install user scripts..."
 msgstr "선행 사용자 스크립트 실행 중..."
 
-#: src/clients/inst_autosetup.rb:70 src/clients/inst_autosetup_upgrade.rb:60
+#: src/clients/inst_autosetup.rb:70 src/clients/inst_autosetup_upgrade.rb:56
 msgid "Configuring general settings..."
 msgstr "일반 설정사항 적용 중"
 
@@ -588,7 +581,7 @@ msgstr "언어를 설정하는 중입니다."
 msgid "Creating partition plans..."
 msgstr "파티션 구성 중..."
 
-#: src/clients/inst_autosetup.rb:73 src/clients/inst_autosetup_upgrade.rb:65
+#: src/clients/inst_autosetup.rb:73 src/clients/inst_autosetup_upgrade.rb:61
 msgid "Configuring Bootloader..."
 msgstr "부트로더 설정 중..."
 
@@ -596,7 +589,7 @@ msgstr "부트로더 설정 중..."
 msgid "Registering the system..."
 msgstr "시스템을 등록하는 중입니다..."
 
-#: src/clients/inst_autosetup.rb:75 src/clients/inst_autosetup_upgrade.rb:64
+#: src/clients/inst_autosetup.rb:75 src/clients/inst_autosetup_upgrade.rb:60
 msgid "Configuring Software selections..."
 msgstr "소프트웨어 선택 적용 중..."
 
@@ -608,7 +601,15 @@ msgstr "Systemd 기본 대상을 구성하는 중입니다."
 msgid "Importing users and groups configuration..."
 msgstr "사용자 및 그룹 구성을 임포트하는 중..."
 
-#: src/clients/inst_autosetup.rb:81 src/clients/inst_autosetup_upgrade.rb:69
+#: src/clients/inst_autosetup.rb:78
+msgid "Importing SSH keys/settings..."
+msgstr "SSH 키/설정 임포트 중..."
+
+#: src/clients/inst_autosetup.rb:79
+msgid "Confirming License..."
+msgstr "라이센스 확인 중..."
+
+#: src/clients/inst_autosetup.rb:83 src/clients/inst_autosetup_upgrade.rb:65
 msgid "Preparing System for Automated Installation"
 msgstr "자동설치를 위해서 시스템 준비중..."
 
@@ -625,12 +626,12 @@ msgstr "추가 기능 제품을 처리하는 중입니다."
 #. Set it in the Language module.
 #.
 #. Set it in the Language module.
-#: src/clients/inst_autosetup.rb:202 src/clients/inst_autosetup_upgrade.rb:149
+#: src/clients/inst_autosetup.rb:210 src/clients/inst_autosetup_upgrade.rb:145
 msgid "Configuring language..."
 msgstr "언어 구성 중..."
 
 #. Yes, do not set Storage testsuite here as we want really GUI with proposal
-#: src/clients/inst_autosetup.rb:290
+#: src/clients/inst_autosetup.rb:298
 msgid ""
 "Error while configuring partitions.\n"
 "Try again.\n"
@@ -638,8 +639,9 @@ msgstr ""
 "파티션을 구성하는 동안 오류가 발생했습니다.\n"
 "다시 시도하세요.\n"
 
-#. Software
-#: src/clients/inst_autosetup.rb:344
+#. Adding selections (defined in PackageAI) to libzypp and solving
+#. package dependencies.
+#: src/clients/inst_autosetup.rb:361
 msgid ""
 "Error while configuring software selections.\n"
 "Try again.\n"
@@ -649,55 +651,55 @@ msgstr ""
 
 #. ReportingDialog()
 #. @return sumbol
-#: src/clients/report_auto.rb:103
+#: src/clients/report_auto.rb:99
 msgid "Messages"
 msgstr "메세지"
 
-#: src/clients/report_auto.rb:109
+#: src/clients/report_auto.rb:105
 msgid "Sho&w messages"
 msgstr "메세지 표시(&W)"
 
-#: src/clients/report_auto.rb:117
+#: src/clients/report_auto.rb:113
 msgid "Lo&g messages"
 msgstr "로그 메세지(&G)"
 
-#: src/clients/report_auto.rb:128
+#: src/clients/report_auto.rb:124
 msgid "&Time-out (in sec.)"
 msgstr "제한 시간(초단위.)(&T)"
 
-#: src/clients/report_auto.rb:140
+#: src/clients/report_auto.rb:136
 msgid "Warnings"
 msgstr "경고"
 
-#: src/clients/report_auto.rb:146
+#: src/clients/report_auto.rb:142
 msgid "Sh&ow warnings"
 msgstr "경고 표시(&O)"
 
-#: src/clients/report_auto.rb:154
+#: src/clients/report_auto.rb:150
 msgid "Log wa&rnings"
 msgstr "경고 로그(&R)"
 
-#: src/clients/report_auto.rb:165
+#: src/clients/report_auto.rb:161
 msgid "Time-out (in s&ec.)"
 msgstr "제한시간(초단위.)(&E)"
 
-#: src/clients/report_auto.rb:177
+#: src/clients/report_auto.rb:173
 msgid "Errors"
 msgstr "오류"
 
-#: src/clients/report_auto.rb:183
+#: src/clients/report_auto.rb:179
 msgid "Show error&s"
 msgstr "오류 표시(&S)"
 
-#: src/clients/report_auto.rb:191
+#: src/clients/report_auto.rb:187
 msgid "&Log errors"
 msgstr "오류 로그(&L)"
 
-#: src/clients/report_auto.rb:202
+#: src/clients/report_auto.rb:198
 msgid "Time-o&ut (in sec.)"
 msgstr "제한 시간(초단위.)(&U)"
 
-#: src/clients/report_auto.rb:217
+#: src/clients/report_auto.rb:213
 msgid ""
 "<p>Depending on your experience, you can skip, log, and show (with time-"
 "out)\n"
@@ -706,7 +708,7 @@ msgstr ""
 "<p>로그를 보는 것을 생략 하거나, 설치 메세지를 보는 것은\n"
 "여러분의 경험에 달려 있습니다.</p>\n"
 
-#: src/clients/report_auto.rb:223
+#: src/clients/report_auto.rb:219
 msgid ""
 "<p>It is recommended to show all  <b>messages</b> with time-out.\n"
 "Warnings can be skipped in some places, but should not be ignored.</p>\n"
@@ -714,17 +716,17 @@ msgstr ""
 "<p>시간초과에 관한  <b>메세지</b> 보는 것을 권장합니다. 경고는 몇몇 곳에서\n"
 "생략할수 있지만, 하지만 무시 할수는 없습니다.</p>\n"
 
-#: src/clients/report_auto.rb:230
+#: src/clients/report_auto.rb:226
 msgid "Messages and Logging"
 msgstr "메세지와 로그"
 
 #. Select packages
 #. @return [Symbol]
-#: src/clients/software_auto.rb:87
+#: src/clients/software_auto.rb:88
 msgid "Software Selection"
 msgstr "소프트웨어 선택"
 
-#: src/clients/software_auto.rb:88
+#: src/clients/software_auto.rb:89
 msgid ""
 "<p>\n"
 "Select one of the following <b>base</b> selections and click <i>Detailed<i> "
@@ -754,7 +756,7 @@ msgstr "이 시스템의 설치 소스(이 옵션을 선택하는 경우 이미�
 msgid "using that installation source failed"
 msgstr "해당 설치 소스 사용에 실패했습니다."
 
-#: src/clients/software_auto.rb:189
+#: src/clients/software_auto.rb:190
 msgid "Reading package database..."
 msgstr "꾸러미 데이터베이스 읽고있는 중..."
 
@@ -1030,10 +1032,16 @@ msgstr "저장하지 않은 변경 사항을 볼륨 그룹에 저장하시겠습
 msgid "Volgroup device name"
 msgstr "볼륨 그룹 장치 이름"
 
+#. FIXME: why not pass the variable always?
+#: src/include/autoinstall/ask.rb:540
+msgid "A user defined script is running. This may take a while."
+msgstr ""
+"사용자 정의 스크립트가 실행 중입니다. 약간의 시간이 소요될 수 있습니다."
+
 #. Shows a dialog when 'control file' can't be found
 #. @param [String] original Original value
 #. @return [String] new value
-#: src/include/autoinstall/autoinst_dialogs.rb:21
+#: src/include/autoinstall/autoinst_dialogs.rb:22
 msgid ""
 "<p>\n"
 "A profile for this machine could not be found or retrieved.\n"
@@ -1052,11 +1060,11 @@ msgstr ""
 "설치 프로세스를 다시 시작하고 해당 제어 파일에 접근 할 수 있는지 확인하십시"
 "오.</p>\n"
 
-#: src/include/autoinstall/autoinst_dialogs.rb:30
+#: src/include/autoinstall/autoinst_dialogs.rb:31
 msgid "System Profile Location"
 msgstr "시스템 프로파일 위치"
 
-#: src/include/autoinstall/autoinst_dialogs.rb:45
+#: src/include/autoinstall/autoinst_dialogs.rb:46
 msgid "&Profile Location:"
 msgstr "프로파일 위치(&P):"
 
@@ -1068,11 +1076,11 @@ msgstr "프로파일 위치(&P):"
 #. Below this label, all targets are listed that can be used as
 #. installation target
 #. heading text
-#: src/include/autoinstall/autoinst_dialogs.rb:117
+#: src/include/autoinstall/autoinst_dialogs.rb:118
 msgid "Choose a hard disk"
 msgstr "하드디스크를 선택하십시오."
 
-#: src/include/autoinstall/autoinst_dialogs.rb:124
+#: src/include/autoinstall/autoinst_dialogs.rb:125
 msgid "No disks found."
 msgstr "디스크를 찾을 수 없습니다."
 
@@ -1086,7 +1094,7 @@ msgstr "디스크를 찾을 수 없습니다."
 #. "Preparing Hard Disk - Step 1" is the description of the dialog what to
 #. do while the following locale is the help description
 #. help part 1 of 1
-#: src/include/autoinstall/autoinst_dialogs.rb:132
+#: src/include/autoinstall/autoinst_dialogs.rb:133
 msgid ""
 "<p>\n"
 "All hard disks automatically detected on your system\n"
@@ -1099,7 +1107,7 @@ msgstr ""
 "</p>"
 
 #. force help text width
-#: src/include/autoinstall/autoinst_dialogs.rb:154
+#: src/include/autoinstall/autoinst_dialogs.rb:155
 msgid "Hard Disk Selection"
 msgstr "하드 디스크 선택"
 
@@ -1107,7 +1115,7 @@ msgstr "하드 디스크 선택"
 #  chosen - at the moment no option is chosen
 #. there is a selection from that one option has to be
 #. chosen - at the moment no option is chosen
-#: src/include/autoinstall/autoinst_dialogs.rb:177
+#: src/include/autoinstall/autoinst_dialogs.rb:178
 msgid "Select one of the options to continue."
 msgstr "계속하기 위해 옵션 중 하나를 선택해 주세요."
 
@@ -1683,7 +1691,7 @@ msgstr "경고"
 #. list<any> l = [ "key1",0,"key3" ];
 #. m[ l ] = v;
 #. @return [Hash]
-#: src/include/autoinstall/dialogs.rb:410 src/modules/Profile.rb:807
+#: src/include/autoinstall/dialogs.rb:410 src/modules/Profile.rb:819
 msgid "Checking XML with RNG validation..."
 msgstr "RNG 유효성 검사와 함께 XML을 확인하는 중..."
 
@@ -1694,7 +1702,7 @@ msgid "Section %1: "
 msgstr "섹션 %1:"
 
 #. jing validation -- validates complete xml profile
-#: src/include/autoinstall/dialogs.rb:459 src/modules/Profile.rb:819
+#: src/include/autoinstall/dialogs.rb:459 src/modules/Profile.rb:831
 msgid "Checking XML with RNC validation..."
 msgstr "RNC 유효성 검사와 함께 XML을 확인하는 중..."
 
@@ -2104,73 +2112,6 @@ msgstr ""
 "오직 포맷되지 않은 준비된 LVM과 RAID 파티션만을 생성할 수 있습니다.\n"
 "</p>\n"
 
-#. autoyast tried to read a file but had no success.
-#: src/include/autoinstall/io.rb:123
-msgid "Cannot find URL '%1' via protocol HTTP(S). Server returned code %2."
-msgstr ""
-"HTTP(S) 프로토콜을 통해 '%1' URL을 찾을 수 없습니다. 서버에서 %2 코드를 반환"
-"했습니다."
-
-#. autoyast tried to read a file but had no success.
-#: src/include/autoinstall/io.rb:143
-msgid "Cannot find URL '%1' via protocol FTP. Server returned code %2."
-msgstr ""
-"FTP 프로토콜을 통해 '%1' URL을 찾을 수 없습니다. 서버에서 %2 코드를 반환했습"
-"니다."
-
-#. FIXME: I have doubts this will ever work. Too early.
-#: src/include/autoinstall/io.rb:159
-msgid "Reading file on %1/%2 failed.\n"
-msgstr "%1/%2에서 파일을 읽는 데 실패했습니다.\n"
-
-#: src/include/autoinstall/io.rb:175
-msgid "Reading file on %1 failed.\n"
-msgstr "%1에서 파일을 읽는 데 실패했습니다.\n"
-
-#. autoyast tried to mount the CD but had no success.
-#. autoyast tried to mount a NFS directory which failed
-#. autoyast tried to mount a NFS directory which failed
-#: src/include/autoinstall/io.rb:237 src/include/autoinstall/io.rb:293
-#: src/include/autoinstall/io.rb:337
-msgid "Mounting %1 failed."
-msgstr "%1을(를) 마운트하는 데 실패했습니다."
-
-#. autoyast tried to read a file but had no success.
-#: src/include/autoinstall/io.rb:268
-msgid "Reading a file on CD failed. Path: %1/%2."
-msgstr "CD의 파일 읽기에 실패했습니다. 경로: %1/%2."
-
-#. autoyast tried to copy a file via NFS which failed
-#. autoyast tried to copy a file via NFS which failed
-#: src/include/autoinstall/io.rb:316 src/include/autoinstall/io.rb:360
-msgid "Remote file %1 cannot be retrieved"
-msgstr "%1 원격 파일을 검색할 수 없습니다."
-
-#. this is workaround for bnc#849767
-#. because of changes in autoyast startup this code is now
-#. called much sooner (before Storage stuff is initialized)
-#. call dummy method to trigger Storage initialization
-#: src/include/autoinstall/io.rb:485
-msgid "%1 is not mounted and mount failed"
-msgstr ""
-
-#  error popup - mount failed, %1 is device file name (e.g. /dev/fd0)
-#. autoyast tried to copy a file but that file can't be found
-#: src/include/autoinstall/io.rb:505
-msgid "File %1 cannot be found"
-msgstr "%1 파일을 찾을 수 없습니다."
-
-#. Device
-#: src/include/autoinstall/io.rb:527
-msgid "Cannot find URL '%1' via protocol TFTP."
-msgstr "TFTP 프로토콜을 통해 '%1' URL을 찾을 수 없습니다."
-
-#  Unknown printer AnYtHiNg
-#. the user wanted autoyast to fetch it's profile via an unknown protocol
-#: src/include/autoinstall/io.rb:534
-msgid "Unknown protocol %1."
-msgstr "알 수 없는 프로토콜 %1 입니다."
-
 #. Script Configuration
 #. @return  script configuration dialog
 #: src/include/autoinstall/script_dialogs.rb:30
@@ -2457,7 +2398,7 @@ msgstr "규칙 파일을 구문 분석하는 데 실패했습니다. XML 파서 
 #. @param [String] result_profile the resulting control file path
 #. @return [Boolean] true on success
 #. autoyast has read the autoyast configuration file but something went wrong
-#: src/modules/AutoInstallRules.rb:909 src/modules/Profile.rb:738
+#: src/modules/AutoInstallRules.rb:905 src/modules/Profile.rb:750
 msgid ""
 "The XML parser reported an error while parsing the autoyast profile. The "
 "error message is:\n"
@@ -2466,7 +2407,7 @@ msgstr ""
 "메시지 내용:\n"
 
 #. backdoor for merging problems.
-#: src/modules/AutoInstallRules.rb:1054
+#: src/modules/AutoInstallRules.rb:1050
 msgid ""
 "\n"
 "User-defined classes could not be retrieved.  Make sure all classes \n"
@@ -2483,45 +2424,61 @@ msgstr ""
 
 #. The line above needs to be fixed when we have more attributes
 #. comment will look like this: "(description=BLA BLA)"
-#: src/modules/AutoinstConfig.rb:278
+#: src/modules/AutoinstConfig.rb:289
 msgid "Choose Profile"
 msgstr "프로파일 선택"
 
+#. Nothing returned by SLP query
+#: src/modules/AutoinstConfig.rb:312
+#, fuzzy
+#| msgid "The resulting autoyast profile can be found in %s."
+msgid "No 'autoyast' provider has been found via SLP."
+msgstr "결과 autoyast 프로파일은 %s에서 찾을 수 있습니다."
+
+#. There is no profile defined/found anywhere
+#: src/modules/AutoinstConfig.rb:357
+#, fuzzy
+#| msgid "Path to AutoYaST profile"
+msgid ""
+"Invalid AutoYaST profile URL\n"
+"%{url}"
+msgstr "AutoYast 프로파일 경로"
+
 #. SetProtocolMessage ()
 #. @return [void]
-#: src/modules/AutoinstConfig.rb:334
+#: src/modules/AutoinstConfig.rb:384
 msgid "Retrieving control file from floppy."
 msgstr "플로피로부터 제어 파일을 가져오는 중입니다."
 
-#: src/modules/AutoinstConfig.rb:337
+#: src/modules/AutoinstConfig.rb:387
 msgid "Retrieving control file (%1) from TFTP server: %2."
 msgstr "TFTP 서버에서 제어 파일(%1)을 가져오는 중: %2"
 
-#: src/modules/AutoinstConfig.rb:343
+#: src/modules/AutoinstConfig.rb:393
 msgid "Retrieving control file (%1) from NFS server: %2."
 msgstr "NFS 서버에서 제어 파일(%1)을 가져오는 중: %2"
 
-#: src/modules/AutoinstConfig.rb:349
+#: src/modules/AutoinstConfig.rb:399
 msgid "Retrieving control file (%1) from HTTP server: %2."
 msgstr "HTTP 서버에서 제어 파일(%1)을 가져오는 중: %2"
 
-#: src/modules/AutoinstConfig.rb:355
+#: src/modules/AutoinstConfig.rb:405
 msgid "Retrieving control file (%1) from FTP server: %2."
 msgstr "FTP 서버에서 제어 파일(%1)을 가져오는 중: %2"
 
-#: src/modules/AutoinstConfig.rb:361
+#: src/modules/AutoinstConfig.rb:411
 msgid "Copying control file from file: %1."
 msgstr "파일로 부터 제어 파일을 복사 하는 중: %1."
 
-#: src/modules/AutoinstConfig.rb:366
+#: src/modules/AutoinstConfig.rb:416
 msgid "Copying control file from device: /dev/%1."
 msgstr "장치로 부터 제어 파일을 복사하는 중: /dev/%1."
 
-#: src/modules/AutoinstConfig.rb:370
+#: src/modules/AutoinstConfig.rb:420
 msgid "Copying control file from default location."
 msgstr "기본 위치에서 제어 파일을 복사하는 중입니다."
 
-#: src/modules/AutoinstConfig.rb:372
+#: src/modules/AutoinstConfig.rb:422
 msgid "Source unknown."
 msgstr "알 수 없는 소스"
 
@@ -2531,7 +2488,7 @@ msgstr "알 수 없는 소스"
 #. {
 #. local_rules_file = (string)WFM::Args(1);
 #. }
-#: src/modules/AutoinstConfig.rb:452
+#: src/modules/AutoinstConfig.rb:502
 msgid ""
 "<h3>AutoYaST Configuration Management System</h3>\n"
 "<p>Almost all resources of the control file can be\n"
@@ -2541,7 +2498,7 @@ msgstr ""
 "<p>구성 관리 시스템을 사용하면 제어 파일의 거의 모든\n"
 " 리소스를 구성할 수 있습니다.</p>\n"
 
-#: src/modules/AutoinstConfig.rb:457
+#: src/modules/AutoinstConfig.rb:507
 msgid ""
 "<p>Most of the modules used to create the configuration are identical to "
 "those available\n"
@@ -2557,7 +2514,7 @@ msgstr ""
 "설치하는 데 사용할 수 있습니다.\n"
 "</p>\n"
 
-#: src/modules/AutoinstConfig.rb:464
+#: src/modules/AutoinstConfig.rb:514
 msgid ""
 "<p>In addition to the existing and familiar modules,\n"
 "new interfaces were created for special and complex configurations, "
@@ -2694,7 +2651,7 @@ msgstr "%1 볼륨 그룹을 다시 이용할 수 없습니다. 볼륨그룹이 �
 
 #. if no feeder (PV) was found for current volume group
 #. the next instructions taints result
-#: src/modules/AutoinstPartPlan.rb:282
+#: src/modules/AutoinstPartPlan.rb:289
 msgid "Volume group '%1' must have at least one physical volume. Provide one."
 msgstr ""
 "볼륨 그룹 '%1'에 적어도 하나의 물리적 볼륨이 있어야 합니다. 하나를 제공하십시"
@@ -2706,71 +2663,71 @@ msgstr ""
 #. @return  [String] configuration summary dialog
 #. return Summary of configuration
 #. @return  [String] configuration summary dialog
-#: src/modules/AutoinstPartPlan.rb:682 src/modules/AutoinstStorage.rb:913
+#: src/modules/AutoinstPartPlan.rb:703 src/modules/AutoinstStorage.rb:913
 msgid "Drives"
 msgstr "드라이브"
 
 #. We are counting harddisks only (type CT_DISK)
-#: src/modules/AutoinstPartPlan.rb:697
+#: src/modules/AutoinstPartPlan.rb:709
 msgid "%s drive in total"
 msgid_plural "%s drives in total"
 msgstr[0] "총 %s개 드라이브"
 
-#: src/modules/AutoinstPartPlan.rb:716
+#: src/modules/AutoinstPartPlan.rb:728
 msgid "Not yet cloned."
 msgstr "아직 복제되지 않았습니다."
 
 #. Return Summary
 #. @return [String] summary
-#: src/modules/AutoinstScripts.rb:328
+#: src/modules/AutoinstScripts.rb:343
 msgid "Preinstallation Scripts"
 msgstr "사전 설치 스크립트"
 
-#: src/modules/AutoinstScripts.rb:341
+#: src/modules/AutoinstScripts.rb:356
 msgid "Postinstallation Scripts"
 msgstr "사후 설치 스크립트"
 
-#: src/modules/AutoinstScripts.rb:354
+#: src/modules/AutoinstScripts.rb:369
 msgid "Chroot Scripts"
 msgstr "Chroot 스크립트"
 
-#: src/modules/AutoinstScripts.rb:367
+#: src/modules/AutoinstScripts.rb:382
 msgid "Init Scripts"
 msgstr "초기 스크립트"
 
-#: src/modules/AutoinstScripts.rb:380
+#: src/modules/AutoinstScripts.rb:395
 msgid "Postpartitioning Scripts"
 msgstr "Postpartitioning 스크립트"
 
 #. return type of script as formatted string
 #. @param script type
 #. @return [String] type as translated string
-#: src/modules/AutoinstScripts.rb:475
+#: src/modules/AutoinstScripts.rb:490
 msgid "Pre"
 msgstr "Pre"
 
-#: src/modules/AutoinstScripts.rb:477
+#: src/modules/AutoinstScripts.rb:492
 msgid "Post"
 msgstr "Post"
 
-#: src/modules/AutoinstScripts.rb:479
+#: src/modules/AutoinstScripts.rb:494
 msgid "Init"
 msgstr "Init"
 
-#: src/modules/AutoinstScripts.rb:481
+#: src/modules/AutoinstScripts.rb:496
 msgid "Chroot"
 msgstr "Chroot"
 
-#: src/modules/AutoinstScripts.rb:483
+#: src/modules/AutoinstScripts.rb:498
 msgid "Postpartitioning"
 msgstr "Postpartitioning"
 
-#: src/modules/AutoinstScripts.rb:485
+#: src/modules/AutoinstScripts.rb:500
 msgid "Unknown"
 msgstr "알 수 없음"
 
 #. warning text during the installation. %1 is a list of package names
-#: src/modules/AutoinstSoftware.rb:172
+#: src/modules/AutoinstSoftware.rb:174
 msgid ""
 "These packages could not be found in the software repositories:\n"
 "%1"
@@ -2858,7 +2815,7 @@ msgid "boot config for the DVD"
 msgstr "DVD에 대한 부팅 구성"
 
 #  button for message box with help text
-#: src/modules/AutoinstSoftware.rb:625
+#: src/modules/AutoinstSoftware.rb:627
 msgid "Ok"
 msgstr "확인"
 
@@ -2889,29 +2846,29 @@ msgstr "ISO가 %1에 생성되었습니다."
 #  list detected
 #. Summary
 #. @return Html formatted configuration summary
-#: src/modules/AutoinstSoftware.rb:745
+#: src/modules/AutoinstSoftware.rb:753
 msgid "Selected Patterns"
 msgstr "선택한 패턴"
 
-#: src/modules/AutoinstSoftware.rb:755
+#: src/modules/AutoinstSoftware.rb:763
 msgid "Individually Selected Packages"
 msgstr "개별적으로 선택된 꾸러미들"
 
-#: src/modules/AutoinstSoftware.rb:761
+#: src/modules/AutoinstSoftware.rb:769
 msgid "Packages to Remove"
 msgstr "제거할 꾸러미"
 
-#: src/modules/AutoinstSoftware.rb:768
+#: src/modules/AutoinstSoftware.rb:776
 msgid "Force Kernel Package"
 msgstr "필수 커널 꾸러미"
 
 #. set SoftLock to avoid the installation of recommended patterns (#159466)
-#: src/modules/AutoinstSoftware.rb:858
+#: src/modules/AutoinstSoftware.rb:871
 msgid "Could not set patterns: %1."
 msgstr "패턴을 설정할 수 없음: %1."
 
 #. Solve dependencies
-#: src/modules/AutoinstSoftware.rb:919
+#: src/modules/AutoinstSoftware.rb:932
 msgid ""
 "The package resolver run failed. Please check your software section in the "
 "autoyast profile."
@@ -2968,7 +2925,7 @@ msgstr "스토리지 백엔드로 장치 '%1'을 찾지못함"
 #  Routing dialog caption
 #. Prepare Profile for saving and remove empty data structs
 #. @return [void]
-#: src/modules/Profile.rb:351
+#: src/modules/Profile.rb:363
 msgid "Collecting configuration data..."
 msgstr "구성 데이터 수집 중..."
 
@@ -3009,52 +2966,41 @@ msgstr "프로파일을 가져오는 동안 오류가 발생했습니다:\n"
 msgid "&OK"
 msgstr "확인(&O)"
 
-#. TRANSLATORS: Error message, %s is replaced by newline-separated
-#. list of unknown sections of the profile
-#. Do not translate words in brackets
-#: src/clients/inst_autoconfigure.rb:94
-msgid ""
-"These sections of AutoYaST profile cannot be processed on this system:"
-"<br><br>%s<br><br>Maybe they were misspelled or your profile does not "
-"contain all the needed YaST packages in &lt;software/&gt; section."
-msgstr ""
-"다음 AutoYaST 프로파일 섹션은 이 시스템에서 처리할 수 없습니다.<br><br>"
-"%s<br><br>철자가 틀렸거나 프로필에 &lt;software/&gt; 섹션의 모든 필수 YaST 패"
-"키지가 없을 수 있습니다."
+#~ msgid "Cannot find URL '%1' via protocol HTTP(S). Server returned code %2."
+#~ msgstr ""
+#~ "HTTP(S) 프로토콜을 통해 '%1' URL을 찾을 수 없습니다. 서버에서 %2 코드를 반"
+#~ "환했습니다."
 
-#. TRANSLATORS: Error message, %s is replaced by newline-separated
-#. list of unsupported sections of the profile
-#. Do not translate words in brackets
-#: src/clients/inst_autoinit.rb:128
-msgid ""
-"These sections of AutoYaST profile are not supported anymore:<br><br>"
-"%s<br><br>Please, use, e.g., &lt;scripts/&gt; or &lt;files/&gt; to change "
-"the configuration."
-msgstr ""
-"다음 AutoYaST 프로파일 섹션은 더 이상 지원되지 않습니다.<br><br>%s<br><br>구"
-"성을 변경하려면 &lt;scripts/&gt; 또는 &lt;files/&gt; 등을 사용하십시오."
+#~ msgid "Cannot find URL '%1' via protocol FTP. Server returned code %2."
+#~ msgstr ""
+#~ "FTP 프로토콜을 통해 '%1' URL을 찾을 수 없습니다. 서버에서 %2 코드를 반환했"
+#~ "습니다."
 
-#: src/clients/inst_autosetup.rb:64
-msgid "Import SSH keys/settings"
-msgstr "SSH 키/설정 임포트"
+#~ msgid "Reading file on %1/%2 failed.\n"
+#~ msgstr "%1/%2에서 파일을 읽는 데 실패했습니다.\n"
 
-#: src/clients/inst_autosetup.rb:65
-msgid "Confirm License"
-msgstr "라이센스 확인"
+#~ msgid "Reading file on %1 failed.\n"
+#~ msgstr "%1에서 파일을 읽는 데 실패했습니다.\n"
 
-#: src/clients/inst_autosetup.rb:78
-msgid "Importing SSH keys/settings..."
-msgstr "SSH 키/설정 임포트 중..."
+#~ msgid "Mounting %1 failed."
+#~ msgstr "%1을(를) 마운트하는 데 실패했습니다."
 
-#: src/clients/inst_autosetup.rb:79
-msgid "Confirming License..."
-msgstr "라이센스 확인 중..."
+#~ msgid "Reading a file on CD failed. Path: %1/%2."
+#~ msgstr "CD의 파일 읽기에 실패했습니다. 경로: %1/%2."
 
-#. FIXME: why not pass the variable always?
-#: src/include/autoinstall/ask.rb:540
-msgid "A user defined script is running. This may take a while."
-msgstr ""
-"사용자 정의 스크립트가 실행 중입니다. 약간의 시간이 소요될 수 있습니다."
+#~ msgid "Remote file %1 cannot be retrieved"
+#~ msgstr "%1 원격 파일을 검색할 수 없습니다."
+
+#  error popup - mount failed, %1 is device file name (e.g. /dev/fd0)
+#~ msgid "File %1 cannot be found"
+#~ msgstr "%1 파일을 찾을 수 없습니다."
+
+#~ msgid "Cannot find URL '%1' via protocol TFTP."
+#~ msgstr "TFTP 프로토콜을 통해 '%1' URL을 찾을 수 없습니다."
+
+#  Unknown printer AnYtHiNg
+#~ msgid "Unknown protocol %1."
+#~ msgstr "알 수 없는 프로토콜 %1 입니다."
 
 #~ msgid "Configure runlevel"
 #~ msgstr "런레벨 설정"
