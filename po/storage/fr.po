@@ -22,7 +22,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: storage\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-09-28 18:17+0200\n"
+"POT-Creation-Date: 2016-08-30 18:30+0200\n"
 "PO-Revision-Date: 2015-10-03 23:56+0200\n"
 "Last-Translator: Antoine Belvire <antoine.belvire@laposte.net>\n"
 "Language-Team: français <opensuse-fr@opensuse.org>\n"
@@ -204,7 +204,13 @@ msgstr ""
 msgid "Not enough space available to propose separate /home."
 msgstr "Pas assez d'espace disponible pour proposer un /home séparé."
 
-#: src/clients/inst_disk_proposal.rb:295
+#: src/clients/inst_disk_proposal.rb:283
+msgid "Nothing assigned as root filesystem. Cannot continue."
+msgstr ""
+"Rien n'est assigné en tant que système de fichiers racine ! Impossible de "
+"continuer."
+
+#: src/clients/inst_disk_proposal.rb:304
 msgid ""
 "Computing this proposal will overwrite manual changes \n"
 "done so far. Continue with computing proposal?"
@@ -1069,7 +1075,7 @@ msgstr ""
 #. Label text
 #. TRANSLATORS: checkbox text
 #: src/include/partitioning/auto_part_ui.rb:341
-#: src/modules/StorageProposal.rb:6245
+#: src/modules/StorageProposal.rb:6272
 msgid "Propose Separate &Home Partition"
 msgstr "Proposer une partition personnelle (&home) séparée"
 
@@ -1089,7 +1095,7 @@ msgstr "Type de proposition"
 
 # TLABEL partitioning_2002_03_14_2340__61
 #. popup text
-#: src/include/partitioning/custom_part_check_generated.rb:251
+#: src/include/partitioning/custom_part_check_generated.rb:244
 msgid ""
 "You have not assigned a root partition for\n"
 "installation. This does not work. Assign the root mount point \"/\" to a\n"
@@ -1106,7 +1112,7 @@ msgstr ""
 
 # TLABEL partitioning_2002_03_14_2340__62
 #. popup text
-#: src/include/partitioning/custom_part_check_generated.rb:264
+#: src/include/partitioning/custom_part_check_generated.rb:257
 msgid ""
 "You tried to mount a FAT partition to one of the following mount\n"
 "points: /, /usr, /home, /opt or /var. This will very likely cause problems.\n"
@@ -1123,7 +1129,7 @@ msgstr ""
 "Vraiment utiliser cette configuration ?\n"
 
 #. popup text
-#: src/include/partitioning/custom_part_check_generated.rb:277
+#: src/include/partitioning/custom_part_check_generated.rb:270
 msgid ""
 "You tried to mount a FAT partition to the\n"
 "mount point /boot. This will very likely cause problems. Use a Linux file\n"
@@ -1138,7 +1144,7 @@ msgstr ""
 "Vraiment utiliser cette configuration ?\n"
 
 #. popup text
-#: src/include/partitioning/custom_part_check_generated.rb:291
+#: src/include/partitioning/custom_part_check_generated.rb:284
 msgid ""
 "You have mounted a partition with Btrfs to the\n"
 "mount point /boot. This will very likely cause problems. Use a Linux file\n"
@@ -1154,10 +1160,18 @@ msgstr ""
 
 #. A PReP/CHRP partition is not supposed to be mounted. So if we find any
 #. other /boot partition, we should warn the user.
-#: src/include/partitioning/custom_part_check_generated.rb:305
+#: src/include/partitioning/custom_part_check_generated.rb:298
+#, fuzzy
+#| msgid ""
+#| "Warning:\n"
+#| "Your system needs a boot partition with type 0x41 PReP/CHRP.\n"
+#| "Please, consider creating one.\n"
+#| "\n"
+#| "Really use this setup?\n"
 msgid ""
 "Warning:\n"
-"Your system needs a boot partition with type 0x41 PReP/CHRP.\n"
+"Your system needs a boot partition, either with type 0x41 PReP/CHRP\n"
+"on MS-DOS or type 0x00 GPT PReP Boot on GPT.\n"
 "Please, consider creating one.\n"
 "\n"
 "Really use this setup?\n"
@@ -1170,7 +1184,7 @@ msgstr ""
 
 # TLABEL partitioning_2002_01_04_0147__190
 #. popup text, %1 is a number
-#: src/include/partitioning/custom_part_check_generated.rb:320
+#: src/include/partitioning/custom_part_check_generated.rb:314
 msgid ""
 "Warning:\n"
 "Your boot partition ends above cylinder %1.\n"
@@ -1192,7 +1206,7 @@ msgstr ""
 
 # TLABEL partitioning_2002_01_04_0147__192
 #. popup text, %1 is a size
-#: src/include/partitioning/custom_part_check_generated.rb:340
+#: src/include/partitioning/custom_part_check_generated.rb:334
 msgid ""
 "Warning:\n"
 "Your boot partition is smaller than %1.\n"
@@ -1207,7 +1221,7 @@ msgstr ""
 "Vraiment conserver la taille de la partition d'amorçage ?\n"
 
 #. /////////////////////////// NO BOOT ///////////////////////////
-#: src/include/partitioning/custom_part_check_generated.rb:357
+#: src/include/partitioning/custom_part_check_generated.rb:351
 msgid ""
 "Warning: There is no partition of type bios_grub present.\n"
 "Such a partition is recommended (required with Btrfs) when Grub2 is\n"
@@ -1224,12 +1238,21 @@ msgstr ""
 #. popup text
 #. If the user chooses 'no' here, the system will not be able to
 #. boot from the hard drive!
-#: src/include/partitioning/custom_part_check_generated.rb:377
+#: src/include/partitioning/custom_part_check_generated.rb:371
+#, fuzzy
+#| msgid ""
+#| "Warning: There is no partition mounted as /boot.\n"
+#| "To boot from your hard disk, a small /boot partition\n"
+#| "(approx. %1) is required.  Consider creating one\n"
+#| "with type 0x41 PReP/CHRP.\n"
+#| "\n"
+#| "Really use the setup without /boot partition?\n"
 msgid ""
 "Warning: There is no partition mounted as /boot.\n"
 "To boot from your hard disk, a small /boot partition\n"
 "(approx. %1) is required.  Consider creating one\n"
-"with type 0x41 PReP/CHRP.\n"
+"with type 0x41 PReP/CHRP on MS-DOS or type 0x00 GPT\n"
+"PReP Boot on GPT.\n"
 "\n"
 "Really use the setup without /boot partition?\n"
 msgstr ""
@@ -1242,7 +1265,7 @@ msgstr ""
 
 # TLABEL partitioning_2002_03_14_2340__64
 #. popup text
-#: src/include/partitioning/custom_part_check_generated.rb:396
+#: src/include/partitioning/custom_part_check_generated.rb:391
 msgid ""
 "Warning: According to your setup, you intend to\n"
 "boot your machine from the root partition (/), which, unfortunately,\n"
@@ -1263,22 +1286,23 @@ msgstr ""
 "\n"
 "Vraiment utiliser cette configuration ?\n"
 
-#: src/include/partitioning/custom_part_check_generated.rb:416
+#: src/include/partitioning/custom_part_check_generated.rb:417
 msgid ""
 "Warning: Some subvolumes of the root filesystem are shadowed by\n"
 "mount points of other filesystem. This could lead to problems.\n"
-"\n"
+"%s\n"
 "Really use this setup?\n"
 msgstr ""
-"Attention : Certains sous-volumes du système de fichiers racine sont\n"
-"masqués par des points de montage d'autres système de fichiers.\n"
-"Cela pourrait conduire à des problèmes.\n"
-"\n"
-"Vraiment utiliser cette configuration ?\n"
+"Avertissement : certains sous-volumes du système de fichiers racine sont "
+"occultés par des\n"
+"points de montage d'un autre système de fichiers. Cela peut entraîner des "
+"problèmes.\n"
+"%s\n"
+"Voulez-vous vraiment utiliser cette configuration ?\n"
 
 # TLABEL partitioning_2002_03_14_2340__65
 #. popup text
-#: src/include/partitioning/custom_part_check_generated.rb:433
+#: src/include/partitioning/custom_part_check_generated.rb:435
 msgid ""
 "Warning: With your current setup, your %1\n"
 "installation might not be directly bootable, because\n"
@@ -1296,7 +1320,7 @@ msgstr ""
 
 # TLABEL partitioning_2002_03_14_2340__65
 #. popup text
-#: src/include/partitioning/custom_part_check_generated.rb:451
+#: src/include/partitioning/custom_part_check_generated.rb:453
 msgid ""
 "Warning: With your current setup, your %2 installation\n"
 "will encounter problems when booting, because you have no\n"
@@ -1321,7 +1345,7 @@ msgstr ""
 "Vraiment utiliser cette configuration ?\n"
 
 #. popup text
-#: src/include/partitioning/custom_part_check_generated.rb:473
+#: src/include/partitioning/custom_part_check_generated.rb:475
 msgid ""
 "Warning: With your current setup, your %2 installation will\n"
 "encounter problems when booting, because you have no \n"
@@ -1348,13 +1372,13 @@ msgstr ""
 
 # TLABEL lilo_2002_01_04_0147__15
 #. popup text
-#: src/include/partitioning/custom_part_check_generated.rb:496
+#: src/include/partitioning/custom_part_check_generated.rb:498
 msgid "Really use this setup?"
 msgstr "Vraiment utiliser cette configuration ?"
 
 # TLABEL storage_2002_08_07_0216__2
 #. popup text
-#: src/include/partitioning/custom_part_check_generated.rb:504
+#: src/include/partitioning/custom_part_check_generated.rb:506
 msgid ""
 "\n"
 "You have not assigned a swap partition. In most cases, we highly recommend \n"
@@ -1380,7 +1404,7 @@ msgstr ""
 
 # TLABEL partitioning_2002_01_04_0147__199
 #. popup text
-#: src/include/partitioning/custom_part_check_generated.rb:520
+#: src/include/partitioning/custom_part_check_generated.rb:522
 msgid ""
 "\n"
 "You chose to install onto an existing partition that will not be\n"
@@ -1394,7 +1418,7 @@ msgstr ""
 
 # TLABEL partitioning_2002_03_14_2340__68
 #. continued popup text
-#: src/include/partitioning/custom_part_check_generated.rb:527
+#: src/include/partitioning/custom_part_check_generated.rb:529
 msgid ""
 "- if this is an existing ReiserFS partition\n"
 "- if this partition already contains a Linux distribution that will be\n"
@@ -1408,7 +1432,7 @@ msgstr ""
 
 # TLABEL partitioning_2002_01_04_0147__201
 #. continued popup text
-#: src/include/partitioning/custom_part_check_generated.rb:534
+#: src/include/partitioning/custom_part_check_generated.rb:536
 msgid ""
 "If in doubt, better go back and mark this partition for\n"
 "formatting, especially if it is assigned to one of the standard mount "
@@ -1422,7 +1446,7 @@ msgstr ""
 
 # TLABEL partitioning_2002_03_14_2340__69
 #. continued popup text
-#: src/include/partitioning/custom_part_check_generated.rb:540
+#: src/include/partitioning/custom_part_check_generated.rb:542
 msgid ""
 "If you decide to format the partition, all data on it will be lost.\n"
 "\n"
@@ -1435,7 +1459,7 @@ msgstr ""
 
 # TLABEL partitioning_2002_01_04_0147__204
 #. popup text %1 is replaced by a raid name e.g. md0
-#: src/include/partitioning/custom_part_check_generated.rb:595
+#: src/include/partitioning/custom_part_check_generated.rb:603
 msgid ""
 "The selected device belongs to the RAID (%1).\n"
 "Remove it from the RAID before editing it.\n"
@@ -1445,7 +1469,7 @@ msgstr ""
 
 # TLABEL partitioning_2002_01_04_0147__205
 #. popup text %1 is replaced by a name e.g. system
-#: src/include/partitioning/custom_part_check_generated.rb:606
+#: src/include/partitioning/custom_part_check_generated.rb:614
 msgid ""
 "The selected device belongs to a volume group (%1).\n"
 "Remove it from the volume group before editing it.\n"
@@ -1455,7 +1479,7 @@ msgstr ""
 
 # TLABEL partitioning_2002_01_04_0147__205
 #. popup text %1 is replaced by a name e.g. system
-#: src/include/partitioning/custom_part_check_generated.rb:616
+#: src/include/partitioning/custom_part_check_generated.rb:624
 msgid ""
 "The selected device is used by volume (%1).\n"
 "Remove the volume before editing it.\n"
@@ -1465,7 +1489,7 @@ msgstr ""
 
 # TLABEL partitioning_2002_01_04_0147__207
 #. popup text %2 is a device name, %1 is the raid name
-#: src/include/partitioning/custom_part_check_generated.rb:649
+#: src/include/partitioning/custom_part_check_generated.rb:657
 msgid ""
 "The device (%2) belongs to the RAID (%1).\n"
 "Remove it from the RAID before deleting it.\n"
@@ -1475,7 +1499,7 @@ msgstr ""
 
 # TLABEL partitioning_2002_01_04_0147__207
 #. popup text, %1 and %2 are device names
-#: src/include/partitioning/custom_part_check_generated.rb:660
+#: src/include/partitioning/custom_part_check_generated.rb:668
 msgid ""
 "The device (%2) is used by %1.\n"
 "Remove %1 before deleting it.\n"
@@ -1483,12 +1507,12 @@ msgstr ""
 "Le périphérique (%2) est utilisé par %1.\n"
 "Supprimez %1 avant de l'effacer.\n"
 
-#: src/include/partitioning/custom_part_check_generated.rb:672
+#: src/include/partitioning/custom_part_check_generated.rb:680
 msgid "It cannot be deleted while mounted."
 msgstr "Il ne peut être effacé lorsqu'il est monté."
 
 #. popup text, %1 is a device name
-#: src/include/partitioning/custom_part_check_generated.rb:708
+#: src/include/partitioning/custom_part_check_generated.rb:716
 msgid ""
 "The device (%1) cannot be removed since it is a logical partition and \n"
 "another logical partition with a higher number is in use.\n"
@@ -1500,7 +1524,7 @@ msgstr ""
 
 # TLABEL partitioning_2002_01_04_0147__209
 #. popup text
-#: src/include/partitioning/custom_part_check_generated.rb:784
+#: src/include/partitioning/custom_part_check_generated.rb:792
 msgid ""
 "The selected extended partition contains partitions which are currently "
 "mounted:\n"
@@ -1518,7 +1542,7 @@ msgstr ""
 
 # TLABEL partitioning_2002_03_14_2340__70
 #. popup text, Do not translate LVM.
-#: src/include/partitioning/custom_part_check_generated.rb:802
+#: src/include/partitioning/custom_part_check_generated.rb:810
 msgid ""
 "\n"
 "The selected extended partition contains at least one LVM partition\n"
@@ -1534,7 +1558,7 @@ msgstr ""
 
 # TLABEL partitioning_2002_03_14_2340__71
 #. popup text, Do not translate RAID.
-#: src/include/partitioning/custom_part_check_generated.rb:813
+#: src/include/partitioning/custom_part_check_generated.rb:821
 msgid ""
 "\n"
 "The selected extended partition contains at least one partition\n"
@@ -1550,7 +1574,7 @@ msgstr ""
 
 # TLABEL partitioning_2002_03_14_2340__70
 #. popup text
-#: src/include/partitioning/custom_part_check_generated.rb:824
+#: src/include/partitioning/custom_part_check_generated.rb:832
 msgid ""
 "\n"
 "The selected extended partition contains at least one partition\n"
@@ -1571,14 +1595,14 @@ msgstr "Entrez votre mot de passe pour le système de fichiers chiffré."
 # TLABEL user_2002_03_14_2340__8
 #. label text
 #: src/include/partitioning/custom_part_dialogs.rb:74
-#: src/include/partitioning/ep-dialogs.rb:768
-#: src/modules/StorageProposal.rb:6372
+#: src/include/partitioning/ep-dialogs.rb:806
+#: src/modules/StorageProposal.rb:6400
 msgid "Do not forget what you enter here!"
 msgstr "N'oubliez pas ce que vous saisissez ici !"
 
 # TLABEL nfs_2002_01_04_0147__34
 #: src/include/partitioning/custom_part_dialogs.rb:78
-#: src/include/partitioning/ep-dialogs.rb:771
+#: src/include/partitioning/ep-dialogs.rb:809
 msgid "Empty password allowed."
 msgstr "Mot de passe vide autorisé."
 
@@ -1611,7 +1635,7 @@ msgstr "Entrez votre mot de passe pour le système de fichiers chiffré"
 #. Label: get password for user root
 #. Please use newline if label is longer than 40 characters
 #: src/include/partitioning/custom_part_dialogs.rb:136
-#: src/include/partitioning/ep-dialogs.rb:796
+#: src/include/partitioning/ep-dialogs.rb:834
 msgid "&Enter a Password for your File System:"
 msgstr "&Entrez un mot de passe pour votre système de fichiers :"
 
@@ -1623,7 +1647,7 @@ msgstr "&Entrez un mot de passe pour votre système de fichiers :"
 #. Label: get same password again for verification
 #. Please use newline if label is longer than 40 characters
 #: src/include/partitioning/custom_part_dialogs.rb:147
-#: src/include/partitioning/ep-dialogs.rb:780 src/modules/Storage.rb:4002
+#: src/include/partitioning/ep-dialogs.rb:818 src/modules/Storage.rb:4006
 msgid "Reenter the Password for &Verification:"
 msgstr "Entrez à nouveau votre mot de passe pour &vérification :"
 
@@ -1649,7 +1673,7 @@ msgstr ""
 #. popup text
 #. popup text
 #: src/include/partitioning/custom_part_dialogs.rb:196
-#: src/modules/Storage.rb:3958
+#: src/modules/Storage.rb:3962
 msgid ""
 "You did not enter a password.\n"
 "Try again.\n"
@@ -1661,7 +1685,7 @@ msgstr ""
 #. popup text
 #. popup text
 #: src/include/partitioning/custom_part_dialogs.rb:203
-#: src/modules/Storage.rb:3966
+#: src/modules/Storage.rb:3970
 msgid ""
 "The password must have at least %1 characters.\n"
 "Try again.\n"
@@ -2087,7 +2111,7 @@ msgstr "Supprimer"
 #. TRANSLATOR: checkbox text
 #. TRANSLATORS: checkbox text
 #: src/include/partitioning/custom_part_dialogs.rb:1592
-#: src/modules/StorageProposal.rb:6226
+#: src/modules/StorageProposal.rb:6253
 msgid "Enable Snapshots"
 msgstr "Activer les instantanés"
 
@@ -2103,7 +2127,7 @@ msgstr "Gestion des sous-volumes"
 msgid "Empty subvolume name not allowed."
 msgstr "Les noms de sous-volumes vides ne sont pas autorisés."
 
-#: src/include/partitioning/custom_part_dialogs.rb:1670
+#: src/include/partitioning/custom_part_dialogs.rb:1671
 msgid ""
 "Only subvolume names starting with \"%1\" currently allowed!\n"
 "Automatically prepending \"%1\" to name of subvolume."
@@ -2113,11 +2137,11 @@ msgstr ""
 "Ajout automatique de \"%1\" devant le nom du sous-volume."
 
 # TLABEL network_2002_03_14_2340__39
-#: src/include/partitioning/custom_part_dialogs.rb:1680
+#: src/include/partitioning/custom_part_dialogs.rb:1681
 msgid "Subvolume name %1 already exists."
 msgstr "Le nom de sous-volume %1 existe déjà."
 
-#: src/include/partitioning/custom_part_dialogs.rb:1709
+#: src/include/partitioning/custom_part_dialogs.rb:1711
 msgid "Modifications done so far in this dialog will be lost."
 msgstr ""
 "Les modifications effectuées jusqu'à présent dans cette boite de dialogue "
@@ -2165,7 +2189,7 @@ msgstr ""
 
 #. helptext
 #: src/include/partitioning/custom_part_helptexts.rb:87
-#: src/include/partitioning/ep-dialogs.rb:708
+#: src/include/partitioning/ep-dialogs.rb:746
 msgid ""
 "<p>\n"
 "This mount point corresponds to a temporary filesystem like /tmp or /var/"
@@ -2189,7 +2213,7 @@ msgstr ""
 #. help text, continued
 #. helptext
 #: src/include/partitioning/custom_part_helptexts.rb:100
-#: src/include/partitioning/ep-dialogs.rb:723
+#: src/include/partitioning/ep-dialogs.rb:761
 msgid ""
 "<p>\n"
 "If you forget your password, you will lose access to the data on your file "
@@ -2211,7 +2235,7 @@ msgstr ""
 #. help text, continued
 #. helptext, %1 is replaced by integer
 #: src/include/partitioning/custom_part_helptexts.rb:114
-#: src/include/partitioning/ep-dialogs.rb:737
+#: src/include/partitioning/ep-dialogs.rb:775
 msgid ""
 "<p>\n"
 "You must distinguish between uppercase and lowercase. A password should have "
@@ -2247,7 +2271,7 @@ msgstr ""
 #. help text, continued
 #. helptext
 #: src/include/partitioning/custom_part_helptexts.rb:142
-#: src/include/partitioning/ep-dialogs.rb:749
+#: src/include/partitioning/ep-dialogs.rb:787
 msgid ""
 "<p>\n"
 "Do not forget this password!\n"
@@ -2479,7 +2503,7 @@ msgstr ""
 "à un périphérique avec un système de fichiers inexistant ou inconnu."
 
 #. warning message, %1 is replaced by fs name (e.g. Ext3)
-#: src/include/partitioning/custom_part_lib.rb:491
+#: src/include/partitioning/custom_part_lib.rb:482
 msgid ""
 "\n"
 "WARNING:\n"
@@ -2503,12 +2527,12 @@ msgstr ""
 
 #. //////////////////////////////////////////////
 #. modify map new
-#: src/include/partitioning/custom_part_lib.rb:919
-#: src/include/partitioning/custom_part_lib.rb:946
+#: src/include/partitioning/custom_part_lib.rb:924
+#: src/include/partitioning/custom_part_lib.rb:951
 msgid "The file system is currently mounted on %1."
 msgstr "Le système de fichiers est actuellement monté sur %1."
 
-#: src/include/partitioning/custom_part_lib.rb:924
+#: src/include/partitioning/custom_part_lib.rb:929
 msgid ""
 "You can try to unmount it now, continue without unmounting or cancel.\n"
 "Click Cancel unless you know exactly what you are doing."
@@ -2521,12 +2545,12 @@ msgstr ""
 # TLABEL autoinst_2002_08_07_0216__117
 #. button text
 #. button text
-#: src/include/partitioning/custom_part_lib.rb:935
-#: src/include/partitioning/custom_part_lib.rb:960
+#: src/include/partitioning/custom_part_lib.rb:940
+#: src/include/partitioning/custom_part_lib.rb:965
 msgid "Unmount"
 msgstr "Démonter"
 
-#: src/include/partitioning/custom_part_lib.rb:951
+#: src/include/partitioning/custom_part_lib.rb:956
 msgid ""
 "You can try to unmount it now or cancel.\n"
 "Click Cancel unless you know exactly what you are doing."
@@ -2535,17 +2559,17 @@ msgstr ""
 "Cliquez sur Annuler à moins que vous ne sachiez exactement ce que vous "
 "faites."
 
-#: src/include/partitioning/custom_part_lib.rb:997
+#: src/include/partitioning/custom_part_lib.rb:1002
 msgid "It is not possible to shrink the file system while it is mounted."
 msgstr ""
 "Il n'est pas possible de réduire le système de fichiers tant qu'il est monté."
 
-#: src/include/partitioning/custom_part_lib.rb:1010
+#: src/include/partitioning/custom_part_lib.rb:1015
 msgid "It is not possible to extend the file system while it is mounted."
 msgstr ""
 "Il n'est pas possible d'étendre le système de fichiers tant qu'il est monté."
 
-#: src/include/partitioning/custom_part_lib.rb:1021
+#: src/include/partitioning/custom_part_lib.rb:1026
 msgid "It is not possible to resize the file system while it is mounted."
 msgstr ""
 "Il n'est pas possible de redimensionner le système de fichiers tant qu'il "
@@ -2993,33 +3017,38 @@ msgid "<p>Choose the role of the device.</p>"
 msgstr "<p>Choisissez le rôle du périphérique.</p>"
 
 #. radio button text
-#: src/include/partitioning/ep-dialogs.rb:55
+#: src/include/partitioning/ep-dialogs.rb:56
+msgid "EFI Boot Partition"
+msgstr "Partition de démarrage EFI"
+
+#. radio button text
+#: src/include/partitioning/ep-dialogs.rb:64
 msgid "Operating System"
 msgstr "Système d'exploitation"
 
 #. radio button text
-#: src/include/partitioning/ep-dialogs.rb:60
+#: src/include/partitioning/ep-dialogs.rb:69
 msgid "Data and ISV Applications"
 msgstr "Données et applications tierces"
 
 #. radio button text
-#: src/include/partitioning/ep-dialogs.rb:65
+#: src/include/partitioning/ep-dialogs.rb:75
 msgid "Swap"
 msgstr "Swap"
 
 #. radio button text
-#: src/include/partitioning/ep-dialogs.rb:70
+#: src/include/partitioning/ep-dialogs.rb:80
 msgid "Raw Volume (unformatted)"
 msgstr "Volume brut (non formaté)"
 
 #. heading for a frame in a dialog
-#: src/include/partitioning/ep-dialogs.rb:78
+#: src/include/partitioning/ep-dialogs.rb:88
 msgid "Role"
 msgstr "Rôle"
 
 # TLABEL partitioning_2002_01_04_0147__272
 #. helptext
-#: src/include/partitioning/ep-dialogs.rb:107
+#: src/include/partitioning/ep-dialogs.rb:120
 msgid ""
 "<p>First, choose whether the partition should be\n"
 "formatted and the desired file system type.</p>"
@@ -3028,7 +3057,7 @@ msgstr ""
 "ainsi que le format du système de fichiers désiré.</p>"
 
 #. helptext
-#: src/include/partitioning/ep-dialogs.rb:114
+#: src/include/partitioning/ep-dialogs.rb:127
 msgid ""
 "<p>If you want to encrypt all data on the\n"
 "volume, select <b>Encrypt Device</b>. Changing the encryption on an "
@@ -3042,7 +3071,7 @@ msgstr ""
 
 # TLABEL partitioning_2002_03_14_2340__88
 #. helptext
-#: src/include/partitioning/ep-dialogs.rb:124
+#: src/include/partitioning/ep-dialogs.rb:137
 msgid ""
 "<p>Then, choose whether the partition should\n"
 "be mounted and enter the mount point (/, /boot, /home, /var, etc.).</p>"
@@ -3053,55 +3082,55 @@ msgstr ""
 
 # TLABEL firewall_2002_03_14_2340__62
 #. set globals
-#: src/include/partitioning/ep-dialogs.rb:309
+#: src/include/partitioning/ep-dialogs.rb:337
 msgid "Formatting Options"
 msgstr "Options de formatage "
 
 # TLABEL storage_2002_08_07_0216__14
-#: src/include/partitioning/ep-dialogs.rb:317
+#: src/include/partitioning/ep-dialogs.rb:345
 msgid "Format partition"
 msgstr "Formater la partition"
 
 # TLABEL partitioning_2002_01_04_0147__235
-#: src/include/partitioning/ep-dialogs.rb:328
+#: src/include/partitioning/ep-dialogs.rb:356
 msgid "Do not format partition"
 msgstr "Ne pas formater la partition"
 
 # TLABEL packages_2002_01_04_0147__160
-#: src/include/partitioning/ep-dialogs.rb:344
+#: src/include/partitioning/ep-dialogs.rb:372
 msgid "Do not mount partition"
 msgstr "Ne pas monter la partition"
 
 # TLABEL backup_2002_03_14_2340__78
-#: src/include/partitioning/ep-dialogs.rb:363
+#: src/include/partitioning/ep-dialogs.rb:391
 msgid "Mounting Options"
 msgstr "Options de montage"
 
 # TLABEL packages_2002_01_04_0147__160
-#: src/include/partitioning/ep-dialogs.rb:371
+#: src/include/partitioning/ep-dialogs.rb:399
 msgid "Mount partition"
 msgstr "Monter la partition"
 
 # TLABEL partitioning_2002_01_04_0147__241
 #. Column header
-#: src/include/partitioning/ep-dialogs.rb:377 src/modules/StorageFields.rb:144
+#: src/include/partitioning/ep-dialogs.rb:405 src/modules/StorageFields.rb:144
 msgid "Mount Point"
 msgstr "Point de montage"
 
 # TLABEL storage_2002_08_07_0216__16
 #. button text
-#: src/include/partitioning/ep-dialogs.rb:384
+#: src/include/partitioning/ep-dialogs.rb:412
 msgid "Fs&tab Options..."
 msgstr "Options Fs&tab"
 
 # TLABEL lan_2002_01_04_0147__130
 #. error popup
-#: src/include/partitioning/ep-dialogs.rb:558
+#: src/include/partitioning/ep-dialogs.rb:596
 msgid "Crypt files must be encrypted."
 msgstr "Les fichiers de chiffrement doivent être chiffrés."
 
 #. error popup
-#: src/include/partitioning/ep-dialogs.rb:569
+#: src/include/partitioning/ep-dialogs.rb:607
 msgid ""
 "You chose to create the crypt file, but did not specify\n"
 "that it should be formatted. This does not make sense.\n"
@@ -3115,19 +3144,19 @@ msgstr ""
 
 # TLABEL general_2002_01_04_0147__73
 #. error popup
-#: src/include/partitioning/ep-dialogs.rb:585
+#: src/include/partitioning/ep-dialogs.rb:623
 msgid "Crypt files require a mount point."
 msgstr "Les fichiers de chiffrement nécessitent un point de montage."
 
 # TLABEL general_2002_01_04_0147__73
 #. error popup
-#: src/include/partitioning/ep-dialogs.rb:599
+#: src/include/partitioning/ep-dialogs.rb:637
 msgid "Tmpfs requires a mount point."
 msgstr "Tmpfs nécessite un point de montage."
 
 # TLABEL partitioning_2002_03_14_2340__83
 #. helptext
-#: src/include/partitioning/ep-dialogs.rb:683
+#: src/include/partitioning/ep-dialogs.rb:721
 msgid ""
 "<p>\n"
 "Keep in mind that this file system is only protected when it is not\n"
@@ -3143,7 +3172,7 @@ msgstr ""
 "</p"
 
 #. helptext
-#: src/include/partitioning/ep-dialogs.rb:696
+#: src/include/partitioning/ep-dialogs.rb:734
 msgid ""
 "<p>\n"
 "The file system used for this volume is swap. You can leave the encryption \n"
@@ -3158,24 +3187,24 @@ msgstr ""
 "utilisée pour l'hibernation (mise en veille sur disque).\n"
 "</p>\n"
 
-#: src/include/partitioning/ep-dialogs.rb:766
+#: src/include/partitioning/ep-dialogs.rb:804
 msgid "All data stored on the volume will be lost!"
 msgstr "Toutes les données enregistrées sur le volume seront perdues !"
 
 # TLABEL packages_2002_03_14_2340__6
-#: src/include/partitioning/ep-dialogs.rb:789
+#: src/include/partitioning/ep-dialogs.rb:827
 msgid "Password"
 msgstr "Mot de passe"
 
 #. popup text
-#: src/include/partitioning/ep-dialogs.rb:886
+#: src/include/partitioning/ep-dialogs.rb:924
 msgid "Resize not supported by underlying device."
 msgstr ""
 "Le redimensionnement n'est pas supporté par le périphérique sous-jacent."
 
 # TLABEL storage_2002_08_07_0216__65
 #. popup text
-#: src/include/partitioning/ep-dialogs.rb:891
+#: src/include/partitioning/ep-dialogs.rb:929
 msgid ""
 "\n"
 "You cannot resize the selected partition because the file system\n"
@@ -3187,7 +3216,7 @@ msgstr ""
 "de cette partition ne prend pas le redimensionnement en charge.\n"
 
 # TLABEL partitioning_2002_01_04_0147__54
-#: src/include/partitioning/ep-dialogs.rb:915
+#: src/include/partitioning/ep-dialogs.rb:953
 msgid ""
 "It is not possible to check whether a NTFS\n"
 "can be resized while it is mounted."
@@ -3196,7 +3225,7 @@ msgstr ""
 "peut être redimensionnée lorsqu'elle est montée."
 
 #. FIXME: Really?
-#: src/include/partitioning/ep-dialogs.rb:934
+#: src/include/partitioning/ep-dialogs.rb:972
 msgid ""
 "Partition %1 cannot be resized\n"
 "because the filesystem seems to be inconsistent.\n"
@@ -3205,24 +3234,24 @@ msgstr ""
 "car le système de fichiers semble incohérent.\n"
 
 #. Heading for dialog
-#: src/include/partitioning/ep-dialogs.rb:961
+#: src/include/partitioning/ep-dialogs.rb:999
 msgid "Resize Partition %1"
 msgstr "Redimensionner la partition %1"
 
 # TLABEL partitioning_2002_01_04_0147__351
 #. Heading for dialog
-#: src/include/partitioning/ep-dialogs.rb:982
+#: src/include/partitioning/ep-dialogs.rb:1020
 msgid "Resize Logical Volume %1"
 msgstr "Redimensionner le volume logique %1"
 
 # TLABEL x11_2002_01_04_0147__1
 #. size_k + min_size_k could be > max_size_k
-#: src/include/partitioning/ep-dialogs.rb:1014
+#: src/include/partitioning/ep-dialogs.rb:1052
 msgid "Current size: %1"
 msgstr "Taille actuelle : %1"
 
 # TLABEL printer_2002_08_07_0216__62
-#: src/include/partitioning/ep-dialogs.rb:1026
+#: src/include/partitioning/ep-dialogs.rb:1064
 msgid "Currently used: %1"
 msgstr "Actuellement utilisé : %1"
 
@@ -3231,8 +3260,8 @@ msgstr "Actuellement utilisé : %1"
 #. input field label
 #. combo box label
 #. Column header
-#: src/include/partitioning/ep-dialogs.rb:1039
-#: src/include/partitioning/ep-dialogs.rb:1076
+#: src/include/partitioning/ep-dialogs.rb:1077
+#: src/include/partitioning/ep-dialogs.rb:1114
 #: src/include/partitioning/ep-hd-dialogs.rb:256
 #: src/include/partitioning/ep-loop-dialogs.rb:118
 #: src/include/partitioning/ep-lvm-dialogs.rb:559
@@ -3244,20 +3273,20 @@ msgstr "Taille"
 
 #. radio button text, %1 is replaced by size
 #. radio button text, %1 is replaced by size
-#: src/include/partitioning/ep-dialogs.rb:1049
+#: src/include/partitioning/ep-dialogs.rb:1087
 #: src/include/partitioning/ep-hd-dialogs.rb:242
 #: src/include/partitioning/ep-lvm-dialogs.rb:535
 msgid "Maximum Size (%1)"
 msgstr "Taille maximale (%1)"
 
 #. radio button text, %1 is replaced by size
-#: src/include/partitioning/ep-dialogs.rb:1059
+#: src/include/partitioning/ep-dialogs.rb:1097
 msgid "Minimum Size (%1)"
 msgstr "Taille minimale (%1)"
 
 #. radio button text
 #. radio button text
-#: src/include/partitioning/ep-dialogs.rb:1068
+#: src/include/partitioning/ep-dialogs.rb:1106
 #: src/include/partitioning/ep-hd-dialogs.rb:251
 #: src/include/partitioning/ep-lvm-dialogs.rb:568
 msgid "Custom Size"
@@ -3265,14 +3294,14 @@ msgstr "Taille personnalisée"
 
 # TLABEL storage_2002_08_07_0216__55
 #. help text
-#: src/include/partitioning/ep-dialogs.rb:1102
+#: src/include/partitioning/ep-dialogs.rb:1140
 msgid "<p>Choose new size.</p>"
 msgstr "<p>Choisissez la nouvelle taille.<p>"
 
 # TLABEL partitioning_2002_03_14_2340__111
 #. error popup, %1 and %2 are replaced by sizes
 #. error popup, %1 and %2 are replaced by sizes
-#: src/include/partitioning/ep-dialogs.rb:1153
+#: src/include/partitioning/ep-dialogs.rb:1191
 #: src/include/partitioning/ep-hd-dialogs.rb:359
 #: src/include/partitioning/ep-lvm-dialogs.rb:692
 msgid "The size entered is invalid. Enter a size between %1 and %2."
@@ -3284,7 +3313,7 @@ msgstr ""
 #. after user tries to do that is stupid - in some cases
 #. we can tell beforehand, thus user should never get to this
 #. point (e.g. when the partition is mounted)
-#: src/include/partitioning/ep-dialogs.rb:1196
+#: src/include/partitioning/ep-dialogs.rb:1234
 msgid ""
 "You are extending a mounted filesystem by %1 Gigabyte. \n"
 "This may be quite slow and can take hours. You might possibly want \n"
@@ -3297,13 +3326,13 @@ msgstr ""
 "de redimensionnement."
 
 #. label for log view
-#: src/include/partitioning/ep-dialogs.rb:1272
+#: src/include/partitioning/ep-dialogs.rb:1310
 msgid "Output of %1"
 msgstr "Sortie de %1"
 
 # TLABEL partitioning_2002_01_04_0147__444
 #. popup text
-#: src/include/partitioning/ep-dialogs.rb:1299
+#: src/include/partitioning/ep-dialogs.rb:1337
 msgid "Rescanning disks..."
 msgstr "Réanalyse des disques..."
 
@@ -3523,57 +3552,57 @@ msgstr "La région saisie est incorrecte."
 
 # TLABEL autoinst_2002_08_07_0216__370
 #. dialog title
-#: src/include/partitioning/ep-hd-dialogs.rb:548
+#: src/include/partitioning/ep-hd-dialogs.rb:549
 msgid "Add Partition on %1"
 msgstr "Ajouter la partition sur %1"
 
 # TLABEL autoinst_2002_08_07_0216__370
 #. dialog title
-#: src/include/partitioning/ep-hd-dialogs.rb:594
+#: src/include/partitioning/ep-hd-dialogs.rb:595
 msgid "Edit Partition %1"
 msgstr "Modifier la partition %1"
 
 # TLABEL partitioning_2002_01_04_0147__15
 #. error popup text, %1 is replace with name of partition
-#: src/include/partitioning/ep-hd-dialogs.rb:627
+#: src/include/partitioning/ep-hd-dialogs.rb:628
 msgid "No space to moved partition %1."
 msgstr "Pas d'espace libre pour déplacer la partition %1."
 
 # TLABEL partitioning_2002_01_04_0147__425
 #. popup text, %1 is replace with name of partition
-#: src/include/partitioning/ep-hd-dialogs.rb:637
+#: src/include/partitioning/ep-hd-dialogs.rb:638
 msgid "Move partition %1 forward?"
 msgstr "Déplacer la partition %1 en avant ?"
 
 #. popup text, %1 is replace with name of partition
-#: src/include/partitioning/ep-hd-dialogs.rb:646
+#: src/include/partitioning/ep-hd-dialogs.rb:647
 msgid "Move partition %1 backward?"
 msgstr "Déplacer la partition %1 en arrière ?"
 
 # TLABEL packages_2002_01_04_0147__160
 #. popup text, %1 is replace with name of partition
-#: src/include/partitioning/ep-hd-dialogs.rb:665
+#: src/include/partitioning/ep-hd-dialogs.rb:666
 msgid "Move partition %1?"
 msgstr "Déplacer la partition %1 ?"
 
 # TLABEL rpm-groups_2002_03_14_2340__11
 #. radio button text
-#: src/include/partitioning/ep-hd-dialogs.rb:667
+#: src/include/partitioning/ep-hd-dialogs.rb:668
 msgid "Forward"
 msgstr "En avant"
 
 # TLABEL rpm-groups_2002_03_14_2340__7
 #. radio button text
-#: src/include/partitioning/ep-hd-dialogs.rb:669
+#: src/include/partitioning/ep-hd-dialogs.rb:670
 msgid "Backward"
 msgstr "En arrière"
 
 # TLABEL autoinst_2002_08_07_0216__252
-#: src/include/partitioning/ep-hd-dialogs.rb:725
+#: src/include/partitioning/ep-hd-dialogs.rb:726
 msgid "Confirm Deleting of All Partitions"
 msgstr "Confirmer la suppression de toutes les partitions"
 
-#: src/include/partitioning/ep-hd-dialogs.rb:727
+#: src/include/partitioning/ep-hd-dialogs.rb:728
 msgid ""
 "The disk \"%1\" contains at least one partition.\n"
 "If you proceed, the following partitions will be deleted:"
@@ -3582,7 +3611,7 @@ msgstr ""
 "Si vous continuez, les partitions suivantes seront supprimées :"
 
 # TLABEL partitioning_2002_01_04_0147__64
-#: src/include/partitioning/ep-hd-dialogs.rb:732
+#: src/include/partitioning/ep-hd-dialogs.rb:733
 msgid "Really delete all partitions on \"%1\"?"
 msgstr "Vraiment supprimer toutes les partitions sur \"%1\" ?"
 
@@ -3590,24 +3619,30 @@ msgstr "Vraiment supprimer toutes les partitions sur \"%1\" ?"
 #. error popup
 #. error popup
 #: src/include/partitioning/ep-hd-lib.rb:42
-#: src/include/partitioning/ep-hd-lib.rb:245
+#: src/include/partitioning/ep-hd-lib.rb:251
 msgid "No hard disk selected."
 msgstr "Aucun disque dur sélectionné."
 
 #. error popup
+#: src/include/partitioning/ep-hd-lib.rb:51
+msgid "Cannot create partition table on LDL formatted DASD."
+msgstr ""
+"Impossible de créer la table de partitions sur un disque DASD au format LDL."
+
+#. error popup
 #. TRANSLATORS: error popup
-#: src/include/partitioning/ep-hd-lib.rb:51 src/modules/Storage.rb:5240
+#: src/include/partitioning/ep-hd-lib.rb:57 src/modules/Storage.rb:5251
 msgid "The disk is in use and cannot be modified."
 msgstr "Le disque est en cours d'utilisation et ne peut être modifié."
 
 # TLABEL partitioning_2002_01_04_0147__65
 #. dialog heading
-#: src/include/partitioning/ep-hd-lib.rb:86
+#: src/include/partitioning/ep-hd-lib.rb:92
 msgid "Select new partition table type for %1."
 msgstr "Sélectionner le nouveau type de la table de partitions : pour %1."
 
 #. popup text, %1 is be replaced by disk name e.g. /dev/sda
-#: src/include/partitioning/ep-hd-lib.rb:111
+#: src/include/partitioning/ep-hd-lib.rb:117
 msgid ""
 "Really create new partition table on %1? This will delete all data\n"
 "on %1 and all RAIDs and Volume Groups using partitions on %1."
@@ -3618,32 +3653,32 @@ msgstr ""
 
 # TLABEL lan_2002_01_04_0147__130
 #. error popup
-#: src/include/partitioning/ep-hd-lib.rb:131
+#: src/include/partitioning/ep-hd-lib.rb:137
 msgid "No disk selected."
 msgstr "Aucun disque sélectionné."
 
 #. popup text
 #. Must be called before removing device.
-#: src/include/partitioning/ep-hd-lib.rb:145
-#: src/include/partitioning/ep-lib.rb:199
+#: src/include/partitioning/ep-hd-lib.rb:151
+#: src/include/partitioning/ep-lib.rb:202
 msgid "Really delete BIOS RAID %1?"
 msgstr "Voulez-vous vraiment supprimer BIOS RAID %1 ?"
 
 # TLABEL partitioning_2002_01_04_0147__64
 #. popup text
-#: src/include/partitioning/ep-hd-lib.rb:159
+#: src/include/partitioning/ep-hd-lib.rb:165
 msgid "Really delete Partitioned RAID %1?"
 msgstr "Voulez-vous vraiment supprimer le RAID partitionné %1 ?"
 
 # TLABEL sound_2002_01_04_0147__30
 #. error ppup
-#: src/include/partitioning/ep-hd-lib.rb:176
+#: src/include/partitioning/ep-hd-lib.rb:182
 msgid "There are no partitions to delete on this disk."
 msgstr "Il n'y a aucune partition à supprimer sur ce disque."
 
 # TLABEL partitioning_2002_01_04_0147__54
 #. error popup
-#: src/include/partitioning/ep-hd-lib.rb:229
+#: src/include/partitioning/ep-hd-lib.rb:235
 msgid "It is not possible to create a partition on %1."
 msgstr "Impossible de créer une partition sur %1."
 
@@ -3651,15 +3686,15 @@ msgstr "Impossible de créer une partition sur %1."
 #. error popup
 #. error popup
 #. error popup
-#: src/include/partitioning/ep-hd-lib.rb:321
-#: src/include/partitioning/ep-hd-lib.rb:370
-#: src/include/partitioning/ep-hd-lib.rb:426
-#: src/include/partitioning/ep-hd-lib.rb:483
+#: src/include/partitioning/ep-hd-lib.rb:327
+#: src/include/partitioning/ep-hd-lib.rb:376
+#: src/include/partitioning/ep-hd-lib.rb:432
+#: src/include/partitioning/ep-hd-lib.rb:489
 msgid "No partition selected."
 msgstr "Aucune partition sélectionnée."
 
 #. error popup, %1 is replace by partition device name e.g. /dev/sdb1
-#: src/include/partitioning/ep-hd-lib.rb:334
+#: src/include/partitioning/ep-hd-lib.rb:340
 msgid ""
 "The partition %1 is in use. It cannot be\n"
 "edited. To edit %1, make sure it is not used."
@@ -3670,13 +3705,13 @@ msgstr ""
 
 # TLABEL partitioning_2002_01_04_0147__18
 #. error popup text
-#: src/include/partitioning/ep-hd-lib.rb:345
+#: src/include/partitioning/ep-hd-lib.rb:351
 msgid "An extended partition cannot be edited."
 msgstr "Une partition étendue ne peut pas être modifiée."
 
 # TLABEL packages_2002_01_04_0147__217
 #. error popup, %1 is replace by partition device name, e.g. /dev/sdb1
-#: src/include/partitioning/ep-hd-lib.rb:387
+#: src/include/partitioning/ep-hd-lib.rb:393
 msgid ""
 "The partition %1 is already created on disk\n"
 "and cannot be moved."
@@ -3686,12 +3721,12 @@ msgstr ""
 
 # TLABEL partitioning_2002_01_04_0147__18
 #. error popup text
-#: src/include/partitioning/ep-hd-lib.rb:398
+#: src/include/partitioning/ep-hd-lib.rb:404
 msgid "An extended partition cannot be moved."
 msgstr "Une partition étendue ne peut pas être déplacée."
 
 #. error popup, %1 is replace by partition device name, e.g. /dev/sdb1
-#: src/include/partitioning/ep-hd-lib.rb:443
+#: src/include/partitioning/ep-hd-lib.rb:449
 msgid ""
 "The partition %1 is in use. It cannot be\n"
 "resized. To resize %1, make sure it is not used."
@@ -3703,12 +3738,12 @@ msgstr ""
 
 # TLABEL partitioning_2002_01_04_0147__18
 #. error popup text
-#: src/include/partitioning/ep-hd-lib.rb:454
+#: src/include/partitioning/ep-hd-lib.rb:460
 msgid "An extended partition cannot be resized."
 msgstr "Une partition étendue ne peut pas être redimensionnée."
 
 #. helptext
-#: src/include/partitioning/ep-hd-lib.rb:527
+#: src/include/partitioning/ep-hd-lib.rb:533
 msgid ""
 "<p>Select one or more (if available) hard disks\n"
 "that will have the same partition layout as\n"
@@ -3724,7 +3759,7 @@ msgstr ""
 "une ou plusieurs partitions. Après clonage, ces\n"
 "partitions seront supprimées.</p>\n"
 
-#: src/include/partitioning/ep-hd-lib.rb:573
+#: src/include/partitioning/ep-hd-lib.rb:579
 msgid ""
 "The following partitions will be deleted\n"
 "and all data on them will be lost:"
@@ -3733,11 +3768,11 @@ msgstr ""
 "et toutes les données présentes dessus seront perdues :"
 
 # TLABEL lilo_2002_01_04_0147__26
-#: src/include/partitioning/ep-hd-lib.rb:580
+#: src/include/partitioning/ep-hd-lib.rb:586
 msgid "Really delete these partitions?"
 msgstr "Vraiment supprimer ces partitions ?"
 
-#: src/include/partitioning/ep-hd-lib.rb:596
+#: src/include/partitioning/ep-hd-lib.rb:602
 msgid ""
 "There are no partitions on this disk, but a clonable\n"
 "disk must have at least one partition.\n"
@@ -3747,7 +3782,7 @@ msgstr ""
 "clonable doit avoir au moins une partition.\n"
 "Créez des partitions avant de cloner ce disque.\n"
 
-#: src/include/partitioning/ep-hd-lib.rb:609
+#: src/include/partitioning/ep-hd-lib.rb:615
 msgid ""
 "This disk cannot be cloned. There are no suitable\n"
 "disks that could have the same partitioning layout."
@@ -3756,21 +3791,21 @@ msgstr ""
 "adéquat qui pourrait avoir le même partitionnement."
 
 # TLABEL partitioning_2002_01_04_0147__44
-#: src/include/partitioning/ep-hd-lib.rb:638
+#: src/include/partitioning/ep-hd-lib.rb:644
 msgid "Clone partition layout of %1"
 msgstr "Cloner la disposition de la partition de %1"
 
 # TLABEL wizard_2002_03_14_2340__1
-#: src/include/partitioning/ep-hd-lib.rb:642
+#: src/include/partitioning/ep-hd-lib.rb:648
 msgid "Available target disks:"
 msgstr "Disques cibles disponibles :"
 
-#: src/include/partitioning/ep-hd-lib.rb:670
+#: src/include/partitioning/ep-hd-lib.rb:676
 msgid "Select a target disk for creating a clone"
 msgstr "Sélectionner un disque cible pour créer un clone"
 
 #. popup text, %1 is replaced by a dasd name e.g. /dev/dasda
-#: src/include/partitioning/ep-hd-lib.rb:751
+#: src/include/partitioning/ep-hd-lib.rb:757
 msgid ""
 "Running dasdfmt deletes all data on the disk.\n"
 "Really execute dasdfmt on disk %1?\n"
@@ -3779,7 +3814,7 @@ msgstr ""
 "Voulez-vous vraiment exécuter dasdfmt sur le disque %1 ?\n"
 
 #. popup text
-#: src/include/partitioning/ep-hd-lib.rb:762
+#: src/include/partitioning/ep-hd-lib.rb:768
 msgid ""
 "The disk is no longer marked for dasdfmt.\n"
 "\n"
@@ -4061,11 +4096,11 @@ msgstr "Mauvais mot de passe."
 
 # TLABEL update_2002_01_04_0147__20
 #. Must be called before removing device.
-#: src/include/partitioning/ep-lib.rb:107
+#: src/include/partitioning/ep-lib.rb:110
 msgid "Confirm Deleting Partition Used by LVM"
 msgstr "Confirmer la suppression de la partition utilisée par LVM"
 
-#: src/include/partitioning/ep-lib.rb:109
+#: src/include/partitioning/ep-lib.rb:112
 msgid ""
 "The selected partition is used by volume group \"%1\".\n"
 "To keep the system in a consistent state, the following volume group\n"
@@ -4077,18 +4112,18 @@ msgstr ""
 "et ses volumes logiques seront supprimés :\n"
 
 # TLABEL network_2002_03_14_2340__39
-#: src/include/partitioning/ep-lib.rb:117
+#: src/include/partitioning/ep-lib.rb:120
 msgid "Delete partition \"%1\" and volume group \"%2\" now?"
 msgstr ""
 "Supprimer la partition \"%1\" et le groupe de volumes \"%2\" maintenant ?"
 
 # TLABEL update_2002_01_04_0147__20
-#: src/include/partitioning/ep-lib.rb:127
+#: src/include/partitioning/ep-lib.rb:130
 msgid "Confirm Deleting Partition Used by RAID"
 msgstr "Confirmer la suppression de la partition utilisée par RAID"
 
 # TLABEL partitioning_2002_01_04_0147__204
-#: src/include/partitioning/ep-lib.rb:129
+#: src/include/partitioning/ep-lib.rb:132
 msgid ""
 "The selected partition belongs to RAID  \"%1\".\n"
 "To keep the system in a consistent state, the following\n"
@@ -4099,13 +4134,13 @@ msgstr ""
 "périphérique RAID suivant sera supprimé :\n"
 
 # TLABEL partitioning_2002_01_04_0147__422
-#: src/include/partitioning/ep-lib.rb:137
+#: src/include/partitioning/ep-lib.rb:140
 msgid "Delete partition \"%1\" and RAID \"%2\" now?"
 msgstr "Supprimer la partition \"%1\" et le RAID \"%2\" maintenant ?"
 
 # TLABEL partitioning_2002_01_04_0147__64
 #. YesNo popup text %1 is replaced by a disk name e.g. /dev/hda
-#: src/include/partitioning/ep-lib.rb:207
+#: src/include/partitioning/ep-lib.rb:210
 msgid "Really delete all partitions on %1?"
 msgstr "Voulez-vous vraiment supprimer toutes les partitions de %1 ?"
 
@@ -4113,12 +4148,12 @@ msgstr "Voulez-vous vraiment supprimer toutes les partitions de %1 ?"
 #. ///////////////////////////////////////////////////
 #. now delete partition!!
 #. YesNo popup text, %1 is replaced by a device name e.g. /dev/hda1
-#: src/include/partitioning/ep-lib.rb:259
+#: src/include/partitioning/ep-lib.rb:262
 msgid "Really delete %1?"
 msgstr "Vraiment effacer %1 ?"
 
 #. YesNo popup.  %1 is path to a file
-#: src/include/partitioning/ep-lib.rb:273
+#: src/include/partitioning/ep-lib.rb:276
 msgid ""
 "\n"
 "Should the loop file %1 also be removed?\n"
@@ -4129,7 +4164,7 @@ msgstr ""
 # TLABEL autoinst_2002_08_07_0216__90
 #. Guarantee some minimal share (1%) of total graph width to the segment.
 #. Prevents small partitions e.g. swaps from disappearing completely.
-#: src/include/partitioning/ep-lib.rb:340
+#: src/include/partitioning/ep-lib.rb:358
 msgid "Unpartitioned"
 msgstr "Non partitionné"
 
@@ -4138,35 +4173,35 @@ msgstr "Non partitionné"
 #. or the end of the disk if
 #. 1. end +1th cyl is not the next one
 #. 2. end cyl is not the same as the next one (yeah, partitions may share a cylinder)
-#: src/include/partitioning/ep-lib.rb:443
+#: src/include/partitioning/ep-lib.rb:461
 msgid "Unallocated"
 msgstr "Non alloué"
 
 # TLABEL support_2002_01_04_0147__23
-#: src/include/partitioning/ep-lib.rb:482
+#: src/include/partitioning/ep-lib.rb:500
 msgid "<p>No changes to partitioning.</p>"
 msgstr "<p>Aucun changement dans le partitionnement.</p>"
 
 # TLABEL support_2002_01_04_0147__23
-#: src/include/partitioning/ep-lib.rb:484
+#: src/include/partitioning/ep-lib.rb:502
 msgid "<p>Changes to partitioning:</p>"
 msgstr "<p>Changements dans le partitionnement :</p>"
 
 # TLABEL security_2002_08_07_0216__22
-#: src/include/partitioning/ep-lib.rb:487
+#: src/include/partitioning/ep-lib.rb:505
 msgid "<p>No changes to storage settings.</p>"
 msgstr "<p>Aucun changement dans les paramètres de stockage.</p>"
 
 # TLABEL security_2002_08_07_0216__22
-#: src/include/partitioning/ep-lib.rb:489
+#: src/include/partitioning/ep-lib.rb:507
 msgid "<p>Storage settings:</p>"
 msgstr "<p>Paramètres de stockage :</p>"
 
-#: src/include/partitioning/ep-lib.rb:498
+#: src/include/partitioning/ep-lib.rb:516
 msgid "<p>Packages to install:</p>"
 msgstr "<p>Paquets à installer :</p>"
 
-#: src/include/partitioning/ep-lib.rb:500
+#: src/include/partitioning/ep-lib.rb:518
 msgid "<p>No packages need to be installed.</p>"
 msgstr "<p>Aucun paquet à installer.</p>"
 
@@ -4301,13 +4336,13 @@ msgstr ""
 
 # TLABEL autoinst_2002_08_07_0216__162
 #. dialog title
-#: src/include/partitioning/ep-loop-dialogs.rb:281
+#: src/include/partitioning/ep-loop-dialogs.rb:282
 msgid "Add Crypt File"
 msgstr "Ajouter fichier de chiffrement"
 
 # TLABEL autoinst_2002_08_07_0216__162
 #. dialog title
-#: src/include/partitioning/ep-loop-dialogs.rb:325
+#: src/include/partitioning/ep-loop-dialogs.rb:326
 msgid "Edit Crypt File %1"
 msgstr "Modifier fichier de chiffrement %1"
 
@@ -4689,13 +4724,13 @@ msgstr "Pool utilisé"
 
 # TLABEL partitioning_2002_01_04_0147__354
 #. dialog title, %1 is a volume group
-#: src/include/partitioning/ep-lvm-dialogs.rb:1028
+#: src/include/partitioning/ep-lvm-dialogs.rb:1029
 msgid "Add Logical Volume on %1"
 msgstr "Ajouter un volume logique sur %1"
 
 # TLABEL partitioning_2002_01_04_0147__354
 #. dialog title - %1 is a logical volume name, %2 is a volume group
-#: src/include/partitioning/ep-lvm-dialogs.rb:1075
+#: src/include/partitioning/ep-lvm-dialogs.rb:1076
 msgid "Edit Logical Volume %1 on %2"
 msgstr "Modifier le volume logique %1 sur %2"
 
@@ -4741,9 +4776,9 @@ msgstr "Échec de la suppression du volume logique \"%1\"."
 #. error popup
 #. error popup
 #: src/include/partitioning/ep-lvm-lib.rb:214
-#: src/include/partitioning/ep-lvm-lib.rb:315
-#: src/include/partitioning/ep-lvm-lib.rb:367
-#: src/include/partitioning/ep-lvm-lib.rb:402
+#: src/include/partitioning/ep-lvm-lib.rb:316
+#: src/include/partitioning/ep-lvm-lib.rb:368
+#: src/include/partitioning/ep-lvm-lib.rb:403
 msgid "No logical volume selected."
 msgstr "Aucun volume logique sélectionné."
 
@@ -4754,7 +4789,7 @@ msgid "No free space left in the volume group \"%1\"."
 msgstr "Pas d'espace disponible dans le groupe de volumes %1."
 
 #. error popup, %1 is replace by partition device name e.g. /dev/system/root
-#: src/include/partitioning/ep-lvm-lib.rb:326
+#: src/include/partitioning/ep-lvm-lib.rb:327
 msgid ""
 "The volume %1 is a thin pool.\n"
 "It cannot be edited."
@@ -4763,7 +4798,7 @@ msgstr ""
 "Impossible de le modifier."
 
 #. error popup, %1 is replace by partition device name e.g. /dev/system/root
-#: src/include/partitioning/ep-lvm-lib.rb:337
+#: src/include/partitioning/ep-lvm-lib.rb:338
 msgid ""
 "The volume %1 is in use. It cannot be\n"
 "edited. To edit %1, make sure it is not used."
@@ -5212,19 +5247,19 @@ msgstr "<p>Modifier les périphériques utilisés pour le RAID.</p>"
 
 # TLABEL partitioning_2002_01_04_0147__485
 #. dialog title
-#: src/include/partitioning/ep-raid-dialogs.rb:642
+#: src/include/partitioning/ep-raid-dialogs.rb:643
 msgid "Add RAID %1"
 msgstr "Ajouter RAI&D %1"
 
 # TLABEL partitioning_2002_01_04_0147__484
 #. dialog title
-#: src/include/partitioning/ep-raid-dialogs.rb:676
+#: src/include/partitioning/ep-raid-dialogs.rb:677
 msgid "Resize RAID %1"
 msgstr "Redimensionner RAID %1"
 
 # TLABEL partitioning_2002_01_04_0147__48
 #. dialog title
-#: src/include/partitioning/ep-raid-dialogs.rb:722
+#: src/include/partitioning/ep-raid-dialogs.rb:723
 msgid "Edit RAID %1"
 msgstr "Modifier RAID %1"
 
@@ -5560,7 +5595,7 @@ msgid "<p>This view shows the installation summary.</p>"
 msgstr "<p>Cette vue affiche le résumé de l'installation.</p>"
 
 #. dialog title
-#: src/include/partitioning/ep-tmpfs-dialogs.rb:49
+#: src/include/partitioning/ep-tmpfs-dialogs.rb:50
 msgid "Add tmpfs Mount"
 msgstr "Ajouter un montage tmpfs"
 
@@ -6588,55 +6623,84 @@ msgstr ""
 "si vous savez ce que vous faites.</p>\n"
 
 #. this version makes some problems with interpreter, above lookup/add is OK
-#: src/modules/Partitions.rb:930
-msgid "Operation not permitted on disk %1.\n"
-msgstr "Opération interdite sur le disque %1.\n"
+#: src/modules/Partitions.rb:937
+msgid "Operation not permitted on disk %{device}.\n"
+msgstr "Opération non autorisée sur le disque %{device}.\n"
 
-#. popup text %1 is replaced by disk name e.g. /dev/hda
-#: src/modules/Partitions.rb:940
+#. popup text %{device} is replaced by disk name e.g. /dev/hda
+#: src/modules/Partitions.rb:942
 msgid ""
 "\n"
-"The partitioning on your disk %1 is either not readable or not \n"
+"It's not supported by the partitioning tool parted to change\n"
+"the partition table on your disk %{device}\n"
+"(the disk is LDL formatted).\n"
+"\n"
+"You can use the partitions on disk %{device} as they are or\n"
+"format them and assign mount points, but you cannot add,\n"
+"resize, or remove partitions from that disk here.\n"
+msgstr ""
+"\n"
+"L'opération n'est pas prise en charge par l'outil de partitionnement parted "
+"utilisé pour modifier la \n"
+"table des partitions sur votre disque %{device}.\n"
+"(Le disque utilise le format LDL.)\n"
+"\n"
+"Vous pouvez utiliser les partitions sur le disque %{device} telles quelles "
+"ou\n"
+"les formater et leur assigner des points de montage, mais vous ne pouvez pas "
+"ajouter, \n"
+"redimensionner ou supprimer des partitions de ce disque ici.\n"
+
+#. popup text %{device} is replaced by disk name e.g. /dev/hda
+#: src/modules/Partitions.rb:954
+msgid ""
+"\n"
+"The partitioning on your disk %{device} is either not readable or not \n"
 "supported by the partitioning tool parted used to change the\n"
 "partition table.\n"
 "\n"
-"You can use the partitions on disk %1 as they are or\n"
+"You can use the partitions on disk %{device} as they are or\n"
 "format them and assign mount points, but you cannot add, edit, \n"
 "resize, or remove partitions from that disk here.\n"
 msgstr ""
 "\n"
-"Le partitionnement du disque %1 n'est pas lisible ou pas supporté par\n"
-"l'outil de partitionnement parted utilisé pour changer la\n"
+"Le partitionnement du disque %{device} n'est pas lisible ou pas pris en "
+"charge par\n"
+"l'outil de partitionnement parted utilisé pour modifier la\n"
 "table de partitions.\n"
 "\n"
-"Vous pouvez utiliser les partitions sur le disque %1 telles quelles ou\n"
-"les formater et leur assigner des points de montage, mais vous ne pouvez\n"
-"pas ajouter, modifier, redimensionner ou supprimer des partitions de ce "
-"disque ici.\n"
+"Vous pouvez utiliser les partitions sur le disque %{device} telles quelles "
+"ou\n"
+"les formater et leur assigner des points de montage, mais vous ne pouvez pas "
+"ajouter, modifier,\n"
+"redimensionner ou supprimer des partitions de ce disque ici.\n"
 
-#. popup text %1 is replaced by disk name e.g. /dev/dasda
-#: src/modules/Partitions.rb:958
+#. popup text %{device} is replaced by disk name e.g. /dev/dasda
+#: src/modules/Partitions.rb:966
 msgid ""
 "\n"
-"The disk %1 does not contain a partition table but for\n"
+"The disk %{device} does not contain a partition table but for\n"
 "compatibility the kernel has automatically generated a\n"
 "partition spanning almost the entire disk.\n"
 "\n"
-"You can use the partition on disk %1 as it is or\n"
+"You can use the partition on disk %{device} as it is or\n"
 "format it and assign a mount point, but you cannot resize\n"
 "or remove the partition from that disk here.\n"
 msgstr ""
 "\n"
-"Le disque %1 ne contient pas de table de partitions mais,\n"
-"pour des raisons de compatibilité, le noyau a créé une\n"
-"partition prenant presque tout le disque.\n"
+"Le disque %{device} ne contient pas de table de partitions, mais pour des "
+"raisons de\n"
+"compatibilité, le kernel a généré automatiquement une\n"
+"partition couvrant presque la totalité du disque.\n"
 "\n"
-"Vous pouvez utiliser la partition du disque %1 telle quelle ou la\n"
-"formater et assigner un point de montage, mais vous ne pouvez\n"
-"pas redimensionner ou supprimer cette partition.\n"
+"Vous pouvez utiliser la partition sur le disque %{device} telle qu'elle est "
+"ou\n"
+"la formater et assigner un point de montage. En revanche, vous ne pouvez pas "
+"redimensionner\n"
+"ni supprimer la partition de ce disque ici.\n"
 
 #. popup text
-#: src/modules/Partitions.rb:977
+#: src/modules/Partitions.rb:982
 msgid ""
 "\n"
 "\n"
@@ -6654,7 +6718,7 @@ msgstr ""
 "disque.\n"
 
 #. popup text
-#: src/modules/Partitions.rb:989
+#: src/modules/Partitions.rb:992
 msgid ""
 "\n"
 "\n"
@@ -6672,7 +6736,7 @@ msgstr ""
 #. @param integer testsize
 #. @param [Symbol] used_fs
 #. @param [Boolean] verbose
-#: src/modules/Storage.rb:992
+#: src/modules/Storage.rb:993
 msgid "Resize Not Possible:"
 msgstr "Redimensionnement impossible :"
 
@@ -6685,7 +6749,7 @@ msgstr "Redimensionnement impossible :"
 #. mark swap-partitions with pseudo Mountpoint swap in targetMap
 #. @param [Hash{String => map}] target Disk map
 #. @return [Hash{String => map}] modified target
-#: src/modules/Storage.rb:2692 src/modules/Storage.rb:3915
+#: src/modules/Storage.rb:2696 src/modules/Storage.rb:3919
 msgid ""
 "Could not set encryption.\n"
 "System error code is %1.\n"
@@ -6699,7 +6763,7 @@ msgstr ""
 
 # TLABEL partitioning_2002_01_04_0147__216
 #. popup text
-#: src/modules/Storage.rb:3946
+#: src/modules/Storage.rb:3950
 msgid ""
 "The first and the second version\n"
 "of the password do not match.\n"
@@ -6711,7 +6775,7 @@ msgstr ""
 
 # TLABEL users_2002_01_04_0147__63
 #. popup text
-#: src/modules/Storage.rb:3977
+#: src/modules/Storage.rb:3981
 msgid ""
 "The password may only contain the following characters:\n"
 "0..9, a..z, A..Z, and any of \"@#* ,.;:._-+=!$%&/|?{[()]}^\\<>\".\n"
@@ -6724,25 +6788,25 @@ msgstr ""
 # TLABEL network_2002_08_07_0216__73
 #. Label: get password for encrypted volume
 #. Please use newline if label is longer than 40 characters
-#: src/modules/Storage.rb:4031
+#: src/modules/Storage.rb:4035
 msgid "&Enter Encryption Password:"
 msgstr "&Entrer le mot de passe de chiffrement :"
 
 #. Clear password fields on every round.
-#: src/modules/Storage.rb:4090
+#: src/modules/Storage.rb:4094
 msgid "Provide Password"
 msgstr "Fournir le mot de passe"
 
-#: src/modules/Storage.rb:4109
+#: src/modules/Storage.rb:4113
 msgid "The following encrypted volumes are already available."
 msgstr "Les volumes chiffrés suivants sont déjà disponibles."
 
 # TLABEL partitioning_2002_01_04_0147__397
-#: src/modules/Storage.rb:4124
+#: src/modules/Storage.rb:4128
 msgid "Encrypted Volume Activation"
 msgstr "Activation des volumes chiffrés"
 
-#: src/modules/Storage.rb:4128
+#: src/modules/Storage.rb:4132
 msgid ""
 "The following volumes contain an encryption signature but the \n"
 "passwords are not yet known.\n"
@@ -6755,12 +6819,12 @@ msgstr ""
 "lors d'une mise à jour, soit s'ils contiennent un volume physique LVM "
 "chiffré."
 
-#: src/modules/Storage.rb:4140
+#: src/modules/Storage.rb:4144
 msgid "Do you want to provide encryption passwords?"
 msgstr "Voulez-vous fournir les mots de passe de chiffrement ?"
 
 #. text in help field
-#: src/modules/Storage.rb:4197
+#: src/modules/Storage.rb:4201
 msgid ""
 "Enter encryption password for any of the\n"
 "devices in the locked devices list.\n"
@@ -6772,79 +6836,79 @@ msgstr ""
 
 # TLABEL network_2002_08_07_0216__73
 #. header text
-#: src/modules/Storage.rb:4203
+#: src/modules/Storage.rb:4207
 msgid "Enter Encryption Password"
 msgstr "Entrer le mot de passe de chiffrement"
 
-#: src/modules/Storage.rb:4206
+#: src/modules/Storage.rb:4210
 msgid "There are no encrypted volume to unlock."
 msgstr "Il n'y a aucun volume chiffré à déverrouiller."
 
 #. label text, multiple device names follow
-#: src/modules/Storage.rb:4219
+#: src/modules/Storage.rb:4223
 msgid "Provide password for any of the following devices:"
 msgstr "Fournir le mot de passe pour un des périphériques suivants :"
 
 # TLABEL general_2002_03_14_2340__1
 #. label text, one device name follows
-#: src/modules/Storage.rb:4222
+#: src/modules/Storage.rb:4226
 msgid "Provide password for the following device:"
 msgstr "Fournir le mot de passe pour le périphérique suivant :"
 
-#: src/modules/Storage.rb:4235
+#: src/modules/Storage.rb:4239
 msgid "Trying to unlock encrypted volumes..."
 msgstr "Tentative de déverrouillage des volumes chiffrés..."
 
-#: src/modules/Storage.rb:4259
+#: src/modules/Storage.rb:4263
 msgid "Password did not unlock any volume."
 msgstr "Le mot de passe n'a déverrouillé aucun volume."
 
 # TLABEL hwinfo_2002_01_04_0147__29
-#: src/modules/Storage.rb:4345
+#: src/modules/Storage.rb:4349
 msgid "IDE Disk"
 msgstr "Disque IDE"
 
 # TLABEL hwinfo_2002_01_04_0147__29
-#: src/modules/Storage.rb:4351
+#: src/modules/Storage.rb:4355
 msgid "SCSI Disk"
 msgstr "Disque SCSI"
 
 # TLABEL hwinfo_2002_01_04_0147__29
-#: src/modules/Storage.rb:4357
+#: src/modules/Storage.rb:4361
 msgid "Disk"
 msgstr "Disque"
 
 # TLABEL partitioning_2002_01_04_0147__465
-#: src/modules/Storage.rb:4385
+#: src/modules/Storage.rb:4389
 msgid "DM RAID"
 msgstr "DM RAID"
 
 # TLABEL partitioning_2002_01_04_0147__465
-#: src/modules/Storage.rb:4398
+#: src/modules/Storage.rb:4402
 msgid "MD RAID"
 msgstr "MD RAID"
 
 #. TODO: more informative error message, but the Package module does
 #. not provide anything
 #. TRANSLATORS: error popup
-#: src/modules/Storage.rb:4893
+#: src/modules/Storage.rb:4897
 msgid "Installing required packages failed."
 msgstr "L'installation des paquets requis a échoué."
 
 # TLABEL autoinst_2002_03_14_2340__14
-#: src/modules/Storage.rb:4894 src/modules/StorageClients.rb:159
+#: src/modules/Storage.rb:4898 src/modules/StorageClients.rb:159
 msgid "Continue despite the error?"
 msgstr "Continuer malgré l'erreur ?"
 
 #. TRANSLATORS: error popup
-#: src/modules/Storage.rb:5252
+#: src/modules/Storage.rb:5263
 msgid ""
 "Partitions cannot be created since other partitions on the disk are used."
 msgstr ""
 "Les partitions n'ont pas pu être créées car d'autres partitions sur le "
 "disque sont utilisées."
 
-#: src/modules/Storage.rb:5278
+#: src/modules/Storage.rb:5289
 msgid ""
 "\n"
 "Device %1 cannot be modified because it contains activated swap\n"
@@ -6854,7 +6918,7 @@ msgstr ""
 "Le périphérique %1 ne peut être modifié parce qu'il contient une\n"
 "swap active qui est nécessaire à l'installation.\n"
 
-#: src/modules/Storage.rb:5292
+#: src/modules/Storage.rb:5303
 msgid ""
 "\n"
 "Device %1 cannot be modified because it contains the installation\n"
@@ -6864,7 +6928,7 @@ msgstr ""
 "Le périphérique %1 ne peut être modifié parce qu'il contient les\n"
 "données nécessaires pour effectuer l'installation.\n"
 
-#: src/modules/Storage.rb:5321
+#: src/modules/Storage.rb:5332
 msgid ""
 "\n"
 "Device %1 cannot be removed because it contains activated swap\n"
@@ -6874,7 +6938,7 @@ msgstr ""
 "Le périphérique %1 ne peut être supprimé parce qu'il contient\n"
 "une swap active qui est nécessaire à l'installation.\n"
 
-#: src/modules/Storage.rb:5330
+#: src/modules/Storage.rb:5341
 msgid ""
 "\n"
 "Device %1 cannot be removed because it contains the installation\n"
@@ -6884,7 +6948,7 @@ msgstr ""
 "Le périphérique %1 ne peut être supprimé parce qu'il contient\n"
 "les données nécessaires pour effectuer l'installation.\n"
 
-#: src/modules/Storage.rb:5359
+#: src/modules/Storage.rb:5370
 msgid ""
 "\n"
 "Device %1 cannot be removed because this would indirectly change\n"
@@ -6897,7 +6961,7 @@ msgstr ""
 "le périphérique %2 qui contient une swap active qui est nécessaire \n"
 "à l'installation.\n"
 
-#: src/modules/Storage.rb:5370
+#: src/modules/Storage.rb:5381
 msgid ""
 "\n"
 "Device %1 cannot be removed because this would indirectly change\n"
@@ -6910,7 +6974,7 @@ msgstr ""
 "l'installation.\n"
 
 #. the check for verbose is needed for calls from StorageProposal (see bnc#871779)
-#: src/modules/Storage.rb:5392
+#: src/modules/Storage.rb:5403
 msgid ""
 "\n"
 "Partition %1 cannot be removed since other partitions on the\n"
@@ -6922,18 +6986,18 @@ msgstr ""
 
 # TLABEL backup_2002_03_14_2340__54
 #. FIXME: please, add description of the list that is returned by this function.
-#: src/modules/Storage.rb:5481
+#: src/modules/Storage.rb:5492
 msgid "Nothing assigned as root filesystem!"
 msgstr "Rien n'est assigné en tant que système de fichiers racine !"
 
-#: src/modules/Storage.rb:5482
+#: src/modules/Storage.rb:5493
 msgid "Installation will most certainly fail fatally!"
 msgstr "L'installation risque très fortement d'échouer !"
 
 #. Set rather than Add, there might be some packs left over
 #. from previous 'MakeProposal' we don't need now
 #. This also covers the case when AddPackagesList returns [] or nil
-#: src/modules/Storage.rb:6032
+#: src/modules/Storage.rb:6043
 msgid "Adding the following resolvables failed: %1"
 msgstr "Échec de l'ajout des éléments suivants : %1"
 
@@ -7654,9 +7718,9 @@ msgstr ""
 "Le sous-système de stockage est verrouillé par l'application \"%1\" (%2).\n"
 "Vous devez quitter cette application avant de continuer."
 
-#. enable snapshots for root volume if desired
+#. bsc#983003
 #. penalty for not having separate /home
-#: src/modules/StorageProposal.rb:4560 src/modules/StorageProposal.rb:5683
+#: src/modules/StorageProposal.rb:4601 src/modules/StorageProposal.rb:5724
 msgid ""
 "Resize impossible due to inconsistent file system. Try checking file system "
 "under Windows."
@@ -7664,49 +7728,42 @@ msgstr ""
 "Redimensionnement impossible à cause d'un système de fichiers incohérent. "
 "Essayez de vérifier le système de fichiers sous Windows."
 
-#. TRANSLATORS: checkbox text
-#: src/modules/StorageProposal.rb:6179
-msgid "Create &LVM-based Proposal"
-msgstr "Créer une proposition basée sur &LVM"
-
-# TLABEL partitioning_2002_01_04_0147__397
-#. TRANSLATORS: checkbox text
-#: src/modules/StorageProposal.rb:6194
-msgid "Encr&ypt Volume Group"
-msgstr "&Chiffrer le groupe de volumes"
-
 # TLABEL partitioning_2002_01_04_0147__221
 #. TRANSLATORS: combobox label
-#: src/modules/StorageProposal.rb:6212
+#: src/modules/StorageProposal.rb:6239
 msgid "File System for Root Partition"
 msgstr "Système de fichiers pour la partition racine"
 
 #. TRANSLATORS: combobox label
-#: src/modules/StorageProposal.rb:6259
+#: src/modules/StorageProposal.rb:6286
 msgid "File System for Home Partition"
 msgstr "Système de fichiers pour la partition personnelle (home)"
 
 #. TRANSLATORS: checkbox text
-#: src/modules/StorageProposal.rb:6277
+#: src/modules/StorageProposal.rb:6304
 msgid "Enlarge &Swap for Suspend"
 msgstr "Augmenter la &swap pour la mise en veille"
 
 # TLABEL lan_2002_01_04_0147__175
-#: src/modules/StorageProposal.rb:6287
+#: src/modules/StorageProposal.rb:6314
 msgid "Proposal Settings"
 msgstr "Paramètres proposés"
 
 #. TRANSLATORS: help text
-#: src/modules/StorageProposal.rb:6302
+#: src/modules/StorageProposal.rb:6329
 msgid ""
-"<p>To create an LVM-based proposal, choose the corresponding button. The\n"
-"LVM-based proposal can be encrypted.</p>\n"
+"<p>Choose <b>Partition-based Proposal</b> if you don't want to use LVM.\n"
+"Choose <b>LVM-based Proposal</b> for plain LVM and <b>Encrypted LVM-based\n"
+"Proposal</b> if you want your system to be encrypted.</p>"
 msgstr ""
-"<p>Pour créer une proposition basée sur LVM, choisissez le bouton\n"
-"correspondant. La proposition basée sur LVM peut être chiffrée.</p>\n"
+"<p>Choisissez <b>Proposition basée sur la partition</b> si vous ne souhaitez "
+"pas utiliser LVM.\n"
+"Sélectionnez <b>Proposition basée sur LVM</b> pour utiliser LVM en texte "
+"brut et <b>Proposition basée sur\n"
+"LVM chiffrée</b> si vous souhaitez que le système soit chiffré.</p>"
 
 #. TRANSLATORS: help text
-#: src/modules/StorageProposal.rb:6309
+#: src/modules/StorageProposal.rb:6337
 msgid ""
 "<p>The filesystem for the root partition can be selected with the\n"
 "corresponding combo box. With the filesystem BtrFS the proposal can\n"
@@ -7719,7 +7776,7 @@ msgstr ""
 "Cela augmentera aussi la taille de la partition racine.</p>"
 
 #. TRANSLATORS: help text
-#: src/modules/StorageProposal.rb:6318
+#: src/modules/StorageProposal.rb:6346
 msgid ""
 "<p>The proposal can create a separate home partition. The filesystem for\n"
 "the home partition can be selected with the corresponding combo box.</p>"
@@ -7729,7 +7786,7 @@ msgstr ""
 "p>"
 
 #. TRANSLATORS: help text
-#: src/modules/StorageProposal.rb:6325
+#: src/modules/StorageProposal.rb:6353
 msgid ""
 "<p>The swap partition can be made large enough to be used to suspend\n"
 "the system to disk in most cases.</p>"
@@ -7739,23 +7796,36 @@ msgstr ""
 "pour mettre en veille le système sur le disque dans la plupart des cas.</p>"
 
 # TLABEL partitioning_2002_01_04_0147__212
-#: src/modules/StorageProposal.rb:6350
+#: src/modules/StorageProposal.rb:6378
 msgid "Enter your password for the proposal encryption."
 msgstr "Entrez votre mot de passe pour le chiffrement proposé."
 
 # TLABEL online_update_2002_03_14_2340__10
 #. Label: get password for user root
 #. Please use newline if label is longer than 40 characters
-#: src/modules/StorageProposal.rb:6357
+#: src/modules/StorageProposal.rb:6385
 msgid "Password:"
 msgstr "Mot de passe :"
 
 # TLABEL partitioning_2002_01_04_0147__215
 #. Label: get same password again for verification
 #. Please use newline if label is longer than 40 characters
-#: src/modules/StorageProposal.rb:6368
+#: src/modules/StorageProposal.rb:6396
 msgid "Reenter the password for verification:"
 msgstr "Entrez à nouveau votre mot de passe pour vérification :"
+
+#. Clear password fields on every round.
+#: src/modules/StorageProposal.rb:6594
+msgid "&Partition-based Proposal"
+msgstr "&Proposition basée sur la partition"
+
+#: src/modules/StorageProposal.rb:6596
+msgid "&LVM-based Proposal"
+msgstr "Proposition basée sur &LVM"
+
+#: src/modules/StorageProposal.rb:6598
+msgid "&Encrypted LVM-based Proposal"
+msgstr "Proposition basée sur LVM &chiffrée"
 
 # TLABEL lilo_2002_03_14_2340__6
 #. encoding: utf-8
@@ -7803,136 +7873,70 @@ msgstr "Alignement de la partition :"
 msgid "Visible Information on Storage Devices:"
 msgstr "Informations visibles sur les périphériques de stockage :"
 
-#: src/clients/inst_disk_proposal.rb:283
-msgid "Nothing assigned as root filesystem. Cannot continue."
-msgstr ""
-"Rien n'est assigné en tant que système de fichiers racine ! Impossible de "
-"continuer."
+#~ msgid ""
+#~ "Warning: Some subvolumes of the root filesystem are shadowed by\n"
+#~ "mount points of other filesystem. This could lead to problems.\n"
+#~ "\n"
+#~ "Really use this setup?\n"
+#~ msgstr ""
+#~ "Attention : Certains sous-volumes du système de fichiers racine sont\n"
+#~ "masqués par des points de montage d'autres système de fichiers.\n"
+#~ "Cela pourrait conduire à des problèmes.\n"
+#~ "\n"
+#~ "Vraiment utiliser cette configuration ?\n"
 
-#: src/include/partitioning/custom_part_check_generated.rb:415
-msgid ""
-"Warning: Some subvolumes of the root filesystem are shadowed by\n"
-"mount points of other filesystem. This could lead to problems.\n"
-"%s\n"
-"Really use this setup?\n"
-msgstr ""
-"Avertissement : certains sous-volumes du système de fichiers racine sont "
-"occultés par des\n"
-"points de montage d'un autre système de fichiers. Cela peut entraîner des "
-"problèmes.\n"
-"%s\n"
-"Voulez-vous vraiment utiliser cette configuration ?\n"
+#~ msgid "Operation not permitted on disk %1.\n"
+#~ msgstr "Opération interdite sur le disque %1.\n"
 
-#. radio button text
-#: src/include/partitioning/ep-dialogs.rb:56
-msgid "EFI Boot Partition"
-msgstr "Partition de démarrage EFI"
+#~ msgid ""
+#~ "\n"
+#~ "The partitioning on your disk %1 is either not readable or not \n"
+#~ "supported by the partitioning tool parted used to change the\n"
+#~ "partition table.\n"
+#~ "\n"
+#~ "You can use the partitions on disk %1 as they are or\n"
+#~ "format them and assign mount points, but you cannot add, edit, \n"
+#~ "resize, or remove partitions from that disk here.\n"
+#~ msgstr ""
+#~ "\n"
+#~ "Le partitionnement du disque %1 n'est pas lisible ou pas supporté par\n"
+#~ "l'outil de partitionnement parted utilisé pour changer la\n"
+#~ "table de partitions.\n"
+#~ "\n"
+#~ "Vous pouvez utiliser les partitions sur le disque %1 telles quelles ou\n"
+#~ "les formater et leur assigner des points de montage, mais vous ne pouvez\n"
+#~ "pas ajouter, modifier, redimensionner ou supprimer des partitions de ce "
+#~ "disque ici.\n"
 
-#. error popup
-#: src/include/partitioning/ep-hd-lib.rb:51
-msgid "Cannot create partition table on LDL formatted DASD."
-msgstr ""
-"Impossible de créer la table de partitions sur un disque DASD au format LDL."
+#~ msgid ""
+#~ "\n"
+#~ "The disk %1 does not contain a partition table but for\n"
+#~ "compatibility the kernel has automatically generated a\n"
+#~ "partition spanning almost the entire disk.\n"
+#~ "\n"
+#~ "You can use the partition on disk %1 as it is or\n"
+#~ "format it and assign a mount point, but you cannot resize\n"
+#~ "or remove the partition from that disk here.\n"
+#~ msgstr ""
+#~ "\n"
+#~ "Le disque %1 ne contient pas de table de partitions mais,\n"
+#~ "pour des raisons de compatibilité, le noyau a créé une\n"
+#~ "partition prenant presque tout le disque.\n"
+#~ "\n"
+#~ "Vous pouvez utiliser la partition du disque %1 telle quelle ou la\n"
+#~ "formater et assigner un point de montage, mais vous ne pouvez\n"
+#~ "pas redimensionner ou supprimer cette partition.\n"
 
-#. this version makes some problems with interpreter, above lookup/add is OK
-#: src/modules/Partitions.rb:937
-msgid "Operation not permitted on disk %{device}.\n"
-msgstr "Opération non autorisée sur le disque %{device}.\n"
+#~ msgid "Create &LVM-based Proposal"
+#~ msgstr "Créer une proposition basée sur &LVM"
 
-#. popup text %{device} is replaced by disk name e.g. /dev/hda
-#: src/modules/Partitions.rb:942
-msgid ""
-"\n"
-"It's not supported by the partitioning tool parted to change\n"
-"the partition table on your disk %{device}\n"
-"(the disk is LDL formatted).\n"
-"\n"
-"You can use the partitions on disk %{device} as they are or\n"
-"format them and assign mount points, but you cannot add,\n"
-"resize, or remove partitions from that disk here.\n"
-msgstr ""
-"\n"
-"L'opération n'est pas prise en charge par l'outil de partitionnement parted "
-"utilisé pour modifier la \n"
-"table des partitions sur votre disque %{device}.\n"
-"(Le disque utilise le format LDL.)\n"
-"\n"
-"Vous pouvez utiliser les partitions sur le disque %{device} telles quelles "
-"ou\n"
-"les formater et leur assigner des points de montage, mais vous ne pouvez pas "
-"ajouter, \n"
-"redimensionner ou supprimer des partitions de ce disque ici.\n"
+# TLABEL partitioning_2002_01_04_0147__397
+#~ msgid "Encr&ypt Volume Group"
+#~ msgstr "&Chiffrer le groupe de volumes"
 
-#. popup text %{device} is replaced by disk name e.g. /dev/hda
-#: src/modules/Partitions.rb:954
-msgid ""
-"\n"
-"The partitioning on your disk %{device} is either not readable or not \n"
-"supported by the partitioning tool parted used to change the\n"
-"partition table.\n"
-"\n"
-"You can use the partitions on disk %{device} as they are or\n"
-"format them and assign mount points, but you cannot add, edit, \n"
-"resize, or remove partitions from that disk here.\n"
-msgstr ""
-"\n"
-"Le partitionnement du disque %{device} n'est pas lisible ou pas pris en "
-"charge par\n"
-"l'outil de partitionnement parted utilisé pour modifier la\n"
-"table de partitions.\n"
-"\n"
-"Vous pouvez utiliser les partitions sur le disque %{device} telles quelles "
-"ou\n"
-"les formater et leur assigner des points de montage, mais vous ne pouvez pas "
-"ajouter, modifier,\n"
-"redimensionner ou supprimer des partitions de ce disque ici.\n"
-
-#. popup text %{device} is replaced by disk name e.g. /dev/dasda
-#: src/modules/Partitions.rb:966
-msgid ""
-"\n"
-"The disk %{device} does not contain a partition table but for\n"
-"compatibility the kernel has automatically generated a\n"
-"partition spanning almost the entire disk.\n"
-"\n"
-"You can use the partition on disk %{device} as it is or\n"
-"format it and assign a mount point, but you cannot resize\n"
-"or remove the partition from that disk here.\n"
-msgstr ""
-"\n"
-"Le disque %{device} ne contient pas de table de partitions, mais pour des "
-"raisons de\n"
-"compatibilité, le kernel a généré automatiquement une\n"
-"partition couvrant presque la totalité du disque.\n"
-"\n"
-"Vous pouvez utiliser la partition sur le disque %{device} telle qu'elle est "
-"ou\n"
-"la formater et assigner un point de montage. En revanche, vous ne pouvez pas "
-"redimensionner\n"
-"ni supprimer la partition de ce disque ici.\n"
-
-#. TRANSLATORS: help text
-#: src/modules/StorageProposal.rb:6329
-msgid ""
-"<p>Choose <b>Partition-based Proposal</b> if you don't want to use LVM.\n"
-"Choose <b>LVM-based Proposal</b> for plain LVM and <b>Encrypted LVM-based\n"
-"Proposal</b> if you want your system to be encrypted.</p>"
-msgstr ""
-"<p>Choisissez <b>Proposition basée sur la partition</b> si vous ne souhaitez "
-"pas utiliser LVM.\n"
-"Sélectionnez <b>Proposition basée sur LVM</b> pour utiliser LVM en texte "
-"brut et <b>Proposition basée sur\n"
-"LVM chiffrée</b> si vous souhaitez que le système soit chiffré.</p>"
-
-#. Clear password fields on every round.
-#: src/modules/StorageProposal.rb:6594
-msgid "&Partition-based Proposal"
-msgstr "&Proposition basée sur la partition"
-
-#: src/modules/StorageProposal.rb:6596
-msgid "&LVM-based Proposal"
-msgstr "Proposition basée sur &LVM"
-
-#: src/modules/StorageProposal.rb:6598
-msgid "&Encrypted LVM-based Proposal"
-msgstr "Proposition basée sur LVM &chiffrée"
+#~ msgid ""
+#~ "<p>To create an LVM-based proposal, choose the corresponding button. The\n"
+#~ "LVM-based proposal can be encrypted.</p>\n"
+#~ msgstr ""
+#~ "<p>Pour créer une proposition basée sur LVM, choisissez le bouton\n"
+#~ "correspondant. La proposition basée sur LVM peut être chiffrée.</p>\n"

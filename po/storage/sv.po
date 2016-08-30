@@ -11,11 +11,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: storage\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-09-28 18:17+0200\n"
+"POT-Creation-Date: 2016-08-30 18:30+0200\n"
 "PO-Revision-Date: 2007-08-13 09:57+0200\n"
 "Last-Translator: Mattias Newzella <newzella@linux.se>\n"
 "Language-Team:  <sv@li.org>\n"
-"Language: \n"
+"Language: sv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -176,6 +176,10 @@ msgstr ""
 msgid "Not enough space available to propose separate /home."
 msgstr ""
 "Det finns inte tillräckligt mycket utrymme för att föreslå separat /home."
+
+#: src/clients/inst_disk_proposal.rb:283
+msgid "Nothing assigned as root filesystem. Cannot continue."
+msgstr "Tilldelat rotfilsystem saknas! Det går inte att fortsätta."
 
 #: src/clients/inst_disk_proposal.rb:304
 msgid ""
@@ -971,7 +975,7 @@ msgstr ""
 #. Label text
 #. TRANSLATORS: checkbox text
 #: src/include/partitioning/auto_part_ui.rb:341
-#: src/modules/StorageProposal.rb:6245
+#: src/modules/StorageProposal.rb:6272
 msgid "Propose Separate &Home Partition"
 msgstr "Föreslå separat &hempartition"
 
@@ -1055,9 +1059,17 @@ msgstr ""
 #. A PReP/CHRP partition is not supposed to be mounted. So if we find any
 #. other /boot partition, we should warn the user.
 #: src/include/partitioning/custom_part_check_generated.rb:298
+#, fuzzy
+#| msgid ""
+#| "Warning:\n"
+#| "Your system needs a boot partition with type 0x41 PReP/CHRP.\n"
+#| "Please, consider creating one.\n"
+#| "\n"
+#| "Really use this setup?\n"
 msgid ""
 "Warning:\n"
-"Your system needs a boot partition with type 0x41 PReP/CHRP.\n"
+"Your system needs a boot partition, either with type 0x41 PReP/CHRP\n"
+"on MS-DOS or type 0x00 GPT PReP Boot on GPT.\n"
 "Please, consider creating one.\n"
 "\n"
 "Really use this setup?\n"
@@ -1069,7 +1081,7 @@ msgstr ""
 "Vill du använda denna installation?\n"
 
 #. popup text, %1 is a number
-#: src/include/partitioning/custom_part_check_generated.rb:313
+#: src/include/partitioning/custom_part_check_generated.rb:314
 msgid ""
 "Warning:\n"
 "Your boot partition ends above cylinder %1.\n"
@@ -1090,7 +1102,7 @@ msgstr ""
 "Vill du använda den här konfigurationen?\n"
 
 #. popup text, %1 is a size
-#: src/include/partitioning/custom_part_check_generated.rb:333
+#: src/include/partitioning/custom_part_check_generated.rb:334
 msgid ""
 "Warning:\n"
 "Your boot partition is smaller than %1.\n"
@@ -1105,7 +1117,7 @@ msgstr ""
 "Vill du behålla den här storleken på startpartitionen?\n"
 
 #. /////////////////////////// NO BOOT ///////////////////////////
-#: src/include/partitioning/custom_part_check_generated.rb:350
+#: src/include/partitioning/custom_part_check_generated.rb:351
 msgid ""
 "Warning: There is no partition of type bios_grub present.\n"
 "Such a partition is recommended (required with Btrfs) when Grub2 is\n"
@@ -1122,12 +1134,21 @@ msgstr ""
 #. popup text
 #. If the user chooses 'no' here, the system will not be able to
 #. boot from the hard drive!
-#: src/include/partitioning/custom_part_check_generated.rb:370
+#: src/include/partitioning/custom_part_check_generated.rb:371
+#, fuzzy
+#| msgid ""
+#| "Warning: There is no partition mounted as /boot.\n"
+#| "To boot from your hard disk, a small /boot partition\n"
+#| "(approx. %1) is required.  Consider creating one\n"
+#| "with type 0x41 PReP/CHRP.\n"
+#| "\n"
+#| "Really use the setup without /boot partition?\n"
 msgid ""
 "Warning: There is no partition mounted as /boot.\n"
 "To boot from your hard disk, a small /boot partition\n"
 "(approx. %1) is required.  Consider creating one\n"
-"with type 0x41 PReP/CHRP.\n"
+"with type 0x41 PReP/CHRP on MS-DOS or type 0x00 GPT\n"
+"PReP Boot on GPT.\n"
 "\n"
 "Really use the setup without /boot partition?\n"
 msgstr ""
@@ -1139,7 +1160,7 @@ msgstr ""
 "Vill du använda installationen utan /boot-partition?\n"
 
 #. popup text
-#: src/include/partitioning/custom_part_check_generated.rb:389
+#: src/include/partitioning/custom_part_check_generated.rb:391
 msgid ""
 "Warning: According to your setup, you intend to\n"
 "boot your machine from the root partition (/), which, unfortunately,\n"
@@ -1158,16 +1179,20 @@ msgstr ""
 "\n"
 "Vill du använda den här konfigurationen?\n"
 
-#: src/include/partitioning/custom_part_check_generated.rb:416
+#: src/include/partitioning/custom_part_check_generated.rb:417
 msgid ""
 "Warning: Some subvolumes of the root filesystem are shadowed by\n"
 "mount points of other filesystem. This could lead to problems.\n"
-"\n"
+"%s\n"
 "Really use this setup?\n"
 msgstr ""
+"Varning! Vissa undervolymer i rotfilsystemet skuggas av\n"
+"monteringspunkter i andra filsystem. Detta kan leda till problem.\n"
+"%s\n"
+"Vill du använda inställningen?\n"
 
 #. popup text
-#: src/include/partitioning/custom_part_check_generated.rb:433
+#: src/include/partitioning/custom_part_check_generated.rb:435
 msgid ""
 "Warning: With your current setup, your %1\n"
 "installation might not be directly bootable, because\n"
@@ -1184,7 +1209,7 @@ msgstr ""
 "Vill du använda den här konfigurationen?\n"
 
 #. popup text
-#: src/include/partitioning/custom_part_check_generated.rb:451
+#: src/include/partitioning/custom_part_check_generated.rb:453
 msgid ""
 "Warning: With your current setup, your %2 installation\n"
 "will encounter problems when booting, because you have no\n"
@@ -1211,7 +1236,7 @@ msgstr ""
 "Vill du använda den här konfigurationen?\n"
 
 #. popup text
-#: src/include/partitioning/custom_part_check_generated.rb:473
+#: src/include/partitioning/custom_part_check_generated.rb:475
 msgid ""
 "Warning: With your current setup, your %2 installation will\n"
 "encounter problems when booting, because you have no \n"
@@ -1236,12 +1261,12 @@ msgstr ""
 "Vill du använda den här konfigurationen?\n"
 
 #. popup text
-#: src/include/partitioning/custom_part_check_generated.rb:496
+#: src/include/partitioning/custom_part_check_generated.rb:498
 msgid "Really use this setup?"
 msgstr "Vill du använda den här inställningen?"
 
 #. popup text
-#: src/include/partitioning/custom_part_check_generated.rb:504
+#: src/include/partitioning/custom_part_check_generated.rb:506
 msgid ""
 "\n"
 "You have not assigned a swap partition. In most cases, we highly recommend \n"
@@ -1264,7 +1289,7 @@ msgstr ""
 "Vill du använda konfigurationen utan växlingspartition?\n"
 
 #. popup text
-#: src/include/partitioning/custom_part_check_generated.rb:520
+#: src/include/partitioning/custom_part_check_generated.rb:522
 msgid ""
 "\n"
 "You chose to install onto an existing partition that will not be\n"
@@ -1277,7 +1302,7 @@ msgstr ""
 "i synnerhet inte i följande fall:\n"
 
 #. continued popup text
-#: src/include/partitioning/custom_part_check_generated.rb:527
+#: src/include/partitioning/custom_part_check_generated.rb:529
 msgid ""
 "- if this is an existing ReiserFS partition\n"
 "- if this partition already contains a Linux distribution that will be\n"
@@ -1290,7 +1315,7 @@ msgstr ""
 "- om den här partitionen inte innehåller något filsystem ännu.\n"
 
 #. continued popup text
-#: src/include/partitioning/custom_part_check_generated.rb:534
+#: src/include/partitioning/custom_part_check_generated.rb:536
 msgid ""
 "If in doubt, better go back and mark this partition for\n"
 "formatting, especially if it is assigned to one of the standard mount "
@@ -1302,7 +1327,7 @@ msgstr ""
 "som /, /boot, /opt eller /var.\n"
 
 #. continued popup text
-#: src/include/partitioning/custom_part_check_generated.rb:540
+#: src/include/partitioning/custom_part_check_generated.rb:542
 msgid ""
 "If you decide to format the partition, all data on it will be lost.\n"
 "\n"
@@ -1313,7 +1338,7 @@ msgstr ""
 "Vill du låta partitionen vara oformaterad?\n"
 
 #. popup text %1 is replaced by a raid name e.g. md0
-#: src/include/partitioning/custom_part_check_generated.rb:595
+#: src/include/partitioning/custom_part_check_generated.rb:603
 msgid ""
 "The selected device belongs to the RAID (%1).\n"
 "Remove it from the RAID before editing it.\n"
@@ -1322,7 +1347,7 @@ msgstr ""
 "Ta bort den från RAID innan du ändrar den.\n"
 
 #. popup text %1 is replaced by a name e.g. system
-#: src/include/partitioning/custom_part_check_generated.rb:606
+#: src/include/partitioning/custom_part_check_generated.rb:614
 msgid ""
 "The selected device belongs to a volume group (%1).\n"
 "Remove it from the volume group before editing it.\n"
@@ -1331,7 +1356,7 @@ msgstr ""
 "Ta bort den från volymgruppen innan du ändrar den.\n"
 
 #. popup text %1 is replaced by a name e.g. system
-#: src/include/partitioning/custom_part_check_generated.rb:616
+#: src/include/partitioning/custom_part_check_generated.rb:624
 msgid ""
 "The selected device is used by volume (%1).\n"
 "Remove the volume before editing it.\n"
@@ -1340,7 +1365,7 @@ msgstr ""
 "Ta bort volymen innan du ändrar den.\n"
 
 #. popup text %2 is a device name, %1 is the raid name
-#: src/include/partitioning/custom_part_check_generated.rb:649
+#: src/include/partitioning/custom_part_check_generated.rb:657
 msgid ""
 "The device (%2) belongs to the RAID (%1).\n"
 "Remove it from the RAID before deleting it.\n"
@@ -1349,7 +1374,7 @@ msgstr ""
 "Ta bort den från RAID innan du tar bort den.\n"
 
 #. popup text, %1 and %2 are device names
-#: src/include/partitioning/custom_part_check_generated.rb:660
+#: src/include/partitioning/custom_part_check_generated.rb:668
 msgid ""
 "The device (%2) is used by %1.\n"
 "Remove %1 before deleting it.\n"
@@ -1357,12 +1382,12 @@ msgstr ""
 "Enheten (%2) används av %1.\n"
 "Ta bort %1 innan du ändrar den.\n"
 
-#: src/include/partitioning/custom_part_check_generated.rb:678
+#: src/include/partitioning/custom_part_check_generated.rb:680
 msgid "It cannot be deleted while mounted."
 msgstr "Den kan inte tas bort när den är monterad."
 
 #. popup text, %1 is a device name
-#: src/include/partitioning/custom_part_check_generated.rb:714
+#: src/include/partitioning/custom_part_check_generated.rb:716
 msgid ""
 "The device (%1) cannot be removed since it is a logical partition and \n"
 "another logical partition with a higher number is in use.\n"
@@ -1372,7 +1397,7 @@ msgstr ""
 "och att en annan logisk partition med ett högre nummer används.\n"
 
 #. popup text
-#: src/include/partitioning/custom_part_check_generated.rb:790
+#: src/include/partitioning/custom_part_check_generated.rb:792
 msgid ""
 "The selected extended partition contains partitions which are currently "
 "mounted:\n"
@@ -1389,7 +1414,7 @@ msgstr ""
 "Välj Avbryt om du inte vet exakt vad du gör.\n"
 
 #. popup text, Do not translate LVM.
-#: src/include/partitioning/custom_part_check_generated.rb:802
+#: src/include/partitioning/custom_part_check_generated.rb:810
 msgid ""
 "\n"
 "The selected extended partition contains at least one LVM partition\n"
@@ -1404,7 +1429,7 @@ msgstr ""
 "innan den utökade partitionen tas bort.\n"
 
 #. popup text, Do not translate RAID.
-#: src/include/partitioning/custom_part_check_generated.rb:813
+#: src/include/partitioning/custom_part_check_generated.rb:821
 msgid ""
 "\n"
 "The selected extended partition contains at least one partition\n"
@@ -1419,7 +1444,7 @@ msgstr ""
 "den utökade partitionen tas bort.\n"
 
 #. popup text
-#: src/include/partitioning/custom_part_check_generated.rb:824
+#: src/include/partitioning/custom_part_check_generated.rb:832
 msgid ""
 "\n"
 "The selected extended partition contains at least one partition\n"
@@ -1507,7 +1532,7 @@ msgstr ""
 #. popup text
 #. popup text
 #: src/include/partitioning/custom_part_dialogs.rb:196
-#: src/modules/Storage.rb:3958
+#: src/modules/Storage.rb:3962
 msgid ""
 "You did not enter a password.\n"
 "Try again.\n"
@@ -1518,7 +1543,7 @@ msgstr ""
 #. popup text
 #. popup text
 #: src/include/partitioning/custom_part_dialogs.rb:203
-#: src/modules/Storage.rb:3966
+#: src/modules/Storage.rb:3970
 msgid ""
 "The password must have at least %1 characters.\n"
 "Try again.\n"
@@ -1978,7 +2003,7 @@ msgstr ""
 #. help text, continued
 #. helptext
 #: src/include/partitioning/custom_part_helptexts.rb:100
-#: src/include/partitioning/ep-dialogs.rb:723
+#: src/include/partitioning/ep-dialogs.rb:761
 msgid ""
 "<p>\n"
 "If you forget your password, you will lose access to the data on your file "
@@ -1998,7 +2023,7 @@ msgstr ""
 #. help text, continued
 #. helptext, %1 is replaced by integer
 #: src/include/partitioning/custom_part_helptexts.rb:114
-#: src/include/partitioning/ep-dialogs.rb:737
+#: src/include/partitioning/ep-dialogs.rb:775
 msgid ""
 "<p>\n"
 "You must distinguish between uppercase and lowercase. A password should have "
@@ -2031,7 +2056,7 @@ msgstr ""
 #. help text, continued
 #. helptext
 #: src/include/partitioning/custom_part_helptexts.rb:142
-#: src/include/partitioning/ep-dialogs.rb:749
+#: src/include/partitioning/ep-dialogs.rb:787
 msgid ""
 "<p>\n"
 "Do not forget this password!\n"
@@ -2725,6 +2750,11 @@ msgid "<p>Choose the role of the device.</p>"
 msgstr "<p>Välj enhetens roll.</p>"
 
 #. radio button text
+#: src/include/partitioning/ep-dialogs.rb:56
+msgid "EFI Boot Partition"
+msgstr "EFI-startpartition"
+
+#. radio button text
 #: src/include/partitioning/ep-dialogs.rb:64
 msgid "Operating System"
 msgstr "Operativsystem"
@@ -2806,7 +2836,7 @@ msgid "Mount partition"
 msgstr "Monteringspartition"
 
 #. Column header
-#: src/include/partitioning/ep-dialogs.rb:377 src/modules/StorageFields.rb:144
+#: src/include/partitioning/ep-dialogs.rb:405 src/modules/StorageFields.rb:144
 msgid "Mount Point"
 msgstr "Monteringspunkt"
 
@@ -2879,7 +2909,7 @@ msgstr ""
 msgid "All data stored on the volume will be lost!"
 msgstr "Alla data på volymen kommer att försvinna."
 
-#: src/include/partitioning/ep-dialogs.rb:789
+#: src/include/partitioning/ep-dialogs.rb:827
 msgid "Password"
 msgstr "Lösenord"
 
@@ -2889,7 +2919,7 @@ msgid "Resize not supported by underlying device."
 msgstr "Det går inte att ändra storlek på den underliggande enheten."
 
 #. popup text
-#: src/include/partitioning/ep-dialogs.rb:891
+#: src/include/partitioning/ep-dialogs.rb:929
 msgid ""
 "\n"
 "You cannot resize the selected partition because the file system\n"
@@ -2939,8 +2969,8 @@ msgstr "Aktuell användning: %1"
 #. input field label
 #. combo box label
 #. Column header
-#: src/include/partitioning/ep-dialogs.rb:1039
-#: src/include/partitioning/ep-dialogs.rb:1076
+#: src/include/partitioning/ep-dialogs.rb:1077
+#: src/include/partitioning/ep-dialogs.rb:1114
 #: src/include/partitioning/ep-hd-dialogs.rb:256
 #: src/include/partitioning/ep-loop-dialogs.rb:118
 #: src/include/partitioning/ep-lvm-dialogs.rb:559
@@ -3209,7 +3239,7 @@ msgid "Add Partition on %1"
 msgstr "Lägg till partition på %1"
 
 #. dialog title
-#: src/include/partitioning/ep-hd-dialogs.rb:594
+#: src/include/partitioning/ep-hd-dialogs.rb:595
 msgid "Edit Partition %1"
 msgstr "Redigera partition %1"
 
@@ -3234,7 +3264,7 @@ msgid "Move partition %1?"
 msgstr "Vill du flytta partition %1?"
 
 #. radio button text
-#: src/include/partitioning/ep-hd-dialogs.rb:667
+#: src/include/partitioning/ep-hd-dialogs.rb:668
 msgid "Forward"
 msgstr "Vidarebefordring"
 
@@ -3267,8 +3297,13 @@ msgid "No hard disk selected."
 msgstr "Ingen hårddisk har valts."
 
 #. error popup
+#: src/include/partitioning/ep-hd-lib.rb:51
+msgid "Cannot create partition table on LDL formatted DASD."
+msgstr "Det går inte att skapa partitionstabell på LDL-formaterad DASD."
+
+#. error popup
 #. TRANSLATORS: error popup
-#: src/include/partitioning/ep-hd-lib.rb:57 src/modules/Storage.rb:5250
+#: src/include/partitioning/ep-hd-lib.rb:57 src/modules/Storage.rb:5251
 msgid "The disk is in use and cannot be modified."
 msgstr "Disken används och kan inte ändras."
 
@@ -3288,14 +3323,14 @@ msgstr ""
 "kommer att raderas."
 
 #. error popup
-#: src/include/partitioning/ep-hd-lib.rb:131
+#: src/include/partitioning/ep-hd-lib.rb:137
 msgid "No disk selected."
 msgstr "Ingen disk är vald."
 
 #. popup text
 #. Must be called before removing device.
-#: src/include/partitioning/ep-hd-lib.rb:145
-#: src/include/partitioning/ep-lib.rb:199
+#: src/include/partitioning/ep-hd-lib.rb:151
+#: src/include/partitioning/ep-lib.rb:202
 msgid "Really delete BIOS RAID %1?"
 msgstr "Verkligen ta bort Bios RAID %1?"
 
@@ -3310,7 +3345,7 @@ msgid "There are no partitions to delete on this disk."
 msgstr "Det finns inga partitioner att ta bort på den här disken."
 
 #. error popup
-#: src/include/partitioning/ep-hd-lib.rb:229
+#: src/include/partitioning/ep-hd-lib.rb:235
 msgid "It is not possible to create a partition on %1."
 msgstr "Partition kan inte skapas på %1."
 
@@ -3428,7 +3463,7 @@ msgid "Select a target disk for creating a clone"
 msgstr "Välj en måldisk för att skapa en klon"
 
 #. popup text, %1 is replaced by a dasd name e.g. /dev/dasda
-#: src/include/partitioning/ep-hd-lib.rb:751
+#: src/include/partitioning/ep-hd-lib.rb:757
 msgid ""
 "Running dasdfmt deletes all data on the disk.\n"
 "Really execute dasdfmt on disk %1?\n"
@@ -3437,7 +3472,7 @@ msgstr ""
 "Verkligen köra dasdfmt på disk %1?\n"
 
 #. popup text
-#: src/include/partitioning/ep-hd-lib.rb:762
+#: src/include/partitioning/ep-hd-lib.rb:768
 msgid ""
 "The disk is no longer marked for dasdfmt.\n"
 "\n"
@@ -3738,19 +3773,19 @@ msgid "Delete partition \"%1\" and RAID \"%2\" now?"
 msgstr "Vill du ta bort partitionen %1 och RAID-enheten %2?"
 
 #. YesNo popup text %1 is replaced by a disk name e.g. /dev/hda
-#: src/include/partitioning/ep-lib.rb:207
+#: src/include/partitioning/ep-lib.rb:210
 msgid "Really delete all partitions on %1?"
 msgstr "Vill du verkligen ta bort alla partitioner på %1?"
 
 #. ///////////////////////////////////////////////////
 #. now delete partition!!
 #. YesNo popup text, %1 is replaced by a device name e.g. /dev/hda1
-#: src/include/partitioning/ep-lib.rb:259
+#: src/include/partitioning/ep-lib.rb:262
 msgid "Really delete %1?"
 msgstr "Verkligen ta bort %1?"
 
 #. YesNo popup.  %1 is path to a file
-#: src/include/partitioning/ep-lib.rb:273
+#: src/include/partitioning/ep-lib.rb:276
 msgid ""
 "\n"
 "Should the loop file %1 also be removed?\n"
@@ -5990,75 +6025,74 @@ msgstr ""
 "vet vad du gör.</p>\n"
 
 #. this version makes some problems with interpreter, above lookup/add is OK
-#: src/modules/Partitions.rb:930
-msgid "Operation not permitted on disk %1.\n"
-msgstr ""
+#: src/modules/Partitions.rb:937
+msgid "Operation not permitted on disk %{device}.\n"
+msgstr "Åtgärden tillåts inte på disk %{enhet}.\n"
 
-#. popup text %1 is replaced by disk name e.g. /dev/hda
-#: src/modules/Partitions.rb:940
-#, fuzzy
-#| msgid ""
-#| "\n"
-#| "The partitioning on your disk %1 is either not readable by\n"
-#| "the partitioning tool parted used to change the\n"
-#| "partition table or is not supported by this tool.\n"
-#| "\n"
-#| "You may use the partitions on disk %1 as they are or\n"
-#| "format them and assign mount points to them, but you\n"
-#| "cannot add, edit, resize, or remove partitions from that\n"
-#| "disk here.\n"
+#. popup text %{device} is replaced by disk name e.g. /dev/hda
+#: src/modules/Partitions.rb:942
 msgid ""
 "\n"
-"The partitioning on your disk %1 is either not readable or not \n"
+"It's not supported by the partitioning tool parted to change\n"
+"the partition table on your disk %{device}\n"
+"(the disk is LDL formatted).\n"
+"\n"
+"You can use the partitions on disk %{device} as they are or\n"
+"format them and assign mount points, but you cannot add,\n"
+"resize, or remove partitions from that disk here.\n"
+msgstr ""
+"\n"
+"Stöds inte genom partitionsverktyget som delats för att ändra\n"
+"partitionstabellen på disk %{device}\n"
+"(disken är LDL-formaterad).\n"
+"\n"
+"Du kan använda partitionerna på disk %{device} som de är eller\n"
+"formatera dem och tilldela monteringspunkter, men det går inte att lägga "
+"till,\n"
+"ändra storlek på eller ta bort partitioner från den disken här.\n"
+
+#. popup text %{device} is replaced by disk name e.g. /dev/hda
+#: src/modules/Partitions.rb:954
+msgid ""
+"\n"
+"The partitioning on your disk %{device} is either not readable or not \n"
 "supported by the partitioning tool parted used to change the\n"
 "partition table.\n"
 "\n"
-"You can use the partitions on disk %1 as they are or\n"
+"You can use the partitions on disk %{device} as they are or\n"
 "format them and assign mount points, but you cannot add, edit, \n"
 "resize, or remove partitions from that disk here.\n"
 msgstr ""
 "\n"
-"Partitioneringen på disken %1 kan antingen inte läsas av\n"
-" partitioneringsverktyget parted som används för\n"
-" att ändra partitionstabellen eller så stöds den inte av det här verktyget.\n"
-" \n"
-" Du kan använda partitionerna på disken %1 i befintligt\n"
-" skick eller formatera dem och tilldela monteringspunkter\n"
-" till dem, men det går inte att lägga till, redigera,\n"
-" ändra storlek på eller ta bort partitioner från den disken här.\n"
+"Partitioneringen på disken %{device} kan antingen inte läsas av\n"
+"partitioneringsverktyget parted som används för att \n"
+"ändra partitionstabellen eller så stöds den inte av det här verktyget.\n"
+"\n"
+"Du kan använda partitionerna på disken %{device} i befintligt skick\n"
+"eller formatera dem och tilldela dem monteringspunkter,\n"
+"men det går inte att lägga till, redigera, ändra storlek på eller ta bort "
+"partitioner från den disken här.\n"
 
-#. popup text %1 is replaced by disk name e.g. /dev/dasda
-#: src/modules/Partitions.rb:958
-#, fuzzy
-#| msgid ""
-#| "\n"
-#| "The partitioning on your disk %1 is either not readable by\n"
-#| "the partitioning tool parted used to change the\n"
-#| "partition table or is not supported by this tool.\n"
-#| "\n"
-#| "You may use the partitions on disk %1 as they are or\n"
-#| "format them and assign mount points to them, but you\n"
-#| "cannot add, edit, resize, or remove partitions from that\n"
-#| "disk here.\n"
+#. popup text %{device} is replaced by disk name e.g. /dev/dasda
+#: src/modules/Partitions.rb:966
 msgid ""
 "\n"
-"The disk %1 does not contain a partition table but for\n"
+"The disk %{device} does not contain a partition table but for\n"
 "compatibility the kernel has automatically generated a\n"
 "partition spanning almost the entire disk.\n"
 "\n"
-"You can use the partition on disk %1 as it is or\n"
+"You can use the partition on disk %{device} as it is or\n"
 "format it and assign a mount point, but you cannot resize\n"
 "or remove the partition from that disk here.\n"
 msgstr ""
 "\n"
-"Partitioneringen på disken %1 kan antingen inte läsas av\n"
-" partitioneringsverktyget parted som används för\n"
-" att ändra partitionstabellen eller så stöds den inte av det här verktyget.\n"
-" \n"
-" Du kan använda partitionerna på disken %1 i befintligt\n"
-" skick eller formatera dem och tilldela monteringspunkter\n"
-" till dem, men det går inte att lägga till, redigera,\n"
-" ändra storlek på eller ta bort partitioner från den disken här.\n"
+"Disken %{device} innehåller ingen partitionstabell men för\n"
+"kompatibilitetens skull har en partition som omfattar\n"
+"nästan hela disken genererats automatiskt.\n"
+"\n"
+"Du kan använda partitionen på disk %{device} som den är\n"
+"eller formatera den och tilldela en monteringspunkt, men du\n"
+"kan inte ändra storlek på den eller ta bort partitionen från disken här.\n"
 
 #. popup text
 #: src/modules/Partitions.rb:982
@@ -6078,7 +6112,7 @@ msgstr ""
 "disken.\n"
 
 #. popup text
-#: src/modules/Partitions.rb:989
+#: src/modules/Partitions.rb:992
 msgid ""
 "\n"
 "\n"
@@ -6096,7 +6130,7 @@ msgstr ""
 #. @param integer testsize
 #. @param [Symbol] used_fs
 #. @param [Boolean] verbose
-#: src/modules/Storage.rb:992
+#: src/modules/Storage.rb:993
 msgid "Resize Not Possible:"
 msgstr "Storleksändring ej möjlig:"
 
@@ -6224,7 +6258,7 @@ msgstr "IDE-disk"
 msgid "SCSI Disk"
 msgstr "SCSI-disk"
 
-#: src/modules/Storage.rb:4357
+#: src/modules/Storage.rb:4361
 msgid "Disk"
 msgstr "Disk"
 
@@ -6239,7 +6273,7 @@ msgstr "MD-RAID"
 #. TODO: more informative error message, but the Package module does
 #. not provide anything
 #. TRANSLATORS: error popup
-#: src/modules/Storage.rb:4893
+#: src/modules/Storage.rb:4897
 msgid "Installing required packages failed."
 msgstr "Installation av paket som krävs missyckades."
 
@@ -6248,14 +6282,14 @@ msgid "Continue despite the error?"
 msgstr "Vill du fortsätta trots felet?"
 
 #. TRANSLATORS: error popup
-#: src/modules/Storage.rb:5262
+#: src/modules/Storage.rb:5263
 msgid ""
 "Partitions cannot be created since other partitions on the disk are used."
 msgstr ""
 "Det går inte att skapa partitioner eftersom andra partitioner på disken "
 "används."
 
-#: src/modules/Storage.rb:5278
+#: src/modules/Storage.rb:5289
 msgid ""
 "\n"
 "Device %1 cannot be modified because it contains activated swap\n"
@@ -6266,7 +6300,7 @@ msgstr ""
 "växlingsutrymme\n"
 "som behövs för att utföra installationen.\n"
 
-#: src/modules/Storage.rb:5292
+#: src/modules/Storage.rb:5303
 msgid ""
 "\n"
 "Device %1 cannot be modified because it contains the installation\n"
@@ -6276,7 +6310,7 @@ msgstr ""
 "Enheten %1 kan inte ändras eftersom den innehåller installationsdata\n"
 "som behövs för att utföra installationen.\n"
 
-#: src/modules/Storage.rb:5321
+#: src/modules/Storage.rb:5332
 msgid ""
 "\n"
 "Device %1 cannot be removed because it contains activated swap\n"
@@ -6287,7 +6321,7 @@ msgstr ""
 "växlingsutrymme\n"
 "som behövs för att utföra installationen.\n"
 
-#: src/modules/Storage.rb:5330
+#: src/modules/Storage.rb:5341
 msgid ""
 "\n"
 "Device %1 cannot be removed because it contains the installation\n"
@@ -6297,7 +6331,7 @@ msgstr ""
 "Enheten %1 kan inte tas bort eftersom den innehåller installationsdata\n"
 "som behövs för att utföra installationen.\n"
 
-#: src/modules/Storage.rb:5369
+#: src/modules/Storage.rb:5370
 msgid ""
 "\n"
 "Device %1 cannot be removed because this would indirectly change\n"
@@ -6309,7 +6343,7 @@ msgstr ""
 "enheten %2, som innehåller aktiverat växlingsutrymme som behövs \n"
 "för att utföra installationen.\n"
 
-#: src/modules/Storage.rb:5380
+#: src/modules/Storage.rb:5381
 msgid ""
 "\n"
 "Device %1 cannot be removed because this would indirectly change\n"
@@ -6321,7 +6355,7 @@ msgstr ""
 "installationen.\n"
 
 #. the check for verbose is needed for calls from StorageProposal (see bnc#871779)
-#: src/modules/Storage.rb:5402
+#: src/modules/Storage.rb:5403
 msgid ""
 "\n"
 "Partition %1 cannot be removed since other partitions on the\n"
@@ -6332,18 +6366,18 @@ msgstr ""
 "disken %2 används.\n"
 
 #. FIXME: please, add description of the list that is returned by this function.
-#: src/modules/Storage.rb:5491
+#: src/modules/Storage.rb:5492
 msgid "Nothing assigned as root filesystem!"
 msgstr "Tilldelat rotfilsystem saknas!"
 
-#: src/modules/Storage.rb:5492
+#: src/modules/Storage.rb:5493
 msgid "Installation will most certainly fail fatally!"
 msgstr "Installationen kommer med största sannolikhet att misslyckas!"
 
 #. Set rather than Add, there might be some packs left over
 #. from previous 'MakeProposal' we don't need now
 #. This also covers the case when AddPackagesList returns [] or nil
-#: src/modules/Storage.rb:6042
+#: src/modules/Storage.rb:6043
 msgid "Adding the following resolvables failed: %1"
 msgstr "Det gick inte att lägga till följande resurser: %1"
 
@@ -7012,19 +7046,6 @@ msgstr ""
 "Storleksändring kan inte genomföras på grund av att filsystemet är "
 "inkonsekvent. Försök att kontrollera filsystemet i Windows."
 
-#. TRANSLATORS: checkbox text
-#: src/modules/StorageProposal.rb:6179
-#, fuzzy
-#| msgid "Create &LVM Based Proposal"
-msgid "Create &LVM-based Proposal"
-msgstr "Skapa &LVM-baserat förslag"
-
-#. TRANSLATORS: checkbox text
-#: src/modules/StorageProposal.rb:6194
-#, fuzzy
-msgid "Encr&ypt Volume Group"
-msgstr " Volymgrupp "
-
 #. TRANSLATORS: combobox label
 #: src/modules/StorageProposal.rb:6239
 msgid "File System for Root Partition"
@@ -7045,14 +7066,15 @@ msgid "Proposal Settings"
 msgstr "Förslagsinställningar"
 
 #. TRANSLATORS: help text
-#: src/modules/StorageProposal.rb:6302
-#, fuzzy
+#: src/modules/StorageProposal.rb:6329
 msgid ""
-"<p>To create an LVM-based proposal, choose the corresponding button. The\n"
-"LVM-based proposal can be encrypted.</p>\n"
+"<p>Choose <b>Partition-based Proposal</b> if you don't want to use LVM.\n"
+"Choose <b>LVM-based Proposal</b> for plain LVM and <b>Encrypted LVM-based\n"
+"Proposal</b> if you want your system to be encrypted.</p>"
 msgstr ""
-"<p>\n"
-"För att skapa ett LVM-baserat förslag, välj lämplig knapp.</p>"
+"<p>Välj <b>partitionsbaserat förslag</b> om du inte vill använda LVM.\n"
+"Välj <b>LVM-baserat förslag</b> för vanlig LVM och <b>krypterat LVM-baserat\n"
+"förslag</b> om du vill att systemet ska krypteras.</p>"
 
 #. TRANSLATORS: help text
 #: src/modules/StorageProposal.rb:6337
@@ -7091,7 +7113,7 @@ msgstr "Ange ett lösenord för den föreslagna krypteringen."
 
 #. Label: get password for user root
 #. Please use newline if label is longer than 40 characters
-#: src/modules/StorageProposal.rb:6357
+#: src/modules/StorageProposal.rb:6385
 msgid "Password:"
 msgstr "Lösenord:"
 
@@ -7100,6 +7122,19 @@ msgstr "Lösenord:"
 #: src/modules/StorageProposal.rb:6396
 msgid "Reenter the password for verification:"
 msgstr "Upprepa lösenordet för verifiering:"
+
+#. Clear password fields on every round.
+#: src/modules/StorageProposal.rb:6594
+msgid "&Partition-based Proposal"
+msgstr "&Partitionsbaserat förslag"
+
+#: src/modules/StorageProposal.rb:6596
+msgid "&LVM-based Proposal"
+msgstr "&LVM-baserat förslag"
+
+#: src/modules/StorageProposal.rb:6598
+msgid "&Encrypted LVM-based Proposal"
+msgstr "&LVM-baserat förslag"
 
 #. encoding: utf-8
 #. Copyright (c) 2012 Novell, Inc.
@@ -7144,125 +7179,86 @@ msgstr "Partitionsjustering:"
 msgid "Visible Information on Storage Devices:"
 msgstr "Synlig information om lagringsenheter:"
 
-#: src/clients/inst_disk_proposal.rb:283
-msgid "Nothing assigned as root filesystem. Cannot continue."
-msgstr "Tilldelat rotfilsystem saknas! Det går inte att fortsätta."
+#, fuzzy
+#~| msgid ""
+#~| "\n"
+#~| "The partitioning on your disk %1 is either not readable by\n"
+#~| "the partitioning tool parted used to change the\n"
+#~| "partition table or is not supported by this tool.\n"
+#~| "\n"
+#~| "You may use the partitions on disk %1 as they are or\n"
+#~| "format them and assign mount points to them, but you\n"
+#~| "cannot add, edit, resize, or remove partitions from that\n"
+#~| "disk here.\n"
+#~ msgid ""
+#~ "\n"
+#~ "The partitioning on your disk %1 is either not readable or not \n"
+#~ "supported by the partitioning tool parted used to change the\n"
+#~ "partition table.\n"
+#~ "\n"
+#~ "You can use the partitions on disk %1 as they are or\n"
+#~ "format them and assign mount points, but you cannot add, edit, \n"
+#~ "resize, or remove partitions from that disk here.\n"
+#~ msgstr ""
+#~ "\n"
+#~ "Partitioneringen på disken %1 kan antingen inte läsas av\n"
+#~ " partitioneringsverktyget parted som används för\n"
+#~ " att ändra partitionstabellen eller så stöds den inte av det här "
+#~ "verktyget.\n"
+#~ " \n"
+#~ " Du kan använda partitionerna på disken %1 i befintligt\n"
+#~ " skick eller formatera dem och tilldela monteringspunkter\n"
+#~ " till dem, men det går inte att lägga till, redigera,\n"
+#~ " ändra storlek på eller ta bort partitioner från den disken här.\n"
 
-#: src/include/partitioning/custom_part_check_generated.rb:415
-msgid ""
-"Warning: Some subvolumes of the root filesystem are shadowed by\n"
-"mount points of other filesystem. This could lead to problems.\n"
-"%s\n"
-"Really use this setup?\n"
-msgstr ""
-"Varning! Vissa undervolymer i rotfilsystemet skuggas av\n"
-"monteringspunkter i andra filsystem. Detta kan leda till problem.\n"
-"%s\n"
-"Vill du använda inställningen?\n"
+#, fuzzy
+#~| msgid ""
+#~| "\n"
+#~| "The partitioning on your disk %1 is either not readable by\n"
+#~| "the partitioning tool parted used to change the\n"
+#~| "partition table or is not supported by this tool.\n"
+#~| "\n"
+#~| "You may use the partitions on disk %1 as they are or\n"
+#~| "format them and assign mount points to them, but you\n"
+#~| "cannot add, edit, resize, or remove partitions from that\n"
+#~| "disk here.\n"
+#~ msgid ""
+#~ "\n"
+#~ "The disk %1 does not contain a partition table but for\n"
+#~ "compatibility the kernel has automatically generated a\n"
+#~ "partition spanning almost the entire disk.\n"
+#~ "\n"
+#~ "You can use the partition on disk %1 as it is or\n"
+#~ "format it and assign a mount point, but you cannot resize\n"
+#~ "or remove the partition from that disk here.\n"
+#~ msgstr ""
+#~ "\n"
+#~ "Partitioneringen på disken %1 kan antingen inte läsas av\n"
+#~ " partitioneringsverktyget parted som används för\n"
+#~ " att ändra partitionstabellen eller så stöds den inte av det här "
+#~ "verktyget.\n"
+#~ " \n"
+#~ " Du kan använda partitionerna på disken %1 i befintligt\n"
+#~ " skick eller formatera dem och tilldela monteringspunkter\n"
+#~ " till dem, men det går inte att lägga till, redigera,\n"
+#~ " ändra storlek på eller ta bort partitioner från den disken här.\n"
 
-#. radio button text
-#: src/include/partitioning/ep-dialogs.rb:56
-msgid "EFI Boot Partition"
-msgstr "EFI-startpartition"
+#, fuzzy
+#~| msgid "Create &LVM Based Proposal"
+#~ msgid "Create &LVM-based Proposal"
+#~ msgstr "Skapa &LVM-baserat förslag"
 
-#. error popup
-#: src/include/partitioning/ep-hd-lib.rb:51
-msgid "Cannot create partition table on LDL formatted DASD."
-msgstr "Det går inte att skapa partitionstabell på LDL-formaterad DASD."
+#, fuzzy
+#~ msgid "Encr&ypt Volume Group"
+#~ msgstr " Volymgrupp "
 
-#. this version makes some problems with interpreter, above lookup/add is OK
-#: src/modules/Partitions.rb:937
-msgid "Operation not permitted on disk %{device}.\n"
-msgstr "Åtgärden tillåts inte på disk %{enhet}.\n"
-
-#. popup text %{device} is replaced by disk name e.g. /dev/hda
-#: src/modules/Partitions.rb:942
-msgid ""
-"\n"
-"It's not supported by the partitioning tool parted to change\n"
-"the partition table on your disk %{device}\n"
-"(the disk is LDL formatted).\n"
-"\n"
-"You can use the partitions on disk %{device} as they are or\n"
-"format them and assign mount points, but you cannot add,\n"
-"resize, or remove partitions from that disk here.\n"
-msgstr ""
-"\n"
-"Stöds inte genom partitionsverktyget som delats för att ändra\n"
-"partitionstabellen på disk %{device}\n"
-"(disken är LDL-formaterad).\n"
-"\n"
-"Du kan använda partitionerna på disk %{device} som de är eller\n"
-"formatera dem och tilldela monteringspunkter, men det går inte att lägga "
-"till,\n"
-"ändra storlek på eller ta bort partitioner från den disken här.\n"
-
-#. popup text %{device} is replaced by disk name e.g. /dev/hda
-#: src/modules/Partitions.rb:954
-msgid ""
-"\n"
-"The partitioning on your disk %{device} is either not readable or not \n"
-"supported by the partitioning tool parted used to change the\n"
-"partition table.\n"
-"\n"
-"You can use the partitions on disk %{device} as they are or\n"
-"format them and assign mount points, but you cannot add, edit, \n"
-"resize, or remove partitions from that disk here.\n"
-msgstr ""
-"\n"
-"Partitioneringen på disken %{device} kan antingen inte läsas av\n"
-"partitioneringsverktyget parted som används för att \n"
-"ändra partitionstabellen eller så stöds den inte av det här verktyget.\n"
-"\n"
-"Du kan använda partitionerna på disken %{device} i befintligt skick\n"
-"eller formatera dem och tilldela dem monteringspunkter,\n"
-"men det går inte att lägga till, redigera, ändra storlek på eller ta bort "
-"partitioner från den disken här.\n"
-
-#. popup text %{device} is replaced by disk name e.g. /dev/dasda
-#: src/modules/Partitions.rb:966
-msgid ""
-"\n"
-"The disk %{device} does not contain a partition table but for\n"
-"compatibility the kernel has automatically generated a\n"
-"partition spanning almost the entire disk.\n"
-"\n"
-"You can use the partition on disk %{device} as it is or\n"
-"format it and assign a mount point, but you cannot resize\n"
-"or remove the partition from that disk here.\n"
-msgstr ""
-"\n"
-"Disken %{device} innehåller ingen partitionstabell men för\n"
-"kompatibilitetens skull har en partition som omfattar\n"
-"nästan hela disken genererats automatiskt.\n"
-"\n"
-"Du kan använda partitionen på disk %{device} som den är\n"
-"eller formatera den och tilldela en monteringspunkt, men du\n"
-"kan inte ändra storlek på den eller ta bort partitionen från disken här.\n"
-
-#. TRANSLATORS: help text
-#: src/modules/StorageProposal.rb:6329
-msgid ""
-"<p>Choose <b>Partition-based Proposal</b> if you don't want to use LVM.\n"
-"Choose <b>LVM-based Proposal</b> for plain LVM and <b>Encrypted LVM-based\n"
-"Proposal</b> if you want your system to be encrypted.</p>"
-msgstr ""
-"<p>Välj <b>partitionsbaserat förslag</b> om du inte vill använda LVM.\n"
-"Välj <b>LVM-baserat förslag</b> för vanlig LVM och <b>krypterat LVM-baserat\n"
-"förslag</b> om du vill att systemet ska krypteras.</p>"
-
-#. Clear password fields on every round.
-#: src/modules/StorageProposal.rb:6594
-msgid "&Partition-based Proposal"
-msgstr "&Partitionsbaserat förslag"
-
-#: src/modules/StorageProposal.rb:6596
-msgid "&LVM-based Proposal"
-msgstr "&LVM-baserat förslag"
-
-#: src/modules/StorageProposal.rb:6598
-msgid "&Encrypted LVM-based Proposal"
-msgstr "&LVM-baserat förslag"
+#, fuzzy
+#~ msgid ""
+#~ "<p>To create an LVM-based proposal, choose the corresponding button. The\n"
+#~ "LVM-based proposal can be encrypted.</p>\n"
+#~ msgstr ""
+#~ "<p>\n"
+#~ "För att skapa ett LVM-baserat förslag, välj lämplig knapp.</p>"
 
 #, fuzzy
 #~ msgid "No unsaved changes exist."

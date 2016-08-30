@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: storage.ko\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-09-28 18:17+0200\n"
+"POT-Creation-Date: 2016-08-30 18:30+0200\n"
 "PO-Revision-Date: 2009-11-04 16:54+0900\n"
 "Last-Translator: Yunseok Choi <xein@naver.com>\n"
 "Language-Team: Korean <xein@naver.com>\n"
@@ -175,7 +175,11 @@ msgstr "루트 볼륨에 대한 스냅샷을 제안할 수 있는 공간이 부�
 msgid "Not enough space available to propose separate /home."
 msgstr "개별 /home을 제안할 수 있는 공간이 부족합니다."
 
-#: src/clients/inst_disk_proposal.rb:295
+#: src/clients/inst_disk_proposal.rb:283
+msgid "Nothing assigned as root filesystem. Cannot continue."
+msgstr "루트 파일 시스템으로 할당된 항목이 없습니다. 계속 진행할 수 없습니다."
+
+#: src/clients/inst_disk_proposal.rb:304
 msgid ""
 "Computing this proposal will overwrite manual changes \n"
 "done so far. Continue with computing proposal?"
@@ -1021,7 +1025,7 @@ msgstr ""
 #. Label text
 #. TRANSLATORS: checkbox text
 #: src/include/partitioning/auto_part_ui.rb:341
-#: src/modules/StorageProposal.rb:6245
+#: src/modules/StorageProposal.rb:6272
 msgid "Propose Separate &Home Partition"
 msgstr "별도의 홈 파티션 제안(&H)"
 
@@ -1040,7 +1044,7 @@ msgstr "계획안 종류"
 
 #  popup text
 #. popup text
-#: src/include/partitioning/custom_part_check_generated.rb:251
+#: src/include/partitioning/custom_part_check_generated.rb:244
 msgid ""
 "You have not assigned a root partition for\n"
 "installation. This does not work. Assign the root mount point \"/\" to a\n"
@@ -1105,9 +1109,17 @@ msgstr ""
 #. A PReP/CHRP partition is not supposed to be mounted. So if we find any
 #. other /boot partition, we should warn the user.
 #: src/include/partitioning/custom_part_check_generated.rb:298
+#, fuzzy
+#| msgid ""
+#| "Warning:\n"
+#| "Your system needs a boot partition with type 0x41 PReP/CHRP.\n"
+#| "Please, consider creating one.\n"
+#| "\n"
+#| "Really use this setup?\n"
 msgid ""
 "Warning:\n"
-"Your system needs a boot partition with type 0x41 PReP/CHRP.\n"
+"Your system needs a boot partition, either with type 0x41 PReP/CHRP\n"
+"on MS-DOS or type 0x00 GPT PReP Boot on GPT.\n"
 "Please, consider creating one.\n"
 "\n"
 "Really use this setup?\n"
@@ -1120,7 +1132,7 @@ msgstr ""
 
 #  popup text %1 is a number
 #. popup text, %1 is a number
-#: src/include/partitioning/custom_part_check_generated.rb:320
+#: src/include/partitioning/custom_part_check_generated.rb:314
 msgid ""
 "Warning:\n"
 "Your boot partition ends above cylinder %1.\n"
@@ -1141,7 +1153,7 @@ msgstr ""
 "정말 이 설정을 사용하시겠습니까?\n"
 
 #. popup text, %1 is a size
-#: src/include/partitioning/custom_part_check_generated.rb:333
+#: src/include/partitioning/custom_part_check_generated.rb:334
 msgid ""
 "Warning:\n"
 "Your boot partition is smaller than %1.\n"
@@ -1156,7 +1168,7 @@ msgstr ""
 "이 크기를 부팅 파티션으로 사용하시겠습니까?\n"
 
 #. /////////////////////////// NO BOOT ///////////////////////////
-#: src/include/partitioning/custom_part_check_generated.rb:350
+#: src/include/partitioning/custom_part_check_generated.rb:351
 msgid ""
 "Warning: There is no partition of type bios_grub present.\n"
 "Such a partition is recommended (required with Btrfs) when Grub2 is\n"
@@ -1173,12 +1185,21 @@ msgstr ""
 #. popup text
 #. If the user chooses 'no' here, the system will not be able to
 #. boot from the hard drive!
-#: src/include/partitioning/custom_part_check_generated.rb:370
+#: src/include/partitioning/custom_part_check_generated.rb:371
+#, fuzzy
+#| msgid ""
+#| "Warning: There is no partition mounted as /boot.\n"
+#| "To boot from your hard disk, a small /boot partition\n"
+#| "(approx. %1) is required.  Consider creating one\n"
+#| "with type 0x41 PReP/CHRP.\n"
+#| "\n"
+#| "Really use the setup without /boot partition?\n"
 msgid ""
 "Warning: There is no partition mounted as /boot.\n"
 "To boot from your hard disk, a small /boot partition\n"
 "(approx. %1) is required.  Consider creating one\n"
-"with type 0x41 PReP/CHRP.\n"
+"with type 0x41 PReP/CHRP on MS-DOS or type 0x00 GPT\n"
+"PReP Boot on GPT.\n"
 "\n"
 "Really use the setup without /boot partition?\n"
 msgstr ""
@@ -1191,7 +1212,7 @@ msgstr ""
 
 #  popup text
 #. popup text
-#: src/include/partitioning/custom_part_check_generated.rb:396
+#: src/include/partitioning/custom_part_check_generated.rb:391
 msgid ""
 "Warning: According to your setup, you intend to\n"
 "boot your machine from the root partition (/), which, unfortunately,\n"
@@ -1211,16 +1232,20 @@ msgstr ""
 "\n"
 "정말 이 설정을 사용하시겠습니까?\n"
 
-#: src/include/partitioning/custom_part_check_generated.rb:416
+#: src/include/partitioning/custom_part_check_generated.rb:417
 msgid ""
 "Warning: Some subvolumes of the root filesystem are shadowed by\n"
 "mount points of other filesystem. This could lead to problems.\n"
-"\n"
+"%s\n"
 "Really use this setup?\n"
 msgstr ""
+"경고: 루트 파일 시스템의 일부 하위 볼륨이 다른 파일 시스템의\n"
+"마운트 포인트에 의해 섀도됩니다. 이로 인해 문제가 발생할 수 있습니다.\n"
+"%s\n"
+"이 설정을 사용하시겠습니까?\n"
 
 #. popup text
-#: src/include/partitioning/custom_part_check_generated.rb:433
+#: src/include/partitioning/custom_part_check_generated.rb:435
 msgid ""
 "Warning: With your current setup, your %1\n"
 "installation might not be directly bootable, because\n"
@@ -1237,7 +1262,7 @@ msgstr ""
 "정말 이 설정을 사용하시겠습니까?\n"
 
 #. popup text
-#: src/include/partitioning/custom_part_check_generated.rb:451
+#: src/include/partitioning/custom_part_check_generated.rb:453
 msgid ""
 "Warning: With your current setup, your %2 installation\n"
 "will encounter problems when booting, because you have no\n"
@@ -1262,7 +1287,7 @@ msgstr ""
 "이 설정을 사용하시겠습니까?\n"
 
 #. popup text
-#: src/include/partitioning/custom_part_check_generated.rb:473
+#: src/include/partitioning/custom_part_check_generated.rb:475
 msgid ""
 "Warning: With your current setup, your %2 installation will\n"
 "encounter problems when booting, because you have no \n"
@@ -1288,12 +1313,12 @@ msgstr ""
 
 #  / yes-no popup contents
 #. popup text
-#: src/include/partitioning/custom_part_check_generated.rb:496
+#: src/include/partitioning/custom_part_check_generated.rb:498
 msgid "Really use this setup?"
 msgstr "정말 이 설정대로 사용하시겠습니까?"
 
 #. popup text
-#: src/include/partitioning/custom_part_check_generated.rb:504
+#: src/include/partitioning/custom_part_check_generated.rb:506
 msgid ""
 "\n"
 "You have not assigned a swap partition. In most cases, we highly recommend \n"
@@ -1316,7 +1341,7 @@ msgstr ""
 "스왑 파티션 없는 설정을 사용하시겠습니까?\n"
 
 #. popup text
-#: src/include/partitioning/custom_part_check_generated.rb:520
+#: src/include/partitioning/custom_part_check_generated.rb:522
 msgid ""
 "\n"
 "You chose to install onto an existing partition that will not be\n"
@@ -1330,7 +1355,7 @@ msgstr ""
 
 #  continued popup text
 #. continued popup text
-#: src/include/partitioning/custom_part_check_generated.rb:527
+#: src/include/partitioning/custom_part_check_generated.rb:529
 msgid ""
 "- if this is an existing ReiserFS partition\n"
 "- if this partition already contains a Linux distribution that will be\n"
@@ -1342,7 +1367,7 @@ msgstr ""
 "- 파티션에 파일 시스템이 없을 경우\n"
 
 #. continued popup text
-#: src/include/partitioning/custom_part_check_generated.rb:534
+#: src/include/partitioning/custom_part_check_generated.rb:536
 msgid ""
 "If in doubt, better go back and mark this partition for\n"
 "formatting, especially if it is assigned to one of the standard mount "
@@ -1355,7 +1380,7 @@ msgstr ""
 
 #  continued popup text
 #. continued popup text
-#: src/include/partitioning/custom_part_check_generated.rb:540
+#: src/include/partitioning/custom_part_check_generated.rb:542
 msgid ""
 "If you decide to format the partition, all data on it will be lost.\n"
 "\n"
@@ -1367,7 +1392,7 @@ msgstr ""
 
 #  popup text %1 is replaced by a raid name e.g. /dev/md0
 #. popup text %1 is replaced by a raid name e.g. md0
-#: src/include/partitioning/custom_part_check_generated.rb:595
+#: src/include/partitioning/custom_part_check_generated.rb:603
 msgid ""
 "The selected device belongs to the RAID (%1).\n"
 "Remove it from the RAID before editing it.\n"
@@ -1377,7 +1402,7 @@ msgstr ""
 
 #  popup text %1 is replaced by a name
 #. popup text %1 is replaced by a name e.g. system
-#: src/include/partitioning/custom_part_check_generated.rb:606
+#: src/include/partitioning/custom_part_check_generated.rb:614
 msgid ""
 "The selected device belongs to a volume group (%1).\n"
 "Remove it from the volume group before editing it.\n"
@@ -1387,7 +1412,7 @@ msgstr ""
 
 #  popup text %1 is replaced by a name
 #. popup text %1 is replaced by a name e.g. system
-#: src/include/partitioning/custom_part_check_generated.rb:616
+#: src/include/partitioning/custom_part_check_generated.rb:624
 msgid ""
 "The selected device is used by volume (%1).\n"
 "Remove the volume before editing it.\n"
@@ -1397,7 +1422,7 @@ msgstr ""
 
 #  popup text %2 is a partition name, %1 is the raid name
 #. popup text %2 is a device name, %1 is the raid name
-#: src/include/partitioning/custom_part_check_generated.rb:649
+#: src/include/partitioning/custom_part_check_generated.rb:657
 msgid ""
 "The device (%2) belongs to the RAID (%1).\n"
 "Remove it from the RAID before deleting it.\n"
@@ -1406,7 +1431,7 @@ msgstr ""
 "삭제하기 전에 먼저 RAID에서 장치를 제거하십시오.\n"
 
 #. popup text, %1 and %2 are device names
-#: src/include/partitioning/custom_part_check_generated.rb:660
+#: src/include/partitioning/custom_part_check_generated.rb:668
 msgid ""
 "The device (%2) is used by %1.\n"
 "Remove %1 before deleting it.\n"
@@ -1414,12 +1439,12 @@ msgstr ""
 "장치(%2)를 %1에서 사용하고 있습니다.\n"
 "삭제하기 전에 먼저 %1을(를) 제거하십시오.\n"
 
-#: src/include/partitioning/custom_part_check_generated.rb:678
+#: src/include/partitioning/custom_part_check_generated.rb:680
 msgid "It cannot be deleted while mounted."
 msgstr "마운트된 동안에는 삭제할 수 없습니다."
 
 #. popup text, %1 is a device name
-#: src/include/partitioning/custom_part_check_generated.rb:714
+#: src/include/partitioning/custom_part_check_generated.rb:716
 msgid ""
 "The device (%1) cannot be removed since it is a logical partition and \n"
 "another logical partition with a higher number is in use.\n"
@@ -1429,7 +1454,7 @@ msgstr ""
 " 가진 논리적 파티션이 사용 중이기 때문입니다.\n"
 
 #. popup text
-#: src/include/partitioning/custom_part_check_generated.rb:790
+#: src/include/partitioning/custom_part_check_generated.rb:792
 msgid ""
 "The selected extended partition contains partitions which are currently "
 "mounted:\n"
@@ -1445,7 +1470,7 @@ msgstr ""
 
 #  popup text, Do not translate LVM.
 #. popup text, Do not translate LVM.
-#: src/include/partitioning/custom_part_check_generated.rb:802
+#: src/include/partitioning/custom_part_check_generated.rb:810
 msgid ""
 "\n"
 "The selected extended partition contains at least one LVM partition\n"
@@ -1459,7 +1484,7 @@ msgstr ""
 
 #  popup text, Do not translate LVM.
 #. popup text, Do not translate RAID.
-#: src/include/partitioning/custom_part_check_generated.rb:813
+#: src/include/partitioning/custom_part_check_generated.rb:821
 msgid ""
 "\n"
 "The selected extended partition contains at least one partition\n"
@@ -1474,7 +1499,7 @@ msgstr ""
 
 #  popup text, Do not translate LVM.
 #. popup text
-#: src/include/partitioning/custom_part_check_generated.rb:824
+#: src/include/partitioning/custom_part_check_generated.rb:832
 msgid ""
 "\n"
 "The selected extended partition contains at least one partition\n"
@@ -1499,7 +1524,7 @@ msgid "Do not forget what you enter here!"
 msgstr "여기에 입력한 비밀번호를 기억해 주세요!"
 
 #: src/include/partitioning/custom_part_dialogs.rb:78
-#: src/include/partitioning/ep-dialogs.rb:771
+#: src/include/partitioning/ep-dialogs.rb:809
 msgid "Empty password allowed."
 msgstr "열쇠글 비워두기 허용."
 
@@ -1565,7 +1590,7 @@ msgstr ""
 #. popup text
 #. popup text
 #: src/include/partitioning/custom_part_dialogs.rb:196
-#: src/modules/Storage.rb:3958
+#: src/modules/Storage.rb:3962
 msgid ""
 "You did not enter a password.\n"
 "Try again.\n"
@@ -1577,7 +1602,7 @@ msgstr ""
 #. popup text
 #. popup text
 #: src/include/partitioning/custom_part_dialogs.rb:203
-#: src/modules/Storage.rb:3966
+#: src/modules/Storage.rb:3970
 msgid ""
 "The password must have at least %1 characters.\n"
 "Try again.\n"
@@ -2061,7 +2086,7 @@ msgstr ""
 #. help text, continued
 #. helptext
 #: src/include/partitioning/custom_part_helptexts.rb:100
-#: src/include/partitioning/ep-dialogs.rb:723
+#: src/include/partitioning/ep-dialogs.rb:761
 msgid ""
 "<p>\n"
 "If you forget your password, you will lose access to the data on your file "
@@ -2080,7 +2105,7 @@ msgstr ""
 #. help text, continued
 #. helptext, %1 is replaced by integer
 #: src/include/partitioning/custom_part_helptexts.rb:114
-#: src/include/partitioning/ep-dialogs.rb:737
+#: src/include/partitioning/ep-dialogs.rb:775
 msgid ""
 "<p>\n"
 "You must distinguish between uppercase and lowercase. A password should have "
@@ -2114,7 +2139,7 @@ msgstr ""
 #. help text, continued
 #. helptext
 #: src/include/partitioning/custom_part_helptexts.rb:142
-#: src/include/partitioning/ep-dialogs.rb:749
+#: src/include/partitioning/ep-dialogs.rb:787
 msgid ""
 "<p>\n"
 "Do not forget this password!\n"
@@ -2820,7 +2845,12 @@ msgid "<p>Choose the role of the device.</p>"
 msgstr "<p>장치의 역할을 선택하십시오.</p>"
 
 #. radio button text
-#: src/include/partitioning/ep-dialogs.rb:55
+#: src/include/partitioning/ep-dialogs.rb:56
+msgid "EFI Boot Partition"
+msgstr "EFI 부트 파티션"
+
+#. radio button text
+#: src/include/partitioning/ep-dialogs.rb:64
 msgid "Operating System"
 msgstr "운영 체제"
 
@@ -2846,7 +2876,7 @@ msgstr "역할"
 
 #  helptext for popup create partition line 1 of 6
 #. helptext
-#: src/include/partitioning/ep-dialogs.rb:107
+#: src/include/partitioning/ep-dialogs.rb:120
 msgid ""
 "<p>First, choose whether the partition should be\n"
 "formatted and the desired file system type.</p>"
@@ -2876,51 +2906,51 @@ msgstr ""
 "여부를 선택하고 마운트 포인트(/, /boot, /home, /var 등)를 입력하십시오.</p>"
 
 #. set globals
-#: src/include/partitioning/ep-dialogs.rb:309
+#: src/include/partitioning/ep-dialogs.rb:337
 msgid "Formatting Options"
 msgstr "포맷 옵션"
 
-#: src/include/partitioning/ep-dialogs.rb:317
+#: src/include/partitioning/ep-dialogs.rb:345
 msgid "Format partition"
 msgstr "파티션 포맷"
 
-#: src/include/partitioning/ep-dialogs.rb:328
+#: src/include/partitioning/ep-dialogs.rb:356
 msgid "Do not format partition"
 msgstr "파티션을 포맷하지 않음"
 
-#: src/include/partitioning/ep-dialogs.rb:344
+#: src/include/partitioning/ep-dialogs.rb:372
 msgid "Do not mount partition"
 msgstr "파티션을 마운트 하지 않음"
 
 #  Table label for basic-options listing
-#: src/include/partitioning/ep-dialogs.rb:363
+#: src/include/partitioning/ep-dialogs.rb:391
 msgid "Mounting Options"
 msgstr "마운트 옵션"
 
-#: src/include/partitioning/ep-dialogs.rb:371
+#: src/include/partitioning/ep-dialogs.rb:399
 msgid "Mount partition"
 msgstr "파티션 마운트"
 
 #. Column header
-#: src/include/partitioning/ep-dialogs.rb:377 src/modules/StorageFields.rb:144
+#: src/include/partitioning/ep-dialogs.rb:405 src/modules/StorageFields.rb:144
 msgid "Mount Point"
 msgstr "마운트 포인트"
 
 #  button text
 #. button text
-#: src/include/partitioning/ep-dialogs.rb:384
+#: src/include/partitioning/ep-dialogs.rb:412
 msgid "Fs&tab Options..."
 msgstr "Fstab 옵션(&T)..."
 
 #  popup message
 #. error popup
-#: src/include/partitioning/ep-dialogs.rb:558
+#: src/include/partitioning/ep-dialogs.rb:596
 msgid "Crypt files must be encrypted."
 msgstr "Crypt 파일은 암호화 되어야 합니다."
 
 #  popup text
 #. error popup
-#: src/include/partitioning/ep-dialogs.rb:569
+#: src/include/partitioning/ep-dialogs.rb:607
 msgid ""
 "You chose to create the crypt file, but did not specify\n"
 "that it should be formatted. This does not make sense.\n"
@@ -2933,7 +2963,7 @@ msgstr ""
 "포맷 옵션에 대해서도 확인 하세요.\n"
 
 #. error popup
-#: src/include/partitioning/ep-dialogs.rb:585
+#: src/include/partitioning/ep-dialogs.rb:623
 msgid "Crypt files require a mount point."
 msgstr "Crypt 파일은 마운트 포인트가 필요합니다."
 
@@ -2943,7 +2973,7 @@ msgid "Tmpfs requires a mount point."
 msgstr "TMPFS에는 마운트 포인트가 필요합니다."
 
 #. helptext
-#: src/include/partitioning/ep-dialogs.rb:683
+#: src/include/partitioning/ep-dialogs.rb:721
 msgid ""
 "<p>\n"
 "Keep in mind that this file system is only protected when it is not\n"
@@ -2977,7 +3007,7 @@ msgstr ""
 msgid "All data stored on the volume will be lost!"
 msgstr "볼륨에 저장된 모든 데이터가 유실됩니다!"
 
-#: src/include/partitioning/ep-dialogs.rb:789
+#: src/include/partitioning/ep-dialogs.rb:827
 msgid "Password"
 msgstr "열쇠글"
 
@@ -2987,7 +3017,7 @@ msgid "Resize not supported by underlying device."
 msgstr "기본 장치에서 크기 조정이 지원되지 않습니다."
 
 #. popup text
-#: src/include/partitioning/ep-dialogs.rb:891
+#: src/include/partitioning/ep-dialogs.rb:929
 msgid ""
 "\n"
 "You cannot resize the selected partition because the file system\n"
@@ -3015,23 +3045,23 @@ msgstr ""
 "%1 파티션의 크기를 조정할 수 없습니다.\n"
 
 #. Heading for dialog
-#: src/include/partitioning/ep-dialogs.rb:961
+#: src/include/partitioning/ep-dialogs.rb:999
 msgid "Resize Partition %1"
 msgstr "%1 파티션 크기 조정"
 
 #. Heading for dialog
-#: src/include/partitioning/ep-dialogs.rb:982
+#: src/include/partitioning/ep-dialogs.rb:1020
 msgid "Resize Logical Volume %1"
 msgstr "%1 논리 볼륨 크기 조정"
 
 #  heading / label
 #. size_k + min_size_k could be > max_size_k
-#: src/include/partitioning/ep-dialogs.rb:1014
+#: src/include/partitioning/ep-dialogs.rb:1052
 msgid "Current size: %1"
 msgstr "현재 크기: %1"
 
 #  table header
-#: src/include/partitioning/ep-dialogs.rb:1026
+#: src/include/partitioning/ep-dialogs.rb:1064
 msgid "Currently used: %1"
 msgstr "현재 사용: %1"
 
@@ -3041,8 +3071,8 @@ msgstr "현재 사용: %1"
 #. input field label
 #. combo box label
 #. Column header
-#: src/include/partitioning/ep-dialogs.rb:1039
-#: src/include/partitioning/ep-dialogs.rb:1076
+#: src/include/partitioning/ep-dialogs.rb:1077
+#: src/include/partitioning/ep-dialogs.rb:1114
 #: src/include/partitioning/ep-hd-dialogs.rb:256
 #: src/include/partitioning/ep-loop-dialogs.rb:118
 #: src/include/partitioning/ep-lvm-dialogs.rb:559
@@ -3055,7 +3085,7 @@ msgstr "크기"
 #  IntField - max. log size
 #. radio button text, %1 is replaced by size
 #. radio button text, %1 is replaced by size
-#: src/include/partitioning/ep-dialogs.rb:1049
+#: src/include/partitioning/ep-dialogs.rb:1087
 #: src/include/partitioning/ep-hd-dialogs.rb:242
 #: src/include/partitioning/ep-lvm-dialogs.rb:535
 msgid "Maximum Size (%1)"
@@ -3063,26 +3093,26 @@ msgstr "최대 크기 (%1)"
 
 #  IntField - max. log size
 #. radio button text, %1 is replaced by size
-#: src/include/partitioning/ep-dialogs.rb:1059
+#: src/include/partitioning/ep-dialogs.rb:1097
 msgid "Minimum Size (%1)"
 msgstr "최소 크기 (%1)"
 
 #. radio button text
 #. radio button text
-#: src/include/partitioning/ep-dialogs.rb:1068
+#: src/include/partitioning/ep-dialogs.rb:1106
 #: src/include/partitioning/ep-hd-dialogs.rb:251
 #: src/include/partitioning/ep-lvm-dialogs.rb:568
 msgid "Custom Size"
 msgstr "사용자 정의 크기"
 
 #. help text
-#: src/include/partitioning/ep-dialogs.rb:1102
+#: src/include/partitioning/ep-dialogs.rb:1140
 msgid "<p>Choose new size.</p>"
 msgstr "<p>새 크기를 선택하세요.</p>"
 
 #. error popup, %1 and %2 are replaced by sizes
 #. error popup, %1 and %2 are replaced by sizes
-#: src/include/partitioning/ep-dialogs.rb:1153
+#: src/include/partitioning/ep-dialogs.rb:1191
 #: src/include/partitioning/ep-hd-dialogs.rb:359
 #: src/include/partitioning/ep-lvm-dialogs.rb:692
 msgid "The size entered is invalid. Enter a size between %1 and %2."
@@ -3104,12 +3134,12 @@ msgstr ""
 "마운트 해제하면 크기 조정 작업 속도가 향상됩니다."
 
 #. label for log view
-#: src/include/partitioning/ep-dialogs.rb:1272
+#: src/include/partitioning/ep-dialogs.rb:1310
 msgid "Output of %1"
 msgstr "%1 의 출력"
 
 #. popup text
-#: src/include/partitioning/ep-dialogs.rb:1299
+#: src/include/partitioning/ep-dialogs.rb:1337
 msgid "Rescanning disks..."
 msgstr "디스크 다시 검색 중..."
 
@@ -3311,12 +3341,12 @@ msgid "The region entered is invalid."
 msgstr "입력한 영역이 잘못되었습니다."
 
 #. dialog title
-#: src/include/partitioning/ep-hd-dialogs.rb:548
+#: src/include/partitioning/ep-hd-dialogs.rb:549
 msgid "Add Partition on %1"
 msgstr "%1 에 파티션 추가"
 
 #. dialog title
-#: src/include/partitioning/ep-hd-dialogs.rb:594
+#: src/include/partitioning/ep-hd-dialogs.rb:595
 msgid "Edit Partition %1"
 msgstr " %1 파티션 편집"
 
@@ -3342,7 +3372,7 @@ msgstr "파티션 %1을(를) 이동하시겠습니까?"
 
 #  radio button, type of zone
 #. radio button text
-#: src/include/partitioning/ep-hd-dialogs.rb:667
+#: src/include/partitioning/ep-hd-dialogs.rb:668
 msgid "Forward"
 msgstr "전달"
 
@@ -3351,11 +3381,11 @@ msgstr "전달"
 msgid "Backward"
 msgstr "뒤로"
 
-#: src/include/partitioning/ep-hd-dialogs.rb:725
+#: src/include/partitioning/ep-hd-dialogs.rb:726
 msgid "Confirm Deleting of All Partitions"
 msgstr "모든 파티션의 삭제 확인"
 
-#: src/include/partitioning/ep-hd-dialogs.rb:727
+#: src/include/partitioning/ep-hd-dialogs.rb:728
 msgid ""
 "The disk \"%1\" contains at least one partition.\n"
 "If you proceed, the following partitions will be deleted:"
@@ -3364,7 +3394,7 @@ msgstr ""
 "계속할 경우 이 파티션은 삭제됩니다."
 
 #  popup text %1 is replaced by a disk name e.g. /dev/hda
-#: src/include/partitioning/ep-hd-dialogs.rb:732
+#: src/include/partitioning/ep-hd-dialogs.rb:733
 msgid "Really delete all partitions on \"%1\"?"
 msgstr "정말 \"%1\"에 있는 모든 파티션을 삭제하시겠습니까?"
 
@@ -3373,25 +3403,30 @@ msgstr "정말 \"%1\"에 있는 모든 파티션을 삭제하시겠습니까?"
 #. error popup
 #. error popup
 #: src/include/partitioning/ep-hd-lib.rb:42
-#: src/include/partitioning/ep-hd-lib.rb:245
+#: src/include/partitioning/ep-hd-lib.rb:251
 msgid "No hard disk selected."
 msgstr "하드 디스크를 선택하지 않았습니다."
+
+#. error popup
+#: src/include/partitioning/ep-hd-lib.rb:51
+msgid "Cannot create partition table on LDL formatted DASD."
+msgstr "LDL로 포맷된 DASD에서 파티션 테이블을 생성할 수 없습니다."
 
 # src/dsl/dialogs.ycp:478
 #  translators: error message
 #. error popup
 #. TRANSLATORS: error popup
-#: src/include/partitioning/ep-hd-lib.rb:51 src/modules/Storage.rb:5240
+#: src/include/partitioning/ep-hd-lib.rb:57 src/modules/Storage.rb:5251
 msgid "The disk is in use and cannot be modified."
 msgstr "디스크가 사용 중이고 수정할 수 없습니다."
 
 #. dialog heading
-#: src/include/partitioning/ep-hd-lib.rb:86
+#: src/include/partitioning/ep-hd-lib.rb:92
 msgid "Select new partition table type for %1."
 msgstr "%1 의 새 파티션 테이블 형식을 선택하세요."
 
 #. popup text, %1 is be replaced by disk name e.g. /dev/sda
-#: src/include/partitioning/ep-hd-lib.rb:111
+#: src/include/partitioning/ep-hd-lib.rb:117
 msgid ""
 "Really create new partition table on %1? This will delete all data\n"
 "on %1 and all RAIDs and Volume Groups using partitions on %1."
@@ -3402,14 +3437,14 @@ msgstr ""
 # src/dsl/dialogs.ycp:324 src/services/dns.ycp:160
 #  popup error message
 #. error popup
-#: src/include/partitioning/ep-hd-lib.rb:131
+#: src/include/partitioning/ep-hd-lib.rb:137
 msgid "No disk selected."
 msgstr "디스크를 선택하지 않았습니다."
 
 #. popup text
 #. Must be called before removing device.
-#: src/include/partitioning/ep-hd-lib.rb:145
-#: src/include/partitioning/ep-lib.rb:199
+#: src/include/partitioning/ep-hd-lib.rb:151
+#: src/include/partitioning/ep-lib.rb:202
 msgid "Really delete BIOS RAID %1?"
 msgstr "정말 BIOS RAID %1 을 삭제합니까?"
 
@@ -3420,13 +3455,13 @@ msgstr "파티셔닝된 RAID %1을(를) 삭제하시겠습니까?"
 
 #  To translators: label message
 #. error ppup
-#: src/include/partitioning/ep-hd-lib.rb:176
+#: src/include/partitioning/ep-hd-lib.rb:182
 msgid "There are no partitions to delete on this disk."
 msgstr "이 디스크에는 삭제할 파티션이 없습니다."
 
 #  popup text , %1 is replaced by a disk name e.g. /dev/hda
 #. error popup
-#: src/include/partitioning/ep-hd-lib.rb:229
+#: src/include/partitioning/ep-hd-lib.rb:235
 msgid "It is not possible to create a partition on %1."
 msgstr "%1에 파티션을 생성할 수 없습니다."
 
@@ -3435,15 +3470,15 @@ msgstr "%1에 파티션을 생성할 수 없습니다."
 #. error popup
 #. error popup
 #. error popup
-#: src/include/partitioning/ep-hd-lib.rb:321
-#: src/include/partitioning/ep-hd-lib.rb:370
-#: src/include/partitioning/ep-hd-lib.rb:426
-#: src/include/partitioning/ep-hd-lib.rb:483
+#: src/include/partitioning/ep-hd-lib.rb:327
+#: src/include/partitioning/ep-hd-lib.rb:376
+#: src/include/partitioning/ep-hd-lib.rb:432
+#: src/include/partitioning/ep-hd-lib.rb:489
 msgid "No partition selected."
 msgstr "선택한 파티션이 없습니다."
 
 #. error popup, %1 is replace by partition device name e.g. /dev/sdb1
-#: src/include/partitioning/ep-hd-lib.rb:334
+#: src/include/partitioning/ep-hd-lib.rb:340
 msgid ""
 "The partition %1 is in use. It cannot be\n"
 "edited. To edit %1, make sure it is not used."
@@ -3452,7 +3487,7 @@ msgstr ""
 "없습니다. %1 을 편집하려면 사용을 해제시켜야 합니다."
 
 #. error popup text
-#: src/include/partitioning/ep-hd-lib.rb:345
+#: src/include/partitioning/ep-hd-lib.rb:351
 msgid "An extended partition cannot be edited."
 msgstr "확장 파티션을 편집할 수 없습니다."
 
@@ -3471,7 +3506,7 @@ msgid "An extended partition cannot be moved."
 msgstr "확장된 파티션을 이동할 수 없습니다."
 
 #. error popup, %1 is replace by partition device name, e.g. /dev/sdb1
-#: src/include/partitioning/ep-hd-lib.rb:443
+#: src/include/partitioning/ep-hd-lib.rb:449
 msgid ""
 "The partition %1 is in use. It cannot be\n"
 "resized. To resize %1, make sure it is not used."
@@ -3480,7 +3515,7 @@ msgstr ""
 "할 수 없습니다. %1 을 크기 변경하려면 사용을 해제시켜야 합니다."
 
 #. error popup text
-#: src/include/partitioning/ep-hd-lib.rb:454
+#: src/include/partitioning/ep-hd-lib.rb:460
 msgid "An extended partition cannot be resized."
 msgstr "확장 파티션의 크기를 조정할 수 없습니다."
 
@@ -3544,7 +3579,7 @@ msgid "Select a target disk for creating a clone"
 msgstr "복제를 생성하기 위한 대상 디스크 선택"
 
 #. popup text, %1 is replaced by a dasd name e.g. /dev/dasda
-#: src/include/partitioning/ep-hd-lib.rb:751
+#: src/include/partitioning/ep-hd-lib.rb:757
 msgid ""
 "Running dasdfmt deletes all data on the disk.\n"
 "Really execute dasdfmt on disk %1?\n"
@@ -3553,7 +3588,7 @@ msgstr ""
 "%1 디스크에서 dasdfmt를 실행하시겠습니까?\n"
 
 #. popup text
-#: src/include/partitioning/ep-hd-lib.rb:762
+#: src/include/partitioning/ep-hd-lib.rb:768
 msgid ""
 "The disk is no longer marked for dasdfmt.\n"
 "\n"
@@ -3823,7 +3858,7 @@ msgid "Wrong Password Provided."
 msgstr "잘못된 비밀번호를 제공했습니다."
 
 #. Must be called before removing device.
-#: src/include/partitioning/ep-lib.rb:107
+#: src/include/partitioning/ep-lib.rb:110
 msgid "Confirm Deleting Partition Used by LVM"
 msgstr "LVM으로 사용되는 파티션 삭제 확인"
 
@@ -3838,11 +3873,11 @@ msgstr ""
 "논리 볼륨이 삭제됩니다.\n"
 
 #  translators: error message for adding a new Listen statement
-#: src/include/partitioning/ep-lib.rb:117
+#: src/include/partitioning/ep-lib.rb:120
 msgid "Delete partition \"%1\" and volume group \"%2\" now?"
 msgstr "지금 \"%1\" 파티션과 \"%2\" 볼륨 그룹을 삭제하시겠습니까?"
 
-#: src/include/partitioning/ep-lib.rb:127
+#: src/include/partitioning/ep-lib.rb:130
 msgid "Confirm Deleting Partition Used by RAID"
 msgstr "RAID로 사용되는 파티션 삭제 확인"
 
@@ -3857,25 +3892,25 @@ msgstr ""
 "RAID 장치가 삭제됩니다.\n"
 
 #  to translators: * Create extended partition 1.2 GB (hda1)
-#: src/include/partitioning/ep-lib.rb:137
+#: src/include/partitioning/ep-lib.rb:140
 msgid "Delete partition \"%1\" and RAID \"%2\" now?"
 msgstr "지금 \"%1\" 파티션과 RAID \"%2\" 를 삭제하시겠습니까?"
 
 #  popup text %1 is replaced by a disk name e.g. /dev/hda
 #. YesNo popup text %1 is replaced by a disk name e.g. /dev/hda
-#: src/include/partitioning/ep-lib.rb:207
+#: src/include/partitioning/ep-lib.rb:210
 msgid "Really delete all partitions on %1?"
 msgstr "%1의 모든 파티션을 삭제하시겠습니까?"
 
 #. ///////////////////////////////////////////////////
 #. now delete partition!!
 #. YesNo popup text, %1 is replaced by a device name e.g. /dev/hda1
-#: src/include/partitioning/ep-lib.rb:259
+#: src/include/partitioning/ep-lib.rb:262
 msgid "Really delete %1?"
 msgstr "%1을(를) 삭제하시겠습니까?"
 
 #. YesNo popup.  %1 is path to a file
-#: src/include/partitioning/ep-lib.rb:273
+#: src/include/partitioning/ep-lib.rb:276
 msgid ""
 "\n"
 "Should the loop file %1 also be removed?\n"
@@ -3897,19 +3932,19 @@ msgstr "파티션되지 않음"
 msgid "Unallocated"
 msgstr "할당되지 않음"
 
-#: src/include/partitioning/ep-lib.rb:482
+#: src/include/partitioning/ep-lib.rb:500
 msgid "<p>No changes to partitioning.</p>"
 msgstr "<p>파티션 변경 사항이 없습니다.</p>"
 
-#: src/include/partitioning/ep-lib.rb:484
+#: src/include/partitioning/ep-lib.rb:502
 msgid "<p>Changes to partitioning:</p>"
 msgstr "<p>파티션 변경 사항:</p>"
 
-#: src/include/partitioning/ep-lib.rb:487
+#: src/include/partitioning/ep-lib.rb:505
 msgid "<p>No changes to storage settings.</p>"
 msgstr "<p>저장매체 설정 변경 사항이 없습니다.</p>"
 
-#: src/include/partitioning/ep-lib.rb:489
+#: src/include/partitioning/ep-lib.rb:507
 msgid "<p>Storage settings:</p>"
 msgstr "<p>저장매체 설정:</p>"
 
@@ -4045,12 +4080,12 @@ msgstr ""
 "파일을 사용해 주세요."
 
 #. dialog title
-#: src/include/partitioning/ep-loop-dialogs.rb:281
+#: src/include/partitioning/ep-loop-dialogs.rb:282
 msgid "Add Crypt File"
 msgstr "Crypt 파일 추가"
 
 #. dialog title
-#: src/include/partitioning/ep-loop-dialogs.rb:325
+#: src/include/partitioning/ep-loop-dialogs.rb:326
 msgid "Edit Crypt File %1"
 msgstr "Crypt 파일 %1 편집"
 
@@ -4398,13 +4433,13 @@ msgstr "사용된 풀"
 
 #  popup heading
 #. dialog title, %1 is a volume group
-#: src/include/partitioning/ep-lvm-dialogs.rb:1028
+#: src/include/partitioning/ep-lvm-dialogs.rb:1029
 msgid "Add Logical Volume on %1"
 msgstr "%1 에 논리적 볼륨 추가"
 
 #  popup heading
 #. dialog title - %1 is a logical volume name, %2 is a volume group
-#: src/include/partitioning/ep-lvm-dialogs.rb:1075
+#: src/include/partitioning/ep-lvm-dialogs.rb:1076
 msgid "Edit Logical Volume %1 on %2"
 msgstr "%2의 논리 볼륨 %1 편집"
 
@@ -4448,9 +4483,9 @@ msgstr "볼륨 그룹 \"%1\" 삭제에 실패했습니다."
 #. error popup
 #. error popup
 #: src/include/partitioning/ep-lvm-lib.rb:214
-#: src/include/partitioning/ep-lvm-lib.rb:315
-#: src/include/partitioning/ep-lvm-lib.rb:367
-#: src/include/partitioning/ep-lvm-lib.rb:402
+#: src/include/partitioning/ep-lvm-lib.rb:316
+#: src/include/partitioning/ep-lvm-lib.rb:368
+#: src/include/partitioning/ep-lvm-lib.rb:403
 msgid "No logical volume selected."
 msgstr "논리 볼륨을 선택하지 않았습니다."
 
@@ -4898,17 +4933,17 @@ msgid "<p>Change the devices that are used for the RAID.</p>"
 msgstr "<p>RAID 로 사용되는 장치를 변경합니다.</p>"
 
 #. dialog title
-#: src/include/partitioning/ep-raid-dialogs.rb:642
+#: src/include/partitioning/ep-raid-dialogs.rb:643
 msgid "Add RAID %1"
 msgstr "RAID 추가 %1"
 
 #. dialog title
-#: src/include/partitioning/ep-raid-dialogs.rb:676
+#: src/include/partitioning/ep-raid-dialogs.rb:677
 msgid "Resize RAID %1"
 msgstr "RAID %1 크기 변경"
 
 #. dialog title
-#: src/include/partitioning/ep-raid-dialogs.rb:722
+#: src/include/partitioning/ep-raid-dialogs.rb:723
 msgid "Edit RAID %1"
 msgstr "RAID %1 편집"
 
@@ -6167,77 +6202,73 @@ msgstr ""
 "이 옵션을 활성화하십시오.</p>\n"
 
 #. this version makes some problems with interpreter, above lookup/add is OK
-#: src/modules/Partitions.rb:930
-msgid "Operation not permitted on disk %1.\n"
-msgstr ""
+#: src/modules/Partitions.rb:937
+msgid "Operation not permitted on disk %{device}.\n"
+msgstr "%{device} 디스크에서 허용되지 않는 작업입니다.\n"
 
-#  popup text %1 is replaced by disk name e.g. /dev/hda
-#. popup text %1 is replaced by disk name e.g. /dev/hda
-#: src/modules/Partitions.rb:940
-#, fuzzy
-#| msgid ""
-#| "\n"
-#| "The partitioning on your disk %1 is either not readable by\n"
-#| "the partitioning tool parted used to change the\n"
-#| "partition table or is not supported by this tool.\n"
-#| "\n"
-#| "You may use the partitions on disk %1 as they are or\n"
-#| "format them and assign mount points to them, but you\n"
-#| "cannot add, edit, resize, or remove partitions from that\n"
-#| "disk here.\n"
+#. popup text %{device} is replaced by disk name e.g. /dev/hda
+#: src/modules/Partitions.rb:942
 msgid ""
 "\n"
-"The partitioning on your disk %1 is either not readable or not \n"
+"It's not supported by the partitioning tool parted to change\n"
+"the partition table on your disk %{device}\n"
+"(the disk is LDL formatted).\n"
+"\n"
+"You can use the partitions on disk %{device} as they are or\n"
+"format them and assign mount points, but you cannot add,\n"
+"resize, or remove partitions from that disk here.\n"
+msgstr ""
+"\n"
+"%{device} 디스크의 파티션 테이블을 변경하는 데\n"
+"사용되는 파티셔닝 도구에서 지원하지 않습니다.\n"
+"(디스크는 LDL 형식입니다).\n"
+"\n"
+"%{device} 디스크의 파티션을 있는 그대로 사용하거나, 포맷한 다음\n"
+"마운트 지점을 할당할 수 있습니다. 그러나 여기서\n"
+"해당 디스크의 파티션을 추가, 크기 변경 또는 제거할 수 없습니다.\n"
+
+#. popup text %{device} is replaced by disk name e.g. /dev/hda
+#: src/modules/Partitions.rb:954
+msgid ""
+"\n"
+"The partitioning on your disk %{device} is either not readable or not \n"
 "supported by the partitioning tool parted used to change the\n"
 "partition table.\n"
 "\n"
-"You can use the partitions on disk %1 as they are or\n"
+"You can use the partitions on disk %{device} as they are or\n"
 "format them and assign mount points, but you cannot add, edit, \n"
 "resize, or remove partitions from that disk here.\n"
 msgstr ""
 "\n"
-"%1 디스크의 파티셔닝을 파티션 테이블 변경에\n"
-" 사용되는 파티션 도구로 읽을 수 없거나\n"
-" 이 도구에서 지원하지 않습니다.\n"
-" \n"
-" %1 디스크의 파티션을 있는 그대로 사용하거나, 포맷하고\n"
-" 마운트 포인트를 할당할 수 있습니다. 하지만 여기서는 해당\n"
-" 디스크의 파티션을 추가, 편집, 크기 조정 또는 제거할 수\n"
-" 없습니다.\n"
+"%{device} 디스크의 파티셔닝을 파티션 테이블 변경에\n"
+"사용되는 파티션 도구로 읽을 수 없거나\n"
+"이 도구에서 지원하지 않습니다.\n"
+"\n"
+"%{device} 디스크의 파티션을 있는 그대로 사용하거나, 포맷한 다음\n"
+"마운트 지점을 할당할 수 있습니다. 그러나 여기서\n"
+"해당 디스크의 파티션을 추가, 편집,크기 변경 또는 제거할 수 없습니다.\n"
 
-#  popup text %1 is replaced by disk name e.g. /dev/hda
-#. popup text %1 is replaced by disk name e.g. /dev/dasda
-#: src/modules/Partitions.rb:958
-#, fuzzy
-#| msgid ""
-#| "\n"
-#| "The partitioning on your disk %1 is either not readable by\n"
-#| "the partitioning tool parted used to change the\n"
-#| "partition table or is not supported by this tool.\n"
-#| "\n"
-#| "You may use the partitions on disk %1 as they are or\n"
-#| "format them and assign mount points to them, but you\n"
-#| "cannot add, edit, resize, or remove partitions from that\n"
-#| "disk here.\n"
+#. popup text %{device} is replaced by disk name e.g. /dev/dasda
+#: src/modules/Partitions.rb:966
 msgid ""
 "\n"
-"The disk %1 does not contain a partition table but for\n"
+"The disk %{device} does not contain a partition table but for\n"
 "compatibility the kernel has automatically generated a\n"
 "partition spanning almost the entire disk.\n"
 "\n"
-"You can use the partition on disk %1 as it is or\n"
+"You can use the partition on disk %{device} as it is or\n"
 "format it and assign a mount point, but you cannot resize\n"
 "or remove the partition from that disk here.\n"
 msgstr ""
 "\n"
-"%1 디스크의 파티셔닝을 파티션 테이블 변경에\n"
-" 사용되는 파티션 도구로 읽을 수 없거나\n"
-" 이 도구에서 지원하지 않습니다.\n"
-" \n"
-" %1 디스크의 파티션을 있는 그대로 사용하거나, 포맷하고\n"
-" 마운트 포인트를 할당할 수 있습니다. 하지만 여기서는 해당\n"
-" 디스크의 파티션을 추가, 편집, 크기 조정 또는 제거할 수\n"
-" 없습니다.\n"
+"%{device} 디스크에는 파티션 테이블이 포함되어 있지 않지만\n"
+"호환성을 위해 커널이 자동으로 거의 전체 디스크에 걸친\n"
+"파티션을 생성했습니다.\n"
+"\n"
+"%{device} 디스크의 파티션을 있는 그대로 사용하거나,\n"
+"포맷한 다음 마운트 지점을 할당할 수 있습니다. 그러나 여기서 해당 디스크의 파"
+"티션 크기를 변경하거나\n"
+"제거할 수 없습니다.\n"
 
 #. popup text
 #: src/modules/Partitions.rb:982
@@ -6255,7 +6286,7 @@ msgstr ""
 "그러나 이렇게 하면 이 디스크의 모든 파티션에 있는 데이터가 모두 삭제됩니다.\n"
 
 #. popup text
-#: src/modules/Partitions.rb:989
+#: src/modules/Partitions.rb:992
 msgid ""
 "\n"
 "\n"
@@ -6273,7 +6304,7 @@ msgstr ""
 #. @param integer testsize
 #. @param [Symbol] used_fs
 #. @param [Boolean] verbose
-#: src/modules/Storage.rb:992
+#: src/modules/Storage.rb:993
 msgid "Resize Not Possible:"
 msgstr "크기를 조정할 수 없습니다."
 
@@ -6300,7 +6331,7 @@ msgstr ""
 
 #  popup text
 #. popup text
-#: src/modules/Storage.rb:3946
+#: src/modules/Storage.rb:3950
 msgid ""
 "The first and the second version\n"
 "of the password do not match.\n"
@@ -6403,7 +6434,7 @@ msgid "SCSI Disk"
 msgstr "SCSI 디스크"
 
 #  tree node string
-#: src/modules/Storage.rb:4357
+#: src/modules/Storage.rb:4361
 msgid "Disk"
 msgstr "디스크"
 
@@ -6419,7 +6450,7 @@ msgstr "MD RAID"
 #. TODO: more informative error message, but the Package module does
 #. not provide anything
 #. TRANSLATORS: error popup
-#: src/modules/Storage.rb:4893
+#: src/modules/Storage.rb:4897
 msgid "Installing required packages failed."
 msgstr "요구된 꾸러미의 설치가 실패하였습니다."
 
@@ -6428,12 +6459,12 @@ msgid "Continue despite the error?"
 msgstr "오류를 무시하고 계속하시겠습니까?"
 
 #. TRANSLATORS: error popup
-#: src/modules/Storage.rb:5262
+#: src/modules/Storage.rb:5263
 msgid ""
 "Partitions cannot be created since other partitions on the disk are used."
 msgstr "디스크의 다른 파티션이 사용되고 있으므로 파티션을 생성할 수 없습니다."
 
-#: src/modules/Storage.rb:5278
+#: src/modules/Storage.rb:5289
 msgid ""
 "\n"
 "Device %1 cannot be modified because it contains activated swap\n"
@@ -6443,7 +6474,7 @@ msgstr ""
 "%1 장치에는 설치 작업에 필요한 스왑이 포함되어 있기 때문에\n"
 "설정을 변경할 수 없습니다.\n"
 
-#: src/modules/Storage.rb:5292
+#: src/modules/Storage.rb:5303
 msgid ""
 "\n"
 "Device %1 cannot be modified because it contains the installation\n"
@@ -6453,7 +6484,7 @@ msgstr ""
 "%1 장치에는 설치 작업에 필요한 설치 데이터가 포함되어 있기 때문에\n"
 "설정을 변경할 수 없습니다.\n"
 
-#: src/modules/Storage.rb:5321
+#: src/modules/Storage.rb:5332
 msgid ""
 "\n"
 "Device %1 cannot be removed because it contains activated swap\n"
@@ -6463,7 +6494,7 @@ msgstr ""
 "%1 장치에는 설치 작업에 필요한 스왑이 포함되어 있기 때문에 \n"
 "삭제할 수 없습니다.\n"
 
-#: src/modules/Storage.rb:5330
+#: src/modules/Storage.rb:5341
 msgid ""
 "\n"
 "Device %1 cannot be removed because it contains the installation\n"
@@ -6473,7 +6504,7 @@ msgstr ""
 "%1 장치에는 설치 작업에 필요한 설치데이터가 포함되어 있기 때문에\n"
 "삭제할 수 없습니다.\n"
 
-#: src/modules/Storage.rb:5369
+#: src/modules/Storage.rb:5370
 msgid ""
 "\n"
 "Device %1 cannot be removed because this would indirectly change\n"
@@ -6485,7 +6516,7 @@ msgstr ""
 "간접적으로 변경되므로\n"
 "제거할 수 없습니다.\n"
 
-#: src/modules/Storage.rb:5380
+#: src/modules/Storage.rb:5381
 msgid ""
 "\n"
 "Device %1 cannot be removed because this would indirectly change\n"
@@ -6497,7 +6528,7 @@ msgstr ""
 "제거할 수 없습니다.\n"
 
 #. the check for verbose is needed for calls from StorageProposal (see bnc#871779)
-#: src/modules/Storage.rb:5402
+#: src/modules/Storage.rb:5403
 msgid ""
 "\n"
 "Partition %1 cannot be removed since other partitions on the\n"
@@ -6508,18 +6539,18 @@ msgstr ""
 "제거할 수 없습니다.\n"
 
 #. FIXME: please, add description of the list that is returned by this function.
-#: src/modules/Storage.rb:5491
+#: src/modules/Storage.rb:5492
 msgid "Nothing assigned as root filesystem!"
 msgstr "루트 파일 시스템으로 할당된 항목이 없습니다."
 
-#: src/modules/Storage.rb:5492
+#: src/modules/Storage.rb:5493
 msgid "Installation will most certainly fail fatally!"
 msgstr "대부분 설치가 실패합니다."
 
 #. Set rather than Add, there might be some packs left over
 #. from previous 'MakeProposal' we don't need now
 #. This also covers the case when AddPackagesList returns [] or nil
-#: src/modules/Storage.rb:6042
+#: src/modules/Storage.rb:6043
 msgid "Adding the following resolvables failed: %1"
 msgstr "다음 resolvable을 추가하지 못했습니다. %1"
 
@@ -7216,20 +7247,6 @@ msgstr ""
 "일관성이 없는 파일 시스템으로 인해 크기를 변경할 수 없습니다. Windows에서 파"
 "일 시스템을 확인해 보십시오."
 
-#. TRANSLATORS: checkbox text
-#: src/modules/StorageProposal.rb:6179
-#, fuzzy
-#| msgid "Create &LVM Based Proposal"
-msgid "Create &LVM-based Proposal"
-msgstr "LVM 기반 계획안 만들기(&L)"
-
-#. TRANSLATORS: checkbox text
-#: src/modules/StorageProposal.rb:6194
-#, fuzzy
-#| msgid "Encrypt Volume Group"
-msgid "Encr&ypt Volume Group"
-msgstr "암호화 볼륨 그룹"
-
 #. TRANSLATORS: combobox label
 #: src/modules/StorageProposal.rb:6239
 msgid "File System for Root Partition"
@@ -7250,17 +7267,16 @@ msgid "Proposal Settings"
 msgstr "제안 설정"
 
 #. TRANSLATORS: help text
-#: src/modules/StorageProposal.rb:6302
-#, fuzzy
-#| msgid ""
-#| "<p>\n"
-#| "To create an LVM based proposal, choose the corresponding button.</p>\n"
+#: src/modules/StorageProposal.rb:6329
 msgid ""
-"<p>To create an LVM-based proposal, choose the corresponding button. The\n"
-"LVM-based proposal can be encrypted.</p>\n"
+"<p>Choose <b>Partition-based Proposal</b> if you don't want to use LVM.\n"
+"Choose <b>LVM-based Proposal</b> for plain LVM and <b>Encrypted LVM-based\n"
+"Proposal</b> if you want your system to be encrypted.</p>"
 msgstr ""
-"<p>\n"
-"LVM 기반 제안을 만들려면 해당 버튼을 선택하세요.</p>\n"
+"<p>LVM을 사용하지 않으려면 <b>파티션 기반 제안</b>을 선택하십시오.\n"
+"일반 LVM을 사용하려면 <b>LVM 기반 제안</b>을 선택하고 시스템을 암호화하려면 "
+"<b>암호화 LVM 기반\n"
+"제안</b>을 선택하십시오.</p>"
 
 #. TRANSLATORS: help text
 #: src/modules/StorageProposal.rb:6337
@@ -7296,14 +7312,14 @@ msgstr ""
 "스왑 파티션을 만들 수 있습니다.</p>"
 
 #  heading text
-#: src/modules/StorageProposal.rb:6350
+#: src/modules/StorageProposal.rb:6378
 msgid "Enter your password for the proposal encryption."
 msgstr "암호화에 대한 열쇠글을 입력하세요."
 
 #  PasswordEntry label
 #. Label: get password for user root
 #. Please use newline if label is longer than 40 characters
-#: src/modules/StorageProposal.rb:6357
+#: src/modules/StorageProposal.rb:6385
 msgid "Password:"
 msgstr "열쇠글:"
 
@@ -7311,9 +7327,22 @@ msgstr "열쇠글:"
 #  Please use newline if label is longer than 40 characters
 #. Label: get same password again for verification
 #. Please use newline if label is longer than 40 characters
-#: src/modules/StorageProposal.rb:6368
+#: src/modules/StorageProposal.rb:6396
 msgid "Reenter the password for verification:"
 msgstr "확인을 위해 같은 열쇠글을 다시 입력하세요:"
+
+#. Clear password fields on every round.
+#: src/modules/StorageProposal.rb:6594
+msgid "&Partition-based Proposal"
+msgstr "파티션 기반 제안(&P)"
+
+#: src/modules/StorageProposal.rb:6596
+msgid "&LVM-based Proposal"
+msgstr "LVM 기반 제안 생성(&L)"
+
+#: src/modules/StorageProposal.rb:6598
+msgid "&Encrypted LVM-based Proposal"
+msgstr "암호화된 LVM 기반 제안 생성(&E)"
 
 # src/isdn/interface.ycp:235
 #. encoding: utf-8
@@ -7360,125 +7389,90 @@ msgstr "파티션 정렬:"
 msgid "Visible Information on Storage Devices:"
 msgstr "저장매체 장치의 정보 표시:"
 
-#: src/clients/inst_disk_proposal.rb:283
-msgid "Nothing assigned as root filesystem. Cannot continue."
-msgstr "루트 파일 시스템으로 할당된 항목이 없습니다. 계속 진행할 수 없습니다."
+#  popup text %1 is replaced by disk name e.g. /dev/hda
+#, fuzzy
+#~| msgid ""
+#~| "\n"
+#~| "The partitioning on your disk %1 is either not readable by\n"
+#~| "the partitioning tool parted used to change the\n"
+#~| "partition table or is not supported by this tool.\n"
+#~| "\n"
+#~| "You may use the partitions on disk %1 as they are or\n"
+#~| "format them and assign mount points to them, but you\n"
+#~| "cannot add, edit, resize, or remove partitions from that\n"
+#~| "disk here.\n"
+#~ msgid ""
+#~ "\n"
+#~ "The partitioning on your disk %1 is either not readable or not \n"
+#~ "supported by the partitioning tool parted used to change the\n"
+#~ "partition table.\n"
+#~ "\n"
+#~ "You can use the partitions on disk %1 as they are or\n"
+#~ "format them and assign mount points, but you cannot add, edit, \n"
+#~ "resize, or remove partitions from that disk here.\n"
+#~ msgstr ""
+#~ "\n"
+#~ "%1 디스크의 파티셔닝을 파티션 테이블 변경에\n"
+#~ " 사용되는 파티션 도구로 읽을 수 없거나\n"
+#~ " 이 도구에서 지원하지 않습니다.\n"
+#~ " \n"
+#~ " %1 디스크의 파티션을 있는 그대로 사용하거나, 포맷하고\n"
+#~ " 마운트 포인트를 할당할 수 있습니다. 하지만 여기서는 해당\n"
+#~ " 디스크의 파티션을 추가, 편집, 크기 조정 또는 제거할 수\n"
+#~ " 없습니다.\n"
 
-#: src/include/partitioning/custom_part_check_generated.rb:415
-msgid ""
-"Warning: Some subvolumes of the root filesystem are shadowed by\n"
-"mount points of other filesystem. This could lead to problems.\n"
-"%s\n"
-"Really use this setup?\n"
-msgstr ""
-"경고: 루트 파일 시스템의 일부 하위 볼륨이 다른 파일 시스템의\n"
-"마운트 포인트에 의해 섀도됩니다. 이로 인해 문제가 발생할 수 있습니다.\n"
-"%s\n"
-"이 설정을 사용하시겠습니까?\n"
+#  popup text %1 is replaced by disk name e.g. /dev/hda
+#, fuzzy
+#~| msgid ""
+#~| "\n"
+#~| "The partitioning on your disk %1 is either not readable by\n"
+#~| "the partitioning tool parted used to change the\n"
+#~| "partition table or is not supported by this tool.\n"
+#~| "\n"
+#~| "You may use the partitions on disk %1 as they are or\n"
+#~| "format them and assign mount points to them, but you\n"
+#~| "cannot add, edit, resize, or remove partitions from that\n"
+#~| "disk here.\n"
+#~ msgid ""
+#~ "\n"
+#~ "The disk %1 does not contain a partition table but for\n"
+#~ "compatibility the kernel has automatically generated a\n"
+#~ "partition spanning almost the entire disk.\n"
+#~ "\n"
+#~ "You can use the partition on disk %1 as it is or\n"
+#~ "format it and assign a mount point, but you cannot resize\n"
+#~ "or remove the partition from that disk here.\n"
+#~ msgstr ""
+#~ "\n"
+#~ "%1 디스크의 파티셔닝을 파티션 테이블 변경에\n"
+#~ " 사용되는 파티션 도구로 읽을 수 없거나\n"
+#~ " 이 도구에서 지원하지 않습니다.\n"
+#~ " \n"
+#~ " %1 디스크의 파티션을 있는 그대로 사용하거나, 포맷하고\n"
+#~ " 마운트 포인트를 할당할 수 있습니다. 하지만 여기서는 해당\n"
+#~ " 디스크의 파티션을 추가, 편집, 크기 조정 또는 제거할 수\n"
+#~ " 없습니다.\n"
 
-#. radio button text
-#: src/include/partitioning/ep-dialogs.rb:56
-msgid "EFI Boot Partition"
-msgstr "EFI 부트 파티션"
+#, fuzzy
+#~| msgid "Create &LVM Based Proposal"
+#~ msgid "Create &LVM-based Proposal"
+#~ msgstr "LVM 기반 계획안 만들기(&L)"
 
-#. error popup
-#: src/include/partitioning/ep-hd-lib.rb:51
-msgid "Cannot create partition table on LDL formatted DASD."
-msgstr "LDL로 포맷된 DASD에서 파티션 테이블을 생성할 수 없습니다."
+#, fuzzy
+#~| msgid "Encrypt Volume Group"
+#~ msgid "Encr&ypt Volume Group"
+#~ msgstr "암호화 볼륨 그룹"
 
-#. this version makes some problems with interpreter, above lookup/add is OK
-#: src/modules/Partitions.rb:937
-msgid "Operation not permitted on disk %{device}.\n"
-msgstr "%{device} 디스크에서 허용되지 않는 작업입니다.\n"
-
-#. popup text %{device} is replaced by disk name e.g. /dev/hda
-#: src/modules/Partitions.rb:942
-msgid ""
-"\n"
-"It's not supported by the partitioning tool parted to change\n"
-"the partition table on your disk %{device}\n"
-"(the disk is LDL formatted).\n"
-"\n"
-"You can use the partitions on disk %{device} as they are or\n"
-"format them and assign mount points, but you cannot add,\n"
-"resize, or remove partitions from that disk here.\n"
-msgstr ""
-"\n"
-"%{device} 디스크의 파티션 테이블을 변경하는 데\n"
-"사용되는 파티셔닝 도구에서 지원하지 않습니다.\n"
-"(디스크는 LDL 형식입니다).\n"
-"\n"
-"%{device} 디스크의 파티션을 있는 그대로 사용하거나, 포맷한 다음\n"
-"마운트 지점을 할당할 수 있습니다. 그러나 여기서\n"
-"해당 디스크의 파티션을 추가, 크기 변경 또는 제거할 수 없습니다.\n"
-
-#. popup text %{device} is replaced by disk name e.g. /dev/hda
-#: src/modules/Partitions.rb:954
-msgid ""
-"\n"
-"The partitioning on your disk %{device} is either not readable or not \n"
-"supported by the partitioning tool parted used to change the\n"
-"partition table.\n"
-"\n"
-"You can use the partitions on disk %{device} as they are or\n"
-"format them and assign mount points, but you cannot add, edit, \n"
-"resize, or remove partitions from that disk here.\n"
-msgstr ""
-"\n"
-"%{device} 디스크의 파티셔닝을 파티션 테이블 변경에\n"
-"사용되는 파티션 도구로 읽을 수 없거나\n"
-"이 도구에서 지원하지 않습니다.\n"
-"\n"
-"%{device} 디스크의 파티션을 있는 그대로 사용하거나, 포맷한 다음\n"
-"마운트 지점을 할당할 수 있습니다. 그러나 여기서\n"
-"해당 디스크의 파티션을 추가, 편집,크기 변경 또는 제거할 수 없습니다.\n"
-
-#. popup text %{device} is replaced by disk name e.g. /dev/dasda
-#: src/modules/Partitions.rb:966
-msgid ""
-"\n"
-"The disk %{device} does not contain a partition table but for\n"
-"compatibility the kernel has automatically generated a\n"
-"partition spanning almost the entire disk.\n"
-"\n"
-"You can use the partition on disk %{device} as it is or\n"
-"format it and assign a mount point, but you cannot resize\n"
-"or remove the partition from that disk here.\n"
-msgstr ""
-"\n"
-"%{device} 디스크에는 파티션 테이블이 포함되어 있지 않지만\n"
-"호환성을 위해 커널이 자동으로 거의 전체 디스크에 걸친\n"
-"파티션을 생성했습니다.\n"
-"\n"
-"%{device} 디스크의 파티션을 있는 그대로 사용하거나,\n"
-"포맷한 다음 마운트 지점을 할당할 수 있습니다. 그러나 여기서 해당 디스크의 파"
-"티션 크기를 변경하거나\n"
-"제거할 수 없습니다.\n"
-
-#. TRANSLATORS: help text
-#: src/modules/StorageProposal.rb:6329
-msgid ""
-"<p>Choose <b>Partition-based Proposal</b> if you don't want to use LVM.\n"
-"Choose <b>LVM-based Proposal</b> for plain LVM and <b>Encrypted LVM-based\n"
-"Proposal</b> if you want your system to be encrypted.</p>"
-msgstr ""
-"<p>LVM을 사용하지 않으려면 <b>파티션 기반 제안</b>을 선택하십시오.\n"
-"일반 LVM을 사용하려면 <b>LVM 기반 제안</b>을 선택하고 시스템을 암호화하려면 "
-"<b>암호화 LVM 기반\n"
-"제안</b>을 선택하십시오.</p>"
-
-#. Clear password fields on every round.
-#: src/modules/StorageProposal.rb:6594
-msgid "&Partition-based Proposal"
-msgstr "파티션 기반 제안(&P)"
-
-#: src/modules/StorageProposal.rb:6596
-msgid "&LVM-based Proposal"
-msgstr "LVM 기반 제안 생성(&L)"
-
-#: src/modules/StorageProposal.rb:6598
-msgid "&Encrypted LVM-based Proposal"
-msgstr "암호화된 LVM 기반 제안 생성(&E)"
+#, fuzzy
+#~| msgid ""
+#~| "<p>\n"
+#~| "To create an LVM based proposal, choose the corresponding button.</p>\n"
+#~ msgid ""
+#~ "<p>To create an LVM-based proposal, choose the corresponding button. The\n"
+#~ "LVM-based proposal can be encrypted.</p>\n"
+#~ msgstr ""
+#~ "<p>\n"
+#~ "LVM 기반 제안을 만들려면 해당 버튼을 선택하세요.</p>\n"
 
 #~ msgid "No unsaved changes exist."
 #~ msgstr "저장되지 않은 변경 내용이 있습니다."
