@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: YaST (@memory@)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-08-30 18:27+0200\n"
+"POT-Creation-Date: 2016-09-13 20:09+0200\n"
 "PO-Revision-Date: 2015-05-21 09:13+0300\n"
 "Last-Translator: malhargan <malham1@gmail.com>\n"
 "Language-Team: سوزي\n"
@@ -392,6 +392,37 @@ msgid "<p><b><big>LVM Configuration</big></b></p>"
 msgstr "<p><b><big>تكوين LVM</big></b></p>"
 
 #: src/include/drbd/helps.rb:116
+#, fuzzy
+#| msgid ""
+#| "\n"
+#| "\t\t<p><b>LVM configuration file /etc/lvm/lvm.conf</b></p>\n"
+#| "\t\t<p>To use LVM with DRBD, it is necessary to change some options in "
+#| "the LVM configuration file and to remove stale cache entries on the nodes."
+#| "</p>\t\t<p>Refer to 'man lvm.conf' for further information including the "
+#| "file layout.</p>\n"
+#| "\t\t\t\t\t\t\t\t\t\t  \n"
+#| "\t\t<p><b>Device Filter</b>: This masks the underlying block device from "
+#| "the list of devices LVM scans for Physical Volume signatures. This way, "
+#| "LVM is instructed to read Physical Volume signatures from DRBD devices, "
+#| "rather than from the underlying backing block devices.</p>\t"
+#| "\t<p><b>AutoFilter</b>: According to the configuration of drbd, LVM "
+#| "filter will always be changed automatically. To change it manually, "
+#| "disable the checkbox of AutoFilter.</p>\n"
+#| "\t\t<p>The filter consists of an array of regular expressions. These "
+#| "expressions can be delimited by a character of your choice, and prefixed "
+#| "with either an 'a' (for accept) or 'r' (for reject).</p>\t\t<p>For "
+#| "example, setting filter as [\"r|/dev/sda.*|\"]</p>\n"
+#| "\n"
+#| "\t\t<p><b>LVM cache</b>: Enable/turn on writing the LVM cache is default. "
+#| "Should disable the LVM cache when combined drbd with LVM.</p>\n"
+#| "\n"
+#| "\t\t<p><b>LVMetad</b>: When lvmetad is enabled, the volume group metadata "
+#| "and PV state flags are obtained from the lvmetad instance and no scanning "
+#| "is done by the individual commands. Because lvmetad's cache cannot be "
+#| "synchronized between nodes, users are advised to disable lvmetad in "
+#| "cluster environments.</p>\n"
+#| "\n"
+#| "\t\t"
 msgid ""
 "\n"
 "\t\t<p><b>LVM configuration file /etc/lvm/lvm.conf</b></p>\n"
@@ -403,10 +434,8 @@ msgid ""
 "\t\t<p><b>Device Filter</b>: This masks the underlying block device from the "
 "list of devices LVM scans for Physical Volume signatures. This way, LVM is "
 "instructed to read Physical Volume signatures from DRBD devices, rather than "
-"from the underlying backing block devices.</p>\t\t<p><b>AutoFilter</b>: "
-"According to the configuration of drbd, LVM filter will always be changed "
-"automatically. To change it manually, disable the checkbox of AutoFilter.</"
-"p>\n"
+"from the underlying backing block devices.</p>\t\t<p><b>LVM Filter</b>: A "
+"filter that tells LVM2 to only use a restricted set of devices.</p>\n"
 "\t\t<p>The filter consists of an array of regular expressions. These "
 "expressions can be delimited by a character of your choice, and prefixed "
 "with either an 'a' (for accept) or 'r' (for reject).</p>\t\t<p>For example, "
@@ -592,40 +621,36 @@ msgstr ""
 "اضغط <b>التالي</b> للمتابعة.\n"
 " <br></p>\n"
 
-#. Default is always true (auto)
-#: src/include/drbd/lvm_conf.rb:44
+#. encoding: utf-8
+#: src/include/drbd/lvm_conf.rb:42
 msgid "LVM Filter Configuration of DRBD"
 msgstr "تكوين عامل تصفية LVM في DRBD"
 
-#: src/include/drbd/lvm_conf.rb:52
-msgid "Modify LVM Device filter Automatically"
-msgstr "تعديل عامل تصفية جهاز LVM تلقائيًا"
-
-#: src/include/drbd/lvm_conf.rb:62
+#: src/include/drbd/lvm_conf.rb:50
 msgid "Device Filter"
 msgstr "عامل تصفية الجهاز"
 
-#: src/include/drbd/lvm_conf.rb:72
+#: src/include/drbd/lvm_conf.rb:60
 msgid "Writing the LVM cache"
 msgstr "جارٍ كتابة ذاكرة LVM المؤقتة"
 
-#: src/include/drbd/lvm_conf.rb:81
+#: src/include/drbd/lvm_conf.rb:69
 msgid "Enable LVM Cache"
 msgstr "تمكين ذاكرة LVM المؤقتة"
 
-#: src/include/drbd/lvm_conf.rb:86
+#: src/include/drbd/lvm_conf.rb:74
 msgid "Warning!  Should disable LVM cache for using drbd."
 msgstr "تحذير! يجب تعطيل الذاكرة المؤقتة لـ LVM لاستخدام drbd."
 
-#: src/include/drbd/lvm_conf.rb:97
+#: src/include/drbd/lvm_conf.rb:85
 msgid "Use lvmetad for LVM"
 msgstr "استخدام lvmetad لـ LVM"
 
-#: src/include/drbd/lvm_conf.rb:106
+#: src/include/drbd/lvm_conf.rb:94
 msgid "Use LVM metad"
 msgstr "استخدام LVM metad"
 
-#: src/include/drbd/lvm_conf.rb:111
+#: src/include/drbd/lvm_conf.rb:99
 msgid "Warning!  Should not use lvmetad for cluster."
 msgstr "تحذير! يجب عدم استخدام lvmetad للمجموعة المتماثلة."
 
@@ -655,61 +680,61 @@ msgid "Save"
 msgstr "حفظ"
 
 #. Since n_name can't be edit, so set direct is OK
-#: src/include/drbd/resource_conf.rb:336
+#: src/include/drbd/resource_conf.rb:331
 msgid "Protocol"
 msgstr "بروتوكول"
 
 #. return `cancel or a string
-#: src/include/drbd/resource_conf.rb:560
+#: src/include/drbd/resource_conf.rb:555
 msgid "OK"
 msgstr "موافق"
 
-#: src/include/drbd/resource_conf.rb:561
+#: src/include/drbd/resource_conf.rb:556
 msgid "Cancel"
 msgstr "إلغاء"
 
-#: src/include/drbd/resource_conf.rb:575
+#: src/include/drbd/resource_conf.rb:570
 msgid "Node name can not be empty."
 msgstr "لا يمكن ترك اسم العقدة فارغًا."
 
 #. eg. ipv6 [fd01:2345:6789:abcd::1]:7800
-#: src/include/drbd/resource_conf.rb:623
+#: src/include/drbd/resource_conf.rb:618
 msgid "IPv6 address must be placed inside brackets."
 msgstr "يجب وضع عنوان IPv6 داخل أقواس."
 
 #. IPv6 should including port
-#: src/include/drbd/resource_conf.rb:631 src/include/drbd/resource_conf.rb:636
+#: src/include/drbd/resource_conf.rb:626 src/include/drbd/resource_conf.rb:631
 msgid "IP/port should use 'addr:port' combination."
 msgstr "يجب أن يستخدم عنوان IP‏/‏المنفذ المجموعة 'addr:port'‏.‏"
 
-#: src/include/drbd/resource_conf.rb:644
+#: src/include/drbd/resource_conf.rb:639
 msgid "Please enter a valid IP address."
 msgstr "الرجاء إدخال عنوان IP صالح."
 
 #. Checking the port is number
-#: src/include/drbd/resource_conf.rb:651
+#: src/include/drbd/resource_conf.rb:646
 msgid "Please enter a valid port number."
 msgstr "الرجاء إدخال رقم منفذ صالح."
 
 #. myHelp("basic_conf");
-#: src/include/drbd/resource_conf.rb:719
+#: src/include/drbd/resource_conf.rb:714
 msgid "Node names must not include \".\" , using the local hostname."
 msgstr "اسم العقدة يجب أن يحتوي على \".\" ,لإستخدام اسم مضيف محلي."
 
-#: src/include/drbd/resource_conf.rb:739
+#: src/include/drbd/resource_conf.rb:734
 msgid "Please fill out all fields."
 msgstr "يرجى ملء جميع الحقول."
 
-#: src/include/drbd/resource_conf.rb:754
+#: src/include/drbd/resource_conf.rb:749
 msgid "Please configure at least two nodes."
 msgstr "الرجاء تكوين عقدتين على الأقل."
 
 #. No need to check integrity since it will disabled when configuring
-#: src/include/drbd/resource_conf.rb:789
+#: src/include/drbd/resource_conf.rb:784
 msgid "Enter the node name:"
 msgstr "إدخال اسم العقدة:"
 
-#: src/include/drbd/resource_conf.rb:795
+#: src/include/drbd/resource_conf.rb:790
 msgid "Node name must be different."
 msgstr "يجب أن يكون اسم العقدة مختلفًا."
 
@@ -816,70 +841,70 @@ msgstr "تهيئة..."
 #.
 #. Representation of the configuration of drbd.
 #. Input and output routines.
-#: src/modules/Drbd.rb:114
+#: src/modules/Drbd.rb:112
 msgid "Failed to merge separated DRBD conf files\n"
 msgstr "فشل في دمج ملفات conf DRBD المنفصلة\n"
 
-#: src/modules/Drbd.rb:136
+#: src/modules/Drbd.rb:134
 msgid "Failed to write drbd.conf.YaST2prepare"
 msgstr "فشل في كتابة drbd.conf.YaST2prepare"
 
 #. DRBD read dialog caption
-#: src/modules/Drbd.rb:191
+#: src/modules/Drbd.rb:189
 msgid "Initializing DRBD Configuration"
 msgstr "تهيئة إعداد DRBD"
 
 #. We do not set help text here, because it was set outside
-#: src/modules/Drbd.rb:199
+#: src/modules/Drbd.rb:197
 msgid "Read global settings"
 msgstr "قراءة الإعدادات العالمية"
 
-#: src/modules/Drbd.rb:200
+#: src/modules/Drbd.rb:198
 msgid "Read resources"
 msgstr "قراءة المصادر"
 
-#: src/modules/Drbd.rb:201
+#: src/modules/Drbd.rb:199
 msgid "Read LVM configurations"
 msgstr "قراءة تكوينات LVM"
 
-#: src/modules/Drbd.rb:202
+#: src/modules/Drbd.rb:200
 msgid "Read daemon status"
 msgstr "قراءة حالة البرنامج الخفي"
 
-#: src/modules/Drbd.rb:203 src/modules/Drbd.rb:210
+#: src/modules/Drbd.rb:201 src/modules/Drbd.rb:208
 msgid "Read SuSEFirewall Settings"
 msgstr "قراءة إعدادات جدار حماية SUSE"
 
-#: src/modules/Drbd.rb:206
+#: src/modules/Drbd.rb:204
 msgid "Reading global settings..."
 msgstr "يتم الآن قراءة الإعدادات العالمية..."
 
-#: src/modules/Drbd.rb:207
+#: src/modules/Drbd.rb:205
 msgid "Reading resources..."
 msgstr "يتم الآن قراءة المصادر..."
 
-#: src/modules/Drbd.rb:208
+#: src/modules/Drbd.rb:206
 msgid "Reading LVM configurations..."
 msgstr "جارٍ قراءة تكوينات LVM..."
 
-#: src/modules/Drbd.rb:209
+#: src/modules/Drbd.rb:207
 msgid "Reading daemon status..."
 msgstr "يتم الآن قراءة حالة البرنامج الخفي..."
 
-#: src/modules/Drbd.rb:211 src/modules/Drbd.rb:661
+#: src/modules/Drbd.rb:209 src/modules/Drbd.rb:664
 msgid "Finished"
 msgstr "انتهى"
 
 #. new_map = remove(new_map, key);
-#: src/modules/Drbd.rb:514
+#: src/modules/Drbd.rb:512
 msgid "Failed to backup drbd.conf"
 msgstr "فشل النسخ الاحتياطي drbd.conf"
 
-#: src/modules/Drbd.rb:523
+#: src/modules/Drbd.rb:521
 msgid "Failed to clean drbd.conf for drbdadm test"
 msgstr "فشل تنظيف drbd.conf لاختبار drbdadm"
 
-#: src/modules/Drbd.rb:547
+#: src/modules/Drbd.rb:545
 msgid ""
 "Invalid configuration of resource %1\n"
 "%2"
@@ -887,12 +912,12 @@ msgstr ""
 "إعداد غير صحيح لمورد %1\n"
 "%2"
 
-#: src/modules/Drbd.rb:566
+#: src/modules/Drbd.rb:564
 msgid "Failed to bring drbd.conf back"
 msgstr "فشل في إعادة التحقق من drbd.conf"
 
 #. DRBD write dialog caption
-#: src/modules/Drbd.rb:637
+#: src/modules/Drbd.rb:640
 msgid "Writing DRBD Configuration"
 msgstr "كتابة إعداد DRBD"
 
@@ -900,49 +925,52 @@ msgstr "كتابة إعداد DRBD"
 #. won't change modified flag
 #. return true if !@modified
 #. We do not set help text here, because it was set outside
-#: src/modules/Drbd.rb:649
+#: src/modules/Drbd.rb:652
 msgid "Write global settings"
 msgstr "كتابة الإعدادات العالمية"
 
-#: src/modules/Drbd.rb:650
+#: src/modules/Drbd.rb:653
 msgid "Write resources"
 msgstr "كتابة المصادر"
 
-#: src/modules/Drbd.rb:651
+#: src/modules/Drbd.rb:654
 msgid "Write LVM configurations"
 msgstr "كتابة تكوينات LVM"
 
-#: src/modules/Drbd.rb:652
+#: src/modules/Drbd.rb:655
 msgid "Set daemon status"
 msgstr "تعيين حالة البرنامج الخفي"
 
-#: src/modules/Drbd.rb:653
+#: src/modules/Drbd.rb:656
 msgid "Write the SuSEfirewall settings"
 msgstr "كتابة إعدادات SuSEfirewall"
 
-#: src/modules/Drbd.rb:656
+#: src/modules/Drbd.rb:659
 msgid "Writing global settings..."
 msgstr "يتم الآن كتابة الإعدادات العالمية..."
 
-#: src/modules/Drbd.rb:657
+#: src/modules/Drbd.rb:660
 msgid "Writing resources..."
 msgstr "يتم الآن كتابة المصادر..."
 
-#: src/modules/Drbd.rb:658
+#: src/modules/Drbd.rb:661
 msgid "Writing LVM configurations..."
 msgstr "جارٍ كتابة تكوينات LVM..."
 
-#: src/modules/Drbd.rb:659
+#: src/modules/Drbd.rb:662
 msgid "Setting daemon status..."
 msgstr "يتم الآن إعداد حالة البرنامج الخفي..."
 
-#: src/modules/Drbd.rb:660
+#: src/modules/Drbd.rb:663
 msgid "Writing the SuSEFirewall settings"
 msgstr "كتابة إعدادات SuSEFirewall"
 
-#: src/modules/Drbd.rb:671
+#: src/modules/Drbd.rb:674
 msgid "Failed to make directory /etc/drbd.d"
 msgstr "فشل في إنشاء مجلد /etc/drbd.d"
+
+#~ msgid "Modify LVM Device filter Automatically"
+#~ msgstr "تعديل عامل تصفية جهاز LVM تلقائيًا"
 
 #~ msgid "Node names must be different."
 #~ msgstr "يجب أن يكون للعقدة أسماء مختلفة."
