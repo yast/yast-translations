@@ -49,13 +49,17 @@ $Y2M pull
 
 shopt -s nullglob
 
+rm -rf $TRANPARTS
 for DIR in * ; do
 	[ "$DIR" != 'translations' ] || continue
+	if grep -q "^$DIR\$" $TRANDIR/SKIP_PROJECTS; then
+		continue
+	fi
 	pushd $DIR
 	$Y2MAKEPOT
 	for POT in *.pot ; do
 		DOMAIN=${POT%.pot}
-		if grep -q "^$DOMAIN.pot" $TRANDIR/OBSOLETE_POT_FILES; then
+		if grep -q "^$DOMAIN\\.pot$" $TRANDIR/OBSOLETE_POT_FILES; then
 			continue
 		fi
 		mkdir -p $TRANPARTS/$DOMAIN
@@ -92,3 +96,5 @@ for DOMAIN in * ; do
 	git commit -m "Automatic update of $DOMAIN."
 	popd
 done
+
+echo "If everything went OK, call \"git push\"."
