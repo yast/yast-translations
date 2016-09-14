@@ -69,10 +69,13 @@ for DIR in * ; do
 done
 
 cd $TRANPARTS
+rm -f $TRANDIR/DOMAIN_MAP
 for DOMAIN in * ; do
 	mkdir -p $TRANDIR/$DOMAIN
 	# This is an ugly hack: Use the newest file as source of header
 	msgcat --use-first $(ls -1 --sort=time $DOMAIN/*.pot) -o $TRANDIR/$DOMAIN/$DOMAIN.pot.new
+	# DOMAIN_MAP is used for source reference. Use the project with largest pot file.
+	echo $DOMAIN $(cd $DOMAIN ; ls -1 --sort=size *.pot | head -n1 | sed s/\\.pot\$// ) >>$TRANDIR/DOMAIN_MAP
 	pushd $TRANDIR/$DOMAIN
 	# prevent re-committing when pot file uses different line format
 	msgcat $DOMAIN.pot -o $DOMAIN.pot.tmp
