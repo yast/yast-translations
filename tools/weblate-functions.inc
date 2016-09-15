@@ -23,8 +23,8 @@ function weblate_create_project() {
 		exit 1
 	fi
 	local WEB_FOUND=false
-	for WEB_PART in yast-$2 $2 ; do
-		WEB=https://github.com/yast/$WEB_PART
+	for WEB_PART in yast/yast-$2 yast/$2 libyui/yast-$2 libyui/$2 ; do
+		WEB=https://github.com/$WEB_PART
 		if curl -f -I $WEB >/dev/null 2>&1 ; then
 			WEB_FOUND=true
 			break
@@ -70,8 +70,8 @@ function weblate_create_component() {
 		exit 1
 	fi
 	local WEB_FOUND=false
-	for WEB_PART in yast-$2 $2 ; do
-		WEB=https://github.com/yast/$WEB_PART
+	for WEB_PART in yast/yast-$2 yast/$2 libyui/yast-$2 libyui/$2 ; do
+		WEB=https://github.com/$WEB_PART
 		if curl -f -I $WEB >/dev/null 2>&1 ; then
 			WEB_FOUND=true
 			break
@@ -104,7 +104,7 @@ function weblate_create_component() {
 from weblate.trans.models.project import Project
 from weblate.trans.models.subproject import SubProject
 project = Project.objects.get(name="yast-$1")
-component = SubProject(name="$3",slug="$SLUG",project=project,vcs="git",repo="$REPO",push="$REPO",repoweb="https://github.com/yast/$WEB_PART/blob/%(branch)s/%(file)s#L%(line)s",branch="$3",filemask="po/$1/*.po",new_base="po/$1/$1.pot",file_format="po",new_lang="add")
+component = SubProject(name="$3",slug="$SLUG",project=project,vcs="git",repo="$REPO",push="$REPO",repoweb="https://github.com/$WEB_PART/blob/%(branch)s/%(file)s#L%(line)s",branch="$3",filemask="po/$1/*.po",new_base="po/$1/$1.pot",file_format="po",new_lang="add")
 component.save()
 EOF
 }
