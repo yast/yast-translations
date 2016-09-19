@@ -17,7 +17,7 @@ function weblate_django_shell() {
 # weblate_create_project yast_textdomain yast_project
 function weblate_create_project() {
 	local SLUG="$(echo $1 | tr A-Z. a-z-)"
-	if test -n "$(echo $SLUG | sed 's/[-a-z_]//g')" ; then
+	if test -n "$(echo $SLUG | sed 's/[-a-z0-9_]//g')" ; then
 		echo "Project URL slug \"$SLUG\" should contain only lowercase letters, \"-\" and \"_\"." >&2
 		echo "Please fix or add a name convertor." >&2
 		exit 1
@@ -58,13 +58,13 @@ EOF
 # weblate_create_project yast_textdomain yast_project yast_branch
 function weblate_create_component() {
 	local PROJECT_SLUG="$(echo $1 | tr A-Z. a-z-)"
-	if test -n "$(echo $PROJECT_SLUG | sed 's/[-a-z_]//g')" ; then
+	if test -n "$(echo $PROJECT_SLUG | sed 's/[-a-z0-9_]//g')" ; then
 		echo "Project URL slug \"$PROJECT_SLUG\" should contain only lowercase letters, \"-\" and \"_\"." >&2
 		echo "Please fix or add a name convertor." >&2
 		exit 1
 	fi
 	local SLUG="$(echo $3 | tr A-Z. a-z-)"
-	if test -n "$(echo $SLUG | sed 's/[-a-z_]//g')" ; then
+	if test -n "$(echo $SLUG | sed 's/[-a-z0-9_]//g')" ; then
 		echo "Component URL slug \"$SLUG\" should contain only lowercase letters, \"-\" and \"_\"." >&2
 		echo "Please fix or add a name convertor." >&2
 		exit 1
