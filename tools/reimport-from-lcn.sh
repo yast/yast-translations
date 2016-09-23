@@ -16,7 +16,7 @@ fi
 
 # First update yast LCN snapshots
 if ! test -d ../yast-trunk ; then
-	pushd ../yast-sle12-sp2 >/dev/null
+	pushd .. >/dev/null
 	svn checkout https://svn.opensuse.org/svn/opensuse-i18n/trunk/yast yast-trunk
 	popd >/dev/null
 else
@@ -26,7 +26,7 @@ else
 fi
 # SLE12 SP2 will be used for strings that are untranslated in trunk
 if ! test -d ../yast-sle12-sp2 ; then
-	pushd ../yast-sle12-sp2 >/dev/null
+	pushd .. >/dev/null
 	svn checkout https://svn.opensuse.org/svn/opensuse-i18n/branches/SLE12-SP2/yast yast-sle12-sp2
 	popd >/dev/null
 else
@@ -58,14 +58,14 @@ cp -a ../yast-translations-initial ../yast-translations-initial-norm
 # Normalized directory of current Weblate stuff.
 rm -rf ../yast-translations-current-norm
 cp -a ../yast-translations ../yast-translations-current-norm
-# Normalized reimport directory. We will merge changes from LCN gere.
+# Normalized reimport directory. We will merge changes from LCN here.
 rm -rf ../yast-translations-reimport-norm
 cp -a ../yast-translations ../yast-translations-reimport-norm
 # This will be the final directory, where we will perform the push.
 rm -rf ../yast-translations-push
 cp -a ../yast-translations ../yast-translations-push
 
-# Merge all sources to the reimport (
+# Merge all sources to the reimport
 cd ../yast-translations-reimport-norm/po
 for PO in */*.po ; do
 	FILENAME=${PO##*/}
