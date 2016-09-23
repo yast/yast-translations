@@ -16,7 +16,9 @@ fi
 
 # First update yast LCN snapshots
 if ! test -d ../yast-trunk ; then
+	pushd ../yast-sle12-sp2 >/dev/null
 	svn checkout https://svn.opensuse.org/svn/opensuse-i18n/trunk/yast yast-trunk
+	popd >/dev/null
 else
 	pushd ../yast-sle12-sp2 >/dev/null
 	svn update
@@ -24,7 +26,9 @@ else
 fi
 # SLE12 SP2 will be used for strings that are untranslated in trunk
 if ! test -d ../yast-sle12-sp2 ; then
+	pushd ../yast-sle12-sp2 >/dev/null
 	svn checkout https://svn.opensuse.org/svn/opensuse-i18n/branches/SLE12-SP2/yast yast-sle12-sp2
+	popd >/dev/null
 else
 	pushd ../yast-sle12-sp2 >/dev/null
 	svn update
