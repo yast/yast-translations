@@ -3,7 +3,7 @@ shopt -s nullglob
 
 # Find out if we are in a directory containing a yast2 full checkout.
 if [ ! -d "translations/.git" ]; then
-    echo "Please run this script from a yast2 full checkout."
+    echo "Please run this script in a directory containing a full checkout of yast2."
     exit 1
 fi
 
@@ -13,12 +13,12 @@ TRANPARTS=$WORKDIR/translations/po-parts
 
 # Check for the yast2-meta tool:
 if ! Y2M=`command -v y2m`; then
-    echo "The yast2-meta tool is required to run this script."
+    echo "The yast2 meta tool (y2m) is required to run this script."
     echo "Find it here: https://github.com/yast/yast-meta"
     exit 1
 fi
 
-# Check for the yast2-buils tools:
+# Check for y2makepot:
 if ! Y2MAKEPOT=`command -v y2makepot`; then
     echo "y2makepot is required to run this script."
     echo "Find it here: https://github.com/yast/yast-devtools"
@@ -44,15 +44,21 @@ function make_pot {
     popd
 }
 
-function update_pot_headers {
-    local INFILE=$1
+function merge_pot {
+    local INFILES=$1
     local OUTFILE=$2
-    msgcat --use-first $INFILE -o $OUTFILE
+
+    # Use the POT headers from the first input file for the output file.
+    # Since $INFILES are sorted by mtime this means the headers from the newest
+    # input file are used.
+    msgcat --use-first $INFILES -o $OUTFILE
 }
 
 function strip_POT_dates {
     local INFILE=$1
     local OUTFILE=$2
+
+    # Matches both, POT-Creation-Date and PO-Revision-Date. 
     sed '1,19{/^"PO.*ion-Date:/d}' <$INFILE >$OUTFILE
 }
 
@@ -65,50 +71,76 @@ $Y2M pull
 # Clear the POT target directory
 rm -rf $TRANPARTS
 
-# Create POT files for (nerly) all subdirectories
+# Create POT files for (nearly) all subdirectories
 for DIR in * ; do
-	[ "$DIR" != 'translations' ] || continue
-	if grep -q "^$DIR\$" $TRANDIR/SKIP_PROJECTS; then
-		continue
+    [ "$DIR" != 'translations' ] || continue
+    if grep -q "^$DIR\$" $TRANDIR/SKIP_PROJECTS; then
+	continue
 	fi
-        make_pot $DIR
+    make_pot $DIR
 done
 
 # Go to the POT temporary directory
 cd $TRANPARTS
 
 for DOMAIN in * ; do
+    # This directory is most likely already there, but just to make sure ...
     mkdir -p $TRANDIR/$DOMAIN
 
-    # This is an ugly hack: Use the newest file as source of header
-    NEWEST_POT=$(ls -1 -t $DOMAIN/*.pot)
-    update_pot_headers $NEWEST_POT $TRANDIR/$DOMAIN/$DOMAIN.pot.new
+    # List POT files in current directory sorted by mtime - newest first
+    POT_LIST=$(ls -1 -t $DOMAIN/*.pot)
+    # We need to merge POT files in case there are several yast modules using
+    # the same text domain.
+    merge_pot $POT_LIST $TRANDIR/$DOMAIN/$DOMAIN.pot.new
     
     pushd $TRANDIR/$DOMAIN
 
-    # Normalize POT line format
-    msgcat $DOMAIN.pot -o $DOMAIN.pot.tmp
-    strip_POT_dates $DOMAIN.pot.tmp $DOMAIN.pot.nodate
+    # Normalize the old POT files, because different gettext versions might
+    # produce differently formatted lines.
+    msgcat $DOMAIN.pot -o $DOMAIN.pot.old
+    strip_POT_dates $DOMAIN.pot.old $DOMAIN.pot.old.nodate
     strip_POT_dates $DOMAIN.pot.new $DOMAIN.pot.new.nodate
 
-    if cmp -s $DOMAIN.pot.nodate $DOMAIN.pot.new.nodate; then
+    if cmp -s $DOMAIN.pot.old.nodate $DOMAIN.pot.new.nodate; then
 	echo "No changes in $DOMAIN.pot. Skipping update."
-	rm *.tmp *.nodate *.new
+	rm *.old *.nodate *.new
 	popd
 	continue
     fi
 
     echo "Updating $DOMAIN."
-    rm *.tmp *.nodate
+    # Remove the stripped POT files used for comparison.
+    rm *.old *.nodate
+
+    # Replace the old POT by the new one
     mv $DOMAIN.pot.new $DOMAIN.pot
+
+    # Add it to the commit.
     git add $DOMAIN.pot
+
+    # Merge the new POT into the existing PO files
     for PO in *.po ; do
-	msgmerge --previous --lang=${PO%.po} $PO $DOMAIN.pot -o $PO.new 2>&1 > ${PO%.po}.log
-	mv $PO.new $PO
-	git add $PO
+        LANG=${PO%.po}
+	if OUT=`msgmerge --previous --lang=$LANG $PO $DOMAIN.pot -o $PO.new 2>&1` ; then
+	    mv $PO.new $PO
+
+            # Add it to the commit.
+	    git add $PO
+        else
+            # In case a real error occurred on merging, save the output of msgmerge
+            echo "Error merging $LANG!"
+            echo "$OUT" > $LANG.err
+            # and count the errors
+            ((ERR++))
+        fi
     done
-    git commit -m "Automatic update of $DOMAIN."
+    # Make the commit
+    git commit -m "New POT for text domain '$DOMAIN'."
     popd
 done
 
-echo "If no serious errors occured: git push"
+if [ "$ERR" != "" ]; then
+    echo "$ERR errors occurred. Check *.err files in the ./po/ subdirectory"
+    exit $ERR
+fi
+
