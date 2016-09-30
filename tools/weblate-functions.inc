@@ -14,6 +14,19 @@ function weblate_django_shell() {
 	weblate-ssh 'su -l -s /usr/bin/python wwwrun /usr/share/weblate/manage.py shell'
 }
 
+# Warning: weblate_manage() does not escape arguments. Do not use spaces!
+function weblate_manage() {
+	if test -z "$(which weblate-ssh)" ; then
+		echo "This command needs ssh access to l10n.opensuse.org server." >&2
+		echo "Please install/create weblate-ssh script wrapper." >&2
+		echo "It is not part of this repository because it contains sensitive data." >&2
+		exit 1
+	fi
+	# For debugging, uncomment cat and comment out weblate-ssh
+	#cat
+	weblate-ssh "su wwwrun -s /bin/sh -c '/usr/bin/python /usr/share/weblate/manage.py $*'"
+}
+
 # weblate_create_project yast_textdomain yast_project
 function weblate_create_project() {
 	local NAME=yast-$1
@@ -120,3 +133,47 @@ component = SubProject(name="$3",slug="$SLUG",project=project,vcs="git",repo="$R
 component.save()
 EOF
 }
+
+# weblate_upload_suggestion project component language file
+function weblate_upload_suggestions() {
+	cat $4 | weblate-ssh cat \>/tmp/weblate-upload-file.po
+	weblate_manage add_suggestions --author=weblate-admin@opensuse.org $1 $2 $3 /tmp/weblate-upload-file.po
+	weblate-ssh rm /tmp/weblate-upload-file.po
+}
+
+## This code is saved for use of Weblate API.
+## API is incomplete and it can be used only for some tasks.
+#
+#if ! test -f ".weblate-api-key" ; then
+#	echo "Please save Weblate admin API token from https://l10n.opensuse.org/accounts/profile/#api as .weblate-api-key" >&2
+#	exit 1
+#fi
+#
+#YAST_PROJECT_LIST=$(
+#	cd ../po
+#	for DIR in * ; do
+#		if test -d "$DIR" ; then
+#			echo $DIR
+#		fi
+#	done
+#)
+#
+#WEBLATE_PROJECT_LIST=$(
+#	curl \
+#		-H "Authorization: Token $(<.weblate-api-key)" \
+#		http://l10n.opensuse.org/api/projects/ |
+#	json_pp -f json -t json |
+#	sed -n 's/"//g;s/,//g;s/slug[[:space:]]*://p'
+#)
+#
+#curl \
+#    -H "Authorization: Token $(<.weblate-api-key)" \
+#    "https://l10n.opensuse.org/api/translations/libgettextdemo/master/cs/file/?format=po" \
+#    >file.po
+#
+## Works, but suggestions and other fine features are not yet implemented.
+##Warning: skip unknown form field: method=suggest
+#curl \
+#    -H "Authorization: Token $(<.weblate-api-key)" \
+#    -F "file=@file.po;method=suggest" \
+#    "https://l10n.opensuse.org/api/translations/libgettextdemo/master/cs/file/"
