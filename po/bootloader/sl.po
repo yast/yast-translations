@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bootloader\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-10-04 18:18+0200\n"
+"POT-Creation-Date: 2016-10-18 10:45+0200\n"
 "PO-Revision-Date: 2013-03-09 15:31+0100\n"
 "Last-Translator: Jure Repinc <jlp@holodeck1.com>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
@@ -32,16 +32,41 @@ msgstr ""
 msgid "Boot loader configuration module"
 msgstr "Modul za nastavljanje zagonskega nalagalnika"
 
+#. Dialog for whole bootloader configuration
+#. focus proposing new one
+#: src/lib/bootloader/config_dialog.rb:23 src/modules/Bootloader.rb:169
+#, fuzzy
+#| msgid "&Propose New Configuration"
+msgid "Broken Configuration"
+msgstr "&Predlagaj nove nastavitve"
+
+#. TRANSLATORS: %s stands for readon why yast cannot process it
+#. TRANSLATORS: %s stands for readon why yast cannot process it
+#: src/lib/bootloader/config_dialog.rb:25 src/modules/Bootloader.rb:171
+msgid ""
+"YaST cannot process current bootloader configuration (%s). Propose new "
+"configuration from scratch?"
+msgstr ""
+
+#: src/lib/bootloader/config_dialog.rb:27 src/modules/Bootloader.rb:173
+msgid "Propose"
+msgstr ""
+
+#: src/lib/bootloader/config_dialog.rb:28 src/modules/Bootloader.rb:162
+#: src/modules/Bootloader.rb:174
+msgid "Quit"
+msgstr ""
+
 #. F#300779 - Install diskless client (NFS-root)
 #. additional warning that root partition is nfs type -> bootloader will not be installed
 #. kokso: additional warning that root partition is nfs type -> bootloader will not be installed
-#: src/lib/bootloader/config_dialog.rb:31 src/modules/Bootloader.rb:210
+#: src/lib/bootloader/config_dialog.rb:51 src/modules/Bootloader.rb:222
 msgid "The boot partition is of type NFS. Bootloader cannot be installed."
 msgstr ""
 "Zagonski razdelek he vrste NFS. Zagonskega nalagalnika ni moč namestiti."
 
 #. F#300779: end
-#: src/lib/bootloader/config_dialog.rb:49
+#: src/lib/bootloader/config_dialog.rb:69
 msgid "Boot Loader Settings"
 msgstr "Nastavitve zagonskega nalagalnika"
 
@@ -67,6 +92,13 @@ msgstr "&Naprava"
 #. TRANSLATORS: %s stands for partition
 #: src/lib/bootloader/disk_change_detector.rb:29
 msgid "Selected bootloader partition %s is not available any more."
+msgstr ""
+
+#. TRANSLATORS: %s is translated description of error
+#: src/lib/bootloader/exceptions.rb:24
+msgid ""
+"Error reading the bootloader configuration files. Please use YaST2 "
+"bootloader to fix it. Details: %s"
 msgstr ""
 
 #. Finish client for bootloader configuration
@@ -391,7 +423,7 @@ msgstr "Odstrani"
 #. this deletes any internally cached values, a new proposal will
 #. not be partially based on old data now any more
 #: src/lib/bootloader/grub2_widgets.rb:251
-#: src/lib/bootloader/proposal_client.rb:49
+#: src/lib/bootloader/proposal_client.rb:50
 msgid "do not change"
 msgstr ""
 
@@ -637,17 +669,17 @@ msgid "Do not install any boot loader"
 msgstr "Ne namesti zagonskega nalagalnika"
 
 #. proposal part - bootloader label
-#: src/lib/bootloader/proposal_client.rb:94
+#: src/lib/bootloader/proposal_client.rb:95
 msgid "Booting"
 msgstr "Zaganjanje"
 
 #. menubutton entry
-#: src/lib/bootloader/proposal_client.rb:96
+#: src/lib/bootloader/proposal_client.rb:97
 msgid "&Booting"
 msgstr "&Zaganjanje"
 
 #. warning text in the summary richtext
-#: src/lib/bootloader/proposal_client.rb:179
+#: src/lib/bootloader/proposal_client.rb:181
 msgid ""
 "No boot loader is selected for installation. Your system might not be "
 "bootable."
@@ -655,11 +687,23 @@ msgstr ""
 "Za namestitev ni izbran noben zagonski nalagalnik. Sistema morda ne bo moč "
 "zagnati."
 
-#: src/lib/bootloader/proposal_client.rb:186
+#: src/lib/bootloader/proposal_client.rb:189
 msgid ""
 "Because of the partitioning, the bootloader cannot be installed properly"
 msgstr ""
 "Zaradi razdelitve diska, zagonskega nalagalnika ni moč pravilno namestiti."
+
+#: src/lib/bootloader/proposal_client.rb:207
+msgid ""
+"A package required for booting is deselected (%s). Please select it for "
+"installation again."
+msgid_plural ""
+"Packages required for booting are deselected (%s). Please select them for "
+"installation again."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
 
 #. Dialog for graphical indication that bootloader configuration is read
 #: src/lib/bootloader/read_dialog.rb:22
@@ -673,6 +717,11 @@ msgid ""
 msgstr ""
 "<P><BIG><B>Nastavljalnik zagonskega nalagalnika</B></BIG><BR>\n"
 "Spremenite nastavitve zagonskega nalagalnika.</P>"
+
+#. TRANSLATORS: error message, %s stands for problematic device.
+#: src/lib/bootloader/udev_mapping.rb:84
+msgid "Unknown udev device '%s'"
+msgstr ""
 
 #. Write settings dialog
 #. @return `:abort` if aborted and `:next` otherwise
@@ -775,44 +824,42 @@ msgstr "Namesti zagonski nalagalnik"
 
 #: src/modules/Bootloader.rb:159
 msgid ""
-"Unsupported bootloader '%s' detected. Show proposal of supported "
-"configuration?"
+"Unsupported bootloader '%s' detected. Use proposal of supported "
+"configuration instead?"
 msgstr ""
 
 #: src/modules/Bootloader.rb:161
-msgid "Show"
-msgstr ""
-
-#: src/modules/Bootloader.rb:162
-msgid "Quit"
-msgstr ""
+#, fuzzy
+#| msgid "&User"
+msgid "Use"
+msgstr "&Uporabnik"
 
 #. progress stage, text in dialog (short)
-#: src/modules/Bootloader.rb:234
+#: src/modules/Bootloader.rb:246
 msgid "Create initrd"
 msgstr "Ustvari initrd"
 
 #. progress stage, text in dialog (short)
-#: src/modules/Bootloader.rb:236
+#: src/modules/Bootloader.rb:248
 #, fuzzy
 #| msgid "Save boot loader configuration files"
 msgid "Save boot loader configuration"
 msgstr "Shrani nastavitvene datoteke zagonskega nalagalnika"
 
 #. progress step, text in dialog (short)
-#: src/modules/Bootloader.rb:240
+#: src/modules/Bootloader.rb:252
 msgid "Creating initrd..."
 msgstr "Ustvarjanje initrd ..."
 
 #. progress step, text in dialog (short)
-#: src/modules/Bootloader.rb:242
+#: src/modules/Bootloader.rb:254
 #, fuzzy
 #| msgid "Saving bootloader configuration..."
 msgid "Saving boot loader configuration..."
 msgstr "Shranjevanje nastavitev zagonskega nalagalnika ..."
 
 #. progress line
-#: src/modules/Bootloader.rb:248
+#: src/modules/Bootloader.rb:260
 msgid "Saving Boot Loader Configuration"
 msgstr "Shranjevanje nastavitev zagonskega nalagalnika"
 
@@ -1029,9 +1076,6 @@ msgstr "Shranjevanje nastavitev zagonskega nalagalnika"
 
 #~ msgid "E&dit Configuration Files"
 #~ msgstr "&Uredi nastavitvene datoteke"
-
-#~ msgid "&Propose New Configuration"
-#~ msgstr "&Predlagaj nove nastavitve"
 
 #~ msgid "&Start from Scratch"
 #~ msgstr "&Začni od začetka"
@@ -3064,9 +3108,6 @@ msgstr "Shranjevanje nastavitev zagonskega nalagalnika"
 
 #~ msgid "&URL"
 #~ msgstr "&URL"
-
-#~ msgid "&User"
-#~ msgstr "&Uporabnik"
 
 #~ msgid "Downloading image..."
 #~ msgstr "Prenašanje slike..."
