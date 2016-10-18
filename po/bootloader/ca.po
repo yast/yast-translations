@@ -2,11 +2,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Catalan (yast-bootloader)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-10-04 18:18+0200\n"
+"POT-Creation-Date: 2016-10-18 10:45+0200\n"
 "PO-Revision-Date: 2016-10-05 14:50+0000\n"
 "Last-Translator: David Medina <medipas@gmail.com>\n"
-"Language-Team: Catalan <https://l10n.opensuse.org/projects/yast-"
-"bootloader/master/ca/>\n"
+"Language-Team: Catalan <https://l10n.opensuse.org/projects/yast-bootloader/"
+"master/ca/>\n"
 "Language: ca\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -20,13 +20,38 @@ msgstr ""
 msgid "Boot loader configuration module"
 msgstr "Mòdul de configuració del carregador d'arrencada"
 
+#. Dialog for whole bootloader configuration
+#. focus proposing new one
+#: src/lib/bootloader/config_dialog.rb:23 src/modules/Bootloader.rb:169
+#, fuzzy
+#| msgid "&Propose New Configuration"
+msgid "Broken Configuration"
+msgstr "&Proposa una configuració nova"
+
+#. TRANSLATORS: %s stands for readon why yast cannot process it
+#. TRANSLATORS: %s stands for readon why yast cannot process it
+#: src/lib/bootloader/config_dialog.rb:25 src/modules/Bootloader.rb:171
+msgid ""
+"YaST cannot process current bootloader configuration (%s). Propose new "
+"configuration from scratch?"
+msgstr ""
+
+#: src/lib/bootloader/config_dialog.rb:27 src/modules/Bootloader.rb:173
+msgid "Propose"
+msgstr ""
+
+#: src/lib/bootloader/config_dialog.rb:28 src/modules/Bootloader.rb:162
+#: src/modules/Bootloader.rb:174
+msgid "Quit"
+msgstr "Surt"
+
 # F#300779 - Install diskless client (NFS-root)
 # additional warning that root partition is nfs type -> bootloader will not be installed
 # kokso: additional warning that root partition is nfs type -> bootloader will not be installed
 #. F#300779 - Install diskless client (NFS-root)
 #. additional warning that root partition is nfs type -> bootloader will not be installed
 #. kokso: additional warning that root partition is nfs type -> bootloader will not be installed
-#: src/lib/bootloader/config_dialog.rb:31 src/modules/Bootloader.rb:210
+#: src/lib/bootloader/config_dialog.rb:51 src/modules/Bootloader.rb:222
 msgid "The boot partition is of type NFS. Bootloader cannot be installed."
 msgstr ""
 "La partició d'arrencada és de tipus NFS. No es pot instal·lar el carregador "
@@ -34,7 +59,7 @@ msgstr ""
 
 # F#300779: end
 #. F#300779: end
-#: src/lib/bootloader/config_dialog.rb:49
+#: src/lib/bootloader/config_dialog.rb:69
 msgid "Boot Loader Settings"
 msgstr "Arrenca els paràmetres del carregador d'arrencada"
 
@@ -66,6 +91,13 @@ msgid "Selected bootloader partition %s is not available any more."
 msgstr ""
 "La partició del carregador d'arrencada seleccionada, %s, ja no està "
 "disponible."
+
+#. TRANSLATORS: %s is translated description of error
+#: src/lib/bootloader/exceptions.rb:24
+msgid ""
+"Error reading the bootloader configuration files. Please use YaST2 "
+"bootloader to fix it. Details: %s"
+msgstr ""
 
 # Finish client for bootloader configuration
 #. Finish client for bootloader configuration
@@ -394,7 +426,7 @@ msgstr "suprimeix"
 #. this deletes any internally cached values, a new proposal will
 #. not be partially based on old data now any more
 #: src/lib/bootloader/grub2_widgets.rb:251
-#: src/lib/bootloader/proposal_client.rb:49
+#: src/lib/bootloader/proposal_client.rb:50
 msgid "do not change"
 msgstr "no canviïs"
 
@@ -655,19 +687,19 @@ msgstr "No instal·lis cap carregador d'arrencada"
 
 # proposal part - bootloader label
 #. proposal part - bootloader label
-#: src/lib/bootloader/proposal_client.rb:94
+#: src/lib/bootloader/proposal_client.rb:95
 msgid "Booting"
 msgstr "Arrencada"
 
 # menubutton entry
 #. menubutton entry
-#: src/lib/bootloader/proposal_client.rb:96
+#: src/lib/bootloader/proposal_client.rb:97
 msgid "&Booting"
 msgstr "&Arrencada"
 
 # warning text in the summary richtext
 #. warning text in the summary richtext
-#: src/lib/bootloader/proposal_client.rb:179
+#: src/lib/bootloader/proposal_client.rb:181
 msgid ""
 "No boot loader is selected for installation. Your system might not be "
 "bootable."
@@ -675,12 +707,22 @@ msgstr ""
 "No s'ha seleccionat cap carregador d'arrencada per instal·lar. És possible "
 "que el sistema no pugui arrencar."
 
-#: src/lib/bootloader/proposal_client.rb:186
+#: src/lib/bootloader/proposal_client.rb:189
 msgid ""
 "Because of the partitioning, the bootloader cannot be installed properly"
 msgstr ""
 "No es pot instal·lar correctament el carregador d'arrencada a causa de les "
 "particions"
+
+#: src/lib/bootloader/proposal_client.rb:207
+msgid ""
+"A package required for booting is deselected (%s). Please select it for "
+"installation again."
+msgid_plural ""
+"Packages required for booting are deselected (%s). Please select them for "
+"installation again."
+msgstr[0] ""
+msgstr[1] ""
 
 #. Dialog for graphical indication that bootloader configuration is read
 #: src/lib/bootloader/read_dialog.rb:22
@@ -690,6 +732,11 @@ msgid ""
 msgstr ""
 "<P><BIG><B>Eina de configuració del carregador d'arrencada</B></BIG><BR>\n"
 "Llegint la configuració actual...</P>"
+
+#. TRANSLATORS: error message, %s stands for problematic device.
+#: src/lib/bootloader/udev_mapping.rb:84
+msgid "Unknown udev device '%s'"
+msgstr ""
 
 # Write settings dialog
 # @return `:abort` if aborted and `:next` otherwise
@@ -812,55 +859,58 @@ msgid "Initializing Boot Loader Configuration"
 msgstr "Iniciant la configuració del carregador d'arrencada"
 
 #: src/modules/Bootloader.rb:158
-#| msgid "Install boot loader"
 msgid "Unsupported Bootloader"
 msgstr "Carregador d'arrencada no compatible"
 
 #: src/modules/Bootloader.rb:159
+#, fuzzy
 #| msgid ""
-#| "Unsupported bootloader '%s'. Adapt your AutoYaST profile accordingly."
+#| "Unsupported bootloader '%s' detected. Show proposal of supported "
+#| "configuration?"
 msgid ""
-"Unsupported bootloader '%s' detected. Show proposal of supported "
-"configuration?"
+"Unsupported bootloader '%s' detected. Use proposal of supported "
+"configuration instead?"
 msgstr ""
 "S'ha detectat un carregador d'arrencada no compatible: %s. Voleu que es "
 "mostri una proposta de configuració compatible?"
 
+# TRANSLATORS: set flag on disk
 #: src/modules/Bootloader.rb:161
-msgid "Show"
-msgstr "Mostra-ho"
-
-#: src/modules/Bootloader.rb:162
-msgid "Quit"
-msgstr "Surt"
+#, fuzzy
+#| msgid "set"
+msgid "Use"
+msgstr "estableix"
 
 # progress stage, text in dialog (short)
 #. progress stage, text in dialog (short)
-#: src/modules/Bootloader.rb:234
+#: src/modules/Bootloader.rb:246
 msgid "Create initrd"
 msgstr "Crea l'initrd"
 
 #. progress stage, text in dialog (short)
-#: src/modules/Bootloader.rb:236
+#: src/modules/Bootloader.rb:248
 msgid "Save boot loader configuration"
 msgstr "Desa la configuració del carregador d'arrencada"
 
 # progress step, text in dialog (short)
 #. progress step, text in dialog (short)
-#: src/modules/Bootloader.rb:240
+#: src/modules/Bootloader.rb:252
 msgid "Creating initrd..."
 msgstr "Creant l'initrd..."
 
 #. progress step, text in dialog (short)
-#: src/modules/Bootloader.rb:242
+#: src/modules/Bootloader.rb:254
 msgid "Saving boot loader configuration..."
 msgstr "Desant la configuració del carregador d'arrencada..."
 
 # progress line
 #. progress line
-#: src/modules/Bootloader.rb:248
+#: src/modules/Bootloader.rb:260
 msgid "Saving Boot Loader Configuration"
 msgstr "Desant la configuració del carregador d'arrencada"
+
+#~ msgid "Show"
+#~ msgstr "Mostra-ho"
 
 #~ msgid "Configuration summary of boot loader"
 #~ msgstr "Resum de la configuració del carregador d'arrencada"
@@ -1250,9 +1300,6 @@ msgstr "Desant la configuració del carregador d'arrencada"
 #~ "en tornar al carregador de l'arrencada actual.\n"
 #~ " \n"
 #~ "Seleccioneu una acció a seguir:\n"
-
-#~ msgid "&Propose New Configuration"
-#~ msgstr "&Proposa una configuració nova"
 
 #~ msgid "Co&nvert Current Configuration"
 #~ msgstr "Con&verteix la configuració actual"
