@@ -3,7 +3,60 @@
 # Note: Do not call this script inside translations repo in read-only checkout!
 # Make R/W checkout instead.
 
+BRANCH=master
+
 set -o errexit
+
+# weblate_create yast_textdomain branch
+function weblate_create() {
+	local YAST_PROJECT YAST_BRANCH
+	if test -n "$2" ; then
+		YAST_BRANCH=$2
+	else
+		YAST_BRANCH=master
+	fi
+	# Ugly hack! We want openSUSE for master.
+	case "$1/$YAST_BRANCH" in
+	control/master )
+		YAST_PROJECT=skelcd-control-openSUSE
+		;;
+	* )
+		YAST_PROJECT=$(sed -n "s/^$1 //p" <$WORKDIR/po/DOMAIN_MAP)
+		;;
+	esac
+
+	local WEBLATE_PROJECT=yast-$PROJECT
+	# special handling for textdomains starting by "yast2-"
+	if test "${WEBLATE_PROJECT#yast-yast2-}" != "$WEBLATE_PROJECT" ; then
+		WEBLATE_PROJECT="yast-${WEBLATE_PROJECT#yast-yast2-}"
+	fi
+
+	local PROJECT_NAME=yast-$1
+	# special handling for textdomains starting by "yast2-"
+	if test "${PROJECT_NAME#yast-yast2-}" != "$PROJECT_NAME" ; then
+		PROJECT_NAME="yast-${PROJECT_NAME#yast-yast2-}"
+	fi
+	local PROJECT_SLUG="$(echo $PROJECT_NAME | tr A-Z. a-z-)"
+	if test -n "$(echo $PROJECT_SLUG | sed 's/[-a-z0-9_]//g')" ; then
+		echo "Project URL slug \"$PROJECT_SLUG\" should contain only lowercase letters, \"-\" and \"_\"." >&2
+		echo "Please fix or add a name convertor." >&2
+		exit 1
+	fi
+	local BRANCH_NAME=$2
+	local BRANCH_SLUG="$(echo $BRANCH_NAME | tr A-Z. a-z-)"
+	if test -n "$(echo $BRANCH_SLUG | sed 's/[-a-z0-9_]//g')" ; then
+		echo "Component URL slug \"$SLUG\" should contain only lowercase letters, \"-\" and \"_\"." >&2
+		echo "Please fix or add a name convertor." >&2
+		exit 1
+	fi
+
+	if ! curl -f -I https://l10n.opensuse.org/projects/$PROJECT_SLUG/ >/dev/null 2>&1 ; then
+		weblate_create_project $1 $YAST_PROJECT
+	fi
+	if ! curl -f -I https://l10n.opensuse.org/projects/$PROJECT_SLUG/$BRANCH_SLUG/ >/dev/null 2>&1 ; then
+		weblate_create_component $1 $YAST_PROJECT $YAST_BRANCH
+	fi
+}
 
 if test -f "update-tool.sh" ; then
 	cd ..
@@ -12,7 +65,9 @@ if ! test -f "tools/update-tool.sh" ; then
 	echo "Please call this script from yast-translations top directory."
 	exit 1
 fi
+. tools/weblate-functions.inc
 WORKDIR=$PWD
+
 
 YAST_CHECKOUT=
 for DIR in ~ "$PWD"/.. ; do
@@ -55,7 +110,7 @@ for DIR in * ; do
 	if grep -q "^$DIR\$" $TRANDIR/SKIP_PROJECTS; then
 		continue
 	fi
-	pushd $DIR
+	pushd $DIR >/dev/null
 	$Y2MAKEPOT
 	for POT in *.pot ; do
 		DOMAIN=${POT%.pot}
@@ -65,7 +120,7 @@ for DIR in * ; do
 		mkdir -p $TRANPARTS/$DOMAIN
 		cp -a $POT $TRANPARTS/$DOMAIN/$DIR.pot
 	done
-	popd
+	popd >/dev/null
 done
 
 cd $TRANPARTS
@@ -76,7 +131,8 @@ for DOMAIN in * ; do
 	msgcat --use-first $(ls -1 --sort=time $DOMAIN/*.pot) -o $TRANDIR/$DOMAIN/$DOMAIN.pot.new
 	# DOMAIN_MAP is used for source reference. Use the project with largest pot file.
 	echo $DOMAIN $(cd $DOMAIN ; ls -1 --sort=size *.pot | head -n1 | sed s/\\.pot\$// ) >>$TRANDIR/DOMAIN_MAP
-	pushd $TRANDIR/$DOMAIN
+	weblate_create $DOMAIN $BRANCH
+	pushd $TRANDIR/$DOMAIN >/dev/null
 	# prevent re-committing when pot file uses different line format
 	msgcat $DOMAIN.pot -o $DOMAIN.pot.tmp
 	sed '1,11{/^"POT-Creation-Date:/d};1,12{/^"PO-Revision-Date:/d}' <$DOMAIN.pot.tmp >$DOMAIN.pot.nodate
@@ -84,7 +140,7 @@ for DOMAIN in * ; do
 	if cmp -s $DOMAIN.pot.nodate $DOMAIN.pot.new.nodate ; then
 		echo "No changes in $DOMAIN.pot. Skipping update."
 		rm *.tmp *.nodate *.new
-		popd
+		popd >/dev/null
 		continue
 	fi
 	echo "Updating $DOMAIN."
@@ -97,7 +153,8 @@ for DOMAIN in * ; do
 		git add $PO
 	done
 	git commit -m "Automatic update of $DOMAIN."
-	popd
+	popd >/dev/null
+
 done
 
 echo "If everything went OK, call \"git push\"."
