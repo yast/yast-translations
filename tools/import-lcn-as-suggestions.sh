@@ -65,9 +65,13 @@ for PO in */*.po ; do
 	BASENAME=${FILENAME%.po}
 	LNG=${FILENAME%.po}
 	DOMAIN=${PO%/*}
+	DOMAINSLE=$DOMAIN
+	if test "$DOMAIN" = gtk-pkg ; then
+		DOMAINSLE=gtk
+	fi
 
-	if test -f ../../yast-sle12-sp2-r96945/$LNG/po/$DOMAIN.$LNG.po ; then
-		msgcat --use-first ../../yast-sle12-sp2-r96945/$LNG/po/$DOMAIN.$LNG.po $PO -o $PO.new
+	if test -f ../../yast-sle12-sp2-r96945/$LNG/po/$DOMAINSLE.$LNG.po ; then
+		msgcat --use-first ../../yast-sle12-sp2-r96945/$LNG/po/$DOMAINSLE.$LNG.po $PO -o $PO.new
 		msgmerge --no-fuzzy-matching --silent --previous --lang=$LNG $PO.new ../../yast-translations/po/$DOMAIN/$DOMAIN.pot -o $PO
 		rm $PO.new
 #BEGIN URL slug
@@ -99,9 +103,13 @@ for PO in */*.po ; do
 	BASENAME=${FILENAME%.po}
 	LNG=${FILENAME%.po}
 	DOMAIN=${PO%/*}
+	DOMAINSLE=$DOMAIN
+	if test "$DOMAIN" = gtk-pkg ; then
+		DOMAINSLE=gtk
+	fi
 
-	if test -f ../../yast-sle12-sp2-r96945/$LNG/po/$DOMAIN.$LNG.po ; then
-		msgcat --use-first $PO ../../yast-sle12-sp2-r96945/$LNG/po/$DOMAIN.$LNG.po -o $PO.new
+	if test -f ../../yast-sle12-sp2-r96945/$LNG/po/$DOMAINSLE.$LNG.po ; then
+		msgcat --use-first $PO ../../yast-sle12-sp2-r96945/$LNG/po/$DOMAINSLE.$LNG.po -o $PO.new
 		msgmerge --no-fuzzy-matching --silent --previous --lang=$LNG $PO.new ../../yast-translations/po/$DOMAIN/$DOMAIN.pot -o $PO
 		rm $PO.new
 	else
