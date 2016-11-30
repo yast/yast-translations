@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: yast2 memory\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-11-29 01:28+0000\n"
+"POT-Creation-Date: 2016-11-30 01:28+0000\n"
 "PO-Revision-Date: 2016-11-01 09:32+0000\n"
 "Last-Translator: hayyan rostami <hayyan71@yahoo.com>\n"
 "Language-Team: Persian <https://l10n.opensuse.org/projects/yast-network/"
@@ -765,13 +765,13 @@ msgstr "در حال حذف مقصد '%1' از جدول مسیریابی ..."
 
 #. interface summary: WiFi without encryption
 #. interface summary: WiFi without encryption
-#: src/include/network/complex.rb:101 src/modules/LanItems.rb:1439
+#: src/include/network/complex.rb:101 src/modules/LanItems.rb:1446
 msgid "Warning: no encryption is used."
 msgstr "هشدار: هیچ نوع رمزنگاری در حال استفاده نیست."
 
 #. Hyperlink: Change the configuration of an interface
 #. Hyperlink: Change the configuration of an interface
-#: src/include/network/complex.rb:107 src/modules/LanItems.rb:1441
+#: src/include/network/complex.rb:107 src/modules/LanItems.rb:1448
 msgid "Change."
 msgstr "تغییر."
 
@@ -932,6 +932,14 @@ msgstr "پیکربندی شده به عنوان %1 با آدرس %2 (راه دو
 #: src/include/network/complex.rb:392
 msgid "Configured as %1 with %2"
 msgstr "پیکربندی شده به عنوان %1 با %2"
+
+#. Return the device protocol or IP address in case of static config
+#. Or indicate that NetworkManager takes over.
+#. @param [Hash] devmap device map
+#. @return textual device protocol
+#: src/include/network/complex.rb:404
+msgid "Not configured"
+msgstr "پیکربندی نشده است"
 
 #. Abbreviation for "The interface is Managed by NetworkManager"
 #. ComboBox item
@@ -4251,51 +4259,54 @@ msgstr "به صورت کلی شروع نخواهد شد"
 msgid "Started manually"
 msgstr "به صورت دستی شروع شده"
 
-#. do nothing
-#: src/modules/LanItems.rb:1376
+#. Creates details for device's overview based on ip configuration type
+#.
+#. Produces list of strings. Strings are intended for "bullet" list, e.g.:
+#. * <string1>
+#. * <string2>
+#.
+#. @param [Hash] dev_map a device's sysconfig map (in form "option" => "value")
+#. @return [Array] list of strings, one string is intended for one "bullet"
+#: src/modules/LanItems.rb:1383
 msgid "IP address assigned using"
 msgstr "آدرس IP منتسب شده ی در حال استفاده"
 
-#: src/modules/LanItems.rb:1380
+#: src/modules/LanItems.rb:1387
 msgid "IP address: %s/%s"
 msgstr "آدرس IP: %s/%s"
 
-#: src/modules/LanItems.rb:1383
+#: src/modules/LanItems.rb:1390
 msgid "IP address: %s, subnet mask %s"
 msgstr "آدرس IP: %s ، ماسک subnemt %s"
 
 #. FIXME: side effect: sets @type. No reason for that. It should only build item
 #. overview. Check and remove.
-#: src/modules/LanItems.rb:1409
-msgid "Not configured"
-msgstr "پیکربندی نشده است"
-
 #. display it only if we need it, don't duplicate "ifcfg_name" above
-#: src/modules/LanItems.rb:1427 src/modules/LanItems.rb:1483
+#: src/modules/LanItems.rb:1434 src/modules/LanItems.rb:1490
 msgid "Device Name: %s"
 msgstr "نام دستگاه: %s"
 
-#: src/modules/LanItems.rb:1452
+#: src/modules/LanItems.rb:1459
 msgid "Bonding master"
 msgstr "پیوند ارباب"
 
-#: src/modules/LanItems.rb:1455
+#: src/modules/LanItems.rb:1462
 msgid "Bridge"
 msgstr "پل"
 
-#: src/modules/LanItems.rb:1457
+#: src/modules/LanItems.rb:1464
 msgid "enslaved in %s"
 msgstr "برده شده در %s"
 
-#: src/modules/LanItems.rb:1471
+#: src/modules/LanItems.rb:1478
 msgid "Not connected"
 msgstr "متصل نیست"
 
-#: src/modules/LanItems.rb:1472
+#: src/modules/LanItems.rb:1479
 msgid "No hwinfo"
 msgstr "بدون hwinfo"
 
-#: src/modules/LanItems.rb:1489
+#: src/modules/LanItems.rb:1496
 msgid ""
 "Unable to configure the network card because the kernel device (eth0, wlan0) "
 "is not present. This is mostly caused by missing firmware (for wlan "
@@ -4305,7 +4316,7 @@ msgstr ""
 "نیست. این بیشتر به این دلیل به وجود می آید که فریم ور موجود نباشد (برای "
 "دستگاه های wlan). خروجی dmesg را برای جزییات بخوانید."
 
-#: src/modules/LanItems.rb:1495
+#: src/modules/LanItems.rb:1502
 msgid ""
 "The device is not configured. Press <b>Edit</b>\n"
 "to configure.\n"
@@ -4313,11 +4324,11 @@ msgstr ""
 "دستگاه پیکربندی نشده است. <b>ویرایش</b> را جهت\n"
 "پیکربندی فشار دهید.\n"
 
-#: src/modules/LanItems.rb:1502
+#: src/modules/LanItems.rb:1509
 msgid "Needed firmware"
 msgstr "فریم ور مورد نیاز"
 
-#: src/modules/LanItems.rb:1502
+#: src/modules/LanItems.rb:1509
 msgid "unknown"
 msgstr "ناشناس"
 
@@ -4327,11 +4338,11 @@ msgstr "ناشناس"
 #. @param [String] ifcfg_type
 #. @param [String] ifcfg_name
 #. @return [String] formated string with the interface type and the interfaces enslaved
-#: src/modules/LanItems.rb:2518
+#: src/modules/LanItems.rb:2525
 msgid "Bonding slaves"
 msgstr "پیوند برده ها"
 
-#: src/modules/LanItems.rb:2521
+#: src/modules/LanItems.rb:2528
 msgid "Bridge Ports"
 msgstr "پل زدن درگاه ها"
 

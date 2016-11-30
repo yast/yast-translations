@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: network\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-11-29 01:28+0000\n"
+"POT-Creation-Date: 2016-11-30 01:28+0000\n"
 "PO-Revision-Date: 2011-02-23 17:21+0100\n"
 "Last-Translator: Djan Cayron <jean.cayron@gmail.com>\n"
 "Language-Team: Walloon <linux-wa@walon.org>\n"
@@ -864,13 +864,13 @@ msgstr "Dji disface li destinåcion \"%1\" del tåve di routaedje ..."
 
 #. interface summary: WiFi without encryption
 #. interface summary: WiFi without encryption
-#: src/include/network/complex.rb:101 src/modules/LanItems.rb:1439
+#: src/include/network/complex.rb:101 src/modules/LanItems.rb:1446
 msgid "Warning: no encryption is used."
 msgstr "Adviertixhmint: i gn a pont ecriptaedje eployî."
 
 #. Hyperlink: Change the configuration of an interface
 #. Hyperlink: Change the configuration of an interface
-#: src/include/network/complex.rb:107 src/modules/LanItems.rb:1441
+#: src/include/network/complex.rb:107 src/modules/LanItems.rb:1448
 msgid "Change."
 msgstr "Candjî."
 
@@ -1033,6 +1033,14 @@ msgstr "Apontyî come %1 avou l' adresse %2 (%3 då lon)"
 #: src/include/network/complex.rb:392
 msgid "Configured as %1 with %2"
 msgstr "Apontyî come %1 avou %2"
+
+#. Return the device protocol or IP address in case of static config
+#. Or indicate that NetworkManager takes over.
+#. @param [Hash] devmap device map
+#. @return textual device protocol
+#: src/include/network/complex.rb:404
+msgid "Not configured"
+msgstr "Nén apontyî"
 
 #. Abbreviation for "The interface is Managed by NetworkManager"
 #. ComboBox item
@@ -4610,18 +4618,25 @@ msgstr "Èn srè nén enondé do tot"
 msgid "Started manually"
 msgstr "Enondé al mwin"
 
-#. do nothing
-#: src/modules/LanItems.rb:1376
+#. Creates details for device's overview based on ip configuration type
+#.
+#. Produces list of strings. Strings are intended for "bullet" list, e.g.:
+#. * <string1>
+#. * <string2>
+#.
+#. @param [Hash] dev_map a device's sysconfig map (in form "option" => "value")
+#. @return [Array] list of strings, one string is intended for one "bullet"
+#: src/modules/LanItems.rb:1383
 msgid "IP address assigned using"
 msgstr "Adresse IP aroyeye e s' siervant di"
 
-#: src/modules/LanItems.rb:1380
+#: src/modules/LanItems.rb:1387
 #, fuzzy
 #| msgid "IP address: %1/%2"
 msgid "IP address: %s/%s"
 msgstr "Adresse IP: %1%2"
 
-#: src/modules/LanItems.rb:1383
+#: src/modules/LanItems.rb:1390
 #, fuzzy
 #| msgid "IP address: %1, subnet mask %2"
 msgid "IP address: %s, subnet mask %s"
@@ -4629,40 +4644,36 @@ msgstr "Adresse IP: %1, masse di sorrantoele %2"
 
 #. FIXME: side effect: sets @type. No reason for that. It should only build item
 #. overview. Check and remove.
-#: src/modules/LanItems.rb:1409
-msgid "Not configured"
-msgstr "Nén apontyî"
-
 #. display it only if we need it, don't duplicate "ifcfg_name" above
-#: src/modules/LanItems.rb:1427 src/modules/LanItems.rb:1483
+#: src/modules/LanItems.rb:1434 src/modules/LanItems.rb:1490
 #, fuzzy
 #| msgid "Device Name: %1"
 msgid "Device Name: %s"
 msgstr "No di l' éndjin: %1"
 
-#: src/modules/LanItems.rb:1452
+#: src/modules/LanItems.rb:1459
 #, fuzzy
 #| msgid "&Ending Banner"
 msgid "Bonding master"
 msgstr "&Fini l' banire"
 
-#: src/modules/LanItems.rb:1455
+#: src/modules/LanItems.rb:1462
 msgid "Bridge"
 msgstr ""
 
-#: src/modules/LanItems.rb:1457
+#: src/modules/LanItems.rb:1464
 msgid "enslaved in %s"
 msgstr ""
 
-#: src/modules/LanItems.rb:1471
+#: src/modules/LanItems.rb:1478
 msgid "Not connected"
 msgstr "Nén raloyî"
 
-#: src/modules/LanItems.rb:1472
+#: src/modules/LanItems.rb:1479
 msgid "No hwinfo"
 msgstr "Pont d' hwinfo"
 
-#: src/modules/LanItems.rb:1489
+#: src/modules/LanItems.rb:1496
 #, fuzzy
 #| msgid ""
 #| "<p>Unable to configure the network card because the kernel device (eth0, "
@@ -4678,7 +4689,7 @@ msgstr ""
 "firmware (po des éndjins wlan). Alez vey li rexhowe dmesg po ndè saveur di "
 "pus.</p>"
 
-#: src/modules/LanItems.rb:1495
+#: src/modules/LanItems.rb:1502
 #, fuzzy
 #| msgid ""
 #| "<p>The device is not configured. Press <b>Edit</b>\n"
@@ -4690,11 +4701,11 @@ msgstr ""
 "<p>L' éndjin n' est nén apontyî. Tchôkîz <b>Candjî</b>\n"
 "pos apontyî.</p>\n"
 
-#: src/modules/LanItems.rb:1502
+#: src/modules/LanItems.rb:1509
 msgid "Needed firmware"
 msgstr "Firmware ki dj' a dandjî"
 
-#: src/modules/LanItems.rb:1502
+#: src/modules/LanItems.rb:1509
 msgid "unknown"
 msgstr "nén cnoxhou"
 
@@ -4704,13 +4715,13 @@ msgstr "nén cnoxhou"
 #. @param [String] ifcfg_type
 #. @param [String] ifcfg_name
 #. @return [String] formated string with the interface type and the interfaces enslaved
-#: src/modules/LanItems.rb:2518
+#: src/modules/LanItems.rb:2525
 #, fuzzy
 #| msgid "Bond slaves"
 msgid "Bonding slaves"
 msgstr "Vårlets Bond"
 
-#: src/modules/LanItems.rb:2521
+#: src/modules/LanItems.rb:2528
 msgid "Bridge Ports"
 msgstr ""
 

@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: network.pa\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-11-29 01:28+0000\n"
+"POT-Creation-Date: 2016-11-30 01:28+0000\n"
 "PO-Revision-Date: 2008-11-13 07:52+0530\n"
 "Last-Translator: KDB <brar.kd@gmail.com>\n"
 "Language-Team: Panjabi <punjabi-l10n@list.sf.net>\n"
@@ -838,13 +838,13 @@ msgstr ""
 
 #. interface summary: WiFi without encryption
 #. interface summary: WiFi without encryption
-#: src/include/network/complex.rb:101 src/modules/LanItems.rb:1439
+#: src/include/network/complex.rb:101 src/modules/LanItems.rb:1446
 msgid "Warning: no encryption is used."
 msgstr "ਸਾਵਧਾਨ: ਕੋਈ ਇੰਕ੍ਰਿਪਸ਼ਨ ਨਹੀਂ ਵਰਤੀ ਗਈ।"
 
 #. Hyperlink: Change the configuration of an interface
 #. Hyperlink: Change the configuration of an interface
-#: src/include/network/complex.rb:107 src/modules/LanItems.rb:1441
+#: src/include/network/complex.rb:107 src/modules/LanItems.rb:1448
 msgid "Change."
 msgstr "ਤਬਦੀਲ।"
 
@@ -1005,6 +1005,14 @@ msgstr "%1 ਐਡਰੈੱਸ %2 (ਰਿਮੋਟ %3) ਨਾਲ ਸੰਰਚਿ�
 #: src/include/network/complex.rb:392
 msgid "Configured as %1 with %2"
 msgstr "%1 ਵਾਂਗ %2 ਨਾਲ ਸੰਰਚਿਤ ਹੈ।"
+
+#. Return the device protocol or IP address in case of static config
+#. Or indicate that NetworkManager takes over.
+#. @param [Hash] devmap device map
+#. @return textual device protocol
+#: src/include/network/complex.rb:404
+msgid "Not configured"
+msgstr "ਸੰਰਚਿਤ ਨਹੀਂ ਹੈ"
 
 #. Abbreviation for "The interface is Managed by NetworkManager"
 #. ComboBox item
@@ -4479,18 +4487,25 @@ msgstr "ਕੁਝ ਵੀ ਸ਼ੁਰੂ ਨਹੀਂ ਹੋਵੇਗਾ"
 msgid "Started manually"
 msgstr "ਦਸਤੀ ਸ਼ੁਰੂ ਕੀਤਾ"
 
-#. do nothing
-#: src/modules/LanItems.rb:1376
+#. Creates details for device's overview based on ip configuration type
+#.
+#. Produces list of strings. Strings are intended for "bullet" list, e.g.:
+#. * <string1>
+#. * <string2>
+#.
+#. @param [Hash] dev_map a device's sysconfig map (in form "option" => "value")
+#. @return [Array] list of strings, one string is intended for one "bullet"
+#: src/modules/LanItems.rb:1383
 msgid "IP address assigned using"
 msgstr "ਵਰਤੋਂ ਕਰਕੇ IP ਐਡਰੈੱਸ ਲਵੋ"
 
-#: src/modules/LanItems.rb:1380
+#: src/modules/LanItems.rb:1387
 #, fuzzy
 #| msgid "IP address: %1/%2"
 msgid "IP address: %s/%s"
 msgstr "IP ਐਡਰੈੱਸ: %1/%2"
 
-#: src/modules/LanItems.rb:1383
+#: src/modules/LanItems.rb:1390
 #, fuzzy
 #| msgid "IP address: %1, subnet mask %2"
 msgid "IP address: %s, subnet mask %s"
@@ -4498,38 +4513,34 @@ msgstr "IP ਐਡਰੈੱਸ: %1, ਸਬਨੈੱਟ ਮਾਸਕ %2"
 
 #. FIXME: side effect: sets @type. No reason for that. It should only build item
 #. overview. Check and remove.
-#: src/modules/LanItems.rb:1409
-msgid "Not configured"
-msgstr "ਸੰਰਚਿਤ ਨਹੀਂ ਹੈ"
-
 #. display it only if we need it, don't duplicate "ifcfg_name" above
-#: src/modules/LanItems.rb:1427 src/modules/LanItems.rb:1483
+#: src/modules/LanItems.rb:1434 src/modules/LanItems.rb:1490
 #, fuzzy
 #| msgid "Device Name: %1"
 msgid "Device Name: %s"
 msgstr "ਜੰਤਰ ਨਾਂ: %1"
 
-#: src/modules/LanItems.rb:1452
+#: src/modules/LanItems.rb:1459
 msgid "Bonding master"
 msgstr ""
 
-#: src/modules/LanItems.rb:1455
+#: src/modules/LanItems.rb:1462
 msgid "Bridge"
 msgstr ""
 
-#: src/modules/LanItems.rb:1457
+#: src/modules/LanItems.rb:1464
 msgid "enslaved in %s"
 msgstr ""
 
-#: src/modules/LanItems.rb:1471
+#: src/modules/LanItems.rb:1478
 msgid "Not connected"
 msgstr "ਨਹੀਂ ਜੁੜਿਆ"
 
-#: src/modules/LanItems.rb:1472
+#: src/modules/LanItems.rb:1479
 msgid "No hwinfo"
 msgstr "ਕੋਈ hwinfo ਨਹੀਂ"
 
-#: src/modules/LanItems.rb:1489
+#: src/modules/LanItems.rb:1496
 #, fuzzy
 msgid ""
 "Unable to configure the network card because the kernel device (eth0, wlan0) "
@@ -4537,7 +4548,7 @@ msgid ""
 "devices). See dmesg output for details."
 msgstr "<p>ਨੈੱਟਵਰਕ ਕਾਰਡ ਦੀ ਸੰਰਚਨਾ ਕਰਨ ਲਈ ਅਸਮਰੱਥ ਹੈ, ਕਿਉਂਕਿ ਕਰਨਲ ਜੰਤਰ ਮੌਜੂਦ ਨਹੀਂ</p>"
 
-#: src/modules/LanItems.rb:1495
+#: src/modules/LanItems.rb:1502
 #, fuzzy
 #| msgid ""
 #| "<p>The device is not configured. Press <b>Edit</b>\n"
@@ -4549,11 +4560,11 @@ msgstr ""
 "<p>ਜੰਤਰ ਸੰਰਚਿਤ ਨਹੀਂ ਹੈ। ਸੰਰਚਨਾ ਕਰਨ ਵਾਸਤੇ\n"
 "<b>ਸੋਧ</b> ਦੱਬੋ।</p>\n"
 
-#: src/modules/LanItems.rb:1502
+#: src/modules/LanItems.rb:1509
 msgid "Needed firmware"
 msgstr "ਫਾਇਰਮਵੇਅਰ ਦੀ ਲੋੜ ਹੈ"
 
-#: src/modules/LanItems.rb:1502
+#: src/modules/LanItems.rb:1509
 msgid "unknown"
 msgstr "ਅਣਜਾਣ"
 
@@ -4563,13 +4574,13 @@ msgstr "ਅਣਜਾਣ"
 #. @param [String] ifcfg_type
 #. @param [String] ifcfg_name
 #. @return [String] formated string with the interface type and the interfaces enslaved
-#: src/modules/LanItems.rb:2518
+#: src/modules/LanItems.rb:2525
 #, fuzzy
 #| msgid "Bond slaves"
 msgid "Bonding slaves"
 msgstr "ਬੌਂਡ ਸਲੇਵ"
 
-#: src/modules/LanItems.rb:2521
+#: src/modules/LanItems.rb:2528
 msgid "Bridge Ports"
 msgstr ""
 

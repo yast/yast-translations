@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: network\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-11-29 01:28+0000\n"
+"POT-Creation-Date: 2016-11-30 01:28+0000\n"
 "PO-Revision-Date: 2009-10-08 12:56+0200\n"
 "Last-Translator: Olav Pettershagen <olav.pet@gmail.com>\n"
 "Language-Team: Norwegian Bokmål <opensuse-translation@opensuse.org>\n"
@@ -817,13 +817,13 @@ msgstr "Sletter destinasjonen '%1' fra rutingtabellen ..."
 
 #. interface summary: WiFi without encryption
 #. interface summary: WiFi without encryption
-#: src/include/network/complex.rb:101 src/modules/LanItems.rb:1439
+#: src/include/network/complex.rb:101 src/modules/LanItems.rb:1446
 msgid "Warning: no encryption is used."
 msgstr "Advarsel: ingen kryptering benyttes."
 
 #. Hyperlink: Change the configuration of an interface
 #. Hyperlink: Change the configuration of an interface
-#: src/include/network/complex.rb:107 src/modules/LanItems.rb:1441
+#: src/include/network/complex.rb:107 src/modules/LanItems.rb:1448
 msgid "Change."
 msgstr "Endre."
 
@@ -984,6 +984,14 @@ msgstr "Satt opp som %1 med adressen %2 (ekstern %3)"
 #: src/include/network/complex.rb:392
 msgid "Configured as %1 with %2"
 msgstr "Satt opp som %1 med %2"
+
+#. Return the device protocol or IP address in case of static config
+#. Or indicate that NetworkManager takes over.
+#. @param [Hash] devmap device map
+#. @return textual device protocol
+#: src/include/network/complex.rb:404
+msgid "Not configured"
+msgstr "Ikke satt opp"
 
 #. Abbreviation for "The interface is Managed by NetworkManager"
 #. ComboBox item
@@ -4793,18 +4801,25 @@ msgstr "Vil ikke bli startet i det hele tatt"
 msgid "Started manually"
 msgstr "Startet manuelt"
 
-#. do nothing
-#: src/modules/LanItems.rb:1376
+#. Creates details for device's overview based on ip configuration type
+#.
+#. Produces list of strings. Strings are intended for "bullet" list, e.g.:
+#. * <string1>
+#. * <string2>
+#.
+#. @param [Hash] dev_map a device's sysconfig map (in form "option" => "value")
+#. @return [Array] list of strings, one string is intended for one "bullet"
+#: src/modules/LanItems.rb:1383
 msgid "IP address assigned using"
 msgstr "IP-adresse tildelt via"
 
-#: src/modules/LanItems.rb:1380
+#: src/modules/LanItems.rb:1387
 #, fuzzy
 #| msgid "IP address: %1/%2"
 msgid "IP address: %s/%s"
 msgstr "IP-adresse: %1/%2"
 
-#: src/modules/LanItems.rb:1383
+#: src/modules/LanItems.rb:1390
 #, fuzzy
 #| msgid "IP address: %1, subnet mask %2"
 msgid "IP address: %s, subnet mask %s"
@@ -4812,40 +4827,36 @@ msgstr "IP-adresse %1, nettverksmaske %2"
 
 #. FIXME: side effect: sets @type. No reason for that. It should only build item
 #. overview. Check and remove.
-#: src/modules/LanItems.rb:1409
-msgid "Not configured"
-msgstr "Ikke satt opp"
-
 #. display it only if we need it, don't duplicate "ifcfg_name" above
-#: src/modules/LanItems.rb:1427 src/modules/LanItems.rb:1483
+#: src/modules/LanItems.rb:1434 src/modules/LanItems.rb:1490
 #, fuzzy
 #| msgid "Device Name: %1"
 msgid "Device Name: %s"
 msgstr "Enhetsnavn: %1"
 
-#: src/modules/LanItems.rb:1452
+#: src/modules/LanItems.rb:1459
 msgid "Bonding master"
 msgstr "Bonding-master"
 
-#: src/modules/LanItems.rb:1455
+#: src/modules/LanItems.rb:1462
 msgid "Bridge"
 msgstr ""
 
-#: src/modules/LanItems.rb:1457
+#: src/modules/LanItems.rb:1464
 #, fuzzy
 #| msgid "enslaved in %1"
 msgid "enslaved in %s"
 msgstr "slave i %1"
 
-#: src/modules/LanItems.rb:1471
+#: src/modules/LanItems.rb:1478
 msgid "Not connected"
 msgstr "Ikke tilkoblet"
 
-#: src/modules/LanItems.rb:1472
+#: src/modules/LanItems.rb:1479
 msgid "No hwinfo"
 msgstr "Ingen maskinvareinfo"
 
-#: src/modules/LanItems.rb:1489
+#: src/modules/LanItems.rb:1496
 #, fuzzy
 #| msgid ""
 #| "<p>Unable to configure the network card because the kernel device (eth0, "
@@ -4860,7 +4871,7 @@ msgstr ""
 "ikke finnes. Dette skyldes vanligvis manglende fastvare (for wlan-enheter). "
 "Se resultatet av dmesg-kommandoen.</p>"
 
-#: src/modules/LanItems.rb:1495
+#: src/modules/LanItems.rb:1502
 #, fuzzy
 #| msgid ""
 #| "<p>The device is not configured. Press <b>Edit</b>\n"
@@ -4872,11 +4883,11 @@ msgstr ""
 "<p>Enheten er ikke satt opp. Klikk <b>Rediger</b>\n"
 "for å gå til oppsett.</p>\n"
 
-#: src/modules/LanItems.rb:1502
+#: src/modules/LanItems.rb:1509
 msgid "Needed firmware"
 msgstr "Nødvendig fastvare"
 
-#: src/modules/LanItems.rb:1502
+#: src/modules/LanItems.rb:1509
 msgid "unknown"
 msgstr "ukjent"
 
@@ -4886,11 +4897,11 @@ msgstr "ukjent"
 #. @param [String] ifcfg_type
 #. @param [String] ifcfg_name
 #. @return [String] formated string with the interface type and the interfaces enslaved
-#: src/modules/LanItems.rb:2518
+#: src/modules/LanItems.rb:2525
 msgid "Bonding slaves"
 msgstr "Bonding-slaver"
 
-#: src/modules/LanItems.rb:2521
+#: src/modules/LanItems.rb:2528
 msgid "Bridge Ports"
 msgstr ""
 

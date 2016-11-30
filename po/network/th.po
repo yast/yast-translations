@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: YaST (@memory@)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-11-29 01:28+0000\n"
+"POT-Creation-Date: 2016-11-30 01:28+0000\n"
 "PO-Revision-Date: 2008-11-15 20:52+0700\n"
 "Last-Translator: Thanomsub Noppaburana <donga.nb@gmail.com>\n"
 "Language-Team: Thai <thai-l10n@googlegroups.com>\n"
@@ -851,13 +851,13 @@ msgstr "ลบปลายทาง '%1' ออกจากตารางกา
 
 #. interface summary: WiFi without encryption
 #. interface summary: WiFi without encryption
-#: src/include/network/complex.rb:101 src/modules/LanItems.rb:1439
+#: src/include/network/complex.rb:101 src/modules/LanItems.rb:1446
 msgid "Warning: no encryption is used."
 msgstr "คำเตือน: ไม่มีการใช้การเข้ารหัส"
 
 #. Hyperlink: Change the configuration of an interface
 #. Hyperlink: Change the configuration of an interface
-#: src/include/network/complex.rb:107 src/modules/LanItems.rb:1441
+#: src/include/network/complex.rb:107 src/modules/LanItems.rb:1448
 msgid "Change."
 msgstr "เปลี่ยน"
 
@@ -1020,6 +1020,14 @@ msgstr "ถูกปรับแต่งเป็น %1 โดยใช้ท�
 #: src/include/network/complex.rb:392
 msgid "Configured as %1 with %2"
 msgstr "ถูกปรับแต่งเป็น %1 โดยใช้ %2"
+
+#. Return the device protocol or IP address in case of static config
+#. Or indicate that NetworkManager takes over.
+#. @param [Hash] devmap device map
+#. @return textual device protocol
+#: src/include/network/complex.rb:404
+msgid "Not configured"
+msgstr "ยังไม่มีการปรับแต่ง"
 
 #. Abbreviation for "The interface is Managed by NetworkManager"
 #. ComboBox item
@@ -4831,18 +4839,25 @@ msgstr "จะไม่เริ่มการทำงานเลย"
 msgid "Started manually"
 msgstr "เริ่มการทำงานด้วยตนเอง"
 
-#. do nothing
-#: src/modules/LanItems.rb:1376
+#. Creates details for device's overview based on ip configuration type
+#.
+#. Produces list of strings. Strings are intended for "bullet" list, e.g.:
+#. * <string1>
+#. * <string2>
+#.
+#. @param [Hash] dev_map a device's sysconfig map (in form "option" => "value")
+#. @return [Array] list of strings, one string is intended for one "bullet"
+#: src/modules/LanItems.rb:1383
 msgid "IP address assigned using"
 msgstr "เลขไอพีที่กำหนดให้"
 
-#: src/modules/LanItems.rb:1380
+#: src/modules/LanItems.rb:1387
 #, fuzzy
 #| msgid "IP address: %1/%2"
 msgid "IP address: %s/%s"
 msgstr "เลขไอพี: %1/%2"
 
-#: src/modules/LanItems.rb:1383
+#: src/modules/LanItems.rb:1390
 #, fuzzy
 #| msgid "IP address: %1, subnet mask %2"
 msgid "IP address: %s, subnet mask %s"
@@ -4850,38 +4865,34 @@ msgstr "เลขไอพี: %1, ซับเน็ตมาสก์ %2"
 
 #. FIXME: side effect: sets @type. No reason for that. It should only build item
 #. overview. Check and remove.
-#: src/modules/LanItems.rb:1409
-msgid "Not configured"
-msgstr "ยังไม่มีการปรับแต่ง"
-
 #. display it only if we need it, don't duplicate "ifcfg_name" above
-#: src/modules/LanItems.rb:1427 src/modules/LanItems.rb:1483
+#: src/modules/LanItems.rb:1434 src/modules/LanItems.rb:1490
 #, fuzzy
 #| msgid "Device Name: %1"
 msgid "Device Name: %s"
 msgstr "ชื่ออุปกรณ์: %1"
 
-#: src/modules/LanItems.rb:1452
+#: src/modules/LanItems.rb:1459
 msgid "Bonding master"
 msgstr ""
 
-#: src/modules/LanItems.rb:1455
+#: src/modules/LanItems.rb:1462
 msgid "Bridge"
 msgstr ""
 
-#: src/modules/LanItems.rb:1457
+#: src/modules/LanItems.rb:1464
 msgid "enslaved in %s"
 msgstr ""
 
-#: src/modules/LanItems.rb:1471
+#: src/modules/LanItems.rb:1478
 msgid "Not connected"
 msgstr "ไม่ได้เชื่อมต่อ"
 
-#: src/modules/LanItems.rb:1472
+#: src/modules/LanItems.rb:1479
 msgid "No hwinfo"
 msgstr "ไม่มี hwinfo"
 
-#: src/modules/LanItems.rb:1489
+#: src/modules/LanItems.rb:1496
 #, fuzzy
 #| msgid ""
 #| "<p>Unable to configure the network card because the kernel device (eth0, "
@@ -4896,7 +4907,7 @@ msgstr ""
 "ซึ่งอาจจะเนื่องจากขาดเฟิร์มแวร์ (ของอุปกรณ์ wlan) โปรดดูรายละเอียดเพิ่มจากผลลัพธ์ของคำสั่ง "
 "dmesg</p>"
 
-#: src/modules/LanItems.rb:1495
+#: src/modules/LanItems.rb:1502
 #, fuzzy
 #| msgid ""
 #| "<p>The device is not configured. Press <b>Edit</b>\n"
@@ -4906,11 +4917,11 @@ msgid ""
 "to configure.\n"
 msgstr "<p>อุปกรณ์ยังไม่ถูกปรับแต่ง กดที่ปุ่ม <b>แก้ไข</b> เพื่อปรับแต่งมัน</p>\n"
 
-#: src/modules/LanItems.rb:1502
+#: src/modules/LanItems.rb:1509
 msgid "Needed firmware"
 msgstr "เฟิร์มแวร์ที่จำเป็นต้องใช้"
 
-#: src/modules/LanItems.rb:1502
+#: src/modules/LanItems.rb:1509
 msgid "unknown"
 msgstr "ไม่ทราบ"
 
@@ -4920,12 +4931,12 @@ msgstr "ไม่ทราบ"
 #. @param [String] ifcfg_type
 #. @param [String] ifcfg_name
 #. @return [String] formated string with the interface type and the interfaces enslaved
-#: src/modules/LanItems.rb:2518
+#: src/modules/LanItems.rb:2525
 #, fuzzy
 msgid "Bonding slaves"
 msgstr "โซนลูก (Slave)"
 
-#: src/modules/LanItems.rb:2521
+#: src/modules/LanItems.rb:2528
 msgid "Bridge Ports"
 msgstr ""
 

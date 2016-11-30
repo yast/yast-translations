@@ -25,7 +25,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: network.cs\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-11-29 01:28+0000\n"
+"POT-Creation-Date: 2016-11-30 01:28+0000\n"
 "PO-Revision-Date: 2015-11-05 12:46+0100\n"
 "Last-Translator: Vojtěch Zeisek <vojtech.zeisek@opensuse.org>\n"
 "Language-Team: Czech <opensuse-cz@opensuse.org>\n"
@@ -780,13 +780,13 @@ msgstr "Mazání cíle '%1' z routovací tabulky ..."
 
 #. interface summary: WiFi without encryption
 #. interface summary: WiFi without encryption
-#: src/include/network/complex.rb:101 src/modules/LanItems.rb:1439
+#: src/include/network/complex.rb:101 src/modules/LanItems.rb:1446
 msgid "Warning: no encryption is used."
 msgstr "Pozor: nepoužívá se žádné šifrování."
 
 #. Hyperlink: Change the configuration of an interface
 #. Hyperlink: Change the configuration of an interface
-#: src/include/network/complex.rb:107 src/modules/LanItems.rb:1441
+#: src/include/network/complex.rb:107 src/modules/LanItems.rb:1448
 msgid "Change."
 msgstr "Změnit."
 
@@ -947,6 +947,14 @@ msgstr "Konfigurováno jako %1 s adresou %2 (vzdálená %3)"
 #: src/include/network/complex.rb:392
 msgid "Configured as %1 with %2"
 msgstr "Konfigurováno jako %1 s %2"
+
+#. Return the device protocol or IP address in case of static config
+#. Or indicate that NetworkManager takes over.
+#. @param [Hash] devmap device map
+#. @return textual device protocol
+#: src/include/network/complex.rb:404
+msgid "Not configured"
+msgstr "Nekonfigurováno"
 
 #. Abbreviation for "The interface is Managed by NetworkManager"
 #. ComboBox item
@@ -4647,51 +4655,54 @@ msgstr "Nebude vůbec spuštěno"
 msgid "Started manually"
 msgstr "Spustit ručně"
 
-#. do nothing
-#: src/modules/LanItems.rb:1376
+#. Creates details for device's overview based on ip configuration type
+#.
+#. Produces list of strings. Strings are intended for "bullet" list, e.g.:
+#. * <string1>
+#. * <string2>
+#.
+#. @param [Hash] dev_map a device's sysconfig map (in form "option" => "value")
+#. @return [Array] list of strings, one string is intended for one "bullet"
+#: src/modules/LanItems.rb:1383
 msgid "IP address assigned using"
 msgstr "IP adresa přidělena přes"
 
-#: src/modules/LanItems.rb:1380
+#: src/modules/LanItems.rb:1387
 msgid "IP address: %s/%s"
 msgstr "IP adresa: %s/%s"
 
-#: src/modules/LanItems.rb:1383
+#: src/modules/LanItems.rb:1390
 msgid "IP address: %s, subnet mask %s"
 msgstr "IP adresa: %s, maska sítě %s"
 
 #. FIXME: side effect: sets @type. No reason for that. It should only build item
 #. overview. Check and remove.
-#: src/modules/LanItems.rb:1409
-msgid "Not configured"
-msgstr "Nekonfigurováno"
-
 #. display it only if we need it, don't duplicate "ifcfg_name" above
-#: src/modules/LanItems.rb:1427 src/modules/LanItems.rb:1483
+#: src/modules/LanItems.rb:1434 src/modules/LanItems.rb:1490
 msgid "Device Name: %s"
 msgstr "Název zařízení: %s"
 
-#: src/modules/LanItems.rb:1452
+#: src/modules/LanItems.rb:1459
 msgid "Bonding master"
 msgstr "Nadřízené spojené zařízení"
 
-#: src/modules/LanItems.rb:1455
+#: src/modules/LanItems.rb:1462
 msgid "Bridge"
 msgstr ""
 
-#: src/modules/LanItems.rb:1457
+#: src/modules/LanItems.rb:1464
 msgid "enslaved in %s"
 msgstr "podřízeno %s"
 
-#: src/modules/LanItems.rb:1471
+#: src/modules/LanItems.rb:1478
 msgid "Not connected"
 msgstr "Nepřipojeno"
 
-#: src/modules/LanItems.rb:1472
+#: src/modules/LanItems.rb:1479
 msgid "No hwinfo"
 msgstr "Žádné hwinfo"
 
-#: src/modules/LanItems.rb:1489
+#: src/modules/LanItems.rb:1496
 msgid ""
 "Unable to configure the network card because the kernel device (eth0, wlan0) "
 "is not present. This is mostly caused by missing firmware (for wlan "
@@ -4701,18 +4712,18 @@ msgstr ""
 "nalezeno žádné zařízení eth0, wlan0...). Obvykle je důvodem chybějící "
 "firmware (u bezdrátových zařízení). Více najdete ve výstupu dmesg."
 
-#: src/modules/LanItems.rb:1495
+#: src/modules/LanItems.rb:1502
 msgid ""
 "The device is not configured. Press <b>Edit</b>\n"
 "to configure.\n"
 msgstr ""
 "Zařízení není nastaveno. Stiskněte <b>Nastavit</b>, abyste jej nastavili.\n"
 
-#: src/modules/LanItems.rb:1502
+#: src/modules/LanItems.rb:1509
 msgid "Needed firmware"
 msgstr "Potřebný firmware"
 
-#: src/modules/LanItems.rb:1502
+#: src/modules/LanItems.rb:1509
 msgid "unknown"
 msgstr "neznámé"
 
@@ -4722,11 +4733,11 @@ msgstr "neznámé"
 #. @param [String] ifcfg_type
 #. @param [String] ifcfg_name
 #. @return [String] formated string with the interface type and the interfaces enslaved
-#: src/modules/LanItems.rb:2518
+#: src/modules/LanItems.rb:2525
 msgid "Bonding slaves"
 msgstr "Spojená podřízená zařízení"
 
-#: src/modules/LanItems.rb:2521
+#: src/modules/LanItems.rb:2528
 msgid "Bridge Ports"
 msgstr ""
 

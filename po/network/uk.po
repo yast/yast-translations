@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: network.uk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-11-29 01:28+0000\n"
+"POT-Creation-Date: 2016-11-30 01:28+0000\n"
 "PO-Revision-Date: 2016-11-26 11:17+0000\n"
 "Last-Translator: Andriy Bandura <andriykopanytsia@gmail.com>\n"
 "Language-Team: Ukrainian <https://l10n.opensuse.org/projects/yast-network/"
@@ -773,13 +773,13 @@ msgstr "Вилучення місця призначення «%1» з табл�
 
 #. interface summary: WiFi without encryption
 #. interface summary: WiFi without encryption
-#: src/include/network/complex.rb:101 src/modules/LanItems.rb:1439
+#: src/include/network/complex.rb:101 src/modules/LanItems.rb:1446
 msgid "Warning: no encryption is used."
 msgstr "Попередження: не вживається шифрування."
 
 #. Hyperlink: Change the configuration of an interface
 #. Hyperlink: Change the configuration of an interface
-#: src/include/network/complex.rb:107 src/modules/LanItems.rb:1441
+#: src/include/network/complex.rb:107 src/modules/LanItems.rb:1448
 msgid "Change."
 msgstr "Змінити."
 
@@ -940,6 +940,14 @@ msgstr "Налаштовано як %1 з адресою %2 (віддалена 
 #: src/include/network/complex.rb:392
 msgid "Configured as %1 with %2"
 msgstr "Налаштовано як %1 з %2"
+
+#. Return the device protocol or IP address in case of static config
+#. Or indicate that NetworkManager takes over.
+#. @param [Hash] devmap device map
+#. @return textual device protocol
+#: src/include/network/complex.rb:404
+msgid "Not configured"
+msgstr "Не налаштовано"
 
 #. Abbreviation for "The interface is Managed by NetworkManager"
 #. ComboBox item
@@ -4667,51 +4675,54 @@ msgstr "Не буде запущено взагалі"
 msgid "Started manually"
 msgstr "Запускається вручну"
 
-#. do nothing
-#: src/modules/LanItems.rb:1376
+#. Creates details for device's overview based on ip configuration type
+#.
+#. Produces list of strings. Strings are intended for "bullet" list, e.g.:
+#. * <string1>
+#. * <string2>
+#.
+#. @param [Hash] dev_map a device's sysconfig map (in form "option" => "value")
+#. @return [Array] list of strings, one string is intended for one "bullet"
+#: src/modules/LanItems.rb:1383
 msgid "IP address assigned using"
 msgstr "Адреса IP призначається за допомогою"
 
-#: src/modules/LanItems.rb:1380
+#: src/modules/LanItems.rb:1387
 msgid "IP address: %s/%s"
 msgstr "Адреса IP: %s/%s"
 
-#: src/modules/LanItems.rb:1383
+#: src/modules/LanItems.rb:1390
 msgid "IP address: %s, subnet mask %s"
 msgstr "Адреса IP: %s, маска підмережі %s"
 
 #. FIXME: side effect: sets @type. No reason for that. It should only build item
 #. overview. Check and remove.
-#: src/modules/LanItems.rb:1409
-msgid "Not configured"
-msgstr "Не налаштовано"
-
 #. display it only if we need it, don't duplicate "ifcfg_name" above
-#: src/modules/LanItems.rb:1427 src/modules/LanItems.rb:1483
+#: src/modules/LanItems.rb:1434 src/modules/LanItems.rb:1490
 msgid "Device Name: %s"
 msgstr "Назва пристрою: %s"
 
-#: src/modules/LanItems.rb:1452
+#: src/modules/LanItems.rb:1459
 msgid "Bonding master"
 msgstr "Основний пристрій зв'язування"
 
-#: src/modules/LanItems.rb:1455
+#: src/modules/LanItems.rb:1462
 msgid "Bridge"
 msgstr "Міст"
 
-#: src/modules/LanItems.rb:1457
+#: src/modules/LanItems.rb:1464
 msgid "enslaved in %s"
 msgstr "підпорядковано %s"
 
-#: src/modules/LanItems.rb:1471
+#: src/modules/LanItems.rb:1478
 msgid "Not connected"
 msgstr "Не з'єднано"
 
-#: src/modules/LanItems.rb:1472
+#: src/modules/LanItems.rb:1479
 msgid "No hwinfo"
 msgstr "Відсутня hwinfo"
 
-#: src/modules/LanItems.rb:1489
+#: src/modules/LanItems.rb:1496
 msgid ""
 "Unable to configure the network card because the kernel device (eth0, wlan0) "
 "is not present. This is mostly caused by missing firmware (for wlan "
@@ -4721,7 +4732,7 @@ msgstr ""
 "wlan0). Такі помилки здебільшого спричинені відсутністю мікропрограми (для "
 "пристроїв wlan). Щоб дізнатися більше, перегляньте вивід команди dmesg."
 
-#: src/modules/LanItems.rb:1495
+#: src/modules/LanItems.rb:1502
 msgid ""
 "The device is not configured. Press <b>Edit</b>\n"
 "to configure.\n"
@@ -4729,11 +4740,11 @@ msgstr ""
 "Пристрій не налаштовано. Натисніть кнопку <b>Змінити</b>,\n"
 "щоб його налаштувати.\n"
 
-#: src/modules/LanItems.rb:1502
+#: src/modules/LanItems.rb:1509
 msgid "Needed firmware"
 msgstr "Потрібне мікропрограмне ПЗ"
 
-#: src/modules/LanItems.rb:1502
+#: src/modules/LanItems.rb:1509
 msgid "unknown"
 msgstr "невідомий"
 
@@ -4743,11 +4754,11 @@ msgstr "невідомий"
 #. @param [String] ifcfg_type
 #. @param [String] ifcfg_name
 #. @return [String] formated string with the interface type and the interfaces enslaved
-#: src/modules/LanItems.rb:2518
+#: src/modules/LanItems.rb:2525
 msgid "Bonding slaves"
 msgstr "Пов'язання підпорядкованих пристроїв"
 
-#: src/modules/LanItems.rb:2521
+#: src/modules/LanItems.rb:2528
 msgid "Bridge Ports"
 msgstr "Порти моста"
 

@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: network\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-11-29 01:28+0000\n"
+"POT-Creation-Date: 2016-11-30 01:28+0000\n"
 "PO-Revision-Date: 2015-12-27 11:51+0200\n"
 "Last-Translator: Kiril <neohidra@gmail.com>\n"
 "Language-Team: Bulgarian <dict@ludost.net>\n"
@@ -787,13 +787,13 @@ msgstr "Изтриване на назначението „%1“ от марш�
 
 #. interface summary: WiFi without encryption
 #. interface summary: WiFi without encryption
-#: src/include/network/complex.rb:101 src/modules/LanItems.rb:1439
+#: src/include/network/complex.rb:101 src/modules/LanItems.rb:1446
 msgid "Warning: no encryption is used."
 msgstr "Внимание: не се използва криптиране."
 
 #. Hyperlink: Change the configuration of an interface
 #. Hyperlink: Change the configuration of an interface
-#: src/include/network/complex.rb:107 src/modules/LanItems.rb:1441
+#: src/include/network/complex.rb:107 src/modules/LanItems.rb:1448
 msgid "Change."
 msgstr "Промяна."
 
@@ -954,6 +954,14 @@ msgstr "Настроено като %1 с адрес %2 (отдалечен %3)"
 #: src/include/network/complex.rb:392
 msgid "Configured as %1 with %2"
 msgstr "Настроено като %1 с %2"
+
+#. Return the device protocol or IP address in case of static config
+#. Or indicate that NetworkManager takes over.
+#. @param [Hash] devmap device map
+#. @return textual device protocol
+#: src/include/network/complex.rb:404
+msgid "Not configured"
+msgstr "Не е настроено"
 
 #. Abbreviation for "The interface is Managed by NetworkManager"
 #. ComboBox item
@@ -4748,53 +4756,56 @@ msgstr "Изобщо няма да бъде стартирано"
 msgid "Started manually"
 msgstr "Ръчно стартиране"
 
-#. do nothing
-#: src/modules/LanItems.rb:1376
+#. Creates details for device's overview based on ip configuration type
+#.
+#. Produces list of strings. Strings are intended for "bullet" list, e.g.:
+#. * <string1>
+#. * <string2>
+#.
+#. @param [Hash] dev_map a device's sysconfig map (in form "option" => "value")
+#. @return [Array] list of strings, one string is intended for one "bullet"
+#: src/modules/LanItems.rb:1383
 msgid "IP address assigned using"
 msgstr "IP адресът е зададен чрез"
 
-#: src/modules/LanItems.rb:1380
+#: src/modules/LanItems.rb:1387
 msgid "IP address: %s/%s"
 msgstr "IP адрес: %s/%s"
 
-#: src/modules/LanItems.rb:1383
+#: src/modules/LanItems.rb:1390
 msgid "IP address: %s, subnet mask %s"
 msgstr "IP адрес: %s, мрежова маска: %s"
 
 #. FIXME: side effect: sets @type. No reason for that. It should only build item
 #. overview. Check and remove.
-#: src/modules/LanItems.rb:1409
-msgid "Not configured"
-msgstr "Не е настроено"
-
 #. display it only if we need it, don't duplicate "ifcfg_name" above
-#: src/modules/LanItems.rb:1427 src/modules/LanItems.rb:1483
+#: src/modules/LanItems.rb:1434 src/modules/LanItems.rb:1490
 msgid "Device Name: %s"
 msgstr "Име на устройство: %s"
 
-#: src/modules/LanItems.rb:1452
+#: src/modules/LanItems.rb:1459
 #, fuzzy
 #| msgid "&Ending Banner"
 msgid "Bonding master"
 msgstr "&Краен банер"
 
-#: src/modules/LanItems.rb:1455
+#: src/modules/LanItems.rb:1462
 msgid "Bridge"
 msgstr ""
 
-#: src/modules/LanItems.rb:1457
+#: src/modules/LanItems.rb:1464
 msgid "enslaved in %s"
 msgstr ""
 
-#: src/modules/LanItems.rb:1471
+#: src/modules/LanItems.rb:1478
 msgid "Not connected"
 msgstr "(без връзка)"
 
-#: src/modules/LanItems.rb:1472
+#: src/modules/LanItems.rb:1479
 msgid "No hwinfo"
 msgstr "Няма hwinfo"
 
-#: src/modules/LanItems.rb:1489
+#: src/modules/LanItems.rb:1496
 msgid ""
 "Unable to configure the network card because the kernel device (eth0, wlan0) "
 "is not present. This is mostly caused by missing firmware (for wlan "
@@ -4804,7 +4815,7 @@ msgstr ""
 "не е налично. Най-вероятна причиина е липсващ фърмуер (за безжичните "
 "устройства). За подробности вижте резултата от dmesg."
 
-#: src/modules/LanItems.rb:1495
+#: src/modules/LanItems.rb:1502
 msgid ""
 "The device is not configured. Press <b>Edit</b>\n"
 "to configure.\n"
@@ -4812,11 +4823,11 @@ msgstr ""
 "Устройството не е настроено. За да го настроите\n"
 "натиснете <b>Редактиране</b>.\n"
 
-#: src/modules/LanItems.rb:1502
+#: src/modules/LanItems.rb:1509
 msgid "Needed firmware"
 msgstr "Необходим е фърмуер"
 
-#: src/modules/LanItems.rb:1502
+#: src/modules/LanItems.rb:1509
 msgid "unknown"
 msgstr "неизвестно"
 
@@ -4826,13 +4837,13 @@ msgstr "неизвестно"
 #. @param [String] ifcfg_type
 #. @param [String] ifcfg_name
 #. @return [String] formated string with the interface type and the interfaces enslaved
-#: src/modules/LanItems.rb:2518
+#: src/modules/LanItems.rb:2525
 #, fuzzy
 #| msgid "Bond slaves"
 msgid "Bonding slaves"
 msgstr "Подчинени в сплотената мрежа"
 
-#: src/modules/LanItems.rb:2521
+#: src/modules/LanItems.rb:2528
 msgid "Bridge Ports"
 msgstr ""
 
