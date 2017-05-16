@@ -1,5 +1,6 @@
 #!/bin/bash
 shopt -s nullglob
+set -ex
 
 # Find out if we are in a directory containing a yast2 full checkout.
 if [ ! -d "translations/.git" ]; then
@@ -45,12 +46,11 @@ function make_pot {
 }
 
 function merge_pot {
-    local INFILES=$1
-    local OUTFILE=$2
+    local OUTFILE=$1
+    shift
+    local INFILES=$*
 
     # Use the POT headers from the first input file for the output file.
-    # Since $INFILES are sorted by mtime this means the headers from the newest
-    # input file are used.
     msgcat --use-first $INFILES -o $OUTFILE
 }
 
@@ -66,7 +66,7 @@ function strip_POT_dates {
 # -------
 
 # Pull all yast2 repositories:
-$Y2M pull
+#$Y2M pull
 
 # Clear the POT target directory
 rm -rf $TRANPARTS
@@ -87,11 +87,11 @@ for DOMAIN in * ; do
     # This directory is most likely already there, but just to make sure ...
     mkdir -p $TRANDIR/$DOMAIN
 
-    # List POT files in current directory sorted by mtime - newest first
-    POT_LIST=$(ls -1 -t $DOMAIN/*.pot)
+    # get POT files
+    POT_LIST=$DOMAIN/*.pot
     # We need to merge POT files in case there are several yast modules using
     # the same text domain.
-    merge_pot $POT_LIST $TRANDIR/$DOMAIN/$DOMAIN.pot.new
+    merge_pot $TRANDIR/$DOMAIN/$DOMAIN.pot.new $POT_LIST
     
     pushd $TRANDIR/$DOMAIN
 
@@ -142,5 +142,7 @@ done
 if [ "$ERR" != "" ]; then
     echo "$ERR errors occurred. Check *.err files in the ./po/ subdirectory"
     exit $ERR
+else
+    echo "Success! Good bye!"
 fi
 
