@@ -47,7 +47,7 @@ tools/yast-check-lcn-import.sh can be used to check consistency
 - Karl Eichwalder <ke@suse.com>
 
 
-## YaST Side
+### YaST Side
 
 - Creating .pot files in Jenkins: Christopher Hofmann <cwh@suse.com>
 - Jenkins in general: Ladislav Slezak <lslezak@suse.com>
