@@ -66,7 +66,7 @@ function strip_POT_dates {
 # -------
 
 # Pull all yast2 repositories:
-#$Y2M pull
+$Y2M pull
 
 # Clear the POT target directory
 rm -rf $TRANPARTS
