@@ -111,6 +111,7 @@ for DIR in * ; do
 		continue
 	fi
 	pushd $DIR >/dev/null
+	rm -f *.pot
 	$Y2MAKEPOT
 	for POT in *.pot ; do
 		DOMAIN=${POT%.pot}
