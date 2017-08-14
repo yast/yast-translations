@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: YaST (@memory@)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-08-04 02:29+0000\n"
+"POT-Creation-Date: 2017-08-14 02:29+0000\n"
 "PO-Revision-Date: 2013-05-29 21:56+0200\n"
 "Last-Translator: Eliran Itzhak <eliran@bigfoot.com>\n"
 "Language-Team: Hebrew <i18n@suse.de>\n"
@@ -14,6 +14,71 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 1.5.4\n"
+
+#  button text
+#. @param filesystem [Y2Storage::Filesystems::BlkFilesystem] a btrfs filesystem
+#: src/lib/y2partitioner/dialogs/btrfs_subvolume.rb:23
+#, fuzzy
+#| msgid "&Add Volume"
+msgid "Add subvolume"
+msgstr "^הוסף כרך"
+
+#. @param form [Dialogs::BtrfsSubvolume::Form]
+#. @param filesystem [Y2Storage::Filesystems::BlkFilesystem] a btrfs filesystem
+#. TRANSLATORS: table header, subvolume path e.g. "@/home"
+#: src/lib/y2partitioner/dialogs/btrfs_subvolume.rb:85
+#: src/lib/y2partitioner/widgets/btrfs_subvolumes_table.rb:92
+msgid "Path"
+msgstr ""
+
+#  error popup text
+#. Validates the path
+#.
+#. Path cannot be empty
+#. Path must start by default subvolume path
+#. Path must be uniq
+#: src/lib/y2partitioner/dialogs/btrfs_subvolume.rb:104
+#, fuzzy
+msgid "Empty subvolume path not allowed."
+msgstr ""
+"קבוצת כרכים בשם \"%1\" כבר קיימת.\n"
+"נא לבחור שם אחר\n"
+"או לבטל את הפעולה.\n"
+
+#  error popup text
+#: src/lib/y2partitioner/dialogs/btrfs_subvolume.rb:109
+#, fuzzy
+msgid "Subvolume name %s already exists."
+msgstr ""
+"קבוצת כרכים בשם \"%1\" כבר קיימת.\n"
+"נא לבחור שם אחר\n"
+"או לבטל את הפעולה.\n"
+
+#. Updates #value by prefixing path with default subvolume path if it is necessary
+#.
+#. Path should be a relative path. Starting slashes are removed. A popup message is
+#. presented when the default subvolume path is going to be added.
+#: src/lib/y2partitioner/dialogs/btrfs_subvolume.rb:141
+msgid ""
+"Only subvolume names starting with \"%{prefix}\" currently allowed!\n"
+"Automatically prepending \"%{prefix}\" to name of subvolume."
+msgstr ""
+
+#. TRANSLATORS: noCoW is acronym to "not use Copy on Write" feature for BtrFS.
+#. It is an expert value, so if no suitable expression exists in your language,
+#. then keep it as it is.
+#. TRANSLATORS: table header, nocow subvolume attribute (do not use copy
+#. on write feature)
+#: src/lib/y2partitioner/dialogs/btrfs_subvolume.rb:171
+#: src/lib/y2partitioner/widgets/btrfs_subvolumes_table.rb:98
+msgid "noCoW"
+msgstr ""
+
+#. @param filesystem [Y2Storage::Filesystems::BlkFilesystem] a btrfs filesystem
+#: src/lib/y2partitioner/dialogs/btrfs_subvolumes.rb:20
+#, fuzzy
+msgid "Edit Btrfs subvolumes"
+msgstr "שנה "
 
 #  Heading text
 #. @param options [Y2Partitioner::FormatMount::Options]
@@ -25,7 +90,7 @@ msgstr "הקישו את סיסמת הספק"
 
 #  button text
 #. @param options [Y2Partitioner::FormatMount::Options]
-#: src/lib/y2partitioner/dialogs/fstab_options.rb:18
+#: src/lib/y2partitioner/dialogs/fstab_options.rb:19
 #, fuzzy
 #| msgid "Fs&tab Options"
 msgid "Fstab Options:"
@@ -123,7 +188,9 @@ msgstr "גודל &נתח ב KB"
 #. TRANSLATORS: table header, size of block device e.g. "8.00 GiB"
 #. TRANSLATORS: table header, size of block device e.g. "8.00 GiB"
 #. TRANSLATORS: table header, size of block device e.g. "8.00 GiB"
+#. TRANSLATORS: table header, size of block device e.g. "8.00 GiB"
 #: src/lib/y2partitioner/dialogs/partition_size.rb:261
+#: src/lib/y2partitioner/widgets/btrfs_table.rb:93
 #: src/lib/y2partitioner/widgets/disk_table.rb:55
 #: src/lib/y2partitioner/widgets/lvm_lv_table.rb:54
 #: src/lib/y2partitioner/widgets/lvm_table.rb:54
@@ -270,12 +337,15 @@ msgid "Encrypted: %s"
 msgstr "ה&צפן קובץ"
 
 #  label text
+#. Values
 #: src/lib/y2partitioner/widgets/blk_device_attributes.rb:69
+#: src/lib/y2partitioner/widgets/btrfs_subvolumes_table.rb:108
 msgid "Yes"
 msgstr "כן"
 
 #  label text
 #: src/lib/y2partitioner/widgets/blk_device_attributes.rb:69
+#: src/lib/y2partitioner/widgets/btrfs_subvolumes_table.rb:108
 msgid "No"
 msgstr "לא"
 
@@ -318,13 +388,219 @@ msgstr "כונן"
 msgid "Hard Disks "
 msgstr "כונן"
 
+#  button text
+#  main dialog: Button Edit partition
+#  button text
+#. @see CWM::PushButton#Label
+#. Constructor
+#.
+#. @param disk [Y2Storage::Disk]
+#. @param table [Y2Partitioner::Widgets::BlkDevicesTable]
+#. do we need this in every little tiny class?
+#: src/lib/y2partitioner/widgets/btrfs_edit_button.rb:21
+#: src/lib/y2partitioner/widgets/disk_page.rb:104
+#: src/lib/y2partitioner/widgets/partition_page.rb:26
+#, fuzzy
+msgid "Edit..."
+msgstr "&ערוך"
+
+#  menu entry text
+#. Opens a dialog to manage the list of subvolumes. In case of there is no
+#. selected table row, it shows an error.
+#: src/lib/y2partitioner/widgets/btrfs_edit_button.rb:30
+#, fuzzy
+msgid "There is no filesystem selected to edit."
+msgstr "מחוק &רשימת המחיצות ואת תווית הכונן"
+
+#. @macro seeAbstractWidget
+#: src/lib/y2partitioner/widgets/btrfs_page.rb:17
+msgid "Btrfs"
+msgstr ""
+
+#. TRANSLATORS: Heading
+#: src/lib/y2partitioner/widgets/btrfs_page.rb:32
+#, fuzzy
+msgid "Btrfs Volumes"
+msgstr "שנה "
+
+#  button text
+#  Button in RAID-WF
+#  button text
+#. @param table [Widgets::BtrfsSubvolumesTable]
+#. Y2Storage::Disk
+#: src/lib/y2partitioner/widgets/btrfs_subvolumes_add_button.rb:22
+#: src/lib/y2partitioner/widgets/disk_page.rb:82
+#, fuzzy
+msgid "Add..."
+msgstr "ה&וסף"
+
 #  main dialog: Button Delete partition
+#. Widget label
 #. @param device
 #. @param table [Y2Partitioner::Widgets::BlkDevicesTable]
+#: src/lib/y2partitioner/widgets/btrfs_subvolumes_delete_button.rb:23
 #: src/lib/y2partitioner/widgets/delete_disk_partition_button.rb:25
 #, fuzzy
 msgid "Delete..."
 msgstr "&מחק"
+
+#  heading text
+#. Deletes a subvolume
+#.
+#. A confirmation popup is showed before deleting the subvolume.
+#. An error message is presented when there is no selected table row.
+#: src/lib/y2partitioner/widgets/btrfs_subvolumes_delete_button.rb:34
+#, fuzzy
+msgid "Nothing selected"
+msgstr "parted נכשל."
+
+#. TRANSLATORS: %s is the path of the subvolume to be deleted
+#: src/lib/y2partitioner/widgets/btrfs_subvolumes_delete_button.rb:38
+#, fuzzy
+#| msgid "Really delete %1?"
+msgid "Really delete subvolume %s?"
+msgstr "באמת למחוק %1?"
+
+#. Builds the help, including columns help
+#: src/lib/y2partitioner/widgets/btrfs_subvolumes_table.rb:52
+msgid "<p>The table contains:</p>"
+msgstr ""
+
+#  popup text , %1 is replaced by a disk name e.g. /dev/hda
+#. Help
+#: src/lib/y2partitioner/widgets/btrfs_subvolumes_table.rb:114
+#, fuzzy
+msgid "<b>Path</b> shows the subvolume path."
+msgstr "אי אפשר ליצור מחיצה על %1"
+
+#: src/lib/y2partitioner/widgets/btrfs_subvolumes_table.rb:118
+msgid ""
+"<b>noCoW</b> shows the subvolume noCoW attribute. If set, the subvolume "
+"explicitly does not use Btrfs copy on write feature. Copy on write means "
+"that when something is copied, the resource is shared without doing a real "
+"copy. The shared resource is actually copied when first write operation is "
+"performed. With noCoW, the resource is always copied during initialization. "
+"This is useful when runtime performace is required, so there is no risk for "
+"delaying copy when application is running."
+msgstr ""
+
+#  help text for cryptofs
+#. Table help
+#.
+#. Shows help of all columns
+#: src/lib/y2partitioner/widgets/btrfs_table.rb:45
+#, fuzzy
+msgid "<p>This view shows all Btrfs filesystems.</p><p>The table contains:</p>"
+msgstr ""
+"<p>\n"
+"עליכם להכניס את סיסמת ההצפנה שלכם.\n"
+"</p>"
+
+#  header text
+#  Column header
+#  header text
+#. TRANSLATORS: table header, Device is physical name of block device, e.g. "/dev/sda1"
+#. TRANSLATORS: table header, Device is physical name of block device
+#. like partition or disk e.g. "/dev/sda1"
+#. TRANSLATORS: table header, Device is physical name of block device
+#. like partition or disk e.g. "/dev/sda1"
+#. TRANSLATORS: table header, Device is physical name of block device
+#. like partition or disk e.g. "/dev/sda1"
+#. TRANSLATORS: table header, Device is physical name of block device
+#. like partition or disk e.g. "/dev/sda1"
+#. TRANSLATORS: table header, Device is physical name of block device
+#. like partition or disk e.g. "/dev/sda1"
+#: src/lib/y2partitioner/widgets/btrfs_table.rb:88
+#: src/lib/y2partitioner/widgets/disk_table.rb:53
+#: src/lib/y2partitioner/widgets/lvm_lv_table.rb:52
+#: src/lib/y2partitioner/widgets/lvm_table.rb:52
+#: src/lib/y2partitioner/widgets/md_raid_table.rb:56
+#: src/lib/y2partitioner/widgets/used_devices_table.rb:48
+msgid "Device"
+msgstr "התקן"
+
+#  Column header: minimum = 4 characters   fill with space if needed
+#. TRANSLATORS: table header, flag if device is encrypted. Keep it short,
+#. ideally three letters. Keep in sync with Enc used later for format marker.
+#. TRANSLATORS: table header, flag if device is encrypted. Keep it short,
+#. ideally three letters. Keep in sync with Enc used later for format marker.
+#. TRANSLATORS: table header, flag if device is encrypted. Keep it short,
+#. ideally three letters. Keep in sync with Enc used later for format marker.
+#. TRANSLATORS: table header, flag if device is encrypted. Keep it short,
+#. ideally three letters. Keep in sync with Enc used later for format marker.
+#. TRANSLATORS: table header, flag if device is encrypted. Keep it short,
+#. ideally three letters. Keep in sync with Enc used later for format marker.
+#. TRANSLATORS: table header, flag if device is encrypted. Keep it short,
+#. ideally three letters. Keep in sync with Enc used later for format marker.
+#: src/lib/y2partitioner/widgets/btrfs_table.rb:105
+#: src/lib/y2partitioner/widgets/disk_table.rb:59
+#: src/lib/y2partitioner/widgets/lvm_lv_table.rb:58
+#: src/lib/y2partitioner/widgets/lvm_table.rb:58
+#: src/lib/y2partitioner/widgets/md_raid_table.rb:62
+#: src/lib/y2partitioner/widgets/used_devices_table.rb:54
+#, fuzzy
+msgid "Enc"
+msgstr "סוף"
+
+#  Column header
+#. TRANSLATORS: table header, type of disk or partition. Can be longer. E.g. "Linux swap"
+#. TRANSLATORS: table header, type of disk or partition. Can be longer. E.g. "Linux swap"
+#. TRANSLATORS: table header, type of disk or partition. Can be longer. E.g. "Linux swap"
+#. TRANSLATORS: table header, type of disk or partition. Can be longer. E.g. "Linux swap"
+#. TRANSLATORS: table header, type of disk or partition. Can be longer. E.g. "Linux swap"
+#. TRANSLATORS: table header, type of disk or partition. Can be longer. E.g. "Linux swap"
+#: src/lib/y2partitioner/widgets/btrfs_table.rb:110
+#: src/lib/y2partitioner/widgets/disk_table.rb:61
+#: src/lib/y2partitioner/widgets/lvm_lv_table.rb:60
+#: src/lib/y2partitioner/widgets/lvm_table.rb:60
+#: src/lib/y2partitioner/widgets/md_raid_table.rb:64
+#: src/lib/y2partitioner/widgets/used_devices_table.rb:56
+msgid "Type"
+msgstr "סוג"
+
+#. TRANSLATORS: table header, Files system type. In this case "BtrFS"
+#. TRANSLATORS: table header, Files system type. Can be empty E.g. "BtrFS"
+#. TRANSLATORS: table header, Files system type. Can be empty E.g. "BtrFS"
+#. TRANSLATORS: table header, Files system type. Can be empty E.g. "BtrFS"
+#. TRANSLATORS: table header, Files system type. Can be empty E.g. "BtrFS"
+#: src/lib/y2partitioner/widgets/btrfs_table.rb:115
+#: src/lib/y2partitioner/widgets/disk_table.rb:63
+#: src/lib/y2partitioner/widgets/lvm_lv_table.rb:62
+#: src/lib/y2partitioner/widgets/lvm_table.rb:62
+#: src/lib/y2partitioner/widgets/md_raid_table.rb:66
+#, fuzzy
+msgid "FS Type"
+msgstr "סוג"
+
+#  Column header
+#. TRANSLATORS: table header, disk or partition label. Can be empty.
+#. TRANSLATORS: table header, disk or partition label. Can be empty.
+#. TRANSLATORS: table header, disk or partition label. Can be empty.
+#. TRANSLATORS: table header, disk or partition label. Can be empty.
+#. TRANSLATORS: table header, disk or partition label. Can be empty.
+#: src/lib/y2partitioner/widgets/btrfs_table.rb:120
+#: src/lib/y2partitioner/widgets/disk_table.rb:65
+#: src/lib/y2partitioner/widgets/lvm_lv_table.rb:64
+#: src/lib/y2partitioner/widgets/lvm_table.rb:64
+#: src/lib/y2partitioner/widgets/md_raid_table.rb:68
+msgid "Label"
+msgstr "תווית"
+
+#. TRANSLATORS: table header, where is device mounted. Can be empty. E.g. "/" or "/home"
+#. TRANSLATORS: table header, where is device mounted. Can be empty. E.g. "/" or "/home"
+#. MountPoint selector
+#. FIXME: Implement validate, verifying if the mount_point is in use.
+#. TRANSLATORS: table header, where is device mounted. Can be empty. E.g. "/" or "/home"
+#. TRANSLATORS: table header, where is device mounted. Can be empty. E.g. "/" or "/home"
+#. TRANSLATORS: table header, where is device mounted. Can be empty. E.g. "/" or "/home"
+#: src/lib/y2partitioner/widgets/btrfs_table.rb:125
+#: src/lib/y2partitioner/widgets/disk_table.rb:67
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:321
+#: src/lib/y2partitioner/widgets/lvm_lv_table.rb:66
+#: src/lib/y2partitioner/widgets/lvm_table.rb:66
+#: src/lib/y2partitioner/widgets/md_raid_table.rb:70
+msgid "Mount Point"
+msgstr "נקודת עגינה"
 
 #: src/lib/y2partitioner/widgets/delete_disk_partition_button.rb:32
 #, fuzzy
@@ -466,29 +742,6 @@ msgstr "כונן"
 msgid "&Overview"
 msgstr "&צפיה"
 
-#  button text
-#  Button in RAID-WF
-#  button text
-#. Y2Storage::Disk
-#: src/lib/y2partitioner/widgets/disk_page.rb:82
-#, fuzzy
-msgid "Add..."
-msgstr "ה&וסף"
-
-#  button text
-#  main dialog: Button Edit partition
-#  button text
-#. Constructor
-#.
-#. @param disk [Y2Storage::Disk]
-#. @param table [Y2Partitioner::Widgets::BlkDevicesTable]
-#. do we need this in every little tiny class?
-#: src/lib/y2partitioner/widgets/disk_page.rb:104
-#: src/lib/y2partitioner/widgets/partition_page.rb:26
-#, fuzzy
-msgid "Edit..."
-msgstr "&ערוך"
-
 #  menu entry text
 #: src/lib/y2partitioner/widgets/disk_page.rb:109
 #, fuzzy
@@ -501,99 +754,6 @@ msgstr "מחוק &רשימת המחיצות ואת תווית הכונן"
 #, fuzzy
 msgid "&Partitions"
 msgstr "מחיצה"
-
-#  header text
-#  Column header
-#  header text
-#. TRANSLATORS: table header, Device is physical name of block device
-#. like partition or disk e.g. "/dev/sda1"
-#. TRANSLATORS: table header, Device is physical name of block device
-#. like partition or disk e.g. "/dev/sda1"
-#. TRANSLATORS: table header, Device is physical name of block device
-#. like partition or disk e.g. "/dev/sda1"
-#. TRANSLATORS: table header, Device is physical name of block device
-#. like partition or disk e.g. "/dev/sda1"
-#. TRANSLATORS: table header, Device is physical name of block device
-#. like partition or disk e.g. "/dev/sda1"
-#: src/lib/y2partitioner/widgets/disk_table.rb:53
-#: src/lib/y2partitioner/widgets/lvm_lv_table.rb:52
-#: src/lib/y2partitioner/widgets/lvm_table.rb:52
-#: src/lib/y2partitioner/widgets/md_raid_table.rb:56
-#: src/lib/y2partitioner/widgets/used_devices_table.rb:48
-msgid "Device"
-msgstr "התקן"
-
-#  Column header: minimum = 4 characters   fill with space if needed
-#. TRANSLATORS: table header, flag if device is encrypted. Keep it short,
-#. ideally three letters. Keep in sync with Enc used later for format marker.
-#. TRANSLATORS: table header, flag if device is encrypted. Keep it short,
-#. ideally three letters. Keep in sync with Enc used later for format marker.
-#. TRANSLATORS: table header, flag if device is encrypted. Keep it short,
-#. ideally three letters. Keep in sync with Enc used later for format marker.
-#. TRANSLATORS: table header, flag if device is encrypted. Keep it short,
-#. ideally three letters. Keep in sync with Enc used later for format marker.
-#. TRANSLATORS: table header, flag if device is encrypted. Keep it short,
-#. ideally three letters. Keep in sync with Enc used later for format marker.
-#: src/lib/y2partitioner/widgets/disk_table.rb:59
-#: src/lib/y2partitioner/widgets/lvm_lv_table.rb:58
-#: src/lib/y2partitioner/widgets/lvm_table.rb:58
-#: src/lib/y2partitioner/widgets/md_raid_table.rb:62
-#: src/lib/y2partitioner/widgets/used_devices_table.rb:54
-#, fuzzy
-msgid "Enc"
-msgstr "סוף"
-
-#  Column header
-#. TRANSLATORS: table header, type of disk or partition. Can be longer. E.g. "Linux swap"
-#. TRANSLATORS: table header, type of disk or partition. Can be longer. E.g. "Linux swap"
-#. TRANSLATORS: table header, type of disk or partition. Can be longer. E.g. "Linux swap"
-#. TRANSLATORS: table header, type of disk or partition. Can be longer. E.g. "Linux swap"
-#. TRANSLATORS: table header, type of disk or partition. Can be longer. E.g. "Linux swap"
-#: src/lib/y2partitioner/widgets/disk_table.rb:61
-#: src/lib/y2partitioner/widgets/lvm_lv_table.rb:60
-#: src/lib/y2partitioner/widgets/lvm_table.rb:60
-#: src/lib/y2partitioner/widgets/md_raid_table.rb:64
-#: src/lib/y2partitioner/widgets/used_devices_table.rb:56
-msgid "Type"
-msgstr "סוג"
-
-#. TRANSLATORS: table header, Files system type. Can be empty E.g. "BtrFS"
-#. TRANSLATORS: table header, Files system type. Can be empty E.g. "BtrFS"
-#. TRANSLATORS: table header, Files system type. Can be empty E.g. "BtrFS"
-#. TRANSLATORS: table header, Files system type. Can be empty E.g. "BtrFS"
-#: src/lib/y2partitioner/widgets/disk_table.rb:63
-#: src/lib/y2partitioner/widgets/lvm_lv_table.rb:62
-#: src/lib/y2partitioner/widgets/lvm_table.rb:62
-#: src/lib/y2partitioner/widgets/md_raid_table.rb:66
-#, fuzzy
-msgid "FS Type"
-msgstr "סוג"
-
-#  Column header
-#. TRANSLATORS: table header, disk or partition label. Can be empty.
-#. TRANSLATORS: table header, disk or partition label. Can be empty.
-#. TRANSLATORS: table header, disk or partition label. Can be empty.
-#. TRANSLATORS: table header, disk or partition label. Can be empty.
-#: src/lib/y2partitioner/widgets/disk_table.rb:65
-#: src/lib/y2partitioner/widgets/lvm_lv_table.rb:64
-#: src/lib/y2partitioner/widgets/lvm_table.rb:64
-#: src/lib/y2partitioner/widgets/md_raid_table.rb:68
-msgid "Label"
-msgstr "תווית"
-
-#. TRANSLATORS: table header, where is device mounted. Can be empty. E.g. "/" or "/home"
-#. MountPoint selector
-#. FIXME: Implement validate, verifying if the mount_point is in use.
-#. TRANSLATORS: table header, where is device mounted. Can be empty. E.g. "/" or "/home"
-#. TRANSLATORS: table header, where is device mounted. Can be empty. E.g. "/" or "/home"
-#. TRANSLATORS: table header, where is device mounted. Can be empty. E.g. "/" or "/home"
-#: src/lib/y2partitioner/widgets/disk_table.rb:67
-#: src/lib/y2partitioner/widgets/format_and_mount.rb:321
-#: src/lib/y2partitioner/widgets/lvm_lv_table.rb:66
-#: src/lib/y2partitioner/widgets/lvm_table.rb:66
-#: src/lib/y2partitioner/widgets/md_raid_table.rb:70
-msgid "Mount Point"
-msgstr "נקודת עגינה"
 
 #  Column header: minimum = 5 characters   fill with space if needed
 #. TRANSLATORS: table header, which sector is the first one for device. E.g. "0"
@@ -1490,65 +1650,61 @@ msgid ""
 msgstr "<p><b>הוסף מחיצות</b> (נקרא גם כרכים פיזיים) לקבוצת כרכים.</p>"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/overview.rb:41
+#: src/lib/y2partitioner/widgets/overview.rb:42
 #, fuzzy
 msgid "System View"
 msgstr "מערכת"
 
 #  table column headings
 #. TODO: only if there is graph support UI.HasSpecialWidget(:Graph)
-#: src/lib/y2partitioner/widgets/overview.rb:66
+#: src/lib/y2partitioner/widgets/overview.rb:67
 #, fuzzy
 msgid "Device Graph"
 msgstr "התקן"
 
 #  main dialog: Menu-Button for Expert options
 #. TODO: only if there is graph support UI.HasSpecialWidget(:Graph)
-#: src/lib/y2partitioner/widgets/overview.rb:68
+#: src/lib/y2partitioner/widgets/overview.rb:69
 #, fuzzy
 msgid "Mount Graph"
 msgstr "&מתקדם"
 
-#: src/lib/y2partitioner/widgets/overview.rb:69
+#: src/lib/y2partitioner/widgets/overview.rb:70
 #, fuzzy
 msgid "Installation Summary"
 msgstr "התקנת מקור"
 
-#: src/lib/y2partitioner/widgets/overview.rb:70
+#: src/lib/y2partitioner/widgets/overview.rb:71
 #, fuzzy
 msgid "Settings"
 msgstr "הגדרות&"
 
 #  button text
 #. TODO: real subtree
-#: src/lib/y2partitioner/widgets/overview.rb:150
+#: src/lib/y2partitioner/widgets/overview.rb:151
 #, fuzzy
 msgid "Crypt Files"
 msgstr "ה&צפן קובץ"
 
 #  label text
 #. TODO: real subtree
-#: src/lib/y2partitioner/widgets/overview.rb:155
+#: src/lib/y2partitioner/widgets/overview.rb:156
 #, fuzzy
 msgid "Device Mapper"
 msgstr "&שם התקן"
 
 #  main dialog: Button EVMS
-#: src/lib/y2partitioner/widgets/overview.rb:159
+#: src/lib/y2partitioner/widgets/overview.rb:160
 #, fuzzy
 msgid "NFS"
 msgstr "E&VMS..."
 
-#: src/lib/y2partitioner/widgets/overview.rb:163
-msgid "Btrfs"
-msgstr ""
-
-#: src/lib/y2partitioner/widgets/overview.rb:167
+#: src/lib/y2partitioner/widgets/overview.rb:168
 msgid "tmpfs"
 msgstr ""
 
 #  label text, %1 is replaced by a unit value ("MB")
-#: src/lib/y2partitioner/widgets/overview.rb:171
+#: src/lib/y2partitioner/widgets/overview.rb:172
 #, fuzzy
 msgid "Unused Devices"
 msgstr "דיסק לא בשימוש (%1)"
@@ -4790,12 +4946,6 @@ msgstr "&ערוך"
 #, fuzzy
 msgid "Delete"
 msgstr "&מחק"
-
-#. heading
-#: src/include/partitioning/ep-btrfs.rb:130
-#, fuzzy
-msgid "Btrfs Volumes"
-msgstr "שנה "
 
 #  help text for cryptofs
 #. helptext
@@ -8731,17 +8881,6 @@ msgstr "תווית"
 msgid "Port ID: %1"
 msgstr "מפרמט %1"
 
-#. The predicate function determines whether the disk/partition is
-#. included. The predicate function takes two arguments, disk and
-#. partition. For disks predicate is called with the partitions set to
-#. nil.
-#.
-#. Possible return values for predicate:
-#. `show, `follow, `showandfollow, `ignore
-#: src/modules/StorageFields.rb:1304
-msgid "<p>The table contains:</p>"
-msgstr ""
-
 #. heading
 #: src/modules/StorageFields.rb:1365
 msgid "Fibre Channel:"
@@ -12513,10 +12652,6 @@ msgstr ""
 
 #~ msgid "  Type  "
 #~ msgstr "סוג"
-
-#  button text
-#~ msgid "&Add Volume"
-#~ msgstr "^הוסף כרך"
 
 #  button text
 #~ msgid "&Remove Volume"
