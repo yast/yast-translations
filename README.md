@@ -19,17 +19,17 @@ tools/yast-check-lcn-import.sh can be used to check consistency
 - Jenkins CI build is triggered
 - Upon success, the .pot files are generated in Jenkins
 - Resulting .pot files are automatically checked into WebLate by Jenkins
-- WebLate integrates new or changed messages into the .po.xy files
+- WebLate integrates new or changed messages into the .LL.po files
 
 
 ## openSUSE Products (Tumbleweed, Leap)
 
-- Community translators translate the changed messages in the .po.xy files
+- Community translators translate the changed messages in the .LL.po files
 - Community translators check their changes in to WebLate
 - Weblate pushes changes to GitHub
-- .mo.xy files are generated
-- yast-trans-xy packages are rebuilt
-- Update repos and installation ISOs are rebuilt with those new yast-trans-xy
+- .LL.mo files are generated
+- yast-trans-LL packages are rebuilt
+- Update repos and installation ISOs are rebuilt with those new yast-trans-LL
   packages
 
 
@@ -37,13 +37,12 @@ tools/yast-check-lcn-import.sh can be used to check consistency
 ## SLE Products
 
 - .pot files are checked into the translation SVN (manual step)
-- Translation coordinator pulls pot files from SVN to a proprietary tool
-- Professional translators translate the changed messages in the .po.xy files
-- Translators check their changes into proprierary tool
-- Translatoion coordinators check their changes into SVN
-- .mo.xy files are generated (triggered manually (?))
-- yast-trans-xy packages are rebuilt
-- Update repos and installation ISOs are rebuilt with those new yast-trans-xy
+- Translation coordinator (Globalization Services) pulls .pot files from SVN to a proprietary tool
+- Vendor translators translate the changed messages in the .LL.po files
+- [Vendor translators check their changes into proprierary tool]
+- Vendor translators check their changes into SVN
+- yast-trans-LL packages are rebuilt (.LL.mo files are compiled in the OBS)
+- Update repos and installation ISOs are rebuilt with those new yast-trans-LL
   packages
 
 
