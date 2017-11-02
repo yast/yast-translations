@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: installation.lt\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-08-15 02:28+0000\n"
+"POT-Creation-Date: 2017-11-02 22:17+0100\n"
 "PO-Revision-Date: 2017-07-30 19:33+0000\n"
 "Last-Translator: Mindaugas Baranauskas <opensuse.lietuviu.kalba@gmail.com>\n"
 "Language-Team: Lithuanian <https://l10n.opensuse.org/projects/yast-"
@@ -23,6 +23,41 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n==1 ? 0 : n%10>=2 && (n%100<10 || n"
 "%100>=20) ? 1 : n%10==0 || (n%100>10 && n%100<20) ? 2 : 3);\n"
 "X-Generator: Weblate 2.13.1\n"
+
+#: src/lib/services-manager/clients/services-manager_finish.rb:11
+msgid "Setting default target and system services ..."
+msgstr "Priskiriama numatytoji paskirtis ir sistemos paslaugos..."
+
+#. Client main method
+#: src/lib/y2packager/clients/inst_repositories_initialization.rb:42
+msgid ""
+"Failed to initialize the software repositories.\n"
+"Aborting the installation."
+msgstr ""
+"Nepavyko įkelti programinės įrangos saugyklų.\n"
+"Diegimas nutraukiamas."
+
+#: src/lib/y2packager/clients/inst_repositories_initialization.rb:49
+#, fuzzy
+#| msgid ""
+#| "Failed to initialize the software repositories.\n"
+#| "Aborting the installation."
+msgid ""
+"Unable to find base products to install.\n"
+"Aborting the installation."
+msgstr ""
+"Nepavyko įkelti programinės įrangos saugyklų.\n"
+"Diegimas nutraukiamas."
+
+#. Proposal client for Network configuration
+#: src/lib/network/clients/network_proposal.rb:19
+#: src/lib/network/clients/network_proposal.rb:20
+msgid "Network Configuration"
+msgstr "Tinklo konfigūracija"
+
+#: src/lib/network/clients/network_proposal.rb:25
+msgid "preformatted_proposal"
+msgstr ""
 
 #. help for the dialog - busy message
 #: src/include/installation/inst_inc_all.rb:56
@@ -214,7 +249,7 @@ msgstr ""
 #. Text for confirmation popup before the update really starts 3/3
 #. Text for confirmation popup before the update really starts 3/3
 #: src/include/installation/misc.rb:212 src/include/installation/misc.rb:230
-#: src/lib/installation/proposal_runner.rb:141
+#: src/lib/installation/proposal_runner.rb:146
 msgid "<p>Go back and check the settings if you are unsure.</p>"
 msgstr ""
 "<p>Jei nesate užtikrintas, grįžkite atgal ir patikrinkite nuostatas.</p>"
@@ -222,21 +257,21 @@ msgstr ""
 #. Heading for confirmation popup before the update really starts
 #. Heading for confirmation popup before the update really starts
 #: src/include/installation/misc.rb:218
-#: src/lib/installation/proposal_runner.rb:129
+#: src/lib/installation/proposal_runner.rb:134
 msgid "Confirm Update"
 msgstr "Patvirtinti atnaujinimą"
 
 #. Text for confirmation popup before the update really starts 1/3
 #. Text for confirmation popup before the update really starts 1/3
 #: src/include/installation/misc.rb:222
-#: src/lib/installation/proposal_runner.rb:133
+#: src/lib/installation/proposal_runner.rb:138
 msgid "<p>Information required to perform an update is now complete.</p>"
 msgstr "<p>Surinkta informacija, reikalinga atnaujinimui.</p>"
 
 #. Text for confirmation popup before the update really starts 2/3
 #. Text for confirmation popup before the update really starts 2/3
 #: src/include/installation/misc.rb:224
-#: src/lib/installation/proposal_runner.rb:135
+#: src/lib/installation/proposal_runner.rb:140
 msgid ""
 "\n"
 "<p>If you continue now, data on your hard disk will be overwritten\n"
@@ -249,7 +284,7 @@ msgstr ""
 #. Label for the button that confirms startint the installation
 #. Label for the button that confirms startint the installation
 #: src/include/installation/misc.rb:233
-#: src/lib/installation/proposal_runner.rb:144
+#: src/lib/installation/proposal_runner.rb:149
 msgid "Start &Update"
 msgstr "Pradėti atna&ujinimą"
 
@@ -542,7 +577,6 @@ msgid "Updates for %1 %2"
 msgstr "%1 %2 atnaujinimai"
 
 #: src/lib/installation/clients/inst_addon_update_sources.rb:172
-#: src/lib/installation/clients/inst_system_analysis.rb:322
 msgid "Unknown Product"
 msgstr "Nežinomas produktas"
 
@@ -571,135 +605,21 @@ msgstr ""
 "Pasirinkite, ar dabar paleisti atnaujinimą internetu.\n"
 "Galite praleisti šį žingsnį ir paleisti atnaujinimą internetu vėliau.\n"
 
-#. This client shows main dialog for choosing the language,
-#. keyboard and accepting the license.
-#: src/lib/installation/clients/inst_complex_welcome.rb:33
-msgid "Language, Keyboard and License Agreement"
-msgstr "Kalba, klaviatūra ir licencija"
-
-#. In case of going back, Release Notes button may be shown, retranslate it (bnc#886660)
-#. Assure that relnotes have been downloaded first
-#. download release notes now
-#. push button
-#: src/lib/installation/clients/inst_complex_welcome.rb:178
-#: src/lib/installation/clients/inst_download_release_notes.rb:206
-#: src/lib/installation/clients/inst_system_analysis.rb:320
-msgid "Re&lease Notes..."
-msgstr "&Pastabos šiai versijai"
-
-#. help text for initial (first time) language screen
-#: src/lib/installation/clients/inst_complex_welcome.rb:192
-msgid ""
-"<p>\n"
-"Choose the <b>Language</b> and the <b>Keyboard layout</b> to be used during\n"
-"installation and for the installed system.\n"
-"</p>\n"
+#. Reports an error if no product is selected or if the selected product
+#. requires a license agreement and it has not been confirmed.
+#.
+#. @return [Boolean] true if a product has been selected and license
+#. agreement confirmed when required; false otherwise
+#. reset both YaST and user selection (when going back or any products
+#. selected by YaST in the previous steps)
+#: src/lib/installation/clients/inst_complex_welcome.rb:198
+#: src/lib/installation/widgets/product_selector.rb:57
+msgid "Please select a product to install."
 msgstr ""
-"<p>\n"
-"Pasirinkite <b>kalbą<b> ir <b>klaviatūros išdėstymą</b>, naudosimus diegimo "
-"metu \n"
-"ir įdiegtoje sistemoje.\n"
-"</p>\n"
 
-#. help text, continued
-#. Describes the #ICW_B1 button
-#: src/lib/installation/clients/inst_complex_welcome.rb:200
-msgid ""
-"<p>\n"
-"The license must be accepted before the installation continues.\n"
-"Use <b>License Translations...</b> to show the license in all available "
-"translations.\n"
-"</p>\n"
-msgstr ""
-"<p>\n"
-"Diegimas tęsis tik sutikus su licencija.\n"
-"Pasirinkite <b>Licencijos vertimai...</b> norėdami matyti licenciją kitomis "
-"prieinamomis kalbomis.\n"
-"</p>\n"
-
-#. help text, continued
-#: src/lib/installation/clients/inst_complex_welcome.rb:207
-msgid ""
-"<p>\n"
-"Click <b>Next</b> to proceed to the next dialog.\n"
-"</p>\n"
-msgstr ""
-"<p>\n"
-"Norėdami tęsti, spauskite <b>Toliau</b>.\n"
-"</p>\n"
-
-#. help text, continued
-#: src/lib/installation/clients/inst_complex_welcome.rb:213
-msgid ""
-"<p>\n"
-"Nothing will happen to your computer until you confirm\n"
-"all your settings in the last installation dialog.\n"
-"</p>\n"
-msgstr ""
-"<p>\n"
-"Jūsų kompiuteryje niekas nepasikeis, kol jūs paskutiniame\n"
-"diegimo dialoge nepatvirtinsite visų savo parinkčių.\n"
-"</p>\n"
-
-#. help text, continued
-#: src/lib/installation/clients/inst_complex_welcome.rb:220
-msgid ""
-"<p>\n"
-"Select <b>Abort</b> to abort the\n"
-"installation process at any time.\n"
-"</p>\n"
-msgstr ""
-"<p>\n"
-"Bet kuriuo metu galite spausti <b>Nutraukti diegimą</b> ir išeiti\n"
-"iš diegimo proceso.\n"
-"</p>\n"
-
-#. TRANSLATORS: dialog caption
-#: src/lib/installation/clients/inst_complex_welcome.rb:236
-#: src/lib/installation/clients/inst_complex_welcome.rb:434
-msgid "License Agreement"
-msgstr "Licencijos sutartis"
-
-#. combo box label
-#. combobox
-#. TRANSLATORS: Combo box
-#: src/lib/installation/clients/inst_complex_welcome.rb:260
-#: src/lib/installation/clients/inst_release_notes.rb:217
-#: src/lib/installation/clients/inst_release_notes.rb:429
-msgid "&Language"
-msgstr "Ka&lba"
-
-#. combo box label
-#: src/lib/installation/clients/inst_complex_welcome.rb:270
-msgid "&Keyboard Layout"
-msgstr "&Klaviatūros išdėstymas"
-
-#. TRANSLATORS: check-box
-#: src/lib/installation/clients/inst_complex_welcome.rb:284
-msgid "I &Agree to the License Terms."
-msgstr "&Sutinku su licencijos sąlygomis."
-
-#. Report error about missing license acceptance
-#: src/lib/installation/clients/inst_complex_welcome.rb:311
+#: src/lib/installation/clients/inst_complex_welcome.rb:201
 msgid "You must accept the license to install this product"
 msgstr "Prieš diegdami produktą, turite sutikti su jo licencijos sąlygomis"
-
-#. TRANSLATORS: addition license information
-#. %1 is replaced with the filename. Please keep
-#. the translation VERY short.
-#: src/lib/installation/clients/inst_complex_welcome.rb:402
-msgid "EULA location in the installed system: %s"
-msgstr "Licencijos vieta įdiegtoje sistemoje: %s"
-
-#. this type of contents will be shown only for initial installation dialog
-#: src/lib/installation/clients/inst_complex_welcome.rb:425
-msgid "K&eyboard Test"
-msgstr "&Klaviatūros tikrinimas"
-
-#. TRANSLATORS: button label
-#: src/lib/installation/clients/inst_complex_welcome.rb:459
-msgid "License &Translations..."
-msgstr "Licencijos &vertimai..."
 
 #. TRANSLATORS: check box, see #ZMD
 #: src/lib/installation/clients/inst_congratulate.rb:107
@@ -919,7 +839,7 @@ msgid "Configure &iSCSI Disks"
 msgstr "Konfigūruot &iSCSIi diskus"
 
 #. Finish
-#: src/lib/installation/clients/inst_disks_activate.rb:176
+#: src/lib/installation/clients/inst_disks_activate.rb:167
 msgid "Net&work Configuration..."
 msgstr "&Tinklo konfigūracija..."
 
@@ -937,17 +857,22 @@ msgstr "<p>Diegimas dar tik prasideda!</p>"
 #. FIXME: use a better title (reused existing texts because of text freeze)
 #. TRANSLATORS: dialog caption
 #. bug #302384
-#: src/lib/installation/clients/inst_download_release_notes.rb:214
+#: src/lib/installation/clients/inst_download_release_notes.rb:71
 #: src/lib/installation/clients/inst_initialization.rb:56
 #: src/lib/installation/clients/inst_installation_options.rb:149
 msgid "Initializing"
 msgstr "Paleidžiama"
 
 #. TRANSLATORS: dialog progress message
-#: src/lib/installation/clients/inst_download_release_notes.rb:214
+#: src/lib/installation/clients/inst_download_release_notes.rb:71
 #: src/lib/installation/clients/inst_initialization.rb:44
 msgid "Initializing the installation..."
 msgstr "Paleidžiamas diegimas..."
+
+#. Refresh release notes UI
+#: src/lib/installation/clients/inst_download_release_notes.rb:114
+msgid "Re&lease Notes..."
+msgstr "&Pastabos šiai versijai"
 
 #. popup message, list of repositores is appended to the text
 #: src/lib/installation/clients/inst_extrasources.rb:141
@@ -1032,16 +957,6 @@ msgstr "%1 klientas grąžino netinkamus duomenis."
 #: src/lib/installation/clients/inst_finish.rb:585
 msgid "Checking stage: %1..."
 msgstr "Tikrinamas etapas: %1..."
-
-#. Button to accept a license agreement
-#: src/lib/installation/clients/inst_info.rb:63
-msgid "I &Agree"
-msgstr "&Sutinku"
-
-#. Button to reject a license agreement
-#: src/lib/installation/clients/inst_info.rb:67
-msgid "I Do &Not Agree"
-msgstr "&Nesutinku"
 
 #. TRANSLATORS: dialog help
 #: src/lib/installation/clients/inst_initialization.rb:42
@@ -1237,6 +1152,13 @@ msgstr "Kalba: %1"
 msgid "Release Notes"
 msgstr "Pastabos šiai versijai"
 
+#. combobox
+#. TRANSLATORS: Combo box
+#: src/lib/installation/clients/inst_release_notes.rb:217
+#: src/lib/installation/clients/inst_release_notes.rb:429
+msgid "&Language"
+msgstr "Ka&lba"
+
 #. +2 thingies on the right
 #: src/lib/installation/clients/inst_release_notes.rb:248
 msgid "&Product"
@@ -1308,27 +1230,35 @@ msgstr "Bandyti standžiuosius diskus"
 msgid "Probing hard disks..."
 msgstr "Bandomi standieji diskai..."
 
-#. storage-ng
-#: src/lib/installation/clients/inst_system_analysis.rb:141
+#. FATE #302980: Simplified user config during installation
+#: src/lib/installation/clients/inst_system_analysis.rb:134
+msgid "Search for system files"
+msgstr "Ieškoti sisteminių rinkmenų"
+
+#: src/lib/installation/clients/inst_system_analysis.rb:135
+msgid "Searching for system files..."
+msgstr "Ieškoma sisteminių rinkmenų..."
+
+#: src/lib/installation/clients/inst_system_analysis.rb:138
 msgid "Initialize software manager"
 msgstr "Paruošti programinės įrangos tvarkytuvę"
 
-#: src/lib/installation/clients/inst_system_analysis.rb:142
+#: src/lib/installation/clients/inst_system_analysis.rb:139
 msgid "Initializing software manager..."
 msgstr "Ruošiama programinės įrangos tvarkytuvė..."
 
 #. TRANSLATORS: dialog caption
-#: src/lib/installation/clients/inst_system_analysis.rb:147
+#: src/lib/installation/clients/inst_system_analysis.rb:144
 msgid "System Probing"
 msgstr "Tikrinama sistema"
 
 #. TRANSLATORS: dialog help
-#: src/lib/installation/clients/inst_system_analysis.rb:153
+#: src/lib/installation/clients/inst_system_analysis.rb:150
 msgid "YaST is probing computer hardware and installed systems now."
 msgstr "YaST tiria kompiuterio įrenginius ir įdiegtą sistemą..."
 
 #. additonal error when HW was not found
-#: src/lib/installation/clients/inst_system_analysis.rb:258
+#: src/lib/installation/clients/inst_system_analysis.rb:255
 msgid ""
 "\n"
 "Check 'drivers.suse.com' if you need specific hardware drivers for "
@@ -1339,7 +1269,7 @@ msgstr ""
 "aparatinės įrangos tvarkyklių."
 
 #. pop-up error report
-#: src/lib/installation/clients/inst_system_analysis.rb:272
+#: src/lib/installation/clients/inst_system_analysis.rb:269
 msgid ""
 "No hard disks were found for the installation.\n"
 "Please check your hardware!\n"
@@ -1349,7 +1279,7 @@ msgstr ""
 "Patikrinkite savo įrenginius!\n"
 "%1\n"
 
-#: src/lib/installation/clients/inst_system_analysis.rb:282
+#: src/lib/installation/clients/inst_system_analysis.rb:279
 msgid ""
 "No hard disks were found for the installation.\n"
 "During an automatic installation, they might be detected later.\n"
@@ -1360,7 +1290,7 @@ msgstr ""
 "(ypač S/390 ar iSCSI sistemose)\n"
 
 #. pop-up error report
-#: src/lib/installation/clients/inst_system_analysis.rb:293
+#: src/lib/installation/clients/inst_system_analysis.rb:290
 msgid ""
 "No hard disks and no hard disk controllers were\n"
 "found for the installation.\n"
@@ -1370,15 +1300,6 @@ msgstr ""
 "Nerasta standžiųjų diskų ir jų valdiklių, reikalingų diegimui.\n"
 "Patikrinkite savo aparatinę įrangą.\n"
 "%1\n"
-
-#. popup message
-#: src/lib/installation/clients/inst_system_analysis.rb:338
-msgid ""
-"Failed to initialize the software repositories.\n"
-"Aborting the installation."
-msgstr ""
-"Nepavyko įkelti programinės įrangos saugyklų.\n"
-"Diegimas nutraukiamas."
 
 #. Return the self-update URLs
 #.
@@ -1549,8 +1470,8 @@ msgstr "URL"
 #. menu button
 #. menu button
 #: src/lib/installation/clients/inst_upgrade_urls.rb:247
-#: src/lib/installation/proposal_runner.rb:675
-#: src/lib/installation/proposal_runner.rb:793
+#: src/lib/installation/proposal_runner.rb:680
+#: src/lib/installation/proposal_runner.rb:798
 msgid "&Change..."
 msgstr "&Pakeisti..."
 
@@ -1887,7 +1808,7 @@ msgid "Moving to installed system..."
 msgstr "Perkeliama į įdiegtą sistemą..."
 
 #. progress step title
-#: src/lib/installation/clients/umount_finish.rb:71
+#: src/lib/installation/clients/umount_finish.rb:74
 msgid "Unmounting all mounted devices..."
 msgstr "Atjungiami visi prijungti įrenginiai..."
 
@@ -1951,7 +1872,7 @@ msgstr ""
 
 #. The dialog is used to select from available product that can do system installation.
 #. Currently it is mainly used for LeanOS that have on one media more products.
-#: src/lib/installation/dialogs/product_selection.rb:24
+#: src/lib/installation/dialogs/product_selection.rb:20
 #, fuzzy
 #| msgid "Desktop Selection"
 msgid "Product Selection"
@@ -2014,22 +1935,22 @@ msgstr ""
 "Klaidos:\n"
 
 #. question in a popup box
-#: src/lib/installation/proposal_runner.rb:212
+#: src/lib/installation/proposal_runner.rb:217
 msgid "Really reset everything to default values?"
 msgstr "Tikrai atstatyti įprastas reikšmes?"
 
 #. explain consequences of a decision
-#: src/lib/installation/proposal_runner.rb:214
+#: src/lib/installation/proposal_runner.rb:219
 msgid "You will lose all changes."
 msgstr "Jūs prarasite visus pakeitimus."
 
 #. message show when user has disabled the configuration
-#: src/lib/installation/proposal_runner.rb:260
+#: src/lib/installation/proposal_runner.rb:265
 msgid "Skipping configuration upon user request"
 msgstr "Pagal naudotojo pageidavimą praleidžiamas konfigūravimas"
 
 #. error message is a popup
-#: src/lib/installation/proposal_runner.rb:282
+#: src/lib/installation/proposal_runner.rb:287
 msgid ""
 "The proposal contains an error that must be\n"
 "resolved before continuing.\n"
@@ -2038,25 +1959,25 @@ msgstr ""
 "reikia sutvarkyti.\n"
 
 #. busy message
-#: src/lib/installation/proposal_runner.rb:404
+#: src/lib/installation/proposal_runner.rb:409
 msgid "Adapting the proposal to the current settings..."
 msgstr "Pritaikomas pasiūlymas esamoms nuostatoms..."
 
 #. busy message;
 #. Initial contents of proposal subwindow while proposals are calculated
-#: src/lib/installation/proposal_runner.rb:408
-#: src/lib/installation/proposal_runner.rb:695
+#: src/lib/installation/proposal_runner.rb:413
+#: src/lib/installation/proposal_runner.rb:700
 msgid "Analyzing your system..."
 msgstr "Analizuojama jūsų sistema..."
 
 #. fallback proposal, means usually an internal error
-#: src/lib/installation/proposal_runner.rb:513
+#: src/lib/installation/proposal_runner.rb:518
 msgid "ERROR: No proposal"
 msgstr "KLAIDA: Nėra pasiūlymo"
 
 #. Submodules handle their own error reporting
 #. text for a message box
-#: src/lib/installation/proposal_runner.rb:554
+#: src/lib/installation/proposal_runner.rb:559
 msgid ""
 "Configuration saved.\n"
 "There were errors."
@@ -2069,38 +1990,38 @@ msgstr ""
 #. Translators: About 40 characters max,
 #. use newlines for longer translations.
 #. radio button
-#: src/lib/installation/proposal_runner.rb:649
+#: src/lib/installation/proposal_runner.rb:654
 msgid "&Skip Configuration"
 msgstr "Pralei&sti konfigūravimą"
 
 #. radio button
-#: src/lib/installation/proposal_runner.rb:658
+#: src/lib/installation/proposal_runner.rb:663
 msgid "&Use Following Configuration"
 msgstr "Na&udoti sekančią konfigūraciją"
 
 #. Help message between headline and installation proposal / settings summary.
 #. May contain newlines, but don't make it very much longer than the original.
-#: src/lib/installation/proposal_runner.rb:721
+#: src/lib/installation/proposal_runner.rb:726
 msgid "Click a headline to make changes or use the \"Change...\" menu below."
 msgstr ""
 "Norėdami pakeisti antraštę, spauskite ant jos arba paspauskite mygtuką "
 "„Pakeisti...“."
 
-#: src/lib/installation/proposal_runner.rb:725
+#: src/lib/installation/proposal_runner.rb:730
 msgid "Click a headline to make changes."
 msgstr "Norėdami pakeisti parametrus, spauskite antraštę."
 
 #. menu button item
-#: src/lib/installation/proposal_runner.rb:788
+#: src/lib/installation/proposal_runner.rb:793
 msgid "&Reset to defaults"
 msgstr "&Atstatyti įprastus"
 
 #. FATE #120373
-#: src/lib/installation/proposal_runner.rb:810
+#: src/lib/installation/proposal_runner.rb:815
 msgid "&Update"
 msgstr "Atna&ujinti"
 
-#: src/lib/installation/proposal_runner.rb:810
+#: src/lib/installation/proposal_runner.rb:815
 msgid "&Install"
 msgstr "Įd&iegti"
 
@@ -2250,22 +2171,24 @@ msgstr ""
 
 #. Writes configuration
 #.
-#. It creates a snapshot when no second stage is required and
+#. It finishes the Snapper configuration, if needed.
+#.
+#. It also creates a snapshot when no second stage is required and
 #. Snapper is configured.
 #.
 #. @return [TrueClass,FalseClass] True if snapshot was created;
 #. otherwise it returns false.
-#: src/lib/installation/snapshots_finish.rb:40
+#: src/lib/installation/snapshots_finish.rb:44
 msgid "Creating root filesystem snapshot..."
 msgstr "Kuriama šakninės rinkmenų sistemos momentinė kopija..."
 
 #. TRANSLATORS: label for filesystem snapshot taken after system update
-#: src/lib/installation/snapshots_finish.rb:48
+#: src/lib/installation/snapshots_finish.rb:52
 msgid "after update"
 msgstr "po atnaujinimo"
 
 #. TRANSLATORS: label for filesystem snapshot taken after system installation
-#: src/lib/installation/snapshots_finish.rb:55
+#: src/lib/installation/snapshots_finish.rb:59
 msgid "after installation"
 msgstr "įdiegus"
 
@@ -2317,17 +2240,12 @@ msgid "Configure Online Repositories"
 msgstr "Konfigūruoti nuotolines saugyklas"
 
 #. @param products [Array<Installation::Product>] to display
-#: src/lib/installation/widgets/product_selector.rb:27
+#. @param skip_validation [Boolean] Skip value validation
+#: src/lib/installation/widgets/product_selector.rb:29
 #, fuzzy
 #| msgid "Add-on Product Installation"
 msgid "Product to Install"
 msgstr "Papildomų produktų diegimas"
-
-#. reset both YaST and user selection (when going back or any products
-#. selected by YaST in the previous steps)
-#: src/lib/installation/widgets/product_selector.rb:54
-msgid "Please select a product to install."
-msgstr ""
 
 #. autoyast tried to read a file but had no success.
 #: src/lib/transfer/file_from_url.rb:156
@@ -2432,19 +2350,96 @@ msgstr ""
 "Automatiškai nepavyksta išspręsti paketų priklausomybių.\n"
 "Jas išspręskite rankiniu būdu atsivėrusioje programinės įrangos tvarkytuvėje."
 
-#. Proposal client for Network configuration
-#: src/lib/network/clients/network_proposal.rb:19
-#: src/lib/network/clients/network_proposal.rb:20
-msgid "Network Configuration"
-msgstr "Tinklo konfigūracija"
+#. enabling services
+#: src/lib/configuration_management/clients/configuration_management_finish.rb:46
+#, fuzzy
+#| msgid "Preparing configuration..."
+msgid "Provisioning Configuration Management ..."
+msgstr "Ruošiama konfigūracija..."
 
-#: src/lib/network/clients/network_proposal.rb:25
-msgid "preformatted_proposal"
-msgstr ""
+#~ msgid "Language, Keyboard and License Agreement"
+#~ msgstr "Kalba, klaviatūra ir licencija"
 
-#: src/lib/services-manager/clients/services-manager_finish.rb:11
-msgid "Setting default target and system services ..."
-msgstr "Priskiriama numatytoji paskirtis ir sistemos paslaugos..."
+#~ msgid ""
+#~ "<p>\n"
+#~ "Choose the <b>Language</b> and the <b>Keyboard layout</b> to be used "
+#~ "during\n"
+#~ "installation and for the installed system.\n"
+#~ "</p>\n"
+#~ msgstr ""
+#~ "<p>\n"
+#~ "Pasirinkite <b>kalbą<b> ir <b>klaviatūros išdėstymą</b>, naudosimus "
+#~ "diegimo metu \n"
+#~ "ir įdiegtoje sistemoje.\n"
+#~ "</p>\n"
+
+#~ msgid ""
+#~ "<p>\n"
+#~ "The license must be accepted before the installation continues.\n"
+#~ "Use <b>License Translations...</b> to show the license in all available "
+#~ "translations.\n"
+#~ "</p>\n"
+#~ msgstr ""
+#~ "<p>\n"
+#~ "Diegimas tęsis tik sutikus su licencija.\n"
+#~ "Pasirinkite <b>Licencijos vertimai...</b> norėdami matyti licenciją "
+#~ "kitomis prieinamomis kalbomis.\n"
+#~ "</p>\n"
+
+#~ msgid ""
+#~ "<p>\n"
+#~ "Click <b>Next</b> to proceed to the next dialog.\n"
+#~ "</p>\n"
+#~ msgstr ""
+#~ "<p>\n"
+#~ "Norėdami tęsti, spauskite <b>Toliau</b>.\n"
+#~ "</p>\n"
+
+#~ msgid ""
+#~ "<p>\n"
+#~ "Nothing will happen to your computer until you confirm\n"
+#~ "all your settings in the last installation dialog.\n"
+#~ "</p>\n"
+#~ msgstr ""
+#~ "<p>\n"
+#~ "Jūsų kompiuteryje niekas nepasikeis, kol jūs paskutiniame\n"
+#~ "diegimo dialoge nepatvirtinsite visų savo parinkčių.\n"
+#~ "</p>\n"
+
+#~ msgid ""
+#~ "<p>\n"
+#~ "Select <b>Abort</b> to abort the\n"
+#~ "installation process at any time.\n"
+#~ "</p>\n"
+#~ msgstr ""
+#~ "<p>\n"
+#~ "Bet kuriuo metu galite spausti <b>Nutraukti diegimą</b> ir išeiti\n"
+#~ "iš diegimo proceso.\n"
+#~ "</p>\n"
+
+#~ msgid "License Agreement"
+#~ msgstr "Licencijos sutartis"
+
+#~ msgid "&Keyboard Layout"
+#~ msgstr "&Klaviatūros išdėstymas"
+
+#~ msgid "I &Agree to the License Terms."
+#~ msgstr "&Sutinku su licencijos sąlygomis."
+
+#~ msgid "EULA location in the installed system: %s"
+#~ msgstr "Licencijos vieta įdiegtoje sistemoje: %s"
+
+#~ msgid "K&eyboard Test"
+#~ msgstr "&Klaviatūros tikrinimas"
+
+#~ msgid "License &Translations..."
+#~ msgstr "Licencijos &vertimai..."
+
+#~ msgid "I &Agree"
+#~ msgstr "&Sutinku"
+
+#~ msgid "I Do &Not Agree"
+#~ msgstr "&Nesutinku"
 
 #~ msgid "Probe floppy disk devices"
 #~ msgstr "Tirti diskelių įrenginius"
@@ -2463,12 +2458,6 @@ msgstr "Priskiriama numatytoji paskirtis ir sistemos paslaugos..."
 
 #~ msgid "Loading kernel modules for hard disk controllers..."
 #~ msgstr "Įkeliami branduolio moduliai standžiųjų diskų valdikliams..."
-
-#~ msgid "Search for system files"
-#~ msgstr "Ieškoti sisteminių rinkmenų"
-
-#~ msgid "Searching for system files..."
-#~ msgstr "Ieškoma sisteminių rinkmenų..."
 
 #~ msgid "Computer Role"
 #~ msgstr "Kompiuterio naudojimo paskirtis"
@@ -2954,9 +2943,6 @@ msgstr "Priskiriama numatytoji paskirtis ir sistemos paslaugos..."
 #~ " veiksenoje tam, kad teisingai aptiktų Jūsų vaizdo plokštę...\n"
 #~ "\n"
 #~ "******************************************************\n"
-
-#~ msgid "Preparing configuration..."
-#~ msgstr "Ruošiama konfigūracija..."
 
 #~ msgid "<p>Writing automatic configuration...</p>"
 #~ msgstr "<p>Įrašoma automatinė konfigūracija...</p>"
