@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: storage.hi\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-08-14 02:29+0000\n"
+"POT-Creation-Date: 2017-11-02 22:17+0100\n"
 "PO-Revision-Date: 2007-08-24 20:47+0530\n"
 "Last-Translator: Sangeeta Kumari <k.sangeeta09@gmail.com>\n"
 "Language-Team: Hindi <en@li.org>\n"
@@ -16,8 +16,82 @@ msgstr ""
 "\n"
 "X-Generator: KBabel 1.11.4\n"
 
+#. TRANSLATORS: %s is a device name (e.g. "/dev/sda")
+#: src/lib/y2partitioner/actions/add_partition.rb:81
+#, fuzzy
+#| msgid "It is not possible to create a partition on %1."
+msgid "It is not possible to create a partition on %s."
+msgstr "%1 पर एक विभाजन सृजित करना संभव नहीं है।"
+
+#. Validates a candidate name for the LV
+#.
+#. @param name [String]
+#. @return [String, nil] nil if the name is valid, an error string
+#. otherwise
+#: src/lib/y2partitioner/actions/controllers/lvm_lv.rb:173
+#, fuzzy
+msgid "The name for the logical volume is longer than 128 characters."
+msgstr "ट्री नाम 32 वर्णों से अधिक लंबा नहीं हो सकता"
+
+#: src/lib/y2partitioner/actions/controllers/lvm_lv.rb:175
+#, fuzzy
+msgid ""
+"The name for the logical volume contains illegal characters.\n"
+"Allowed are alphanumeric characters, \".\", \"_\", \"-\" and \"+\"."
+msgstr "ट्री नाम 32 वर्णों से अधिक लंबा नहीं हो सकता"
+
+#. TRANSLATORS: dialog title. %s is a device name like /dev/vg0
+#: src/lib/y2partitioner/actions/controllers/lvm_lv.rb:194
+#, fuzzy
+msgid "Add Logical Volume on %s"
+msgstr "लॉजिकल वॉल्यूम संपादित करें"
+
+#. TRANSLATORS: dialog title. %s is a device name like /dev/md0
+#: src/lib/y2partitioner/actions/controllers/md.rb:129
+#, fuzzy
+msgid "Add RAID %s"
+msgstr "RAI&D जोड़ें"
+
+#. TRANSLATORS: dialog title. %s is a device name like /dev/sda
+#: src/lib/y2partitioner/actions/controllers/partition.rb:111
+#, fuzzy
+msgid "Add Partition on %s"
+msgstr "विभाजन %1 संपादित करें"
+
+#. TRANSLATORS %s is the name of the device to be deleted (e.g., /dev/sda1)
+#: src/lib/y2partitioner/actions/delete_device.rb:92
+#, fuzzy
+#| msgid "Really delete %1?"
+msgid "Really delete %s?"
+msgstr "वास्तव में %1 हटाना है?"
+
+#. TRANSLATORS: dialog title. %s is a device name like /dev/md0
+#: src/lib/y2partitioner/actions/edit_blk_device.rb:73
+#, fuzzy
+msgid "Edit RAID %s"
+msgstr " RAID संपादित करें..."
+
+#. TRANSLATORS: dialog title. %{lv_name} is an LVM LV name (e.g.'root'),
+#. %{vg} is the device name of an LVM VG (e.g. '/dev/system').
+#: src/lib/y2partitioner/actions/edit_blk_device.rb:78
+#, fuzzy
+msgid "Edit Logical Volume %{lv_name} on %{vg}"
+msgstr "लॉजिकल वॉल्यूम संपादित करें"
+
+#. TRANSLATORS: dialog title. %s is a device name like /dev/sda1
+#: src/lib/y2partitioner/actions/edit_blk_device.rb:81
+#, fuzzy
+#| msgid "Edit Partition %1"
+msgid "Edit Partition %s"
+msgstr "विभाजन %1 संपादित करें"
+
+#: src/lib/y2partitioner/actions/edit_blk_device.rb:87
+#, fuzzy
+msgid "An extended partition cannot be edited"
+msgstr "एक प्राथमिक विभाजन सृजित नहीं किया जा सकता है।"
+
 #. @param filesystem [Y2Storage::Filesystems::BlkFilesystem] a btrfs filesystem
-#: src/lib/y2partitioner/dialogs/btrfs_subvolume.rb:23
+#: src/lib/y2partitioner/dialogs/btrfs_subvolume.rb:24
 #, fuzzy
 #| msgid "&Add Volume"
 msgid "Add subvolume"
@@ -26,23 +100,26 @@ msgstr "वॉल्यूम जोड़ें(&A)"
 #. @param form [Dialogs::BtrfsSubvolume::Form]
 #. @param filesystem [Y2Storage::Filesystems::BlkFilesystem] a btrfs filesystem
 #. TRANSLATORS: table header, subvolume path e.g. "@/home"
-#: src/lib/y2partitioner/dialogs/btrfs_subvolume.rb:85
+#: src/lib/y2partitioner/dialogs/btrfs_subvolume.rb:86
 #: src/lib/y2partitioner/widgets/btrfs_subvolumes_table.rb:92
 msgid "Path"
 msgstr ""
 
-#. Validates the path
+#. Validates not empty path
+#. An error popup is shown when entered path is empty.
 #.
-#. Path cannot be empty
-#. Path must start by default subvolume path
-#. Path must be uniq
-#: src/lib/y2partitioner/dialogs/btrfs_subvolume.rb:104
+#. @return [Boolean] true if path is not empty
+#: src/lib/y2partitioner/dialogs/btrfs_subvolume.rb:127
 #, fuzzy
 #| msgid "Empty option strings are not allowed."
 msgid "Empty subvolume path not allowed."
 msgstr "रिक्त विकल्प स्ट्रींग स्वीकृत नहीं है."
 
-#: src/lib/y2partitioner/dialogs/btrfs_subvolume.rb:109
+#. Validates not duplicated path
+#. An error popup is shown when entered path already exists in the filesystem.
+#.
+#. @return [Boolean] true if path does not exist
+#: src/lib/y2partitioner/dialogs/btrfs_subvolume.rb:138
 #, fuzzy
 #| msgid "Zone name %1 already exists."
 msgid "Subvolume name %s already exists."
@@ -52,7 +129,9 @@ msgstr "जोन नाम %1 पहले से विद्यमान ह�
 #.
 #. Path should be a relative path. Starting slashes are removed. A popup message is
 #. presented when the default subvolume path is going to be added.
-#: src/lib/y2partitioner/dialogs/btrfs_subvolume.rb:141
+#.
+#. @see Y2Storage::Filesystems::Btrfs#btrfs_subvolume_path
+#: src/lib/y2partitioner/dialogs/btrfs_subvolume.rb:159
 msgid ""
 "Only subvolume names starting with \"%{prefix}\" currently allowed!\n"
 "Automatically prepending \"%{prefix}\" to name of subvolume."
@@ -63,7 +142,7 @@ msgstr ""
 #. then keep it as it is.
 #. TRANSLATORS: table header, nocow subvolume attribute (do not use copy
 #. on write feature)
-#: src/lib/y2partitioner/dialogs/btrfs_subvolume.rb:171
+#: src/lib/y2partitioner/dialogs/btrfs_subvolume.rb:190
 #: src/lib/y2partitioner/widgets/btrfs_subvolumes_table.rb:98
 msgid "noCoW"
 msgstr ""
@@ -74,46 +153,205 @@ msgstr ""
 msgid "Edit Btrfs subvolumes"
 msgstr "लॉजिकल वॉल्यूम फिर से आकार दें"
 
-#. @param options [Y2Partitioner::FormatMount::Options]
+#. @param controller [Actions::Controllers::Filesystem]
 #: src/lib/y2partitioner/dialogs/encrypt_password.rb:19
 #, fuzzy
 #| msgid "&Enter Password:"
 msgid "Encryption password for %s"
 msgstr "पासवेर्ड भरती करें (&E):"
 
-#. @param options [Y2Partitioner::FormatMount::Options]
+#. @param controller [Actions::Controllers::Filesystem]
 #: src/lib/y2partitioner/dialogs/fstab_options.rb:19
 #, fuzzy
 #| msgid "Fs&tab Options"
 msgid "Fstab Options:"
 msgstr "Fs&tab विकल्प"
 
-#. @return [Y2Storage::DeviceGraph] device graph with all changes done in dialog
-#: src/lib/y2partitioner/dialogs/main.rb:22
-#, fuzzy
-#| msgid "Partition"
-msgid "Partitioner"
-msgstr "विभाजन"
-
-#. dialog title
-#. dialog title
-#. dialog title
-#: src/lib/y2partitioner/dialogs/partition_role.rb:28
-#: src/lib/y2partitioner/dialogs/partition_size.rb:33
-#: src/lib/y2partitioner/dialogs/partition_type.rb:76
-#, fuzzy
-msgid "Add Partition on %1"
-msgstr "विभाजन %1 संपादित करें"
+#. @macro seeDialog
+#: src/lib/y2partitioner/dialogs/lvm_lv_info.rb:52
+msgid "Name"
+msgstr "नाम"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/dialogs/partition_role.rb:47
+#: src/lib/y2partitioner/dialogs/lvm_lv_info.rb:73
+#: src/lib/y2partitioner/widgets/lvm_add_button.rb:52
+#, fuzzy
+msgid "Logical Volume"
+msgstr "लॉजिकल वॉल्यूम्स"
+
+#. @macro seeAbstractWidget
+#: src/lib/y2partitioner/dialogs/lvm_lv_info.rb:92
+#, fuzzy
+msgid "Enter a name for the logical volume."
+msgstr "नये प्रोफाइल हेतु एक नया नाम प्रविष्ट करें."
+
+#: src/lib/y2partitioner/dialogs/lvm_lv_info.rb:99
+#, fuzzy
+msgid ""
+"A logical volume named \"%{lv_name}\" already exists\n"
+"in volume group \"%{vg_name}\"."
+msgstr ""
+"\"%1\" नाम का एक लॉजिकल वॉल्यूम\n"
+"\"%2\" वॉल्यूम समूह में पहले से मौजूद है। कोई अन्य नाम चुनें\n"
+"या इस संवाद को निरस्त कर दें।\n"
+
+#. @macro seeAbstractWidget
+#. TRANSLATORS: table header, type of disk or partition. Can be longer. E.g. "Linux swap"
+#: src/lib/y2partitioner/dialogs/lvm_lv_info.rb:128
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:108
+msgid "Type"
+msgstr "प्रकार"
+
+#. @see Widgets::ControllerRadioButtons
+#: src/lib/y2partitioner/dialogs/lvm_lv_info.rb:134
+#, fuzzy
+msgid "Normal Volume"
+msgstr "लॉजिकल वॉल्यूम्स"
+
+#: src/lib/y2partitioner/dialogs/lvm_lv_info.rb:135
+#, fuzzy
+#| msgid "Pool"
+msgid "Thin Pool"
+msgstr "समूह"
+
+#: src/lib/y2partitioner/dialogs/lvm_lv_info.rb:136
+#, fuzzy
+#| msgid "&Volume"
+msgid "Thin Volume"
+msgstr "वोल्यूम(&V)"
+
+#. @macro seeAbstractWidget
+#: src/lib/y2partitioner/dialogs/lvm_lv_info.rb:175
+#, fuzzy
+msgid "Used Pool"
+msgstr "द्वारा प्रयुक्त"
+
+#. @macro seeAbstractWidget
+#. @macro seeAbstractWidget
+#. @macro seeAbstractWidget
+#. @macro seeAbstractWidget
+#. TRANSLATORS: table header, size of block device e.g. "8.00 GiB"
+#: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:69
+#: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:145
+#: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:262
+#: src/lib/y2partitioner/dialogs/partition_size.rb:160
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:93
+msgid "Size"
+msgstr "आकार"
+
+#. TRANSLATORS: %s is a size like '15.00 GiB'
+#: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:75
+#, fuzzy
+msgid "Maximum Size (%s)"
+msgstr "अधिकता आकार (MB) (&S)"
+
+#: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:78
+#: src/lib/y2partitioner/dialogs/partition_size.rb:69
+#, fuzzy
+msgid "Custom Size"
+msgstr "कस्टम आकार (&S)"
+
+#. error popup, :min and :max are replaced by sizes
+#: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:161
+#, fuzzy
+msgid "The size entered is invalid. Enter a size between %{min} and %{max}."
+msgstr ""
+"प्रविष्ट किया गया आकार अमान्य है।\n"
+"1M से %1 तक का एक आकार प्रविष्ट करें। उदाहरणार्थ, 40M या 1G."
+
+#. @macro seeAbstractWidget
+#. TRANSLATORS: table header, number of LVM LV stripes
+#: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:204
+#: src/lib/y2partitioner/widgets/lvm_devices_table.rb:54
+#, fuzzy
+msgid "Stripes"
+msgstr "स्ट्राइप्स(&p)"
+
+#. @macro seeAbstractWidget
+#: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:239
+msgid "Number"
+msgstr "न०"
+
+#. @return [Y2Storage::DeviceGraph] device graph with all changes done in dialog
+#: src/lib/y2partitioner/dialogs/main.rb:24
+msgid "Expert Partitioner"
+msgstr "विशेषज्ञ विभाजनर"
+
+#. TRANSLATORS: 'Striping' is a technical term here. Translate only
+#. if you are sure!! If in doubt, leave it in English.
+#: src/lib/y2partitioner/dialogs/md.rb:108
+msgid "RAID &0  (Striping)"
+msgstr "RAID &0  (Striping)"
+
+#. TRANSLATORS: 'Mirroring' is a technical term here. Translate only
+#. if you are sure!! If in doubt, leave it in English.
+#: src/lib/y2partitioner/dialogs/md.rb:111
+msgid "RAID &1  (Mirroring)"
+msgstr "RAID &1  (Mirroring)"
+
+#. TRANSLATORS: 'Redundant Striping' is a technical term here. Translate
+#. only if you are sure!! If in doubt, leave it in English.
+#: src/lib/y2partitioner/dialogs/md.rb:114
+msgid "RAID &5  (Redundant Striping)"
+msgstr "RAID &5  (Redundant Striping)"
+
+#. TRANSLATORS: 'Dual Redundant Striping' is a technical term here.
+#. Translate only if you are sure!! If in doubt, leave it in English.
+#: src/lib/y2partitioner/dialogs/md.rb:117
+#, fuzzy
+msgid "RAID &6  (Dual Redundant Striping)"
+msgstr "RAID &5  (Redundant Striping)"
+
+#. TRANSLATORS: 'Mirroring' and `Striping` are technical terms here.
+#. Translate only if you are sure!! If in doubt, leave it in English.
+#: src/lib/y2partitioner/dialogs/md.rb:120
+#, fuzzy
+msgid "RAID &10  (Mirroring and Striping)"
+msgstr "RAID &1  (Mirroring)"
+
+#. Items for the RadioButtonGroup
+#. TRANSLATORS: table header, type of md raid.
+#: src/lib/y2partitioner/dialogs/md.rb:136
+#: src/lib/y2partitioner/widgets/md_raids_table.rb:46
+#, fuzzy
+#| msgid "RAID T&ype"
+msgid "RAID Type"
+msgstr "RAID प्र&कार"
+
+#. @macro seeAbstractWidget
+#: src/lib/y2partitioner/dialogs/md.rb:153
+msgid "Raid &Name (optional)"
+msgstr ""
+
+#. TRANSLATORS: raid_level is a RAID level (e.g. RAID10); min is a number
+#: src/lib/y2partitioner/dialogs/md.rb:223
+#, fuzzy
+msgid "For %{raid_level}, select at least %{min} devices."
+msgstr "कम से कम एक मद का चयन करें."
+
+#. @param controller [Actions::Controllers::Md]
+#. TRANSLATORS: table header, chunk size of md raid
+#: src/lib/y2partitioner/dialogs/md_options.rb:48
+#: src/lib/y2partitioner/widgets/md_raids_table.rb:51
+#, fuzzy
+msgid "Chunk Size"
+msgstr "चंक का KB में आ&कार"
+
+#. @param controller [Actions::Controllers::Md]
+#: src/lib/y2partitioner/dialogs/md_options.rb:86
+#, fuzzy
+msgid "Parity Algorithm"
+msgstr "एन्क्रिप्शन अल्गोरितमंस"
+
+#. @macro seeAbstractWidget
+#: src/lib/y2partitioner/dialogs/partition_role.rb:49
 #, fuzzy
 #| msgid "Role: %s"
 msgid "Role"
 msgstr "रोल: %s"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/dialogs/partition_role.rb:52
+#: src/lib/y2partitioner/dialogs/partition_role.rb:54
 #, fuzzy
 msgid "<p>Choose the role of the device.</p>"
 msgstr ""
@@ -121,69 +359,47 @@ msgstr ""
 "अपने %1 विभाजन के लिए नया आकार चुनें। \n"
 "</p>"
 
-#: src/lib/y2partitioner/dialogs/partition_role.rb:57
+#: src/lib/y2partitioner/dialogs/partition_role.rb:59
 msgid "Operating System"
 msgstr "आपरेटिगं सिस्टम"
 
-#: src/lib/y2partitioner/dialogs/partition_role.rb:58
+#: src/lib/y2partitioner/dialogs/partition_role.rb:60
 #, fuzzy
 #| msgid "Delta RPM Application Progress"
 msgid "Data and ISV Applications"
 msgstr "डेल्टा RPM अनुप्रयोग प्रगति पर हैं"
 
-#: src/lib/y2partitioner/dialogs/partition_role.rb:59
+#: src/lib/y2partitioner/dialogs/partition_role.rb:61
 msgid "Swap"
 msgstr ""
 
-#: src/lib/y2partitioner/dialogs/partition_role.rb:60
+#: src/lib/y2partitioner/dialogs/partition_role.rb:62
 #, fuzzy
 msgid "EFI Boot Partition"
 msgstr "पार्टिशन का आकार."
 
-#: src/lib/y2partitioner/dialogs/partition_role.rb:61
+#: src/lib/y2partitioner/dialogs/partition_role.rb:63
 msgid "Raw Volume (unformatted)"
 msgstr ""
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/dialogs/partition_size.rb:162
+#: src/lib/y2partitioner/dialogs/partition_size.rb:61
 #, fuzzy
 msgid "New Partition Size"
 msgstr "विभाजन 1"
 
-#: src/lib/y2partitioner/dialogs/partition_size.rb:166
+#: src/lib/y2partitioner/dialogs/partition_size.rb:65
 #, fuzzy
 msgid "Maximum Size (%1)"
 msgstr "अधिकता आकार (MB) (&S)"
 
-#: src/lib/y2partitioner/dialogs/partition_size.rb:170
-#, fuzzy
-msgid "Custom Size"
-msgstr "कस्टम आकार (&S)"
-
-#: src/lib/y2partitioner/dialogs/partition_size.rb:171
+#: src/lib/y2partitioner/dialogs/partition_size.rb:70
 #, fuzzy
 msgid "Custom Region"
 msgstr "कस्टम रिपेयर"
 
-#. @macro seeAbstractWidget
-#. TRANSLATORS: table header, size of block device e.g. "8.00 GiB"
-#. TRANSLATORS: table header, size of block device e.g. "8.00 GiB"
-#. TRANSLATORS: table header, size of block device e.g. "8.00 GiB"
-#. TRANSLATORS: table header, size of block device e.g. "8.00 GiB"
-#. TRANSLATORS: table header, size of block device e.g. "8.00 GiB"
-#. TRANSLATORS: table header, size of block device e.g. "8.00 GiB"
-#: src/lib/y2partitioner/dialogs/partition_size.rb:261
-#: src/lib/y2partitioner/widgets/btrfs_table.rb:93
-#: src/lib/y2partitioner/widgets/disk_table.rb:55
-#: src/lib/y2partitioner/widgets/lvm_lv_table.rb:54
-#: src/lib/y2partitioner/widgets/lvm_table.rb:54
-#: src/lib/y2partitioner/widgets/md_raid_table.rb:58
-#: src/lib/y2partitioner/widgets/used_devices_table.rb:50
-msgid "Size"
-msgstr "आकार"
-
 #. error popup, %1 and %2 are replaced by sizes
-#: src/lib/y2partitioner/dialogs/partition_size.rb:284
+#: src/lib/y2partitioner/dialogs/partition_size.rb:184
 #, fuzzy
 msgid "The size entered is invalid. Enter a size between %1 and %2."
 msgstr ""
@@ -191,13 +407,13 @@ msgstr ""
 "1M से %1 तक का एक आकार प्रविष्ट करें। उदाहरणार्थ, 40M या 1G."
 
 #. FIXME: libyui widget overflow :-(
-#: src/lib/y2partitioner/dialogs/partition_size.rb:337
+#: src/lib/y2partitioner/dialogs/partition_size.rb:235
 #, fuzzy
 #| msgid "Start"
 msgid "Start Block"
 msgstr "आरंभ"
 
-#: src/lib/y2partitioner/dialogs/partition_size.rb:338
+#: src/lib/y2partitioner/dialogs/partition_size.rb:236
 #, fuzzy
 #| msgid "End "
 msgid "End Block"
@@ -205,7 +421,7 @@ msgstr "समाप्त"
 
 #. TODO: a better description why
 #. error popup
-#: src/lib/y2partitioner/dialogs/partition_size.rb:367
+#: src/lib/y2partitioner/dialogs/partition_size.rb:265
 #, fuzzy
 msgid "The region entered is invalid."
 msgstr "भरती किया गया MAC पता असली नहीं है ।"
@@ -239,17 +455,6 @@ msgstr "विस्तारित विभाजन"
 #: src/lib/y2partitioner/dialogs/partition_type.rb:43
 msgid "&Logical Partition"
 msgstr "लॉजिकल विभाजन"
-
-#. FIXME: move to Wizard
-#: src/lib/y2partitioner/sequences/add_partition.rb:81
-msgid "It is not possible to create a partition on %1."
-msgstr "%1 पर एक विभाजन सृजित करना संभव नहीं है।"
-
-#. FIXME: move to Wizard
-#: src/lib/y2partitioner/sequences/edit_blk_device.rb:54
-#, fuzzy
-msgid "An extended partition cannot be edited"
-msgstr "एक प्राथमिक विभाजन सृजित नहीं किया जा सकता है।"
 
 #. TRANSLATORS: here device stands for kernel path to device
 #: src/lib/y2partitioner/widgets/blk_device_attributes.rb:24
@@ -335,62 +540,106 @@ msgstr "माउंट बिन्दु(&M)"
 msgid "Label: %s"
 msgstr "लेबल: %1"
 
-#. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/blk_devices_page.rb:22
-msgid "Hard Disks"
-msgstr "हार्ड डिस्क"
+#. TRANSLATORS: "F" stands for Format flag. Keep it short, ideally a single letter.
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:60
+msgid "F"
+msgstr ""
 
-#. TRANSLATORS: Heading. String followed by name of partition
-#: src/lib/y2partitioner/widgets/blk_devices_page.rb:36
+#. TRANSLATORS: table header, Device is physical name of block device, e.g. "/dev/sda1"
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:88
+msgid "Device"
+msgstr "उपकरण"
+
+#. TRANSLATORS: table header, flag if device is encrypted. Keep it short,
+#. ideally three letters. Keep in sync with Enc used later for format marker.
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:103
 #, fuzzy
-#| msgid "Hard Disks"
-msgid "Hard Disks "
-msgstr "हार्ड डिस्क"
+msgid "Enc"
+msgstr "अंत"
+
+#. TRANSLATORS: table header, file system type
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:113
+#, fuzzy
+msgid "FS Type"
+msgstr "USB कार्ड"
+
+#. TRANSLATORS: table header, disk or partition label. Can be empty.
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:118
+msgid "Label"
+msgstr "लेबल"
+
+#. TRANSLATORS: table header, where is device mounted. Can be empty. E.g. "/" or "/home"
+#. Synchronize the widget with the information from the controller
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:123
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:432
+msgid "Mount Point"
+msgstr "मौंट बिंदू "
+
+#. TRANSLATORS: table header, which sector is the first one for device. E.g. "0"
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:128
+msgid "Start"
+msgstr "आरंभ"
+
+#. TRANSLATORS: table header, which sector is the the last for device. E.g. "126"
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:133
+msgid "End"
+msgstr "अंत"
 
 #. @see CWM::PushButton#Label
-#. Constructor
-#.
-#. @param disk [Y2Storage::Disk]
-#. @param table [Y2Partitioner::Widgets::BlkDevicesTable]
-#. do we need this in every little tiny class?
 #: src/lib/y2partitioner/widgets/btrfs_edit_button.rb:21
-#: src/lib/y2partitioner/widgets/disk_page.rb:104
-#: src/lib/y2partitioner/widgets/partition_page.rb:26
 #, fuzzy
 msgid "Edit..."
 msgstr "संपादित करें... (&E)"
 
-#. Opens a dialog to manage the list of subvolumes. In case of there is no
-#. selected table row, it shows an error.
-#: src/lib/y2partitioner/widgets/btrfs_edit_button.rb:30
+#. Opens a dialog to manage the list of subvolumes of the selected device
+#.
+#. @note In case of there is no selected table row, it shows an error.
+#: src/lib/y2partitioner/widgets/btrfs_edit_button.rb:31
 #, fuzzy
 msgid "There is no filesystem selected to edit."
 msgstr "इस मोडयूल के लिए कोई विकल्प नहीं है"
 
-#. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/btrfs_page.rb:17
-msgid "Btrfs"
-msgstr ""
-
-#. TRANSLATORS: Heading
-#: src/lib/y2partitioner/widgets/btrfs_page.rb:32
+#. FIXME: The help handle does not work without wizard
+#.
+#. This handle should belongs to the dialog
+#. @see Dialogs::BtrfsSubvolumes
+#: src/lib/y2partitioner/widgets/btrfs_subvolumes.rb:49
 #, fuzzy
-msgid "Btrfs Volumes"
-msgstr "लॉजिकल वॉल्यूम फिर से आकार दें"
+#| msgid ""
+#| "<p>\n"
+#| "Create an encrypted file system.\n"
+#| "</p>\n"
+msgid "<p>Create and remove subvolumes from a Btrfs filesystem.</p>\n"
+msgstr ""
+"<p>\n"
+"एक इंक्रिप्टेड फाइल सिस्टम सृजित करें।\n"
+"</p>\n"
 
-#. @param table [Widgets::BtrfsSubvolumesTable]
-#. Y2Storage::Disk
-#: src/lib/y2partitioner/widgets/btrfs_subvolumes_add_button.rb:22
-#: src/lib/y2partitioner/widgets/disk_page.rb:82
+#. TRANSLATORS: button label to add a btrfs subvolume
+#. TRANSLATORS: button label to add a volume group or logical volume
+#. TRANSLATORS: button label to add a logical volume
+#. Constructor
+#.
+#. @param disk [Y2Storage::BlkDevice]
+#. @param table [ConfigurableBlkDevicesTable]
+#: src/lib/y2partitioner/widgets/btrfs_subvolumes_add_button.rb:44
+#: src/lib/y2partitioner/widgets/lvm_add_button.rb:43
+#: src/lib/y2partitioner/widgets/lvm_lv_add_button.rb:40
+#: src/lib/y2partitioner/widgets/pages/disk.rb:181
 #, fuzzy
 msgid "Add..."
 msgstr "जोड़े... (&d)"
 
-#. Widget label
-#. @param device
-#. @param table [Y2Partitioner::Widgets::BlkDevicesTable]
-#: src/lib/y2partitioner/widgets/btrfs_subvolumes_delete_button.rb:23
-#: src/lib/y2partitioner/widgets/delete_disk_partition_button.rb:25
+#. Shows a dialog to create a new subvolume
+#.
+#. The table is refreshed when a new subvolume is created
+#: src/lib/y2partitioner/widgets/btrfs_subvolumes_add_button.rb:62
+#, fuzzy
+msgid "Mount point %s is shadowed."
+msgstr "माउंट बिन्दु(&M)"
+
+#. TRANSLATORS: button label to delete a btrfs subvolume
+#: src/lib/y2partitioner/widgets/btrfs_subvolumes_delete_button.rb:46
 #, fuzzy
 msgid "Delete..."
 msgstr "मिटाऐं"
@@ -399,13 +648,13 @@ msgstr "मिटाऐं"
 #.
 #. A confirmation popup is showed before deleting the subvolume.
 #. An error message is presented when there is no selected table row.
-#: src/lib/y2partitioner/widgets/btrfs_subvolumes_delete_button.rb:34
+#: src/lib/y2partitioner/widgets/btrfs_subvolumes_delete_button.rb:57
 #, fuzzy
 msgid "Nothing selected"
 msgstr "कोई पार्टिशन नहीं पाए गये"
 
 #. TRANSLATORS: %s is the path of the subvolume to be deleted
-#: src/lib/y2partitioner/widgets/btrfs_subvolumes_delete_button.rb:38
+#: src/lib/y2partitioner/widgets/btrfs_subvolumes_delete_button.rb:61
 #, fuzzy
 #| msgid "Really delete %1?"
 msgid "Really delete subvolume %s?"
@@ -436,160 +685,71 @@ msgid ""
 "delaying copy when application is running."
 msgstr ""
 
-#. Table help
-#.
-#. Shows help of all columns
-#: src/lib/y2partitioner/widgets/btrfs_table.rb:45
+#. @macro seeAbstractWidget
+#. @see #columns_help
+#: src/lib/y2partitioner/widgets/configurable_blk_devices_table.rb:108
 #, fuzzy
-msgid "<p>This view shows all Btrfs filesystems.</p><p>The table contains:</p>"
+msgid "<p>This view shows storage devices.</p><p>The overview contains:</p>"
 msgstr "<p>यह फ्रेम साइन के अनुरोध को प्रदर्शित करता है।</p>"
 
-#. TRANSLATORS: table header, Device is physical name of block device, e.g. "/dev/sda1"
-#. TRANSLATORS: table header, Device is physical name of block device
-#. like partition or disk e.g. "/dev/sda1"
-#. TRANSLATORS: table header, Device is physical name of block device
-#. like partition or disk e.g. "/dev/sda1"
-#. TRANSLATORS: table header, Device is physical name of block device
-#. like partition or disk e.g. "/dev/sda1"
-#. TRANSLATORS: table header, Device is physical name of block device
-#. like partition or disk e.g. "/dev/sda1"
-#. TRANSLATORS: table header, Device is physical name of block device
-#. like partition or disk e.g. "/dev/sda1"
-#: src/lib/y2partitioner/widgets/btrfs_table.rb:88
-#: src/lib/y2partitioner/widgets/disk_table.rb:53
-#: src/lib/y2partitioner/widgets/lvm_lv_table.rb:52
-#: src/lib/y2partitioner/widgets/lvm_table.rb:52
-#: src/lib/y2partitioner/widgets/md_raid_table.rb:56
-#: src/lib/y2partitioner/widgets/used_devices_table.rb:48
-msgid "Device"
-msgstr "उपकरण"
-
-#. TRANSLATORS: table header, flag if device is encrypted. Keep it short,
-#. ideally three letters. Keep in sync with Enc used later for format marker.
-#. TRANSLATORS: table header, flag if device is encrypted. Keep it short,
-#. ideally three letters. Keep in sync with Enc used later for format marker.
-#. TRANSLATORS: table header, flag if device is encrypted. Keep it short,
-#. ideally three letters. Keep in sync with Enc used later for format marker.
-#. TRANSLATORS: table header, flag if device is encrypted. Keep it short,
-#. ideally three letters. Keep in sync with Enc used later for format marker.
-#. TRANSLATORS: table header, flag if device is encrypted. Keep it short,
-#. ideally three letters. Keep in sync with Enc used later for format marker.
-#. TRANSLATORS: table header, flag if device is encrypted. Keep it short,
-#. ideally three letters. Keep in sync with Enc used later for format marker.
-#: src/lib/y2partitioner/widgets/btrfs_table.rb:105
-#: src/lib/y2partitioner/widgets/disk_table.rb:59
-#: src/lib/y2partitioner/widgets/lvm_lv_table.rb:58
-#: src/lib/y2partitioner/widgets/lvm_table.rb:58
-#: src/lib/y2partitioner/widgets/md_raid_table.rb:62
-#: src/lib/y2partitioner/widgets/used_devices_table.rb:54
-#, fuzzy
-msgid "Enc"
-msgstr "अंत"
-
-#. TRANSLATORS: table header, type of disk or partition. Can be longer. E.g. "Linux swap"
-#. TRANSLATORS: table header, type of disk or partition. Can be longer. E.g. "Linux swap"
-#. TRANSLATORS: table header, type of disk or partition. Can be longer. E.g. "Linux swap"
-#. TRANSLATORS: table header, type of disk or partition. Can be longer. E.g. "Linux swap"
-#. TRANSLATORS: table header, type of disk or partition. Can be longer. E.g. "Linux swap"
-#. TRANSLATORS: table header, type of disk or partition. Can be longer. E.g. "Linux swap"
-#: src/lib/y2partitioner/widgets/btrfs_table.rb:110
-#: src/lib/y2partitioner/widgets/disk_table.rb:61
-#: src/lib/y2partitioner/widgets/lvm_lv_table.rb:60
-#: src/lib/y2partitioner/widgets/lvm_table.rb:60
-#: src/lib/y2partitioner/widgets/md_raid_table.rb:64
-#: src/lib/y2partitioner/widgets/used_devices_table.rb:56
-msgid "Type"
-msgstr "प्रकार"
-
-#. TRANSLATORS: table header, Files system type. In this case "BtrFS"
-#. TRANSLATORS: table header, Files system type. Can be empty E.g. "BtrFS"
-#. TRANSLATORS: table header, Files system type. Can be empty E.g. "BtrFS"
-#. TRANSLATORS: table header, Files system type. Can be empty E.g. "BtrFS"
-#. TRANSLATORS: table header, Files system type. Can be empty E.g. "BtrFS"
-#: src/lib/y2partitioner/widgets/btrfs_table.rb:115
-#: src/lib/y2partitioner/widgets/disk_table.rb:63
-#: src/lib/y2partitioner/widgets/lvm_lv_table.rb:62
-#: src/lib/y2partitioner/widgets/lvm_table.rb:62
-#: src/lib/y2partitioner/widgets/md_raid_table.rb:66
-#, fuzzy
-msgid "FS Type"
-msgstr "USB कार्ड"
-
-#. TRANSLATORS: table header, disk or partition label. Can be empty.
-#. TRANSLATORS: table header, disk or partition label. Can be empty.
-#. TRANSLATORS: table header, disk or partition label. Can be empty.
-#. TRANSLATORS: table header, disk or partition label. Can be empty.
-#. TRANSLATORS: table header, disk or partition label. Can be empty.
-#: src/lib/y2partitioner/widgets/btrfs_table.rb:120
-#: src/lib/y2partitioner/widgets/disk_table.rb:65
-#: src/lib/y2partitioner/widgets/lvm_lv_table.rb:64
-#: src/lib/y2partitioner/widgets/lvm_table.rb:64
-#: src/lib/y2partitioner/widgets/md_raid_table.rb:68
-msgid "Label"
-msgstr "लेबल"
-
-#. TRANSLATORS: table header, where is device mounted. Can be empty. E.g. "/" or "/home"
-#. TRANSLATORS: table header, where is device mounted. Can be empty. E.g. "/" or "/home"
-#. MountPoint selector
-#. FIXME: Implement validate, verifying if the mount_point is in use.
-#. TRANSLATORS: table header, where is device mounted. Can be empty. E.g. "/" or "/home"
-#. TRANSLATORS: table header, where is device mounted. Can be empty. E.g. "/" or "/home"
-#. TRANSLATORS: table header, where is device mounted. Can be empty. E.g. "/" or "/home"
-#: src/lib/y2partitioner/widgets/btrfs_table.rb:125
-#: src/lib/y2partitioner/widgets/disk_table.rb:67
-#: src/lib/y2partitioner/widgets/format_and_mount.rb:321
-#: src/lib/y2partitioner/widgets/lvm_lv_table.rb:66
-#: src/lib/y2partitioner/widgets/lvm_table.rb:66
-#: src/lib/y2partitioner/widgets/md_raid_table.rb:70
-msgid "Mount Point"
-msgstr "मौंट बिंदू "
-
-#: src/lib/y2partitioner/widgets/delete_disk_partition_button.rb:32
+#. Checks whether there is a device on which to act
+#.
+#. @note An error popup is shown when there is no device.
+#.
+#. @return [Boolean]
+#. @param event [Hash] UI event
+#: src/lib/y2partitioner/widgets/device_button.rb:79
+#: src/lib/y2partitioner/widgets/lvm_add_button.rb:77
 #, fuzzy
 msgid "No device selected"
 msgstr "कोई नाम सर्वर चयनित नहीं है"
 
-#. TRANSLATORS %s is device to be deleted
-#: src/lib/y2partitioner/widgets/delete_disk_partition_button.rb:58
+#. TRANSLATORS: %s is a disk size. E.g. "10.5 GiB"
+#: src/lib/y2partitioner/widgets/devices_selection.rb:123
 #, fuzzy
-#| msgid "Really delete %1?"
-msgid "Really delete %s?"
-msgstr "वास्तव में %1 हटाना है?"
+msgid "Resulting size: %s"
+msgstr "परिणाम : %1"
 
-#: src/lib/y2partitioner/widgets/delete_disk_partition_button.rb:63
+#. TRANSLATORS: %s is a disk size. E.g. "10.5 GiB"
+#: src/lib/y2partitioner/widgets/devices_selection.rb:127
 #, fuzzy
-msgid "Confirm Deleting of All Partitions"
-msgstr "सभी पार्टिशनों को माउंट करना..."
+msgid "Total size: %s"
+msgstr "कुल आकार: "
 
-#. TRANSLATORS: type stands for type of device and name is its identifier
-#: src/lib/y2partitioner/widgets/delete_disk_partition_button.rb:65
+#: src/lib/y2partitioner/widgets/devices_selection.rb:134
 #, fuzzy
-msgid ""
-"The %{type} \"%{name}\" contains at least one another device.\n"
-"If you proceed, the following devices will be deleted:"
-msgstr ""
-"वॉल्यूम समूह \"%1\" कम से कम एक लॉजिकल वॉल्यूम \n"
-"रखता है। इसे नहीं हटाया जा सकता। समस्त लॉजिकल वॉल्यूमों को हटाएं और फिर\n"
-"वॉल्यूम समूह को हटाएं।\n"
+msgid "Selected Devices:"
+msgstr "चुना हुआ IDE उपकरण"
 
-#: src/lib/y2partitioner/widgets/delete_disk_partition_button.rb:68
-msgid "disk"
-msgstr ""
+#: src/lib/y2partitioner/widgets/devices_selection.rb:138
+msgid "Available Devices:"
+msgstr "उपलप्घ उप्करण:"
 
-#: src/lib/y2partitioner/widgets/delete_disk_partition_button.rb:68
+#. push button text
+#: src/lib/y2partitioner/widgets/devices_selection.rb:147
+msgid "Add"
+msgstr "जोङे"
+
+#. push button text
+#: src/lib/y2partitioner/widgets/devices_selection.rb:153
 #, fuzzy
-#| msgid "Partition"
-msgid "partition"
-msgstr "विभाजन"
+msgid "Add All"
+msgstr "RAI&D जोड़ें"
 
-#: src/lib/y2partitioner/widgets/delete_disk_partition_button.rb:69
+#. push button text
+#: src/lib/y2partitioner/widgets/devices_selection.rb:160
+msgid "Remove"
+msgstr "हटाऐ"
+
+#. push button text
+#: src/lib/y2partitioner/widgets/devices_selection.rb:166
 #, fuzzy
-msgid "Really delete all devices on \"%s\"?"
-msgstr "%1 पर सभी विभाजनों को वास्तव में मिटाना है?"
+msgid "Remove All"
+msgstr "हटाऐ"
 
 #. @return [Array<Array(Y2Storage::Region,String)>]
 #. regions with labels, sorted by region start
-#: src/lib/y2partitioner/widgets/disk_bar_graph.rb:19
+#: src/lib/y2partitioner/widgets/disk_bar_graph.rb:16
 #, fuzzy
 msgid "Unpartitioned"
 msgstr "विभाजन योजनाए"
@@ -661,49 +821,6 @@ msgstr "होस्ट: %1"
 msgid "Disk Label: %s"
 msgstr "लेबल: %1"
 
-#. @macro seeCustomWidget
-#: src/lib/y2partitioner/widgets/disk_page.rb:41
-#, fuzzy
-msgid "Hard Disk: %s"
-msgstr "हार्ड डिस्क: "
-
-#. @macro seeAbstractWidget
-#. @macro seeAbstractWidget
-#. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/disk_page.rb:61
-#: src/lib/y2partitioner/widgets/lvm_vg_page.rb:55
-#: src/lib/y2partitioner/widgets/md_raid_page.rb:56
-msgid "&Overview"
-msgstr "विवरण(&O)"
-
-#: src/lib/y2partitioner/widgets/disk_page.rb:109
-#, fuzzy
-msgid "There are no partitions to edit."
-msgstr "इस मोडयूल के लिए कोई विकल्प नहीं है"
-
-#. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/disk_page.rb:141
-#, fuzzy
-msgid "&Partitions"
-msgstr "विभाजन"
-
-#. TRANSLATORS: table header, which sector is the first one for device. E.g. "0"
-#: src/lib/y2partitioner/widgets/disk_table.rb:69
-msgid "Start"
-msgstr "आरंभ"
-
-#. TRANSLATORS: table header, which sector is the the last for device. E.g. "126"
-#: src/lib/y2partitioner/widgets/disk_table.rb:71
-msgid "End"
-msgstr "अंत"
-
-#. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/disk_table.rb:79
-msgid ""
-"<p>This view shows hard disks and its partitions.</p><p>The overview "
-"contains:</p>"
-msgstr ""
-
 #. help text for cryptofs
 #: src/lib/y2partitioner/widgets/encrypt_password.rb:17
 #, fuzzy
@@ -759,9 +876,8 @@ msgstr "अपने फाइल सिस्टम के लिए एक प
 msgid "Reenter the Password for &Verification:"
 msgstr "&पुष्टि के लिए पासवर्ड को फिर से दर्ज करें :"
 
-#. It disable the format option if the current filesystem is not
-#. formattable or the selected partition does not allow format
-#: src/lib/y2partitioner/widgets/format_and_mount.rb:66
+#. @macro seeAbstractWidget
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:82
 #, fuzzy
 msgid ""
 "<p>First, choose whether the partition should be\n"
@@ -770,7 +886,7 @@ msgstr ""
 "<p>पहले, विभाजन का प्रकार चुनें और यह चुनें कि इस विभाजन को फॉर्मेट किया जाना चाहिए या "
 "नहीं।</p>"
 
-#: src/lib/y2partitioner/widgets/format_and_mount.rb:70
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:86
 msgid ""
 "<p>If you want to encrypt all data on the\n"
 "volume, select <b>Encrypt Device</b>. Changing the encryption on an "
@@ -778,131 +894,171 @@ msgid ""
 "volume will delete all data on it.</p>\n"
 msgstr ""
 
-#: src/lib/y2partitioner/widgets/format_and_mount.rb:76
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:92
 #, fuzzy
 msgid ""
 "<p>Then, choose whether the partition should\n"
 "be mounted and enter the mount point (/, /boot, /home, /var, etc.).</p>"
 msgstr "<p>इसके बाद, माउंट बिंदु (/, /boot, /usr, /var, आदि) दर्ज करें।</p>"
 
-#: src/lib/y2partitioner/widgets/format_and_mount.rb:86
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:102
 #, fuzzy
 msgid "Formatting Options"
 msgstr "पार्टिशन का आकार."
 
-#: src/lib/y2partitioner/widgets/format_and_mount.rb:94
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:110
 #, fuzzy
 #| msgid "Format"
 msgid "Format device"
 msgstr "फॉर्मेट"
 
-#: src/lib/y2partitioner/widgets/format_and_mount.rb:102
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:118
 #, fuzzy
 #| msgid "Do &not format"
 msgid "Do not format device"
 msgstr "फॉर्मेट &न करें"
 
-#. Mount options for {Y2Storage::BlkDevice}
-#: src/lib/y2partitioner/widgets/format_and_mount.rb:182
+#. Synchronize the widget with the information from the controller
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:206
 #, fuzzy
 msgid "Mounting Options"
 msgstr "माउंट विकल्प"
 
-#: src/lib/y2partitioner/widgets/format_and_mount.rb:190
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:214
 #, fuzzy
 msgid "Mount device"
 msgstr "%1 उप्करण मिटा रहा हैं"
 
-#: src/lib/y2partitioner/widgets/format_and_mount.rb:198
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:222
 #, fuzzy
 msgid "Do not mount device"
 msgstr "डिस्क से विभाजन"
 
-#. BlkDevice Filesystem selector
-#: src/lib/y2partitioner/widgets/format_and_mount.rb:263
+#. Synchronize the widget with the information from the controller
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:308
 #, fuzzy
 #| msgid "File &system"
 msgid "Filesystem"
 msgstr "फाइल &सिस्टम"
 
-#. Push Button that launches a dialog to set speficic options for the
-#. selected filesystem
-#: src/lib/y2partitioner/widgets/format_and_mount.rb:297
+#. @macro seeAbstractWidget
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:372
 #, fuzzy
 msgid "Options..."
 msgstr "विकल्प... (&O)"
 
-#. Encryption selector
-#: src/lib/y2partitioner/widgets/format_and_mount.rb:346
+#. @param controller [Actions::Controllers::Filesystem]
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:391
+#: src/lib/y2storage/dialogs/guided_setup/select_filesystem.rb:73
+msgid "Enable Snapshots"
+msgstr ""
+
+#. Validates not empty mount point
+#. An error popup is shown when an empty mount point is entered.
+#.
+#. @return [Boolean] true if mount point is not empty
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:463
+#, fuzzy
+#| msgid "Empty option strings are not allowed."
+msgid "Empty mount point not allowed."
+msgstr "रिक्त विकल्प स्ट्रींग स्वीकृत नहीं है."
+
+#. Validates that mount point is unique in the whole system
+#. An error popup is shown when the mount point already exists.
+#.
+#. @see #duplicated_mount_point?
+#.
+#. @return [Boolean] true if mount point is unique
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:476
+msgid "This mount point is already in use. Select a different one."
+msgstr "माउंट बिन्दु पहले से ही उपयोग में है। एक अन्य को चुनें।"
+
+#. Validates that the mount point does not shadow a subvolume that cannot be auto deleted
+#. An error popup is shown when a subvolume is shadowed by the mount point.
+#.
+#. @return [Boolean] true if mount point does not shadow a subvolume
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:491
+msgid "The Btrfs subvolume mounted at %s is shadowed."
+msgstr ""
+
+#. @param controller [Actions::Controllers::Filesystem]
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:587
+#, fuzzy
+#| msgid "Signature Handling"
+msgid "Subvolume Handling"
+msgstr "हस्ताक्षरों को संभालना"
+
+#. @param controller [Actions::Controllers::Filesystem]
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:605
 #, fuzzy
 msgid "Encrypt Device"
 msgstr "एन्क्रिप्शन (&E)"
 
 #. Inode Size format option
-#: src/lib/y2partitioner/widgets/format_and_mount.rb:372
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:639
 msgid "&Inode Size"
 msgstr "आईनोड आकार(&I)"
 
 #. Block Size format option
-#: src/lib/y2partitioner/widgets/format_and_mount.rb:389
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:656
 #, fuzzy
 #| msgid "Block &size in bytes"
 msgid "Block &Size in Bytes"
 msgstr "ब्लॉक आकार बाइट में(&s)"
 
-#. FIXME: initialize with the correct value
-#: src/lib/y2partitioner/widgets/format_and_mount.rb:424
+#. Synchronize the widget with the information from the controller
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:739
 msgid "File system &ID:"
 msgstr "फाइल सिस्टम &ID: "
 
 #. Push button that launch a dialog for set the fstab options
-#: src/lib/y2partitioner/widgets/fstab_options.rb:77
+#: src/lib/y2partitioner/widgets/fstab_options.rb:82
 #, fuzzy
 msgid "Fstab options..."
 msgstr "Fs&tab विकल्प"
 
 #. Input field to set the partition Label
-#: src/lib/y2partitioner/widgets/fstab_options.rb:145
-#: src/lib/y2partitioner/widgets/fstab_options.rb:183
+#: src/lib/y2partitioner/widgets/fstab_options.rb:150
+#: src/lib/y2partitioner/widgets/fstab_options.rb:188
 msgid "Volume &Label"
 msgstr "वॉल्यूम &लेबल"
 
 #. Group of radio buttons to select the type of identifier to be used for
 #. mouth the specific device (UUID, Label, Path...)
-#: src/lib/y2partitioner/widgets/fstab_options.rb:163
+#: src/lib/y2partitioner/widgets/fstab_options.rb:168
 msgid "Mount in /etc/fstab by"
 msgstr "/etc/fstab में द्वारा माउंट करें"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:182
+#: src/lib/y2partitioner/widgets/fstab_options.rb:187
 msgid "&Device Name"
 msgstr "उपकरण का नाम (&D)"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:184
+#: src/lib/y2partitioner/widgets/fstab_options.rb:189
 #, fuzzy
 msgid "&UUID"
 msgstr "अइडी (ID)"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:188
+#: src/lib/y2partitioner/widgets/fstab_options.rb:193
 msgid "Device &ID"
 msgstr "उपकरण &ID"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:189
+#: src/lib/y2partitioner/widgets/fstab_options.rb:194
 msgid "Device &Path"
 msgstr "उपकरण &पथ"
 
 #. CheckBox to disable the automount option when starting up
-#: src/lib/y2partitioner/widgets/fstab_options.rb:262
+#: src/lib/y2partitioner/widgets/fstab_options.rb:269
 msgid "Do Not Mount at System &Start-up"
 msgstr "सिस्टम स्टार्ट-अप पर माउंट न करें(&S)"
 
 #. CheckBox to enable the read only option ("ro")
-#: src/lib/y2partitioner/widgets/fstab_options.rb:272
+#: src/lib/y2partitioner/widgets/fstab_options.rb:279
 #, fuzzy
 #| msgid "Mount &read-only"
 msgid "Mount &Read-Only"
 msgstr "माउंट रीड-ऑनली(&r)"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:276
+#: src/lib/y2partitioner/widgets/fstab_options.rb:283
 #, fuzzy
 msgid ""
 "<p><b>Mount Read-Only:</b>\n"
@@ -914,13 +1070,13 @@ msgstr ""
 "फाइल सिस्टम में कोई लिखने योग्य पहुंच संभव नहीं है। डिफॉल्ट असत्य है।</p>\n"
 
 #. CheckBox to enable the noatime option
-#: src/lib/y2partitioner/widgets/fstab_options.rb:287
+#: src/lib/y2partitioner/widgets/fstab_options.rb:294
 #, fuzzy
 #| msgid "No &access time"
 msgid "No &Access Time"
 msgstr "कोई पहुंच समय नहीं(&a)"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:291
+#: src/lib/y2partitioner/widgets/fstab_options.rb:298
 #, fuzzy
 #| msgid ""
 #| "<p><b>No access time:</b>\n"
@@ -934,13 +1090,13 @@ msgstr ""
 
 #. CheckBox to enable the user option which means allow to mount the
 #. filesystem by an ordinary user
-#: src/lib/y2partitioner/widgets/fstab_options.rb:302
+#: src/lib/y2partitioner/widgets/fstab_options.rb:309
 #, fuzzy
 #| msgid "Mountable by &user"
 msgid "Mountable by user"
 msgstr "उपयोगकर्ता द्वारा माउंट योग्य(&u)"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:306
+#: src/lib/y2partitioner/widgets/fstab_options.rb:313
 msgid ""
 "<p><b>Mountable by User:</b>\n"
 "The file system may be mounted by an ordinary user. Default is false.</p>\n"
@@ -950,12 +1106,12 @@ msgstr ""
 "</p>\n"
 
 #. CheckBox to enable the use of user quotas
-#: src/lib/y2partitioner/widgets/fstab_options.rb:317
+#: src/lib/y2partitioner/widgets/fstab_options.rb:324
 #, fuzzy
 msgid "Enable &Quota Support"
 msgstr "लेयर २ सहायता समर्थ करें (&L)"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:321
+#: src/lib/y2partitioner/widgets/fstab_options.rb:328
 #, fuzzy
 msgid ""
 "<p><b>Enable Quota Support:</b>\n"
@@ -967,25 +1123,26 @@ msgstr ""
 "</p>\n"
 
 #. ComboBox to specify the journal mode to use by the filesystem
-#: src/lib/y2partitioner/widgets/fstab_options.rb:346
+#: src/lib/y2partitioner/widgets/fstab_options.rb:355
 msgid "Data &Journaling Mode"
 msgstr "डेटा जर्नलिंग मोड(&J)"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:357
+#. The options can only be modified using BlkDevice#fstab_options=
+#: src/lib/y2partitioner/widgets/fstab_options.rb:367
 #, fuzzy
 #| msgid "Disk Journal"
 msgid "journal"
 msgstr "डिस्क जर्नल"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:358
+#: src/lib/y2partitioner/widgets/fstab_options.rb:368
 msgid "ordered"
 msgstr ""
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:359
+#: src/lib/y2partitioner/widgets/fstab_options.rb:369
 msgid "writeback"
 msgstr ""
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:364
+#: src/lib/y2partitioner/widgets/fstab_options.rb:374
 #, fuzzy
 msgid ""
 "<p><b>Data Journaling Mode:</b>\n"
@@ -1010,11 +1167,11 @@ msgstr ""
 #. attributes
 #.
 #. TODO: FIXME: Pending implementation, currently it is only draw
-#: src/lib/y2partitioner/widgets/fstab_options.rb:385
+#: src/lib/y2partitioner/widgets/fstab_options.rb:395
 msgid "&Access Control Lists (ACL)"
 msgstr "पहुंच नियंतरण सूचियां (ACL)(&A)"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:386
+#: src/lib/y2partitioner/widgets/fstab_options.rb:396
 msgid "&Extended User Attributes"
 msgstr "विस्तारित उपयोगकर्ता विशेषताएं(&E)"
 
@@ -1024,18 +1181,19 @@ msgstr "विस्तारित उपयोगकर्ता विशे�
 #. TODO: FIXME: Pending implementation, currently it is only draw, all the options
 #. that it is responsable of should be defined, removing them if not set or
 #. supported by the current filesystem.
-#: src/lib/y2partitioner/widgets/fstab_options.rb:407
+#: src/lib/y2partitioner/widgets/fstab_options.rb:417
 #, fuzzy
 #| msgid "Arbitrary option &value"
 msgid "Arbitrary Option &Value"
 msgstr "स्वैच्छिक विकल्प मान(&v)"
 
 #. Swap priority
-#: src/lib/y2partitioner/widgets/fstab_options.rb:439
+#: src/lib/y2partitioner/widgets/fstab_options.rb:449
 msgid "Swap &Priority"
 msgstr "स्वैप प्राथमिकता(&P)"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:449
+#. The options can only be modified using BlkDevice#fstab_options=
+#: src/lib/y2partitioner/widgets/fstab_options.rb:460
 msgid ""
 "<p><b>Swap Priority:</b>\n"
 "Enter the swap priority. Higher numbers mean higher priority.</p>\n"
@@ -1043,12 +1201,12 @@ msgstr ""
 "<p><b>स्वैप प्राथमिकता:</b>\n"
 "एक स्वैप प्राथमिकता दर्ज करें। उच्चतर संख्याओं का अर्थ है उच्चतर प्राथमिकता।</p>\n"
 
-#. VFAT IOCharset
-#: src/lib/y2partitioner/widgets/fstab_options.rb:480
+#. The options can only be modified using BlkDevice#fstab_options=
+#: src/lib/y2partitioner/widgets/fstab_options.rb:492
 msgid "Char&set for file names"
 msgstr "फाइल नामों के लिए  केरसेट(&s)"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:484
+#: src/lib/y2partitioner/widgets/fstab_options.rb:496
 msgid ""
 "<p><b>Charset for File Names:</b>\n"
 "Set the charset used for display of file names in Windows partitions.</p>\n"
@@ -1056,12 +1214,12 @@ msgstr ""
 "<p><b>फाइल नामों के लिये केरसेट:</b>\n"
 "विडोज़ विभाजनों में फाइल नामों के प्रदर्शन हेतु केरसेट सेट करें। </p>\n"
 
-#. VFAT Codepage
-#: src/lib/y2partitioner/widgets/fstab_options.rb:515
+#. The options can only be modified using BlkDevice#fstab_options=
+#: src/lib/y2partitioner/widgets/fstab_options.rb:529
 msgid "Code&page for short FAT names"
 msgstr "छोटे FAT नामों के लिए Code&page"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:519
+#: src/lib/y2partitioner/widgets/fstab_options.rb:533
 msgid ""
 "<p><b>Codepage for Short FAT Names:</b>\n"
 "This codepage is used for converting to shortname characters on FAT file "
@@ -1131,7 +1289,7 @@ msgstr ""
 #: src/lib/y2partitioner/widgets/help.rb:37
 #, fuzzy
 msgid ""
-"<b>End Cylinder</b> shows the end cylinder of\n"
+"<b>End</b> shows the end block of\n"
 "the partition."
 msgstr "पार्टिशन का अंत सिलिंडर."
 
@@ -1256,7 +1414,7 @@ msgstr ""
 #: src/lib/y2partitioner/widgets/help.rb:84
 #, fuzzy
 msgid ""
-"<b>Start Cylinder</b> shows the start cylinder\n"
+"<b>Start</b> shows the start block\n"
 "of the partition."
 msgstr "पार्टिशन का प्रारंभ सिलिंडर."
 
@@ -1324,9 +1482,22 @@ msgstr ""
 "<tt>noauto</tt> विकल्प सेट किया हुआ है)। \n"
 "</p>\n"
 
+#. When there is no vg, only shows an option to add a new vg.
+#. Otherwise, options for adding a vg or lv are shown.
+#. @return [Array<[Symbol, String]>] list of menu options
+#: src/lib/y2partitioner/widgets/lvm_add_button.rb:50
+msgid "Volume Group"
+msgstr "आयतन समूह"
+
+#. TRANSLATORS: table header, type of metadata
+#: src/lib/y2partitioner/widgets/lvm_devices_table.rb:49
+#, fuzzy
+msgid "PE Size"
+msgstr "आकार"
+
 #. TRANSLATORS: first %s is number of LVM stripes
 #. and the second one is for size of stripe
-#: src/lib/y2partitioner/widgets/lvm_lv_attributes.rb:20
+#: src/lib/y2partitioner/widgets/lvm_lv_attributes.rb:41
 msgid "%s (%s)"
 msgstr ""
 
@@ -1350,60 +1521,6 @@ msgstr ""
 msgid "Stripes: %s"
 msgstr "स्ट्राइप्स(&p)"
 
-#. TRANSLATORS: Heading. String followed by name of partition
-#: src/lib/y2partitioner/widgets/lvm_lv_page.rb:33
-#, fuzzy
-msgid "Logical Volume: %s"
-msgstr "तर्क संगत आयतन नाम:"
-
-#. TRANSLATORS: table header, number of LVM LV stripes
-#. TRANSLATORS: table header, number of LVM LV stripes
-#: src/lib/y2partitioner/widgets/lvm_lv_table.rb:68
-#: src/lib/y2partitioner/widgets/lvm_table.rb:70
-#, fuzzy
-msgid "Stripes"
-msgstr "स्ट्राइप्स(&p)"
-
-#. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/lvm_lv_table.rb:76
-#, fuzzy
-msgid ""
-"<p>This view shows all logical volumes of the\n"
-"selected volume group.</p><p>The overview contains:</p>"
-msgstr "<p>अपने वॉल्यूम समूह में <b>विभाजन जोड़ें</b> (जिन्हें भौतिक वॉल्यूम कहते हैं)। </p>"
-
-#. @macro seeAbstractWidget
-#. TRANSLATORS: Heading
-#: src/lib/y2partitioner/widgets/lvm_page.rb:19
-#: src/lib/y2partitioner/widgets/lvm_page.rb:32
-#, fuzzy
-msgid "Volume Management"
-msgstr "प्रोफाइल प्रबंधन (&g)"
-
-#. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/lvm_pv_table.rb:33
-#, fuzzy
-msgid ""
-"<p>This view shows all physical volumes used by\n"
-"the selected volume group.</p>"
-msgstr "<p>अपने वॉल्यूम समूह में <b>विभाजन जोड़ें</b> (जिन्हें भौतिक वॉल्यूम कहते हैं)। </p>"
-
-#. TRANSLATORS: table header, type of metadata
-#: src/lib/y2partitioner/widgets/lvm_table.rb:68
-#, fuzzy
-msgid "PE Size"
-msgstr "आकार"
-
-#. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/lvm_table.rb:78
-#, fuzzy
-msgid ""
-"<p>This view shows all LVM volume groups and\n"
-"their logical volumes.</p><p>The overview contains:</p>"
-msgstr ""
-"<p>इस उपकरण से लॉजिकल वॉल्यूम्स को मैनेज या सृजित करें।\n"
-"</p>\n"
-
 #. @macro seeAbstractWidget
 #: src/lib/y2partitioner/widgets/lvm_vg_description.rb:27
 #, fuzzy
@@ -1417,24 +1534,6 @@ msgstr "<p>अपने वॉल्यूम समूह में <b>वि�
 #, fuzzy
 msgid "PE Size: %s"
 msgstr "साइज : %1"
-
-#. @macro seeCustomWidget
-#: src/lib/y2partitioner/widgets/lvm_vg_page.rb:34
-#, fuzzy
-msgid "Volume Group: %s"
-msgstr "वॉल्यूम समूह"
-
-#. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/lvm_vg_page.rb:75
-#, fuzzy
-msgid "Log&ical Volumes"
-msgstr "लॉजिकल वॉल्यूम्स"
-
-#. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/lvm_vg_page.rb:97
-#, fuzzy
-msgid "&Physical Volumes"
-msgstr "भौतिक वॉल्यूम्स "
 
 #. @macro seeAbstractWidget
 #: src/lib/y2partitioner/widgets/md_description.rb:30
@@ -1470,106 +1569,173 @@ msgstr "साइज : %1"
 msgid "Partity algorithm: %s"
 msgstr "एन्क्रिप्शन अल्गोरितमंस: "
 
-#. @macro seeCustomWidget
-#: src/lib/y2partitioner/widgets/md_raid_page.rb:32
-#, fuzzy
-msgid "RAID: %s"
-msgstr "URL:%1"
-
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/md_raid_page.rb:76
-#, fuzzy
-msgid "&Used Devices"
-msgstr "ब्रिज उपकरण"
-
-#. TRANSLATORS: table header, type of md raid.
-#: src/lib/y2partitioner/widgets/md_raid_table.rb:72
-#, fuzzy
-#| msgid "RAID T&ype"
-msgid "RAID Type"
-msgstr "RAID प्र&कार"
-
-#. TRANSLATORS: table header, chunk size of md raid
-#: src/lib/y2partitioner/widgets/md_raid_table.rb:74
-#, fuzzy
-msgid "Chunk Size"
-msgstr "चंक का KB में आ&कार"
-
-#. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/md_raid_table.rb:82
-#, fuzzy
-msgid ""
-"<p>This view shows all RAIDs except BIOS RAIDs.</p><p>The overview contains:"
-"</p>"
-msgstr "<p>यह फ्रेम साइन के अनुरोध को प्रदर्शित करता है।</p>"
-
-#. @macro seeAbstractWidget
-#. TRANSLATORS: Heading
-#: src/lib/y2partitioner/widgets/md_raids_page.rb:21
-#: src/lib/y2partitioner/widgets/md_raids_page.rb:34
-#, fuzzy
-msgid "RAID"
-msgstr "R&AID:"
-
-#. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/md_used_devices_table.rb:30
-#, fuzzy
-msgid ""
-"<p><p>This view shows all devices used by the\n"
-"selected RAID.</p>"
-msgstr "<p>अपने वॉल्यूम समूह में <b>विभाजन जोड़ें</b> (जिन्हें भौतिक वॉल्यूम कहते हैं)। </p>"
-
-#. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/overview.rb:42
+#: src/lib/y2partitioner/widgets/overview.rb:53
 #, fuzzy
 msgid "System View"
 msgstr "सिस्टम की जांच"
 
 #. TODO: only if there is graph support UI.HasSpecialWidget(:Graph)
-#: src/lib/y2partitioner/widgets/overview.rb:67
+#: src/lib/y2partitioner/widgets/overview.rb:78
 #, fuzzy
 #| msgid "Device Path"
 msgid "Device Graph"
 msgstr "उपकरण पथ"
 
 #. TODO: only if there is graph support UI.HasSpecialWidget(:Graph)
-#: src/lib/y2partitioner/widgets/overview.rb:69
+#: src/lib/y2partitioner/widgets/overview.rb:80
 #, fuzzy
 msgid "Mount Graph"
 msgstr "निर्यात...(&E)"
 
-#: src/lib/y2partitioner/widgets/overview.rb:70
+#: src/lib/y2partitioner/widgets/overview.rb:81
 msgid "Installation Summary"
 msgstr "अधिषठापन सार"
 
-#: src/lib/y2partitioner/widgets/overview.rb:71
+#: src/lib/y2partitioner/widgets/overview.rb:82
 msgid "Settings"
 msgstr "व्यवसथाऐ"
 
 #. TODO: real subtree
-#: src/lib/y2partitioner/widgets/overview.rb:151
+#: src/lib/y2partitioner/widgets/overview.rb:184
 #, fuzzy
 msgid "Crypt Files"
 msgstr "क्रिप्ट फाइल..."
 
 #. TODO: real subtree
-#: src/lib/y2partitioner/widgets/overview.rb:156
+#: src/lib/y2partitioner/widgets/overview.rb:189
 #, fuzzy
 msgid "Device Mapper"
 msgstr "उपकरण प्रकार"
 
-#: src/lib/y2partitioner/widgets/overview.rb:160
+#: src/lib/y2partitioner/widgets/overview.rb:193
 msgid "NFS"
 msgstr "NFS"
 
-#: src/lib/y2partitioner/widgets/overview.rb:168
+#: src/lib/y2partitioner/widgets/overview.rb:202
 msgid "tmpfs"
 msgstr ""
 
-#: src/lib/y2partitioner/widgets/overview.rb:172
+#: src/lib/y2partitioner/widgets/overview.rb:206
 #, fuzzy
 msgid "Unused Devices"
 msgstr "समनुरुपित उपकरणः"
+
+#. @macro seeAbstractWidget
+#: src/lib/y2partitioner/widgets/pages/btrfs.rb:20
+msgid "Btrfs"
+msgstr ""
+
+#. TRANSLATORS: Heading
+#: src/lib/y2partitioner/widgets/pages/btrfs.rb:33
+#, fuzzy
+msgid "Btrfs Volumes"
+msgstr "लॉजिकल वॉल्यूम फिर से आकार दें"
+
+#. @macro seeCustomWidget
+#: src/lib/y2partitioner/widgets/pages/disk.rb:70
+#, fuzzy
+msgid "Hard Disk: %s"
+msgstr "हार्ड डिस्क: "
+
+#. @macro seeAbstractWidget
+#. @macro seeAbstractWidget
+#. @macro seeAbstractWidget
+#: src/lib/y2partitioner/widgets/pages/disk.rb:111
+#: src/lib/y2partitioner/widgets/pages/lvm_vg.rb:94
+#: src/lib/y2partitioner/widgets/pages/md_raid.rb:92
+msgid "&Overview"
+msgstr "विवरण(&O)"
+
+#. @macro seeAbstractWidget
+#: src/lib/y2partitioner/widgets/pages/disk.rb:142
+#, fuzzy
+msgid "&Partitions"
+msgstr "विभाजन"
+
+#. @macro seeAbstractWidget
+#: src/lib/y2partitioner/widgets/pages/disks.rb:47
+msgid "Hard Disks"
+msgstr "हार्ड डिस्क"
+
+#. TRANSLATORS: Heading. String followed by name of partition
+#: src/lib/y2partitioner/widgets/pages/disks.rb:61
+#, fuzzy
+#| msgid "Hard Disks"
+msgid "Hard Disks "
+msgstr "हार्ड डिस्क"
+
+#. Label for all the instances
+#.
+#. @see #label
+#.
+#. @return [String]
+#. TRANSLATORS: Heading
+#: src/lib/y2partitioner/widgets/pages/lvm.rb:53
+#: src/lib/y2partitioner/widgets/pages/lvm.rb:71
+#, fuzzy
+msgid "Volume Management"
+msgstr "प्रोफाइल प्रबंधन (&g)"
+
+#. TRANSLATORS: Heading. String followed by name of partition
+#: src/lib/y2partitioner/widgets/pages/lvm_lv.rb:63
+#, fuzzy
+msgid "Logical Volume: %s"
+msgstr "तर्क संगत आयतन नाम:"
+
+#. @macro seeCustomWidget
+#: src/lib/y2partitioner/widgets/pages/lvm_vg.rb:69
+#, fuzzy
+msgid "Volume Group: %s"
+msgstr "वॉल्यूम समूह"
+
+#. @macro seeAbstractWidget
+#: src/lib/y2partitioner/widgets/pages/lvm_vg.rb:119
+#, fuzzy
+msgid "Log&ical Volumes"
+msgstr "लॉजिकल वॉल्यूम्स"
+
+#. @macro seeAbstractWidget
+#: src/lib/y2partitioner/widgets/pages/lvm_vg.rb:175
+#, fuzzy
+msgid "&Physical Volumes"
+msgstr "भौतिक वॉल्यूम्स "
+
+#. @macro seeCustomWidget
+#: src/lib/y2partitioner/widgets/pages/md_raid.rb:65
+#, fuzzy
+msgid "RAID: %s"
+msgstr "URL:%1"
+
+#. Label for all the instances
+#.
+#. @see #label
+#.
+#. @return [String]
+#. TRANSLATORS: Heading
+#: src/lib/y2partitioner/widgets/pages/md_raids.rb:52
+#: src/lib/y2partitioner/widgets/pages/md_raids.rb:71
+#, fuzzy
+msgid "RAID"
+msgstr "R&AID:"
+
+#. Constructor
+#: src/lib/y2partitioner/widgets/pages/md_raids.rb:98
+#, fuzzy
+msgid "Add RAID..."
+msgstr "RAI&D जोड़ें"
+
+#. TRANSLATORS: Heading. String followed by name of partition
+#: src/lib/y2partitioner/widgets/pages/partition.rb:44
+#, fuzzy
+msgid "Partition: "
+msgstr "विभाजन 1"
+
+#. TRANSLATORS: Heading. String followed by the hostname
+#: src/lib/y2partitioner/widgets/pages/system.rb:39
+#, fuzzy
+msgid "Available Storage on %s"
+msgstr "उपलब्ध युक्ति: %1"
 
 #. @macro seeAbstractWidget
 #: src/lib/y2partitioner/widgets/partition_description.rb:31
@@ -1585,21 +1751,41 @@ msgstr "<p>अपने वॉल्यूम समूह में <b>वि�
 msgid "FS ID: %s"
 msgstr "URL:%1"
 
-#. TRANSLATORS: Heading. String followed by name of partition
-#: src/lib/y2partitioner/widgets/partition_page.rb:72
+#. TRANSLATORS: button label to rescan devices
+#: src/lib/y2partitioner/widgets/rescan_devices_button.rb:41
 #, fuzzy
-msgid "Partition: "
-msgstr "विभाजन 1"
+msgid "Rescan Devices"
+msgstr "हार्ड डिस्क"
 
-#. Help without specification what is exactly device holding blk_device. Should be defined in
-#. Specific child.
-#. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/used_devices_table.rb:65
-#, fuzzy
+#. Shows a confirm message before reprobing
+#: src/lib/y2partitioner/widgets/rescan_devices_button.rb:60
 msgid ""
-"<p>This view shows all physical volumes used by\n"
-"the selected volume group.</p><p>The overview contains:</p>"
-msgstr "<p>अपने वॉल्यूम समूह में <b>विभाजन जोड़ें</b> (जिन्हें भौतिक वॉल्यूम कहते हैं)। </p>"
+"Re-scanning the storage devices will invalidate all the configuration\n"
+"options set in the installer regarding storage, with no possibility\n"
+"to withdraw.\n"
+"That includes the result and settings of the guided setup as well as\n"
+"the manual changes performed in the expert partitioner."
+msgstr ""
+
+#: src/lib/y2partitioner/widgets/rescan_devices_button.rb:66
+msgid ""
+"Re-scanning the storage devices will invalidate all the previous\n"
+"changes with no possibility to withdraw."
+msgstr ""
+
+#. Reprobes and updates devicegraphs for the partitioner
+#.
+#. @note A message is shown during the reprobing action
+#: src/lib/y2partitioner/widgets/rescan_devices_button.rb:75
+#, fuzzy
+msgid "Rescanning disks..."
+msgstr "डिस्क पार्टिशन पढ़ रहा..."
+
+#. @macro seeAbstractWidget
+#: src/lib/y2partitioner/widgets/used_devices_tab.rb:42
+#, fuzzy
+msgid "&Used Devices"
+msgstr "ब्रिज उपकरण"
 
 #. class to implement callbacks used during activate
 #: src/lib/y2storage/callbacks/activate.rb:43
@@ -1607,6 +1793,333 @@ msgid ""
 "The system seems to have multipath hardware.\n"
 "Do you want to activate multipath?"
 msgstr ""
+
+#. Callback for libstorage-ng to report an error to the user.
+#.
+#. In addition to displaying the error, it offers the user the possibility
+#. to ignore it and continue.
+#.
+#. @note If the user rejects to continue, the method will return false
+#. which implies libstorage-ng will raise the corresponding exception for
+#. the error.
+#.
+#. See Storage::CommitCallbacks#error in libstorage-ng
+#.
+#. @param message [String] error title coming from libstorage-ng
+#. @param what [String] details coming from libstorage-ng
+#. @return [Boolean] true will make libstorage-ng ignore the error, false
+#. will result in a libstorage-ng exception
+#: src/lib/y2storage/callbacks/commit.rb:71
+#, fuzzy
+#| msgid "Continue resizing the %1?"
+msgid "Continue despite the error?"
+msgstr "%1 को पुन: आकार देना जारी रखें?"
+
+#. Proposal client to show the list of storage actions.
+#.
+#. This client is used in autoyast summary dialog, where a new
+#. client instance is created with each event that requires to
+#. update the summary dialog content.
+#.
+#. To manage collapsing/expanding subvolumes list it is necessary
+#. to save the previous state of that list, but it is not possible
+#. to do that in the client instance itself because a new client
+#. instance is created each time.
+#.
+#. To solve that, instance class attributes are used. PartitionsProposal
+#. class has an internal state that is updated with each object creation.
+#.
+#. @see PartitionsProposal.update_state
+#: src/lib/y2storage/clients/partitions_proposal.rb:76
+msgid "This is not enabled at this moment (event: %s)"
+msgstr ""
+
+#: src/lib/y2storage/clients/partitions_proposal.rb:87
+msgid "Partitioning"
+msgstr "विभाजनिं"
+
+#: src/lib/y2storage/clients/partitions_proposal.rb:88
+msgid "&Partitioning"
+msgstr "विभाजन कर रहा है(&P)"
+
+#. Updates internal class state when it is necessary.
+#.
+#. A new actions presenter is created when the current staging revision
+#. is different to the last saved revision.
+#.
+#. @see ActionsPresenter
+#: src/lib/y2storage/clients/partitions_proposal.rb:135
+#: src/lib/y2storage/clients/partitions_proposal.rb:137
+#, fuzzy
+#| msgid "Proposal type"
+msgid "No proposal possible"
+msgstr "प्रस्तुति प्रकार"
+
+#. Translators: Short description of the partitioning setup
+#: src/lib/y2storage/clients/partitions_proposal.rb:152
+#, fuzzy
+msgid "Custom"
+msgstr "कस्टम आकार (&S)"
+
+#. TODO: should be tested by some real OPS guy, I (JR) pick human wording from `man mdadm`
+#: src/lib/y2storage/clients/partitions_proposal.rb:152
+#: src/lib/y2storage/md_parity.rb:37
+#, fuzzy
+msgid "Default"
+msgstr "अकरण(Default)  होस्ट"
+
+#. Dialog to manage luks activation callbacks
+#: src/lib/y2storage/dialogs/callbacks/activate_luks.rb:64
+#, fuzzy
+msgid "Encrypted Volume Activation"
+msgstr "वॉल्यूम समूह"
+
+#: src/lib/y2storage/dialogs/callbacks/activate_luks.rb:68
+#, fuzzy
+#| msgid "Do you want to retry?"
+msgid "Do you want to provide the encryption password?"
+msgstr "क्या आप पुनः प्रयास करना चाहते हैं?"
+
+#: src/lib/y2storage/dialogs/callbacks/activate_luks.rb:69
+#, fuzzy
+#| msgid "Enter Encryption Key"
+msgid "Enter Encryption Password"
+msgstr "एन्क्रिप्शन कि भरती करें"
+
+#: src/lib/y2storage/dialogs/callbacks/activate_luks.rb:101
+msgid ""
+"The following device contains an encryption signature but the\n"
+"password is not yet known."
+msgstr ""
+
+#: src/lib/y2storage/dialogs/callbacks/activate_luks.rb:110
+msgid ""
+"The password is needed if the device contains a system to be\n"
+"updated or belongs to an LVM to be used during installation."
+msgstr ""
+
+#. Should be implemented by derived classes.
+#: src/lib/y2storage/dialogs/guided_setup/base.rb:113
+msgid ""
+"<p>\n"
+"TODO: this dialog is just temporary. Hopefully it will end up including help "
+"of each setup.</p>"
+msgstr ""
+
+#. Before skipping, settings should be assigned.
+#. Before skipping, settings should be assigned.
+#: src/lib/y2storage/dialogs/guided_setup/select_disks.rb:52
+#: src/lib/y2storage/dialogs/guided_setup/select_root_disk.rb:50
+#, fuzzy
+#| msgid "Hard Disks"
+msgid "Select Hard Disk(s)"
+msgstr "हार्ड डिस्क"
+
+#: src/lib/y2storage/dialogs/guided_setup/select_disks.rb:58
+msgid "Select one or more (max %d) hard disks"
+msgstr ""
+
+#: src/lib/y2storage/dialogs/guided_setup/select_disks.rb:88
+msgid "At least one disk must be selected"
+msgstr ""
+
+#: src/lib/y2storage/dialogs/guided_setup/select_disks.rb:94
+#, fuzzy
+msgid "At most %d disks can be selected"
+msgstr "कोई हार्ड डिस्क नहीं पाया गया"
+
+#. Dialog to select filesystems.
+#: src/lib/y2storage/dialogs/guided_setup/select_filesystem.rb:49
+#, fuzzy
+#| msgid "File system options:"
+msgid "Filesystem Options"
+msgstr "फाइल सिस्टम विकल्प :"
+
+#: src/lib/y2storage/dialogs/guided_setup/select_filesystem.rb:66
+#, fuzzy
+#| msgid "File system options:"
+msgid "File System for Root Partition"
+msgstr "फाइल सिस्टम विकल्प :"
+
+#: src/lib/y2storage/dialogs/guided_setup/select_filesystem.rb:82
+#, fuzzy
+#| msgid "Propose Separate &Home Partition"
+msgid "Propose Separate Home Partition"
+msgstr "विभिन्न होम पार्टिशन प्रस्तावित करें"
+
+#: src/lib/y2storage/dialogs/guided_setup/select_filesystem.rb:88
+#, fuzzy
+#| msgid "Propose Separate &Home Partition"
+msgid "File System for Home Partition"
+msgstr "विभिन्न होम पार्टिशन प्रस्तावित करें"
+
+#: src/lib/y2storage/dialogs/guided_setup/select_root_disk.rb:69
+msgid "Please select a disk to use as the \"root\" partition (/)"
+msgstr ""
+
+#: src/lib/y2storage/dialogs/guided_setup/select_root_disk.rb:86
+msgid "Choose what to do with existing Windows systems"
+msgstr ""
+
+#: src/lib/y2storage/dialogs/guided_setup/select_root_disk.rb:91
+#: src/lib/y2storage/dialogs/guided_setup/select_root_disk.rb:108
+#: src/lib/y2storage/dialogs/guided_setup/select_root_disk.rb:124
+#, fuzzy
+msgid "Do not modify"
+msgstr "डिस्क से विभाजन"
+
+#: src/lib/y2storage/dialogs/guided_setup/select_root_disk.rb:92
+msgid "Resize if needed"
+msgstr ""
+
+#: src/lib/y2storage/dialogs/guided_setup/select_root_disk.rb:93
+msgid "Resize or remove as needed"
+msgstr ""
+
+#: src/lib/y2storage/dialogs/guided_setup/select_root_disk.rb:94
+#: src/lib/y2storage/dialogs/guided_setup/select_root_disk.rb:110
+#: src/lib/y2storage/dialogs/guided_setup/select_root_disk.rb:126
+msgid "Remove even if not needed"
+msgstr ""
+
+#: src/lib/y2storage/dialogs/guided_setup/select_root_disk.rb:103
+msgid "Choose what to do with existing Linux partitions"
+msgstr ""
+
+#: src/lib/y2storage/dialogs/guided_setup/select_root_disk.rb:109
+#: src/lib/y2storage/dialogs/guided_setup/select_root_disk.rb:125
+#, fuzzy
+#| msgid "&Remove Container"
+msgid "Remove if needed"
+msgstr "कंटेनर हटाएं"
+
+#: src/lib/y2storage/dialogs/guided_setup/select_root_disk.rb:119
+#, fuzzy
+msgid "Choose what to do with other partitions"
+msgstr ""
+"<p>\n"
+"अपने %1 विभाजन के लिए नया आकार चुनें। \n"
+"</p>"
+
+#: src/lib/y2storage/dialogs/guided_setup/select_root_disk.rb:134
+msgid "Any disk"
+msgstr ""
+
+#. Handler for :encryption check box.
+#. @param focus [Boolean] whether password field should be focused
+#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:56
+#, fuzzy
+#| msgid "Partitioning"
+msgid "Partitioning Scheme"
+msgstr "विभाजनिं"
+
+#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:62
+#, fuzzy
+#| msgid "Logical volume &name "
+msgid "Enable Logical Volume Management (LVM)"
+msgstr "लॉजिकल वॉल्यूम नाम(&n)"
+
+#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:64
+#, fuzzy
+msgid "Enable Disk Encryption"
+msgstr "एन्क्रिप्शन (&E)"
+
+#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:69
+msgid "Password"
+msgstr "पासवर्ड"
+
+#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:75
+#, fuzzy
+#| msgid "Enter Provider Password"
+msgid "Verify Password"
+msgstr "संभरक पासवेर्ड भरती करें"
+
+#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:128
+msgid "A password is needed"
+msgstr ""
+
+#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:134
+msgid "Password does not match"
+msgstr ""
+
+#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:143
+#, fuzzy
+#| msgid ""
+#| "The password must have at least %1 characters.\n"
+#| "Try again.\n"
+msgid "The password must have at least %d characters."
+msgstr ""
+"पासवर्ड में कम से कम %1 वर्ण होने चाहिए।\n"
+"फिर से कोशिश करें।\n"
+
+#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:144
+#, fuzzy
+msgid ""
+"The password may only contain the following characters:\n"
+"0..9, a..z, A..Z, and any of \"@#* ,.;:._-+=!$%&/|?{[()]}^\\<>\"."
+msgstr ""
+"पासवर्ड में सिर्फ निम्नलिखित वर्ण हो सकते हैं :\n"
+" 0..9, a..z, A..Z, और \"@#* ,.;:._-+!$%&/|?{[()]}\" में से कोई।\n"
+"फिर से कोशिश करें।"
+
+#. Password is considered strong when cracklib returns an empty message.
+#. User has the last word to decide whether to use a weak password.
+#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:160
+msgid "The password is too simple:"
+msgstr ""
+
+#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:163
+#, fuzzy
+msgid "Really use this password?"
+msgstr "वास्तव में इस प्रविष्टि को हटाया जाना है?"
+
+#. Calculates the storage proposal during installation and provides
+#. the user a summary of the storage proposal
+#: src/lib/y2storage/dialogs/proposal.rb:55
+#, fuzzy
+#| msgid "Continue?"
+msgid "Cannot continue"
+msgstr "जारी रखें?"
+
+#. TODO: if there is a proposal, use the meaningful description with
+#. hyperlinks instead of just delegating the summary to libstorage
+#: src/lib/y2storage/dialogs/proposal.rb:114
+msgid "No proposal possible."
+msgstr ""
+
+#: src/lib/y2storage/dialogs/proposal.rb:121
+msgid "Suggested Partitioning"
+msgstr "सुझाई गई विभाजनिंग"
+
+#: src/lib/y2storage/dialogs/proposal.rb:127
+msgid "Start with &Current Proposal"
+msgstr ""
+
+#: src/lib/y2storage/dialogs/proposal.rb:129
+#, fuzzy
+#| msgid "Edit Existing Partition %1"
+msgid "Start with Existing &Partitions"
+msgstr "मौजूदा विभाजन %1 संपादित करें"
+
+#: src/lib/y2storage/dialogs/proposal.rb:130
+#, fuzzy
+#| msgid "Expert Partitioner"
+msgid "&Expert Partitioner"
+msgstr "विशेषज्ञ विभाजनर"
+
+#: src/lib/y2storage/dialogs/proposal.rb:138
+msgid "&Guided Setup"
+msgstr ""
+
+#: src/lib/y2storage/dialogs/proposal.rb:145
+msgid ""
+"<p>\n"
+"Your hard disks have been checked. The partition setup\n"
+"displayed is proposed for your hard drive.</p>"
+msgstr ""
+"<p>\n"
+"आपकी हार्ड डिस्कें जांच ली गईं हैं। प्रदर्शित विभाजन सेटअप \n"
+"आपकी हार्ड ड्राइव के लिए सुझाई गई है। </p>"
 
 #. Class to represent all the possible MD levels
 #.
@@ -1647,12 +2160,6 @@ msgstr "R&AID:"
 #| msgid " Container"
 msgid "Container"
 msgstr "कंटेनर"
-
-#. TODO: should be tested by some real OPS guy, I (JR) pick human wording from `man mdadm`
-#: src/lib/y2storage/md_parity.rb:37
-#, fuzzy
-msgid "Default"
-msgstr "अकरण(Default)  होस्ट"
 
 #: src/lib/y2storage/md_parity.rb:38
 msgid "Left asymmetric"
@@ -1729,6 +2236,21 @@ msgstr ""
 msgid "Three copies far"
 msgstr ""
 
+#. This message is not very informative, but the Package module does
+#. not provide any more information.
+#.
+#. TRANSLATORS: error popup
+#: src/lib/y2storage/package_handler.rb:169
+msgid "Installing required packages failed."
+msgstr "आवश्यक बंडल अधिष्ठापित करने पर फेल हो गया । "
+
+#. TRANSLATORS: error popup. %s is the list of affected packages.
+#: src/lib/y2storage/package_handler.rb:177
+#, fuzzy
+#| msgid "writing the firewall rules failed"
+msgid "Adding the following packages failed: %s"
+msgstr "फायरवाल लिखने का नियम फेल हो गया"
+
 #. Class to represent all the possible partition ids
 #.
 #. This is a wrapper for the Storage::ID enum
@@ -1751,7 +2273,9 @@ msgid "Linux Swap"
 msgstr "लीनक्स"
 
 #: src/lib/y2storage/partition_id.rb:43
-msgid "Linux"
+#, fuzzy
+#| msgid "Linux"
+msgid "Linux Native"
 msgstr "लीनक्स"
 
 #: src/lib/y2storage/partition_id.rb:44
@@ -1834,12 +2358,6 @@ msgstr ""
 "\n"
 "इस चेतावनी के बावजूद जारी रखने के लिए, Yes पर क्लिक करें। \n"
 
-#. dialog heading
-#. dialog caption
-#: src/clients/disk.rb:67 src/include/partitioning/ep-main.rb:68
-msgid "Expert Partitioner"
-msgstr "विशेषज्ञ विभाजनर"
-
 #. text show during initialization
 #: src/clients/disk.rb:69
 msgid "Initializing..."
@@ -1877,11 +2395,6 @@ msgstr ""
 msgid "List partitions"
 msgstr "डिस्क का विभाजनकर्ता"
 
-#. Title for dialogue
-#: src/clients/inst_disk_proposal.rb:76
-msgid "Suggested Partitioning"
-msgstr "सुझाई गई विभाजनिंग"
-
 #. Radiobutton for partition dialog
 #: src/clients/inst_disk_proposal.rb:78
 #, fuzzy
@@ -1896,8 +2409,7 @@ msgid "&Create Partition Setup..."
 msgstr "कस्टम विभाजन सेटअप सृजित करें"
 
 #. popup text
-#: src/clients/inst_disk_proposal.rb:123
-#: src/clients/partitions_proposal.rb:105
+#: src/clients/inst_disk_proposal.rb:123 src/clients/partitions_proposal.rb:115
 msgid ""
 "No automatic proposal possible.\n"
 "Specify mount points manually in the 'Partitioner' dialog."
@@ -1906,30 +2418,17 @@ msgstr ""
 "'विभाजनर' संवाद में मैनुअल ढंग से माउंट बिंदुओं को निर्दिष्ट करें।"
 
 #. TRANSLATORS: button text
-#. this is the resize case
-#.
-#. this is the normal case
-#: src/clients/inst_disk_proposal.rb:135 src/clients/inst_target_part.rb:164
-#: src/clients/inst_target_part.rb:178 src/clients/inst_target_part.rb:185
+#. Return a term for a PushButton("Edit Proposal Settings")
+#. or Empty() if that button is disabled in control.xml.
+#: src/clients/inst_disk_proposal.rb:136 src/clients/inst_target_part.rb:500
 #, fuzzy
 #| msgid "Write global settings"
 msgid "Edit Proposal Settings"
 msgstr "ग्लोबल व्यवस्थाऐं लिखो"
 
-#. help on suggested partitioning
-#: src/clients/inst_disk_proposal.rb:165
-msgid ""
-"<p>\n"
-"Your hard disks have been checked. The partition setup\n"
-"displayed is proposed for your hard drive.</p>"
-msgstr ""
-"<p>\n"
-"आपकी हार्ड डिस्कें जांच ली गईं हैं। प्रदर्शित विभाजन सेटअप \n"
-"आपकी हार्ड ड्राइव के लिए सुझाई गई है। </p>"
-
 #. help text continued
 #. %1 is replaced by button text
-#: src/clients/inst_disk_proposal.rb:175
+#: src/clients/inst_disk_proposal.rb:176
 #, fuzzy
 msgid ""
 "<p>\n"
@@ -1944,7 +2443,7 @@ msgstr ""
 "संशोधन करें।</p>\n"
 
 #. help text continued
-#: src/clients/inst_disk_proposal.rb:188
+#: src/clients/inst_disk_proposal.rb:189
 #, fuzzy
 #| msgid ""
 #| "<p>\n"
@@ -1973,34 +2472,34 @@ msgstr ""
 
 #. Attention! besides the testsuite, AutoYaST is using this to turn off
 #. the proposal screen too. See inst_autosetup.ycp
-#: src/clients/inst_disk_proposal.rb:232
+#: src/clients/inst_disk_proposal.rb:233
 msgid "Impossible to create the requested proposal."
 msgstr "अनुरोधित प्रस्तुति सृजित करना असंभव।"
 
 #. TRANSLATORS: popup error message
-#: src/clients/inst_disk_proposal.rb:238
+#: src/clients/inst_disk_proposal.rb:239
 msgid "Not enough space available to propose snapshots for root volume."
 msgstr ""
 
 #. TRANSLATORS: popup error message
-#: src/clients/inst_disk_proposal.rb:244 src/clients/inst_target_part.rb:449
+#: src/clients/inst_disk_proposal.rb:245 src/clients/inst_target_part.rb:449
 msgid "Not enough space available to propose separate /home."
 msgstr ""
 
-#: src/clients/inst_disk_proposal.rb:283
+#: src/clients/inst_disk_proposal.rb:284
 #, fuzzy
 #| msgid "Set global root filesystem"
 msgid "Nothing assigned as root filesystem. Cannot continue."
 msgstr "वैश्विक रूट फाइलसिस्टम को सेट करें"
 
-#: src/clients/inst_disk_proposal.rb:304
+#: src/clients/inst_disk_proposal.rb:305
 msgid ""
 "Computing this proposal will overwrite manual changes \n"
 "done so far. Continue with computing proposal?"
 msgstr ""
 
 #. we need to open dialog and set up slideshow
-#: src/clients/inst_prepdisk.rb:66
+#: src/clients/inst_prepdisk.rb:68
 #, fuzzy
 msgid "Preparing disks..."
 msgstr "डिस्क पार्टिशन पढ़ रहा..."
@@ -2199,6 +2698,12 @@ msgstr "प्रयुक्त विंडोज़"
 #: src/clients/inst_resize_dialog.rb:407 src/clients/inst_resize_ui.rb:622
 msgid "Free"
 msgstr "रिक्त"
+
+#. Edit field label for linux partition size in non-graphical mode
+#. Edit field label for linux partition size in non-graphical mode
+#: src/clients/inst_resize_dialog.rb:417 src/clients/inst_resize_ui.rb:632
+msgid "Linux"
+msgstr "लीनक्स"
 
 #. help text, continued - non-graphical mode only
 #. this help text will be appended to the help text common to both modes.
@@ -2492,12 +2997,12 @@ msgstr ""
 #. loop over targetMap and build radio buttons for selection
 #. dont use foreach here since we need a counter (as a shortcut)
 #. anyway
-#: src/clients/inst_target_selection.rb:115
+#: src/clients/inst_target_selection.rb:116
 msgid "Available &Disks"
 msgstr "उपलब्ध डिस्क"
 
 #. label text
-#: src/clients/inst_target_selection.rb:149
+#: src/clients/inst_target_selection.rb:150
 msgid "&Custom Partitioning (for experts)"
 msgstr "कस्टम विभाजनिंग (विशेषज्ञों हेतु)(&C)"
 
@@ -2505,13 +3010,13 @@ msgstr "कस्टम विभाजनिंग (विशेषज्ञो
 #. Below this label, all targets are listed that can be used as
 #. installation target
 #. heading text
-#: src/clients/inst_target_selection.rb:161
+#: src/clients/inst_target_selection.rb:162
 msgid "Hard Disk"
 msgstr "हार्ड डिस्क"
 
 #. normally the target is located on hard disks. Here no hard disks
 #. can be found. YaST2 cannot install. Update CD might have newer drivers.
-#: src/clients/inst_target_selection.rb:172
+#: src/clients/inst_target_selection.rb:173
 msgid ""
 "No disks found. Try using the update CD, if available, for installation."
 msgstr ""
@@ -2523,7 +3028,7 @@ msgstr ""
 #. "Preparing Hard Disk" is the description of the dialog what to
 #. do while the following locale is the help description
 #. help part 1 of 3
-#: src/clients/inst_target_selection.rb:184
+#: src/clients/inst_target_selection.rb:185
 msgid ""
 "<p>\n"
 "All hard disks automatically detected on your system\n"
@@ -2536,7 +3041,7 @@ msgstr ""
 "</p>\n"
 
 #. help part 2 of 3
-#: src/clients/inst_target_selection.rb:193
+#: src/clients/inst_target_selection.rb:194
 msgid ""
 "<p>\n"
 "You may select later which part of the disk is used for &product;.\n"
@@ -2547,7 +3052,7 @@ msgstr ""
 "</p>\n"
 
 #. help part 3 of 3
-#: src/clients/inst_target_selection.rb:202
+#: src/clients/inst_target_selection.rb:203
 msgid ""
 "\n"
 "<p>\n"
@@ -2566,7 +3071,7 @@ msgstr ""
 #. first step of hd prepare, select a single disk or "expert" partitioning
 #. Information what to do, background information
 #. Information what to do, background information
-#: src/clients/inst_target_selection.rb:215
+#: src/clients/inst_target_selection.rb:216
 #: src/include/partitioning/auto_part_ui.rb:244
 #: src/include/partitioning/auto_part_ui.rb:302
 #, fuzzy
@@ -2575,12 +3080,22 @@ msgstr "आपकी हार्ड डिस्क तैयार की ज�
 
 #. there is a selection from which one option must be
 #. chosen - at the moment no option is chosen
-#: src/clients/inst_target_selection.rb:271
+#: src/clients/inst_target_selection.rb:269
 msgid "Select one of the options to continue."
 msgstr "जारी रहने के लिए विकल्पों में से एक को चुनें।"
 
-#: src/clients/inst_target_selection.rb:297
+#: src/clients/inst_target_selection.rb:295
 msgid "Disk %1 is in use by %2"
+msgstr ""
+
+#. Warning popup about using the expert partitioner
+#: src/clients/inst_target_selection.rb:352
+msgid ""
+"This is for experts only.\n"
+"You might lose support if you use this!\n"
+"\n"
+"Please refer to the manual to make sure your custom\n"
+"partitioning meets the requirements of this product."
 msgstr ""
 
 #. encoding: utf-8
@@ -2641,19 +3156,20 @@ msgstr "ऑटो&डिटेक्ट मल्टीपाथ"
 #. See also file proposal-API.txt for details.
 #: src/clients/partitions_proposal.rb:93
 msgid ""
+"No snapshots possible.\n"
+"Please use larger root partition."
+msgstr ""
+
+#: src/clients/partitions_proposal.rb:105
+msgid ""
 "The /home partition will not be formatted. After installation,\n"
 "ensure that ownerships of home directories are set properly."
 msgstr ""
 
-#. label text
-#: src/clients/partitions_proposal.rb:218
-msgid "Partitioning"
-msgstr "विभाजनिं"
-
-#. label text
-#: src/clients/partitions_proposal.rb:220
-msgid "&Partitioning"
-msgstr "विभाजन कर रहा है(&P)"
+#. A standard configuration
+#: src/clients/partitions_proposal.rb:126
+msgid "Standard"
+msgstr ""
 
 #. progress step title
 #: src/clients/storage_finish.rb:69
@@ -2830,7 +3346,7 @@ msgstr ""
 #. Label text
 #. TRANSLATORS: checkbox text
 #: src/include/partitioning/auto_part_ui.rb:341
-#: src/modules/StorageProposal.rb:6272
+#: src/modules/StorageProposal.rb:6333
 msgid "Propose Separate &Home Partition"
 msgstr "विभिन्न होम पार्टिशन प्रस्तावित करें"
 
@@ -2849,7 +3365,7 @@ msgid "Proposal type"
 msgstr "प्रस्तुति प्रकार"
 
 #. popup text
-#: src/include/partitioning/custom_part_check_generated.rb:244
+#: src/include/partitioning/custom_part_check_generated.rb:248
 #, fuzzy
 msgid ""
 "You have not assigned a root partition for\n"
@@ -2863,7 +3379,7 @@ msgstr ""
 "एक विभाजन के लिए रूट माउंट बिंदु \"/\" को एसाइन करें।\n"
 
 #. popup text
-#: src/include/partitioning/custom_part_check_generated.rb:257
+#: src/include/partitioning/custom_part_check_generated.rb:261
 #, fuzzy
 msgid ""
 "You tried to mount a FAT partition to one of the following mount\n"
@@ -2878,7 +3394,7 @@ msgstr ""
 "का प्रयास करें। \n"
 
 #. popup text
-#: src/include/partitioning/custom_part_check_generated.rb:270
+#: src/include/partitioning/custom_part_check_generated.rb:274
 #, fuzzy
 msgid ""
 "You tried to mount a FAT partition to the\n"
@@ -2893,7 +3409,7 @@ msgstr ""
 "का प्रयास करें। \n"
 
 #. popup text
-#: src/include/partitioning/custom_part_check_generated.rb:284
+#: src/include/partitioning/custom_part_check_generated.rb:288
 #, fuzzy
 msgid ""
 "You have mounted a partition with Btrfs to the\n"
@@ -2909,7 +3425,7 @@ msgstr ""
 
 #. A PReP/CHRP partition is not supposed to be mounted. So if we find any
 #. other /boot partition, we should warn the user.
-#: src/include/partitioning/custom_part_check_generated.rb:298
+#: src/include/partitioning/custom_part_check_generated.rb:302
 msgid ""
 "Warning:\n"
 "Your system needs a boot partition, either with type 0x41 PReP/CHRP\n"
@@ -2920,7 +3436,7 @@ msgid ""
 msgstr ""
 
 #. popup text, %1 is a number
-#: src/include/partitioning/custom_part_check_generated.rb:314
+#: src/include/partitioning/custom_part_check_generated.rb:318
 #, fuzzy
 msgid ""
 "Warning:\n"
@@ -2942,14 +3458,14 @@ msgstr ""
 "इसे बदल दें? \n"
 
 #. popup text, %1 is a size
-#: src/include/partitioning/custom_part_check_generated.rb:334
+#: src/include/partitioning/custom_part_check_generated.rb:338
 #, fuzzy
 msgid ""
 "Warning:\n"
 "Your boot partition is smaller than %1.\n"
 "We recommend to increase the size of /boot.\n"
 "\n"
-"Really keep this size of boot partition?\n"
+"Really keep this size of the boot partition?\n"
 msgstr ""
 "चेतावनी : \n"
 "आपका बूट विभाजन 12 MB से कम है। \n"
@@ -2958,7 +3474,7 @@ msgstr ""
 "क्या आप ऐसा करना चाहते हैं? \n"
 
 #. /////////////////////////// NO BOOT ///////////////////////////
-#: src/include/partitioning/custom_part_check_generated.rb:351
+#: src/include/partitioning/custom_part_check_generated.rb:355
 msgid ""
 "Warning: There is no partition of type bios_grub present.\n"
 "Such a partition is recommended (required with Btrfs) when Grub2 is\n"
@@ -2970,7 +3486,7 @@ msgstr ""
 #. popup text
 #. If the user chooses 'no' here, the system will not be able to
 #. boot from the hard drive!
-#: src/include/partitioning/custom_part_check_generated.rb:371
+#: src/include/partitioning/custom_part_check_generated.rb:375
 #, fuzzy
 msgid ""
 "Warning: There is no partition mounted as /boot.\n"
@@ -2990,7 +3506,7 @@ msgstr ""
 "क्या आप अपने सेटअप को बदलना चाहते हैं? \n"
 
 #. popup text
-#: src/include/partitioning/custom_part_check_generated.rb:391
+#: src/include/partitioning/custom_part_check_generated.rb:395
 #, fuzzy
 msgid ""
 "Warning: According to your setup, you intend to\n"
@@ -3011,7 +3527,7 @@ msgstr ""
 "\n"
 "इसे बदल दें? \n"
 
-#: src/include/partitioning/custom_part_check_generated.rb:417
+#: src/include/partitioning/custom_part_check_generated.rb:421
 msgid ""
 "Warning: Some subvolumes of the root filesystem are shadowed by\n"
 "mount points of other filesystem. This could lead to problems.\n"
@@ -3020,7 +3536,7 @@ msgid ""
 msgstr ""
 
 #. popup text
-#: src/include/partitioning/custom_part_check_generated.rb:435
+#: src/include/partitioning/custom_part_check_generated.rb:441
 #, fuzzy
 msgid ""
 "Warning: With your current setup, your %1\n"
@@ -3038,7 +3554,7 @@ msgstr ""
 "इसे बदल दें? \n"
 
 #. popup text
-#: src/include/partitioning/custom_part_check_generated.rb:453
+#: src/include/partitioning/custom_part_check_generated.rb:459
 #, fuzzy
 msgid ""
 "Warning: With your current setup, your %2 installation\n"
@@ -3064,7 +3580,7 @@ msgstr ""
 " इसे बदल दें? \n"
 
 #. popup text
-#: src/include/partitioning/custom_part_check_generated.rb:475
+#: src/include/partitioning/custom_part_check_generated.rb:481
 #, fuzzy
 msgid ""
 "Warning: With your current setup, your %2 installation will\n"
@@ -3090,13 +3606,13 @@ msgstr ""
 " इसे बदल दें? \n"
 
 #. popup text
-#: src/include/partitioning/custom_part_check_generated.rb:498
+#: src/include/partitioning/custom_part_check_generated.rb:504
 #, fuzzy
 msgid "Really use this setup?"
 msgstr "वास्तव में इस प्रविष्टि को हटाया जाना है?"
 
 #. popup text
-#: src/include/partitioning/custom_part_check_generated.rb:506
+#: src/include/partitioning/custom_part_check_generated.rb:512
 #, fuzzy
 msgid ""
 "\n"
@@ -3120,7 +3636,7 @@ msgstr ""
 "क्या आप इसे बदलना चाहते हैं? \n"
 
 #. popup text
-#: src/include/partitioning/custom_part_check_generated.rb:522
+#: src/include/partitioning/custom_part_check_generated.rb:528
 #, fuzzy
 msgid ""
 "\n"
@@ -3136,7 +3652,7 @@ msgstr ""
 "विशेषकर निम्नलिखित में से किसी मामले में : \n"
 
 #. continued popup text
-#: src/include/partitioning/custom_part_check_generated.rb:529
+#: src/include/partitioning/custom_part_check_generated.rb:535
 msgid ""
 "- if this is an existing ReiserFS partition\n"
 "- if this partition already contains a Linux distribution that will be\n"
@@ -3149,7 +3665,7 @@ msgstr ""
 "- यदि इस विभाजन में अभी तक कोई फाइल सिस्टम नहीं है \n"
 
 #. continued popup text
-#: src/include/partitioning/custom_part_check_generated.rb:536
+#: src/include/partitioning/custom_part_check_generated.rb:542
 #, fuzzy
 #| msgid ""
 #| "If in doubt, you might want to go back and mark this partition for\n"
@@ -3168,7 +3684,7 @@ msgstr ""
 "में से एक के लिए एसाइन हो\n"
 
 #. continued popup text
-#: src/include/partitioning/custom_part_check_generated.rb:542
+#: src/include/partitioning/custom_part_check_generated.rb:548
 #, fuzzy
 msgid ""
 "If you decide to format the partition, all data on it will be lost.\n"
@@ -3180,7 +3696,7 @@ msgstr ""
 "क्या आप अपना सेटअप परिवर्तित करना चाहते हैं?\n"
 
 #. popup text %1 is replaced by a raid name e.g. md0
-#: src/include/partitioning/custom_part_check_generated.rb:603
+#: src/include/partitioning/custom_part_check_generated.rb:609
 msgid ""
 "The selected device belongs to the RAID (%1).\n"
 "Remove it from the RAID before editing it.\n"
@@ -3189,7 +3705,7 @@ msgstr ""
 "सम्पादन से पहले इसे RAID से हटा दें।\n"
 
 #. popup text %1 is replaced by a name e.g. system
-#: src/include/partitioning/custom_part_check_generated.rb:614
+#: src/include/partitioning/custom_part_check_generated.rb:620
 msgid ""
 "The selected device belongs to a volume group (%1).\n"
 "Remove it from the volume group before editing it.\n"
@@ -3198,7 +3714,7 @@ msgstr ""
 "सम्पादन से पहले इसे वॉल्यूम समूह से हटा दें।\n"
 
 #. popup text %1 is replaced by a name e.g. system
-#: src/include/partitioning/custom_part_check_generated.rb:624
+#: src/include/partitioning/custom_part_check_generated.rb:630
 msgid ""
 "The selected device is used by volume (%1).\n"
 "Remove the volume before editing it.\n"
@@ -3207,7 +3723,7 @@ msgstr ""
 "सम्पादन से पहले वॉल्यूम हटा दें।\n"
 
 #. popup text %2 is a device name, %1 is the raid name
-#: src/include/partitioning/custom_part_check_generated.rb:657
+#: src/include/partitioning/custom_part_check_generated.rb:663
 msgid ""
 "The device (%2) belongs to the RAID (%1).\n"
 "Remove it from the RAID before deleting it.\n"
@@ -3216,7 +3732,7 @@ msgstr ""
 "इसे मिटाने से पहले इसे RAID से हटा दें।\n"
 
 #. popup text, %1 and %2 are device names
-#: src/include/partitioning/custom_part_check_generated.rb:668
+#: src/include/partitioning/custom_part_check_generated.rb:674
 msgid ""
 "The device (%2) is used by %1.\n"
 "Remove %1 before deleting it.\n"
@@ -3224,13 +3740,13 @@ msgstr ""
 " उपकरण (%2) %1 द्वारा प्रयोग किया गया है। \n"
 " इसे मिटाने से पहले %1 हटा दें। \n"
 
-#: src/include/partitioning/custom_part_check_generated.rb:680
+#: src/include/partitioning/custom_part_check_generated.rb:686
 #, fuzzy
 msgid "It cannot be deleted while mounted."
 msgstr "उपकरण मिटा दिया गया था।"
 
 #. popup text, %1 is a device name
-#: src/include/partitioning/custom_part_check_generated.rb:716
+#: src/include/partitioning/custom_part_check_generated.rb:722
 #, fuzzy
 #| msgid ""
 #| "The device (%1) cannot be removed\n"
@@ -3245,7 +3761,7 @@ msgstr ""
 "है।\n"
 
 #. popup text
-#: src/include/partitioning/custom_part_check_generated.rb:792
+#: src/include/partitioning/custom_part_check_generated.rb:798
 #, fuzzy
 #| msgid ""
 #| "The selected extended partition contains partitions which are currently "
@@ -3269,7 +3785,7 @@ msgstr ""
 "अगर आपको ठीक-ठीक न पता हो कि आप क्या कर रहे हैं तो कृपया Cancel चुनें। \n"
 
 #. popup text, Do not translate LVM.
-#: src/include/partitioning/custom_part_check_generated.rb:810
+#: src/include/partitioning/custom_part_check_generated.rb:816
 msgid ""
 "\n"
 "The selected extended partition contains at least one LVM partition\n"
@@ -3284,7 +3800,7 @@ msgstr ""
 "से हटा दें। \n"
 
 #. popup text, Do not translate RAID.
-#: src/include/partitioning/custom_part_check_generated.rb:821
+#: src/include/partitioning/custom_part_check_generated.rb:827
 msgid ""
 "\n"
 "The selected extended partition contains at least one partition\n"
@@ -3299,7 +3815,7 @@ msgstr ""
 "से हटा दें। \n"
 
 #. popup text
-#: src/include/partitioning/custom_part_check_generated.rb:832
+#: src/include/partitioning/custom_part_check_generated.rb:838
 msgid ""
 "\n"
 "The selected extended partition contains at least one partition\n"
@@ -3311,6 +3827,24 @@ msgstr ""
 "जो प्रयोग किया जा रहा है। विस्तारित विभाजन \n"
 "को मिटाने से पहले प्रयोग किए जा रहे वॉल्यूम को हटा दें। \n"
 
+#. popup text, %1 is a size
+#: src/include/partitioning/custom_part_check_generated.rb:905
+#, fuzzy
+msgid ""
+"Warning:\n"
+"\n"
+"Your root partition is very small for snapshots.\n"
+"We recommend to increase the size of the root partition\n"
+"to %1 or more or to disable snapshots.\n"
+"\n"
+"Really keep the current setup?\n"
+msgstr ""
+"चेतावनी : \n"
+"आपका बूट विभाजन 12 MB से कम है। \n"
+"/boot का आकार बढ़ाने की अनुशंसा की जाती है। \n"
+"\n"
+"क्या आप ऐसा करना चाहते हैं? \n"
+
 #. heading text
 #: src/include/partitioning/custom_part_dialogs.rb:70
 #, fuzzy
@@ -3320,15 +3854,15 @@ msgstr "इंक्रिप्टेड फाइल सिस्टम के
 
 #. label text
 #: src/include/partitioning/custom_part_dialogs.rb:74
-#: src/include/partitioning/ep-dialogs.rb:806
-#: src/modules/StorageProposal.rb:6400
+#: src/include/partitioning/ep-dialogs.rb:805
+#: src/modules/StorageProposal.rb:6461
 #, fuzzy
 #| msgid "Do not forget what you enter here."
 msgid "Do not forget what you enter here!"
 msgstr "जो आपने यहाँ भरती किया है उसे ना भूलें।"
 
 #: src/include/partitioning/custom_part_dialogs.rb:78
-#: src/include/partitioning/ep-dialogs.rb:809
+#: src/include/partitioning/ep-dialogs.rb:808
 #, fuzzy
 msgid "Empty password allowed."
 msgstr "रिक्त विकल्प स्ट्रींग स्वीकृत नहीं है."
@@ -3379,7 +3913,7 @@ msgstr ""
 #. popup text
 #. popup text
 #: src/include/partitioning/custom_part_dialogs.rb:196
-#: src/modules/Storage.rb:3963
+#: src/modules/Storage.rb:3961
 msgid ""
 "You did not enter a password.\n"
 "Try again.\n"
@@ -3390,7 +3924,7 @@ msgstr ""
 #. popup text
 #. popup text
 #: src/include/partitioning/custom_part_dialogs.rb:203
-#: src/modules/Storage.rb:3971
+#: src/modules/Storage.rb:3969
 msgid ""
 "The password must have at least %1 characters.\n"
 "Try again.\n"
@@ -3497,44 +4031,44 @@ msgid "File &System"
 msgstr "फाइल सिस्टम"
 
 #. button text
-#: src/include/partitioning/custom_part_dialogs.rb:1053
+#: src/include/partitioning/custom_part_dialogs.rb:1059
 #, fuzzy
 msgid "O&ptions..."
 msgstr "विकल्प... (&O)"
 
 #. button text
-#: src/include/partitioning/custom_part_dialogs.rb:1069
+#: src/include/partitioning/custom_part_dialogs.rb:1084
 #, fuzzy
 msgid "&Encrypt Device"
 msgstr "एन्क्रिप्शन (&E)"
 
 #. label text
-#: src/include/partitioning/custom_part_dialogs.rb:1176
+#: src/include/partitioning/custom_part_dialogs.rb:1191
 msgid "Format"
 msgstr "फॉर्मेट"
 
 #. button text
-#: src/include/partitioning/custom_part_dialogs.rb:1186
+#: src/include/partitioning/custom_part_dialogs.rb:1201
 msgid "Do &not format"
 msgstr "फॉर्मेट &न करें"
 
 #. button text
-#: src/include/partitioning/custom_part_dialogs.rb:1196
+#: src/include/partitioning/custom_part_dialogs.rb:1211
 msgid "&Format"
 msgstr "&फॉर्मेट"
 
 #. button text
-#: src/include/partitioning/custom_part_dialogs.rb:1249
+#: src/include/partitioning/custom_part_dialogs.rb:1264
 msgid "Fs&tab Options"
 msgstr "Fs&tab विकल्प"
 
 #. label text
-#: src/include/partitioning/custom_part_dialogs.rb:1256
+#: src/include/partitioning/custom_part_dialogs.rb:1271
 msgid "&Mount Point"
 msgstr "&माउंट बिंदु"
 
 #. popup text %1 is a partition name, %2 a dirctory
-#: src/include/partitioning/custom_part_dialogs.rb:1268
+#: src/include/partitioning/custom_part_dialogs.rb:1283
 #, fuzzy
 #| msgid ""
 #| "\n"
@@ -3572,7 +4106,7 @@ msgstr ""
 "जारी रखें?\n"
 
 #. Popup text
-#: src/include/partitioning/custom_part_dialogs.rb:1297
+#: src/include/partitioning/custom_part_dialogs.rb:1312
 #, fuzzy
 msgid ""
 "\n"
@@ -3585,7 +4119,7 @@ msgstr ""
 "हैं।"
 
 #. Popup text
-#: src/include/partitioning/custom_part_dialogs.rb:1304
+#: src/include/partitioning/custom_part_dialogs.rb:1319
 #, fuzzy
 msgid ""
 "\n"
@@ -3598,23 +4132,23 @@ msgstr ""
 "हैं।"
 
 #. Popup text
-#: src/include/partitioning/custom_part_dialogs.rb:1316
+#: src/include/partitioning/custom_part_dialogs.rb:1331
 #, fuzzy
 msgid "You risk losing data if you shrink this partition."
 msgstr "अगर आप इस %1 को सिकोड़ते हैं तो आपके डेटा खो देने का खतरा होगा।"
 
 #. Popup text
-#: src/include/partitioning/custom_part_dialogs.rb:1322
+#: src/include/partitioning/custom_part_dialogs.rb:1337
 #, fuzzy
 msgid "You risk losing data if you shrink this logical volume."
 msgstr "अगर आप इस %1 को सिकोड़ते हैं तो आपके डेटा खो देने का खतरा होगा।"
 
-#: src/include/partitioning/custom_part_dialogs.rb:1326
+#: src/include/partitioning/custom_part_dialogs.rb:1341
 msgid "Continue?"
 msgstr "जारी रखें?"
 
 #. Popup text
-#: src/include/partitioning/custom_part_dialogs.rb:1342
+#: src/include/partitioning/custom_part_dialogs.rb:1357
 #, fuzzy
 msgid ""
 "\n"
@@ -3627,7 +4161,7 @@ msgstr ""
 "अनुमति देते हैं।"
 
 #. Popup text
-#: src/include/partitioning/custom_part_dialogs.rb:1349
+#: src/include/partitioning/custom_part_dialogs.rb:1364
 #, fuzzy
 msgid ""
 "\n"
@@ -3639,21 +4173,21 @@ msgstr ""
 "सिर्फ fat, ext2, ext3, xfs, और reiser ही एक फाइल सिस्टम को विस्तारित करने की "
 "अनुमति देते हैं।"
 
-#: src/include/partitioning/custom_part_dialogs.rb:1357
+#: src/include/partitioning/custom_part_dialogs.rb:1372
 #, fuzzy
 msgid "Continue resizing?"
 msgstr "%1 को पुन: आकार देना जारी रखें?"
 
 #. Popup text
-#: src/include/partitioning/custom_part_dialogs.rb:1374
+#: src/include/partitioning/custom_part_dialogs.rb:1389
 msgid "You decreased a partition with a reiser file system on it."
 msgstr ""
 
-#: src/include/partitioning/custom_part_dialogs.rb:1376
+#: src/include/partitioning/custom_part_dialogs.rb:1391
 msgid "You decreased a logical volume with a reiser file system on it."
 msgstr ""
 
-#: src/include/partitioning/custom_part_dialogs.rb:1383
+#: src/include/partitioning/custom_part_dialogs.rb:1398
 #, fuzzy
 msgid ""
 "\n"
@@ -3670,7 +4204,7 @@ msgstr ""
 "फाइल सिस्टम को अभी सिकोड़ें?"
 
 #. popup text, %1 is replaced by device name
-#: src/include/partitioning/custom_part_dialogs.rb:1437
+#: src/include/partitioning/custom_part_dialogs.rb:1452
 #, fuzzy
 #| msgid ""
 #| "The selected device contains partitions that are currently mounted:\n"
@@ -3692,7 +4226,7 @@ msgstr ""
 "यदि आपको ठीक-ठीक न पता हो कि आप क्या कर रहे हैं तो Cancel चुनें। \n"
 
 #. popup text, Do not translate LVM.
-#: src/include/partitioning/custom_part_dialogs.rb:1460
+#: src/include/partitioning/custom_part_dialogs.rb:1475
 #, fuzzy
 #| msgid ""
 #| "\n"
@@ -3714,7 +4248,7 @@ msgstr ""
 "से हटा दें। \n"
 
 #. popup text, Do not translate RAID.
-#: src/include/partitioning/custom_part_dialogs.rb:1471
+#: src/include/partitioning/custom_part_dialogs.rb:1486
 #, fuzzy
 msgid ""
 "\n"
@@ -3730,7 +4264,7 @@ msgstr ""
 "अनएसाइन करें। \n"
 
 #. popup text
-#: src/include/partitioning/custom_part_dialogs.rb:1482
+#: src/include/partitioning/custom_part_dialogs.rb:1497
 #, fuzzy
 #| msgid ""
 #| "\n"
@@ -3748,66 +4282,30 @@ msgstr ""
 "जो एक EVMS वॉल्यूम द्वारा प्रयोग किया जा रहा है। विस्तारित विभाजन \n"
 "को मिटाने से पहले EVMS वॉल्यूम को हटा दें। \n"
 
-#. help text, richtext format
-#: src/include/partitioning/custom_part_dialogs.rb:1543
-#, fuzzy
-#| msgid ""
-#| "<p>\n"
-#| "Create an encrypted file system.\n"
-#| "</p>\n"
-msgid "<p>Create and remove subvolumes from a Btrfs filesystem.</p>\n"
-msgstr ""
-"<p>\n"
-"एक इंक्रिप्टेड फाइल सिस्टम सृजित करें।\n"
-"</p>\n"
-
-#: src/include/partitioning/custom_part_dialogs.rb:1548
+#: src/include/partitioning/custom_part_dialogs.rb:1563
 msgid "<p>Enable automatic snapshots for a Btrfs filesystem with snapper.</p>"
 msgstr ""
 
 #. label text
-#: src/include/partitioning/custom_part_dialogs.rb:1562
+#: src/include/partitioning/custom_part_dialogs.rb:1577
 #, fuzzy
 #| msgid "&Existing Neighbours"
 msgid "Existing Subvolumes:"
 msgstr "उपलब्ध पडोसी(&E)"
 
 #. label text
-#: src/include/partitioning/custom_part_dialogs.rb:1568
+#: src/include/partitioning/custom_part_dialogs.rb:1583
 #, fuzzy
 #| msgid "Store volume"
 msgid "New Subvolume"
 msgstr "वोल्यूम शुरु करें"
 
 #. button text
-#: src/include/partitioning/custom_part_dialogs.rb:1574
+#: src/include/partitioning/custom_part_dialogs.rb:1589
 #, fuzzy
 #| msgid "Add new user"
 msgid "Add new"
 msgstr "नया यूजर जोङे"
-
-#. button text
-#. push button text
-#: src/include/partitioning/custom_part_dialogs.rb:1580
-#: src/modules/DualMultiSelectionBox.rb:147
-msgid "Remove"
-msgstr "हटाऐ"
-
-#. TRANSLATOR: checkbox text
-#. TRANSLATORS: checkbox text
-#: src/include/partitioning/custom_part_dialogs.rb:1592
-#: src/modules/StorageProposal.rb:6253
-msgid "Enable Snapshots"
-msgstr ""
-
-#. heading text
-#. button text
-#: src/include/partitioning/custom_part_dialogs.rb:1603
-#: src/include/partitioning/custom_part_lib.rb:409
-#, fuzzy
-#| msgid "Signature Handling"
-msgid "Subvolume Handling"
-msgstr "हस्ताक्षरों को संभालना"
 
 #: src/include/partitioning/custom_part_dialogs.rb:1666
 #, fuzzy
@@ -3827,7 +4325,7 @@ msgstr ""
 msgid "Subvolume name %1 already exists."
 msgstr "जोन नाम %1 पहले से विद्यमान है."
 
-#: src/include/partitioning/custom_part_dialogs.rb:1711
+#: src/include/partitioning/custom_part_dialogs.rb:1702
 msgid "Modifications done so far in this dialog will be lost."
 msgstr ""
 
@@ -3871,7 +4369,7 @@ msgstr ""
 
 #. helptext
 #: src/include/partitioning/custom_part_helptexts.rb:87
-#: src/include/partitioning/ep-dialogs.rb:746
+#: src/include/partitioning/ep-dialogs.rb:745
 #, fuzzy
 msgid ""
 "<p>\n"
@@ -3892,7 +4390,7 @@ msgstr ""
 #. help text, continued
 #. helptext
 #: src/include/partitioning/custom_part_helptexts.rb:100
-#: src/include/partitioning/ep-dialogs.rb:761
+#: src/include/partitioning/ep-dialogs.rb:760
 msgid ""
 "<p>\n"
 "If you forget your password, you will lose access to the data on your file "
@@ -3912,7 +4410,7 @@ msgstr ""
 #. help text, continued
 #. helptext, %1 is replaced by integer
 #: src/include/partitioning/custom_part_helptexts.rb:114
-#: src/include/partitioning/ep-dialogs.rb:775
+#: src/include/partitioning/ep-dialogs.rb:774
 msgid ""
 "<p>\n"
 "You must distinguish between uppercase and lowercase. A password should have "
@@ -3946,7 +4444,7 @@ msgstr ""
 #. help text, continued
 #. helptext
 #: src/include/partitioning/custom_part_helptexts.rb:142
-#: src/include/partitioning/ep-dialogs.rb:787
+#: src/include/partitioning/ep-dialogs.rb:786
 msgid ""
 "<p>\n"
 "Do not forget this password!\n"
@@ -4028,17 +4526,17 @@ msgid ""
 msgstr ""
 
 #. error popup text
-#: src/include/partitioning/custom_part_lib.rb:51
+#: src/include/partitioning/custom_part_lib.rb:50
 msgid "You cannot use the mount point \"%1\" for LVM.\n"
 msgstr "आप माउंट बिन्दु \"%1\" का उपयोग LVM के लिए नहीं कर सकते हैं।\n"
 
 #. error popup text
-#: src/include/partitioning/custom_part_lib.rb:78
+#: src/include/partitioning/custom_part_lib.rb:77
 msgid "You cannot use the mount point %1 for RAID."
 msgstr "आप माउंट बिन्दु %1 का उपयोग RAID के लिए नहीं कर सकते हैं।"
 
 #. error popup text
-#: src/include/partitioning/custom_part_lib.rb:97
+#: src/include/partitioning/custom_part_lib.rb:96
 #, fuzzy
 #| msgid ""
 #| "You have selected not to mount automatically at start-up a file system\n"
@@ -4063,20 +4561,7 @@ msgstr ""
 "वाकई ऐसा करें? \n"
 
 #. error popup text
-#: src/include/partitioning/custom_part_lib.rb:120
-msgid ""
-"You have assigned an encrypted file system to a partition\n"
-"with one of the following mount points: \"/\", \"/usr\", \"/boot\",\n"
-"/var\".  This is not possible. Change the mount point or use a\n"
-"nonloopbacked file system.\n"
-msgstr ""
-"आपने निम्नलिखित माउंट बिंदुओं में से एक वाले एक पार्टीशन को एक\n"
-"एन्क्रिप्टेड फाइल सिस्टम एसाइन किया है : \"/\", \"/usr\", \"/boot\",\n"
-"/var\"। यह संभव नहीं है। माउंट बिंदु को बदलें या किसी \n"
-"नॉनलूपबैक्ड फाइल सिस्टम का प्रयोग करें।\n"
-
-#. error popup text
-#: src/include/partitioning/custom_part_lib.rb:158
+#: src/include/partitioning/custom_part_lib.rb:138
 #, fuzzy
 #| msgid ""
 #| "You have set the option to be mountable by users for a file system\n"
@@ -4104,29 +4589,23 @@ msgstr ""
 #. @param [Hash{String => map}] targetMap the TargetMap
 #. @param mount mount point
 #. @return [Boolean]
-#: src/include/partitioning/custom_part_lib.rb:205
+#: src/include/partitioning/custom_part_lib.rb:185
 #, fuzzy
 msgid "Mount point must not be empty."
 msgstr "फोन न० रिक्त नहीं होना चाहिए"
 
 #. error popup
-#: src/include/partitioning/custom_part_lib.rb:210
+#: src/include/partitioning/custom_part_lib.rb:190
 msgid "Swap devices must have swap as mount point."
 msgstr ""
 
 #. error popup
-#: src/include/partitioning/custom_part_lib.rb:214
+#: src/include/partitioning/custom_part_lib.rb:194
 msgid "Only swap devices may have swap as mount point."
 msgstr ""
 
-#. && mount!="swap" )
 #. error popup text
-#: src/include/partitioning/custom_part_lib.rb:229
-msgid "This mount point is already in use. Select a different one."
-msgstr "माउंट बिन्दु पहले से ही उपयोग में है। एक अन्य को चुनें।"
-
-#. error popup text
-#: src/include/partitioning/custom_part_lib.rb:239
+#: src/include/partitioning/custom_part_lib.rb:219
 msgid ""
 "FAT filesystem used for system mount point (/, /usr, /opt, /var, /home).\n"
 "This is not possible."
@@ -4135,14 +4614,14 @@ msgstr ""
 "यह संभव नहीं है। "
 
 #. error popup text
-#: src/include/partitioning/custom_part_lib.rb:248
+#: src/include/partitioning/custom_part_lib.rb:228
 #, fuzzy
 msgid ""
 "Invalid character in mount point. Do not use \"`'!\"%#\" in a mount point."
 msgstr "माउंट बिन्दु में अमान्य वर्ण। माउंट बिन्दु में \"`'!\"%#\" का उपयोगन करें।"
 
 #. error popup text
-#: src/include/partitioning/custom_part_lib.rb:257
+#: src/include/partitioning/custom_part_lib.rb:237
 #, fuzzy
 #| msgid ""
 #| "You cannot use any of the following mount points:\n"
@@ -4156,40 +4635,42 @@ msgstr ""
 "/proc, /dev, /lib, /bin, /etc, /sbin, /mnt, /var/adm/mnt, /lost+found\n"
 
 #. error popup text
-#: src/include/partitioning/custom_part_lib.rb:266
+#: src/include/partitioning/custom_part_lib.rb:246
 msgid "Your mount point must start with a \"/\" "
 msgstr "आपका माउंट बिन्दु अवश्य एक \"/\" के साथ आरंभ होना चाहिए "
 
 #. error popup text
-#: src/include/partitioning/custom_part_lib.rb:272
+#: src/include/partitioning/custom_part_lib.rb:252
 msgid ""
 "It is not allowed to assign the mount point swap\n"
 "to a device without a swap file system."
 msgstr ""
 
 #. warning message, %1 is replaced by fs name (e.g. Ext3)
-#. %2 is prelaced by a size (e.g. 10 MB)
-#: src/include/partitioning/custom_part_lib.rb:299
+#. %2 is replaced by the user entered size (e.g. 20GB)
+#. %3 is replaced by a size (e.g. 10 MB)
+#: src/include/partitioning/custom_part_lib.rb:280
 #, fuzzy
 #| msgid ""
 #| "Your partition is too small to use %1.\n"
 #| "The minimum size for this file system is %2.\n"
 msgid ""
 "Your partition is too small to use %1.\n"
-"The minimum size for this file system is %2.\n"
+"The size you entered (after rounding up) is %2.\n"
+"The minimum size for this file system is %3.\n"
 msgstr ""
 "आपका विभाजन %1 का प्रयोग करने के लिए बहुत छोटा है। \n"
 "इस फाइल सिस्टम के लिए न्यूनतम आकार %2 है।\n"
 
 #. error popup text
-#: src/include/partitioning/custom_part_lib.rb:369
+#: src/include/partitioning/custom_part_lib.rb:346
 msgid ""
 "It is not allowed to assign a mount point\n"
 "to a device with nonexistent or unknown file system."
 msgstr ""
 
 #. warning message, %1 is replaced by fs name (e.g. Ext3)
-#: src/include/partitioning/custom_part_lib.rb:482
+#: src/include/partitioning/custom_part_lib.rb:545
 msgid ""
 "\n"
 "WARNING:\n"
@@ -4204,12 +4685,12 @@ msgstr ""
 
 #. //////////////////////////////////////////////
 #. modify map new
-#: src/include/partitioning/custom_part_lib.rb:924
-#: src/include/partitioning/custom_part_lib.rb:951
+#: src/include/partitioning/custom_part_lib.rb:980
+#: src/include/partitioning/custom_part_lib.rb:1007
 msgid "The file system is currently mounted on %1."
 msgstr ""
 
-#: src/include/partitioning/custom_part_lib.rb:929
+#: src/include/partitioning/custom_part_lib.rb:985
 msgid ""
 "You can try to unmount it now, continue without unmounting or cancel.\n"
 "Click Cancel unless you know exactly what you are doing."
@@ -4217,42 +4698,36 @@ msgstr ""
 
 #. button text
 #. button text
-#: src/include/partitioning/custom_part_lib.rb:940
-#: src/include/partitioning/custom_part_lib.rb:965
+#: src/include/partitioning/custom_part_lib.rb:996
+#: src/include/partitioning/custom_part_lib.rb:1021
 #, fuzzy
 #| msgid "Mount"
 msgid "Unmount"
 msgstr "माउंट"
 
-#: src/include/partitioning/custom_part_lib.rb:956
+#: src/include/partitioning/custom_part_lib.rb:1012
 msgid ""
 "You can try to unmount it now or cancel.\n"
 "Click Cancel unless you know exactly what you are doing."
 msgstr ""
 
-#: src/include/partitioning/custom_part_lib.rb:1002
+#: src/include/partitioning/custom_part_lib.rb:1058
 #, fuzzy
 #| msgid "It is not possible to delete a NIS user."
 msgid "It is not possible to shrink the file system while it is mounted."
 msgstr "NIS यूजर को मिटाना  सभंव नहीं है।"
 
-#: src/include/partitioning/custom_part_lib.rb:1015
+#: src/include/partitioning/custom_part_lib.rb:1071
 #, fuzzy
 #| msgid "It is not possible to delete a NIS user."
 msgid "It is not possible to extend the file system while it is mounted."
 msgstr "NIS यूजर को मिटाना  सभंव नहीं है।"
 
-#: src/include/partitioning/custom_part_lib.rb:1026
+#: src/include/partitioning/custom_part_lib.rb:1082
 #, fuzzy
 #| msgid "It is not possible to create a partition on %1."
 msgid "It is not possible to resize the file system while it is mounted."
 msgstr "%1 पर एक विभाजन सृजित करना संभव नहीं है।"
-
-#. push button text
-#: src/include/partitioning/ep-all.rb:80
-#, fuzzy
-msgid "Rescan Devices"
-msgstr "हार्ड डिस्क"
 
 #. push button text
 #: src/include/partitioning/ep-all.rb:85
@@ -4438,14 +4913,6 @@ msgstr ""
 msgid "Unused Devices:"
 msgstr "समनुरुपित उपकरणः"
 
-#. label for selection box
-#: src/include/partitioning/ep-btrfs-dialogs.rb:220
-#: src/include/partitioning/ep-raid-dialogs.rb:267
-#: src/include/partitioning/ep-raid-dialogs.rb:531
-#, fuzzy
-msgid "Selected Devices:"
-msgstr "चुना हुआ IDE उपकरण"
-
 #. dialog title
 #: src/include/partitioning/ep-btrfs-dialogs.rb:291
 #, fuzzy
@@ -4551,11 +5018,9 @@ msgstr "चयनित %1 हटाने में विफल"
 #. Package:     yast2-storage
 #. Summary:     Expert Partitioner
 #. Authors:     Arvin Schnell <aschnell@suse.de>
-#: src/include/partitioning/ep-btrfs.rb:40
-#: src/include/partitioning/ep-dm.rb:36 src/include/partitioning/ep-hd.rb:61
-#: src/include/partitioning/ep-loop.rb:37
-#: src/include/partitioning/ep-lvm.rb:64
-#: src/include/partitioning/ep-raid.rb:38
+#: src/include/partitioning/ep-btrfs.rb:40 src/include/partitioning/ep-dm.rb:36
+#: src/include/partitioning/ep-hd.rb:61 src/include/partitioning/ep-loop.rb:37
+#: src/include/partitioning/ep-lvm.rb:64 src/include/partitioning/ep-raid.rb:38
 msgid "Edit"
 msgstr "संपादन"
 
@@ -4586,9 +5051,8 @@ msgstr "संपादन"
 #. Package:     yast2-storage
 #. Summary:     Expert Partitioner
 #. Authors:     Arvin Schnell <aschnell@suse.de>
-#: src/include/partitioning/ep-btrfs.rb:45
-#: src/include/partitioning/ep-hd.rb:43 src/include/partitioning/ep-hd.rb:64
-#: src/include/partitioning/ep-loop.rb:37
+#: src/include/partitioning/ep-btrfs.rb:45 src/include/partitioning/ep-hd.rb:43
+#: src/include/partitioning/ep-hd.rb:64 src/include/partitioning/ep-loop.rb:37
 #: src/include/partitioning/ep-lvm.rb:44 src/include/partitioning/ep-lvm.rb:66
 #: src/include/partitioning/ep-raid.rb:40
 #: src/include/partitioning/ep-tmpfs.rb:36
@@ -4623,40 +5087,40 @@ msgstr "<p>अपने वॉल्यूम समूह में <b>वि�
 msgid "Btrfs Device: %1"
 msgstr "उपकरण का नाम: %1"
 
-#: src/include/partitioning/ep-dialogs.rb:345
+#: src/include/partitioning/ep-dialogs.rb:344
 #, fuzzy
 msgid "Format partition"
 msgstr "पार्टिशन का आकार."
 
-#: src/include/partitioning/ep-dialogs.rb:356
+#: src/include/partitioning/ep-dialogs.rb:355
 #, fuzzy
 msgid "Do not format partition"
 msgstr "पार्टिशन का आकार."
 
-#: src/include/partitioning/ep-dialogs.rb:372
+#: src/include/partitioning/ep-dialogs.rb:371
 #, fuzzy
 msgid "Do not mount partition"
 msgstr "डिस्क से विभाजन"
 
-#: src/include/partitioning/ep-dialogs.rb:399
+#: src/include/partitioning/ep-dialogs.rb:398
 #, fuzzy
 msgid "Mount partition"
 msgstr "विभाजन"
 
 #. button text
-#: src/include/partitioning/ep-dialogs.rb:412
+#: src/include/partitioning/ep-dialogs.rb:411
 #, fuzzy
 msgid "Fs&tab Options..."
 msgstr "Fs&tab विकल्प"
 
 #. error popup
-#: src/include/partitioning/ep-dialogs.rb:596
+#: src/include/partitioning/ep-dialogs.rb:595
 #, fuzzy
 msgid "Crypt files must be encrypted."
 msgstr "कोई व्यवस्था चयन नहीं की गई"
 
 #. error popup
-#: src/include/partitioning/ep-dialogs.rb:607
+#: src/include/partitioning/ep-dialogs.rb:606
 #, fuzzy
 msgid ""
 "You chose to create the crypt file, but did not specify\n"
@@ -4670,19 +5134,19 @@ msgstr ""
 "फॉर्मेट विकल्प पर भी निशान लगाएं।\n"
 
 #. error popup
-#: src/include/partitioning/ep-dialogs.rb:623
+#: src/include/partitioning/ep-dialogs.rb:622
 #, fuzzy
 msgid "Crypt files require a mount point."
 msgstr "माउंट बिन्दु प्रदान करें।"
 
 #. error popup
-#: src/include/partitioning/ep-dialogs.rb:637
+#: src/include/partitioning/ep-dialogs.rb:636
 #, fuzzy
 msgid "Tmpfs requires a mount point."
 msgstr "माउंट बिन्दु प्रदान करें।"
 
 #. helptext
-#: src/include/partitioning/ep-dialogs.rb:721
+#: src/include/partitioning/ep-dialogs.rb:720
 #, fuzzy
 msgid ""
 "<p>\n"
@@ -4699,7 +5163,7 @@ msgstr ""
 "</p>\n"
 
 #. helptext
-#: src/include/partitioning/ep-dialogs.rb:734
+#: src/include/partitioning/ep-dialogs.rb:733
 msgid ""
 "<p>\n"
 "The file system used for this volume is swap. You can leave the encryption \n"
@@ -4708,23 +5172,19 @@ msgid ""
 "</p>\n"
 msgstr ""
 
-#: src/include/partitioning/ep-dialogs.rb:804
+#: src/include/partitioning/ep-dialogs.rb:803
 #, fuzzy
 #| msgid "All changes will be lost!"
 msgid "All data stored on the volume will be lost!"
 msgstr "सभी परिवर्तन लुप्त हो जाएंगे!"
 
-#: src/include/partitioning/ep-dialogs.rb:827
-msgid "Password"
-msgstr "पासवर्ड"
-
 #. popup text
-#: src/include/partitioning/ep-dialogs.rb:924
+#: src/include/partitioning/ep-dialogs.rb:923
 msgid "Resize not supported by underlying device."
 msgstr ""
 
 #. popup text
-#: src/include/partitioning/ep-dialogs.rb:929
+#: src/include/partitioning/ep-dialogs.rb:928
 msgid ""
 "\n"
 "You cannot resize the selected partition because the file system\n"
@@ -4734,7 +5194,7 @@ msgstr ""
 "आप चयनित विभाजन का आकार नहीं बदल सकते क्योंकि इस विभाजन \n"
 "का फाइल सिस्टम आकार बदलने का समर्थन नहीं करता। \n"
 
-#: src/include/partitioning/ep-dialogs.rb:953
+#: src/include/partitioning/ep-dialogs.rb:952
 #, fuzzy
 #| msgid "It is not possible to create a partition on %1."
 msgid ""
@@ -4743,7 +5203,7 @@ msgid ""
 msgstr "%1 पर एक विभाजन सृजित करना संभव नहीं है।"
 
 #. FIXME: Really?
-#: src/include/partitioning/ep-dialogs.rb:972
+#: src/include/partitioning/ep-dialogs.rb:971
 #, fuzzy
 #| msgid ""
 #| "Partition %1 cannot be resized\n"
@@ -4756,36 +5216,36 @@ msgstr ""
 "क्योंकि फाइल सिस्टम सामंजस्‍यहीन जान पड़ता है।\n"
 
 #. Heading for dialog
-#: src/include/partitioning/ep-dialogs.rb:999
+#: src/include/partitioning/ep-dialogs.rb:998
 #, fuzzy
 msgid "Resize Partition %1"
 msgstr "विभाजन संपादित करें"
 
 #. Heading for dialog
-#: src/include/partitioning/ep-dialogs.rb:1020
+#: src/include/partitioning/ep-dialogs.rb:1019
 #, fuzzy
 msgid "Resize Logical Volume %1"
 msgstr "लॉजिकल वॉल्यूम फिर से आकार दें"
 
 #. size_k + min_size_k could be > max_size_k
-#: src/include/partitioning/ep-dialogs.rb:1052
+#: src/include/partitioning/ep-dialogs.rb:1051
 #, fuzzy
 msgid "Current size: %1"
 msgstr "हालिया स्थिति: %1"
 
-#: src/include/partitioning/ep-dialogs.rb:1064
+#: src/include/partitioning/ep-dialogs.rb:1063
 #, fuzzy
 msgid "Currently used: %1"
 msgstr "हालिया स्थिति: %1"
 
 #. radio button text, %1 is replaced by size
-#: src/include/partitioning/ep-dialogs.rb:1097
+#: src/include/partitioning/ep-dialogs.rb:1096
 #, fuzzy
 msgid "Minimum Size (%1)"
 msgstr "अधिकता आकार (MB) (&S)"
 
 #. help text
-#: src/include/partitioning/ep-dialogs.rb:1140
+#: src/include/partitioning/ep-dialogs.rb:1139
 #, fuzzy
 msgid "<p>Choose new size.</p>"
 msgstr ""
@@ -4797,7 +5257,7 @@ msgstr ""
 #. after user tries to do that is stupid - in some cases
 #. we can tell beforehand, thus user should never get to this
 #. point (e.g. when the partition is mounted)
-#: src/include/partitioning/ep-dialogs.rb:1234
+#: src/include/partitioning/ep-dialogs.rb:1233
 msgid ""
 "You are extending a mounted filesystem by %1 Gigabyte. \n"
 "This may be quite slow and can take hours. You might possibly want \n"
@@ -4806,16 +5266,10 @@ msgid ""
 msgstr ""
 
 #. label for log view
-#: src/include/partitioning/ep-dialogs.rb:1310
+#: src/include/partitioning/ep-dialogs.rb:1309
 #, fuzzy
 msgid "Output of %1"
 msgstr "आउटपुट :"
-
-#. popup text
-#: src/include/partitioning/ep-dialogs.rb:1337
-#, fuzzy
-msgid "Rescanning disks..."
-msgstr "डिस्क पार्टिशन पढ़ रहा..."
 
 #. dialog title
 #: src/include/partitioning/ep-dm-dialogs.rb:62
@@ -4964,6 +5418,12 @@ msgstr ""
 "अंत वाला सिलिंडर : "
 
 #. dialog title
+#: src/include/partitioning/ep-hd-dialogs.rb:549
+#, fuzzy
+msgid "Add Partition on %1"
+msgstr "विभाजन %1 संपादित करें"
+
+#. dialog title
 #: src/include/partitioning/ep-hd-dialogs.rb:595
 msgid "Edit Partition %1"
 msgstr "विभाजन %1 संपादित करें"
@@ -5007,6 +5467,11 @@ msgstr "फॉरवर्ड"
 msgid "Backward"
 msgstr "पृष्ठभूमि"
 
+#: src/include/partitioning/ep-hd-dialogs.rb:726
+#, fuzzy
+msgid "Confirm Deleting of All Partitions"
+msgstr "सभी पार्टिशनों को माउंट करना..."
+
 #: src/include/partitioning/ep-hd-dialogs.rb:728
 #, fuzzy
 msgid ""
@@ -5037,7 +5502,7 @@ msgstr ""
 
 #. error popup
 #. TRANSLATORS: error popup
-#: src/include/partitioning/ep-hd-lib.rb:57 src/modules/Storage.rb:5226
+#: src/include/partitioning/ep-hd-lib.rb:57 src/modules/Storage.rb:5234
 msgid "The disk is in use and cannot be modified."
 msgstr ""
 
@@ -5080,6 +5545,11 @@ msgstr "%1 पर सभी विभाजनों को वास्तव �
 #, fuzzy
 msgid "There are no partitions to delete on this disk."
 msgstr "इस मोडयूल के लिए कोई विकल्प नहीं है"
+
+#. error popup
+#: src/include/partitioning/ep-hd-lib.rb:235
+msgid "It is not possible to create a partition on %1."
+msgstr "%1 पर एक विभाजन सृजित करना संभव नहीं है।"
 
 #. error popup
 #. error popup
@@ -5251,8 +5721,7 @@ msgid "Move"
 msgstr "ऊपर जाएं(&U)"
 
 #: src/include/partitioning/ep-hd.rb:63 src/include/partitioning/ep-lvm.rb:43
-#: src/include/partitioning/ep-lvm.rb:65
-#: src/include/partitioning/ep-raid.rb:39
+#: src/include/partitioning/ep-lvm.rb:65 src/include/partitioning/ep-raid.rb:39
 #, fuzzy
 msgid "Resize"
 msgstr "पुन:आकार दें"
@@ -5810,18 +6279,6 @@ msgstr ""
 "उदाहरण के लिए, \"4M\" या \"512K\"\n"
 
 #. error popup text
-#: src/include/partitioning/ep-lvm-dialogs.rb:167
-#, fuzzy
-msgid "Enter a name for the logical volume."
-msgstr "नये प्रोफाइल हेतु एक नया नाम प्रविष्ट करें."
-
-#. error popup text
-#: src/include/partitioning/ep-lvm-dialogs.rb:172
-#, fuzzy
-msgid "The name for the logical volume is longer than 128 characters."
-msgstr "ट्री नाम 32 वर्णों से अधिक लंबा नहीं हो सकता"
-
-#. error popup text
 #: src/include/partitioning/ep-lvm-dialogs.rb:178
 #, fuzzy
 msgid ""
@@ -5909,11 +6366,6 @@ msgid ""
 "Thin Volumes cannot have a Stripe Count."
 msgstr ""
 
-#. combo box label
-#: src/include/partitioning/ep-lvm-dialogs.rb:606
-msgid "Number"
-msgstr "न०"
-
 #. A dialog title - %1 is a logical volume name, %2 is a volume group.
 #: src/include/partitioning/ep-lvm-dialogs.rb:631
 #, fuzzy
@@ -5956,43 +6408,6 @@ msgid ""
 "This means the volume allocates needed space on demand from a <b>Thin Pool</"
 "b>.</p>"
 msgstr ""
-
-#. heading for frame
-#: src/include/partitioning/ep-lvm-dialogs.rb:827
-msgid "Name"
-msgstr "नाम"
-
-#: src/include/partitioning/ep-lvm-dialogs.rb:828
-#: src/include/partitioning/ep-lvm.rb:195
-#, fuzzy
-msgid "Logical Volume"
-msgstr "लॉजिकल वॉल्यूम्स"
-
-#. radio button label
-#: src/include/partitioning/ep-lvm-dialogs.rb:848
-#, fuzzy
-msgid "Normal Volume"
-msgstr "लॉजिकल वॉल्यूम्स"
-
-#. radio button label
-#: src/include/partitioning/ep-lvm-dialogs.rb:851
-#, fuzzy
-#| msgid "Pool"
-msgid "Thin Pool"
-msgstr "समूह"
-
-#. radio button label
-#: src/include/partitioning/ep-lvm-dialogs.rb:857
-#, fuzzy
-#| msgid "&Volume"
-msgid "Thin Volume"
-msgstr "वोल्यूम(&V)"
-
-#. combo box label
-#: src/include/partitioning/ep-lvm-dialogs.rb:865
-#, fuzzy
-msgid "Used Pool"
-msgstr "द्वारा प्रयुक्त"
 
 #. dialog title, %1 is a volume group
 #: src/include/partitioning/ep-lvm-dialogs.rb:1029
@@ -6107,10 +6522,6 @@ msgstr ""
 msgid "Add Logical Volume"
 msgstr "लॉजिकल वॉल्यूम्स"
 
-#: src/include/partitioning/ep-lvm.rb:190
-msgid "Volume Group"
-msgstr "आयतन समूह"
-
 #. helptext
 #: src/include/partitioning/ep-lvm.rb:222
 #, fuzzy
@@ -6135,6 +6546,14 @@ msgstr "<p>अपने वॉल्यूम समूह में <b>वि�
 msgid ""
 "<p>This view shows all logical volumes of the\n"
 "selected volume group.</p>"
+msgstr "<p>अपने वॉल्यूम समूह में <b>विभाजन जोड़ें</b> (जिन्हें भौतिक वॉल्यूम कहते हैं)। </p>"
+
+#. helptext
+#: src/include/partitioning/ep-lvm.rb:419
+#, fuzzy
+msgid ""
+"<p>This view shows all physical volumes used by\n"
+"the selected volume group.</p>"
 msgstr "<p>अपने वॉल्यूम समूह में <b>विभाजन जोड़ें</b> (जिन्हें भौतिक वॉल्यूम कहते हैं)। </p>"
 
 #. heading
@@ -6299,49 +6718,6 @@ msgstr ""
 "<p>सामान्यतया, आप जो अनावश्यकता और प्रदर्शन चाहते हैं, \n"
 "वह पाने के लिए विभाजन भिन्न-भिन्न ड्राइवों पर होने चाहिए। </p>\n"
 
-#. Translators, 'Striping' is a technical term here. Translate only if
-#. you are sure!! If in doubt, leave it in English.
-#: src/include/partitioning/ep-raid-dialogs.rb:201
-msgid "RAID &0  (Striping)"
-msgstr "RAID &0  (Striping)"
-
-#. Translators, 'Mirroring' is a technical term here. Translate only if
-#. you are sure!! If in doubt, leave it in English.
-#: src/include/partitioning/ep-raid-dialogs.rb:210
-msgid "RAID &1  (Mirroring)"
-msgstr "RAID &1  (Mirroring)"
-
-#. Translators, 'Redundant Striping' is a technical term here. Translate
-#. only if you are sure!! If in doubt, leave it in English.
-#: src/include/partitioning/ep-raid-dialogs.rb:219
-msgid "RAID &5  (Redundant Striping)"
-msgstr "RAID &5  (Redundant Striping)"
-
-#. Translators, 'Redundant Striping' is a technical term here. Translate only if
-#. you are sure!! If in doubt, leave it in English.
-#: src/include/partitioning/ep-raid-dialogs.rb:228
-#, fuzzy
-msgid "RAID &6  (Dual Redundant Striping)"
-msgstr "RAID &5  (Redundant Striping)"
-
-#. Translators, 'Mirroring' and 'Striping' are technical terms here. Translate only if
-#. you are sure!! If in doubt, leave it in English.
-#: src/include/partitioning/ep-raid-dialogs.rb:237
-#, fuzzy
-msgid "RAID &10  (Mirroring and Striping)"
-msgstr "RAID &1  (Mirroring)"
-
-#. label text
-#: src/include/partitioning/ep-raid-dialogs.rb:248
-msgid "Raid &Name (optional)"
-msgstr ""
-
-#. label for selection box
-#: src/include/partitioning/ep-raid-dialogs.rb:265
-#: src/include/partitioning/ep-raid-dialogs.rb:530
-msgid "Available Devices:"
-msgstr "उपलप्घ उप्करण:"
-
 #. helptext
 #: src/include/partitioning/ep-raid-dialogs.rb:338
 #, fuzzy
@@ -6498,12 +6874,6 @@ msgstr ""
 "जिस RAID को बदलना है (%1) वह डिस्क पर पहले ही सृजित किया जा चुका है। \n"
 "इसे अब बदला नहीं जा सकता। %1 को बदलने के लिए, \n"
 "इसे हटाएं और दोबारा से सृजित करें। \n"
-
-#. push button text
-#: src/include/partitioning/ep-raid.rb:132
-#, fuzzy
-msgid "Add RAID..."
-msgstr "RAI&D जोड़ें"
 
 #. helptext
 #: src/include/partitioning/ep-raid.rb:141
@@ -6918,23 +7288,6 @@ msgstr ""
 msgid "Classify"
 msgstr "क्लास"
 
-#. push button text
-#: src/modules/DualMultiSelectionBox.rb:134
-msgid "Add"
-msgstr "जोङे"
-
-#. push button text
-#: src/modules/DualMultiSelectionBox.rb:140
-#, fuzzy
-msgid "Add All"
-msgstr "RAI&D जोड़ें"
-
-#. push button text
-#: src/modules/DualMultiSelectionBox.rb:153
-#, fuzzy
-msgid "Remove All"
-msgstr "हटाऐ"
-
 #. error popup text
 #: src/modules/DualMultiSelectionBox.rb:183
 #, fuzzy
@@ -7047,14 +7400,14 @@ msgid "Pattern File"
 msgstr "पैटर्न"
 
 #. label text
-#: src/modules/FileSystems.rb:278
+#: src/modules/FileSystems.rb:289
 #, fuzzy
 #| msgid "&Size"
 msgid "Tmpfs &Size"
 msgstr "आकार (&S)"
 
 #. popup text
-#: src/modules/FileSystems.rb:287
+#: src/modules/FileSystems.rb:298
 #, fuzzy
 #| msgid "Value must be between 0 and 32767. Try again."
 msgid ""
@@ -7062,14 +7415,14 @@ msgid ""
 "Value must be above 100k or between 1% and 200%. Try again."
 msgstr "मान 0 से 32767 के बीच होने चाहिए। फिर से कोशिश करें।"
 
-#: src/modules/FileSystems.rb:290
+#: src/modules/FileSystems.rb:301
 #, fuzzy
 #| msgid "Value must be between 0 and 32767. Try again."
 msgid "Value must be between 1% and 200%. Try again."
 msgstr "मान 0 से 32767 के बीच होने चाहिए। फिर से कोशिश करें।"
 
 #. help text, richtext format
-#: src/modules/FileSystems.rb:297
+#: src/modules/FileSystems.rb:308
 msgid ""
 "<p><b>Tmpfs Size:</b>\n"
 "Size may be either entered as a number followed by K,M,G for Kilo-, Mega- or "
@@ -7078,19 +7431,19 @@ msgid ""
 msgstr ""
 
 #. popup text
-#: src/modules/FileSystems.rb:319
+#: src/modules/FileSystems.rb:330
 msgid "Value must be between 0 and 32767. Try again."
 msgstr "मान 0 से 32767 के बीच होने चाहिए। फिर से कोशिश करें।"
 
 #. button text
-#: src/modules/FileSystems.rb:511
+#: src/modules/FileSystems.rb:524
 #, fuzzy
 #| msgid "Mountable by &user"
 msgid "Mountable by User"
 msgstr "उपयोगकर्ता द्वारा माउंट योग्य(&u)"
 
 #. help text, richtext format
-#: src/modules/FileSystems.rb:534
+#: src/modules/FileSystems.rb:547
 #, fuzzy
 msgid ""
 "<p><b>Do Not Mount at System Start-up:</b>\n"
@@ -7111,7 +7464,7 @@ msgstr ""
 "जाता है। डिफॉल्ट असत्य है। </p>\n"
 
 #. help text, richtext format
-#: src/modules/FileSystems.rb:610
+#: src/modules/FileSystems.rb:623
 msgid ""
 "<p><b>Access Control Lists (ACL):</b>\n"
 "Enable access control lists on the file system.</p>\n"
@@ -7120,7 +7473,7 @@ msgstr ""
 "फाइल सिस्टम पर पहुंच नियंत्रण सूचियों को सक्षम बनाएं। </p>\n"
 
 #. help text, richtext format
-#: src/modules/FileSystems.rb:625
+#: src/modules/FileSystems.rb:638
 msgid ""
 "<p><b>Extended User Attributes:</b>\n"
 "Allow extended user attributes on the file system.</p>\n"
@@ -7128,7 +7481,7 @@ msgstr ""
 "<p><b> विस्तारित उपयोगकर्ता की विशेषताये:</b>\n"
 "फाइल सिस्टम पर विस्तारित उपयोगकर्ता विशेषताओं की अनुमति दें। </p>\n"
 
-#: src/modules/FileSystems.rb:647
+#: src/modules/FileSystems.rb:660
 #, fuzzy
 msgid ""
 "Invalid characters in arbitrary option value. Do not use spaces or tabs. Try "
@@ -7136,7 +7489,7 @@ msgid ""
 msgstr "माउंट बिन्दु में अमान्य वर्ण। माउंट बिन्दु में \"`'!\"%#\" का उपयोगन करें।"
 
 #. help text, richtext format
-#: src/modules/FileSystems.rb:651
+#: src/modules/FileSystems.rb:664
 msgid ""
 "<p><b>Arbitrary Option Value:</b>\n"
 "In this field, type any legal mount option allowed in the fourth field of /"
@@ -7148,12 +7501,12 @@ msgstr ""
 "एक से अधिक विकल्प अल्पविरामों द्वारा पृथक्कृत किए गए हैं।</p>\n"
 
 #. label text
-#: src/modules/FileSystems.rb:720
+#: src/modules/FileSystems.rb:733
 msgid "Number of &FATs"
 msgstr "&FATs की संख्या"
 
 #. help text, richtext format
-#: src/modules/FileSystems.rb:726
+#: src/modules/FileSystems.rb:739
 msgid ""
 "<p><b>Number of FATs:</b>\n"
 "Specify the number of file allocation tables in the file system. The default "
@@ -7163,14 +7516,14 @@ msgstr ""
 "फाइल सिस्टम में फाइल आवंटन तालिकाओं की संख्या निर्दिष्ट करें। डिफॉल्ट 2 है। </p>"
 
 #. label text
-#: src/modules/FileSystems.rb:735
+#: src/modules/FileSystems.rb:748
 #, fuzzy
 #| msgid "FAT &size"
 msgid "FAT &Size"
 msgstr "FAT आकार(&s)"
 
 #. help text, richtext format
-#: src/modules/FileSystems.rb:746
+#: src/modules/FileSystems.rb:759
 #, fuzzy
 msgid ""
 "<p><b>FAT Size:</b>\n"
@@ -7184,21 +7537,21 @@ msgstr ""
 "p>\n"
 
 #. label text
-#: src/modules/FileSystems.rb:755
+#: src/modules/FileSystems.rb:768
 #, fuzzy
 #| msgid "Root &dir entries"
 msgid "Root &Dir Entries"
 msgstr "रूट dir प्रविष्टियां(&d)"
 
 #. popup text
-#: src/modules/FileSystems.rb:763
+#: src/modules/FileSystems.rb:776
 #, fuzzy
 #| msgid "The minimum size for \"Root dir entries\" is 112. Please try again."
 msgid "The minimum size for \"Root Dir Entries\" is 112. Try again."
 msgstr "\"रूट डाय प्रवेश\" के लिए न्यूनतम आकार 112 है। कृपया फिर से कोशिश करें।"
 
 #. help text, richtext format
-#: src/modules/FileSystems.rb:767
+#: src/modules/FileSystems.rb:780
 #, fuzzy
 #| msgid ""
 #| "<p><b>Root dir entries:</b>\n"
@@ -7211,14 +7564,14 @@ msgstr ""
 "रूट डायरेक्टरी में उपलब्ध प्रविष्टियों की संख्या चुनें। </p>"
 
 #. label text
-#: src/modules/FileSystems.rb:780
+#: src/modules/FileSystems.rb:793
 #, fuzzy
 #| msgid "Hash &function"
 msgid "Hash &Function"
 msgstr "हैश प्रणाली(&f)"
 
 #. help text, richtext format
-#: src/modules/FileSystems.rb:787
+#: src/modules/FileSystems.rb:800
 #, fuzzy
 #| msgid ""
 #| "<p><b>Hash function:</b>\n"
@@ -7234,14 +7587,14 @@ msgstr ""
 "निर्दिष्ट करता है। </p>"
 
 #. label text
-#: src/modules/FileSystems.rb:796
+#: src/modules/FileSystems.rb:809
 #, fuzzy
 #| msgid "FS &revision"
 msgid "FS &Revision"
 msgstr "FS पुनरीक्षण(&r)"
 
 #. help text, richtext format
-#: src/modules/FileSystems.rb:803
+#: src/modules/FileSystems.rb:816
 #, fuzzy
 #| msgid ""
 #| "<p><b>FS revision:</b>\n"
@@ -7262,7 +7615,7 @@ msgstr ""
 "इसका प्रयोग केवल 2.4 से बड़े या इसके बराबर कर्नेलों के साथ ही किया जा सकता है। </p>\n"
 
 #. help text, richtext format
-#: src/modules/FileSystems.rb:823
+#: src/modules/FileSystems.rb:836
 #, fuzzy
 #| msgid ""
 #| "<p><b>Block size:</b>\n"
@@ -7282,7 +7635,7 @@ msgstr ""
 
 #. help text, richtext format
 #. help text, richtext format
-#: src/modules/FileSystems.rb:838 src/modules/FileSystems.rb:1068
+#: src/modules/FileSystems.rb:851 src/modules/FileSystems.rb:1081
 msgid ""
 "<p><b>Inode Size:</b>\n"
 "This option specifies the inode size of the file system.</p>\n"
@@ -7291,14 +7644,14 @@ msgstr ""
 "यह विकल्प फाइल सिस्टम के आईनोड आकार को निर्दिष्ट करता है। </p>\n"
 
 #. label text
-#: src/modules/FileSystems.rb:847
+#: src/modules/FileSystems.rb:860
 #, fuzzy
 #| msgid "&Percentage of inode space"
 msgid "&Percentage of Inode Space"
 msgstr "आईनोड स्पेस का प्रतिशत(&P)"
 
 #. help text, richtext format
-#: src/modules/FileSystems.rb:875
+#: src/modules/FileSystems.rb:888
 #, fuzzy
 #| msgid ""
 #| "<p><b>Percentage of inode space:</b>\n"
@@ -7314,14 +7667,14 @@ msgstr ""
 "निर्दिष्ट करता है जिसे आईनोडों को आवंटित किया जा सकता है। </p>\n"
 
 #. label text
-#: src/modules/FileSystems.rb:884
+#: src/modules/FileSystems.rb:897
 #, fuzzy
 #| msgid "Inode &aligned"
 msgid "Inode &Aligned"
 msgstr "आईनोड अलाइंड(&a)"
 
 #. help text, richtext format
-#: src/modules/FileSystems.rb:890
+#: src/modules/FileSystems.rb:903
 #, fuzzy
 #| msgid ""
 #| "<p><b>Inode Aligned:</b>\n"
@@ -7344,14 +7697,14 @@ msgstr ""
 "सामान्यतया असंरेखित पहुंच से अधिक कार्यकुशल होती है। </p>\n"
 
 #. label text
-#: src/modules/FileSystems.rb:920
+#: src/modules/FileSystems.rb:933
 #, fuzzy
 #| msgid "&Log size in megabytes"
 msgid "&Log Size in Megabytes"
 msgstr "लॉग आकार मेगाबाइट में(&L)"
 
 #. popup text
-#: src/modules/FileSystems.rb:929
+#: src/modules/FileSystems.rb:942
 #, fuzzy
 #| msgid ""
 #| "The \"Log size\" value is incorrect.\n"
@@ -7365,7 +7718,7 @@ msgstr ""
 
 #. xgettext: no-c-format
 #. help text, richtext format
-#: src/modules/FileSystems.rb:934
+#: src/modules/FileSystems.rb:947
 #, fuzzy
 #| msgid ""
 #| "<p><b>Log size</b>\n"
@@ -7381,19 +7734,19 @@ msgstr ""
 "है। </p>"
 
 #. label text
-#: src/modules/FileSystems.rb:942
+#: src/modules/FileSystems.rb:955
 msgid "Invoke Bad Blocks List &Utility"
 msgstr "बैड ब्लॉक्स लिस्ट उपयोगिता को सक्रिय करें(&U)"
 
 #. label text
-#: src/modules/FileSystems.rb:956
+#: src/modules/FileSystems.rb:969
 #, fuzzy
 #| msgid "Stride &length in blocks"
 msgid "Stride &Length in Blocks"
 msgstr "ब्लॉकों में स्ट्राइड लंबाई(&l)"
 
 #. popup text
-#: src/modules/FileSystems.rb:964
+#: src/modules/FileSystems.rb:977
 #, fuzzy
 #| msgid ""
 #| "The \"Stride length in blocks\" value is not possible.\n"
@@ -7406,7 +7759,7 @@ msgstr ""
 "कृपया 1 से बड़ा कोई मान चुनें। "
 
 #. help text, richtext format
-#: src/modules/FileSystems.rb:968
+#: src/modules/FileSystems.rb:981
 msgid ""
 "<p><b>Stride Length in Blocks:</b>\n"
 "Set RAID-related options for the file system. Currently, the only supported\n"
@@ -7419,7 +7772,7 @@ msgstr ""
 "अपने तर्क के रूप में लेता है। </p>\n"
 
 #. help text, richtext format
-#: src/modules/FileSystems.rb:987
+#: src/modules/FileSystems.rb:1000
 #, fuzzy
 #| msgid ""
 #| "<p><b>Block size:</b>\n"
@@ -7439,14 +7792,14 @@ msgstr ""
 "सिस्टम के अपेक्षित उपयोग से निर्धारित होता है।</p>\n"
 
 #. label text
-#: src/modules/FileSystems.rb:996
+#: src/modules/FileSystems.rb:1009
 #, fuzzy
 #| msgid "Bytes per &inode"
 msgid "Bytes per &Inode"
 msgstr "बाइट्स प्रति आइनोड(&i)"
 
 #. help text, richtext format
-#: src/modules/FileSystems.rb:1002
+#: src/modules/FileSystems.rb:1015
 #, fuzzy
 #| msgid ""
 #| "<p><b>Bytes per inode:</b>\n"
@@ -7480,14 +7833,14 @@ msgstr ""
 "सुनिश्चित करें। </p>\n"
 
 #. label text
-#: src/modules/FileSystems.rb:1018
+#: src/modules/FileSystems.rb:1031
 #, fuzzy
 #| msgid "Percentage of blocks &reserved for root"
 msgid "Percentage of Blocks &Reserved for root"
 msgstr "रूट के लिए आरक्षित ब्लॉकों का प्रतिशत(&r)"
 
 #. popup text
-#: src/modules/FileSystems.rb:1028
+#: src/modules/FileSystems.rb:1041
 #, fuzzy
 #| msgid ""
 #| "The \"Percentage of blocks reserved for root\" value is incorrect.\n"
@@ -7501,7 +7854,7 @@ msgstr ""
 
 #. xgettext: no-c-format
 #. help text, richtext format
-#: src/modules/FileSystems.rb:1033
+#: src/modules/FileSystems.rb:1046
 #, fuzzy
 #| msgid ""
 #| "<p><b>Percentage of blocks reserved for root:</b> Specify the percentage "
@@ -7516,40 +7869,40 @@ msgstr ""
 "का प्रतिशत निर्दिष्ट करें। इस मान का डिफॉल्ट 5% है। </p>"
 
 #. checkbox text
-#: src/modules/FileSystems.rb:1042
+#: src/modules/FileSystems.rb:1055
 #, fuzzy
 msgid "Disable Regular Checks"
 msgstr "सेवाऎ असमर्थ करें"
 
 #. help text, richtext format
-#: src/modules/FileSystems.rb:1050
+#: src/modules/FileSystems.rb:1063
 msgid ""
 "<p><b>Disable Regular Checks:</b>\n"
 "Disable regular file system check at booting.</p>\n"
 msgstr ""
 
 #. label text
-#: src/modules/FileSystems.rb:1077
+#: src/modules/FileSystems.rb:1090
 #, fuzzy
 msgid "&Directory Index Feature"
 msgstr "डाइरक्टरी तालिका (&D)"
 
 #. help text, richtext format
-#: src/modules/FileSystems.rb:1084
+#: src/modules/FileSystems.rb:1097
 msgid ""
 "<p><b>Directory Index:</b>\n"
 "Enables use of hashed b-trees to speed up lookups in large directories.</p>\n"
 msgstr ""
 
 #. label text
-#: src/modules/FileSystems.rb:1096
+#: src/modules/FileSystems.rb:1109
 #, fuzzy
 #| msgid "Disk Journal"
 msgid "&No Journal"
 msgstr "डिस्क जर्नल"
 
 #. help text, richtext format
-#: src/modules/FileSystems.rb:1103
+#: src/modules/FileSystems.rb:1116
 msgid ""
 "<p><b>No Journal:</b>\n"
 "Suppressed use of journaling on filesystem. Only activate this when you "
@@ -7706,7 +8059,7 @@ msgstr ""
 #. @param integer testsize
 #. @param [Symbol] used_fs
 #. @param [Boolean] verbose
-#: src/modules/Storage.rb:994
+#: src/modules/Storage.rb:992
 msgid "Resize Not Possible:"
 msgstr "पुन: आकार देना संभव नहीं :"
 
@@ -7719,7 +8072,7 @@ msgstr "पुन: आकार देना संभव नहीं :"
 #. mark swap-partitions with pseudo Mountpoint swap in targetMap
 #. @param [Hash{String => map}] target Disk map
 #. @return [Hash{String => map}] modified target
-#: src/modules/Storage.rb:2697 src/modules/Storage.rb:3920
+#: src/modules/Storage.rb:2695 src/modules/Storage.rb:3918
 #, fuzzy
 #| msgid ""
 #| "Could not set encryption.\n"
@@ -7738,7 +8091,7 @@ msgstr ""
 "दिया गया क्रिप्ट पासवर्ड गलत हो सकता है। \n"
 
 #. popup text
-#: src/modules/Storage.rb:3951
+#: src/modules/Storage.rb:3949
 #, fuzzy
 msgid ""
 "The first and the second version\n"
@@ -7750,7 +8103,7 @@ msgstr ""
 "कृपया फिर से कोशिश करें।"
 
 #. popup text
-#: src/modules/Storage.rb:3982
+#: src/modules/Storage.rb:3980
 #, fuzzy
 msgid ""
 "The password may only contain the following characters:\n"
@@ -7763,29 +8116,24 @@ msgstr ""
 
 #. Label: get password for encrypted volume
 #. Please use newline if label is longer than 40 characters
-#: src/modules/Storage.rb:4036
+#: src/modules/Storage.rb:4034
 #, fuzzy
 #| msgid "Enter Encryption Key"
 msgid "&Enter Encryption Password:"
 msgstr "एन्क्रिप्शन कि भरती करें"
 
 #. Clear password fields on every round.
-#: src/modules/Storage.rb:4095
+#: src/modules/Storage.rb:4093
 #, fuzzy
 #| msgid "Enter Provider Password"
 msgid "Provide Password"
 msgstr "संभरक पासवेर्ड भरती करें"
 
-#: src/modules/Storage.rb:4114
+#: src/modules/Storage.rb:4112
 msgid "The following encrypted volumes are already available."
 msgstr ""
 
-#: src/modules/Storage.rb:4129
-#, fuzzy
-msgid "Encrypted Volume Activation"
-msgstr "वॉल्यूम समूह"
-
-#: src/modules/Storage.rb:4133
+#: src/modules/Storage.rb:4131
 msgid ""
 "The following volumes contain an encryption signature but the \n"
 "passwords are not yet known.\n"
@@ -7793,127 +8141,107 @@ msgid ""
 "during an update or if they contain an encrypted LVM physical volume."
 msgstr ""
 
-#: src/modules/Storage.rb:4145
+#: src/modules/Storage.rb:4143
 #, fuzzy
 #| msgid "Do you want to retry?"
 msgid "Do you want to provide encryption passwords?"
 msgstr "क्या आप पुनः प्रयास करना चाहते हैं?"
 
 #. text in help field
-#: src/modules/Storage.rb:4202
+#: src/modules/Storage.rb:4200
 msgid ""
 "Enter encryption password for any of the\n"
 "devices in the locked devices list.\n"
 "Password will be tried for all devices."
 msgstr ""
 
-#. header text
-#: src/modules/Storage.rb:4208
-#, fuzzy
-#| msgid "Enter Encryption Key"
-msgid "Enter Encryption Password"
-msgstr "एन्क्रिप्शन कि भरती करें"
-
-#: src/modules/Storage.rb:4211
+#: src/modules/Storage.rb:4209
 msgid "There are no encrypted volume to unlock."
 msgstr ""
 
 #. label text, multiple device names follow
-#: src/modules/Storage.rb:4224
+#: src/modules/Storage.rb:4222
 #, fuzzy
 #| msgid "YaST2 detected the following device"
 msgid "Provide password for any of the following devices:"
 msgstr "यास्ट ने निम्नलिखित उप्करण दूढ़ लिये हैं "
 
 #. label text, one device name follows
-#: src/modules/Storage.rb:4227
+#: src/modules/Storage.rb:4225
 #, fuzzy
 #| msgid "YaST2 detected the following device"
 msgid "Provide password for the following device:"
 msgstr "यास्ट ने निम्नलिखित उप्करण दूढ़ लिये हैं "
 
-#: src/modules/Storage.rb:4240
+#: src/modules/Storage.rb:4238
 msgid "Trying to unlock encrypted volumes..."
 msgstr ""
 
-#: src/modules/Storage.rb:4264
+#: src/modules/Storage.rb:4262
 msgid "Password did not unlock any volume."
 msgstr ""
 
-#: src/modules/Storage.rb:4350
+#: src/modules/Storage.rb:4348
 #, fuzzy
 #| msgid "DASD Disks"
 msgid "IDE Disk"
 msgstr "DASD डिस्क"
 
-#: src/modules/Storage.rb:4356
+#: src/modules/Storage.rb:4354
 #, fuzzy
 #| msgid "DASD Disks"
 msgid "SCSI Disk"
 msgstr "DASD डिस्क"
 
-#: src/modules/Storage.rb:4362
+#: src/modules/Storage.rb:4360
 msgid "Disk"
 msgstr "डिस्क"
 
-#: src/modules/Storage.rb:4390
+#: src/modules/Storage.rb:4388
 #, fuzzy
 msgid "DM RAID"
 msgstr "R&AID:"
 
-#: src/modules/Storage.rb:4403
+#: src/modules/Storage.rb:4401
 #, fuzzy
 msgid "MD RAID"
 msgstr "R&AID:"
 
-#. TODO: more informative error message, but the Package module does
-#. not provide anything
 #. TRANSLATORS: error popup
-#: src/modules/Storage.rb:4898
-msgid "Installing required packages failed."
-msgstr "आवश्यक बंडल अधिष्ठापित करने पर फेल हो गया । "
-
-#: src/modules/Storage.rb:4899 src/modules/StorageClients.rb:159
-#, fuzzy
-#| msgid "Continue resizing the %1?"
-msgid "Continue despite the error?"
-msgstr "%1 को पुन: आकार देना जारी रखें?"
-
-#. TRANSLATORS: error popup
-#: src/modules/Storage.rb:5238
+#: src/modules/Storage.rb:5246
 msgid ""
 "Partitions cannot be created since other partitions on the disk are used."
 msgstr ""
 
-#: src/modules/Storage.rb:5264
+#: src/modules/Storage.rb:5272
 msgid ""
 "\n"
 "Device %1 cannot be modified because it contains activated swap\n"
 "that is needed to run the installation.\n"
 msgstr ""
 
-#: src/modules/Storage.rb:5278
+#: src/modules/Storage.rb:5286
 msgid ""
 "\n"
 "Device %1 cannot be modified because it contains the installation\n"
 "data needed to perform the installation.\n"
 msgstr ""
 
-#: src/modules/Storage.rb:5307
+#: src/modules/Storage.rb:5315
 msgid ""
 "\n"
 "Device %1 cannot be removed because it contains activated swap\n"
 "that is needed to run the installation.\n"
 msgstr ""
 
-#: src/modules/Storage.rb:5316
+#: src/modules/Storage.rb:5324
 msgid ""
 "\n"
 "Device %1 cannot be removed because it contains the installation\n"
 "data needed to perform the installation.\n"
 msgstr ""
 
-#: src/modules/Storage.rb:5345
+#: src/modules/Storage.rb:5353
 msgid ""
 "\n"
 "Device %1 cannot be removed because this would indirectly change\n"
@@ -7921,7 +8249,7 @@ msgid ""
 "the installation.\n"
 msgstr ""
 
-#: src/modules/Storage.rb:5356
+#: src/modules/Storage.rb:5364
 msgid ""
 "\n"
 "Device %1 cannot be removed because this would indirectly change\n"
@@ -7929,7 +8257,7 @@ msgid ""
 msgstr ""
 
 #. the check for verbose is needed for calls from StorageProposal (see bnc#871779)
-#: src/modules/Storage.rb:5378
+#: src/modules/Storage.rb:5386
 msgid ""
 "\n"
 "Partition %1 cannot be removed since other partitions on the\n"
@@ -7937,20 +8265,20 @@ msgid ""
 msgstr ""
 
 #. FIXME: please, add description of the list that is returned by this function.
-#: src/modules/Storage.rb:5467
+#: src/modules/Storage.rb:5475
 #, fuzzy
 #| msgid "Set global root filesystem"
 msgid "Nothing assigned as root filesystem!"
 msgstr "वैश्विक रूट फाइलसिस्टम को सेट करें"
 
-#: src/modules/Storage.rb:5468
+#: src/modules/Storage.rb:5476
 msgid "Installation will most certainly fail fatally!"
 msgstr ""
 
 #. Set rather than Add, there might be some packs left over
 #. from previous 'MakeProposal' we don't need now
 #. This also covers the case when AddPackagesList returns [] or nil
-#: src/modules/Storage.rb:6018
+#: src/modules/Storage.rb:6027
 #, fuzzy
 #| msgid "writing the firewall rules failed"
 msgid "Adding the following resolvables failed: %1"
@@ -7982,11 +8310,6 @@ msgstr ""
 msgid "&Enter Password for Device %1:"
 msgstr "LDAP सेर्वर का पासवेर्ड जोडें (&E):"
 
-#. Column header, abbreviation for "format" (to format a partition)
-#: src/modules/StorageFields.rb:135
-msgid "F"
-msgstr ""
-
 #. Column header
 #: src/modules/StorageFields.rb:159
 #, fuzzy
@@ -8012,12 +8335,6 @@ msgid "RAID Version"
 msgstr "बाओस संस्करण"
 
 #. Column header
-#: src/modules/StorageFields.rb:198
-#, fuzzy
-msgid "Parity Algorithm"
-msgstr "एन्क्रिप्शन अल्गोरितमंस"
-
-#. Column header
 #: src/modules/StorageFields.rb:201
 msgid "Vendor"
 msgstr "वेन्टर"
@@ -8026,6 +8343,14 @@ msgstr "वेन्टर"
 #: src/modules/StorageFields.rb:204
 msgid "Model"
 msgstr "मोडल"
+
+#. helptext for table column and overview entry
+#: src/modules/StorageFields.rb:281
+#, fuzzy
+msgid ""
+"<b>End Cylinder</b> shows the end cylinder of\n"
+"the partition."
+msgstr "पार्टिशन का अंत सिलिंडर."
 
 #. helptext for table column and overview entry
 #: src/modules/StorageFields.rb:346
@@ -8041,6 +8366,14 @@ msgstr ""
 "कर्नेल नाम द्वारा, \n"
 "(L) लेबल द्वारा, (U) UUID द्वारा, (I) उपकरण ID द्वारा, और (P) उपकरण पथ द्वारा। \n"
 "</p>\n"
+
+#. helptext for table column and overview entry
+#: src/modules/StorageFields.rb:423
+#, fuzzy
+msgid ""
+"<b>Start Cylinder</b> shows the start cylinder\n"
+"of the partition."
+msgstr "पार्टिशन का प्रारंभ सिलिंडर."
 
 #. helptext for table column and overview entry
 #: src/modules/StorageFields.rb:431
@@ -8306,7 +8639,7 @@ msgstr ""
 
 #. bsc#983003
 #. penalty for not having separate /home
-#: src/modules/StorageProposal.rb:4601 src/modules/StorageProposal.rb:5724
+#: src/modules/StorageProposal.rb:4662 src/modules/StorageProposal.rb:5785
 #, fuzzy
 #| msgid ""
 #| "Resize impossible due to inconsistent fs. Try checking fs under Windows."
@@ -8316,33 +8649,19 @@ msgid ""
 msgstr ""
 "अनियमित एफएस के कारण पुनः आकार देना असंभव है। विंडोज़ के अधीन एफएस प्रयोग करकेदेखें।"
 
-#. TRANSLATORS: combobox label
-#: src/modules/StorageProposal.rb:6239
-#, fuzzy
-#| msgid "File system options:"
-msgid "File System for Root Partition"
-msgstr "फाइल सिस्टम विकल्प :"
-
-#. TRANSLATORS: combobox label
-#: src/modules/StorageProposal.rb:6286
-#, fuzzy
-#| msgid "Propose Separate &Home Partition"
-msgid "File System for Home Partition"
-msgstr "विभिन्न होम पार्टिशन प्रस्तावित करें"
-
 #. TRANSLATORS: checkbox text
-#: src/modules/StorageProposal.rb:6304
+#: src/modules/StorageProposal.rb:6365
 msgid "Enlarge &Swap for Suspend"
 msgstr ""
 
-#: src/modules/StorageProposal.rb:6314
+#: src/modules/StorageProposal.rb:6375
 #, fuzzy
 #| msgid "Write global settings"
 msgid "Proposal Settings"
 msgstr "ग्लोबल व्यवस्थाऐं लिखो"
 
 #. TRANSLATORS: help text
-#: src/modules/StorageProposal.rb:6329
+#: src/modules/StorageProposal.rb:6390
 msgid ""
 "<p>Choose <b>Partition-based Proposal</b> if you don't want to use LVM.\n"
 "Choose <b>LVM-based Proposal</b> for plain LVM and <b>Encrypted LVM-based\n"
@@ -8350,7 +8669,7 @@ msgid ""
 msgstr ""
 
 #. TRANSLATORS: help text
-#: src/modules/StorageProposal.rb:6337
+#: src/modules/StorageProposal.rb:6398
 msgid ""
 "<p>The filesystem for the root partition can be selected with the\n"
 "corresponding combo box. With the filesystem BtrFS the proposal can\n"
@@ -8359,50 +8678,50 @@ msgid ""
 msgstr ""
 
 #. TRANSLATORS: help text
-#: src/modules/StorageProposal.rb:6346
+#: src/modules/StorageProposal.rb:6407
 msgid ""
 "<p>The proposal can create a separate home partition. The filesystem for\n"
 "the home partition can be selected with the corresponding combo box.</p>"
 msgstr ""
 
 #. TRANSLATORS: help text
-#: src/modules/StorageProposal.rb:6353
+#: src/modules/StorageProposal.rb:6414
 msgid ""
 "<p>The swap partition can be made large enough to be used to suspend\n"
 "the system to disk in most cases.</p>"
 msgstr ""
 
-#: src/modules/StorageProposal.rb:6378
+#: src/modules/StorageProposal.rb:6439
 #, fuzzy
 msgid "Enter your password for the proposal encryption."
 msgstr "इंक्रिप्टेड फाइल सिस्टम के लिए अपना पासवर्ड दर्ज करें।"
 
 #. Label: get password for user root
 #. Please use newline if label is longer than 40 characters
-#: src/modules/StorageProposal.rb:6385
+#: src/modules/StorageProposal.rb:6446
 msgid "Password:"
 msgstr "पासवेर्ड:"
 
 #. Label: get same password again for verification
 #. Please use newline if label is longer than 40 characters
-#: src/modules/StorageProposal.rb:6396
+#: src/modules/StorageProposal.rb:6457
 #, fuzzy
 msgid "Reenter the password for verification:"
 msgstr "&पुष्टि के लिए पासवर्ड को फिर से दर्ज करें :"
 
 #. Clear password fields on every round.
-#: src/modules/StorageProposal.rb:6594
+#: src/modules/StorageProposal.rb:6655
 #, fuzzy
 msgid "&Partition-based Proposal"
 msgstr "विभाजन योजनाए"
 
-#: src/modules/StorageProposal.rb:6596
+#: src/modules/StorageProposal.rb:6657
 #, fuzzy
 #| msgid "Create &LVM Based Proposal"
 msgid "&LVM-based Proposal"
 msgstr "एलएमवी आधारित प्रस्तुति सृजित करें"
 
-#: src/modules/StorageProposal.rb:6598
+#: src/modules/StorageProposal.rb:6659
 #, fuzzy
 #| msgid "Create &LVM Based Proposal"
 msgid "&Encrypted LVM-based Proposal"
@@ -8457,25 +8776,81 @@ msgstr "विभाजनिं"
 msgid "Visible Information on Storage Devices:"
 msgstr "उपयोगकर्ता जानकारी स्त्रोत"
 
+#. TRANSLATORS: first snapshot description
+#: src/modules/StorageSnapper.rb:81
 #, fuzzy
-#~ msgid "Custom"
-#~ msgstr "कस्टम आकार (&S)"
+#| msgid "&Encrypt file system"
+msgid "first root filesystem"
+msgstr "&इंक्रिप्ट फाइल सिस्टम"
+
+#, fuzzy
+#~| msgid "Partition"
+#~ msgid "Partitioner"
+#~ msgstr "विभाजन"
 
 #, fuzzy
 #~ msgid ""
-#~ "Warning:\n"
-#~ "\n"
-#~ "Your root partition is very small for snapshots.\n"
-#~ "We recommend to increase the size of the root partition\n"
-#~ "to %1 or more or to disable snapshots.\n"
-#~ "\n"
-#~ "Really keep the current setup?\n"
+#~ "<p>This view shows all Btrfs filesystems.</p><p>The table contains:</p>"
+#~ msgstr "<p>यह फ्रेम साइन के अनुरोध को प्रदर्शित करता है।</p>"
+
+#, fuzzy
+#~ msgid ""
+#~ "The %{type} \"%{name}\" contains at least one another device.\n"
+#~ "If you proceed, the following devices will be deleted:"
 #~ msgstr ""
-#~ "चेतावनी : \n"
-#~ "आपका बूट विभाजन 12 MB से कम है। \n"
-#~ "/boot का आकार बढ़ाने की अनुशंसा की जाती है। \n"
-#~ "\n"
-#~ "क्या आप ऐसा करना चाहते हैं? \n"
+#~ "वॉल्यूम समूह \"%1\" कम से कम एक लॉजिकल वॉल्यूम \n"
+#~ "रखता है। इसे नहीं हटाया जा सकता। समस्त लॉजिकल वॉल्यूमों को हटाएं और फिर\n"
+#~ "वॉल्यूम समूह को हटाएं।\n"
+
+#, fuzzy
+#~| msgid "Partition"
+#~ msgid "partition"
+#~ msgstr "विभाजन"
+
+#, fuzzy
+#~ msgid "Really delete all devices on \"%s\"?"
+#~ msgstr "%1 पर सभी विभाजनों को वास्तव में मिटाना है?"
+
+#, fuzzy
+#~ msgid "There are no partitions to edit."
+#~ msgstr "इस मोडयूल के लिए कोई विकल्प नहीं है"
+
+#, fuzzy
+#~ msgid ""
+#~ "<p>This view shows all logical volumes of the\n"
+#~ "selected volume group.</p><p>The overview contains:</p>"
+#~ msgstr "<p>अपने वॉल्यूम समूह में <b>विभाजन जोड़ें</b> (जिन्हें भौतिक वॉल्यूम कहते हैं)। </p>"
+
+#, fuzzy
+#~ msgid ""
+#~ "<p>This view shows all LVM volume groups and\n"
+#~ "their logical volumes.</p><p>The overview contains:</p>"
+#~ msgstr ""
+#~ "<p>इस उपकरण से लॉजिकल वॉल्यूम्स को मैनेज या सृजित करें।\n"
+#~ "</p>\n"
+
+#, fuzzy
+#~ msgid ""
+#~ "<p><p>This view shows all devices used by the\n"
+#~ "selected RAID.</p>"
+#~ msgstr "<p>अपने वॉल्यूम समूह में <b>विभाजन जोड़ें</b> (जिन्हें भौतिक वॉल्यूम कहते हैं)। </p>"
+
+#, fuzzy
+#~ msgid ""
+#~ "<p>This view shows all physical volumes used by\n"
+#~ "the selected volume group.</p><p>The overview contains:</p>"
+#~ msgstr "<p>अपने वॉल्यूम समूह में <b>विभाजन जोड़ें</b> (जिन्हें भौतिक वॉल्यूम कहते हैं)। </p>"
+
+#~ msgid ""
+#~ "You have assigned an encrypted file system to a partition\n"
+#~ "with one of the following mount points: \"/\", \"/usr\", \"/boot\",\n"
+#~ "/var\".  This is not possible. Change the mount point or use a\n"
+#~ "nonloopbacked file system.\n"
+#~ msgstr ""
+#~ "आपने निम्नलिखित माउंट बिंदुओं में से एक वाले एक पार्टीशन को एक\n"
+#~ "एन्क्रिप्टेड फाइल सिस्टम एसाइन किया है : \"/\", \"/usr\", \"/boot\",\n"
+#~ "/var\"। यह संभव नहीं है। माउंट बिंदु को बदलें या किसी \n"
+#~ "नॉनलूपबैक्ड फाइल सिस्टम का प्रयोग करें।\n"
 
 #, fuzzy
 #~ msgid "Create Partition"
@@ -8923,9 +9298,6 @@ msgstr "उपयोगकर्ता जानकारी स्त्रो�
 #, fuzzy
 #~ msgid "<b>Visible Information on Storage Devices:</b> "
 #~ msgstr "उपयोगकर्ता जानकारी स्त्रोत"
-
-#~ msgid "&Encrypt file system"
-#~ msgstr "&इंक्रिप्ट फाइल सिस्टम"
 
 #~ msgid "2:Format"
 #~ msgstr "2 : फॉर्मेट"
@@ -10999,9 +11371,6 @@ msgstr "उपयोगकर्ता जानकारी स्त्रो�
 #~ msgid "max = %1 "
 #~ msgstr "max = %1 "
 
-#~ msgid "Logical volume &name "
-#~ msgstr "लॉजिकल वॉल्यूम नाम(&n)"
-
 #~ msgid "(e.g. var, opt)"
 #~ msgstr "(उदाहरणार्थ var, opt)"
 
@@ -11546,9 +11915,6 @@ msgstr "उपयोगकर्ता जानकारी स्त्रो�
 #~ "एक नया विभाजन सृजित करें। \n"
 #~ "यदि आप इस विभाजन को मिटाएंगे तो इसका समस्त डेटा समाप्त हो जाएगा। "
 
-#~ msgid "Edit Existing Partition %1"
-#~ msgstr "मौजूदा विभाजन %1 संपादित करें"
-
 #~ msgid "Edit Existing Device %1"
 #~ msgstr "मौजूदा उपकरण %1 को संपादित करें"
 
@@ -11840,9 +12206,6 @@ msgstr "उपयोगकर्ता जानकारी स्त्रो�
 
 #~ msgid "&Edit Container"
 #~ msgstr "कंटेनर संपादित करें"
-
-#~ msgid "&Remove Container"
-#~ msgstr "कंटेनर हटाएं"
 
 #~ msgid " Mount"
 #~ msgstr "माउंट"

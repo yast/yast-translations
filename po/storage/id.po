@@ -6,11 +6,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: YaST2 (@memory@)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-08-14 02:29+0000\n"
+"POT-Creation-Date: 2017-11-02 22:17+0100\n"
 "PO-Revision-Date: 2017-08-22 18:09+0700\n"
 "Last-Translator: Arif Budiman <arifpedia@gmail.com>\n"
-"Language-Team: Indonesian <https://l10n.opensuse.org/projects/yast-"
-"storage/master/id/>\n"
+"Language-Team: Indonesian <https://l10n.opensuse.org/projects/yast-storage/"
+"master/id/>\n"
 "Language: id\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -18,29 +18,112 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Poedit 2.0.3\n"
 
+#. TRANSLATORS: %s is a device name (e.g. "/dev/sda")
+#: src/lib/y2partitioner/actions/add_partition.rb:81
+#, fuzzy
+#| msgid "It is not possible to create a partition on %1."
+msgid "It is not possible to create a partition on %s."
+msgstr "Mustahil membuat partisi pada disk %1."
+
+#. Validates a candidate name for the LV
+#.
+#. @param name [String]
+#. @return [String, nil] nil if the name is valid, an error string
+#. otherwise
+#: src/lib/y2partitioner/actions/controllers/lvm_lv.rb:173
+msgid "The name for the logical volume is longer than 128 characters."
+msgstr "Nama untuk volume logical lebih panjang dari 128 karakter."
+
+#: src/lib/y2partitioner/actions/controllers/lvm_lv.rb:175
+#, fuzzy
+#| msgid ""
+#| "The name for the logical volume contains illegal characters. Allowed\n"
+#| "are alphanumeric characters, \".\", \"_\", \"-\" and \"+\"."
+msgid ""
+"The name for the logical volume contains illegal characters.\n"
+"Allowed are alphanumeric characters, \".\", \"_\", \"-\" and \"+\"."
+msgstr ""
+"Nama untuk volume logical berisi karakter yang tidak valid. Yang diizinkan\n"
+"adalah karakter alfanumerik, \".\", \"_\", \"-\" dan \"+\"."
+
+#. TRANSLATORS: dialog title. %s is a device name like /dev/vg0
+#: src/lib/y2partitioner/actions/controllers/lvm_lv.rb:194
+#, fuzzy
+#| msgid "Add Logical Volume on %1"
+msgid "Add Logical Volume on %s"
+msgstr "Tambah Volume Logical pada %1"
+
+#. TRANSLATORS: dialog title. %s is a device name like /dev/md0
+#: src/lib/y2partitioner/actions/controllers/md.rb:129
+#, fuzzy
+#| msgid "Add RAID %1"
+msgid "Add RAID %s"
+msgstr "Tambah RAID %1"
+
+#. TRANSLATORS: dialog title. %s is a device name like /dev/sda
+#: src/lib/y2partitioner/actions/controllers/partition.rb:111
+#, fuzzy
+#| msgid "Add Partition on %1"
+msgid "Add Partition on %s"
+msgstr "Tambah Partisi pada %1"
+
+#. TRANSLATORS %s is the name of the device to be deleted (e.g., /dev/sda1)
+#: src/lib/y2partitioner/actions/delete_device.rb:92
+msgid "Really delete %s?"
+msgstr "Yakin ingin menghapus %s?"
+
+#. TRANSLATORS: dialog title. %s is a device name like /dev/md0
+#: src/lib/y2partitioner/actions/edit_blk_device.rb:73
+#, fuzzy
+#| msgid "Edit RAID %1"
+msgid "Edit RAID %s"
+msgstr "Sunting RAID %1"
+
+#. TRANSLATORS: dialog title. %{lv_name} is an LVM LV name (e.g.'root'),
+#. %{vg} is the device name of an LVM VG (e.g. '/dev/system').
+#: src/lib/y2partitioner/actions/edit_blk_device.rb:78
+#, fuzzy
+#| msgid "Edit Logical Volume %1 on %2"
+msgid "Edit Logical Volume %{lv_name} on %{vg}"
+msgstr "Sunting Volume Logical %1 pada %2"
+
+#. TRANSLATORS: dialog title. %s is a device name like /dev/sda1
+#: src/lib/y2partitioner/actions/edit_blk_device.rb:81
+#, fuzzy
+#| msgid "Edit Partition %1"
+msgid "Edit Partition %s"
+msgstr "Sunting Partisi %1"
+
+#: src/lib/y2partitioner/actions/edit_blk_device.rb:87
+msgid "An extended partition cannot be edited"
+msgstr "Partisi extended tidak dapat disunting"
+
 #. @param filesystem [Y2Storage::Filesystems::BlkFilesystem] a btrfs filesystem
-#: src/lib/y2partitioner/dialogs/btrfs_subvolume.rb:23
+#: src/lib/y2partitioner/dialogs/btrfs_subvolume.rb:24
 msgid "Add subvolume"
 msgstr "Tambah Subvolume"
 
 #. @param form [Dialogs::BtrfsSubvolume::Form]
 #. @param filesystem [Y2Storage::Filesystems::BlkFilesystem] a btrfs filesystem
 #. TRANSLATORS: table header, subvolume path e.g. "@/home"
-#: src/lib/y2partitioner/dialogs/btrfs_subvolume.rb:85
+#: src/lib/y2partitioner/dialogs/btrfs_subvolume.rb:86
 #: src/lib/y2partitioner/widgets/btrfs_subvolumes_table.rb:92
 msgid "Path"
 msgstr "Jalur"
 
-#. Validates the path
+#. Validates not empty path
+#. An error popup is shown when entered path is empty.
 #.
-#. Path cannot be empty
-#. Path must start by default subvolume path
-#. Path must be uniq
-#: src/lib/y2partitioner/dialogs/btrfs_subvolume.rb:104
+#. @return [Boolean] true if path is not empty
+#: src/lib/y2partitioner/dialogs/btrfs_subvolume.rb:127
 msgid "Empty subvolume path not allowed."
 msgstr "Jalur subvolume kosong tidak diizinkan."
 
-#: src/lib/y2partitioner/dialogs/btrfs_subvolume.rb:109
+#. Validates not duplicated path
+#. An error popup is shown when entered path already exists in the filesystem.
+#.
+#. @return [Boolean] true if path does not exist
+#: src/lib/y2partitioner/dialogs/btrfs_subvolume.rb:138
 msgid "Subvolume name %s already exists."
 msgstr "Nama subvolume %s sudah ada."
 
@@ -48,7 +131,9 @@ msgstr "Nama subvolume %s sudah ada."
 #.
 #. Path should be a relative path. Starting slashes are removed. A popup message is
 #. presented when the default subvolume path is going to be added.
-#: src/lib/y2partitioner/dialogs/btrfs_subvolume.rb:141
+#.
+#. @see Y2Storage::Filesystems::Btrfs#btrfs_subvolume_path
+#: src/lib/y2partitioner/dialogs/btrfs_subvolume.rb:159
 msgid ""
 "Only subvolume names starting with \"%{prefix}\" currently allowed!\n"
 "Automatically prepending \"%{prefix}\" to name of subvolume."
@@ -62,7 +147,7 @@ msgstr ""
 #. then keep it as it is.
 #. TRANSLATORS: table header, nocow subvolume attribute (do not use copy
 #. on write feature)
-#: src/lib/y2partitioner/dialogs/btrfs_subvolume.rb:171
+#: src/lib/y2partitioner/dialogs/btrfs_subvolume.rb:190
 #: src/lib/y2partitioner/widgets/btrfs_subvolumes_table.rb:98
 msgid "noCoW"
 msgstr "noCoW"
@@ -72,113 +157,242 @@ msgstr "noCoW"
 msgid "Edit Btrfs subvolumes"
 msgstr "Sunting subvolume Btrfs"
 
-#. @param options [Y2Partitioner::FormatMount::Options]
+#. @param controller [Actions::Controllers::Filesystem]
 #: src/lib/y2partitioner/dialogs/encrypt_password.rb:19
 msgid "Encryption password for %s"
 msgstr "Kata sandi enkripsi untuk %s"
 
-#. @param options [Y2Partitioner::FormatMount::Options]
+#. @param controller [Actions::Controllers::Filesystem]
 #: src/lib/y2partitioner/dialogs/fstab_options.rb:19
 msgid "Fstab Options:"
 msgstr "Opsi fstab:"
 
-#. @return [Y2Storage::DeviceGraph] device graph with all changes done in dialog
-#: src/lib/y2partitioner/dialogs/main.rb:22
-msgid "Partitioner"
-msgstr "Pemartisi"
-
-#. dialog title
-#. dialog title
-#. dialog title
-#: src/lib/y2partitioner/dialogs/partition_role.rb:28
-#: src/lib/y2partitioner/dialogs/partition_size.rb:33
-#: src/lib/y2partitioner/dialogs/partition_type.rb:76
-msgid "Add Partition on %1"
-msgstr "Tambah Partisi pada %1"
+#. @macro seeDialog
+#: src/lib/y2partitioner/dialogs/lvm_lv_info.rb:52
+msgid "Name"
+msgstr "Nama"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/dialogs/partition_role.rb:47
+#: src/lib/y2partitioner/dialogs/lvm_lv_info.rb:73
+#: src/lib/y2partitioner/widgets/lvm_add_button.rb:52
+msgid "Logical Volume"
+msgstr "Volume Logical"
+
+#. @macro seeAbstractWidget
+#: src/lib/y2partitioner/dialogs/lvm_lv_info.rb:92
+msgid "Enter a name for the logical volume."
+msgstr "Masukkan nama untuk volume logical."
+
+#: src/lib/y2partitioner/dialogs/lvm_lv_info.rb:99
+#, fuzzy
+#| msgid ""
+#| "A logical volume named \"%1\" already exists\n"
+#| "in volume group \"%2\"."
+msgid ""
+"A logical volume named \"%{lv_name}\" already exists\n"
+"in volume group \"%{vg_name}\"."
+msgstr ""
+"Volume logical yang bernama \"%1\" sudah ada\n"
+"dalam grup volume \"%2\"."
+
+#. @macro seeAbstractWidget
+#. TRANSLATORS: table header, type of disk or partition. Can be longer. E.g. "Linux swap"
+#: src/lib/y2partitioner/dialogs/lvm_lv_info.rb:128
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:108
+msgid "Type"
+msgstr "Tipe"
+
+#. @see Widgets::ControllerRadioButtons
+#: src/lib/y2partitioner/dialogs/lvm_lv_info.rb:134
+msgid "Normal Volume"
+msgstr "Volume Normal"
+
+#: src/lib/y2partitioner/dialogs/lvm_lv_info.rb:135
+msgid "Thin Pool"
+msgstr "Pool Tipis"
+
+#: src/lib/y2partitioner/dialogs/lvm_lv_info.rb:136
+msgid "Thin Volume"
+msgstr "Volume Tipis"
+
+#. @macro seeAbstractWidget
+#: src/lib/y2partitioner/dialogs/lvm_lv_info.rb:175
+msgid "Used Pool"
+msgstr "Pool Digunakan"
+
+#. @macro seeAbstractWidget
+#. @macro seeAbstractWidget
+#. @macro seeAbstractWidget
+#. @macro seeAbstractWidget
+#. TRANSLATORS: table header, size of block device e.g. "8.00 GiB"
+#: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:69
+#: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:145
+#: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:262
+#: src/lib/y2partitioner/dialogs/partition_size.rb:160
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:93
+msgid "Size"
+msgstr "Ukuran"
+
+#. TRANSLATORS: %s is a size like '15.00 GiB'
+#: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:75
+#, fuzzy
+#| msgid "Maximum Size (%1)"
+msgid "Maximum Size (%s)"
+msgstr "Ukuran Maksimal (%1)"
+
+#: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:78
+#: src/lib/y2partitioner/dialogs/partition_size.rb:69
+msgid "Custom Size"
+msgstr "Ukuran Kustom"
+
+# loginname -> "Benutzername".
+#. error popup, :min and :max are replaced by sizes
+#: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:161
+#, fuzzy
+#| msgid "The size entered is invalid. Enter a size between %1 and %2."
+msgid "The size entered is invalid. Enter a size between %{min} and %{max}."
+msgstr "Ukuran yang dimasukkan tidak valid. Masukkan ukuran antara %1 dan %2."
+
+#. @macro seeAbstractWidget
+#. TRANSLATORS: table header, number of LVM LV stripes
+#: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:204
+#: src/lib/y2partitioner/widgets/lvm_devices_table.rb:54
+msgid "Stripes"
+msgstr "Stripe"
+
+#. @macro seeAbstractWidget
+#: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:239
+msgid "Number"
+msgstr "Nomor"
+
+#. @return [Y2Storage::DeviceGraph] device graph with all changes done in dialog
+#: src/lib/y2partitioner/dialogs/main.rb:24
+msgid "Expert Partitioner"
+msgstr "Pemartisi Ahli"
+
+#. TRANSLATORS: 'Striping' is a technical term here. Translate only
+#. if you are sure!! If in doubt, leave it in English.
+#: src/lib/y2partitioner/dialogs/md.rb:108
+msgid "RAID &0  (Striping)"
+msgstr "RAID &0  (Striping)"
+
+#. TRANSLATORS: 'Mirroring' is a technical term here. Translate only
+#. if you are sure!! If in doubt, leave it in English.
+#: src/lib/y2partitioner/dialogs/md.rb:111
+msgid "RAID &1  (Mirroring)"
+msgstr "RAID &1  (Mirroring)"
+
+#. TRANSLATORS: 'Redundant Striping' is a technical term here. Translate
+#. only if you are sure!! If in doubt, leave it in English.
+#: src/lib/y2partitioner/dialogs/md.rb:114
+msgid "RAID &5  (Redundant Striping)"
+msgstr "RAID &5  (Redundant Striping)"
+
+#. TRANSLATORS: 'Dual Redundant Striping' is a technical term here.
+#. Translate only if you are sure!! If in doubt, leave it in English.
+#: src/lib/y2partitioner/dialogs/md.rb:117
+msgid "RAID &6  (Dual Redundant Striping)"
+msgstr "RAID &6  (Dual Redundant Striping)"
+
+#. TRANSLATORS: 'Mirroring' and `Striping` are technical terms here.
+#. Translate only if you are sure!! If in doubt, leave it in English.
+#: src/lib/y2partitioner/dialogs/md.rb:120
+msgid "RAID &10  (Mirroring and Striping)"
+msgstr "RAID &10  (Mirroring and Striping)"
+
+#. Items for the RadioButtonGroup
+#. TRANSLATORS: table header, type of md raid.
+#: src/lib/y2partitioner/dialogs/md.rb:136
+#: src/lib/y2partitioner/widgets/md_raids_table.rb:46
+msgid "RAID Type"
+msgstr "Tipe RAID"
+
+#. @macro seeAbstractWidget
+#: src/lib/y2partitioner/dialogs/md.rb:153
+msgid "Raid &Name (optional)"
+msgstr "&Nama Raid (opsional)"
+
+#. TRANSLATORS: raid_level is a RAID level (e.g. RAID10); min is a number
+#: src/lib/y2partitioner/dialogs/md.rb:223
+#, fuzzy
+#| msgid "For %1, select at least %2 device."
+msgid "For %{raid_level}, select at least %{min} devices."
+msgstr "Untuk %1, pilih setidaknya %2 perangkat."
+
+#. @param controller [Actions::Controllers::Md]
+#. TRANSLATORS: table header, chunk size of md raid
+#: src/lib/y2partitioner/dialogs/md_options.rb:48
+#: src/lib/y2partitioner/widgets/md_raids_table.rb:51
+msgid "Chunk Size"
+msgstr "Ukuran Chunk"
+
+#. @param controller [Actions::Controllers::Md]
+#: src/lib/y2partitioner/dialogs/md_options.rb:86
+msgid "Parity Algorithm"
+msgstr "Algoritma Paritas"
+
+#. @macro seeAbstractWidget
+#: src/lib/y2partitioner/dialogs/partition_role.rb:49
 msgid "Role"
 msgstr "Peran"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/dialogs/partition_role.rb:52
+#: src/lib/y2partitioner/dialogs/partition_role.rb:54
 msgid "<p>Choose the role of the device.</p>"
 msgstr "<p>Pilih peran dari perangkat.</p>"
 
-#: src/lib/y2partitioner/dialogs/partition_role.rb:57
+#: src/lib/y2partitioner/dialogs/partition_role.rb:59
 msgid "Operating System"
 msgstr "Sistem Operasi"
 
-#: src/lib/y2partitioner/dialogs/partition_role.rb:58
+#: src/lib/y2partitioner/dialogs/partition_role.rb:60
 msgid "Data and ISV Applications"
 msgstr "Data dan Aplikasi ISV"
 
-#: src/lib/y2partitioner/dialogs/partition_role.rb:59
+#: src/lib/y2partitioner/dialogs/partition_role.rb:61
 msgid "Swap"
 msgstr "Swap"
 
-#: src/lib/y2partitioner/dialogs/partition_role.rb:60
+#: src/lib/y2partitioner/dialogs/partition_role.rb:62
 msgid "EFI Boot Partition"
 msgstr "Partisi Boot EFI"
 
-#: src/lib/y2partitioner/dialogs/partition_role.rb:61
+#: src/lib/y2partitioner/dialogs/partition_role.rb:63
 msgid "Raw Volume (unformatted)"
 msgstr "Volume Raw (belum diformat)"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/dialogs/partition_size.rb:162
+#: src/lib/y2partitioner/dialogs/partition_size.rb:61
 msgid "New Partition Size"
 msgstr "Ukuran Partisi Baru"
 
-#: src/lib/y2partitioner/dialogs/partition_size.rb:166
+#: src/lib/y2partitioner/dialogs/partition_size.rb:65
 msgid "Maximum Size (%1)"
 msgstr "Ukuran Maksimal (%1)"
 
-#: src/lib/y2partitioner/dialogs/partition_size.rb:170
-msgid "Custom Size"
-msgstr "Ukuran Kustom"
-
-#: src/lib/y2partitioner/dialogs/partition_size.rb:171
+#: src/lib/y2partitioner/dialogs/partition_size.rb:70
 msgid "Custom Region"
 msgstr "Daerah Kustom"
 
-#. @macro seeAbstractWidget
-#. TRANSLATORS: table header, size of block device e.g. "8.00 GiB"
-#. TRANSLATORS: table header, size of block device e.g. "8.00 GiB"
-#. TRANSLATORS: table header, size of block device e.g. "8.00 GiB"
-#. TRANSLATORS: table header, size of block device e.g. "8.00 GiB"
-#. TRANSLATORS: table header, size of block device e.g. "8.00 GiB"
-#. TRANSLATORS: table header, size of block device e.g. "8.00 GiB"
-#: src/lib/y2partitioner/dialogs/partition_size.rb:261
-#: src/lib/y2partitioner/widgets/btrfs_table.rb:93
-#: src/lib/y2partitioner/widgets/disk_table.rb:55
-#: src/lib/y2partitioner/widgets/lvm_lv_table.rb:54
-#: src/lib/y2partitioner/widgets/lvm_table.rb:54
-#: src/lib/y2partitioner/widgets/md_raid_table.rb:58
-#: src/lib/y2partitioner/widgets/used_devices_table.rb:50
-msgid "Size"
-msgstr "Ukuran"
-
 # loginname -> "Benutzername".
 #. error popup, %1 and %2 are replaced by sizes
-#: src/lib/y2partitioner/dialogs/partition_size.rb:284
+#: src/lib/y2partitioner/dialogs/partition_size.rb:184
 msgid "The size entered is invalid. Enter a size between %1 and %2."
 msgstr "Ukuran yang dimasukkan tidak valid. Masukkan ukuran antara %1 dan %2."
 
 #. FIXME: libyui widget overflow :-(
-#: src/lib/y2partitioner/dialogs/partition_size.rb:337
+#: src/lib/y2partitioner/dialogs/partition_size.rb:235
 msgid "Start Block"
 msgstr "Blok Awal"
 
-#: src/lib/y2partitioner/dialogs/partition_size.rb:338
+#: src/lib/y2partitioner/dialogs/partition_size.rb:236
 msgid "End Block"
 msgstr "Blok Akhir"
 
 # loginname -> "Benutzername".
 #. TODO: a better description why
 #. error popup
-#: src/lib/y2partitioner/dialogs/partition_size.rb:367
+#: src/lib/y2partitioner/dialogs/partition_size.rb:265
 msgid "The region entered is invalid."
 msgstr "Daerah yang dimasukkan tidak valid."
 
@@ -206,16 +420,6 @@ msgstr "Partisi &Extended"
 #: src/lib/y2partitioner/dialogs/partition_type.rb:43
 msgid "&Logical Partition"
 msgstr "Partisi &Logical"
-
-#. FIXME: move to Wizard
-#: src/lib/y2partitioner/sequences/add_partition.rb:81
-msgid "It is not possible to create a partition on %1."
-msgstr "Mustahil membuat partisi pada disk %1."
-
-#. FIXME: move to Wizard
-#: src/lib/y2partitioner/sequences/edit_blk_device.rb:54
-msgid "An extended partition cannot be edited"
-msgstr "Partisi extended tidak dapat disunting"
 
 #. TRANSLATORS: here device stands for kernel path to device
 #: src/lib/y2partitioner/widgets/blk_device_attributes.rb:24
@@ -288,56 +492,94 @@ msgstr "Titik Kait: %s"
 msgid "Label: %s"
 msgstr "Label: %s"
 
-#. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/blk_devices_page.rb:22
-msgid "Hard Disks"
-msgstr "Hard Disk"
+#. TRANSLATORS: "F" stands for Format flag. Keep it short, ideally a single letter.
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:60
+msgid "F"
+msgstr "F"
 
-#. TRANSLATORS: Heading. String followed by name of partition
-#: src/lib/y2partitioner/widgets/blk_devices_page.rb:36
-msgid "Hard Disks "
-msgstr "Hard Disk "
+#. TRANSLATORS: table header, Device is physical name of block device, e.g. "/dev/sda1"
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:88
+msgid "Device"
+msgstr "Perangkat"
+
+#. TRANSLATORS: table header, flag if device is encrypted. Keep it short,
+#. ideally three letters. Keep in sync with Enc used later for format marker.
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:103
+msgid "Enc"
+msgstr "Enc"
+
+#. TRANSLATORS: table header, file system type
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:113
+msgid "FS Type"
+msgstr "Tipe FS"
+
+#. TRANSLATORS: table header, disk or partition label. Can be empty.
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:118
+msgid "Label"
+msgstr "Label"
+
+#. TRANSLATORS: table header, where is device mounted. Can be empty. E.g. "/" or "/home"
+#. Synchronize the widget with the information from the controller
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:123
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:432
+msgid "Mount Point"
+msgstr "Titik Kait"
+
+#. TRANSLATORS: table header, which sector is the first one for device. E.g. "0"
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:128
+msgid "Start"
+msgstr "Awal"
+
+#. TRANSLATORS: table header, which sector is the the last for device. E.g. "126"
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:133
+msgid "End"
+msgstr "Akhir"
 
 #. @see CWM::PushButton#Label
-#. Constructor
-#.
-#. @param disk [Y2Storage::Disk]
-#. @param table [Y2Partitioner::Widgets::BlkDevicesTable]
-#. do we need this in every little tiny class?
 #: src/lib/y2partitioner/widgets/btrfs_edit_button.rb:21
-#: src/lib/y2partitioner/widgets/disk_page.rb:104
-#: src/lib/y2partitioner/widgets/partition_page.rb:26
 msgid "Edit..."
 msgstr "Sunting..."
 
-#. Opens a dialog to manage the list of subvolumes. In case of there is no
-#. selected table row, it shows an error.
-#: src/lib/y2partitioner/widgets/btrfs_edit_button.rb:30
+#. Opens a dialog to manage the list of subvolumes of the selected device
+#.
+#. @note In case of there is no selected table row, it shows an error.
+#: src/lib/y2partitioner/widgets/btrfs_edit_button.rb:31
 msgid "There is no filesystem selected to edit."
 msgstr "Tidak ada sistem berkas yang dipilih untuk disunting."
 
-#. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/btrfs_page.rb:17
-msgid "Btrfs"
-msgstr "Btrfs"
+#. FIXME: The help handle does not work without wizard
+#.
+#. This handle should belongs to the dialog
+#. @see Dialogs::BtrfsSubvolumes
+#: src/lib/y2partitioner/widgets/btrfs_subvolumes.rb:49
+msgid "<p>Create and remove subvolumes from a Btrfs filesystem.</p>\n"
+msgstr "<p>Buat dan hapus subvolume dari sistem berkas Btrfs.</p>\n"
 
-#. TRANSLATORS: Heading
-#: src/lib/y2partitioner/widgets/btrfs_page.rb:32
-msgid "Btrfs Volumes"
-msgstr "Volume Btrfs"
-
-#. @param table [Widgets::BtrfsSubvolumesTable]
-#. Y2Storage::Disk
-#: src/lib/y2partitioner/widgets/btrfs_subvolumes_add_button.rb:22
-#: src/lib/y2partitioner/widgets/disk_page.rb:82
+#. TRANSLATORS: button label to add a btrfs subvolume
+#. TRANSLATORS: button label to add a volume group or logical volume
+#. TRANSLATORS: button label to add a logical volume
+#. Constructor
+#.
+#. @param disk [Y2Storage::BlkDevice]
+#. @param table [ConfigurableBlkDevicesTable]
+#: src/lib/y2partitioner/widgets/btrfs_subvolumes_add_button.rb:44
+#: src/lib/y2partitioner/widgets/lvm_add_button.rb:43
+#: src/lib/y2partitioner/widgets/lvm_lv_add_button.rb:40
+#: src/lib/y2partitioner/widgets/pages/disk.rb:181
 msgid "Add..."
 msgstr "Tambah..."
 
-#. Widget label
-#. @param device
-#. @param table [Y2Partitioner::Widgets::BlkDevicesTable]
-#: src/lib/y2partitioner/widgets/btrfs_subvolumes_delete_button.rb:23
-#: src/lib/y2partitioner/widgets/delete_disk_partition_button.rb:25
+#. Shows a dialog to create a new subvolume
+#.
+#. The table is refreshed when a new subvolume is created
+#: src/lib/y2partitioner/widgets/btrfs_subvolumes_add_button.rb:62
+#, fuzzy
+#| msgid "Mount Point: %s"
+msgid "Mount point %s is shadowed."
+msgstr "Titik Kait: %s"
+
+#. TRANSLATORS: button label to delete a btrfs subvolume
+#: src/lib/y2partitioner/widgets/btrfs_subvolumes_delete_button.rb:46
 msgid "Delete..."
 msgstr "Hapus..."
 
@@ -345,12 +587,12 @@ msgstr "Hapus..."
 #.
 #. A confirmation popup is showed before deleting the subvolume.
 #. An error message is presented when there is no selected table row.
-#: src/lib/y2partitioner/widgets/btrfs_subvolumes_delete_button.rb:34
+#: src/lib/y2partitioner/widgets/btrfs_subvolumes_delete_button.rb:57
 msgid "Nothing selected"
 msgstr "Tidak ada yang dipilih"
 
 #. TRANSLATORS: %s is the path of the subvolume to be deleted
-#: src/lib/y2partitioner/widgets/btrfs_subvolumes_delete_button.rb:38
+#: src/lib/y2partitioner/widgets/btrfs_subvolumes_delete_button.rb:61
 msgid "Really delete subvolume %s?"
 msgstr "Yakin ingin menghapus subvolume %s?"
 
@@ -383,149 +625,74 @@ msgstr ""
 "saat performansi runtime diperlukan, jadi tidak ada resiko untuk menunda "
 "penyalinan saat aplikasi sedang berjalan."
 
-#. Table help
-#.
-#. Shows help of all columns
-#: src/lib/y2partitioner/widgets/btrfs_table.rb:45
-msgid "<p>This view shows all Btrfs filesystems.</p><p>The table contains:</p>"
+#. @macro seeAbstractWidget
+#. @see #columns_help
+#: src/lib/y2partitioner/widgets/configurable_blk_devices_table.rb:108
+#, fuzzy
+#| msgid ""
+#| "<p>This view shows all RAIDs except BIOS RAIDs.</p><p>The overview "
+#| "contains:</p>"
+msgid "<p>This view shows storage devices.</p><p>The overview contains:</p>"
 msgstr ""
-"<p>Ini menampilkan semua sistemberkas Btrfs.</p><p>Tabel ini berisi:</p>"
+"<p>Ini menampilkan semua RAID kecuali RAID BIOS.</p><p>Ikhtisar ini berisi:</"
+"p>"
 
-#. TRANSLATORS: table header, Device is physical name of block device, e.g. "/dev/sda1"
-#. TRANSLATORS: table header, Device is physical name of block device
-#. like partition or disk e.g. "/dev/sda1"
-#. TRANSLATORS: table header, Device is physical name of block device
-#. like partition or disk e.g. "/dev/sda1"
-#. TRANSLATORS: table header, Device is physical name of block device
-#. like partition or disk e.g. "/dev/sda1"
-#. TRANSLATORS: table header, Device is physical name of block device
-#. like partition or disk e.g. "/dev/sda1"
-#. TRANSLATORS: table header, Device is physical name of block device
-#. like partition or disk e.g. "/dev/sda1"
-#: src/lib/y2partitioner/widgets/btrfs_table.rb:88
-#: src/lib/y2partitioner/widgets/disk_table.rb:53
-#: src/lib/y2partitioner/widgets/lvm_lv_table.rb:52
-#: src/lib/y2partitioner/widgets/lvm_table.rb:52
-#: src/lib/y2partitioner/widgets/md_raid_table.rb:56
-#: src/lib/y2partitioner/widgets/used_devices_table.rb:48
-msgid "Device"
-msgstr "Perangkat"
-
-#. TRANSLATORS: table header, flag if device is encrypted. Keep it short,
-#. ideally three letters. Keep in sync with Enc used later for format marker.
-#. TRANSLATORS: table header, flag if device is encrypted. Keep it short,
-#. ideally three letters. Keep in sync with Enc used later for format marker.
-#. TRANSLATORS: table header, flag if device is encrypted. Keep it short,
-#. ideally three letters. Keep in sync with Enc used later for format marker.
-#. TRANSLATORS: table header, flag if device is encrypted. Keep it short,
-#. ideally three letters. Keep in sync with Enc used later for format marker.
-#. TRANSLATORS: table header, flag if device is encrypted. Keep it short,
-#. ideally three letters. Keep in sync with Enc used later for format marker.
-#. TRANSLATORS: table header, flag if device is encrypted. Keep it short,
-#. ideally three letters. Keep in sync with Enc used later for format marker.
-#: src/lib/y2partitioner/widgets/btrfs_table.rb:105
-#: src/lib/y2partitioner/widgets/disk_table.rb:59
-#: src/lib/y2partitioner/widgets/lvm_lv_table.rb:58
-#: src/lib/y2partitioner/widgets/lvm_table.rb:58
-#: src/lib/y2partitioner/widgets/md_raid_table.rb:62
-#: src/lib/y2partitioner/widgets/used_devices_table.rb:54
-msgid "Enc"
-msgstr "Enc"
-
-#. TRANSLATORS: table header, type of disk or partition. Can be longer. E.g. "Linux swap"
-#. TRANSLATORS: table header, type of disk or partition. Can be longer. E.g. "Linux swap"
-#. TRANSLATORS: table header, type of disk or partition. Can be longer. E.g. "Linux swap"
-#. TRANSLATORS: table header, type of disk or partition. Can be longer. E.g. "Linux swap"
-#. TRANSLATORS: table header, type of disk or partition. Can be longer. E.g. "Linux swap"
-#. TRANSLATORS: table header, type of disk or partition. Can be longer. E.g. "Linux swap"
-#: src/lib/y2partitioner/widgets/btrfs_table.rb:110
-#: src/lib/y2partitioner/widgets/disk_table.rb:61
-#: src/lib/y2partitioner/widgets/lvm_lv_table.rb:60
-#: src/lib/y2partitioner/widgets/lvm_table.rb:60
-#: src/lib/y2partitioner/widgets/md_raid_table.rb:64
-#: src/lib/y2partitioner/widgets/used_devices_table.rb:56
-msgid "Type"
-msgstr "Tipe"
-
-#. TRANSLATORS: table header, Files system type. In this case "BtrFS"
-#. TRANSLATORS: table header, Files system type. Can be empty E.g. "BtrFS"
-#. TRANSLATORS: table header, Files system type. Can be empty E.g. "BtrFS"
-#. TRANSLATORS: table header, Files system type. Can be empty E.g. "BtrFS"
-#. TRANSLATORS: table header, Files system type. Can be empty E.g. "BtrFS"
-#: src/lib/y2partitioner/widgets/btrfs_table.rb:115
-#: src/lib/y2partitioner/widgets/disk_table.rb:63
-#: src/lib/y2partitioner/widgets/lvm_lv_table.rb:62
-#: src/lib/y2partitioner/widgets/lvm_table.rb:62
-#: src/lib/y2partitioner/widgets/md_raid_table.rb:66
-msgid "FS Type"
-msgstr "Tipe FS"
-
-#. TRANSLATORS: table header, disk or partition label. Can be empty.
-#. TRANSLATORS: table header, disk or partition label. Can be empty.
-#. TRANSLATORS: table header, disk or partition label. Can be empty.
-#. TRANSLATORS: table header, disk or partition label. Can be empty.
-#. TRANSLATORS: table header, disk or partition label. Can be empty.
-#: src/lib/y2partitioner/widgets/btrfs_table.rb:120
-#: src/lib/y2partitioner/widgets/disk_table.rb:65
-#: src/lib/y2partitioner/widgets/lvm_lv_table.rb:64
-#: src/lib/y2partitioner/widgets/lvm_table.rb:64
-#: src/lib/y2partitioner/widgets/md_raid_table.rb:68
-msgid "Label"
-msgstr "Label"
-
-#. TRANSLATORS: table header, where is device mounted. Can be empty. E.g. "/" or "/home"
-#. TRANSLATORS: table header, where is device mounted. Can be empty. E.g. "/" or "/home"
-#. MountPoint selector
-#. FIXME: Implement validate, verifying if the mount_point is in use.
-#. TRANSLATORS: table header, where is device mounted. Can be empty. E.g. "/" or "/home"
-#. TRANSLATORS: table header, where is device mounted. Can be empty. E.g. "/" or "/home"
-#. TRANSLATORS: table header, where is device mounted. Can be empty. E.g. "/" or "/home"
-#: src/lib/y2partitioner/widgets/btrfs_table.rb:125
-#: src/lib/y2partitioner/widgets/disk_table.rb:67
-#: src/lib/y2partitioner/widgets/format_and_mount.rb:321
-#: src/lib/y2partitioner/widgets/lvm_lv_table.rb:66
-#: src/lib/y2partitioner/widgets/lvm_table.rb:66
-#: src/lib/y2partitioner/widgets/md_raid_table.rb:70
-msgid "Mount Point"
-msgstr "Titik Kait"
-
-#: src/lib/y2partitioner/widgets/delete_disk_partition_button.rb:32
+#. Checks whether there is a device on which to act
+#.
+#. @note An error popup is shown when there is no device.
+#.
+#. @return [Boolean]
+#. @param event [Hash] UI event
+#: src/lib/y2partitioner/widgets/device_button.rb:79
+#: src/lib/y2partitioner/widgets/lvm_add_button.rb:77
 msgid "No device selected"
 msgstr "Tidak ada perangkat yang dipilih"
 
-#. TRANSLATORS %s is device to be deleted
-#: src/lib/y2partitioner/widgets/delete_disk_partition_button.rb:58
-msgid "Really delete %s?"
-msgstr "Yakin ingin menghapus %s?"
+#. TRANSLATORS: %s is a disk size. E.g. "10.5 GiB"
+#: src/lib/y2partitioner/widgets/devices_selection.rb:123
+#, fuzzy
+#| msgid "Resulting size: %1"
+msgid "Resulting size: %s"
+msgstr "Ukuran hasil: %2"
 
-#: src/lib/y2partitioner/widgets/delete_disk_partition_button.rb:63
-msgid "Confirm Deleting of All Partitions"
-msgstr "Konfirmasi Penghapusan Semua Partisi"
+#. TRANSLATORS: %s is a disk size. E.g. "10.5 GiB"
+#: src/lib/y2partitioner/widgets/devices_selection.rb:127
+#, fuzzy
+#| msgid "Total size: %1"
+msgid "Total size: %s"
+msgstr "Ukuran total: %1"
 
-#. TRANSLATORS: type stands for type of device and name is its identifier
-#: src/lib/y2partitioner/widgets/delete_disk_partition_button.rb:65
-msgid ""
-"The %{type} \"%{name}\" contains at least one another device.\n"
-"If you proceed, the following devices will be deleted:"
-msgstr ""
-"%{type} \"%{name}\" berisi setidaknya satu partisi yang lain.\n"
-"Jika Anda melanjutkan, perangkat berikut akan dihapus:"
+#: src/lib/y2partitioner/widgets/devices_selection.rb:134
+msgid "Selected Devices:"
+msgstr "Perangkat Terpilih:"
 
-#: src/lib/y2partitioner/widgets/delete_disk_partition_button.rb:68
-msgid "disk"
-msgstr "disk"
+#: src/lib/y2partitioner/widgets/devices_selection.rb:138
+msgid "Available Devices:"
+msgstr "Perangkat Yang Tersedia:"
 
-#: src/lib/y2partitioner/widgets/delete_disk_partition_button.rb:68
-msgid "partition"
-msgstr "partisi"
+#. push button text
+#: src/lib/y2partitioner/widgets/devices_selection.rb:147
+msgid "Add"
+msgstr "Tambah"
 
-#: src/lib/y2partitioner/widgets/delete_disk_partition_button.rb:69
-msgid "Really delete all devices on \"%s\"?"
-msgstr "Yakin ingin menghapus semua perangkat pada \"%s\"?"
+#. push button text
+#: src/lib/y2partitioner/widgets/devices_selection.rb:153
+msgid "Add All"
+msgstr "Tambah Semua"
+
+#. push button text
+#: src/lib/y2partitioner/widgets/devices_selection.rb:160
+msgid "Remove"
+msgstr "Hapus"
+
+#. push button text
+#: src/lib/y2partitioner/widgets/devices_selection.rb:166
+msgid "Remove All"
+msgstr "Hapus Semua"
 
 #. @return [Array<Array(Y2Storage::Region,String)>]
 #. regions with labels, sorted by region start
-#: src/lib/y2partitioner/widgets/disk_bar_graph.rb:19
+#: src/lib/y2partitioner/widgets/disk_bar_graph.rb:16
 msgid "Unpartitioned"
 msgstr "Tidak terpartisi"
 
@@ -593,47 +760,6 @@ msgstr "Bus: %s"
 msgid "Disk Label: %s"
 msgstr "Label Disk: %s"
 
-#. @macro seeCustomWidget
-#: src/lib/y2partitioner/widgets/disk_page.rb:41
-msgid "Hard Disk: %s"
-msgstr "Hard Disk: %s"
-
-#. @macro seeAbstractWidget
-#. @macro seeAbstractWidget
-#. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/disk_page.rb:61
-#: src/lib/y2partitioner/widgets/lvm_vg_page.rb:55
-#: src/lib/y2partitioner/widgets/md_raid_page.rb:56
-msgid "&Overview"
-msgstr "Ringkasan"
-
-#: src/lib/y2partitioner/widgets/disk_page.rb:109
-msgid "There are no partitions to edit."
-msgstr "Tidak ada partisi untuk disunting."
-
-#. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/disk_page.rb:141
-msgid "&Partitions"
-msgstr "&Partisi"
-
-#. TRANSLATORS: table header, which sector is the first one for device. E.g. "0"
-#: src/lib/y2partitioner/widgets/disk_table.rb:69
-msgid "Start"
-msgstr "Awal"
-
-#. TRANSLATORS: table header, which sector is the the last for device. E.g. "126"
-#: src/lib/y2partitioner/widgets/disk_table.rb:71
-msgid "End"
-msgstr "Akhir"
-
-#. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/disk_table.rb:79
-msgid ""
-"<p>This view shows hard disks and its partitions.</p><p>The overview "
-"contains:</p>"
-msgstr ""
-"<p>Ini menampilkan hard disk dan partisinya.</p><p>Ikhtisar ini berisi:</p>"
-
 #. help text for cryptofs
 #: src/lib/y2partitioner/widgets/encrypt_password.rb:17
 msgid ""
@@ -680,9 +806,8 @@ msgstr "Masukkan Kata Sandi untuk Sistem Berkas Anda:"
 msgid "Reenter the Password for &Verification:"
 msgstr "Masukkan Ulang Kata Sandi untuk &Verifikasi:"
 
-#. It disable the format option if the current filesystem is not
-#. formattable or the selected partition does not allow format
-#: src/lib/y2partitioner/widgets/format_and_mount.rb:66
+#. @macro seeAbstractWidget
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:82
 msgid ""
 "<p>First, choose whether the partition should be\n"
 "formatted and the desired file system type.</p>"
@@ -690,7 +815,7 @@ msgstr ""
 "<p>Pertama-tama, pilih partisi mana yang ingin\n"
 "diformat dan tipe sistem berkas yang diinginkan.</p>"
 
-#: src/lib/y2partitioner/widgets/format_and_mount.rb:70
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:86
 msgid ""
 "<p>If you want to encrypt all data on the\n"
 "volume, select <b>Encrypt Device</b>. Changing the encryption on an "
@@ -701,7 +826,7 @@ msgstr ""
 "volume, pilih <b>Enkripsi Perangkat</b>. Mengubah enkripsi pada volume yang\n"
 "sudah ada akan menghapus semua data didalamnya.</p>\n"
 
-#: src/lib/y2partitioner/widgets/format_and_mount.rb:76
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:92
 msgid ""
 "<p>Then, choose whether the partition should\n"
 "be mounted and enter the mount point (/, /boot, /home, /var, etc.).</p>"
@@ -709,106 +834,144 @@ msgstr ""
 "<p>Kemudian, pilih partisi mana yang ingin dikaitkan\n"
 "dan masukkan titik kait (/, /boot, /home, /var, dll.).</p>"
 
-#: src/lib/y2partitioner/widgets/format_and_mount.rb:86
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:102
 msgid "Formatting Options"
 msgstr "Opsi Format"
 
-#: src/lib/y2partitioner/widgets/format_and_mount.rb:94
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:110
 msgid "Format device"
 msgstr "Format perangkat"
 
-#: src/lib/y2partitioner/widgets/format_and_mount.rb:102
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:118
 msgid "Do not format device"
 msgstr "Jangan format perangkat"
 
-#. Mount options for {Y2Storage::BlkDevice}
-#: src/lib/y2partitioner/widgets/format_and_mount.rb:182
+#. Synchronize the widget with the information from the controller
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:206
 msgid "Mounting Options"
 msgstr "Opsi Kait"
 
-#: src/lib/y2partitioner/widgets/format_and_mount.rb:190
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:214
 msgid "Mount device"
 msgstr "Kaitkan perangkat"
 
-#: src/lib/y2partitioner/widgets/format_and_mount.rb:198
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:222
 msgid "Do not mount device"
 msgstr "Jangan kaitkan perangkat"
 
-#. BlkDevice Filesystem selector
-#: src/lib/y2partitioner/widgets/format_and_mount.rb:263
+#. Synchronize the widget with the information from the controller
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:308
 msgid "Filesystem"
 msgstr "Sistem berkas"
 
-#. Push Button that launches a dialog to set speficic options for the
-#. selected filesystem
-#: src/lib/y2partitioner/widgets/format_and_mount.rb:297
+#. @macro seeAbstractWidget
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:372
 msgid "Options..."
 msgstr "Opsi..."
 
-#. Encryption selector
-#: src/lib/y2partitioner/widgets/format_and_mount.rb:346
+#. @param controller [Actions::Controllers::Filesystem]
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:391
+#: src/lib/y2storage/dialogs/guided_setup/select_filesystem.rb:73
+msgid "Enable Snapshots"
+msgstr "Aktifkan Snapshot"
+
+#. Validates not empty mount point
+#. An error popup is shown when an empty mount point is entered.
+#.
+#. @return [Boolean] true if mount point is not empty
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:463
+#, fuzzy
+#| msgid "Empty subvolume path not allowed."
+msgid "Empty mount point not allowed."
+msgstr "Jalur subvolume kosong tidak diizinkan."
+
+#. Validates that mount point is unique in the whole system
+#. An error popup is shown when the mount point already exists.
+#.
+#. @see #duplicated_mount_point?
+#.
+#. @return [Boolean] true if mount point is unique
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:476
+msgid "This mount point is already in use. Select a different one."
+msgstr "Titik kait ini sudah digunakan. Pilih yang lain."
+
+#. Validates that the mount point does not shadow a subvolume that cannot be auto deleted
+#. An error popup is shown when a subvolume is shadowed by the mount point.
+#.
+#. @return [Boolean] true if mount point does not shadow a subvolume
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:491
+msgid "The Btrfs subvolume mounted at %s is shadowed."
+msgstr ""
+
+#. @param controller [Actions::Controllers::Filesystem]
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:587
+msgid "Subvolume Handling"
+msgstr "Penanganan Subvolume"
+
+#. @param controller [Actions::Controllers::Filesystem]
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:605
 msgid "Encrypt Device"
 msgstr "Enkripsi Perangkat"
 
 #. Inode Size format option
-#: src/lib/y2partitioner/widgets/format_and_mount.rb:372
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:639
 msgid "&Inode Size"
 msgstr "Ukuran &Inode"
 
 #. Block Size format option
-#: src/lib/y2partitioner/widgets/format_and_mount.rb:389
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:656
 msgid "Block &Size in Bytes"
 msgstr "Ukuran Blok dalam Bita"
 
-#. FIXME: initialize with the correct value
-#: src/lib/y2partitioner/widgets/format_and_mount.rb:424
+#. Synchronize the widget with the information from the controller
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:739
 msgid "File system &ID:"
 msgstr "&ID sistem berkas:"
 
 #. Push button that launch a dialog for set the fstab options
-#: src/lib/y2partitioner/widgets/fstab_options.rb:77
+#: src/lib/y2partitioner/widgets/fstab_options.rb:82
 msgid "Fstab options..."
 msgstr "Opsi Fstab..."
 
 #. Input field to set the partition Label
-#: src/lib/y2partitioner/widgets/fstab_options.rb:145
-#: src/lib/y2partitioner/widgets/fstab_options.rb:183
+#: src/lib/y2partitioner/widgets/fstab_options.rb:150
+#: src/lib/y2partitioner/widgets/fstab_options.rb:188
 msgid "Volume &Label"
 msgstr "&Label Volume"
 
 #. Group of radio buttons to select the type of identifier to be used for
 #. mouth the specific device (UUID, Label, Path...)
-#: src/lib/y2partitioner/widgets/fstab_options.rb:163
+#: src/lib/y2partitioner/widgets/fstab_options.rb:168
 msgid "Mount in /etc/fstab by"
 msgstr "Kait di /etc/fstab berdasarkan"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:182
+#: src/lib/y2partitioner/widgets/fstab_options.rb:187
 msgid "&Device Name"
 msgstr "Nama Perangkat"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:184
+#: src/lib/y2partitioner/widgets/fstab_options.rb:189
 msgid "&UUID"
 msgstr "&UUID"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:188
+#: src/lib/y2partitioner/widgets/fstab_options.rb:193
 msgid "Device &ID"
 msgstr "&ID Perangkat"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:189
+#: src/lib/y2partitioner/widgets/fstab_options.rb:194
 msgid "Device &Path"
 msgstr "&Jalur Perangkat"
 
 #. CheckBox to disable the automount option when starting up
-#: src/lib/y2partitioner/widgets/fstab_options.rb:262
+#: src/lib/y2partitioner/widgets/fstab_options.rb:269
 msgid "Do Not Mount at System &Start-up"
 msgstr "Jangan Kait saat Sistem Dimulai"
 
 #. CheckBox to enable the read only option ("ro")
-#: src/lib/y2partitioner/widgets/fstab_options.rb:272
+#: src/lib/y2partitioner/widgets/fstab_options.rb:279
 msgid "Mount &Read-Only"
 msgstr "Kait Hanya-Baca"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:276
+#: src/lib/y2partitioner/widgets/fstab_options.rb:283
 msgid ""
 "<p><b>Mount Read-Only:</b>\n"
 "Writing to the file system is not possible. Default is false. During "
@@ -820,11 +983,11 @@ msgstr ""
 "Saat pemasangan, sistem berkas selalu dikaitkan baca-tulis.</p>"
 
 #. CheckBox to enable the noatime option
-#: src/lib/y2partitioner/widgets/fstab_options.rb:287
+#: src/lib/y2partitioner/widgets/fstab_options.rb:294
 msgid "No &Access Time"
 msgstr "Tanpa Lama Akses"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:291
+#: src/lib/y2partitioner/widgets/fstab_options.rb:298
 msgid ""
 "<p><b>No Access Time:</b>\n"
 "Access times are not updated when a file is read. Default is false.</p>\n"
@@ -835,11 +998,11 @@ msgstr ""
 
 #. CheckBox to enable the user option which means allow to mount the
 #. filesystem by an ordinary user
-#: src/lib/y2partitioner/widgets/fstab_options.rb:302
+#: src/lib/y2partitioner/widgets/fstab_options.rb:309
 msgid "Mountable by user"
 msgstr "Dapat dikaitkan oleh Pengguna"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:306
+#: src/lib/y2partitioner/widgets/fstab_options.rb:313
 msgid ""
 "<p><b>Mountable by User:</b>\n"
 "The file system may be mounted by an ordinary user. Default is false.</p>\n"
@@ -849,11 +1012,11 @@ msgstr ""
 "false.</p>\n"
 
 #. CheckBox to enable the use of user quotas
-#: src/lib/y2partitioner/widgets/fstab_options.rb:317
+#: src/lib/y2partitioner/widgets/fstab_options.rb:324
 msgid "Enable &Quota Support"
 msgstr "Aktifkan Dukungan Kuota"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:321
+#: src/lib/y2partitioner/widgets/fstab_options.rb:328
 msgid ""
 "<p><b>Enable Quota Support:</b>\n"
 "The file system is mounted with user quotas enabled.\n"
@@ -864,23 +1027,24 @@ msgstr ""
 "Nilai bakunya adalah false.</p>\n"
 
 #. ComboBox to specify the journal mode to use by the filesystem
-#: src/lib/y2partitioner/widgets/fstab_options.rb:346
+#: src/lib/y2partitioner/widgets/fstab_options.rb:355
 msgid "Data &Journaling Mode"
 msgstr "Mode Penjurnalan Data"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:357
+#. The options can only be modified using BlkDevice#fstab_options=
+#: src/lib/y2partitioner/widgets/fstab_options.rb:367
 msgid "journal"
 msgstr "jurnal"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:358
+#: src/lib/y2partitioner/widgets/fstab_options.rb:368
 msgid "ordered"
 msgstr "tersusun"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:359
+#: src/lib/y2partitioner/widgets/fstab_options.rb:369
 msgid "writeback"
 msgstr "writeback"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:364
+#: src/lib/y2partitioner/widgets/fstab_options.rb:374
 msgid ""
 "<p><b>Data Journaling Mode:</b>\n"
 "Specifies the journaling mode for file data.\n"
@@ -905,11 +1069,11 @@ msgstr ""
 #. attributes
 #.
 #. TODO: FIXME: Pending implementation, currently it is only draw
-#: src/lib/y2partitioner/widgets/fstab_options.rb:385
+#: src/lib/y2partitioner/widgets/fstab_options.rb:395
 msgid "&Access Control Lists (ACL)"
 msgstr "D&aftar Kontrol Akses (ACL)"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:386
+#: src/lib/y2partitioner/widgets/fstab_options.rb:396
 msgid "&Extended User Attributes"
 msgstr "Atribut Pengguna yang Diperluas"
 
@@ -919,16 +1083,17 @@ msgstr "Atribut Pengguna yang Diperluas"
 #. TODO: FIXME: Pending implementation, currently it is only draw, all the options
 #. that it is responsable of should be defined, removing them if not set or
 #. supported by the current filesystem.
-#: src/lib/y2partitioner/widgets/fstab_options.rb:407
+#: src/lib/y2partitioner/widgets/fstab_options.rb:417
 msgid "Arbitrary Option &Value"
 msgstr "Nilai Opsi Sembarang"
 
 #. Swap priority
-#: src/lib/y2partitioner/widgets/fstab_options.rb:439
+#: src/lib/y2partitioner/widgets/fstab_options.rb:449
 msgid "Swap &Priority"
 msgstr "&Prioritas Swap"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:449
+#. The options can only be modified using BlkDevice#fstab_options=
+#: src/lib/y2partitioner/widgets/fstab_options.rb:460
 msgid ""
 "<p><b>Swap Priority:</b>\n"
 "Enter the swap priority. Higher numbers mean higher priority.</p>\n"
@@ -937,12 +1102,12 @@ msgstr ""
 "Masukkan prioritas swap. Semakin tinggi angka, semakin tinggi prioritasnya.</"
 "p>\n"
 
-#. VFAT IOCharset
-#: src/lib/y2partitioner/widgets/fstab_options.rb:480
+#. The options can only be modified using BlkDevice#fstab_options=
+#: src/lib/y2partitioner/widgets/fstab_options.rb:492
 msgid "Char&set for file names"
 msgstr "Char&set untuk nama berkas"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:484
+#: src/lib/y2partitioner/widgets/fstab_options.rb:496
 msgid ""
 "<p><b>Charset for File Names:</b>\n"
 "Set the charset used for display of file names in Windows partitions.</p>\n"
@@ -951,12 +1116,12 @@ msgstr ""
 "Atur charset yang digunakan untuk menampilkan nama berkas pada partisi "
 "Windows.</p>\n"
 
-#. VFAT Codepage
-#: src/lib/y2partitioner/widgets/fstab_options.rb:515
+#. The options can only be modified using BlkDevice#fstab_options=
+#: src/lib/y2partitioner/widgets/fstab_options.rb:529
 msgid "Code&page for short FAT names"
 msgstr "Code&page untuk nama FAT singkat"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:519
+#: src/lib/y2partitioner/widgets/fstab_options.rb:533
 msgid ""
 "<p><b>Codepage for Short FAT Names:</b>\n"
 "This codepage is used for converting to shortname characters on FAT file "
@@ -1032,8 +1197,12 @@ msgstr ""
 "terenkripsi."
 
 #: src/lib/y2partitioner/widgets/help.rb:37
+#, fuzzy
+#| msgid ""
+#| "<b>End Cylinder</b> shows the end cylinder of\n"
+#| "the partition."
 msgid ""
-"<b>End Cylinder</b> shows the end cylinder of\n"
+"<b>End</b> shows the end block of\n"
 "the partition."
 msgstr ""
 "<b>Akhir Silinder</b> menampilkan akhir silinder\n"
@@ -1170,8 +1339,12 @@ msgid "<b>Size</b> shows the size of the device."
 msgstr "<b>Ukuran</b> Menampilkan ukuran perangkat."
 
 #: src/lib/y2partitioner/widgets/help.rb:84
+#, fuzzy
+#| msgid ""
+#| "<b>Start Cylinder</b> shows the start cylinder\n"
+#| "of the partition."
 msgid ""
-"<b>Start Cylinder</b> shows the start cylinder\n"
+"<b>Start</b> shows the start block\n"
 "of the partition."
 msgstr ""
 "<b>Awal Silinder</b> menampilkan awal silinder dari\n"
@@ -1256,9 +1429,21 @@ msgstr ""
 "menampilkan sistem berkas saat ini tidak dikaitkan (misalnya, karena ia\n"
 "memiliki opsi <tt>noauto</tt> yang diatur dalam <tt>/etc/fstab</tt>)."
 
+#. When there is no vg, only shows an option to add a new vg.
+#. Otherwise, options for adding a vg or lv are shown.
+#. @return [Array<[Symbol, String]>] list of menu options
+#: src/lib/y2partitioner/widgets/lvm_add_button.rb:50
+msgid "Volume Group"
+msgstr "Grup Volume"
+
+#. TRANSLATORS: table header, type of metadata
+#: src/lib/y2partitioner/widgets/lvm_devices_table.rb:49
+msgid "PE Size"
+msgstr "Ukuran PE"
+
 #. TRANSLATORS: first %s is number of LVM stripes
 #. and the second one is for size of stripe
-#: src/lib/y2partitioner/widgets/lvm_lv_attributes.rb:20
+#: src/lib/y2partitioner/widgets/lvm_lv_attributes.rb:41
 msgid "%s (%s)"
 msgstr "%s (%s)"
 
@@ -1282,57 +1467,6 @@ msgstr "LVM:"
 msgid "Stripes: %s"
 msgstr "Stripes: %s"
 
-#. TRANSLATORS: Heading. String followed by name of partition
-#: src/lib/y2partitioner/widgets/lvm_lv_page.rb:33
-msgid "Logical Volume: %s"
-msgstr "Volume Logical: %s"
-
-#. TRANSLATORS: table header, number of LVM LV stripes
-#. TRANSLATORS: table header, number of LVM LV stripes
-#: src/lib/y2partitioner/widgets/lvm_lv_table.rb:68
-#: src/lib/y2partitioner/widgets/lvm_table.rb:70
-msgid "Stripes"
-msgstr "Stripe"
-
-#. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/lvm_lv_table.rb:76
-msgid ""
-"<p>This view shows all logical volumes of the\n"
-"selected volume group.</p><p>The overview contains:</p>"
-msgstr ""
-"<p>Ini menampilkan semua volume logical dari\n"
-"grup volume yang dipilih.</p><p>Ikhtisar ini berisi:</p>"
-
-#. @macro seeAbstractWidget
-#. TRANSLATORS: Heading
-#: src/lib/y2partitioner/widgets/lvm_page.rb:19
-#: src/lib/y2partitioner/widgets/lvm_page.rb:32
-msgid "Volume Management"
-msgstr "Manajemen Volume"
-
-#. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/lvm_pv_table.rb:33
-msgid ""
-"<p>This view shows all physical volumes used by\n"
-"the selected volume group.</p>"
-msgstr ""
-"<p>Ini menampilkan semua volume fisik yang\n"
-"digunakan oleh grup volume yang dipilih.</p>"
-
-#. TRANSLATORS: table header, type of metadata
-#: src/lib/y2partitioner/widgets/lvm_table.rb:68
-msgid "PE Size"
-msgstr "Ukuran PE"
-
-#. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/lvm_table.rb:78
-msgid ""
-"<p>This view shows all LVM volume groups and\n"
-"their logical volumes.</p><p>The overview contains:</p>"
-msgstr ""
-"<p>Ini menampilkan semua grup volume LVM dan\n"
-"volume logical mereka.</p><p>Ikhtisar ini berisi:</p>"
-
 #. @macro seeAbstractWidget
 #: src/lib/y2partitioner/widgets/lvm_vg_description.rb:27
 msgid ""
@@ -1346,21 +1480,6 @@ msgstr ""
 #: src/lib/y2partitioner/widgets/lvm_vg_description.rb:53
 msgid "PE Size: %s"
 msgstr "Ukuran PE: %s"
-
-#. @macro seeCustomWidget
-#: src/lib/y2partitioner/widgets/lvm_vg_page.rb:34
-msgid "Volume Group: %s"
-msgstr "Grup Volume: %s"
-
-#. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/lvm_vg_page.rb:75
-msgid "Log&ical Volumes"
-msgstr "Volume Log&ical"
-
-#. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/lvm_vg_page.rb:97
-msgid "&Physical Volumes"
-msgstr "Volume Fisik"
 
 #. @macro seeAbstractWidget
 #: src/lib/y2partitioner/widgets/md_description.rb:30
@@ -1393,95 +1512,153 @@ msgstr "Ukuran Chunk: %s"
 msgid "Partity algorithm: %s"
 msgstr "Algoritma Paritas: %s"
 
-#. @macro seeCustomWidget
-#: src/lib/y2partitioner/widgets/md_raid_page.rb:32
-msgid "RAID: %s"
-msgstr "RAID: %s"
-
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/md_raid_page.rb:76
-msgid "&Used Devices"
-msgstr "Perangkat Dipakai"
-
-#. TRANSLATORS: table header, type of md raid.
-#: src/lib/y2partitioner/widgets/md_raid_table.rb:72
-msgid "RAID Type"
-msgstr "Tipe RAID"
-
-#. TRANSLATORS: table header, chunk size of md raid
-#: src/lib/y2partitioner/widgets/md_raid_table.rb:74
-msgid "Chunk Size"
-msgstr "Ukuran Chunk"
-
-#. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/md_raid_table.rb:82
-msgid ""
-"<p>This view shows all RAIDs except BIOS RAIDs.</p><p>The overview contains:"
-"</p>"
-msgstr ""
-"<p>Ini menampilkan semua RAID kecuali RAID BIOS.</p><p>Ikhtisar ini berisi:</"
-"p>"
-
-#. @macro seeAbstractWidget
-#. TRANSLATORS: Heading
-#: src/lib/y2partitioner/widgets/md_raids_page.rb:21
-#: src/lib/y2partitioner/widgets/md_raids_page.rb:34
-msgid "RAID"
-msgstr "RAID"
-
-#. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/md_used_devices_table.rb:30
-msgid ""
-"<p><p>This view shows all devices used by the\n"
-"selected RAID.</p>"
-msgstr ""
-"<p>Ini menampilkan semua perangkat yang digunakan\n"
-"oleh RAID yang dipilih.</p><p>Ikhtisar ini berisi:</p>"
-
-#. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/overview.rb:42
+#: src/lib/y2partitioner/widgets/overview.rb:53
 msgid "System View"
 msgstr "Tampilan Sistem"
 
 #. TODO: only if there is graph support UI.HasSpecialWidget(:Graph)
-#: src/lib/y2partitioner/widgets/overview.rb:67
+#: src/lib/y2partitioner/widgets/overview.rb:78
 msgid "Device Graph"
 msgstr "Grafik Perangkat"
 
 #. TODO: only if there is graph support UI.HasSpecialWidget(:Graph)
-#: src/lib/y2partitioner/widgets/overview.rb:69
+#: src/lib/y2partitioner/widgets/overview.rb:80
 msgid "Mount Graph"
 msgstr "Grafik Kait"
 
-#: src/lib/y2partitioner/widgets/overview.rb:70
+#: src/lib/y2partitioner/widgets/overview.rb:81
 msgid "Installation Summary"
 msgstr "Ringkasan Pemasangan"
 
-#: src/lib/y2partitioner/widgets/overview.rb:71
+#: src/lib/y2partitioner/widgets/overview.rb:82
 msgid "Settings"
 msgstr "Pengaturan"
 
 #. TODO: real subtree
-#: src/lib/y2partitioner/widgets/overview.rb:151
+#: src/lib/y2partitioner/widgets/overview.rb:184
 msgid "Crypt Files"
 msgstr "Berkas Crypt"
 
 #. TODO: real subtree
-#: src/lib/y2partitioner/widgets/overview.rb:156
+#: src/lib/y2partitioner/widgets/overview.rb:189
 msgid "Device Mapper"
 msgstr "Mapper Perangkat"
 
-#: src/lib/y2partitioner/widgets/overview.rb:160
+#: src/lib/y2partitioner/widgets/overview.rb:193
 msgid "NFS"
 msgstr "NFS"
 
-#: src/lib/y2partitioner/widgets/overview.rb:168
+#: src/lib/y2partitioner/widgets/overview.rb:202
 msgid "tmpfs"
 msgstr "tmpfs"
 
-#: src/lib/y2partitioner/widgets/overview.rb:172
+#: src/lib/y2partitioner/widgets/overview.rb:206
 msgid "Unused Devices"
 msgstr "Perangkat Tidak Digunakan"
+
+#. @macro seeAbstractWidget
+#: src/lib/y2partitioner/widgets/pages/btrfs.rb:20
+msgid "Btrfs"
+msgstr "Btrfs"
+
+#. TRANSLATORS: Heading
+#: src/lib/y2partitioner/widgets/pages/btrfs.rb:33
+msgid "Btrfs Volumes"
+msgstr "Volume Btrfs"
+
+#. @macro seeCustomWidget
+#: src/lib/y2partitioner/widgets/pages/disk.rb:70
+msgid "Hard Disk: %s"
+msgstr "Hard Disk: %s"
+
+#. @macro seeAbstractWidget
+#. @macro seeAbstractWidget
+#. @macro seeAbstractWidget
+#: src/lib/y2partitioner/widgets/pages/disk.rb:111
+#: src/lib/y2partitioner/widgets/pages/lvm_vg.rb:94
+#: src/lib/y2partitioner/widgets/pages/md_raid.rb:92
+msgid "&Overview"
+msgstr "Ringkasan"
+
+#. @macro seeAbstractWidget
+#: src/lib/y2partitioner/widgets/pages/disk.rb:142
+msgid "&Partitions"
+msgstr "&Partisi"
+
+#. @macro seeAbstractWidget
+#: src/lib/y2partitioner/widgets/pages/disks.rb:47
+msgid "Hard Disks"
+msgstr "Hard Disk"
+
+#. TRANSLATORS: Heading. String followed by name of partition
+#: src/lib/y2partitioner/widgets/pages/disks.rb:61
+msgid "Hard Disks "
+msgstr "Hard Disk "
+
+#. Label for all the instances
+#.
+#. @see #label
+#.
+#. @return [String]
+#. TRANSLATORS: Heading
+#: src/lib/y2partitioner/widgets/pages/lvm.rb:53
+#: src/lib/y2partitioner/widgets/pages/lvm.rb:71
+msgid "Volume Management"
+msgstr "Manajemen Volume"
+
+#. TRANSLATORS: Heading. String followed by name of partition
+#: src/lib/y2partitioner/widgets/pages/lvm_lv.rb:63
+msgid "Logical Volume: %s"
+msgstr "Volume Logical: %s"
+
+#. @macro seeCustomWidget
+#: src/lib/y2partitioner/widgets/pages/lvm_vg.rb:69
+msgid "Volume Group: %s"
+msgstr "Grup Volume: %s"
+
+#. @macro seeAbstractWidget
+#: src/lib/y2partitioner/widgets/pages/lvm_vg.rb:119
+msgid "Log&ical Volumes"
+msgstr "Volume Log&ical"
+
+#. @macro seeAbstractWidget
+#: src/lib/y2partitioner/widgets/pages/lvm_vg.rb:175
+msgid "&Physical Volumes"
+msgstr "Volume Fisik"
+
+#. @macro seeCustomWidget
+#: src/lib/y2partitioner/widgets/pages/md_raid.rb:65
+msgid "RAID: %s"
+msgstr "RAID: %s"
+
+#. Label for all the instances
+#.
+#. @see #label
+#.
+#. @return [String]
+#. TRANSLATORS: Heading
+#: src/lib/y2partitioner/widgets/pages/md_raids.rb:52
+#: src/lib/y2partitioner/widgets/pages/md_raids.rb:71
+msgid "RAID"
+msgstr "RAID"
+
+#. Constructor
+#: src/lib/y2partitioner/widgets/pages/md_raids.rb:98
+msgid "Add RAID..."
+msgstr "Tambah RAID..."
+
+#. TRANSLATORS: Heading. String followed by name of partition
+#: src/lib/y2partitioner/widgets/pages/partition.rb:44
+msgid "Partition: "
+msgstr "Partisi: "
+
+#. TRANSLATORS: Heading. String followed by the hostname
+#: src/lib/y2partitioner/widgets/pages/system.rb:39
+#, fuzzy
+#| msgid "Available Storage on %1"
+msgid "Available Storage on %s"
+msgstr "Penyimpanan Tersedia pada %1"
 
 #. @macro seeAbstractWidget
 #: src/lib/y2partitioner/widgets/partition_description.rb:31
@@ -1497,21 +1674,38 @@ msgstr ""
 msgid "FS ID: %s"
 msgstr "ID FS: %s"
 
-#. TRANSLATORS: Heading. String followed by name of partition
-#: src/lib/y2partitioner/widgets/partition_page.rb:72
-msgid "Partition: "
-msgstr "Partisi: "
+#. TRANSLATORS: button label to rescan devices
+#: src/lib/y2partitioner/widgets/rescan_devices_button.rb:41
+msgid "Rescan Devices"
+msgstr "Pindai Ulang Perangkat"
 
-#. Help without specification what is exactly device holding blk_device. Should be defined in
-#. Specific child.
-#. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/used_devices_table.rb:65
+#. Shows a confirm message before reprobing
+#: src/lib/y2partitioner/widgets/rescan_devices_button.rb:60
 msgid ""
-"<p>This view shows all physical volumes used by\n"
-"the selected volume group.</p><p>The overview contains:</p>"
+"Re-scanning the storage devices will invalidate all the configuration\n"
+"options set in the installer regarding storage, with no possibility\n"
+"to withdraw.\n"
+"That includes the result and settings of the guided setup as well as\n"
+"the manual changes performed in the expert partitioner."
 msgstr ""
-"<p>Ini menampilkan semua volume fisik yang digunakan\n"
-"oleh grup volume yang dipilih.</p><p>Ikhtisar ini berisi:</p>"
+
+#: src/lib/y2partitioner/widgets/rescan_devices_button.rb:66
+msgid ""
+"Re-scanning the storage devices will invalidate all the previous\n"
+"changes with no possibility to withdraw."
+msgstr ""
+
+#. Reprobes and updates devicegraphs for the partitioner
+#.
+#. @note A message is shown during the reprobing action
+#: src/lib/y2partitioner/widgets/rescan_devices_button.rb:75
+msgid "Rescanning disks..."
+msgstr "Memindai ulang disk..."
+
+#. @macro seeAbstractWidget
+#: src/lib/y2partitioner/widgets/used_devices_tab.rb:42
+msgid "&Used Devices"
+msgstr "Perangkat Dipakai"
 
 #. class to implement callbacks used during activate
 #: src/lib/y2storage/callbacks/activate.rb:43
@@ -1521,6 +1715,333 @@ msgid ""
 msgstr ""
 "Sistem tampaknya memiliki perangkat keras multipath.\n"
 "Apakah Anda ingin mengaktifkan multipath?"
+
+#. Callback for libstorage-ng to report an error to the user.
+#.
+#. In addition to displaying the error, it offers the user the possibility
+#. to ignore it and continue.
+#.
+#. @note If the user rejects to continue, the method will return false
+#. which implies libstorage-ng will raise the corresponding exception for
+#. the error.
+#.
+#. See Storage::CommitCallbacks#error in libstorage-ng
+#.
+#. @param message [String] error title coming from libstorage-ng
+#. @param what [String] details coming from libstorage-ng
+#. @return [Boolean] true will make libstorage-ng ignore the error, false
+#. will result in a libstorage-ng exception
+#: src/lib/y2storage/callbacks/commit.rb:71
+msgid "Continue despite the error?"
+msgstr "Lanjutkan meskipun ada kesalahan?"
+
+#. Proposal client to show the list of storage actions.
+#.
+#. This client is used in autoyast summary dialog, where a new
+#. client instance is created with each event that requires to
+#. update the summary dialog content.
+#.
+#. To manage collapsing/expanding subvolumes list it is necessary
+#. to save the previous state of that list, but it is not possible
+#. to do that in the client instance itself because a new client
+#. instance is created each time.
+#.
+#. To solve that, instance class attributes are used. PartitionsProposal
+#. class has an internal state that is updated with each object creation.
+#.
+#. @see PartitionsProposal.update_state
+#: src/lib/y2storage/clients/partitions_proposal.rb:76
+msgid "This is not enabled at this moment (event: %s)"
+msgstr ""
+
+#: src/lib/y2storage/clients/partitions_proposal.rb:87
+msgid "Partitioning"
+msgstr "Pemartisian"
+
+#: src/lib/y2storage/clients/partitions_proposal.rb:88
+msgid "&Partitioning"
+msgstr "&Pemartisian"
+
+#. Updates internal class state when it is necessary.
+#.
+#. A new actions presenter is created when the current staging revision
+#. is different to the last saved revision.
+#.
+#. @see ActionsPresenter
+#: src/lib/y2storage/clients/partitions_proposal.rb:135
+#: src/lib/y2storage/clients/partitions_proposal.rb:137
+#, fuzzy
+#| msgid "Proposal type"
+msgid "No proposal possible"
+msgstr "Tipe usulan"
+
+#. Translators: Short description of the partitioning setup
+#: src/lib/y2storage/clients/partitions_proposal.rb:152
+#, fuzzy
+#| msgid "Custom Size"
+msgid "Custom"
+msgstr "Ukuran Kostum"
+
+#. TODO: should be tested by some real OPS guy, I (JR) pick human wording from `man mdadm`
+#: src/lib/y2storage/clients/partitions_proposal.rb:152
+#: src/lib/y2storage/md_parity.rb:37
+msgid "Default"
+msgstr "Bawaan"
+
+#. Dialog to manage luks activation callbacks
+#: src/lib/y2storage/dialogs/callbacks/activate_luks.rb:64
+msgid "Encrypted Volume Activation"
+msgstr "Aktivasi Volume Terenkripsi"
+
+#: src/lib/y2storage/dialogs/callbacks/activate_luks.rb:68
+#, fuzzy
+#| msgid "Do you want to provide encryption passwords?"
+msgid "Do you want to provide the encryption password?"
+msgstr "Apakah Anda ingin menyediakan kata sandi enkripsi?"
+
+#: src/lib/y2storage/dialogs/callbacks/activate_luks.rb:69
+msgid "Enter Encryption Password"
+msgstr "Masukkan Kata Sandi Enkripsi"
+
+#: src/lib/y2storage/dialogs/callbacks/activate_luks.rb:101
+msgid ""
+"The following device contains an encryption signature but the\n"
+"password is not yet known."
+msgstr ""
+
+#: src/lib/y2storage/dialogs/callbacks/activate_luks.rb:110
+msgid ""
+"The password is needed if the device contains a system to be\n"
+"updated or belongs to an LVM to be used during installation."
+msgstr ""
+
+#. Should be implemented by derived classes.
+#: src/lib/y2storage/dialogs/guided_setup/base.rb:113
+msgid ""
+"<p>\n"
+"TODO: this dialog is just temporary. Hopefully it will end up including help "
+"of each setup.</p>"
+msgstr ""
+
+#. Before skipping, settings should be assigned.
+#. Before skipping, settings should be assigned.
+#: src/lib/y2storage/dialogs/guided_setup/select_disks.rb:52
+#: src/lib/y2storage/dialogs/guided_setup/select_root_disk.rb:50
+#, fuzzy
+#| msgid "Hard Disks"
+msgid "Select Hard Disk(s)"
+msgstr "Hard Disk"
+
+#: src/lib/y2storage/dialogs/guided_setup/select_disks.rb:58
+msgid "Select one or more (max %d) hard disks"
+msgstr ""
+
+#: src/lib/y2storage/dialogs/guided_setup/select_disks.rb:88
+msgid "At least one disk must be selected"
+msgstr ""
+
+#: src/lib/y2storage/dialogs/guided_setup/select_disks.rb:94
+#, fuzzy
+#| msgid "No hard disk selected."
+msgid "At most %d disks can be selected"
+msgstr "Tidak ada hard disk yang dipilih."
+
+#. Dialog to select filesystems.
+#: src/lib/y2storage/dialogs/guided_setup/select_filesystem.rb:49
+#, fuzzy
+#| msgid "File system options:"
+msgid "Filesystem Options"
+msgstr "Opsi sistem berkas:"
+
+#: src/lib/y2storage/dialogs/guided_setup/select_filesystem.rb:66
+msgid "File System for Root Partition"
+msgstr "Sistem Berkas untuk Partisi Root"
+
+#: src/lib/y2storage/dialogs/guided_setup/select_filesystem.rb:82
+#, fuzzy
+#| msgid "Propose Separate &Home Partition"
+msgid "Propose Separate Home Partition"
+msgstr "Usulkan Pemisahan Partisi &Home"
+
+#: src/lib/y2storage/dialogs/guided_setup/select_filesystem.rb:88
+msgid "File System for Home Partition"
+msgstr "Sistem Berkas untuk Partisi Home"
+
+#: src/lib/y2storage/dialogs/guided_setup/select_root_disk.rb:69
+msgid "Please select a disk to use as the \"root\" partition (/)"
+msgstr ""
+
+#: src/lib/y2storage/dialogs/guided_setup/select_root_disk.rb:86
+msgid "Choose what to do with existing Windows systems"
+msgstr ""
+
+#: src/lib/y2storage/dialogs/guided_setup/select_root_disk.rb:91
+#: src/lib/y2storage/dialogs/guided_setup/select_root_disk.rb:108
+#: src/lib/y2storage/dialogs/guided_setup/select_root_disk.rb:124
+#, fuzzy
+#| msgid "Do not mount device"
+msgid "Do not modify"
+msgstr "Jangan kaitkan perangkat"
+
+#: src/lib/y2storage/dialogs/guided_setup/select_root_disk.rb:92
+msgid "Resize if needed"
+msgstr ""
+
+#: src/lib/y2storage/dialogs/guided_setup/select_root_disk.rb:93
+msgid "Resize or remove as needed"
+msgstr ""
+
+#: src/lib/y2storage/dialogs/guided_setup/select_root_disk.rb:94
+#: src/lib/y2storage/dialogs/guided_setup/select_root_disk.rb:110
+#: src/lib/y2storage/dialogs/guided_setup/select_root_disk.rb:126
+msgid "Remove even if not needed"
+msgstr ""
+
+#: src/lib/y2storage/dialogs/guided_setup/select_root_disk.rb:103
+msgid "Choose what to do with existing Linux partitions"
+msgstr ""
+
+#: src/lib/y2storage/dialogs/guided_setup/select_root_disk.rb:109
+#: src/lib/y2storage/dialogs/guided_setup/select_root_disk.rb:125
+#, fuzzy
+msgid "Remove if needed"
+msgstr ""
+"Apakah anda yakin\n"
+"untuk mengakhiri instalasi?Wollen Sie die Installation\n"
+"wirklich beenden?"
+
+#: src/lib/y2storage/dialogs/guided_setup/select_root_disk.rb:119
+#, fuzzy
+#| msgid "<p>Choose the size for the new partition.</p>"
+msgid "Choose what to do with other partitions"
+msgstr "<p>Pilih ukuran untuk partisi baru.</p>"
+
+#: src/lib/y2storage/dialogs/guided_setup/select_root_disk.rb:134
+#, fuzzy
+#| msgid "disk"
+msgid "Any disk"
+msgstr "disk"
+
+#. Handler for :encryption check box.
+#. @param focus [Boolean] whether password field should be focused
+#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:56
+#, fuzzy
+#| msgid "Partitioning"
+msgid "Partitioning Scheme"
+msgstr "Pemartisian"
+
+#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:62
+#, fuzzy
+#| msgid "Volume Management"
+msgid "Enable Logical Volume Management (LVM)"
+msgstr "Manajemen Volume"
+
+#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:64
+#, fuzzy
+#| msgid "Encryption"
+msgid "Enable Disk Encryption"
+msgstr "Enkripsi"
+
+#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:69
+msgid "Password"
+msgstr "Kata Sandi"
+
+#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:75
+#, fuzzy
+#| msgid "Provide Password"
+msgid "Verify Password"
+msgstr "Sediakan Kata Sandi"
+
+#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:128
+msgid "A password is needed"
+msgstr ""
+
+#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:134
+msgid "Password does not match"
+msgstr ""
+
+#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:143
+#, fuzzy
+#| msgid ""
+#| "The password must have at least %1 characters.\n"
+#| "Try again.\n"
+msgid "The password must have at least %d characters."
+msgstr ""
+"Kata sandi harus memiliki setidaknya %1 karakter.\n"
+"Coba lagi.\n"
+
+#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:144
+#, fuzzy
+#| msgid ""
+#| "The password may only contain the following characters:\n"
+#| "0..9, a..z, A..Z, and any of \"@#* ,.;:._-+=!$%&/|?{[()]}^\\<>\".\n"
+#| "Try again."
+msgid ""
+"The password may only contain the following characters:\n"
+"0..9, a..z, A..Z, and any of \"@#* ,.;:._-+=!$%&/|?{[()]}^\\<>\"."
+msgstr ""
+"Kata sandi hanya boleh berisi karakter berikut:\n"
+"0..9, a..z, A..Z, dan semua karakter \"@#* ,.;:._-+=!$%&/|?{[()]}^\\<>\".\n"
+"Coba lagi."
+
+#. Password is considered strong when cracklib returns an empty message.
+#. User has the last word to decide whether to use a weak password.
+#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:160
+msgid "The password is too simple:"
+msgstr ""
+
+#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:163
+#, fuzzy
+#| msgid "Really use this setup?"
+msgid "Really use this password?"
+msgstr "Yakin ingin menggunakan pengaturan ini?"
+
+#. Calculates the storage proposal during installation and provides
+#. the user a summary of the storage proposal
+#: src/lib/y2storage/dialogs/proposal.rb:55
+#, fuzzy
+#| msgid "Continue?"
+msgid "Cannot continue"
+msgstr "Lanjutkan?"
+
+#. TODO: if there is a proposal, use the meaningful description with
+#. hyperlinks instead of just delegating the summary to libstorage
+#: src/lib/y2storage/dialogs/proposal.rb:114
+msgid "No proposal possible."
+msgstr ""
+
+#: src/lib/y2storage/dialogs/proposal.rb:121
+msgid "Suggested Partitioning"
+msgstr "Pemartisian yang Disarankan"
+
+#: src/lib/y2storage/dialogs/proposal.rb:127
+msgid "Start with &Current Proposal"
+msgstr ""
+
+#: src/lib/y2storage/dialogs/proposal.rb:129
+#, fuzzy
+msgid "Start with Existing &Partitions"
+msgstr "  Membuat partisi %1 (%2) sebagai %3 (%4).\n"
+
+#: src/lib/y2storage/dialogs/proposal.rb:130
+#, fuzzy
+#| msgid "Expert Partitioner"
+msgid "&Expert Partitioner"
+msgstr "Pemartisi Ahli"
+
+#: src/lib/y2storage/dialogs/proposal.rb:138
+msgid "&Guided Setup"
+msgstr ""
+
+#: src/lib/y2storage/dialogs/proposal.rb:145
+msgid ""
+"<p>\n"
+"Your hard disks have been checked. The partition setup\n"
+"displayed is proposed for your hard drive.</p>"
+msgstr ""
+"<p>\n"
+"Hard disk sudah diperiksa. Pengaturan partisi yang \n"
+"ditampilkan adalah usulan untuk hard drive Anda.</p>"
 
 #. Class to represent all the possible MD levels
 #.
@@ -1552,11 +2073,6 @@ msgstr "RAID10"
 #: src/lib/y2storage/md_level.rb:42
 msgid "Container"
 msgstr "Kontainer"
-
-#. TODO: should be tested by some real OPS guy, I (JR) pick human wording from `man mdadm`
-#: src/lib/y2storage/md_parity.rb:37
-msgid "Default"
-msgstr "Bawaan"
 
 #: src/lib/y2storage/md_parity.rb:38
 msgid "Left asymmetric"
@@ -1631,6 +2147,21 @@ msgstr "Dua salinan jauh"
 msgid "Three copies far"
 msgstr "Tiga salinan jauh"
 
+#. This message is not very informative, but the Package module does
+#. not provide any more information.
+#.
+#. TRANSLATORS: error popup
+#: src/lib/y2storage/package_handler.rb:169
+msgid "Installing required packages failed."
+msgstr "Gagal memasang paket yang dibutuhkan."
+
+#. TRANSLATORS: error popup. %s is the list of affected packages.
+#: src/lib/y2storage/package_handler.rb:177
+#, fuzzy
+#| msgid "Adding the following resolvables failed: %1"
+msgid "Adding the following packages failed: %s"
+msgstr "Menambahkan penyelesaian berikut gagal: %1"
+
 #. Class to represent all the possible partition ids
 #.
 #. This is a wrapper for the Storage::ID enum
@@ -1651,8 +2182,10 @@ msgid "Linux Swap"
 msgstr "Swap Linux"
 
 #: src/lib/y2storage/partition_id.rb:43
-msgid "Linux"
-msgstr "Linux"
+#, fuzzy
+#| msgid "Linux Swap"
+msgid "Linux Native"
+msgstr "Swap Linux"
 
 #: src/lib/y2storage/partition_id.rb:44
 msgid "Linux LVM"
@@ -1715,12 +2248,6 @@ msgstr ""
 "\n"
 "Untuk melanjutkan meskipun ada peringatan ini, klik Ya.\n"
 
-#. dialog heading
-#. dialog caption
-#: src/clients/disk.rb:67 src/include/partitioning/ep-main.rb:68
-msgid "Expert Partitioner"
-msgstr "Pemartisi Ahli"
-
 #. text show during initialization
 #: src/clients/disk.rb:69
 msgid "Initializing..."
@@ -1751,11 +2278,6 @@ msgstr "Daftar disk"
 msgid "List partitions"
 msgstr "Daftar partisi"
 
-#. Title for dialogue
-#: src/clients/inst_disk_proposal.rb:76
-msgid "Suggested Partitioning"
-msgstr "Pemartisian yang Disarankan"
-
 #. Radiobutton for partition dialog
 #: src/clients/inst_disk_proposal.rb:78
 msgid "&Expert Partitioner..."
@@ -1767,8 +2289,7 @@ msgid "&Create Partition Setup..."
 msgstr "Buat Pengaturan Partisi..."
 
 #. popup text
-#: src/clients/inst_disk_proposal.rb:123
-#: src/clients/partitions_proposal.rb:105
+#: src/clients/inst_disk_proposal.rb:123 src/clients/partitions_proposal.rb:115
 msgid ""
 "No automatic proposal possible.\n"
 "Specify mount points manually in the 'Partitioner' dialog."
@@ -1777,28 +2298,15 @@ msgstr ""
 "Tentukan titik kait secara manual di dialog 'Pemartisi'."
 
 #. TRANSLATORS: button text
-#. this is the resize case
-#.
-#. this is the normal case
-#: src/clients/inst_disk_proposal.rb:135 src/clients/inst_target_part.rb:164
-#: src/clients/inst_target_part.rb:178 src/clients/inst_target_part.rb:185
+#. Return a term for a PushButton("Edit Proposal Settings")
+#. or Empty() if that button is disabled in control.xml.
+#: src/clients/inst_disk_proposal.rb:136 src/clients/inst_target_part.rb:500
 msgid "Edit Proposal Settings"
 msgstr "Sunting Pengaturan Usulan"
 
-#. help on suggested partitioning
-#: src/clients/inst_disk_proposal.rb:165
-msgid ""
-"<p>\n"
-"Your hard disks have been checked. The partition setup\n"
-"displayed is proposed for your hard drive.</p>"
-msgstr ""
-"<p>\n"
-"Hard disk sudah diperiksa. Pengaturan partisi yang \n"
-"ditampilkan adalah usulan untuk hard drive Anda.</p>"
-
 #. help text continued
 #. %1 is replaced by button text
-#: src/clients/inst_disk_proposal.rb:175
+#: src/clients/inst_disk_proposal.rb:176
 msgid ""
 "<p>\n"
 "To make only small adjustments to the proposed\n"
@@ -1813,7 +2321,7 @@ msgstr ""
 "pemartisi ahli.</p>\n"
 
 #. help text continued
-#: src/clients/inst_disk_proposal.rb:188
+#: src/clients/inst_disk_proposal.rb:189
 msgid ""
 "<p>\n"
 "If the suggestion does not fit your needs, create\n"
@@ -1833,28 +2341,28 @@ msgstr ""
 
 #. Attention! besides the testsuite, AutoYaST is using this to turn off
 #. the proposal screen too. See inst_autosetup.ycp
-#: src/clients/inst_disk_proposal.rb:232
+#: src/clients/inst_disk_proposal.rb:233
 msgid "Impossible to create the requested proposal."
 msgstr "Mustahil untuk membuat usulan yang diminta."
 
 #. TRANSLATORS: popup error message
-#: src/clients/inst_disk_proposal.rb:238
+#: src/clients/inst_disk_proposal.rb:239
 msgid "Not enough space available to propose snapshots for root volume."
 msgstr ""
 "Ruang tidak cukup tersedia untuk mengusulkan snapshot untuk volume root."
 
 #. TRANSLATORS: popup error message
-#: src/clients/inst_disk_proposal.rb:244 src/clients/inst_target_part.rb:449
+#: src/clients/inst_disk_proposal.rb:245 src/clients/inst_target_part.rb:449
 msgid "Not enough space available to propose separate /home."
 msgstr "Ruang tidak cukup tersedia untuk mengusulkan /home secara terpisah."
 
-#: src/clients/inst_disk_proposal.rb:283
+#: src/clients/inst_disk_proposal.rb:284
 msgid "Nothing assigned as root filesystem. Cannot continue."
 msgstr ""
 "Tidak ada yang ditetapkan sebagai berkas sistem root. Tidak dapat "
 "melanjutkan."
 
-#: src/clients/inst_disk_proposal.rb:304
+#: src/clients/inst_disk_proposal.rb:305
 msgid ""
 "Computing this proposal will overwrite manual changes \n"
 "done so far. Continue with computing proposal?"
@@ -1863,7 +2371,7 @@ msgstr ""
 "yang dilakukan sejauh ini. Lanjutkan menghitung usulan?"
 
 #. we need to open dialog and set up slideshow
-#: src/clients/inst_prepdisk.rb:66
+#: src/clients/inst_prepdisk.rb:68
 msgid "Preparing disks..."
 msgstr "Mempersiapkan disk..."
 
@@ -2047,6 +2555,12 @@ msgstr "Windows Terpakai"
 #: src/clients/inst_resize_dialog.rb:407 src/clients/inst_resize_ui.rb:622
 msgid "Free"
 msgstr "Bebas"
+
+#. Edit field label for linux partition size in non-graphical mode
+#. Edit field label for linux partition size in non-graphical mode
+#: src/clients/inst_resize_dialog.rb:417 src/clients/inst_resize_ui.rb:632
+msgid "Linux"
+msgstr "Linux"
 
 #. help text, continued - non-graphical mode only
 #. this help text will be appended to the help text common to both modes.
@@ -2309,12 +2823,12 @@ msgstr ""
 #. loop over targetMap and build radio buttons for selection
 #. dont use foreach here since we need a counter (as a shortcut)
 #. anyway
-#: src/clients/inst_target_selection.rb:115
+#: src/clients/inst_target_selection.rb:116
 msgid "Available &Disks"
 msgstr "Disk Yang Tersedia"
 
 #. label text
-#: src/clients/inst_target_selection.rb:149
+#: src/clients/inst_target_selection.rb:150
 msgid "&Custom Partitioning (for experts)"
 msgstr "Pemartisian Kustom (untuk ahli)"
 
@@ -2322,13 +2836,13 @@ msgstr "Pemartisian Kustom (untuk ahli)"
 #. Below this label, all targets are listed that can be used as
 #. installation target
 #. heading text
-#: src/clients/inst_target_selection.rb:161
+#: src/clients/inst_target_selection.rb:162
 msgid "Hard Disk"
 msgstr "Hard Disk"
 
 #. normally the target is located on hard disks. Here no hard disks
 #. can be found. YaST2 cannot install. Update CD might have newer drivers.
-#: src/clients/inst_target_selection.rb:172
+#: src/clients/inst_target_selection.rb:173
 msgid ""
 "No disks found. Try using the update CD, if available, for installation."
 msgstr ""
@@ -2340,7 +2854,7 @@ msgstr ""
 #. "Preparing Hard Disk" is the description of the dialog what to
 #. do while the following locale is the help description
 #. help part 1 of 3
-#: src/clients/inst_target_selection.rb:184
+#: src/clients/inst_target_selection.rb:185
 msgid ""
 "<p>\n"
 "All hard disks automatically detected on your system\n"
@@ -2353,7 +2867,7 @@ msgstr ""
 "</p>\n"
 
 #. help part 2 of 3
-#: src/clients/inst_target_selection.rb:193
+#: src/clients/inst_target_selection.rb:194
 msgid ""
 "<p>\n"
 "You may select later which part of the disk is used for &product;.\n"
@@ -2364,7 +2878,7 @@ msgstr ""
 "</p>\n"
 
 #. help part 3 of 3
-#: src/clients/inst_target_selection.rb:202
+#: src/clients/inst_target_selection.rb:203
 msgid ""
 "\n"
 "<p>\n"
@@ -2383,7 +2897,7 @@ msgstr ""
 #. first step of hd prepare, select a single disk or "expert" partitioning
 #. Information what to do, background information
 #. Information what to do, background information
-#: src/clients/inst_target_selection.rb:215
+#: src/clients/inst_target_selection.rb:216
 #: src/include/partitioning/auto_part_ui.rb:244
 #: src/include/partitioning/auto_part_ui.rb:302
 msgid "Preparing Hard Disk"
@@ -2391,13 +2905,23 @@ msgstr "Mempersiapkan Hard Disk"
 
 #. there is a selection from which one option must be
 #. chosen - at the moment no option is chosen
-#: src/clients/inst_target_selection.rb:271
+#: src/clients/inst_target_selection.rb:269
 msgid "Select one of the options to continue."
 msgstr "Pilih salah satu opsi untuk melanjutkan."
 
-#: src/clients/inst_target_selection.rb:297
+#: src/clients/inst_target_selection.rb:295
 msgid "Disk %1 is in use by %2"
 msgstr "Disk %1 digunakan oleh %2"
+
+#. Warning popup about using the expert partitioner
+#: src/clients/inst_target_selection.rb:352
+msgid ""
+"This is for experts only.\n"
+"You might lose support if you use this!\n"
+"\n"
+"Please refer to the manual to make sure your custom\n"
+"partitioning meets the requirements of this product."
+msgstr ""
 
 #. encoding: utf-8
 #. Copyright (c) 2012 Novell, Inc.
@@ -2456,21 +2980,22 @@ msgstr "Aktifkan multipath?"
 #. See also file proposal-API.txt for details.
 #: src/clients/partitions_proposal.rb:93
 msgid ""
+"No snapshots possible.\n"
+"Please use larger root partition."
+msgstr ""
+
+#: src/clients/partitions_proposal.rb:105
+msgid ""
 "The /home partition will not be formatted. After installation,\n"
 "ensure that ownerships of home directories are set properly."
 msgstr ""
 "Partisi /home tidak akan diformat. Setelah pemasangan, pastikan\n"
 "kepemilikan dari direktori home ditetapkan dengan benar."
 
-#. label text
-#: src/clients/partitions_proposal.rb:218
-msgid "Partitioning"
-msgstr "Pemartisian"
-
-#. label text
-#: src/clients/partitions_proposal.rb:220
-msgid "&Partitioning"
-msgstr "&Pemartisian"
+#. A standard configuration
+#: src/clients/partitions_proposal.rb:126
+msgid "Standard"
+msgstr ""
 
 #. progress step title
 #: src/clients/storage_finish.rb:69
@@ -2637,7 +3162,7 @@ msgstr ""
 #. Label text
 #. TRANSLATORS: checkbox text
 #: src/include/partitioning/auto_part_ui.rb:341
-#: src/modules/StorageProposal.rb:6272
+#: src/modules/StorageProposal.rb:6333
 msgid "Propose Separate &Home Partition"
 msgstr "Usulkan Pemisahan Partisi &Home"
 
@@ -2655,7 +3180,7 @@ msgid "Proposal type"
 msgstr "Tipe usulan"
 
 #. popup text
-#: src/include/partitioning/custom_part_check_generated.rb:244
+#: src/include/partitioning/custom_part_check_generated.rb:248
 msgid ""
 "You have not assigned a root partition for\n"
 "installation. This does not work. Assign the root mount point \"/\" to a\n"
@@ -2670,7 +3195,7 @@ msgstr ""
 "Yakin ingin menggunakan pengaturan ini?\n"
 
 #. popup text
-#: src/include/partitioning/custom_part_check_generated.rb:257
+#: src/include/partitioning/custom_part_check_generated.rb:261
 msgid ""
 "You tried to mount a FAT partition to one of the following mount\n"
 "points: /, /usr, /home, /opt or /var. This will very likely cause problems.\n"
@@ -2686,7 +3211,7 @@ msgstr ""
 "Yakin ingin menggunakan pengaturan ini?\n"
 
 #. popup text
-#: src/include/partitioning/custom_part_check_generated.rb:270
+#: src/include/partitioning/custom_part_check_generated.rb:274
 msgid ""
 "You tried to mount a FAT partition to the\n"
 "mount point /boot. This will very likely cause problems. Use a Linux file\n"
@@ -2702,7 +3227,7 @@ msgstr ""
 "Yakin ingin menggunakan pengaturan ini?\n"
 
 #. popup text
-#: src/include/partitioning/custom_part_check_generated.rb:284
+#: src/include/partitioning/custom_part_check_generated.rb:288
 msgid ""
 "You have mounted a partition with Btrfs to the\n"
 "mount point /boot. This will very likely cause problems. Use a Linux file\n"
@@ -2719,7 +3244,7 @@ msgstr ""
 
 #. A PReP/CHRP partition is not supposed to be mounted. So if we find any
 #. other /boot partition, we should warn the user.
-#: src/include/partitioning/custom_part_check_generated.rb:298
+#: src/include/partitioning/custom_part_check_generated.rb:302
 msgid ""
 "Warning:\n"
 "Your system needs a boot partition, either with type 0x41 PReP/CHRP\n"
@@ -2737,7 +3262,7 @@ msgstr ""
 "\n"
 
 #. popup text, %1 is a number
-#: src/include/partitioning/custom_part_check_generated.rb:314
+#: src/include/partitioning/custom_part_check_generated.rb:318
 msgid ""
 "Warning:\n"
 "Your boot partition ends above cylinder %1.\n"
@@ -2758,13 +3283,20 @@ msgstr ""
 "Yakin ingin menggunakan pengaturan ini?\n"
 
 #. popup text, %1 is a size
-#: src/include/partitioning/custom_part_check_generated.rb:334
+#: src/include/partitioning/custom_part_check_generated.rb:338
+#, fuzzy
+#| msgid ""
+#| "Warning:\n"
+#| "Your boot partition is smaller than %1.\n"
+#| "We recommend to increase the size of /boot.\n"
+#| "\n"
+#| "Really keep this size of boot partition?\n"
 msgid ""
 "Warning:\n"
 "Your boot partition is smaller than %1.\n"
 "We recommend to increase the size of /boot.\n"
 "\n"
-"Really keep this size of boot partition?\n"
+"Really keep this size of the boot partition?\n"
 msgstr ""
 "Peringatan:\n"
 "Partisi boot Anda lebih kecil dari %1.\n"
@@ -2773,7 +3305,7 @@ msgstr ""
 "Yakin ingin mempertahankan ukuran partisi boot ini?\n"
 
 #. /////////////////////////// NO BOOT ///////////////////////////
-#: src/include/partitioning/custom_part_check_generated.rb:351
+#: src/include/partitioning/custom_part_check_generated.rb:355
 msgid ""
 "Warning: There is no partition of type bios_grub present.\n"
 "Such a partition is recommended (required with Btrfs) when Grub2 is\n"
@@ -2790,7 +3322,7 @@ msgstr ""
 #. popup text
 #. If the user chooses 'no' here, the system will not be able to
 #. boot from the hard drive!
-#: src/include/partitioning/custom_part_check_generated.rb:371
+#: src/include/partitioning/custom_part_check_generated.rb:375
 msgid ""
 "Warning: There is no partition mounted as /boot.\n"
 "To boot from your hard disk, a small /boot partition\n"
@@ -2808,7 +3340,7 @@ msgstr ""
 "Yakin ingin menggunakan pengaturan ini tanpa partisi /boot?\n"
 
 #. popup text
-#: src/include/partitioning/custom_part_check_generated.rb:391
+#: src/include/partitioning/custom_part_check_generated.rb:395
 msgid ""
 "Warning: According to your setup, you intend to\n"
 "boot your machine from the root partition (/), which, unfortunately,\n"
@@ -2828,7 +3360,7 @@ msgstr ""
 "\n"
 "Yakin ingin menggunakan pengaturan ini?\n"
 
-#: src/include/partitioning/custom_part_check_generated.rb:417
+#: src/include/partitioning/custom_part_check_generated.rb:421
 msgid ""
 "Warning: Some subvolumes of the root filesystem are shadowed by\n"
 "mount points of other filesystem. This could lead to problems.\n"
@@ -2841,7 +3373,7 @@ msgstr ""
 "Yakin ingin menggunakan pengaturan ini?\n"
 
 #. popup text
-#: src/include/partitioning/custom_part_check_generated.rb:435
+#: src/include/partitioning/custom_part_check_generated.rb:441
 msgid ""
 "Warning: With your current setup, your %1\n"
 "installation might not be directly bootable, because\n"
@@ -2858,7 +3390,7 @@ msgstr ""
 "Yakin ingin menggunakan pengaturan ini?\n"
 
 #. popup text
-#: src/include/partitioning/custom_part_check_generated.rb:453
+#: src/include/partitioning/custom_part_check_generated.rb:459
 msgid ""
 "Warning: With your current setup, your %2 installation\n"
 "will encounter problems when booting, because you have no\n"
@@ -2884,7 +3416,7 @@ msgstr ""
 "Yakin ingin menggunakan pengaturan ini?\n"
 
 #. popup text
-#: src/include/partitioning/custom_part_check_generated.rb:475
+#: src/include/partitioning/custom_part_check_generated.rb:481
 msgid ""
 "Warning: With your current setup, your %2 installation will\n"
 "encounter problems when booting, because you have no \n"
@@ -2910,12 +3442,12 @@ msgstr ""
 "Yakin ingin menggunakan pengaturan ini?\n"
 
 #. popup text
-#: src/include/partitioning/custom_part_check_generated.rb:498
+#: src/include/partitioning/custom_part_check_generated.rb:504
 msgid "Really use this setup?"
 msgstr "Yakin ingin menggunakan pengaturan ini?"
 
 #. popup text
-#: src/include/partitioning/custom_part_check_generated.rb:506
+#: src/include/partitioning/custom_part_check_generated.rb:512
 msgid ""
 "\n"
 "You have not assigned a swap partition. In most cases, we highly recommend \n"
@@ -2938,7 +3470,7 @@ msgstr ""
 "Yakin ingin menggunakan pengaturan tanpa partisi swap?\n"
 
 #. popup text
-#: src/include/partitioning/custom_part_check_generated.rb:522
+#: src/include/partitioning/custom_part_check_generated.rb:528
 msgid ""
 "\n"
 "You chose to install onto an existing partition that will not be\n"
@@ -2951,7 +3483,7 @@ msgstr ""
 "berhasil, terutama dalam kasus berikut:\n"
 
 #. continued popup text
-#: src/include/partitioning/custom_part_check_generated.rb:529
+#: src/include/partitioning/custom_part_check_generated.rb:535
 msgid ""
 "- if this is an existing ReiserFS partition\n"
 "- if this partition already contains a Linux distribution that will be\n"
@@ -2964,7 +3496,7 @@ msgstr ""
 "- Jika partisi ini belum berisi sistem berkas\n"
 
 #. continued popup text
-#: src/include/partitioning/custom_part_check_generated.rb:536
+#: src/include/partitioning/custom_part_check_generated.rb:542
 msgid ""
 "If in doubt, better go back and mark this partition for\n"
 "formatting, especially if it is assigned to one of the standard mount "
@@ -2976,7 +3508,7 @@ msgstr ""
 "seperti /, /boot, /opt atau /var.\n"
 
 #. continued popup text
-#: src/include/partitioning/custom_part_check_generated.rb:542
+#: src/include/partitioning/custom_part_check_generated.rb:548
 msgid ""
 "If you decide to format the partition, all data on it will be lost.\n"
 "\n"
@@ -2988,7 +3520,7 @@ msgstr ""
 "Yakin ingin mempertahankan partisi ini tanpa diformat?\n"
 
 #. popup text %1 is replaced by a raid name e.g. md0
-#: src/include/partitioning/custom_part_check_generated.rb:603
+#: src/include/partitioning/custom_part_check_generated.rb:609
 msgid ""
 "The selected device belongs to the RAID (%1).\n"
 "Remove it from the RAID before editing it.\n"
@@ -2997,7 +3529,7 @@ msgstr ""
 "Hapus dari RAID sebelum menyuntingnya.\n"
 
 #. popup text %1 is replaced by a name e.g. system
-#: src/include/partitioning/custom_part_check_generated.rb:614
+#: src/include/partitioning/custom_part_check_generated.rb:620
 msgid ""
 "The selected device belongs to a volume group (%1).\n"
 "Remove it from the volume group before editing it.\n"
@@ -3006,7 +3538,7 @@ msgstr ""
 "Hapus dari grup volume sebelum menyuntingnya.\n"
 
 #. popup text %1 is replaced by a name e.g. system
-#: src/include/partitioning/custom_part_check_generated.rb:624
+#: src/include/partitioning/custom_part_check_generated.rb:630
 msgid ""
 "The selected device is used by volume (%1).\n"
 "Remove the volume before editing it.\n"
@@ -3015,7 +3547,7 @@ msgstr ""
 "Hapus volume sebelum menyuntingnya.\n"
 
 #. popup text %2 is a device name, %1 is the raid name
-#: src/include/partitioning/custom_part_check_generated.rb:657
+#: src/include/partitioning/custom_part_check_generated.rb:663
 msgid ""
 "The device (%2) belongs to the RAID (%1).\n"
 "Remove it from the RAID before deleting it.\n"
@@ -3024,7 +3556,7 @@ msgstr ""
 "Hapus dari RAID sebelum menghapusnya.\n"
 
 #. popup text, %1 and %2 are device names
-#: src/include/partitioning/custom_part_check_generated.rb:668
+#: src/include/partitioning/custom_part_check_generated.rb:674
 msgid ""
 "The device (%2) is used by %1.\n"
 "Remove %1 before deleting it.\n"
@@ -3032,12 +3564,12 @@ msgstr ""
 "Perangkat (%2) digunakan oleh %1.\n"
 "Hapus %1 sebelum menghapusnya.\n"
 
-#: src/include/partitioning/custom_part_check_generated.rb:680
+#: src/include/partitioning/custom_part_check_generated.rb:686
 msgid "It cannot be deleted while mounted."
 msgstr "Tidak dapat dihapus saat sedang dikaitkan."
 
 #. popup text, %1 is a device name
-#: src/include/partitioning/custom_part_check_generated.rb:716
+#: src/include/partitioning/custom_part_check_generated.rb:722
 msgid ""
 "The device (%1) cannot be removed since it is a logical partition and \n"
 "another logical partition with a higher number is in use.\n"
@@ -3046,7 +3578,7 @@ msgstr ""
 "partisi logical lain dengan nomor yang lebih tinggi sedang menggunakannya.\n"
 
 #. popup text
-#: src/include/partitioning/custom_part_check_generated.rb:792
+#: src/include/partitioning/custom_part_check_generated.rb:798
 msgid ""
 "The selected extended partition contains partitions which are currently "
 "mounted:\n"
@@ -3062,7 +3594,7 @@ msgstr ""
 "Pilih Batal, kecuali Anda tahu persis apa yang Anda lakukan.\n"
 
 #. popup text, Do not translate LVM.
-#: src/include/partitioning/custom_part_check_generated.rb:810
+#: src/include/partitioning/custom_part_check_generated.rb:816
 msgid ""
 "\n"
 "The selected extended partition contains at least one LVM partition\n"
@@ -3077,7 +3609,7 @@ msgstr ""
 "menghapus partisi extended.\n"
 
 #. popup text, Do not translate RAID.
-#: src/include/partitioning/custom_part_check_generated.rb:821
+#: src/include/partitioning/custom_part_check_generated.rb:827
 msgid ""
 "\n"
 "The selected extended partition contains at least one partition\n"
@@ -3092,7 +3624,7 @@ msgstr ""
 "menghapus partisi extended.\n"
 
 #. popup text
-#: src/include/partitioning/custom_part_check_generated.rb:832
+#: src/include/partitioning/custom_part_check_generated.rb:838
 msgid ""
 "\n"
 "The selected extended partition contains at least one partition\n"
@@ -3104,6 +3636,30 @@ msgstr ""
 "yang sedang digunakan. Hapus volume yang digunakan\n"
 "sebelum menghapus partisi extended.\n"
 
+#. popup text, %1 is a size
+#: src/include/partitioning/custom_part_check_generated.rb:905
+#, fuzzy
+#| msgid ""
+#| "Warning:\n"
+#| "Your boot partition is smaller than %1.\n"
+#| "We recommend to increase the size of /boot.\n"
+#| "\n"
+#| "Really keep this size of boot partition?\n"
+msgid ""
+"Warning:\n"
+"\n"
+"Your root partition is very small for snapshots.\n"
+"We recommend to increase the size of the root partition\n"
+"to %1 or more or to disable snapshots.\n"
+"\n"
+"Really keep the current setup?\n"
+msgstr ""
+"Peringatan:\n"
+"Partisi boot Anda lebih kecil dari %1.\n"
+"Kami merekomendasikan untuk menambah ukuran /boot.\n"
+"\n"
+"Yakin ingin mempertahankan ukuran partisi boot ini?\n"
+
 #. heading text
 #: src/include/partitioning/custom_part_dialogs.rb:70
 msgid "Enter your Password for the Encrypted File System."
@@ -3111,13 +3667,13 @@ msgstr "Masukkan Kata Sandi untuk Sistem Berkas Terenkripsi Anda."
 
 #. label text
 #: src/include/partitioning/custom_part_dialogs.rb:74
-#: src/include/partitioning/ep-dialogs.rb:806
-#: src/modules/StorageProposal.rb:6400
+#: src/include/partitioning/ep-dialogs.rb:805
+#: src/modules/StorageProposal.rb:6461
 msgid "Do not forget what you enter here!"
 msgstr "Jangan lupa dengan apa yang Anda masukan disini!"
 
 #: src/include/partitioning/custom_part_dialogs.rb:78
-#: src/include/partitioning/ep-dialogs.rb:809
+#: src/include/partitioning/ep-dialogs.rb:808
 msgid "Empty password allowed."
 msgstr "Kata sandi kosong diizinkan."
 
@@ -3160,7 +3716,7 @@ msgstr ""
 #. popup text
 #. popup text
 #: src/include/partitioning/custom_part_dialogs.rb:196
-#: src/modules/Storage.rb:3963
+#: src/modules/Storage.rb:3961
 msgid ""
 "You did not enter a password.\n"
 "Try again.\n"
@@ -3171,7 +3727,7 @@ msgstr ""
 #. popup text
 #. popup text
 #: src/include/partitioning/custom_part_dialogs.rb:203
-#: src/modules/Storage.rb:3971
+#: src/modules/Storage.rb:3969
 msgid ""
 "The password must have at least %1 characters.\n"
 "Try again.\n"
@@ -3258,42 +3814,42 @@ msgid "File &System"
 msgstr "&Sistem Berkas"
 
 #. button text
-#: src/include/partitioning/custom_part_dialogs.rb:1053
+#: src/include/partitioning/custom_part_dialogs.rb:1059
 msgid "O&ptions..."
 msgstr "O&psi..."
 
 #. button text
-#: src/include/partitioning/custom_part_dialogs.rb:1069
+#: src/include/partitioning/custom_part_dialogs.rb:1084
 msgid "&Encrypt Device"
 msgstr "&Enkripsi Perangkat"
 
 #. label text
-#: src/include/partitioning/custom_part_dialogs.rb:1176
+#: src/include/partitioning/custom_part_dialogs.rb:1191
 msgid "Format"
 msgstr "Format"
 
 #. button text
-#: src/include/partitioning/custom_part_dialogs.rb:1186
+#: src/include/partitioning/custom_part_dialogs.rb:1201
 msgid "Do &not format"
 msgstr "Jangan format"
 
 #. button text
-#: src/include/partitioning/custom_part_dialogs.rb:1196
+#: src/include/partitioning/custom_part_dialogs.rb:1211
 msgid "&Format"
 msgstr "&Format"
 
 #. button text
-#: src/include/partitioning/custom_part_dialogs.rb:1249
+#: src/include/partitioning/custom_part_dialogs.rb:1264
 msgid "Fs&tab Options"
 msgstr "Opsi Fs&tab"
 
 #. label text
-#: src/include/partitioning/custom_part_dialogs.rb:1256
+#: src/include/partitioning/custom_part_dialogs.rb:1271
 msgid "&Mount Point"
 msgstr "&Titik Kait"
 
 #. popup text %1 is a partition name, %2 a dirctory
-#: src/include/partitioning/custom_part_dialogs.rb:1268
+#: src/include/partitioning/custom_part_dialogs.rb:1283
 msgid ""
 "\n"
 "The selected partition (%1) is currently mounted on %2.\n"
@@ -3318,7 +3874,7 @@ msgstr ""
 "Lanjutkan?\n"
 
 #. Popup text
-#: src/include/partitioning/custom_part_dialogs.rb:1297
+#: src/include/partitioning/custom_part_dialogs.rb:1312
 msgid ""
 "\n"
 "The file system on the partition cannot be shrunk by YaST2.\n"
@@ -3329,7 +3885,7 @@ msgstr ""
 "Hanya sistem berkas fat, ext2, ext3, ext4, dan reiser yang bisa diperkecil."
 
 #. Popup text
-#: src/include/partitioning/custom_part_dialogs.rb:1304
+#: src/include/partitioning/custom_part_dialogs.rb:1319
 msgid ""
 "\n"
 "The file system on the logical volume cannot be shrunk by YaST2.\n"
@@ -3340,21 +3896,21 @@ msgstr ""
 "Hanya sistem berkas fat, ext2, ext3, ext4, dan reiser yang bisa diperkecil."
 
 #. Popup text
-#: src/include/partitioning/custom_part_dialogs.rb:1316
+#: src/include/partitioning/custom_part_dialogs.rb:1331
 msgid "You risk losing data if you shrink this partition."
 msgstr "Anda beresiko kehilangan data jika Anda memperkecil partisi ini."
 
 #. Popup text
-#: src/include/partitioning/custom_part_dialogs.rb:1322
+#: src/include/partitioning/custom_part_dialogs.rb:1337
 msgid "You risk losing data if you shrink this logical volume."
 msgstr "Anda beresiko kehilangan data jika Anda memperkecil volume logical."
 
-#: src/include/partitioning/custom_part_dialogs.rb:1326
+#: src/include/partitioning/custom_part_dialogs.rb:1341
 msgid "Continue?"
 msgstr "Lanjutkan?"
 
 #. Popup text
-#: src/include/partitioning/custom_part_dialogs.rb:1342
+#: src/include/partitioning/custom_part_dialogs.rb:1357
 msgid ""
 "\n"
 "The file system on the selected partition cannot be extended by YaST2.\n"
@@ -3365,7 +3921,7 @@ msgstr ""
 "Hanya sistem berkas fat, ext2, ext3, ext4, dan reiser yang bisa diperbesar."
 
 #. Popup text
-#: src/include/partitioning/custom_part_dialogs.rb:1349
+#: src/include/partitioning/custom_part_dialogs.rb:1364
 msgid ""
 "\n"
 "The file system on the selected logical volume cannot be extended by YaST2.\n"
@@ -3376,20 +3932,20 @@ msgstr ""
 "YaST2.\n"
 "Hanya sistem berkas fat, ext2, ext3, ext4, dan reiser yang bisa diperbesar."
 
-#: src/include/partitioning/custom_part_dialogs.rb:1357
+#: src/include/partitioning/custom_part_dialogs.rb:1372
 msgid "Continue resizing?"
 msgstr "Lanjutkan mengubah ukuran?"
 
 #. Popup text
-#: src/include/partitioning/custom_part_dialogs.rb:1374
+#: src/include/partitioning/custom_part_dialogs.rb:1389
 msgid "You decreased a partition with a reiser file system on it."
 msgstr "Anda mengecilkan partisi dengan sistem berkas reiser padanya."
 
-#: src/include/partitioning/custom_part_dialogs.rb:1376
+#: src/include/partitioning/custom_part_dialogs.rb:1391
 msgid "You decreased a logical volume with a reiser file system on it."
 msgstr "Anda mengecilkan volume logical dengan sistem berkas reiser padanya."
 
-#: src/include/partitioning/custom_part_dialogs.rb:1383
+#: src/include/partitioning/custom_part_dialogs.rb:1398
 msgid ""
 "\n"
 "It is possible to shrink a reiser file system, but this feature is not\n"
@@ -3404,7 +3960,7 @@ msgstr ""
 "Mengecilkan sistem berkas sekarang?"
 
 #. popup text, %1 is replaced by device name
-#: src/include/partitioning/custom_part_dialogs.rb:1437
+#: src/include/partitioning/custom_part_dialogs.rb:1452
 msgid ""
 "The selected device contains partitions that are currently mounted:\n"
 "%1\n"
@@ -3419,7 +3975,7 @@ msgstr ""
 "Pilih Batal, kecuali Anda tahu persis pada yang Anda lakukan.\n"
 
 #. popup text, Do not translate LVM.
-#: src/include/partitioning/custom_part_dialogs.rb:1460
+#: src/include/partitioning/custom_part_dialogs.rb:1475
 msgid ""
 "\n"
 "The selected device contains at least one LVM partition\n"
@@ -3434,7 +3990,7 @@ msgstr ""
 "menghapus perangkat.\n"
 
 #. popup text, Do not translate RAID.
-#: src/include/partitioning/custom_part_dialogs.rb:1471
+#: src/include/partitioning/custom_part_dialogs.rb:1486
 msgid ""
 "\n"
 "The selected device contains at least one partition\n"
@@ -3449,7 +4005,7 @@ msgstr ""
 "menghapus perangkat.\n"
 
 #. popup text
-#: src/include/partitioning/custom_part_dialogs.rb:1482
+#: src/include/partitioning/custom_part_dialogs.rb:1497
 msgid ""
 "\n"
 "The selected device contains at least one partition\n"
@@ -3461,51 +4017,25 @@ msgstr ""
 "yang digunakan oleh volume lain. Hapus volume yang menggunakannya\n"
 "sebelum menghapus parangkat.\n"
 
-#. help text, richtext format
-#: src/include/partitioning/custom_part_dialogs.rb:1543
-msgid "<p>Create and remove subvolumes from a Btrfs filesystem.</p>\n"
-msgstr "<p>Buat dan hapus subvolume dari sistem berkas Btrfs.</p>\n"
-
-#: src/include/partitioning/custom_part_dialogs.rb:1548
+#: src/include/partitioning/custom_part_dialogs.rb:1563
 msgid "<p>Enable automatic snapshots for a Btrfs filesystem with snapper.</p>"
 msgstr ""
 "<p>Aktifkan snapshot otomatis untuk sistem berkas Btfrs dengan snapper.</p>"
 
 #. label text
-#: src/include/partitioning/custom_part_dialogs.rb:1562
+#: src/include/partitioning/custom_part_dialogs.rb:1577
 msgid "Existing Subvolumes:"
 msgstr "Subvolume Yang Sudah Ada:"
 
 #. label text
-#: src/include/partitioning/custom_part_dialogs.rb:1568
+#: src/include/partitioning/custom_part_dialogs.rb:1583
 msgid "New Subvolume"
 msgstr "Subvolume Baru"
 
 #. button text
-#: src/include/partitioning/custom_part_dialogs.rb:1574
+#: src/include/partitioning/custom_part_dialogs.rb:1589
 msgid "Add new"
 msgstr "Tambah baru"
-
-#. button text
-#. push button text
-#: src/include/partitioning/custom_part_dialogs.rb:1580
-#: src/modules/DualMultiSelectionBox.rb:147
-msgid "Remove"
-msgstr "Hapus"
-
-#. TRANSLATOR: checkbox text
-#. TRANSLATORS: checkbox text
-#: src/include/partitioning/custom_part_dialogs.rb:1592
-#: src/modules/StorageProposal.rb:6253
-msgid "Enable Snapshots"
-msgstr "Aktifkan Snapshot"
-
-#. heading text
-#. button text
-#: src/include/partitioning/custom_part_dialogs.rb:1603
-#: src/include/partitioning/custom_part_lib.rb:409
-msgid "Subvolume Handling"
-msgstr "Penanganan Subvolume"
 
 #: src/include/partitioning/custom_part_dialogs.rb:1666
 msgid "Empty subvolume name not allowed."
@@ -3523,7 +4053,7 @@ msgstr ""
 msgid "Subvolume name %1 already exists."
 msgstr "Nama subvolume %1 sudah ada."
 
-#: src/include/partitioning/custom_part_dialogs.rb:1711
+#: src/include/partitioning/custom_part_dialogs.rb:1702
 msgid "Modifications done so far in this dialog will be lost."
 msgstr "Modifikasi yang dilakukan sejauh ini dalam dialog ini akan hilang."
 
@@ -3567,7 +4097,7 @@ msgstr ""
 
 #. helptext
 #: src/include/partitioning/custom_part_helptexts.rb:87
-#: src/include/partitioning/ep-dialogs.rb:746
+#: src/include/partitioning/ep-dialogs.rb:745
 msgid ""
 "<p>\n"
 "This mount point corresponds to a temporary filesystem like /tmp or /var/"
@@ -3589,7 +4119,7 @@ msgstr ""
 #. help text, continued
 #. helptext
 #: src/include/partitioning/custom_part_helptexts.rb:100
-#: src/include/partitioning/ep-dialogs.rb:761
+#: src/include/partitioning/ep-dialogs.rb:760
 msgid ""
 "<p>\n"
 "If you forget your password, you will lose access to the data on your file "
@@ -3610,7 +4140,7 @@ msgstr ""
 #. help text, continued
 #. helptext, %1 is replaced by integer
 #: src/include/partitioning/custom_part_helptexts.rb:114
-#: src/include/partitioning/ep-dialogs.rb:775
+#: src/include/partitioning/ep-dialogs.rb:774
 msgid ""
 "<p>\n"
 "You must distinguish between uppercase and lowercase. A password should have "
@@ -3645,7 +4175,7 @@ msgstr ""
 #. help text, continued
 #. helptext
 #: src/include/partitioning/custom_part_helptexts.rb:142
-#: src/include/partitioning/ep-dialogs.rb:787
+#: src/include/partitioning/ep-dialogs.rb:786
 msgid ""
 "<p>\n"
 "Do not forget this password!\n"
@@ -3717,17 +4247,17 @@ msgstr ""
 "Anda perlu menandai semua partisi pada disk ini untuk dihapus.\n"
 
 #. error popup text
-#: src/include/partitioning/custom_part_lib.rb:51
+#: src/include/partitioning/custom_part_lib.rb:50
 msgid "You cannot use the mount point \"%1\" for LVM.\n"
 msgstr "Anda tidak dapat menggunakan titik kait \"%1\" untuk LVM.\n"
 
 #. error popup text
-#: src/include/partitioning/custom_part_lib.rb:78
+#: src/include/partitioning/custom_part_lib.rb:77
 msgid "You cannot use the mount point %1 for RAID."
 msgstr "Anda tidak dapat menggunakan titik kait %1 untuk RAID."
 
 #. error popup text
-#: src/include/partitioning/custom_part_lib.rb:97
+#: src/include/partitioning/custom_part_lib.rb:96
 msgid ""
 "You have selected to not automatically mount at start-up a file system\n"
 "that may contain files that the system needs to work properly.\n"
@@ -3745,20 +4275,7 @@ msgstr ""
 "Yakin ingin melakukan ini?\n"
 
 #. error popup text
-#: src/include/partitioning/custom_part_lib.rb:120
-msgid ""
-"You have assigned an encrypted file system to a partition\n"
-"with one of the following mount points: \"/\", \"/usr\", \"/boot\",\n"
-"/var\".  This is not possible. Change the mount point or use a\n"
-"nonloopbacked file system.\n"
-msgstr ""
-"Anda telah menetapkan sistem berkas terenkripsi pada sebuah\n"
-"partisi dengan salah satu titik kait: \"/\", \"/usr\", \"/boot\",\n"
-"/var\". Ini mustahil. Ubah titik kait atau gunakan sebuah\n"
-"sistem berkas nonloopback.\n"
-
-#. error popup text
-#: src/include/partitioning/custom_part_lib.rb:158
+#: src/include/partitioning/custom_part_lib.rb:138
 msgid ""
 "You have set a file system as mountable by users. The file system\n"
 "may contain files that need to be executable.\n"
@@ -3778,28 +4295,22 @@ msgstr ""
 #. @param [Hash{String => map}] targetMap the TargetMap
 #. @param mount mount point
 #. @return [Boolean]
-#: src/include/partitioning/custom_part_lib.rb:205
+#: src/include/partitioning/custom_part_lib.rb:185
 msgid "Mount point must not be empty."
 msgstr "Titik kait tidak boleh kosong."
 
 #. error popup
-#: src/include/partitioning/custom_part_lib.rb:210
+#: src/include/partitioning/custom_part_lib.rb:190
 msgid "Swap devices must have swap as mount point."
 msgstr "Perangkat swap harus memiliki swap sebagai titik kait."
 
 #. error popup
-#: src/include/partitioning/custom_part_lib.rb:214
+#: src/include/partitioning/custom_part_lib.rb:194
 msgid "Only swap devices may have swap as mount point."
 msgstr "Hanya perangkat swap yang boleh memiliki swap sebagai titik kait."
 
-#. && mount!="swap" )
 #. error popup text
-#: src/include/partitioning/custom_part_lib.rb:229
-msgid "This mount point is already in use. Select a different one."
-msgstr "Titik kait ini sudah digunakan. Pilih yang lain."
-
-#. error popup text
-#: src/include/partitioning/custom_part_lib.rb:239
+#: src/include/partitioning/custom_part_lib.rb:219
 msgid ""
 "FAT filesystem used for system mount point (/, /usr, /opt, /var, /home).\n"
 "This is not possible."
@@ -3809,7 +4320,7 @@ msgstr ""
 "Ini mustahil."
 
 #. error popup text
-#: src/include/partitioning/custom_part_lib.rb:248
+#: src/include/partitioning/custom_part_lib.rb:228
 msgid ""
 "Invalid character in mount point. Do not use \"`'!\"%#\" in a mount point."
 msgstr ""
@@ -3817,7 +4328,7 @@ msgstr ""
 "didalam titik kait."
 
 #. error popup text
-#: src/include/partitioning/custom_part_lib.rb:257
+#: src/include/partitioning/custom_part_lib.rb:237
 msgid ""
 "You cannot use any of the following mount points:\n"
 "/bin, /dev, /etc, /lib, /lib64, /lost+found, /mnt, /proc, /sbin, /sys,\n"
@@ -3828,12 +4339,12 @@ msgstr ""
 "/var/adm/mnt\n"
 
 #. error popup text
-#: src/include/partitioning/custom_part_lib.rb:266
+#: src/include/partitioning/custom_part_lib.rb:246
 msgid "Your mount point must start with a \"/\" "
 msgstr "Titik kait harus diawali dengan \"/\" "
 
 #. error popup text
-#: src/include/partitioning/custom_part_lib.rb:272
+#: src/include/partitioning/custom_part_lib.rb:252
 msgid ""
 "It is not allowed to assign the mount point swap\n"
 "to a device without a swap file system."
@@ -3842,17 +4353,23 @@ msgstr ""
 "pada perangkat tanpa sistem berkas swap."
 
 #. warning message, %1 is replaced by fs name (e.g. Ext3)
-#. %2 is prelaced by a size (e.g. 10 MB)
-#: src/include/partitioning/custom_part_lib.rb:299
+#. %2 is replaced by the user entered size (e.g. 20GB)
+#. %3 is replaced by a size (e.g. 10 MB)
+#: src/include/partitioning/custom_part_lib.rb:280
+#, fuzzy
+#| msgid ""
+#| "Your partition is too small to use %1.\n"
+#| "The minimum size for this file system is %2.\n"
 msgid ""
 "Your partition is too small to use %1.\n"
-"The minimum size for this file system is %2.\n"
+"The size you entered (after rounding up) is %2.\n"
+"The minimum size for this file system is %3.\n"
 msgstr ""
 "Partisi Anda terlalu kecil untuk menggunakan %1.\n"
 "Ukuran minimal untuk sistem berkas ini adalah %2.\n"
 
 #. error popup text
-#: src/include/partitioning/custom_part_lib.rb:369
+#: src/include/partitioning/custom_part_lib.rb:346
 msgid ""
 "It is not allowed to assign a mount point\n"
 "to a device with nonexistent or unknown file system."
@@ -3861,7 +4378,7 @@ msgstr ""
 "ke perangkat dengan sistem berkas yang tidak ada atau tidak diketahui."
 
 #. warning message, %1 is replaced by fs name (e.g. Ext3)
-#: src/include/partitioning/custom_part_lib.rb:482
+#: src/include/partitioning/custom_part_lib.rb:545
 msgid ""
 "\n"
 "WARNING:\n"
@@ -3886,12 +4403,12 @@ msgstr ""
 
 #. //////////////////////////////////////////////
 #. modify map new
-#: src/include/partitioning/custom_part_lib.rb:924
-#: src/include/partitioning/custom_part_lib.rb:951
+#: src/include/partitioning/custom_part_lib.rb:980
+#: src/include/partitioning/custom_part_lib.rb:1007
 msgid "The file system is currently mounted on %1."
 msgstr "Sistem berkas ini sedang dikaitkan pada %1."
 
-#: src/include/partitioning/custom_part_lib.rb:929
+#: src/include/partitioning/custom_part_lib.rb:985
 msgid ""
 "You can try to unmount it now, continue without unmounting or cancel.\n"
 "Click Cancel unless you know exactly what you are doing."
@@ -3902,12 +4419,12 @@ msgstr ""
 
 #. button text
 #. button text
-#: src/include/partitioning/custom_part_lib.rb:940
-#: src/include/partitioning/custom_part_lib.rb:965
+#: src/include/partitioning/custom_part_lib.rb:996
+#: src/include/partitioning/custom_part_lib.rb:1021
 msgid "Unmount"
 msgstr "Lepaskan Kait"
 
-#: src/include/partitioning/custom_part_lib.rb:956
+#: src/include/partitioning/custom_part_lib.rb:1012
 msgid ""
 "You can try to unmount it now or cancel.\n"
 "Click Cancel unless you know exactly what you are doing."
@@ -3915,22 +4432,17 @@ msgstr ""
 "Anda dapat mencoba melepas kaitan sekarang atau membatalkan.\n"
 "Klik Batal kecuali Anda tahu persis apa yang sedang Anda lakukan."
 
-#: src/include/partitioning/custom_part_lib.rb:1002
+#: src/include/partitioning/custom_part_lib.rb:1058
 msgid "It is not possible to shrink the file system while it is mounted."
 msgstr "Mustahil untuk mengecilkan sistem berkas saat ia sedang dikaitkan."
 
-#: src/include/partitioning/custom_part_lib.rb:1015
+#: src/include/partitioning/custom_part_lib.rb:1071
 msgid "It is not possible to extend the file system while it is mounted."
 msgstr "Mustahil untuk membesarkan sistem berkas saat ia sedang dikaitkan."
 
-#: src/include/partitioning/custom_part_lib.rb:1026
+#: src/include/partitioning/custom_part_lib.rb:1082
 msgid "It is not possible to resize the file system while it is mounted."
 msgstr "Mustahil untuk mengubah ukuran sistem berkas saat ia sedang dikaitkan."
-
-#. push button text
-#: src/include/partitioning/ep-all.rb:80
-msgid "Rescan Devices"
-msgstr "Pindai Ulang Perangkat"
 
 #. push button text
 #: src/include/partitioning/ep-all.rb:85
@@ -4098,13 +4610,6 @@ msgstr "<p>Mengubah perangkat yang digunakan oleh volume Btrfs.</p>"
 msgid "Unused Devices:"
 msgstr "Perangkat Tidak Terpakai:"
 
-#. label for selection box
-#: src/include/partitioning/ep-btrfs-dialogs.rb:220
-#: src/include/partitioning/ep-raid-dialogs.rb:267
-#: src/include/partitioning/ep-raid-dialogs.rb:531
-msgid "Selected Devices:"
-msgstr "Perangkat Terpilih:"
-
 #. dialog title
 #: src/include/partitioning/ep-btrfs-dialogs.rb:291
 msgid "Resize Btrfs Volume %1"
@@ -4206,11 +4711,9 @@ msgstr "Gagal menghapus beberapa perangkat fisik."
 #. Package:     yast2-storage
 #. Summary:     Expert Partitioner
 #. Authors:     Arvin Schnell <aschnell@suse.de>
-#: src/include/partitioning/ep-btrfs.rb:40
-#: src/include/partitioning/ep-dm.rb:36 src/include/partitioning/ep-hd.rb:61
-#: src/include/partitioning/ep-loop.rb:37
-#: src/include/partitioning/ep-lvm.rb:64
-#: src/include/partitioning/ep-raid.rb:38
+#: src/include/partitioning/ep-btrfs.rb:40 src/include/partitioning/ep-dm.rb:36
+#: src/include/partitioning/ep-hd.rb:61 src/include/partitioning/ep-loop.rb:37
+#: src/include/partitioning/ep-lvm.rb:64 src/include/partitioning/ep-raid.rb:38
 msgid "Edit"
 msgstr "Sunting"
 
@@ -4241,9 +4744,8 @@ msgstr "Sunting"
 #. Package:     yast2-storage
 #. Summary:     Expert Partitioner
 #. Authors:     Arvin Schnell <aschnell@suse.de>
-#: src/include/partitioning/ep-btrfs.rb:45
-#: src/include/partitioning/ep-hd.rb:43 src/include/partitioning/ep-hd.rb:64
-#: src/include/partitioning/ep-loop.rb:37
+#: src/include/partitioning/ep-btrfs.rb:45 src/include/partitioning/ep-hd.rb:43
+#: src/include/partitioning/ep-hd.rb:64 src/include/partitioning/ep-loop.rb:37
 #: src/include/partitioning/ep-lvm.rb:44 src/include/partitioning/ep-lvm.rb:66
 #: src/include/partitioning/ep-raid.rb:40
 #: src/include/partitioning/ep-tmpfs.rb:36
@@ -4278,34 +4780,34 @@ msgstr ""
 msgid "Btrfs Device: %1"
 msgstr "Perangkat Btrfs: %1"
 
-#: src/include/partitioning/ep-dialogs.rb:345
+#: src/include/partitioning/ep-dialogs.rb:344
 msgid "Format partition"
 msgstr "Format partisi"
 
-#: src/include/partitioning/ep-dialogs.rb:356
+#: src/include/partitioning/ep-dialogs.rb:355
 msgid "Do not format partition"
 msgstr "Jangan format partisi"
 
-#: src/include/partitioning/ep-dialogs.rb:372
+#: src/include/partitioning/ep-dialogs.rb:371
 msgid "Do not mount partition"
 msgstr "Jangan kaitkan partisi"
 
-#: src/include/partitioning/ep-dialogs.rb:399
+#: src/include/partitioning/ep-dialogs.rb:398
 msgid "Mount partition"
 msgstr "Kaitkan partisi"
 
 #. button text
-#: src/include/partitioning/ep-dialogs.rb:412
+#: src/include/partitioning/ep-dialogs.rb:411
 msgid "Fs&tab Options..."
 msgstr "Opsi Fs&tab..."
 
 #. error popup
-#: src/include/partitioning/ep-dialogs.rb:596
+#: src/include/partitioning/ep-dialogs.rb:595
 msgid "Crypt files must be encrypted."
 msgstr "Berkas Crypt harus dienkripsi."
 
 #. error popup
-#: src/include/partitioning/ep-dialogs.rb:607
+#: src/include/partitioning/ep-dialogs.rb:606
 msgid ""
 "You chose to create the crypt file, but did not specify\n"
 "that it should be formatted. This does not make sense.\n"
@@ -4318,17 +4820,17 @@ msgstr ""
 "Pilih juga pada opsi format.\n"
 
 #. error popup
-#: src/include/partitioning/ep-dialogs.rb:623
+#: src/include/partitioning/ep-dialogs.rb:622
 msgid "Crypt files require a mount point."
 msgstr "Berkas crypt memerlukan titik kait."
 
 #. error popup
-#: src/include/partitioning/ep-dialogs.rb:637
+#: src/include/partitioning/ep-dialogs.rb:636
 msgid "Tmpfs requires a mount point."
 msgstr "Tmpfs memerlukan titik kait."
 
 #. helptext
-#: src/include/partitioning/ep-dialogs.rb:721
+#: src/include/partitioning/ep-dialogs.rb:720
 msgid ""
 "<p>\n"
 "Keep in mind that this file system is only protected when it is not\n"
@@ -4344,7 +4846,7 @@ msgstr ""
 "</p>"
 
 #. helptext
-#: src/include/partitioning/ep-dialogs.rb:734
+#: src/include/partitioning/ep-dialogs.rb:733
 msgid ""
 "<p>\n"
 "The file system used for this volume is swap. You can leave the encryption \n"
@@ -4360,21 +4862,17 @@ msgstr ""
 "(tangguhkan ke disk).\n"
 "</p>\n"
 
-#: src/include/partitioning/ep-dialogs.rb:804
+#: src/include/partitioning/ep-dialogs.rb:803
 msgid "All data stored on the volume will be lost!"
 msgstr "Semua data yang disimpan pada volume akan hilang!"
 
-#: src/include/partitioning/ep-dialogs.rb:827
-msgid "Password"
-msgstr "Kata Sandi"
-
 #. popup text
-#: src/include/partitioning/ep-dialogs.rb:924
+#: src/include/partitioning/ep-dialogs.rb:923
 msgid "Resize not supported by underlying device."
 msgstr "Mengubah ukuran tidak didukung oleh perangkat yang mendasarinya."
 
 #. popup text
-#: src/include/partitioning/ep-dialogs.rb:929
+#: src/include/partitioning/ep-dialogs.rb:928
 msgid ""
 "\n"
 "You cannot resize the selected partition because the file system\n"
@@ -4384,7 +4882,7 @@ msgstr ""
 "Anda tidak dapat megubah ukuran partisi kerena sistem berkas\n"
 "pada partisi ini tidak mendukung pengubahan ukuran.\n"
 
-#: src/include/partitioning/ep-dialogs.rb:953
+#: src/include/partitioning/ep-dialogs.rb:952
 msgid ""
 "It is not possible to check whether a NTFS\n"
 "can be resized while it is mounted."
@@ -4393,7 +4891,7 @@ msgstr ""
 "diubah ukurannya saat sedang dikaitkan."
 
 #. FIXME: Really?
-#: src/include/partitioning/ep-dialogs.rb:972
+#: src/include/partitioning/ep-dialogs.rb:971
 msgid ""
 "Partition %1 cannot be resized\n"
 "because the filesystem seems to be inconsistent.\n"
@@ -4402,31 +4900,31 @@ msgstr ""
 "karena kelihatannya sistem berkas tidak konsisten.\n"
 
 #. Heading for dialog
-#: src/include/partitioning/ep-dialogs.rb:999
+#: src/include/partitioning/ep-dialogs.rb:998
 msgid "Resize Partition %1"
 msgstr "Ubah Ukuran Partisi %1"
 
 #. Heading for dialog
-#: src/include/partitioning/ep-dialogs.rb:1020
+#: src/include/partitioning/ep-dialogs.rb:1019
 msgid "Resize Logical Volume %1"
 msgstr "Ubah Ukuran Volume Logical %1"
 
 #. size_k + min_size_k could be > max_size_k
-#: src/include/partitioning/ep-dialogs.rb:1052
+#: src/include/partitioning/ep-dialogs.rb:1051
 msgid "Current size: %1"
 msgstr "Ukuran saat ini: %1"
 
-#: src/include/partitioning/ep-dialogs.rb:1064
+#: src/include/partitioning/ep-dialogs.rb:1063
 msgid "Currently used: %1"
 msgstr "Dipakai saat ini: %1"
 
 #. radio button text, %1 is replaced by size
-#: src/include/partitioning/ep-dialogs.rb:1097
+#: src/include/partitioning/ep-dialogs.rb:1096
 msgid "Minimum Size (%1)"
 msgstr "Ukuran Minimal (%1)"
 
 #. help text
-#: src/include/partitioning/ep-dialogs.rb:1140
+#: src/include/partitioning/ep-dialogs.rb:1139
 msgid "<p>Choose new size.</p>"
 msgstr "<p>Pilih ukuran baru.</p>"
 
@@ -4434,7 +4932,7 @@ msgstr "<p>Pilih ukuran baru.</p>"
 #. after user tries to do that is stupid - in some cases
 #. we can tell beforehand, thus user should never get to this
 #. point (e.g. when the partition is mounted)
-#: src/include/partitioning/ep-dialogs.rb:1234
+#: src/include/partitioning/ep-dialogs.rb:1233
 msgid ""
 "You are extending a mounted filesystem by %1 Gigabyte. \n"
 "This may be quite slow and can take hours. You might possibly want \n"
@@ -4447,14 +4945,9 @@ msgstr ""
 "kecepatan tugas pengubahan ukuran."
 
 #. label for log view
-#: src/include/partitioning/ep-dialogs.rb:1310
+#: src/include/partitioning/ep-dialogs.rb:1309
 msgid "Output of %1"
 msgstr "Keluaran %1"
-
-#. popup text
-#: src/include/partitioning/ep-dialogs.rb:1337
-msgid "Rescanning disks..."
-msgstr "Memindai ulang disk..."
 
 #. dialog title
 #: src/include/partitioning/ep-dm-dialogs.rb:62
@@ -4589,6 +5082,11 @@ msgid "End Cylinder"
 msgstr "Akhir Silinder"
 
 #. dialog title
+#: src/include/partitioning/ep-hd-dialogs.rb:549
+msgid "Add Partition on %1"
+msgstr "Tambah Partisi pada %1"
+
+#. dialog title
 #: src/include/partitioning/ep-hd-dialogs.rb:595
 msgid "Edit Partition %1"
 msgstr "Sunting Partisi %1"
@@ -4623,6 +5121,10 @@ msgstr "Ke depan"
 msgid "Backward"
 msgstr "Ke belakang"
 
+#: src/include/partitioning/ep-hd-dialogs.rb:726
+msgid "Confirm Deleting of All Partitions"
+msgstr "Konfirmasi Penghapusan Semua Partisi"
+
 #: src/include/partitioning/ep-hd-dialogs.rb:728
 msgid ""
 "The disk \"%1\" contains at least one partition.\n"
@@ -4649,7 +5151,7 @@ msgstr "Tidak dapat membuat tabel partisi pada DASD berformat LDL."
 
 #. error popup
 #. TRANSLATORS: error popup
-#: src/include/partitioning/ep-hd-lib.rb:57 src/modules/Storage.rb:5226
+#: src/include/partitioning/ep-hd-lib.rb:57 src/modules/Storage.rb:5234
 msgid "The disk is in use and cannot be modified."
 msgstr "Disk sedang digunakan dan tidak dapat dimodifikasi."
 
@@ -4689,6 +5191,11 @@ msgstr "Yakin ingin menghapus Pemartisian RAID %1?"
 #: src/include/partitioning/ep-hd-lib.rb:182
 msgid "There are no partitions to delete on this disk."
 msgstr "Tidak ada partisi untuk dihapus pada disk ini."
+
+#. error popup
+#: src/include/partitioning/ep-hd-lib.rb:235
+msgid "It is not possible to create a partition on %1."
+msgstr "Mustahil membuat partisi pada disk %1."
 
 #. error popup
 #. error popup
@@ -4858,8 +5365,7 @@ msgid "Move"
 msgstr "Pindah"
 
 #: src/include/partitioning/ep-hd.rb:63 src/include/partitioning/ep-lvm.rb:43
-#: src/include/partitioning/ep-lvm.rb:65
-#: src/include/partitioning/ep-raid.rb:39
+#: src/include/partitioning/ep-lvm.rb:65 src/include/partitioning/ep-raid.rb:39
 msgid "Resize"
 msgstr "Ubah Ukuran"
 
@@ -5385,16 +5891,6 @@ msgstr ""
 "dalam daya 2, misalnya \"%2\" atau \"%3\""
 
 #. error popup text
-#: src/include/partitioning/ep-lvm-dialogs.rb:167
-msgid "Enter a name for the logical volume."
-msgstr "Masukkan nama untuk volume logical."
-
-#. error popup text
-#: src/include/partitioning/ep-lvm-dialogs.rb:172
-msgid "The name for the logical volume is longer than 128 characters."
-msgstr "Nama untuk volume logical lebih panjang dari 128 karakter."
-
-#. error popup text
 #: src/include/partitioning/ep-lvm-dialogs.rb:178
 msgid ""
 "The name for the logical volume contains illegal characters. Allowed\n"
@@ -5483,11 +5979,6 @@ msgstr ""
 "mampu\n"
 "memenuhi persyaratan ruang ini. Volume Tipis tidak mempunyai Jumlah Stripe."
 
-#. combo box label
-#: src/include/partitioning/ep-lvm-dialogs.rb:606
-msgid "Number"
-msgstr "Nomor"
-
 #. A dialog title - %1 is a logical volume name, %2 is a volume group.
 #: src/include/partitioning/ep-lvm-dialogs.rb:631
 msgid "Add Logical volume %1 on %2"
@@ -5537,36 +6028,6 @@ msgstr ""
 "<p>Anda dapat mendeklarasikan volume logical sebagai <b>Thin Volume</b>.\n"
 "Ini berarti volume mengalokasikan ruang yang dibutuhkan pada permintaan "
 "dari<b>Thin Pool</b>.</p>"
-
-#. heading for frame
-#: src/include/partitioning/ep-lvm-dialogs.rb:827
-msgid "Name"
-msgstr "Nama"
-
-#: src/include/partitioning/ep-lvm-dialogs.rb:828
-#: src/include/partitioning/ep-lvm.rb:195
-msgid "Logical Volume"
-msgstr "Volume Logical"
-
-#. radio button label
-#: src/include/partitioning/ep-lvm-dialogs.rb:848
-msgid "Normal Volume"
-msgstr "Volume Normal"
-
-#. radio button label
-#: src/include/partitioning/ep-lvm-dialogs.rb:851
-msgid "Thin Pool"
-msgstr "Pool Tipis"
-
-#. radio button label
-#: src/include/partitioning/ep-lvm-dialogs.rb:857
-msgid "Thin Volume"
-msgstr "Volume Tipis"
-
-#. combo box label
-#: src/include/partitioning/ep-lvm-dialogs.rb:865
-msgid "Used Pool"
-msgstr "Pool Digunakan"
 
 #. dialog title, %1 is a volume group
 #: src/include/partitioning/ep-lvm-dialogs.rb:1029
@@ -5671,10 +6132,6 @@ msgstr ""
 msgid "Add Logical Volume"
 msgstr "Tambah Volume Logical"
 
-#: src/include/partitioning/ep-lvm.rb:190
-msgid "Volume Group"
-msgstr "Grup Volume"
-
 #. helptext
 #: src/include/partitioning/ep-lvm.rb:222
 msgid ""
@@ -5701,6 +6158,15 @@ msgid ""
 msgstr ""
 "<p>Ini menampilkan semua volume logical dari\n"
 "grup volume yang dipilih.</p>"
+
+#. helptext
+#: src/include/partitioning/ep-lvm.rb:419
+msgid ""
+"<p>This view shows all physical volumes used by\n"
+"the selected volume group.</p>"
+msgstr ""
+"<p>Ini menampilkan semua volume fisik yang\n"
+"digunakan oleh grup volume yang dipilih.</p>"
 
 #. heading
 #: src/include/partitioning/ep-lvm.rb:460
@@ -5860,47 +6326,6 @@ msgstr ""
 "<p>Pada umumnya, partisi sebaiknya pada perangkat yang berbeda,\n"
 "agar mendapatkan redundansi dan kinerja yang Anda inginkan. </p>\n"
 
-#. Translators, 'Striping' is a technical term here. Translate only if
-#. you are sure!! If in doubt, leave it in English.
-#: src/include/partitioning/ep-raid-dialogs.rb:201
-msgid "RAID &0  (Striping)"
-msgstr "RAID &0  (Striping)"
-
-#. Translators, 'Mirroring' is a technical term here. Translate only if
-#. you are sure!! If in doubt, leave it in English.
-#: src/include/partitioning/ep-raid-dialogs.rb:210
-msgid "RAID &1  (Mirroring)"
-msgstr "RAID &1  (Mirroring)"
-
-#. Translators, 'Redundant Striping' is a technical term here. Translate
-#. only if you are sure!! If in doubt, leave it in English.
-#: src/include/partitioning/ep-raid-dialogs.rb:219
-msgid "RAID &5  (Redundant Striping)"
-msgstr "RAID &5  (Redundant Striping)"
-
-#. Translators, 'Redundant Striping' is a technical term here. Translate only if
-#. you are sure!! If in doubt, leave it in English.
-#: src/include/partitioning/ep-raid-dialogs.rb:228
-msgid "RAID &6  (Dual Redundant Striping)"
-msgstr "RAID &6  (Dual Redundant Striping)"
-
-#. Translators, 'Mirroring' and 'Striping' are technical terms here. Translate only if
-#. you are sure!! If in doubt, leave it in English.
-#: src/include/partitioning/ep-raid-dialogs.rb:237
-msgid "RAID &10  (Mirroring and Striping)"
-msgstr "RAID &10  (Mirroring and Striping)"
-
-#. label text
-#: src/include/partitioning/ep-raid-dialogs.rb:248
-msgid "Raid &Name (optional)"
-msgstr "&Nama Raid (opsional)"
-
-#. label for selection box
-#: src/include/partitioning/ep-raid-dialogs.rb:265
-#: src/include/partitioning/ep-raid-dialogs.rb:530
-msgid "Available Devices:"
-msgstr "Perangkat Yang Tersedia:"
-
 #. helptext
 #: src/include/partitioning/ep-raid-dialogs.rb:338
 msgid ""
@@ -6046,11 +6471,6 @@ msgid ""
 msgstr ""
 "RAID %1 sedang digunakan. Ia tidak dapat diubah ukurannya.\n"
 "Untuk mengubah ukuran %1, pastikan ia tidak sedang digunakan."
-
-#. push button text
-#: src/include/partitioning/ep-raid.rb:132
-msgid "Add RAID..."
-msgstr "Tambah RAID..."
 
 #. helptext
 #: src/include/partitioning/ep-raid.rb:141
@@ -6459,21 +6879,6 @@ msgstr "Paling Bawah"
 msgid "Classify"
 msgstr "Pengelompokkan"
 
-#. push button text
-#: src/modules/DualMultiSelectionBox.rb:134
-msgid "Add"
-msgstr "Tambah"
-
-#. push button text
-#: src/modules/DualMultiSelectionBox.rb:140
-msgid "Add All"
-msgstr "Tambah Semua"
-
-#. push button text
-#: src/modules/DualMultiSelectionBox.rb:153
-msgid "Remove All"
-msgstr "Hapus Semua"
-
 #. error popup text
 #: src/modules/DualMultiSelectionBox.rb:183
 msgid "File %1 is not a regular file!"
@@ -6619,13 +7024,13 @@ msgid "Pattern File"
 msgstr "Pola Berkas"
 
 #. label text
-#: src/modules/FileSystems.rb:278
+#: src/modules/FileSystems.rb:289
 msgid "Tmpfs &Size"
 msgstr "Ukuran Tempfs"
 
 # login -> Benutzername
 #. popup text
-#: src/modules/FileSystems.rb:287
+#: src/modules/FileSystems.rb:298
 msgid ""
 "Invalid Size specified. Use number followed by K, M, G or %.\n"
 "Value must be above 100k or between 1% and 200%. Try again."
@@ -6635,12 +7040,12 @@ msgstr ""
 "Coba lagi."
 
 # login -> Benutzername
-#: src/modules/FileSystems.rb:290
+#: src/modules/FileSystems.rb:301
 msgid "Value must be between 1% and 200%. Try again."
 msgstr "Nilai harus diantara 1% dan 200%. Coba lagi."
 
 #. help text, richtext format
-#: src/modules/FileSystems.rb:297
+#: src/modules/FileSystems.rb:308
 msgid ""
 "<p><b>Tmpfs Size:</b>\n"
 "Size may be either entered as a number followed by K,M,G for Kilo-, Mega- or "
@@ -6655,17 +7060,17 @@ msgstr ""
 
 # login -> Benutzername
 #. popup text
-#: src/modules/FileSystems.rb:319
+#: src/modules/FileSystems.rb:330
 msgid "Value must be between 0 and 32767. Try again."
 msgstr "Nilai harus diantara 0 dan 32767. Coba lagi."
 
 #. button text
-#: src/modules/FileSystems.rb:511
+#: src/modules/FileSystems.rb:524
 msgid "Mountable by User"
 msgstr "Dapat dikaitkan oleh Pengguna"
 
 #. help text, richtext format
-#: src/modules/FileSystems.rb:534
+#: src/modules/FileSystems.rb:547
 msgid ""
 "<p><b>Do Not Mount at System Start-up:</b>\n"
 "The file system is not automatically mounted when the system starts.\n"
@@ -6683,7 +7088,7 @@ msgstr ""
 "dikaitkan). Nilai bakunya adalah false.</p>\n"
 
 #. help text, richtext format
-#: src/modules/FileSystems.rb:610
+#: src/modules/FileSystems.rb:623
 msgid ""
 "<p><b>Access Control Lists (ACL):</b>\n"
 "Enable access control lists on the file system.</p>\n"
@@ -6692,7 +7097,7 @@ msgstr ""
 "Aktifkan access control lists pada sistem berkas.</p>\n"
 
 #. help text, richtext format
-#: src/modules/FileSystems.rb:625
+#: src/modules/FileSystems.rb:638
 msgid ""
 "<p><b>Extended User Attributes:</b>\n"
 "Allow extended user attributes on the file system.</p>\n"
@@ -6700,7 +7105,7 @@ msgstr ""
 "<p><b>Extended User Attributes:</b>\n"
 "Izinkan extended user attributes pada sistem berkas.</p>\n"
 
-#: src/modules/FileSystems.rb:647
+#: src/modules/FileSystems.rb:660
 msgid ""
 "Invalid characters in arbitrary option value. Do not use spaces or tabs. Try "
 "again."
@@ -6709,7 +7114,7 @@ msgstr ""
 "atau tab. Coba lagi."
 
 #. help text, richtext format
-#: src/modules/FileSystems.rb:651
+#: src/modules/FileSystems.rb:664
 msgid ""
 "<p><b>Arbitrary Option Value:</b>\n"
 "In this field, type any legal mount option allowed in the fourth field of /"
@@ -6722,12 +7127,12 @@ msgstr ""
 "Memberikan beberapa opsi harus pisahkan dengan koma.</p>\n"
 
 #. label text
-#: src/modules/FileSystems.rb:720
+#: src/modules/FileSystems.rb:733
 msgid "Number of &FATs"
 msgstr "Jumlah &FAT"
 
 #. help text, richtext format
-#: src/modules/FileSystems.rb:726
+#: src/modules/FileSystems.rb:739
 msgid ""
 "<p><b>Number of FATs:</b>\n"
 "Specify the number of file allocation tables in the file system. The default "
@@ -6738,12 +7143,12 @@ msgstr ""
 "2.</p>"
 
 #. label text
-#: src/modules/FileSystems.rb:735
+#: src/modules/FileSystems.rb:748
 msgid "FAT &Size"
 msgstr "Ukuran FAT"
 
 #. help text, richtext format
-#: src/modules/FileSystems.rb:746
+#: src/modules/FileSystems.rb:759
 msgid ""
 "<p><b>FAT Size:</b>\n"
 "Specifies the type of file allocation tables used (12, 16, or 32-bit). If "
@@ -6756,17 +7161,17 @@ msgstr ""
 "ukuran sistem berkas secara otomatis.</p>\n"
 
 #. label text
-#: src/modules/FileSystems.rb:755
+#: src/modules/FileSystems.rb:768
 msgid "Root &Dir Entries"
 msgstr "Entri &Dir Root"
 
 #. popup text
-#: src/modules/FileSystems.rb:763
+#: src/modules/FileSystems.rb:776
 msgid "The minimum size for \"Root Dir Entries\" is 112. Try again."
 msgstr "Ukuran minimal untuk \"Entri &Dir Root\" adalah 112. Coba lagi."
 
 #. help text, richtext format
-#: src/modules/FileSystems.rb:767
+#: src/modules/FileSystems.rb:780
 msgid ""
 "<p><b>Root Dir Entries:</b>\n"
 "Select the number of entries available in the root directory.</p>\n"
@@ -6775,12 +7180,12 @@ msgstr ""
 "Pilih jumlah entri yang tersedia dalam direktori root.</p>\n"
 
 #. label text
-#: src/modules/FileSystems.rb:780
+#: src/modules/FileSystems.rb:793
 msgid "Hash &Function"
 msgstr "&Fungsi Hash"
 
 #. help text, richtext format
-#: src/modules/FileSystems.rb:787
+#: src/modules/FileSystems.rb:800
 msgid ""
 "<p><b>Hash Function:</b>\n"
 "This specifies the name of the hash function to use to sort the file names "
@@ -6791,12 +7196,12 @@ msgstr ""
 "dalam direktori.</p>\n"
 
 #. label text
-#: src/modules/FileSystems.rb:796
+#: src/modules/FileSystems.rb:809
 msgid "FS &Revision"
 msgstr "&Revisi FS"
 
 #. help text, richtext format
-#: src/modules/FileSystems.rb:803
+#: src/modules/FileSystems.rb:816
 msgid ""
 "<p><b>FS Revision:</b>\n"
 "This option defines the reiserfs format revision to use. '3.5' is for "
@@ -6811,7 +7216,7 @@ msgstr ""
 "besar dari 2.4.</p>\n"
 
 #. help text, richtext format
-#: src/modules/FileSystems.rb:823
+#: src/modules/FileSystems.rb:836
 msgid ""
 "<p><b>Block Size:</b>\n"
 "Specify the size of blocks in bytes. Valid block size values are 512, 1024, "
@@ -6825,7 +7230,7 @@ msgstr ""
 
 #. help text, richtext format
 #. help text, richtext format
-#: src/modules/FileSystems.rb:838 src/modules/FileSystems.rb:1068
+#: src/modules/FileSystems.rb:851 src/modules/FileSystems.rb:1081
 msgid ""
 "<p><b>Inode Size:</b>\n"
 "This option specifies the inode size of the file system.</p>\n"
@@ -6834,12 +7239,12 @@ msgstr ""
 "Opsi ini untuk menentukan ukuran inode dari sistem berkas.</p>\n"
 
 #. label text
-#: src/modules/FileSystems.rb:847
+#: src/modules/FileSystems.rb:860
 msgid "&Percentage of Inode Space"
 msgstr "&Persentase Ruang Inode"
 
 #. help text, richtext format
-#: src/modules/FileSystems.rb:875
+#: src/modules/FileSystems.rb:888
 msgid ""
 "<p><b>Percentage of Inode Space:</b>\n"
 "The option \"Percentage of Inode Space\" specifies the maximum percentage of "
@@ -6850,12 +7255,12 @@ msgstr ""
 "sistem berkas yang dapat dialokasikan untuk inode.</p>\n"
 
 #. label text
-#: src/modules/FileSystems.rb:884
+#: src/modules/FileSystems.rb:897
 msgid "Inode &Aligned"
 msgstr "Inode Disejajarkan"
 
 #. help text, richtext format
-#: src/modules/FileSystems.rb:890
+#: src/modules/FileSystems.rb:903
 msgid ""
 "<p><b>Inode Aligned:</b>\n"
 "The option \"Inode Aligned\" is used to specify whether inode allocation is "
@@ -6871,12 +7276,12 @@ msgstr ""
 "daripada akses tidak disejajarkan.</p>\n"
 
 #. label text
-#: src/modules/FileSystems.rb:920
+#: src/modules/FileSystems.rb:933
 msgid "&Log Size in Megabytes"
 msgstr "Ukuran &Log dalam Megabita"
 
 #. popup text
-#: src/modules/FileSystems.rb:929
+#: src/modules/FileSystems.rb:942
 msgid ""
 "The \"Log Size\" value is incorrect.\n"
 "Enter a value greater than zero.\n"
@@ -6886,7 +7291,7 @@ msgstr ""
 
 #. xgettext: no-c-format
 #. help text, richtext format
-#: src/modules/FileSystems.rb:934
+#: src/modules/FileSystems.rb:947
 msgid ""
 "<p><b>Log Size</b>\n"
 "Set the log size (in megabytes). If auto, the default is 40% of the "
@@ -6897,17 +7302,17 @@ msgstr ""
 "dari ukuran agregat yang digunakan.</p>\n"
 
 #. label text
-#: src/modules/FileSystems.rb:942
+#: src/modules/FileSystems.rb:955
 msgid "Invoke Bad Blocks List &Utility"
 msgstr "Meminta Utilitas Daftar Blok Yang Buruk"
 
 #. label text
-#: src/modules/FileSystems.rb:956
+#: src/modules/FileSystems.rb:969
 msgid "Stride &Length in Blocks"
 msgstr "Panjang Langkah didalam Blok"
 
 #. popup text
-#: src/modules/FileSystems.rb:964
+#: src/modules/FileSystems.rb:977
 msgid ""
 "The \"Stride Length in Blocks\" value is invalid.\n"
 "Select a value greater than 1.\n"
@@ -6916,7 +7321,7 @@ msgstr ""
 "Pilih nilai yang lebih besar dari 1.\n"
 
 #. help text, richtext format
-#: src/modules/FileSystems.rb:968
+#: src/modules/FileSystems.rb:981
 msgid ""
 "<p><b>Stride Length in Blocks:</b>\n"
 "Set RAID-related options for the file system. Currently, the only supported\n"
@@ -6929,7 +7334,7 @@ msgstr ""
 "RAID stripe sebagai argumennya.</p>\n"
 
 #. help text, richtext format
-#: src/modules/FileSystems.rb:987
+#: src/modules/FileSystems.rb:1000
 msgid ""
 "<p><b>Block Size:</b>\n"
 "Specify the size of blocks in bytes. Valid block size values are 1024, 2048, "
@@ -6943,12 +7348,12 @@ msgstr ""
 "p>\n"
 
 #. label text
-#: src/modules/FileSystems.rb:996
+#: src/modules/FileSystems.rb:1009
 msgid "Bytes per &Inode"
 msgstr "Bita per &Inode"
 
 #. help text, richtext format
-#: src/modules/FileSystems.rb:1002
+#: src/modules/FileSystems.rb:1015
 msgid ""
 "<p><b>Bytes per Inode:</b> \n"
 "Specify the bytes to inode ratio. YaST creates an inode for every\n"
@@ -6972,12 +7377,12 @@ msgstr ""
 "yang wajar untuk parameter ini.</p>\n"
 
 #. label text
-#: src/modules/FileSystems.rb:1018
+#: src/modules/FileSystems.rb:1031
 msgid "Percentage of Blocks &Reserved for root"
 msgstr "Persentase Blok yang Dicadangkan untuk root"
 
 #. popup text
-#: src/modules/FileSystems.rb:1028
+#: src/modules/FileSystems.rb:1041
 msgid ""
 "The \"Percentage of Blocks Reserved for root\" value is incorrect.\n"
 "Allowed are float numbers no larger than 99 (e.g. 0.5).\n"
@@ -6987,7 +7392,7 @@ msgstr ""
 
 #. xgettext: no-c-format
 #. help text, richtext format
-#: src/modules/FileSystems.rb:1033
+#: src/modules/FileSystems.rb:1046
 msgid ""
 "<p><b>Percentage of Blocks Reserved for root:</b> Specify the percentage of "
 "blocks reserved for the super user. The default is computed so that normally "
@@ -7000,12 +7405,12 @@ msgstr ""
 "adalah 5.0, batas bawah baku yang dicadangkan adalah 0.1.</p>"
 
 #. checkbox text
-#: src/modules/FileSystems.rb:1042
+#: src/modules/FileSystems.rb:1055
 msgid "Disable Regular Checks"
 msgstr "Nonaktifkan Pemeriksaan Regular"
 
 #. help text, richtext format
-#: src/modules/FileSystems.rb:1050
+#: src/modules/FileSystems.rb:1063
 msgid ""
 "<p><b>Disable Regular Checks:</b>\n"
 "Disable regular file system check at booting.</p>\n"
@@ -7014,12 +7419,12 @@ msgstr ""
 "Nonaktifkan pemeriksaan sistem berkas secara reguler saat booting.</p>\n"
 
 #. label text
-#: src/modules/FileSystems.rb:1077
+#: src/modules/FileSystems.rb:1090
 msgid "&Directory Index Feature"
 msgstr "Fitur Indeks &Direktori"
 
 #. help text, richtext format
-#: src/modules/FileSystems.rb:1084
+#: src/modules/FileSystems.rb:1097
 msgid ""
 "<p><b>Directory Index:</b>\n"
 "Enables use of hashed b-trees to speed up lookups in large directories.</p>\n"
@@ -7029,12 +7434,12 @@ msgstr ""
 "direktori besar.</p>\n"
 
 #. label text
-#: src/modules/FileSystems.rb:1096
+#: src/modules/FileSystems.rb:1109
 msgid "&No Journal"
 msgstr "Tanpa Jurnal"
 
 #. help text, richtext format
-#: src/modules/FileSystems.rb:1103
+#: src/modules/FileSystems.rb:1116
 msgid ""
 "<p><b>No Journal:</b>\n"
 "Suppressed use of journaling on filesystem. Only activate this when you "
@@ -7147,7 +7552,7 @@ msgstr ""
 #. @param integer testsize
 #. @param [Symbol] used_fs
 #. @param [Boolean] verbose
-#: src/modules/Storage.rb:994
+#: src/modules/Storage.rb:992
 msgid "Resize Not Possible:"
 msgstr "Mengubah Ukuran Mustahil:"
 
@@ -7160,7 +7565,7 @@ msgstr "Mengubah Ukuran Mustahil:"
 #. mark swap-partitions with pseudo Mountpoint swap in targetMap
 #. @param [Hash{String => map}] target Disk map
 #. @return [Hash{String => map}] modified target
-#: src/modules/Storage.rb:2697 src/modules/Storage.rb:3920
+#: src/modules/Storage.rb:2695 src/modules/Storage.rb:3918
 msgid ""
 "Could not set encryption.\n"
 "System error code is %1.\n"
@@ -7173,7 +7578,7 @@ msgstr ""
 "Kata sandi enkripsi yang disediakan mungkin salah.\n"
 
 #. popup text
-#: src/modules/Storage.rb:3951
+#: src/modules/Storage.rb:3949
 msgid ""
 "The first and the second version\n"
 "of the password do not match.\n"
@@ -7184,7 +7589,7 @@ msgstr ""
 "Coba lagi."
 
 #. popup text
-#: src/modules/Storage.rb:3982
+#: src/modules/Storage.rb:3980
 msgid ""
 "The password may only contain the following characters:\n"
 "0..9, a..z, A..Z, and any of \"@#* ,.;:._-+=!$%&/|?{[()]}^\\<>\".\n"
@@ -7196,24 +7601,20 @@ msgstr ""
 
 #. Label: get password for encrypted volume
 #. Please use newline if label is longer than 40 characters
-#: src/modules/Storage.rb:4036
+#: src/modules/Storage.rb:4034
 msgid "&Enter Encryption Password:"
 msgstr "Masukkan Kata Sandi Enkripsi:"
 
 #. Clear password fields on every round.
-#: src/modules/Storage.rb:4095
+#: src/modules/Storage.rb:4093
 msgid "Provide Password"
 msgstr "Sediakan Kata Sandi"
 
-#: src/modules/Storage.rb:4114
+#: src/modules/Storage.rb:4112
 msgid "The following encrypted volumes are already available."
 msgstr "Volume yang terenkripsi berikus sudah digunakan."
 
-#: src/modules/Storage.rb:4129
-msgid "Encrypted Volume Activation"
-msgstr "Aktivasi Volume Terenkripsi"
-
-#: src/modules/Storage.rb:4133
+#: src/modules/Storage.rb:4131
 msgid ""
 "The following volumes contain an encryption signature but the \n"
 "passwords are not yet known.\n"
@@ -7226,12 +7627,12 @@ msgstr ""
 "selama pembaruan atau jika mereka berisi sebuah volume\n"
 "fisik LVM terenkripsi."
 
-#: src/modules/Storage.rb:4145
+#: src/modules/Storage.rb:4143
 msgid "Do you want to provide encryption passwords?"
 msgstr "Apakah Anda ingin menyediakan kata sandi enkripsi?"
 
 #. text in help field
-#: src/modules/Storage.rb:4202
+#: src/modules/Storage.rb:4200
 msgid ""
 "Enter encryption password for any of the\n"
 "devices in the locked devices list.\n"
@@ -7241,72 +7642,56 @@ msgstr ""
 "perangkat di daftar perangkat yang terkunci.\n"
 "Kata sandi akan dicoba untuk semua perangkat."
 
-#. header text
-#: src/modules/Storage.rb:4208
-msgid "Enter Encryption Password"
-msgstr "Masukkan Kata Sandi Enkripsi"
-
-#: src/modules/Storage.rb:4211
+#: src/modules/Storage.rb:4209
 msgid "There are no encrypted volume to unlock."
 msgstr "Tidak ada volume yang terenkripsi untuk dibuka."
 
 #. label text, multiple device names follow
-#: src/modules/Storage.rb:4224
+#: src/modules/Storage.rb:4222
 msgid "Provide password for any of the following devices:"
 msgstr "Sediakan kata sandi untuk setiap perangkat berikut:"
 
 #. label text, one device name follows
-#: src/modules/Storage.rb:4227
+#: src/modules/Storage.rb:4225
 msgid "Provide password for the following device:"
 msgstr "Sediakan kata sandi untuk perangkat berikut:"
 
-#: src/modules/Storage.rb:4240
+#: src/modules/Storage.rb:4238
 msgid "Trying to unlock encrypted volumes..."
 msgstr "Mencoba untuk membuka volume terenkripsi..."
 
-#: src/modules/Storage.rb:4264
+#: src/modules/Storage.rb:4262
 msgid "Password did not unlock any volume."
 msgstr "Kata sandi tidak membuka setiap volume."
 
-#: src/modules/Storage.rb:4350
+#: src/modules/Storage.rb:4348
 msgid "IDE Disk"
 msgstr "Disk IDE"
 
-#: src/modules/Storage.rb:4356
+#: src/modules/Storage.rb:4354
 msgid "SCSI Disk"
 msgstr "Disk SCSI"
 
-#: src/modules/Storage.rb:4362
+#: src/modules/Storage.rb:4360
 msgid "Disk"
 msgstr "Diska"
 
-#: src/modules/Storage.rb:4390
+#: src/modules/Storage.rb:4388
 msgid "DM RAID"
 msgstr "RAID DM"
 
-#: src/modules/Storage.rb:4403
+#: src/modules/Storage.rb:4401
 msgid "MD RAID"
 msgstr "RAID MD"
 
-#. TODO: more informative error message, but the Package module does
-#. not provide anything
 #. TRANSLATORS: error popup
-#: src/modules/Storage.rb:4898
-msgid "Installing required packages failed."
-msgstr "Gagal memasang paket yang dibutuhkan."
-
-#: src/modules/Storage.rb:4899 src/modules/StorageClients.rb:159
-msgid "Continue despite the error?"
-msgstr "Lanjutkan meskipun ada kesalahan?"
-
-#. TRANSLATORS: error popup
-#: src/modules/Storage.rb:5238
+#: src/modules/Storage.rb:5246
 msgid ""
 "Partitions cannot be created since other partitions on the disk are used."
 msgstr ""
 "Partisi tidak dapat dibuat karena partisi lain pada disk sedang digunakan."
 
-#: src/modules/Storage.rb:5264
+#: src/modules/Storage.rb:5272
 msgid ""
 "\n"
 "Device %1 cannot be modified because it contains activated swap\n"
@@ -7316,7 +7701,7 @@ msgstr ""
 "Perangkat %1 tidak dapat dimodifikasi karena berisi swap aktif\n"
 "yang diperlukan untuk menjalankan pemasangan.\n"
 
-#: src/modules/Storage.rb:5278
+#: src/modules/Storage.rb:5286
 msgid ""
 "\n"
 "Device %1 cannot be modified because it contains the installation\n"
@@ -7326,7 +7711,7 @@ msgstr ""
 "Perangkat %1 tidak dapat dimodifikasi karena berisi data pemasangan\n"
 "yang diperlukan untuk melakukan pemasangan.\n"
 
-#: src/modules/Storage.rb:5307
+#: src/modules/Storage.rb:5315
 msgid ""
 "\n"
 "Device %1 cannot be removed because it contains activated swap\n"
@@ -7336,7 +7721,7 @@ msgstr ""
 "Perangkat %1 tidak dapat dihapus karena berisi swap aktif\n"
 "yang diperlukan untuk menjalankan pemasangan.\n"
 
-#: src/modules/Storage.rb:5316
+#: src/modules/Storage.rb:5324
 msgid ""
 "\n"
 "Device %1 cannot be removed because it contains the installation\n"
@@ -7346,7 +7731,7 @@ msgstr ""
 "Perangkat %1 tidak dapat dihapus karena berisi data pemasangan\n"
 "yang diperlukan untuk melakukan pemasangan.\n"
 
-#: src/modules/Storage.rb:5345
+#: src/modules/Storage.rb:5353
 msgid ""
 "\n"
 "Device %1 cannot be removed because this would indirectly change\n"
@@ -7358,7 +7743,7 @@ msgstr ""
 "mengubah perangkat %2 yang berisi swap aktif yang diperlukan\n"
 "untuk menjalankan pemasangan.\n"
 
-#: src/modules/Storage.rb:5356
+#: src/modules/Storage.rb:5364
 msgid ""
 "\n"
 "Device %1 cannot be removed because this would indirectly change\n"
@@ -7370,7 +7755,7 @@ msgstr ""
 "untuk melakukan pemasangan.\n"
 
 #. the check for verbose is needed for calls from StorageProposal (see bnc#871779)
-#: src/modules/Storage.rb:5378
+#: src/modules/Storage.rb:5386
 msgid ""
 "\n"
 "Partition %1 cannot be removed since other partitions on the\n"
@@ -7381,18 +7766,18 @@ msgstr ""
 "disk %2 sedang digunakan.\n"
 
 #. FIXME: please, add description of the list that is returned by this function.
-#: src/modules/Storage.rb:5467
+#: src/modules/Storage.rb:5475
 msgid "Nothing assigned as root filesystem!"
 msgstr "Tidak ada yang ditetapkan sebagai sistem berkas root!"
 
-#: src/modules/Storage.rb:5468
+#: src/modules/Storage.rb:5476
 msgid "Installation will most certainly fail fatally!"
 msgstr "Pemasangan pasti akan gagal total!"
 
 #. Set rather than Add, there might be some packs left over
 #. from previous 'MakeProposal' we don't need now
 #. This also covers the case when AddPackagesList returns [] or nil
-#: src/modules/Storage.rb:6018
+#: src/modules/Storage.rb:6027
 msgid "Adding the following resolvables failed: %1"
 msgstr "Menambahkan penyelesaian berikut gagal: %1"
 
@@ -7410,11 +7795,6 @@ msgstr "Kode kesalahan sistem: %1"
 #: src/modules/StorageClients.rb:199
 msgid "&Enter Password for Device %1:"
 msgstr "Masukkan Kata Sandi untuk Perangkat %1:"
-
-#. Column header, abbreviation for "format" (to format a partition)
-#: src/modules/StorageFields.rb:135
-msgid "F"
-msgstr "F"
 
 #. Column header
 #: src/modules/StorageFields.rb:159
@@ -7436,11 +7816,6 @@ msgstr "Metadata"
 msgid "RAID Version"
 msgstr "Versi RAID"
 
-#. Column header
-#: src/modules/StorageFields.rb:198
-msgid "Parity Algorithm"
-msgstr "Algoritma Paritas"
-
 # VN
 # fuzzy
 #. Column header
@@ -7452,6 +7827,15 @@ msgstr "PortVenda"
 #: src/modules/StorageFields.rb:204
 msgid "Model"
 msgstr "PortMode"
+
+#. helptext for table column and overview entry
+#: src/modules/StorageFields.rb:281
+msgid ""
+"<b>End Cylinder</b> shows the end cylinder of\n"
+"the partition."
+msgstr ""
+"<b>Akhir Silinder</b> menampilkan akhir silinder\n"
+"dari partisi."
 
 #. helptext for table column and overview entry
 #: src/modules/StorageFields.rb:346
@@ -7467,6 +7851,15 @@ msgstr ""
 "berdasarkan UUID sistem berkas, (ID) berdasarkan ID perangkat, dan (Path) "
 "berdasarkan\n"
 "jalur perangkat.\n"
+
+#. helptext for table column and overview entry
+#: src/modules/StorageFields.rb:423
+msgid ""
+"<b>Start Cylinder</b> shows the start cylinder\n"
+"of the partition."
+msgstr ""
+"<b>Awal Silinder</b> menampilkan awal silinder dari\n"
+"partisi."
 
 #. helptext for table column and overview entry
 #: src/modules/StorageFields.rb:431
@@ -7705,7 +8098,7 @@ msgstr ""
 
 #. bsc#983003
 #. penalty for not having separate /home
-#: src/modules/StorageProposal.rb:4601 src/modules/StorageProposal.rb:5724
+#: src/modules/StorageProposal.rb:4662 src/modules/StorageProposal.rb:5785
 msgid ""
 "Resize impossible due to inconsistent file system. Try checking file system "
 "under Windows."
@@ -7713,27 +8106,17 @@ msgstr ""
 "Mustahil mengubah ukuran karena sistem berkas tidak konsisten. Coba periksa "
 "sistem berkas di Windows."
 
-#. TRANSLATORS: combobox label
-#: src/modules/StorageProposal.rb:6239
-msgid "File System for Root Partition"
-msgstr "Sistem Berkas untuk Partisi Root"
-
-#. TRANSLATORS: combobox label
-#: src/modules/StorageProposal.rb:6286
-msgid "File System for Home Partition"
-msgstr "Sistem Berkas untuk Partisi Home"
-
 #. TRANSLATORS: checkbox text
-#: src/modules/StorageProposal.rb:6304
+#: src/modules/StorageProposal.rb:6365
 msgid "Enlarge &Swap for Suspend"
 msgstr "Perbesar &Swao untuk Suspend"
 
-#: src/modules/StorageProposal.rb:6314
+#: src/modules/StorageProposal.rb:6375
 msgid "Proposal Settings"
 msgstr "Pengaturan Usulan"
 
 #. TRANSLATORS: help text
-#: src/modules/StorageProposal.rb:6329
+#: src/modules/StorageProposal.rb:6390
 msgid ""
 "<p>Choose <b>Partition-based Proposal</b> if you don't want to use LVM.\n"
 "Choose <b>LVM-based Proposal</b> for plain LVM and <b>Encrypted LVM-based\n"
@@ -7746,7 +8129,7 @@ msgstr ""
 "Terenkripsi</b> jika Anda ingin sistem Anda dienkripsi.</p>"
 
 #. TRANSLATORS: help text
-#: src/modules/StorageProposal.rb:6337
+#: src/modules/StorageProposal.rb:6398
 msgid ""
 "<p>The filesystem for the root partition can be selected with the\n"
 "corresponding combo box. With the filesystem BtrFS the proposal can\n"
@@ -7759,7 +8142,7 @@ msgstr ""
 "meningkatkan ukuran partisi root.</p>"
 
 #. TRANSLATORS: help text
-#: src/modules/StorageProposal.rb:6346
+#: src/modules/StorageProposal.rb:6407
 msgid ""
 "<p>The proposal can create a separate home partition. The filesystem for\n"
 "the home partition can be selected with the corresponding combo box.</p>"
@@ -7768,7 +8151,7 @@ msgstr ""
 "partisi home dapat dipilih dengan menu kotak kombo yang sesuai.</p>"
 
 #. TRANSLATORS: help text
-#: src/modules/StorageProposal.rb:6353
+#: src/modules/StorageProposal.rb:6414
 msgid ""
 "<p>The swap partition can be made large enough to be used to suspend\n"
 "the system to disk in most cases.</p>"
@@ -7776,32 +8159,32 @@ msgstr ""
 "<p>Partisi swap dapat dibuat cukup besar yang digunakan untuk menangguhkan\n"
 "sistem kedalam disk dalam banyak kasus.</p>"
 
-#: src/modules/StorageProposal.rb:6378
+#: src/modules/StorageProposal.rb:6439
 msgid "Enter your password for the proposal encryption."
 msgstr "Masukkan kata sandi untuk usulan enkripsi."
 
 #. Label: get password for user root
 #. Please use newline if label is longer than 40 characters
-#: src/modules/StorageProposal.rb:6385
+#: src/modules/StorageProposal.rb:6446
 msgid "Password:"
 msgstr "Kata Sandi:"
 
 #. Label: get same password again for verification
 #. Please use newline if label is longer than 40 characters
-#: src/modules/StorageProposal.rb:6396
+#: src/modules/StorageProposal.rb:6457
 msgid "Reenter the password for verification:"
 msgstr "Masukkan lagi kata sandi untuk verifikasi:"
 
 #. Clear password fields on every round.
-#: src/modules/StorageProposal.rb:6594
+#: src/modules/StorageProposal.rb:6655
 msgid "&Partition-based Proposal"
 msgstr "Usulan Berbasis &Partisi"
 
-#: src/modules/StorageProposal.rb:6596
+#: src/modules/StorageProposal.rb:6657
 msgid "&LVM-based Proposal"
 msgstr "Usulan Berbasis &LVM"
 
-#: src/modules/StorageProposal.rb:6598
+#: src/modules/StorageProposal.rb:6659
 msgid "&Encrypted LVM-based Proposal"
 msgstr "Usulan Berbasis LVM Ter&enkripsi"
 
@@ -7848,32 +8231,82 @@ msgstr "Penjajaran Partisi:"
 msgid "Visible Information on Storage Devices:"
 msgstr "Keterlihatan Informasi Pada Perangkat Penyimpanan:"
 
+#. TRANSLATORS: first snapshot description
+#: src/modules/StorageSnapper.rb:81
 #, fuzzy
-#~| msgid "Custom Size"
-#~ msgid "Custom"
-#~ msgstr "Ukuran Kostum"
+#| msgid "Nothing assigned as root filesystem!"
+msgid "first root filesystem"
+msgstr "Tidak ada yang ditetapkan sebagai sistem berkas root!"
 
-#, fuzzy
-#~| msgid ""
-#~| "Warning:\n"
-#~| "Your boot partition is smaller than %1.\n"
-#~| "We recommend to increase the size of /boot.\n"
-#~| "\n"
-#~| "Really keep this size of boot partition?\n"
+#~ msgid "Partitioner"
+#~ msgstr "Pemartisi"
+
 #~ msgid ""
-#~ "Warning:\n"
-#~ "\n"
-#~ "Your root partition is very small for snapshots.\n"
-#~ "We recommend to increase the size of the root partition\n"
-#~ "to %1 or more or to disable snapshots.\n"
-#~ "\n"
-#~ "Really keep the current setup?\n"
+#~ "<p>This view shows all Btrfs filesystems.</p><p>The table contains:</p>"
 #~ msgstr ""
-#~ "Peringatan:\n"
-#~ "Partisi boot Anda lebih kecil dari %1.\n"
-#~ "Kami merekomendasikan untuk menambah ukuran /boot.\n"
-#~ "\n"
-#~ "Yakin ingin mempertahankan ukuran partisi boot ini?\n"
+#~ "<p>Ini menampilkan semua sistemberkas Btrfs.</p><p>Tabel ini berisi:</p>"
+
+#~ msgid ""
+#~ "The %{type} \"%{name}\" contains at least one another device.\n"
+#~ "If you proceed, the following devices will be deleted:"
+#~ msgstr ""
+#~ "%{type} \"%{name}\" berisi setidaknya satu partisi yang lain.\n"
+#~ "Jika Anda melanjutkan, perangkat berikut akan dihapus:"
+
+#~ msgid "partition"
+#~ msgstr "partisi"
+
+#~ msgid "Really delete all devices on \"%s\"?"
+#~ msgstr "Yakin ingin menghapus semua perangkat pada \"%s\"?"
+
+#~ msgid "There are no partitions to edit."
+#~ msgstr "Tidak ada partisi untuk disunting."
+
+#~ msgid ""
+#~ "<p>This view shows hard disks and its partitions.</p><p>The overview "
+#~ "contains:</p>"
+#~ msgstr ""
+#~ "<p>Ini menampilkan hard disk dan partisinya.</p><p>Ikhtisar ini berisi:</"
+#~ "p>"
+
+#~ msgid ""
+#~ "<p>This view shows all logical volumes of the\n"
+#~ "selected volume group.</p><p>The overview contains:</p>"
+#~ msgstr ""
+#~ "<p>Ini menampilkan semua volume logical dari\n"
+#~ "grup volume yang dipilih.</p><p>Ikhtisar ini berisi:</p>"
+
+#~ msgid ""
+#~ "<p>This view shows all LVM volume groups and\n"
+#~ "their logical volumes.</p><p>The overview contains:</p>"
+#~ msgstr ""
+#~ "<p>Ini menampilkan semua grup volume LVM dan\n"
+#~ "volume logical mereka.</p><p>Ikhtisar ini berisi:</p>"
+
+#~ msgid ""
+#~ "<p><p>This view shows all devices used by the\n"
+#~ "selected RAID.</p>"
+#~ msgstr ""
+#~ "<p>Ini menampilkan semua perangkat yang digunakan\n"
+#~ "oleh RAID yang dipilih.</p><p>Ikhtisar ini berisi:</p>"
+
+#~ msgid ""
+#~ "<p>This view shows all physical volumes used by\n"
+#~ "the selected volume group.</p><p>The overview contains:</p>"
+#~ msgstr ""
+#~ "<p>Ini menampilkan semua volume fisik yang digunakan\n"
+#~ "oleh grup volume yang dipilih.</p><p>Ikhtisar ini berisi:</p>"
+
+#~ msgid ""
+#~ "You have assigned an encrypted file system to a partition\n"
+#~ "with one of the following mount points: \"/\", \"/usr\", \"/boot\",\n"
+#~ "/var\".  This is not possible. Change the mount point or use a\n"
+#~ "nonloopbacked file system.\n"
+#~ msgstr ""
+#~ "Anda telah menetapkan sistem berkas terenkripsi pada sebuah\n"
+#~ "partisi dengan salah satu titik kait: \"/\", \"/usr\", \"/boot\",\n"
+#~ "/var\". Ini mustahil. Ubah titik kait atau gunakan sebuah\n"
+#~ "sistem berkas nonloopback.\n"
 
 #~ msgid "Create Partition"
 #~ msgstr "Buat Partisi"
@@ -8642,10 +9075,6 @@ msgstr "Keterlihatan Informasi Pada Perangkat Penyimpanan:"
 #~ msgstr "  Membuat partisi %1 (%2) sebagai %3 (%4).\n"
 
 #, fuzzy
-#~ msgid "Edit Existing Partition %1"
-#~ msgstr "  Membuat partisi %1 (%2) sebagai %3 (%4).\n"
-
-#, fuzzy
 #~ msgid "Edit Existing Device %1"
 #~ msgstr "  Membuat partisi %1 (%2) sebagai %3 (%4).\n"
 
@@ -8667,13 +9096,6 @@ msgstr "Keterlihatan Informasi Pada Perangkat Penyimpanan:"
 
 #, fuzzy
 #~ msgid "Really remove container \"%1\"?"
-#~ msgstr ""
-#~ "Apakah anda yakin\n"
-#~ "untuk mengakhiri instalasi?Wollen Sie die Installation\n"
-#~ "wirklich beenden?"
-
-#, fuzzy
-#~ msgid "&Remove Container"
 #~ msgstr ""
 #~ "Apakah anda yakin\n"
 #~ "untuk mengakhiri instalasi?Wollen Sie die Installation\n"

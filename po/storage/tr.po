@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: storage.tr\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-08-14 02:29+0000\n"
+"POT-Creation-Date: 2017-11-02 22:17+0100\n"
 "PO-Revision-Date: 2004-09-21 02:03+0200\n"
 "Last-Translator: Arda Saltoglu <ardasaltoglu@gmx.net>\n"
 "Language-Team: Turkish <yast-int@suse.de>\n"
@@ -20,9 +20,86 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.3.1\n"
 
+# clients/inst_custom_part.ycp:3159
+#. TRANSLATORS: %s is a device name (e.g. "/dev/sda")
+#: src/lib/y2partitioner/actions/add_partition.rb:81
+#, fuzzy
+msgid "It is not possible to create a partition on %s."
+msgstr "%1 üzerinde yeni bir bölüm oluşturmak olanaksız."
+
+#. Validates a candidate name for the LV
+#.
+#. @param name [String]
+#. @return [String, nil] nil if the name is valid, an error string
+#. otherwise
+#: src/lib/y2partitioner/actions/controllers/lvm_lv.rb:173
+#, fuzzy
+msgid "The name for the logical volume is longer than 128 characters."
+msgstr "Şema adının uzunluğu 32 karakterden fazla olamaz."
+
+#: src/lib/y2partitioner/actions/controllers/lvm_lv.rb:175
+#, fuzzy
+msgid ""
+"The name for the logical volume contains illegal characters.\n"
+"Allowed are alphanumeric characters, \".\", \"_\", \"-\" and \"+\"."
+msgstr "Şema adının uzunluğu 32 karakterden fazla olamaz."
+
+# include/partitioning/lvm_ui_dialogs.ycp:93 include/partitioning/lvm_ui_dialogs.ycp:106
+#. TRANSLATORS: dialog title. %s is a device name like /dev/vg0
+#: src/lib/y2partitioner/actions/controllers/lvm_lv.rb:194
+#, fuzzy
+msgid "Add Logical Volume on %s"
+msgstr "Mantıksal yığın düzenle"
+
+#. TRANSLATORS: dialog title. %s is a device name like /dev/md0
+#: src/lib/y2partitioner/actions/controllers/md.rb:129
+#, fuzzy
+msgid "Add RAID %s"
+msgstr "RAID &ekle"
+
+#. TRANSLATORS: dialog title. %s is a device name like /dev/sda
+#: src/lib/y2partitioner/actions/controllers/partition.rb:111
+#, fuzzy
+msgid "Add Partition on %s"
+msgstr "&Bölüm ekle"
+
+#. TRANSLATORS %s is the name of the device to be deleted (e.g., /dev/sda1)
+#: src/lib/y2partitioner/actions/delete_device.rb:92
+#, fuzzy
+#| msgid "Really delete %1?"
+msgid "Really delete %s?"
+msgstr "%1 silinsin mi?"
+
+# clients/inst_custom_part.ycp:2944 include/partitioning/lvm_ui_lib.ycp:362
+#. TRANSLATORS: dialog title. %s is a device name like /dev/md0
+#: src/lib/y2partitioner/actions/edit_blk_device.rb:73
+#, fuzzy
+msgid "Edit RAID %s"
+msgstr "RAID &düzenle"
+
+# include/partitioning/lvm_ui_dialogs.ycp:93 include/partitioning/lvm_ui_dialogs.ycp:106
+#. TRANSLATORS: dialog title. %{lv_name} is an LVM LV name (e.g.'root'),
+#. %{vg} is the device name of an LVM VG (e.g. '/dev/system').
+#: src/lib/y2partitioner/actions/edit_blk_device.rb:78
+#, fuzzy
+msgid "Edit Logical Volume %{lv_name} on %{vg}"
+msgstr "Mantıksal yığın düzenle"
+
+#. TRANSLATORS: dialog title. %s is a device name like /dev/sda1
+#: src/lib/y2partitioner/actions/edit_blk_device.rb:81
+#, fuzzy
+msgid "Edit Partition %s"
+msgstr "Disk bölümü düzenle"
+
+# clients/inst_custom_part.ycp:2587
+#: src/lib/y2partitioner/actions/edit_blk_device.rb:87
+#, fuzzy
+msgid "An extended partition cannot be edited"
+msgstr "Genişletilmiş bir bölüm zaten var."
+
 # include/partitioning/lvm_ui_lib.ycp:274
 #. @param filesystem [Y2Storage::Filesystems::BlkFilesystem] a btrfs filesystem
-#: src/lib/y2partitioner/dialogs/btrfs_subvolume.rb:23
+#: src/lib/y2partitioner/dialogs/btrfs_subvolume.rb:24
 #, fuzzy
 #| msgid "&Add Volume"
 msgid "Add subvolume"
@@ -31,24 +108,27 @@ msgstr "Yığın ek&le"
 #. @param form [Dialogs::BtrfsSubvolume::Form]
 #. @param filesystem [Y2Storage::Filesystems::BlkFilesystem] a btrfs filesystem
 #. TRANSLATORS: table header, subvolume path e.g. "@/home"
-#: src/lib/y2partitioner/dialogs/btrfs_subvolume.rb:85
+#: src/lib/y2partitioner/dialogs/btrfs_subvolume.rb:86
 #: src/lib/y2partitioner/widgets/btrfs_subvolumes_table.rb:92
 msgid "Path"
 msgstr ""
 
 # include/nfs/routines.ycp:162
-#. Validates the path
+#. Validates not empty path
+#. An error popup is shown when entered path is empty.
 #.
-#. Path cannot be empty
-#. Path must start by default subvolume path
-#. Path must be uniq
-#: src/lib/y2partitioner/dialogs/btrfs_subvolume.rb:104
+#. @return [Boolean] true if path is not empty
+#: src/lib/y2partitioner/dialogs/btrfs_subvolume.rb:127
 #, fuzzy
 #| msgid "Empty options string not allowed!"
 msgid "Empty subvolume path not allowed."
 msgstr "Seçenekler bölümüne boş girdi yapılamaz!"
 
-#: src/lib/y2partitioner/dialogs/btrfs_subvolume.rb:109
+#. Validates not duplicated path
+#. An error popup is shown when entered path already exists in the filesystem.
+#.
+#. @return [Boolean] true if path does not exist
+#: src/lib/y2partitioner/dialogs/btrfs_subvolume.rb:138
 #, fuzzy
 #| msgid "Zone name %1 already exists."
 msgid "Subvolume name %s already exists."
@@ -58,7 +138,9 @@ msgstr "%1 bölge adı adı mevcut."
 #.
 #. Path should be a relative path. Starting slashes are removed. A popup message is
 #. presented when the default subvolume path is going to be added.
-#: src/lib/y2partitioner/dialogs/btrfs_subvolume.rb:141
+#.
+#. @see Y2Storage::Filesystems::Btrfs#btrfs_subvolume_path
+#: src/lib/y2partitioner/dialogs/btrfs_subvolume.rb:159
 msgid ""
 "Only subvolume names starting with \"%{prefix}\" currently allowed!\n"
 "Automatically prepending \"%{prefix}\" to name of subvolume."
@@ -69,7 +151,7 @@ msgstr ""
 #. then keep it as it is.
 #. TRANSLATORS: table header, nocow subvolume attribute (do not use copy
 #. on write feature)
-#: src/lib/y2partitioner/dialogs/btrfs_subvolume.rb:171
+#: src/lib/y2partitioner/dialogs/btrfs_subvolume.rb:190
 #: src/lib/y2partitioner/widgets/btrfs_subvolumes_table.rb:98
 msgid "noCoW"
 msgstr ""
@@ -81,7 +163,7 @@ msgstr ""
 msgid "Edit Btrfs subvolumes"
 msgstr "Mantıksal yığın boyutu değiştir"
 
-#. @param options [Y2Partitioner::FormatMount::Options]
+#. @param controller [Actions::Controllers::Filesystem]
 #: src/lib/y2partitioner/dialogs/encrypt_password.rb:19
 #, fuzzy
 #| msgid "Enter Encryption Key"
@@ -89,39 +171,211 @@ msgid "Encryption password for %s"
 msgstr "Şifreleme anahtarını girin"
 
 # include/partitioning/custom_part_dialogs.ycp:290
-#. @param options [Y2Partitioner::FormatMount::Options]
+#. @param controller [Actions::Controllers::Filesystem]
 #: src/lib/y2partitioner/dialogs/fstab_options.rb:19
 #, fuzzy
 #| msgid "Fs&tab Options"
 msgid "Fstab Options:"
 msgstr "Fs&tab ayarları"
 
-# clients/inst_sw_single.ycp:1539
-#. @return [Y2Storage::DeviceGraph] device graph with all changes done in dialog
-#: src/lib/y2partitioner/dialogs/main.rb:22
-#, fuzzy
-#| msgid "Partition"
-msgid "Partitioner"
-msgstr "Bölüm"
+#. @macro seeDialog
+#: src/lib/y2partitioner/dialogs/lvm_lv_info.rb:52
+msgid "Name"
+msgstr "Ad"
 
-#. dialog title
-#. dialog title
-#. dialog title
-#: src/lib/y2partitioner/dialogs/partition_role.rb:28
-#: src/lib/y2partitioner/dialogs/partition_size.rb:33
-#: src/lib/y2partitioner/dialogs/partition_type.rb:76
+# include/partitioning/lvm_ui_lib.ycp:210
+#. @macro seeAbstractWidget
+#: src/lib/y2partitioner/dialogs/lvm_lv_info.rb:73
+#: src/lib/y2partitioner/widgets/lvm_add_button.rb:52
 #, fuzzy
-msgid "Add Partition on %1"
-msgstr "&Bölüm ekle"
+msgid "Logical Volume"
+msgstr "Mantıksal yığınlar"
+
+# clients/inst_root.ycp:54
+#. @macro seeAbstractWidget
+#: src/lib/y2partitioner/dialogs/lvm_lv_info.rb:92
+#, fuzzy
+msgid "Enter a name for the logical volume."
+msgstr "Yeni profilin adını girin."
+
+# include/partitioning/lvm_ui_dialogs.ycp:394
+#: src/lib/y2partitioner/dialogs/lvm_lv_info.rb:99
+#, fuzzy
+msgid ""
+"A logical volume named \"%{lv_name}\" already exists\n"
+"in volume group \"%{vg_name}\"."
+msgstr ""
+"\"%1\" adında bir mantıksal yığın zaten\n"
+"\"%2\" yığın grubunda mevcut. Başka bir isim seçin,\n"
+"ya da bu işlemi iptal edin.\n"
+
+# clients/inst_custom_part.ycp:2926
+#. @macro seeAbstractWidget
+#. TRANSLATORS: table header, type of disk or partition. Can be longer. E.g. "Linux swap"
+#: src/lib/y2partitioner/dialogs/lvm_lv_info.rb:128
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:108
+msgid "Type"
+msgstr "Tip"
+
+# include/partitioning/lvm_ui_lib.ycp:210
+#. @see Widgets::ControllerRadioButtons
+#: src/lib/y2partitioner/dialogs/lvm_lv_info.rb:134
+#, fuzzy
+msgid "Normal Volume"
+msgstr "Mantıksal yığınlar"
+
+# clients/lan_inetd_custom.ycp:754
+#: src/lib/y2partitioner/dialogs/lvm_lv_info.rb:135
+#, fuzzy
+#| msgid "Pool"
+msgid "Thin Pool"
+msgstr "Bilardo"
+
+# include/sound/ui.ycp:161 include/sound/ui.ycp:166 include/sound/ui.ycp:342
+#: src/lib/y2partitioner/dialogs/lvm_lv_info.rb:136
+#, fuzzy
+#| msgid "&Volume"
+msgid "Thin Volume"
+msgstr "&Ses seviyesi..."
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/dialogs/partition_role.rb:47
+#: src/lib/y2partitioner/dialogs/lvm_lv_info.rb:175
+#, fuzzy
+#| msgid "Used by"
+msgid "Used Pool"
+msgstr "Kullanan"
+
+# include/partitioning/custom_part_dialogs.ycp:348 include/partitioning/lvm_ui_lib.ycp:353
+#. @macro seeAbstractWidget
+#. @macro seeAbstractWidget
+#. @macro seeAbstractWidget
+#. @macro seeAbstractWidget
+#. TRANSLATORS: table header, size of block device e.g. "8.00 GiB"
+#: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:69
+#: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:145
+#: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:262
+#: src/lib/y2partitioner/dialogs/partition_size.rb:160
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:93
+msgid "Size"
+msgstr "Büyüklük"
+
+#. TRANSLATORS: %s is a size like '15.00 GiB'
+#: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:75
+#, fuzzy
+msgid "Maximum Size (%s)"
+msgstr "En yüksek &boyut (MB)"
+
+#: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:78
+#: src/lib/y2partitioner/dialogs/partition_size.rb:69
+#, fuzzy
+msgid "Custom Size"
+msgstr " -- Özelleştir"
+
+#. error popup, :min and :max are replaced by sizes
+#: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:161
+#, fuzzy
+msgid "The size entered is invalid. Enter a size between %{min} and %{max}."
+msgstr ""
+"Girilen boyut hatalı.\n"
+"1M ila %1 arası bir boyut girin. Mesela, 40M ya da 1G gibi."
+
+#. @macro seeAbstractWidget
+#. TRANSLATORS: table header, number of LVM LV stripes
+#: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:204
+#: src/lib/y2partitioner/widgets/lvm_devices_table.rb:54
+#, fuzzy
+msgid "Stripes"
+msgstr "Stri&pes"
+
+# include/sound/ui.ycp:335
+#. @macro seeAbstractWidget
+#: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:239
+msgid "Number"
+msgstr "Numara"
+
+# clients/inst_custom_part.ycp:3012
+#. @return [Y2Storage::DeviceGraph] device graph with all changes done in dialog
+#: src/lib/y2partitioner/dialogs/main.rb:24
+msgid "Expert Partitioner"
+msgstr "Uzman bölümlendirme aracı"
+
+#. TRANSLATORS: 'Striping' is a technical term here. Translate only
+#. if you are sure!! If in doubt, leave it in English.
+#: src/lib/y2partitioner/dialogs/md.rb:108
+msgid "RAID &0  (Striping)"
+msgstr "RAID &0  (Striping)"
+
+#. TRANSLATORS: 'Mirroring' is a technical term here. Translate only
+#. if you are sure!! If in doubt, leave it in English.
+#: src/lib/y2partitioner/dialogs/md.rb:111
+msgid "RAID &1  (Mirroring)"
+msgstr "RAID &1  (Mirroring)"
+
+#. TRANSLATORS: 'Redundant Striping' is a technical term here. Translate
+#. only if you are sure!! If in doubt, leave it in English.
+#: src/lib/y2partitioner/dialogs/md.rb:114
+msgid "RAID &5  (Redundant Striping)"
+msgstr "RAID &5  (Redundant Striping)"
+
+#. TRANSLATORS: 'Dual Redundant Striping' is a technical term here.
+#. Translate only if you are sure!! If in doubt, leave it in English.
+#: src/lib/y2partitioner/dialogs/md.rb:117
+#, fuzzy
+msgid "RAID &6  (Dual Redundant Striping)"
+msgstr "RAID &5  (Redundant Striping)"
+
+#. TRANSLATORS: 'Mirroring' and `Striping` are technical terms here.
+#. Translate only if you are sure!! If in doubt, leave it in English.
+#: src/lib/y2partitioner/dialogs/md.rb:120
+#, fuzzy
+msgid "RAID &10  (Mirroring and Striping)"
+msgstr "RAID &1  (Mirroring)"
+
+# include/partitioning/raid_ui.ycp:244
+#. Items for the RadioButtonGroup
+#. TRANSLATORS: table header, type of md raid.
+#: src/lib/y2partitioner/dialogs/md.rb:136
+#: src/lib/y2partitioner/widgets/md_raids_table.rb:46
+#, fuzzy
+#| msgid "RAID T&ype"
+msgid "RAID Type"
+msgstr "RAID &Tipi"
+
+#. @macro seeAbstractWidget
+#: src/lib/y2partitioner/dialogs/md.rb:153
+msgid "Raid &Name (optional)"
+msgstr ""
+
+# include/cups/ui.ycp:1473 include/cups/ui.ycp:1487
+#. TRANSLATORS: raid_level is a RAID level (e.g. RAID10); min is a number
+#: src/lib/y2partitioner/dialogs/md.rb:223
+#, fuzzy
+msgid "For %{raid_level}, select at least %{min} devices."
+msgstr "En azından bir öğe seçmelisiniz."
+
+#. @param controller [Actions::Controllers::Md]
+#. TRANSLATORS: table header, chunk size of md raid
+#: src/lib/y2partitioner/dialogs/md_options.rb:48
+#: src/lib/y2partitioner/widgets/md_raids_table.rb:51
+#, fuzzy
+msgid "Chunk Size"
+msgstr "C&hunk büyüklüğü (KB olarak)"
+
+# classnames.ycp:63 classnames.ycp:66
+#. @param controller [Actions::Controllers::Md]
+#: src/lib/y2partitioner/dialogs/md_options.rb:86
+#, fuzzy
+msgid "Parity Algorithm"
+msgstr "Şifreleme yöntemleri"
+
+#. @macro seeAbstractWidget
+#: src/lib/y2partitioner/dialogs/partition_role.rb:49
 msgid "Role"
 msgstr ""
 
 # clients/inst_resize_ui.ycp:607
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/dialogs/partition_role.rb:52
+#: src/lib/y2partitioner/dialogs/partition_role.rb:54
 #, fuzzy
 msgid "<p>Choose the role of the device.</p>"
 msgstr ""
@@ -130,72 +384,49 @@ msgstr ""
 "</p>"
 
 # include/nfs/ui.ycp:88
-#: src/lib/y2partitioner/dialogs/partition_role.rb:57
+#: src/lib/y2partitioner/dialogs/partition_role.rb:59
 #, fuzzy
 msgid "Operating System"
 msgstr "&Dosya sistemi oluştur"
 
-#: src/lib/y2partitioner/dialogs/partition_role.rb:58
+#: src/lib/y2partitioner/dialogs/partition_role.rb:60
 msgid "Data and ISV Applications"
 msgstr ""
 
-#: src/lib/y2partitioner/dialogs/partition_role.rb:59
+#: src/lib/y2partitioner/dialogs/partition_role.rb:61
 msgid "Swap"
 msgstr ""
 
 # include/cups/ui.ycp:1525
-#: src/lib/y2partitioner/dialogs/partition_role.rb:60
+#: src/lib/y2partitioner/dialogs/partition_role.rb:62
 #, fuzzy
 msgid "EFI Boot Partition"
 msgstr "Bölümün boyutu."
 
-#: src/lib/y2partitioner/dialogs/partition_role.rb:61
+#: src/lib/y2partitioner/dialogs/partition_role.rb:63
 msgid "Raw Volume (unformatted)"
 msgstr ""
 
 # menuentries/menuentry_disk.ycp:27
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/dialogs/partition_size.rb:162
+#: src/lib/y2partitioner/dialogs/partition_size.rb:61
 #, fuzzy
 msgid "New Partition Size"
 msgstr "Bölüm 1"
 
-#: src/lib/y2partitioner/dialogs/partition_size.rb:166
+#: src/lib/y2partitioner/dialogs/partition_size.rb:65
 #, fuzzy
 msgid "Maximum Size (%1)"
 msgstr "En yüksek &boyut (MB)"
 
-#: src/lib/y2partitioner/dialogs/partition_size.rb:170
-#, fuzzy
-msgid "Custom Size"
-msgstr " -- Özelleştir"
-
 # include/security/ui.ycp:417
-#: src/lib/y2partitioner/dialogs/partition_size.rb:171
+#: src/lib/y2partitioner/dialogs/partition_size.rb:70
 #, fuzzy
 msgid "Custom Region"
 msgstr "Özel dizge"
 
-# include/partitioning/custom_part_dialogs.ycp:348 include/partitioning/lvm_ui_lib.ycp:353
-#. @macro seeAbstractWidget
-#. TRANSLATORS: table header, size of block device e.g. "8.00 GiB"
-#. TRANSLATORS: table header, size of block device e.g. "8.00 GiB"
-#. TRANSLATORS: table header, size of block device e.g. "8.00 GiB"
-#. TRANSLATORS: table header, size of block device e.g. "8.00 GiB"
-#. TRANSLATORS: table header, size of block device e.g. "8.00 GiB"
-#. TRANSLATORS: table header, size of block device e.g. "8.00 GiB"
-#: src/lib/y2partitioner/dialogs/partition_size.rb:261
-#: src/lib/y2partitioner/widgets/btrfs_table.rb:93
-#: src/lib/y2partitioner/widgets/disk_table.rb:55
-#: src/lib/y2partitioner/widgets/lvm_lv_table.rb:54
-#: src/lib/y2partitioner/widgets/lvm_table.rb:54
-#: src/lib/y2partitioner/widgets/md_raid_table.rb:58
-#: src/lib/y2partitioner/widgets/used_devices_table.rb:50
-msgid "Size"
-msgstr "Büyüklük"
-
 #. error popup, %1 and %2 are replaced by sizes
-#: src/lib/y2partitioner/dialogs/partition_size.rb:284
+#: src/lib/y2partitioner/dialogs/partition_size.rb:184
 #, fuzzy
 msgid "The size entered is invalid. Enter a size between %1 and %2."
 msgstr ""
@@ -204,14 +435,14 @@ msgstr ""
 
 # clients/inst_custom_part.ycp:2930
 #. FIXME: libyui widget overflow :-(
-#: src/lib/y2partitioner/dialogs/partition_size.rb:337
+#: src/lib/y2partitioner/dialogs/partition_size.rb:235
 #, fuzzy
 #| msgid "Start"
 msgid "Start Block"
 msgstr "Başlangıç"
 
 # clients/inst_custom_part.ycp:2932
-#: src/lib/y2partitioner/dialogs/partition_size.rb:338
+#: src/lib/y2partitioner/dialogs/partition_size.rb:236
 #, fuzzy
 #| msgid "End "
 msgid "End Block"
@@ -219,7 +450,7 @@ msgstr "Bitiş"
 
 #. TODO: a better description why
 #. error popup
-#: src/lib/y2partitioner/dialogs/partition_size.rb:367
+#: src/lib/y2partitioner/dialogs/partition_size.rb:265
 #, fuzzy
 msgid "The region entered is invalid."
 msgstr "Girilmiş MAC adresi geçersiz."
@@ -264,20 +495,6 @@ msgstr "&Genişletilmiş bölüm"
 #, fuzzy
 msgid "&Logical Partition"
 msgstr "&Mantıksal bölüm"
-
-# clients/inst_custom_part.ycp:3159
-#. FIXME: move to Wizard
-#: src/lib/y2partitioner/sequences/add_partition.rb:81
-#, fuzzy
-msgid "It is not possible to create a partition on %1."
-msgstr "%1 üzerinde yeni bir bölüm oluşturmak olanaksız."
-
-# clients/inst_custom_part.ycp:2587
-#. FIXME: move to Wizard
-#: src/lib/y2partitioner/sequences/edit_blk_device.rb:54
-#, fuzzy
-msgid "An extended partition cannot be edited"
-msgstr "Genişletilmiş bir bölüm zaten var."
 
 # include/partitioning/lvm_ui_lib.ycp:351
 #. TRANSLATORS: here device stands for kernel path to device
@@ -373,66 +590,110 @@ msgstr "&Bağlama noktası:"
 msgid "Label: %s"
 msgstr "Etiket"
 
-# clients/inst_source.ycp:186
-#. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/blk_devices_page.rb:22
-#, fuzzy
-msgid "Hard Disks"
-msgstr "Sabit disk"
+#. TRANSLATORS: "F" stands for Format flag. Keep it short, ideally a single letter.
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:60
+msgid "F"
+msgstr ""
 
-# clients/inst_source.ycp:186
-#. TRANSLATORS: Heading. String followed by name of partition
-#: src/lib/y2partitioner/widgets/blk_devices_page.rb:36
+# clients/inst_custom_part.ycp:2918
+#. TRANSLATORS: table header, Device is physical name of block device, e.g. "/dev/sda1"
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:88
+msgid "Device"
+msgstr "Aygıt"
+
+# clients/inst_custom_part.ycp:2932
+#. TRANSLATORS: table header, flag if device is encrypted. Keep it short,
+#. ideally three letters. Keep in sync with Enc used later for format marker.
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:103
 #, fuzzy
-msgid "Hard Disks "
-msgstr "Sabit disk"
+msgid "Enc"
+msgstr "Bitiş"
+
+# clients/hwinfo.ycp:88
+#. TRANSLATORS: table header, file system type
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:113
+#, fuzzy
+msgid "FS Type"
+msgstr "USB türü"
+
+#. TRANSLATORS: table header, disk or partition label. Can be empty.
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:118
+msgid "Label"
+msgstr "Etiket"
+
+# include/partitioning/custom_part_dialogs.ycp:454 include/partitioning/lvm_ui_dialogs.ycp:153
+#. TRANSLATORS: table header, where is device mounted. Can be empty. E.g. "/" or "/home"
+#. Synchronize the widget with the information from the controller
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:123
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:432
+msgid "Mount Point"
+msgstr "Bağlanma Noktası"
+
+# clients/inst_custom_part.ycp:2930
+#. TRANSLATORS: table header, which sector is the first one for device. E.g. "0"
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:128
+msgid "Start"
+msgstr "Başlangıç"
+
+# clients/inst_custom_part.ycp:2932
+#. TRANSLATORS: table header, which sector is the the last for device. E.g. "126"
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:133
+msgid "End"
+msgstr "Bitiş"
 
 #. @see CWM::PushButton#Label
-#. Constructor
-#.
-#. @param disk [Y2Storage::Disk]
-#. @param table [Y2Partitioner::Widgets::BlkDevicesTable]
-#. do we need this in every little tiny class?
 #: src/lib/y2partitioner/widgets/btrfs_edit_button.rb:21
-#: src/lib/y2partitioner/widgets/disk_page.rb:104
-#: src/lib/y2partitioner/widgets/partition_page.rb:26
 msgid "Edit..."
 msgstr "Düzenle..."
 
 # clients/sound_options.ycp:183
-#. Opens a dialog to manage the list of subvolumes. In case of there is no
-#. selected table row, it shows an error.
-#: src/lib/y2partitioner/widgets/btrfs_edit_button.rb:30
+#. Opens a dialog to manage the list of subvolumes of the selected device
+#.
+#. @note In case of there is no selected table row, it shows an error.
+#: src/lib/y2partitioner/widgets/btrfs_edit_button.rb:31
 #, fuzzy
 msgid "There is no filesystem selected to edit."
 msgstr "Bu modül için seçenek yok."
 
-#. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/btrfs_page.rb:17
-msgid "Btrfs"
-msgstr ""
-
-# include/partitioning/lvm_ui_dialogs.ycp:81
-#. TRANSLATORS: Heading
-#: src/lib/y2partitioner/widgets/btrfs_page.rb:32
+#. FIXME: The help handle does not work without wizard
+#.
+#. This handle should belongs to the dialog
+#. @see Dialogs::BtrfsSubvolumes
+#: src/lib/y2partitioner/widgets/btrfs_subvolumes.rb:49
 #, fuzzy
-msgid "Btrfs Volumes"
-msgstr "Mantıksal yığın boyutu değiştir"
+msgid "<p>Create and remove subvolumes from a Btrfs filesystem.</p>\n"
+msgstr ""
+"<p>\n"
+"Dosya sistemi şifreleme parolanızı girmeniz gerekecek.\n"
+"</p>"
 
 # include/ui/wizard_hw.ycp:122
-#. @param table [Widgets::BtrfsSubvolumesTable]
-#. Y2Storage::Disk
-#: src/lib/y2partitioner/widgets/btrfs_subvolumes_add_button.rb:22
-#: src/lib/y2partitioner/widgets/disk_page.rb:82
+#. TRANSLATORS: button label to add a btrfs subvolume
+#. TRANSLATORS: button label to add a volume group or logical volume
+#. TRANSLATORS: button label to add a logical volume
+#. Constructor
+#.
+#. @param disk [Y2Storage::BlkDevice]
+#. @param table [ConfigurableBlkDevicesTable]
+#: src/lib/y2partitioner/widgets/btrfs_subvolumes_add_button.rb:44
+#: src/lib/y2partitioner/widgets/lvm_add_button.rb:43
+#: src/lib/y2partitioner/widgets/lvm_lv_add_button.rb:40
+#: src/lib/y2partitioner/widgets/pages/disk.rb:181
 #, fuzzy
 msgid "Add..."
 msgstr "E&kle..."
 
-#. Widget label
-#. @param device
-#. @param table [Y2Partitioner::Widgets::BlkDevicesTable]
-#: src/lib/y2partitioner/widgets/btrfs_subvolumes_delete_button.rb:23
-#: src/lib/y2partitioner/widgets/delete_disk_partition_button.rb:25
+#
+#. Shows a dialog to create a new subvolume
+#.
+#. The table is refreshed when a new subvolume is created
+#: src/lib/y2partitioner/widgets/btrfs_subvolumes_add_button.rb:62
+#, fuzzy
+msgid "Mount point %s is shadowed."
+msgstr "&Bağlama noktası:"
+
+#. TRANSLATORS: button label to delete a btrfs subvolume
+#: src/lib/y2partitioner/widgets/btrfs_subvolumes_delete_button.rb:46
 #, fuzzy
 msgid "Delete..."
 msgstr "Silinecek"
@@ -441,13 +702,13 @@ msgstr "Silinecek"
 #.
 #. A confirmation popup is showed before deleting the subvolume.
 #. An error message is presented when there is no selected table row.
-#: src/lib/y2partitioner/widgets/btrfs_subvolumes_delete_button.rb:34
+#: src/lib/y2partitioner/widgets/btrfs_subvolumes_delete_button.rb:57
 #, fuzzy
 msgid "Nothing selected"
 msgstr "Açılış seçimi yapılmadı."
 
 #. TRANSLATORS: %s is the path of the subvolume to be deleted
-#: src/lib/y2partitioner/widgets/btrfs_subvolumes_delete_button.rb:38
+#: src/lib/y2partitioner/widgets/btrfs_subvolumes_delete_button.rb:61
 #, fuzzy
 #| msgid "Really delete %1?"
 msgid "Really delete subvolume %s?"
@@ -479,170 +740,75 @@ msgid ""
 msgstr ""
 
 # include/scanner/scanner_overview.ycp:73
-#. Table help
-#.
-#. Shows help of all columns
-#: src/lib/y2partitioner/widgets/btrfs_table.rb:45
+#. @macro seeAbstractWidget
+#. @see #columns_help
+#: src/lib/y2partitioner/widgets/configurable_blk_devices_table.rb:108
 #, fuzzy
-msgid "<p>This view shows all Btrfs filesystems.</p><p>The table contains:</p>"
+msgid "<p>This view shows storage devices.</p><p>The overview contains:</p>"
 msgstr ""
 "<p>Bu genel bakış penceresi\n"
 "kurulu tarayıcıları gösterir.</p>"
 
-# clients/inst_custom_part.ycp:2918
-#. TRANSLATORS: table header, Device is physical name of block device, e.g. "/dev/sda1"
-#. TRANSLATORS: table header, Device is physical name of block device
-#. like partition or disk e.g. "/dev/sda1"
-#. TRANSLATORS: table header, Device is physical name of block device
-#. like partition or disk e.g. "/dev/sda1"
-#. TRANSLATORS: table header, Device is physical name of block device
-#. like partition or disk e.g. "/dev/sda1"
-#. TRANSLATORS: table header, Device is physical name of block device
-#. like partition or disk e.g. "/dev/sda1"
-#. TRANSLATORS: table header, Device is physical name of block device
-#. like partition or disk e.g. "/dev/sda1"
-#: src/lib/y2partitioner/widgets/btrfs_table.rb:88
-#: src/lib/y2partitioner/widgets/disk_table.rb:53
-#: src/lib/y2partitioner/widgets/lvm_lv_table.rb:52
-#: src/lib/y2partitioner/widgets/lvm_table.rb:52
-#: src/lib/y2partitioner/widgets/md_raid_table.rb:56
-#: src/lib/y2partitioner/widgets/used_devices_table.rb:48
-msgid "Device"
-msgstr "Aygıt"
-
-# clients/inst_custom_part.ycp:2932
-#. TRANSLATORS: table header, flag if device is encrypted. Keep it short,
-#. ideally three letters. Keep in sync with Enc used later for format marker.
-#. TRANSLATORS: table header, flag if device is encrypted. Keep it short,
-#. ideally three letters. Keep in sync with Enc used later for format marker.
-#. TRANSLATORS: table header, flag if device is encrypted. Keep it short,
-#. ideally three letters. Keep in sync with Enc used later for format marker.
-#. TRANSLATORS: table header, flag if device is encrypted. Keep it short,
-#. ideally three letters. Keep in sync with Enc used later for format marker.
-#. TRANSLATORS: table header, flag if device is encrypted. Keep it short,
-#. ideally three letters. Keep in sync with Enc used later for format marker.
-#. TRANSLATORS: table header, flag if device is encrypted. Keep it short,
-#. ideally three letters. Keep in sync with Enc used later for format marker.
-#: src/lib/y2partitioner/widgets/btrfs_table.rb:105
-#: src/lib/y2partitioner/widgets/disk_table.rb:59
-#: src/lib/y2partitioner/widgets/lvm_lv_table.rb:58
-#: src/lib/y2partitioner/widgets/lvm_table.rb:58
-#: src/lib/y2partitioner/widgets/md_raid_table.rb:62
-#: src/lib/y2partitioner/widgets/used_devices_table.rb:54
-#, fuzzy
-msgid "Enc"
-msgstr "Bitiş"
-
-# clients/inst_custom_part.ycp:2926
-#. TRANSLATORS: table header, type of disk or partition. Can be longer. E.g. "Linux swap"
-#. TRANSLATORS: table header, type of disk or partition. Can be longer. E.g. "Linux swap"
-#. TRANSLATORS: table header, type of disk or partition. Can be longer. E.g. "Linux swap"
-#. TRANSLATORS: table header, type of disk or partition. Can be longer. E.g. "Linux swap"
-#. TRANSLATORS: table header, type of disk or partition. Can be longer. E.g. "Linux swap"
-#. TRANSLATORS: table header, type of disk or partition. Can be longer. E.g. "Linux swap"
-#: src/lib/y2partitioner/widgets/btrfs_table.rb:110
-#: src/lib/y2partitioner/widgets/disk_table.rb:61
-#: src/lib/y2partitioner/widgets/lvm_lv_table.rb:60
-#: src/lib/y2partitioner/widgets/lvm_table.rb:60
-#: src/lib/y2partitioner/widgets/md_raid_table.rb:64
-#: src/lib/y2partitioner/widgets/used_devices_table.rb:56
-msgid "Type"
-msgstr "Tip"
-
-# clients/hwinfo.ycp:88
-#. TRANSLATORS: table header, Files system type. In this case "BtrFS"
-#. TRANSLATORS: table header, Files system type. Can be empty E.g. "BtrFS"
-#. TRANSLATORS: table header, Files system type. Can be empty E.g. "BtrFS"
-#. TRANSLATORS: table header, Files system type. Can be empty E.g. "BtrFS"
-#. TRANSLATORS: table header, Files system type. Can be empty E.g. "BtrFS"
-#: src/lib/y2partitioner/widgets/btrfs_table.rb:115
-#: src/lib/y2partitioner/widgets/disk_table.rb:63
-#: src/lib/y2partitioner/widgets/lvm_lv_table.rb:62
-#: src/lib/y2partitioner/widgets/lvm_table.rb:62
-#: src/lib/y2partitioner/widgets/md_raid_table.rb:66
-#, fuzzy
-msgid "FS Type"
-msgstr "USB türü"
-
-#. TRANSLATORS: table header, disk or partition label. Can be empty.
-#. TRANSLATORS: table header, disk or partition label. Can be empty.
-#. TRANSLATORS: table header, disk or partition label. Can be empty.
-#. TRANSLATORS: table header, disk or partition label. Can be empty.
-#. TRANSLATORS: table header, disk or partition label. Can be empty.
-#: src/lib/y2partitioner/widgets/btrfs_table.rb:120
-#: src/lib/y2partitioner/widgets/disk_table.rb:65
-#: src/lib/y2partitioner/widgets/lvm_lv_table.rb:64
-#: src/lib/y2partitioner/widgets/lvm_table.rb:64
-#: src/lib/y2partitioner/widgets/md_raid_table.rb:68
-msgid "Label"
-msgstr "Etiket"
-
-# include/partitioning/custom_part_dialogs.ycp:454 include/partitioning/lvm_ui_dialogs.ycp:153
-#. TRANSLATORS: table header, where is device mounted. Can be empty. E.g. "/" or "/home"
-#. TRANSLATORS: table header, where is device mounted. Can be empty. E.g. "/" or "/home"
-#. MountPoint selector
-#. FIXME: Implement validate, verifying if the mount_point is in use.
-#. TRANSLATORS: table header, where is device mounted. Can be empty. E.g. "/" or "/home"
-#. TRANSLATORS: table header, where is device mounted. Can be empty. E.g. "/" or "/home"
-#. TRANSLATORS: table header, where is device mounted. Can be empty. E.g. "/" or "/home"
-#: src/lib/y2partitioner/widgets/btrfs_table.rb:125
-#: src/lib/y2partitioner/widgets/disk_table.rb:67
-#: src/lib/y2partitioner/widgets/format_and_mount.rb:321
-#: src/lib/y2partitioner/widgets/lvm_lv_table.rb:66
-#: src/lib/y2partitioner/widgets/lvm_table.rb:66
-#: src/lib/y2partitioner/widgets/md_raid_table.rb:70
-msgid "Mount Point"
-msgstr "Bağlanma Noktası"
-
-#: src/lib/y2partitioner/widgets/delete_disk_partition_button.rb:32
+#. Checks whether there is a device on which to act
+#.
+#. @note An error popup is shown when there is no device.
+#.
+#. @return [Boolean]
+#. @param event [Hash] UI event
+#: src/lib/y2partitioner/widgets/device_button.rb:79
+#: src/lib/y2partitioner/widgets/lvm_add_button.rb:77
 #, fuzzy
 msgid "No device selected"
 msgstr "Bir ad sunucusu seçilmemiş."
 
-#. TRANSLATORS %s is device to be deleted
-#: src/lib/y2partitioner/widgets/delete_disk_partition_button.rb:58
+#. TRANSLATORS: %s is a disk size. E.g. "10.5 GiB"
+#: src/lib/y2partitioner/widgets/devices_selection.rb:123
 #, fuzzy
-#| msgid "Really delete %1?"
-msgid "Really delete %s?"
-msgstr "%1 silinsin mi?"
+msgid "Resulting size: %s"
+msgstr "Aygıt siliniyor: %1"
 
-#
-#: src/lib/y2partitioner/widgets/delete_disk_partition_button.rb:63
+#. TRANSLATORS: %s is a disk size. E.g. "10.5 GiB"
+#: src/lib/y2partitioner/widgets/devices_selection.rb:127
 #, fuzzy
-msgid "Confirm Deleting of All Partitions"
-msgstr "Tüm bölümler sisteme bağlanıyor..."
+msgid "Total size: %s"
+msgstr "Tüm boyut: "
 
-# clients/inst_lvm_pv.ycp:233 clients/lvm_config_ui.ycp:277
-#. TRANSLATORS: type stands for type of device and name is its identifier
-#: src/lib/y2partitioner/widgets/delete_disk_partition_button.rb:65
+#: src/lib/y2partitioner/widgets/devices_selection.rb:134
 #, fuzzy
-msgid ""
-"The %{type} \"%{name}\" contains at least one another device.\n"
-"If you proceed, the following devices will be deleted:"
-msgstr ""
-"\"%1\" yığın grubu en azından bir adet mantıksal yığın içeriyor, bu\n"
-"yüzden silinmesi mümkün değildir. Önce tüm mantıksal\n"
-"yığınları, ardından yığın grubunu silin.\n"
+msgid "Selected Devices:"
+msgstr "Seçili IDE aygıtı"
 
-#: src/lib/y2partitioner/widgets/delete_disk_partition_button.rb:68
-msgid "disk"
-msgstr ""
+#: src/lib/y2partitioner/widgets/devices_selection.rb:138
+msgid "Available Devices:"
+msgstr "Mevcut aygıtlar:"
 
-# clients/inst_sw_single.ycp:1539
-#: src/lib/y2partitioner/widgets/delete_disk_partition_button.rb:68
+#. push button text
+#: src/lib/y2partitioner/widgets/devices_selection.rb:147
+msgid "Add"
+msgstr "Ekle"
+
+#. push button text
+#: src/lib/y2partitioner/widgets/devices_selection.rb:153
 #, fuzzy
-#| msgid "Partition"
-msgid "partition"
-msgstr "Bölüm"
+msgid "Add All"
+msgstr "RAID &ekle"
 
-#: src/lib/y2partitioner/widgets/delete_disk_partition_button.rb:69
+# clients/hwinfo.ycp:55
+#. push button text
+#: src/lib/y2partitioner/widgets/devices_selection.rb:160
+msgid "Remove"
+msgstr "Kaldır"
+
+# clients/hwinfo.ycp:55
+#. push button text
+#: src/lib/y2partitioner/widgets/devices_selection.rb:166
 #, fuzzy
-msgid "Really delete all devices on \"%s\"?"
-msgstr "%1 silinsin mi?"
+msgid "Remove All"
+msgstr "Kaldır"
 
 #. @return [Array<Array(Y2Storage::Region,String)>]
 #. regions with labels, sorted by region start
-#: src/lib/y2partitioner/widgets/disk_bar_graph.rb:19
+#: src/lib/y2partitioner/widgets/disk_bar_graph.rb:16
 #, fuzzy
 msgid "Unpartitioned"
 msgstr "bölümlendirme başarısız oldu."
@@ -722,55 +888,6 @@ msgstr "Peer: %1"
 msgid "Disk Label: %s"
 msgstr "Disk kullanımı"
 
-# clients/inst_source.ycp:186
-#. @macro seeCustomWidget
-#: src/lib/y2partitioner/widgets/disk_page.rb:41
-#, fuzzy
-msgid "Hard Disk: %s"
-msgstr "Sabit disk: "
-
-# clients/support_send.ycp:18
-#. @macro seeAbstractWidget
-#. @macro seeAbstractWidget
-#. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/disk_page.rb:61
-#: src/lib/y2partitioner/widgets/lvm_vg_page.rb:55
-#: src/lib/y2partitioner/widgets/md_raid_page.rb:56
-msgid "&Overview"
-msgstr "&Genel görünüm"
-
-# clients/sound_options.ycp:183
-#: src/lib/y2partitioner/widgets/disk_page.rb:109
-#, fuzzy
-msgid "There are no partitions to edit."
-msgstr "Bu modül için seçenek yok."
-
-# clients/inst_sw_single.ycp:1539
-#. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/disk_page.rb:141
-#, fuzzy
-msgid "&Partitions"
-msgstr "Bölüm"
-
-# clients/inst_custom_part.ycp:2930
-#. TRANSLATORS: table header, which sector is the first one for device. E.g. "0"
-#: src/lib/y2partitioner/widgets/disk_table.rb:69
-msgid "Start"
-msgstr "Başlangıç"
-
-# clients/inst_custom_part.ycp:2932
-#. TRANSLATORS: table header, which sector is the the last for device. E.g. "126"
-#: src/lib/y2partitioner/widgets/disk_table.rb:71
-msgid "End"
-msgstr "Bitiş"
-
-#. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/disk_table.rb:79
-msgid ""
-"<p>This view shows hard disks and its partitions.</p><p>The overview "
-"contains:</p>"
-msgstr ""
-
 #. help text for cryptofs
 #: src/lib/y2partitioner/widgets/encrypt_password.rb:17
 #, fuzzy
@@ -824,9 +941,8 @@ msgid "Reenter the Password for &Verification:"
 msgstr "Kontrol için parolanızı tekrar &giriniz:"
 
 # include/partitioning/custom_part_helptexts.ycp:89
-#. It disable the format option if the current filesystem is not
-#. formattable or the selected partition does not allow format
-#: src/lib/y2partitioner/widgets/format_and_mount.rb:66
+#. @macro seeAbstractWidget
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:82
 #, fuzzy
 msgid ""
 "<p>First, choose whether the partition should be\n"
@@ -835,7 +951,7 @@ msgstr ""
 "<p>Önce bölüm türünü ve bölümün biçimlendirilip biçimlendirilmeyeceğini "
 "seçiniz.</p>"
 
-#: src/lib/y2partitioner/widgets/format_and_mount.rb:70
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:86
 msgid ""
 "<p>If you want to encrypt all data on the\n"
 "volume, select <b>Encrypt Device</b>. Changing the encryption on an "
@@ -844,20 +960,20 @@ msgid ""
 msgstr ""
 
 # include/partitioning/custom_part_helptexts.ycp:91
-#: src/lib/y2partitioner/widgets/format_and_mount.rb:76
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:92
 #, fuzzy
 msgid ""
 "<p>Then, choose whether the partition should\n"
 "be mounted and enter the mount point (/, /boot, /home, /var, etc.).</p>"
 msgstr "<p>Sonra bağlama noktasını giriniz ( /, /boot, /usr, /var.. gibi)</p>"
 
-#: src/lib/y2partitioner/widgets/format_and_mount.rb:86
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:102
 #, fuzzy
 msgid "Formatting Options"
 msgstr "Kayıt tutma ayarları"
 
 #
-#: src/lib/y2partitioner/widgets/format_and_mount.rb:94
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:110
 #, fuzzy
 #| msgid "Format"
 msgid "Format device"
@@ -865,128 +981,170 @@ msgstr "Biçimlendir"
 
 #
 # clients/inst_custom_part.ycp:1499
-#: src/lib/y2partitioner/widgets/format_and_mount.rb:102
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:118
 #, fuzzy
 #| msgid "Do &not format"
 msgid "Do not format device"
 msgstr "B&içimlendirme"
 
 # include/nfs/ui.ycp:228
-#. Mount options for {Y2Storage::BlkDevice}
-#: src/lib/y2partitioner/widgets/format_and_mount.rb:182
+#. Synchronize the widget with the information from the controller
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:206
 #, fuzzy
 msgid "Mounting Options"
 msgstr "Bağlama Seçenekleri"
 
 # include/partitioning/lvm_ui_lib.ycp:351
-#: src/lib/y2partitioner/widgets/format_and_mount.rb:190
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:214
 #, fuzzy
 msgid "Mount device"
 msgstr "Aygıt URI: %1"
 
 # clients/inst_sw_single.ycp:1539
-#: src/lib/y2partitioner/widgets/format_and_mount.rb:198
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:222
 #, fuzzy
 msgid "Do not mount device"
 msgstr "bölüm"
 
 # include/partitioning/custom_part_dialogs.ycp:288
-#. BlkDevice Filesystem selector
-#: src/lib/y2partitioner/widgets/format_and_mount.rb:263
+#. Synchronize the widget with the information from the controller
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:308
 #, fuzzy
 #| msgid "File &system"
 msgid "Filesystem"
 msgstr "Dosya &sistemi"
 
-#. Push Button that launches a dialog to set speficic options for the
-#. selected filesystem
-#: src/lib/y2partitioner/widgets/format_and_mount.rb:297
+#. @macro seeAbstractWidget
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:372
 #, fuzzy
 msgid "Options..."
 msgstr "&Seçenekler..."
 
-#. Encryption selector
-#: src/lib/y2partitioner/widgets/format_and_mount.rb:346
+#. @param controller [Actions::Controllers::Filesystem]
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:391
+#: src/lib/y2storage/dialogs/guided_setup/select_filesystem.rb:73
+msgid "Enable Snapshots"
+msgstr ""
+
+# include/nfs/routines.ycp:162
+#. Validates not empty mount point
+#. An error popup is shown when an empty mount point is entered.
+#.
+#. @return [Boolean] true if mount point is not empty
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:463
+#, fuzzy
+#| msgid "Empty options string not allowed!"
+msgid "Empty mount point not allowed."
+msgstr "Seçenekler bölümüne boş girdi yapılamaz!"
+
+# include/partitioning/partition_defines.ycp:91
+#. Validates that mount point is unique in the whole system
+#. An error popup is shown when the mount point already exists.
+#.
+#. @see #duplicated_mount_point?
+#.
+#. @return [Boolean] true if mount point is unique
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:476
+msgid "This mount point is already in use. Select a different one."
+msgstr "Bu bağlama noktası kullanımda, başka bir bağlama noktası seçin."
+
+#. Validates that the mount point does not shadow a subvolume that cannot be auto deleted
+#. An error popup is shown when a subvolume is shadowed by the mount point.
+#.
+#. @return [Boolean] true if mount point does not shadow a subvolume
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:491
+msgid "The Btrfs subvolume mounted at %s is shadowed."
+msgstr ""
+
+#. @param controller [Actions::Controllers::Filesystem]
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:587
+#, fuzzy
+#| msgid "Signature Handling"
+msgid "Subvolume Handling"
+msgstr "İmza işlemesi"
+
+#. @param controller [Actions::Controllers::Filesystem]
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:605
 #, fuzzy
 msgid "Encrypt Device"
 msgstr "&Şifreleme anahtarı"
 
 # clients/inst_sw_single.ycp:658
 #. Inode Size format option
-#: src/lib/y2partitioner/widgets/format_and_mount.rb:372
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:639
 msgid "&Inode Size"
 msgstr "&Inode boyutu"
 
 # include/partitioning/custom_part_filesystems.ycp:73
 #. Block Size format option
-#: src/lib/y2partitioner/widgets/format_and_mount.rb:389
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:656
 #, fuzzy
 #| msgid "Block &size in bytes"
 msgid "Block &Size in Bytes"
 msgstr "Byte &cinsinden blok boyutu"
 
 # include/partitioning/custom_part_dialogs.ycp:324
-#. FIXME: initialize with the correct value
-#: src/lib/y2partitioner/widgets/format_and_mount.rb:424
+#. Synchronize the widget with the information from the controller
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:739
 msgid "File system &ID:"
 msgstr "Dosya sistemi &tanıtıcısı:"
 
 # include/partitioning/custom_part_dialogs.ycp:290
 #. Push button that launch a dialog for set the fstab options
-#: src/lib/y2partitioner/widgets/fstab_options.rb:77
+#: src/lib/y2partitioner/widgets/fstab_options.rb:82
 #, fuzzy
 msgid "Fstab options..."
 msgstr "Fs&tab ayarları"
 
 # include/partitioning/custom_part_filesystems.ycp:108 include/partitioning/custom_part_filesystems.ycp:148 include/partitioning/custom_part_filesystems.ycp:267 include/partitioning/custom_part_filesystems.ycp:294
 #. Input field to set the partition Label
-#: src/lib/y2partitioner/widgets/fstab_options.rb:145
-#: src/lib/y2partitioner/widgets/fstab_options.rb:183
+#: src/lib/y2partitioner/widgets/fstab_options.rb:150
+#: src/lib/y2partitioner/widgets/fstab_options.rb:188
 msgid "Volume &Label"
 msgstr "&Yığın adı"
 
 #. Group of radio buttons to select the type of identifier to be used for
 #. mouth the specific device (UUID, Label, Path...)
-#: src/lib/y2partitioner/widgets/fstab_options.rb:163
+#: src/lib/y2partitioner/widgets/fstab_options.rb:168
 msgid "Mount in /etc/fstab by"
 msgstr "/etc/fstab içinde bağlama tipi:"
 
 # clients/hwinfo.ycp:48
-#: src/lib/y2partitioner/widgets/fstab_options.rb:182
+#: src/lib/y2partitioner/widgets/fstab_options.rb:187
 msgid "&Device Name"
 msgstr "&Aygıt adı"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:184
+#: src/lib/y2partitioner/widgets/fstab_options.rb:189
 #, fuzzy
 msgid "&UUID"
 msgstr "IDE"
 
 # include/partitioning/lvm_ui_lib.ycp:351
-#: src/lib/y2partitioner/widgets/fstab_options.rb:188
+#: src/lib/y2partitioner/widgets/fstab_options.rb:193
 #, fuzzy
 msgid "Device &ID"
 msgstr "Aygıt  "
 
 # include/partitioning/lvm_ui_lib.ycp:351
-#: src/lib/y2partitioner/widgets/fstab_options.rb:189
+#: src/lib/y2partitioner/widgets/fstab_options.rb:194
 #, fuzzy
 msgid "Device &Path"
 msgstr "Aygıt  "
 
 #. CheckBox to disable the automount option when starting up
-#: src/lib/y2partitioner/widgets/fstab_options.rb:262
+#: src/lib/y2partitioner/widgets/fstab_options.rb:269
 msgid "Do Not Mount at System &Start-up"
 msgstr "&Sistem başlangıcında sisteme bağlama"
 
 #. CheckBox to enable the read only option ("ro")
-#: src/lib/y2partitioner/widgets/fstab_options.rb:272
+#: src/lib/y2partitioner/widgets/fstab_options.rb:279
 #, fuzzy
 #| msgid "Mount &read-only"
 msgid "Mount &Read-Only"
 msgstr "Sadece &okunabilir şekilde bağla"
 
 # include/partitioning/custom_part_filesystems.ycp:113
-#: src/lib/y2partitioner/widgets/fstab_options.rb:276
+#: src/lib/y2partitioner/widgets/fstab_options.rb:283
 #, fuzzy
 msgid ""
 "<p><b>Mount Read-Only:</b>\n"
@@ -999,13 +1157,13 @@ msgstr ""
 "</p>\n"
 
 #. CheckBox to enable the noatime option
-#: src/lib/y2partitioner/widgets/fstab_options.rb:287
+#: src/lib/y2partitioner/widgets/fstab_options.rb:294
 #, fuzzy
 #| msgid "No &access time"
 msgid "No &Access Time"
 msgstr "Erişim zamanı &tutma"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:291
+#: src/lib/y2partitioner/widgets/fstab_options.rb:298
 #, fuzzy
 #| msgid ""
 #| "<p><b>No access time:</b>\n"
@@ -1020,14 +1178,14 @@ msgstr ""
 
 #. CheckBox to enable the user option which means allow to mount the
 #. filesystem by an ordinary user
-#: src/lib/y2partitioner/widgets/fstab_options.rb:302
+#: src/lib/y2partitioner/widgets/fstab_options.rb:309
 #, fuzzy
 #| msgid "Mountable by &user"
 msgid "Mountable by user"
 msgstr "&Kullanıcı tarafından bağlanılabilir"
 
 # include/partitioning/custom_part_filesystems.ycp:113
-#: src/lib/y2partitioner/widgets/fstab_options.rb:306
+#: src/lib/y2partitioner/widgets/fstab_options.rb:313
 msgid ""
 "<p><b>Mountable by User:</b>\n"
 "The file system may be mounted by an ordinary user. Default is false.</p>\n"
@@ -1037,13 +1195,13 @@ msgstr ""
 "Öntanımlı değeri 'kapalı'dır.</p>\n"
 
 #. CheckBox to enable the use of user quotas
-#: src/lib/y2partitioner/widgets/fstab_options.rb:317
+#: src/lib/y2partitioner/widgets/fstab_options.rb:324
 #, fuzzy
 msgid "Enable &Quota Support"
 msgstr "Layer 2 desteğini etkinleştir"
 
 # include/partitioning/custom_part_filesystems.ycp:113
-#: src/lib/y2partitioner/widgets/fstab_options.rb:321
+#: src/lib/y2partitioner/widgets/fstab_options.rb:328
 #, fuzzy
 msgid ""
 "<p><b>Enable Quota Support:</b>\n"
@@ -1055,23 +1213,24 @@ msgstr ""
 "Öntanımlı değeri 'kapalı'dır.</p>\n"
 
 #. ComboBox to specify the journal mode to use by the filesystem
-#: src/lib/y2partitioner/widgets/fstab_options.rb:346
+#: src/lib/y2partitioner/widgets/fstab_options.rb:355
 msgid "Data &Journaling Mode"
 msgstr "Veri &günlüğü tutma modu"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:357
+#. The options can only be modified using BlkDevice#fstab_options=
+#: src/lib/y2partitioner/widgets/fstab_options.rb:367
 msgid "journal"
 msgstr ""
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:358
+#: src/lib/y2partitioner/widgets/fstab_options.rb:368
 msgid "ordered"
 msgstr ""
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:359
+#: src/lib/y2partitioner/widgets/fstab_options.rb:369
 msgid "writeback"
 msgstr ""
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:364
+#: src/lib/y2partitioner/widgets/fstab_options.rb:374
 #, fuzzy
 msgid ""
 "<p><b>Data Journaling Mode:</b>\n"
@@ -1096,13 +1255,13 @@ msgstr ""
 #. attributes
 #.
 #. TODO: FIXME: Pending implementation, currently it is only draw
-#: src/lib/y2partitioner/widgets/fstab_options.rb:385
+#: src/lib/y2partitioner/widgets/fstab_options.rb:395
 msgid "&Access Control Lists (ACL)"
 msgstr "&Erişim kontrol listesi (ACL)"
 
 #
 # clients/inst_custom_part.ycp:2494 clients/inst_custom_part.ycp:2499
-#: src/lib/y2partitioner/widgets/fstab_options.rb:386
+#: src/lib/y2partitioner/widgets/fstab_options.rb:396
 msgid "&Extended User Attributes"
 msgstr "Genişletilmiş kullanıcı &özellikleri"
 
@@ -1112,18 +1271,19 @@ msgstr "Genişletilmiş kullanıcı &özellikleri"
 #. TODO: FIXME: Pending implementation, currently it is only draw, all the options
 #. that it is responsable of should be defined, removing them if not set or
 #. supported by the current filesystem.
-#: src/lib/y2partitioner/widgets/fstab_options.rb:407
+#: src/lib/y2partitioner/widgets/fstab_options.rb:417
 #, fuzzy
 #| msgid "Arbitrary option &value"
 msgid "Arbitrary Option &Value"
 msgstr "İsteğe bağlı &seçenekler"
 
 #. Swap priority
-#: src/lib/y2partitioner/widgets/fstab_options.rb:439
+#: src/lib/y2partitioner/widgets/fstab_options.rb:449
 msgid "Swap &Priority"
 msgstr "Takas alanı önceli&ği"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:449
+#. The options can only be modified using BlkDevice#fstab_options=
+#: src/lib/y2partitioner/widgets/fstab_options.rb:460
 msgid ""
 "<p><b>Swap Priority:</b>\n"
 "Enter the swap priority. Higher numbers mean higher priority.</p>\n"
@@ -1132,12 +1292,12 @@ msgstr ""
 "Takas alanının önceliğini girin. Yüksek değerler daha yüksek öncelik "
 "anlamına gelir.</p>\n"
 
-#. VFAT IOCharset
-#: src/lib/y2partitioner/widgets/fstab_options.rb:480
+#. The options can only be modified using BlkDevice#fstab_options=
+#: src/lib/y2partitioner/widgets/fstab_options.rb:492
 msgid "Char&set for file names"
 msgstr "&Dosya isimlerinin karakter seti"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:484
+#: src/lib/y2partitioner/widgets/fstab_options.rb:496
 msgid ""
 "<p><b>Charset for File Names:</b>\n"
 "Set the charset used for display of file names in Windows partitions.</p>\n"
@@ -1146,12 +1306,12 @@ msgstr ""
 "Windows bölümlerindeki dosya isimlerinin görüntülenmesinde kullanılacak\n"
 "karakter setini seçiniz.</p>\n"
 
-#. VFAT Codepage
-#: src/lib/y2partitioner/widgets/fstab_options.rb:515
+#. The options can only be modified using BlkDevice#fstab_options=
+#: src/lib/y2partitioner/widgets/fstab_options.rb:529
 msgid "Code&page for short FAT names"
 msgstr "Kısa FAT dosya isimleri için kod s&ayfası"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:519
+#: src/lib/y2partitioner/widgets/fstab_options.rb:533
 msgid ""
 "<p><b>Codepage for Short FAT Names:</b>\n"
 "This codepage is used for converting to shortname characters on FAT file "
@@ -1217,7 +1377,7 @@ msgstr ""
 #: src/lib/y2partitioner/widgets/help.rb:37
 #, fuzzy
 msgid ""
-"<b>End Cylinder</b> shows the end cylinder of\n"
+"<b>End</b> shows the end block of\n"
 "the partition."
 msgstr "Bölümün bitiş silindiri."
 
@@ -1332,7 +1492,7 @@ msgstr "Bölümün başlangıç silindiri."
 #: src/lib/y2partitioner/widgets/help.rb:84
 #, fuzzy
 msgid ""
-"<b>Start Cylinder</b> shows the start cylinder\n"
+"<b>Start</b> shows the start block\n"
 "of the partition."
 msgstr "Bölümün başlangıç silindiri."
 
@@ -1394,9 +1554,24 @@ msgid ""
 "has the <tt>noauto</tt> option set in <tt>/etc/fstab</tt>)."
 msgstr ""
 
+# include/partitioning/lvm_ui_lib.ycp:245
+#. When there is no vg, only shows an option to add a new vg.
+#. Otherwise, options for adding a vg or lv are shown.
+#. @return [Array<[Symbol, String]>] list of menu options
+#: src/lib/y2partitioner/widgets/lvm_add_button.rb:50
+msgid "Volume Group"
+msgstr "Yığın grubu"
+
+# clients/inst_sw_single.ycp:1461 include/slide_show.ycp:264
+#. TRANSLATORS: table header, type of metadata
+#: src/lib/y2partitioner/widgets/lvm_devices_table.rb:49
+#, fuzzy
+msgid "PE Size"
+msgstr " Boyut"
+
 #. TRANSLATORS: first %s is number of LVM stripes
 #. and the second one is for size of stripe
-#: src/lib/y2partitioner/widgets/lvm_lv_attributes.rb:20
+#: src/lib/y2partitioner/widgets/lvm_lv_attributes.rb:41
 msgid "%s (%s)"
 msgstr ""
 
@@ -1423,68 +1598,6 @@ msgstr ""
 msgid "Stripes: %s"
 msgstr "Stri&pes"
 
-# include/partitioning/lvm_ui_dialogs.ycp:98 include/partitioning/lvm_ui_dialogs.ycp:111
-#. TRANSLATORS: Heading. String followed by name of partition
-#: src/lib/y2partitioner/widgets/lvm_lv_page.rb:33
-#, fuzzy
-msgid "Logical Volume: %s"
-msgstr "Mantıksal yığın adı"
-
-#. TRANSLATORS: table header, number of LVM LV stripes
-#. TRANSLATORS: table header, number of LVM LV stripes
-#: src/lib/y2partitioner/widgets/lvm_lv_table.rb:68
-#: src/lib/y2partitioner/widgets/lvm_table.rb:70
-#, fuzzy
-msgid "Stripes"
-msgstr "Stri&pes"
-
-# include/partitioning/lvm_ui_lib.ycp:92
-#. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/lvm_lv_table.rb:76
-#, fuzzy
-msgid ""
-"<p>This view shows all logical volumes of the\n"
-"selected volume group.</p><p>The overview contains:</p>"
-msgstr ""
-"<p><b>Bölüm ekle:</b> Yığın grubuna fiziksel yığın bölümleri ekleme içindir."
-"</p>"
-
-#. @macro seeAbstractWidget
-#. TRANSLATORS: Heading
-#: src/lib/y2partitioner/widgets/lvm_page.rb:19
-#: src/lib/y2partitioner/widgets/lvm_page.rb:32
-#, fuzzy
-msgid "Volume Management"
-msgstr "Profil &yönetimi"
-
-# include/partitioning/lvm_ui_lib.ycp:92
-#. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/lvm_pv_table.rb:33
-#, fuzzy
-msgid ""
-"<p>This view shows all physical volumes used by\n"
-"the selected volume group.</p>"
-msgstr ""
-"<p><b>Bölüm ekle:</b> Yığın grubuna fiziksel yığın bölümleri ekleme içindir."
-"</p>"
-
-# clients/inst_sw_single.ycp:1461 include/slide_show.ycp:264
-#. TRANSLATORS: table header, type of metadata
-#: src/lib/y2partitioner/widgets/lvm_table.rb:68
-#, fuzzy
-msgid "PE Size"
-msgstr " Boyut"
-
-#. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/lvm_table.rb:78
-#, fuzzy
-msgid ""
-"<p>This view shows all LVM volume groups and\n"
-"their logical volumes.</p><p>The overview contains:</p>"
-msgstr ""
-"<p>Bu araç ile mantıksal yığınları oluşturabilir ya da yönetebilirsiniz.\n"
-"</p>\n"
-
 # include/partitioning/lvm_ui_lib.ycp:92
 #. @macro seeAbstractWidget
 #: src/lib/y2partitioner/widgets/lvm_vg_description.rb:27
@@ -1502,27 +1615,6 @@ msgstr ""
 #, fuzzy
 msgid "PE Size: %s"
 msgstr "Boyut %1"
-
-# include/partitioning/lvm_ui_lib.ycp:271
-#. @macro seeCustomWidget
-#: src/lib/y2partitioner/widgets/lvm_vg_page.rb:34
-#, fuzzy
-msgid "Volume Group: %s"
-msgstr " Yığın grubu "
-
-# include/partitioning/lvm_ui_lib.ycp:210
-#. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/lvm_vg_page.rb:75
-#, fuzzy
-msgid "Log&ical Volumes"
-msgstr "Mantıksal yığınlar"
-
-# include/partitioning/lvm_ui_lib.ycp:199
-#. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/lvm_vg_page.rb:97
-#, fuzzy
-msgid "&Physical Volumes"
-msgstr "Fiziksel yığınlar"
 
 # include/partitioning/lvm_ui_lib.ycp:92
 #. @macro seeAbstractWidget
@@ -1564,119 +1656,190 @@ msgstr "Boyut %1"
 msgid "Partity algorithm: %s"
 msgstr "Şifreleme yöntemleri:"
 
-#. @macro seeCustomWidget
-#: src/lib/y2partitioner/widgets/md_raid_page.rb:32
-#, fuzzy
-msgid "RAID: %s"
-msgstr "R&AID:"
-
-#. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/md_raid_page.rb:76
-#, fuzzy
-msgid "&Used Devices"
-msgstr "&Aygıt"
-
-# include/partitioning/raid_ui.ycp:244
-#. TRANSLATORS: table header, type of md raid.
-#: src/lib/y2partitioner/widgets/md_raid_table.rb:72
-#, fuzzy
-#| msgid "RAID T&ype"
-msgid "RAID Type"
-msgstr "RAID &Tipi"
-
-#. TRANSLATORS: table header, chunk size of md raid
-#: src/lib/y2partitioner/widgets/md_raid_table.rb:74
-#, fuzzy
-msgid "Chunk Size"
-msgstr "C&hunk büyüklüğü (KB olarak)"
-
-# include/scanner/scanner_overview.ycp:73
-#. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/md_raid_table.rb:82
-#, fuzzy
-msgid ""
-"<p>This view shows all RAIDs except BIOS RAIDs.</p><p>The overview contains:"
-"</p>"
-msgstr ""
-"<p>Bu genel bakış penceresi\n"
-"kurulu tarayıcıları gösterir.</p>"
-
-#. @macro seeAbstractWidget
-#. TRANSLATORS: Heading
-#: src/lib/y2partitioner/widgets/md_raids_page.rb:21
-#: src/lib/y2partitioner/widgets/md_raids_page.rb:34
-#, fuzzy
-msgid "RAID"
-msgstr "R&AID:"
-
-# include/partitioning/lvm_ui_lib.ycp:92
-#. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/md_used_devices_table.rb:30
-#, fuzzy
-msgid ""
-"<p><p>This view shows all devices used by the\n"
-"selected RAID.</p>"
-msgstr ""
-"<p><b>Bölüm ekle:</b> Yığın grubuna fiziksel yığın bölümleri ekleme içindir."
-"</p>"
-
 # classnames.ycp:136 clients/hwinfo.ycp:86
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/overview.rb:42
+#: src/lib/y2partitioner/widgets/overview.rb:53
 #, fuzzy
 msgid "System View"
 msgstr "Sistem"
 
 # include/partitioning/lvm_ui_lib.ycp:351
 #. TODO: only if there is graph support UI.HasSpecialWidget(:Graph)
-#: src/lib/y2partitioner/widgets/overview.rb:67
+#: src/lib/y2partitioner/widgets/overview.rb:78
 #, fuzzy
 msgid "Device Graph"
 msgstr "Aygıt  "
 
 # clients/inst_custom_part.ycp:2928
 #. TODO: only if there is graph support UI.HasSpecialWidget(:Graph)
-#: src/lib/y2partitioner/widgets/overview.rb:69
+#: src/lib/y2partitioner/widgets/overview.rb:80
 #, fuzzy
 #| msgid " Mount "
 msgid "Mount Graph"
 msgstr "Bağlama noktası"
 
 # clients/online_update_start.ycp:171
-#: src/lib/y2partitioner/widgets/overview.rb:70
+#: src/lib/y2partitioner/widgets/overview.rb:81
 msgid "Installation Summary"
 msgstr "Kurulum Özeti"
 
-#: src/lib/y2partitioner/widgets/overview.rb:71
+#: src/lib/y2partitioner/widgets/overview.rb:82
 msgid "Settings"
 msgstr "Ayarlar"
 
 # include/partitioning/custom_part_dialogs.ycp:292
 #. TODO: real subtree
-#: src/lib/y2partitioner/widgets/overview.rb:151
+#: src/lib/y2partitioner/widgets/overview.rb:184
 #, fuzzy
 msgid "Crypt Files"
 msgstr "Dosya &şifrele..."
 
 # clients/hwinfo.ycp:57
 #. TODO: real subtree
-#: src/lib/y2partitioner/widgets/overview.rb:156
+#: src/lib/y2partitioner/widgets/overview.rb:189
 #, fuzzy
 msgid "Device Mapper"
 msgstr "Aygıt türü"
 
-#: src/lib/y2partitioner/widgets/overview.rb:160
+#: src/lib/y2partitioner/widgets/overview.rb:193
 msgid "NFS"
 msgstr "NFS"
 
-#: src/lib/y2partitioner/widgets/overview.rb:168
+#: src/lib/y2partitioner/widgets/overview.rb:202
 msgid "tmpfs"
 msgstr ""
 
-#: src/lib/y2partitioner/widgets/overview.rb:172
+#: src/lib/y2partitioner/widgets/overview.rb:206
 #, fuzzy
 msgid "Unused Devices"
 msgstr "Yapılandırılmış aygıtlar:"
+
+#. @macro seeAbstractWidget
+#: src/lib/y2partitioner/widgets/pages/btrfs.rb:20
+msgid "Btrfs"
+msgstr ""
+
+# include/partitioning/lvm_ui_dialogs.ycp:81
+#. TRANSLATORS: Heading
+#: src/lib/y2partitioner/widgets/pages/btrfs.rb:33
+#, fuzzy
+msgid "Btrfs Volumes"
+msgstr "Mantıksal yığın boyutu değiştir"
+
+# clients/inst_source.ycp:186
+#. @macro seeCustomWidget
+#: src/lib/y2partitioner/widgets/pages/disk.rb:70
+#, fuzzy
+msgid "Hard Disk: %s"
+msgstr "Sabit disk: "
+
+# clients/support_send.ycp:18
+#. @macro seeAbstractWidget
+#. @macro seeAbstractWidget
+#. @macro seeAbstractWidget
+#: src/lib/y2partitioner/widgets/pages/disk.rb:111
+#: src/lib/y2partitioner/widgets/pages/lvm_vg.rb:94
+#: src/lib/y2partitioner/widgets/pages/md_raid.rb:92
+msgid "&Overview"
+msgstr "&Genel görünüm"
+
+# clients/inst_sw_single.ycp:1539
+#. @macro seeAbstractWidget
+#: src/lib/y2partitioner/widgets/pages/disk.rb:142
+#, fuzzy
+msgid "&Partitions"
+msgstr "Bölüm"
+
+# clients/inst_source.ycp:186
+#. @macro seeAbstractWidget
+#: src/lib/y2partitioner/widgets/pages/disks.rb:47
+#, fuzzy
+msgid "Hard Disks"
+msgstr "Sabit disk"
+
+# clients/inst_source.ycp:186
+#. TRANSLATORS: Heading. String followed by name of partition
+#: src/lib/y2partitioner/widgets/pages/disks.rb:61
+#, fuzzy
+msgid "Hard Disks "
+msgstr "Sabit disk"
+
+#. Label for all the instances
+#.
+#. @see #label
+#.
+#. @return [String]
+#. TRANSLATORS: Heading
+#: src/lib/y2partitioner/widgets/pages/lvm.rb:53
+#: src/lib/y2partitioner/widgets/pages/lvm.rb:71
+#, fuzzy
+msgid "Volume Management"
+msgstr "Profil &yönetimi"
+
+# include/partitioning/lvm_ui_dialogs.ycp:98 include/partitioning/lvm_ui_dialogs.ycp:111
+#. TRANSLATORS: Heading. String followed by name of partition
+#: src/lib/y2partitioner/widgets/pages/lvm_lv.rb:63
+#, fuzzy
+msgid "Logical Volume: %s"
+msgstr "Mantıksal yığın adı"
+
+# include/partitioning/lvm_ui_lib.ycp:271
+#. @macro seeCustomWidget
+#: src/lib/y2partitioner/widgets/pages/lvm_vg.rb:69
+#, fuzzy
+msgid "Volume Group: %s"
+msgstr " Yığın grubu "
+
+# include/partitioning/lvm_ui_lib.ycp:210
+#. @macro seeAbstractWidget
+#: src/lib/y2partitioner/widgets/pages/lvm_vg.rb:119
+#, fuzzy
+msgid "Log&ical Volumes"
+msgstr "Mantıksal yığınlar"
+
+# include/partitioning/lvm_ui_lib.ycp:199
+#. @macro seeAbstractWidget
+#: src/lib/y2partitioner/widgets/pages/lvm_vg.rb:175
+#, fuzzy
+msgid "&Physical Volumes"
+msgstr "Fiziksel yığınlar"
+
+#. @macro seeCustomWidget
+#: src/lib/y2partitioner/widgets/pages/md_raid.rb:65
+#, fuzzy
+msgid "RAID: %s"
+msgstr "R&AID:"
+
+#. Label for all the instances
+#.
+#. @see #label
+#.
+#. @return [String]
+#. TRANSLATORS: Heading
+#: src/lib/y2partitioner/widgets/pages/md_raids.rb:52
+#: src/lib/y2partitioner/widgets/pages/md_raids.rb:71
+#, fuzzy
+msgid "RAID"
+msgstr "R&AID:"
+
+#. Constructor
+#: src/lib/y2partitioner/widgets/pages/md_raids.rb:98
+#, fuzzy
+msgid "Add RAID..."
+msgstr "RAID &ekle"
+
+# menuentries/menuentry_disk.ycp:27
+#. TRANSLATORS: Heading. String followed by name of partition
+#: src/lib/y2partitioner/widgets/pages/partition.rb:44
+#, fuzzy
+msgid "Partition: "
+msgstr "Bölüm 1"
+
+#. TRANSLATORS: Heading. String followed by the hostname
+#: src/lib/y2partitioner/widgets/pages/system.rb:39
+#, fuzzy
+msgid "Available Storage on %s"
+msgstr "Mevcut bölümler"
 
 # include/partitioning/lvm_ui_lib.ycp:92
 #. @macro seeAbstractWidget
@@ -1695,25 +1858,42 @@ msgstr ""
 msgid "FS ID: %s"
 msgstr "R&AID:"
 
-# menuentries/menuentry_disk.ycp:27
-#. TRANSLATORS: Heading. String followed by name of partition
-#: src/lib/y2partitioner/widgets/partition_page.rb:72
+# clients/inst_custom_part.ycp:2918
+#. TRANSLATORS: button label to rescan devices
+#: src/lib/y2partitioner/widgets/rescan_devices_button.rb:41
 #, fuzzy
-msgid "Partition: "
-msgstr "Bölüm 1"
+msgid "Rescan Devices"
+msgstr "Raid aygıtı"
 
-# include/partitioning/lvm_ui_lib.ycp:92
-#. Help without specification what is exactly device holding blk_device. Should be defined in
-#. Specific child.
-#. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/used_devices_table.rb:65
-#, fuzzy
+#. Shows a confirm message before reprobing
+#: src/lib/y2partitioner/widgets/rescan_devices_button.rb:60
 msgid ""
-"<p>This view shows all physical volumes used by\n"
-"the selected volume group.</p><p>The overview contains:</p>"
+"Re-scanning the storage devices will invalidate all the configuration\n"
+"options set in the installer regarding storage, with no possibility\n"
+"to withdraw.\n"
+"That includes the result and settings of the guided setup as well as\n"
+"the manual changes performed in the expert partitioner."
 msgstr ""
-"<p><b>Bölüm ekle:</b> Yığın grubuna fiziksel yığın bölümleri ekleme içindir."
-"</p>"
+
+#: src/lib/y2partitioner/widgets/rescan_devices_button.rb:66
+msgid ""
+"Re-scanning the storage devices will invalidate all the previous\n"
+"changes with no possibility to withdraw."
+msgstr ""
+
+#. Reprobes and updates devicegraphs for the partitioner
+#.
+#. @note A message is shown during the reprobing action
+#: src/lib/y2partitioner/widgets/rescan_devices_button.rb:75
+#, fuzzy
+msgid "Rescanning disks..."
+msgstr "Komut dosyaları çalıştırılıyor..."
+
+#. @macro seeAbstractWidget
+#: src/lib/y2partitioner/widgets/used_devices_tab.rb:42
+#, fuzzy
+msgid "&Used Devices"
+msgstr "&Aygıt"
 
 #. class to implement callbacks used during activate
 #: src/lib/y2storage/callbacks/activate.rb:43
@@ -1721,6 +1901,349 @@ msgid ""
 "The system seems to have multipath hardware.\n"
 "Do you want to activate multipath?"
 msgstr ""
+
+#. Callback for libstorage-ng to report an error to the user.
+#.
+#. In addition to displaying the error, it offers the user the possibility
+#. to ignore it and continue.
+#.
+#. @note If the user rejects to continue, the method will return false
+#. which implies libstorage-ng will raise the corresponding exception for
+#. the error.
+#.
+#. See Storage::CommitCallbacks#error in libstorage-ng
+#.
+#. @param message [String] error title coming from libstorage-ng
+#. @param what [String] details coming from libstorage-ng
+#. @return [Boolean] true will make libstorage-ng ignore the error, false
+#. will result in a libstorage-ng exception
+#: src/lib/y2storage/callbacks/commit.rb:71
+#, fuzzy
+#| msgid "Continue resizing the %1?"
+msgid "Continue despite the error?"
+msgstr "%1 boyutu değiştirme işlemine devam edilsin mi?"
+
+#. Proposal client to show the list of storage actions.
+#.
+#. This client is used in autoyast summary dialog, where a new
+#. client instance is created with each event that requires to
+#. update the summary dialog content.
+#.
+#. To manage collapsing/expanding subvolumes list it is necessary
+#. to save the previous state of that list, but it is not possible
+#. to do that in the client instance itself because a new client
+#. instance is created each time.
+#.
+#. To solve that, instance class attributes are used. PartitionsProposal
+#. class has an internal state that is updated with each object creation.
+#.
+#. @see PartitionsProposal.update_state
+#: src/lib/y2storage/clients/partitions_proposal.rb:76
+msgid "This is not enabled at this moment (event: %s)"
+msgstr ""
+
+# menuentries/menuentry_disk.ycp:27
+#: src/lib/y2storage/clients/partitions_proposal.rb:87
+msgid "Partitioning"
+msgstr "Bölümlendirme"
+
+# clients/inst_sw_single.ycp:1539
+#: src/lib/y2storage/clients/partitions_proposal.rb:88
+msgid "&Partitioning"
+msgstr "&Bölümlendirme"
+
+#. Updates internal class state when it is necessary.
+#.
+#. A new actions presenter is created when the current staging revision
+#. is different to the last saved revision.
+#.
+#. @see ActionsPresenter
+#: src/lib/y2storage/clients/partitions_proposal.rb:135
+#: src/lib/y2storage/clients/partitions_proposal.rb:137
+#, fuzzy
+msgid "No proposal possible"
+msgstr "&Öner"
+
+#. Translators: Short description of the partitioning setup
+#: src/lib/y2storage/clients/partitions_proposal.rb:152
+#, fuzzy
+msgid "Custom"
+msgstr " -- Özelleştir"
+
+#. TODO: should be tested by some real OPS guy, I (JR) pick human wording from `man mdadm`
+#: src/lib/y2storage/clients/partitions_proposal.rb:152
+#: src/lib/y2storage/md_parity.rb:37
+#, fuzzy
+msgid "Default"
+msgstr "Varsayılan &rota"
+
+# include/partitioning/lvm_ui_lib.ycp:271
+#. Dialog to manage luks activation callbacks
+#: src/lib/y2storage/dialogs/callbacks/activate_luks.rb:64
+#, fuzzy
+msgid "Encrypted Volume Activation"
+msgstr " Yığın grubu "
+
+#
+#: src/lib/y2storage/dialogs/callbacks/activate_luks.rb:68
+#, fuzzy
+#| msgid "Enter Key Password"
+msgid "Do you want to provide the encryption password?"
+msgstr "Anahtar parolası girin"
+
+#: src/lib/y2storage/dialogs/callbacks/activate_luks.rb:69
+#, fuzzy
+#| msgid "Enter Encryption Key"
+msgid "Enter Encryption Password"
+msgstr "Şifreleme anahtarını girin"
+
+#: src/lib/y2storage/dialogs/callbacks/activate_luks.rb:101
+msgid ""
+"The following device contains an encryption signature but the\n"
+"password is not yet known."
+msgstr ""
+
+#: src/lib/y2storage/dialogs/callbacks/activate_luks.rb:110
+msgid ""
+"The password is needed if the device contains a system to be\n"
+"updated or belongs to an LVM to be used during installation."
+msgstr ""
+
+#. Should be implemented by derived classes.
+#: src/lib/y2storage/dialogs/guided_setup/base.rb:113
+msgid ""
+"<p>\n"
+"TODO: this dialog is just temporary. Hopefully it will end up including help "
+"of each setup.</p>"
+msgstr ""
+
+# clients/inst_source.ycp:186
+#. Before skipping, settings should be assigned.
+#. Before skipping, settings should be assigned.
+#: src/lib/y2storage/dialogs/guided_setup/select_disks.rb:52
+#: src/lib/y2storage/dialogs/guided_setup/select_root_disk.rb:50
+#, fuzzy
+msgid "Select Hard Disk(s)"
+msgstr "Sabit disk"
+
+#: src/lib/y2storage/dialogs/guided_setup/select_disks.rb:58
+msgid "Select one or more (max %d) hard disks"
+msgstr ""
+
+#: src/lib/y2storage/dialogs/guided_setup/select_disks.rb:88
+msgid "At least one disk must be selected"
+msgstr ""
+
+#: src/lib/y2storage/dialogs/guided_setup/select_disks.rb:94
+#, fuzzy
+msgid "At most %d disks can be selected"
+msgstr "Bir sabit disk algılanamadı."
+
+# include/partitioning/custom_part_dialogs.ycp:178
+#. Dialog to select filesystems.
+#: src/lib/y2storage/dialogs/guided_setup/select_filesystem.rb:49
+#, fuzzy
+#| msgid "File system options:"
+msgid "Filesystem Options"
+msgstr "Dosya sistemi seçenekleri:"
+
+# include/partitioning/custom_part_dialogs.ycp:178
+#: src/lib/y2storage/dialogs/guided_setup/select_filesystem.rb:66
+#, fuzzy
+#| msgid "File system options:"
+msgid "File System for Root Partition"
+msgstr "Dosya sistemi seçenekleri:"
+
+#: src/lib/y2storage/dialogs/guided_setup/select_filesystem.rb:82
+#, fuzzy
+msgid "Propose Separate Home Partition"
+msgstr "Yeni disk bölümü oluştur"
+
+#: src/lib/y2storage/dialogs/guided_setup/select_filesystem.rb:88
+#, fuzzy
+msgid "File System for Home Partition"
+msgstr "Yeni disk bölümü oluştur"
+
+#: src/lib/y2storage/dialogs/guided_setup/select_root_disk.rb:69
+msgid "Please select a disk to use as the \"root\" partition (/)"
+msgstr ""
+
+#: src/lib/y2storage/dialogs/guided_setup/select_root_disk.rb:86
+msgid "Choose what to do with existing Windows systems"
+msgstr ""
+
+# clients/inst_sw_single.ycp:1539
+#: src/lib/y2storage/dialogs/guided_setup/select_root_disk.rb:91
+#: src/lib/y2storage/dialogs/guided_setup/select_root_disk.rb:108
+#: src/lib/y2storage/dialogs/guided_setup/select_root_disk.rb:124
+#, fuzzy
+msgid "Do not modify"
+msgstr "bölüm"
+
+#: src/lib/y2storage/dialogs/guided_setup/select_root_disk.rb:92
+#, fuzzy
+#| msgid "Resize failed."
+msgid "Resize if needed"
+msgstr "Boyut değiştirme işlemi başarısız oldu"
+
+#: src/lib/y2storage/dialogs/guided_setup/select_root_disk.rb:93
+msgid "Resize or remove as needed"
+msgstr ""
+
+#: src/lib/y2storage/dialogs/guided_setup/select_root_disk.rb:94
+#: src/lib/y2storage/dialogs/guided_setup/select_root_disk.rb:110
+#: src/lib/y2storage/dialogs/guided_setup/select_root_disk.rb:126
+msgid "Remove even if not needed"
+msgstr ""
+
+#: src/lib/y2storage/dialogs/guided_setup/select_root_disk.rb:103
+msgid "Choose what to do with existing Linux partitions"
+msgstr ""
+
+# clients/online_update.ycp:45
+#: src/lib/y2storage/dialogs/guided_setup/select_root_disk.rb:109
+#: src/lib/y2storage/dialogs/guided_setup/select_root_disk.rb:125
+#, fuzzy
+#| msgid "&Remove Container"
+msgid "Remove if needed"
+msgstr "Kap &sil"
+
+# clients/inst_resize_ui.ycp:607
+#: src/lib/y2storage/dialogs/guided_setup/select_root_disk.rb:119
+#, fuzzy
+msgid "Choose what to do with other partitions"
+msgstr ""
+"<p>\n"
+"%1 bölümünüz için yeni boyut seçin.\n"
+"</p>"
+
+#: src/lib/y2storage/dialogs/guided_setup/select_root_disk.rb:134
+msgid "Any disk"
+msgstr ""
+
+# menuentries/menuentry_disk.ycp:27
+#. Handler for :encryption check box.
+#. @param focus [Boolean] whether password field should be focused
+#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:56
+#, fuzzy
+#| msgid "Partitioning"
+msgid "Partitioning Scheme"
+msgstr "Bölümlendirme"
+
+# include/partitioning/custom_part_filesystems.ycp:108 include/partitioning/custom_part_filesystems.ycp:148 include/partitioning/custom_part_filesystems.ycp:267 include/partitioning/custom_part_filesystems.ycp:294
+#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:62
+#, fuzzy
+#| msgid "Logical volume &name "
+msgid "Enable Logical Volume Management (LVM)"
+msgstr "Mantıksal yığın &adı"
+
+#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:64
+#, fuzzy
+msgid "Enable Disk Encryption"
+msgstr "&Şifreleme anahtarı"
+
+#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:69
+msgid "Password"
+msgstr "Parola"
+
+#
+#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:75
+#, fuzzy
+#| msgid "Enter Provider Password"
+msgid "Verify Password"
+msgstr "Servis sağlayıcı parolasını girin"
+
+#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:128
+msgid "A password is needed"
+msgstr ""
+
+#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:134
+msgid "Password does not match"
+msgstr ""
+
+# include/partitioning/custom_part_dialogs.ycp:120
+#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:143
+#, fuzzy
+#| msgid ""
+#| "The password must have at least %1 characters.\n"
+#| "Try again.\n"
+msgid "The password must have at least %d characters."
+msgstr ""
+"Parola en az %1 karakterden oluşmalıdır.\n"
+"Lütfen tekrar deneyin.\n"
+
+#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:144
+#, fuzzy
+msgid ""
+"The password may only contain the following characters:\n"
+"0..9, a..z, A..Z, and any of \"@#* ,.;:._-+=!$%&/|?{[()]}^\\<>\"."
+msgstr ""
+"Parola sadece aşağıdaki karakterlerden oluşabilir:\n"
+" 0..9, a..z, A..Z, ve \"#* ,.;:._-+!$%&/|?{[()]}\".\n"
+"Tekrar deneyin."
+
+#. Password is considered strong when cracklib returns an empty message.
+#. User has the last word to decide whether to use a weak password.
+#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:160
+msgid "The password is too simple:"
+msgstr ""
+
+#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:163
+#, fuzzy
+msgid "Really use this password?"
+msgstr "Bu grubu silmek istediğinize emin misiniz?"
+
+# clients/online_update.ycp:45
+#. Calculates the storage proposal during installation and provides
+#. the user a summary of the storage proposal
+#: src/lib/y2storage/dialogs/proposal.rb:55
+#, fuzzy
+#| msgid "Continue?"
+msgid "Cannot continue"
+msgstr "Devam edecek misiniz?"
+
+#. TODO: if there is a proposal, use the meaningful description with
+#. hyperlinks instead of just delegating the summary to libstorage
+#: src/lib/y2storage/dialogs/proposal.rb:114
+msgid "No proposal possible."
+msgstr ""
+
+# clients/inst_part_proposal.ycp:57
+#: src/lib/y2storage/dialogs/proposal.rb:121
+msgid "Suggested Partitioning"
+msgstr "Önerilen bölümlendirme"
+
+#: src/lib/y2storage/dialogs/proposal.rb:127
+msgid "Start with &Current Proposal"
+msgstr ""
+
+# clients/inst_custom_part.ycp:3440
+#: src/lib/y2storage/dialogs/proposal.rb:129
+#, fuzzy
+msgid "Start with Existing &Partitions"
+msgstr "Mevcut bir disk bölümünü düzenle"
+
+# clients/inst_custom_part.ycp:3012
+#: src/lib/y2storage/dialogs/proposal.rb:130
+#, fuzzy
+#| msgid "Expert Partitioner"
+msgid "&Expert Partitioner"
+msgstr "Uzman bölümlendirme aracı"
+
+#: src/lib/y2storage/dialogs/proposal.rb:138
+msgid "&Guided Setup"
+msgstr ""
+
+#: src/lib/y2storage/dialogs/proposal.rb:145
+#, fuzzy
+msgid ""
+"<p>\n"
+"Your hard disks have been checked. The partition setup\n"
+"displayed is proposed for your hard drive.</p>"
+msgstr ""
+"<p>\n"
+"YaST sabit diskinizi inceledi ve şu anda gösterilen bölümlendirme ayarını\n"
+"teklif olarak hazırladı.</p>"
 
 # include/partitioning/partition_defines.ycp:382 include/partitioning/partition_defines.ycp:403
 #. Class to represent all the possible MD levels
@@ -1763,12 +2286,6 @@ msgstr "R&AID:"
 #| msgid " Container"
 msgid "Container"
 msgstr " Kap"
-
-#. TODO: should be tested by some real OPS guy, I (JR) pick human wording from `man mdadm`
-#: src/lib/y2storage/md_parity.rb:37
-#, fuzzy
-msgid "Default"
-msgstr "Varsayılan &rota"
 
 #: src/lib/y2storage/md_parity.rb:38
 msgid "Left asymmetric"
@@ -1847,6 +2364,23 @@ msgstr ""
 msgid "Three copies far"
 msgstr ""
 
+# clients/inst_sw_single.ycp:1225 clients/inst_sw_single.ycp:1283
+#. This message is not very informative, but the Package module does
+#. not provide any more information.
+#.
+#. TRANSLATORS: error popup
+#: src/lib/y2storage/package_handler.rb:169
+msgid "Installing required packages failed."
+msgstr "Gerekli paketlerin kurulumu başarısız oldu."
+
+# clients/inst_sw_single.ycp:1225 clients/inst_sw_single.ycp:1283
+#. TRANSLATORS: error popup. %s is the list of affected packages.
+#: src/lib/y2storage/package_handler.rb:177
+#, fuzzy
+#| msgid "Installing required packages failed."
+msgid "Adding the following packages failed: %s"
+msgstr "Gerekli paketlerin kurulumu başarısız oldu."
+
 #. Class to represent all the possible partition ids
 #.
 #. This is a wrapper for the Storage::ID enum
@@ -1871,7 +2405,9 @@ msgstr "Linux"
 
 # clients/inst_resize_ui.ycp:702
 #: src/lib/y2storage/partition_id.rb:43
-msgid "Linux"
+#, fuzzy
+#| msgid "Linux"
+msgid "Linux Native"
 msgstr "Linux"
 
 # clients/inst_resize_ui.ycp:702
@@ -1953,13 +2489,6 @@ msgstr ""
 "\n"
 "Bu uyarıya rağmen devam etmek için, Evet'e tıklayın.\n"
 
-# clients/inst_custom_part.ycp:3012
-#. dialog heading
-#. dialog caption
-#: src/clients/disk.rb:67 src/include/partitioning/ep-main.rb:68
-msgid "Expert Partitioner"
-msgstr "Uzman bölümlendirme aracı"
-
 #. text show during initialization
 #: src/clients/disk.rb:69
 msgid "Initializing..."
@@ -1997,12 +2526,6 @@ msgstr ""
 msgid "List partitions"
 msgstr "Disk bölümü düzenle"
 
-# clients/inst_part_proposal.ycp:57
-#. Title for dialogue
-#: src/clients/inst_disk_proposal.rb:76
-msgid "Suggested Partitioning"
-msgstr "Önerilen bölümlendirme"
-
 # clients/inst_custom_part.ycp:3012
 #. Radiobutton for partition dialog
 #: src/clients/inst_disk_proposal.rb:78
@@ -2022,8 +2545,7 @@ msgid "&Create Partition Setup..."
 msgstr "&Özel bölümlendirme ayarı oluştur"
 
 #. popup text
-#: src/clients/inst_disk_proposal.rb:123
-#: src/clients/partitions_proposal.rb:105
+#: src/clients/inst_disk_proposal.rb:123 src/clients/partitions_proposal.rb:115
 msgid ""
 "No automatic proposal possible.\n"
 "Specify mount points manually in the 'Partitioner' dialog."
@@ -2032,31 +2554,17 @@ msgstr ""
 "penceresinden belirtin."
 
 #. TRANSLATORS: button text
-#. this is the resize case
-#.
-#. this is the normal case
-#: src/clients/inst_disk_proposal.rb:135 src/clients/inst_target_part.rb:164
-#: src/clients/inst_target_part.rb:178 src/clients/inst_target_part.rb:185
+#. Return a term for a PushButton("Edit Proposal Settings")
+#. or Empty() if that button is disabled in control.xml.
+#: src/clients/inst_disk_proposal.rb:136 src/clients/inst_target_part.rb:500
 #, fuzzy
 #| msgid "Special settings"
 msgid "Edit Proposal Settings"
 msgstr "Özel ayarlar"
 
-#. help on suggested partitioning
-#: src/clients/inst_disk_proposal.rb:165
-#, fuzzy
-msgid ""
-"<p>\n"
-"Your hard disks have been checked. The partition setup\n"
-"displayed is proposed for your hard drive.</p>"
-msgstr ""
-"<p>\n"
-"YaST sabit diskinizi inceledi ve şu anda gösterilen bölümlendirme ayarını\n"
-"teklif olarak hazırladı.</p>"
-
 #. help text continued
 #. %1 is replaced by button text
-#: src/clients/inst_disk_proposal.rb:175
+#: src/clients/inst_disk_proposal.rb:176
 msgid ""
 "<p>\n"
 "To make only small adjustments to the proposed\n"
@@ -2066,7 +2574,7 @@ msgid ""
 msgstr ""
 
 #. help text continued
-#: src/clients/inst_disk_proposal.rb:188
+#: src/clients/inst_disk_proposal.rb:189
 #, fuzzy
 msgid ""
 "<p>\n"
@@ -2086,25 +2594,25 @@ msgstr ""
 
 #. Attention! besides the testsuite, AutoYaST is using this to turn off
 #. the proposal screen too. See inst_autosetup.ycp
-#: src/clients/inst_disk_proposal.rb:232
+#: src/clients/inst_disk_proposal.rb:233
 msgid "Impossible to create the requested proposal."
 msgstr ""
 
 #. TRANSLATORS: popup error message
-#: src/clients/inst_disk_proposal.rb:238
+#: src/clients/inst_disk_proposal.rb:239
 msgid "Not enough space available to propose snapshots for root volume."
 msgstr ""
 
 #. TRANSLATORS: popup error message
-#: src/clients/inst_disk_proposal.rb:244 src/clients/inst_target_part.rb:449
+#: src/clients/inst_disk_proposal.rb:245 src/clients/inst_target_part.rb:449
 msgid "Not enough space available to propose separate /home."
 msgstr ""
 
-#: src/clients/inst_disk_proposal.rb:283
+#: src/clients/inst_disk_proposal.rb:284
 msgid "Nothing assigned as root filesystem. Cannot continue."
 msgstr ""
 
-#: src/clients/inst_disk_proposal.rb:304
+#: src/clients/inst_disk_proposal.rb:305
 msgid ""
 "Computing this proposal will overwrite manual changes \n"
 "done so far. Continue with computing proposal?"
@@ -2112,7 +2620,7 @@ msgstr ""
 
 # clients/sound_write.ycp:80
 #. we need to open dialog and set up slideshow
-#: src/clients/inst_prepdisk.rb:66
+#: src/clients/inst_prepdisk.rb:68
 #, fuzzy
 msgid "Preparing disks..."
 msgstr "Hazırlanıyor..."
@@ -2335,6 +2843,13 @@ msgstr "Windows tarafından kullanılan"
 #: src/clients/inst_resize_dialog.rb:407 src/clients/inst_resize_ui.rb:622
 msgid "Free"
 msgstr "Boş"
+
+# clients/inst_resize_ui.ycp:702
+#. Edit field label for linux partition size in non-graphical mode
+#. Edit field label for linux partition size in non-graphical mode
+#: src/clients/inst_resize_dialog.rb:417 src/clients/inst_resize_ui.rb:632
+msgid "Linux"
+msgstr "Linux"
 
 # clients/inst_resize_ui.ycp:717
 #. help text, continued - non-graphical mode only
@@ -2630,13 +3145,13 @@ msgstr ""
 #. loop over targetMap and build radio buttons for selection
 #. dont use foreach here since we need a counter (as a shortcut)
 #. anyway
-#: src/clients/inst_target_selection.rb:115
+#: src/clients/inst_target_selection.rb:116
 msgid "Available &Disks"
 msgstr "Mevcut &diskler"
 
 # clients/inst_target_selection.ycp:274
 #. label text
-#: src/clients/inst_target_selection.rb:149
+#: src/clients/inst_target_selection.rb:150
 #, fuzzy
 msgid "&Custom Partitioning (for experts)"
 msgstr "&Özel bölümlendirme -- uzmanlar için"
@@ -2646,14 +3161,14 @@ msgstr "&Özel bölümlendirme -- uzmanlar için"
 #. Below this label, all targets are listed that can be used as
 #. installation target
 #. heading text
-#: src/clients/inst_target_selection.rb:161
+#: src/clients/inst_target_selection.rb:162
 msgid "Hard Disk"
 msgstr "Sabit disk"
 
 # clients/inst_target_selection.ycp:308
 #. normally the target is located on hard disks. Here no hard disks
 #. can be found. YaST2 cannot install. Update CD might have newer drivers.
-#: src/clients/inst_target_selection.rb:172
+#: src/clients/inst_target_selection.rb:173
 #, fuzzy
 msgid ""
 "No disks found. Try using the update CD, if available, for installation."
@@ -2665,7 +3180,7 @@ msgstr "Disk bulunamadı. Lütfen kurulum için güncelleme CD'sini kullanın."
 #. "Preparing Hard Disk" is the description of the dialog what to
 #. do while the following locale is the help description
 #. help part 1 of 3
-#: src/clients/inst_target_selection.rb:184
+#: src/clients/inst_target_selection.rb:185
 msgid ""
 "<p>\n"
 "All hard disks automatically detected on your system\n"
@@ -2680,7 +3195,7 @@ msgstr ""
 #
 # include/partitioning/auto_part_ui.ycp:168
 #. help part 2 of 3
-#: src/clients/inst_target_selection.rb:193
+#: src/clients/inst_target_selection.rb:194
 msgid ""
 "<p>\n"
 "You may select later which part of the disk is used for &product;.\n"
@@ -2693,7 +3208,7 @@ msgstr ""
 
 # clients/inst_target_selection.ycp:330
 #. help part 3 of 3
-#: src/clients/inst_target_selection.rb:202
+#: src/clients/inst_target_selection.rb:203
 #, fuzzy
 msgid ""
 "\n"
@@ -2715,7 +3230,7 @@ msgstr ""
 #. first step of hd prepare, select a single disk or "expert" partitioning
 #. Information what to do, background information
 #. Information what to do, background information
-#: src/clients/inst_target_selection.rb:215
+#: src/clients/inst_target_selection.rb:216
 #: src/include/partitioning/auto_part_ui.rb:244
 #: src/include/partitioning/auto_part_ui.rb:302
 #, fuzzy
@@ -2724,12 +3239,22 @@ msgstr "Sabit diskiniz hazırlanıyor"
 
 #. there is a selection from which one option must be
 #. chosen - at the moment no option is chosen
-#: src/clients/inst_target_selection.rb:271
+#: src/clients/inst_target_selection.rb:269
 msgid "Select one of the options to continue."
 msgstr "Devam etmek için bir seçim yapın."
 
-#: src/clients/inst_target_selection.rb:297
+#: src/clients/inst_target_selection.rb:295
 msgid "Disk %1 is in use by %2"
+msgstr ""
+
+#. Warning popup about using the expert partitioner
+#: src/clients/inst_target_selection.rb:352
+msgid ""
+"This is for experts only.\n"
+"You might lose support if you use this!\n"
+"\n"
+"Please refer to the manual to make sure your custom\n"
+"partitioning meets the requirements of this product."
 msgstr ""
 
 #. encoding: utf-8
@@ -2790,21 +3315,20 @@ msgstr "Multipath otomatik &algılama"
 #. See also file proposal-API.txt for details.
 #: src/clients/partitions_proposal.rb:93
 msgid ""
+"No snapshots possible.\n"
+"Please use larger root partition."
+msgstr ""
+
+#: src/clients/partitions_proposal.rb:105
+msgid ""
 "The /home partition will not be formatted. After installation,\n"
 "ensure that ownerships of home directories are set properly."
 msgstr ""
 
-# menuentries/menuentry_disk.ycp:27
-#. label text
-#: src/clients/partitions_proposal.rb:218
-msgid "Partitioning"
-msgstr "Bölümlendirme"
-
-# clients/inst_sw_single.ycp:1539
-#. label text
-#: src/clients/partitions_proposal.rb:220
-msgid "&Partitioning"
-msgstr "&Bölümlendirme"
+#. A standard configuration
+#: src/clients/partitions_proposal.rb:126
+msgid "Standard"
+msgstr ""
 
 #. progress step title
 #: src/clients/storage_finish.rb:69
@@ -2997,7 +3521,7 @@ msgstr ""
 #. Label text
 #. TRANSLATORS: checkbox text
 #: src/include/partitioning/auto_part_ui.rb:341
-#: src/modules/StorageProposal.rb:6272
+#: src/modules/StorageProposal.rb:6333
 #, fuzzy
 msgid "Propose Separate &Home Partition"
 msgstr "Yeni disk bölümü oluştur"
@@ -3021,7 +3545,7 @@ msgstr "&Öner"
 
 # include/partitioning/custom_part_check_generated.ycp:358
 #. popup text
-#: src/include/partitioning/custom_part_check_generated.rb:244
+#: src/include/partitioning/custom_part_check_generated.rb:248
 #, fuzzy
 msgid ""
 "You have not assigned a root partition for\n"
@@ -3035,7 +3559,7 @@ msgstr ""
 "Bir bölüme root bağlama noktası \"/\" atayın.\n"
 
 #. popup text
-#: src/include/partitioning/custom_part_check_generated.rb:257
+#: src/include/partitioning/custom_part_check_generated.rb:261
 #, fuzzy
 msgid ""
 "You tried to mount a FAT partition to one of the following mount\n"
@@ -3050,7 +3574,7 @@ msgstr ""
 "dosya sistemi kullanın.\n"
 
 #. popup text
-#: src/include/partitioning/custom_part_check_generated.rb:270
+#: src/include/partitioning/custom_part_check_generated.rb:274
 #, fuzzy
 msgid ""
 "You tried to mount a FAT partition to the\n"
@@ -3065,7 +3589,7 @@ msgstr ""
 "dosya sistemi kullanın.\n"
 
 #. popup text
-#: src/include/partitioning/custom_part_check_generated.rb:284
+#: src/include/partitioning/custom_part_check_generated.rb:288
 #, fuzzy
 msgid ""
 "You have mounted a partition with Btrfs to the\n"
@@ -3081,7 +3605,7 @@ msgstr ""
 
 #. A PReP/CHRP partition is not supposed to be mounted. So if we find any
 #. other /boot partition, we should warn the user.
-#: src/include/partitioning/custom_part_check_generated.rb:298
+#: src/include/partitioning/custom_part_check_generated.rb:302
 msgid ""
 "Warning:\n"
 "Your system needs a boot partition, either with type 0x41 PReP/CHRP\n"
@@ -3093,7 +3617,7 @@ msgstr ""
 
 # include/partitioning/custom_part_check_generated.ycp:414
 #. popup text, %1 is a number
-#: src/include/partitioning/custom_part_check_generated.rb:314
+#: src/include/partitioning/custom_part_check_generated.rb:318
 #, fuzzy
 msgid ""
 "Warning:\n"
@@ -3116,14 +3640,14 @@ msgstr ""
 
 # include/partitioning/custom_part_check_generated.ycp:461
 #. popup text, %1 is a size
-#: src/include/partitioning/custom_part_check_generated.rb:334
+#: src/include/partitioning/custom_part_check_generated.rb:338
 #, fuzzy
 msgid ""
 "Warning:\n"
 "Your boot partition is smaller than %1.\n"
 "We recommend to increase the size of /boot.\n"
 "\n"
-"Really keep this size of boot partition?\n"
+"Really keep this size of the boot partition?\n"
 msgstr ""
 "Uyarı:\n"
 "boot bölümünüz 12MB'den küçük.\n"
@@ -3132,7 +3656,7 @@ msgstr ""
 "Bunu gerçekleştirmek istiyor musunuz?\n"
 
 #. /////////////////////////// NO BOOT ///////////////////////////
-#: src/include/partitioning/custom_part_check_generated.rb:351
+#: src/include/partitioning/custom_part_check_generated.rb:355
 msgid ""
 "Warning: There is no partition of type bios_grub present.\n"
 "Such a partition is recommended (required with Btrfs) when Grub2 is\n"
@@ -3145,7 +3669,7 @@ msgstr ""
 #. popup text
 #. If the user chooses 'no' here, the system will not be able to
 #. boot from the hard drive!
-#: src/include/partitioning/custom_part_check_generated.rb:371
+#: src/include/partitioning/custom_part_check_generated.rb:375
 #, fuzzy
 msgid ""
 "Warning: There is no partition mounted as /boot.\n"
@@ -3166,7 +3690,7 @@ msgstr ""
 
 # include/partitioning/custom_part_check_generated.ycp:500
 #. popup text
-#: src/include/partitioning/custom_part_check_generated.rb:391
+#: src/include/partitioning/custom_part_check_generated.rb:395
 #, fuzzy
 msgid ""
 "Warning: According to your setup, you intend to\n"
@@ -3187,7 +3711,7 @@ msgstr ""
 "\n"
 "Bunu değiştirmek istiyor musunuz?\n"
 
-#: src/include/partitioning/custom_part_check_generated.rb:417
+#: src/include/partitioning/custom_part_check_generated.rb:421
 msgid ""
 "Warning: Some subvolumes of the root filesystem are shadowed by\n"
 "mount points of other filesystem. This could lead to problems.\n"
@@ -3197,7 +3721,7 @@ msgstr ""
 
 # include/partitioning/custom_part_check_generated.ycp:513
 #. popup text
-#: src/include/partitioning/custom_part_check_generated.rb:435
+#: src/include/partitioning/custom_part_check_generated.rb:441
 #, fuzzy
 msgid ""
 "Warning: With your current setup, your %1\n"
@@ -3217,7 +3741,7 @@ msgstr ""
 
 # include/partitioning/custom_part_check_generated.ycp:513
 #. popup text
-#: src/include/partitioning/custom_part_check_generated.rb:453
+#: src/include/partitioning/custom_part_check_generated.rb:459
 #, fuzzy
 msgid ""
 "Warning: With your current setup, your %2 installation\n"
@@ -3244,7 +3768,7 @@ msgstr ""
 
 # include/partitioning/custom_part_check_generated.ycp:513
 #. popup text
-#: src/include/partitioning/custom_part_check_generated.rb:475
+#: src/include/partitioning/custom_part_check_generated.rb:481
 #, fuzzy
 msgid ""
 "Warning: With your current setup, your %2 installation will\n"
@@ -3270,14 +3794,14 @@ msgstr ""
 "Bunu değiştirmek istiyor musunuz?\n"
 
 #. popup text
-#: src/include/partitioning/custom_part_check_generated.rb:498
+#: src/include/partitioning/custom_part_check_generated.rb:504
 #, fuzzy
 msgid "Really use this setup?"
 msgstr "Bu grubu silmek istediğinize emin misiniz?"
 
 # include/partitioning/custom_part_check_generated.ycp:528
 #. popup text
-#: src/include/partitioning/custom_part_check_generated.rb:506
+#: src/include/partitioning/custom_part_check_generated.rb:512
 #, fuzzy
 msgid ""
 "\n"
@@ -3305,7 +3829,7 @@ msgstr ""
 
 # include/partitioning/custom_part_check_generated.ycp:547
 #. popup text
-#: src/include/partitioning/custom_part_check_generated.rb:522
+#: src/include/partitioning/custom_part_check_generated.rb:528
 #, fuzzy
 msgid ""
 "\n"
@@ -3322,7 +3846,7 @@ msgstr ""
 
 # include/partitioning/custom_part_check_generated.ycp:554
 #. continued popup text
-#: src/include/partitioning/custom_part_check_generated.rb:529
+#: src/include/partitioning/custom_part_check_generated.rb:535
 msgid ""
 "- if this is an existing ReiserFS partition\n"
 "- if this partition already contains a Linux distribution that will be\n"
@@ -3335,7 +3859,7 @@ msgstr ""
 
 # include/partitioning/custom_part_check_generated.ycp:559
 #. continued popup text
-#: src/include/partitioning/custom_part_check_generated.rb:536
+#: src/include/partitioning/custom_part_check_generated.rb:542
 #, fuzzy
 #| msgid ""
 #| "If in doubt, you might want to go back and mark this partition for\n"
@@ -3354,7 +3878,7 @@ msgstr ""
 
 # include/partitioning/custom_part_check_generated.ycp:563
 #. continued popup text
-#: src/include/partitioning/custom_part_check_generated.rb:542
+#: src/include/partitioning/custom_part_check_generated.rb:548
 #, fuzzy
 msgid ""
 "If you decide to format the partition, all data on it will be lost.\n"
@@ -3366,7 +3890,7 @@ msgstr ""
 "Seçiminizi değiştirmek istiyor musunuz?\n"
 
 #. popup text %1 is replaced by a raid name e.g. md0
-#: src/include/partitioning/custom_part_check_generated.rb:603
+#: src/include/partitioning/custom_part_check_generated.rb:609
 #, fuzzy
 msgid ""
 "The selected device belongs to the RAID (%1).\n"
@@ -3376,7 +3900,7 @@ msgstr ""
 "Düzenlemek için önce bölümü RAID'den kaldırın."
 
 #. popup text %1 is replaced by a name e.g. system
-#: src/include/partitioning/custom_part_check_generated.rb:614
+#: src/include/partitioning/custom_part_check_generated.rb:620
 #, fuzzy
 msgid ""
 "The selected device belongs to a volume group (%1).\n"
@@ -3386,7 +3910,7 @@ msgstr ""
 "Düzenlemek için önce bölümü yığın grubundan kaldırın."
 
 #. popup text %1 is replaced by a name e.g. system
-#: src/include/partitioning/custom_part_check_generated.rb:624
+#: src/include/partitioning/custom_part_check_generated.rb:630
 #, fuzzy
 msgid ""
 "The selected device is used by volume (%1).\n"
@@ -3396,7 +3920,7 @@ msgstr ""
 "Düzenlemek için önce bölümü yığın grubundan kaldırın."
 
 #. popup text %2 is a device name, %1 is the raid name
-#: src/include/partitioning/custom_part_check_generated.rb:657
+#: src/include/partitioning/custom_part_check_generated.rb:663
 #, fuzzy
 msgid ""
 "The device (%2) belongs to the RAID (%1).\n"
@@ -3406,7 +3930,7 @@ msgstr ""
 "Silmek için önce bölümü RAID'den kaldırın."
 
 #. popup text, %1 and %2 are device names
-#: src/include/partitioning/custom_part_check_generated.rb:668
+#: src/include/partitioning/custom_part_check_generated.rb:674
 #, fuzzy
 msgid ""
 "The device (%2) is used by %1.\n"
@@ -3415,20 +3939,20 @@ msgstr ""
 "Seçilen bölüm olan (%2) RAID'e (%1) ait.\n"
 "Silmek için önce bölümü RAID'den kaldırın."
 
-#: src/include/partitioning/custom_part_check_generated.rb:680
+#: src/include/partitioning/custom_part_check_generated.rb:686
 #, fuzzy
 msgid "It cannot be deleted while mounted."
 msgstr "Aygıt silindi."
 
 #. popup text, %1 is a device name
-#: src/include/partitioning/custom_part_check_generated.rb:716
+#: src/include/partitioning/custom_part_check_generated.rb:722
 msgid ""
 "The device (%1) cannot be removed since it is a logical partition and \n"
 "another logical partition with a higher number is in use.\n"
 msgstr ""
 
 #. popup text
-#: src/include/partitioning/custom_part_check_generated.rb:792
+#: src/include/partitioning/custom_part_check_generated.rb:798
 #, fuzzy
 #| msgid ""
 #| "The selected extended partition contains partitions which are currently "
@@ -3452,7 +3976,7 @@ msgstr ""
 "Ne yaptığınız hakkında kesin bir bilginiz yoksa Vazgeç düğmesine basınız.\n"
 
 #. popup text, Do not translate LVM.
-#: src/include/partitioning/custom_part_check_generated.rb:810
+#: src/include/partitioning/custom_part_check_generated.rb:816
 msgid ""
 "\n"
 "The selected extended partition contains at least one LVM partition\n"
@@ -3466,7 +3990,7 @@ msgstr ""
 "bölümlerini yığın gruplarından çıkarınız.\n"
 
 #. popup text, Do not translate RAID.
-#: src/include/partitioning/custom_part_check_generated.rb:821
+#: src/include/partitioning/custom_part_check_generated.rb:827
 msgid ""
 "\n"
 "The selected extended partition contains at least one partition\n"
@@ -3480,7 +4004,7 @@ msgstr ""
 "bütün bölümlerini RAID sisteminden çıkarınız.\n"
 
 #. popup text
-#: src/include/partitioning/custom_part_check_generated.rb:832
+#: src/include/partitioning/custom_part_check_generated.rb:838
 #, fuzzy
 msgid ""
 "\n"
@@ -3493,6 +4017,25 @@ msgstr ""
 "LVM bölümü içeriyor. Genişletilmiş bölümü silmeden önce bütün\n"
 "bölümlerini yığın gruplarından çıkarınız.\n"
 
+# include/partitioning/custom_part_check_generated.ycp:461
+#. popup text, %1 is a size
+#: src/include/partitioning/custom_part_check_generated.rb:905
+#, fuzzy
+msgid ""
+"Warning:\n"
+"\n"
+"Your root partition is very small for snapshots.\n"
+"We recommend to increase the size of the root partition\n"
+"to %1 or more or to disable snapshots.\n"
+"\n"
+"Really keep the current setup?\n"
+msgstr ""
+"Uyarı:\n"
+"boot bölümünüz 12MB'den küçük.\n"
+"/boot bölümünün büyüklüğünü arttırmanız önerilir.\n"
+"\n"
+"Bunu gerçekleştirmek istiyor musunuz?\n"
+
 # include/partitioning/custom_part_dialogs.ycp:47
 #. heading text
 #: src/include/partitioning/custom_part_dialogs.rb:70
@@ -3503,8 +4046,8 @@ msgstr "Şifrelenmiş dosya sistemi için parolanızı giriniz"
 # clients/inst_root.ycp:48
 #. label text
 #: src/include/partitioning/custom_part_dialogs.rb:74
-#: src/include/partitioning/ep-dialogs.rb:806
-#: src/modules/StorageProposal.rb:6400
+#: src/include/partitioning/ep-dialogs.rb:805
+#: src/modules/StorageProposal.rb:6461
 #, fuzzy
 #| msgid "Do not forget what you enter here."
 msgid "Do not forget what you enter here!"
@@ -3512,7 +4055,7 @@ msgstr "Buraya yazdığınız değeri kesinlikle unutmayın."
 
 # include/nfs/routines.ycp:162
 #: src/include/partitioning/custom_part_dialogs.rb:78
-#: src/include/partitioning/ep-dialogs.rb:809
+#: src/include/partitioning/ep-dialogs.rb:808
 #, fuzzy
 msgid "Empty password allowed."
 msgstr "Seçenekler bölümüne boş girdi yapılamaz!"
@@ -3565,7 +4108,7 @@ msgstr ""
 #. popup text
 #. popup text
 #: src/include/partitioning/custom_part_dialogs.rb:196
-#: src/modules/Storage.rb:3963
+#: src/modules/Storage.rb:3961
 msgid ""
 "You did not enter a password.\n"
 "Try again.\n"
@@ -3577,7 +4120,7 @@ msgstr ""
 #. popup text
 #. popup text
 #: src/include/partitioning/custom_part_dialogs.rb:203
-#: src/modules/Storage.rb:3971
+#: src/modules/Storage.rb:3969
 msgid ""
 "The password must have at least %1 characters.\n"
 "Try again.\n"
@@ -3682,51 +4225,51 @@ msgid "File &System"
 msgstr "Dosya sistemi"
 
 #. button text
-#: src/include/partitioning/custom_part_dialogs.rb:1053
+#: src/include/partitioning/custom_part_dialogs.rb:1059
 #, fuzzy
 msgid "O&ptions..."
 msgstr "&Seçenekler..."
 
 #. button text
-#: src/include/partitioning/custom_part_dialogs.rb:1069
+#: src/include/partitioning/custom_part_dialogs.rb:1084
 #, fuzzy
 msgid "&Encrypt Device"
 msgstr "&Şifreleme anahtarı"
 
 #
 #. label text
-#: src/include/partitioning/custom_part_dialogs.rb:1176
+#: src/include/partitioning/custom_part_dialogs.rb:1191
 msgid "Format"
 msgstr "Biçimlendir"
 
 #
 # clients/inst_custom_part.ycp:1499
 #. button text
-#: src/include/partitioning/custom_part_dialogs.rb:1186
+#: src/include/partitioning/custom_part_dialogs.rb:1201
 msgid "Do &not format"
 msgstr "B&içimlendirme"
 
 #
 # clients/inst_custom_part.ycp:1507
 #. button text
-#: src/include/partitioning/custom_part_dialogs.rb:1196
+#: src/include/partitioning/custom_part_dialogs.rb:1211
 msgid "&Format"
 msgstr "&Biçimlendir"
 
 # include/partitioning/custom_part_dialogs.ycp:290
 #. button text
-#: src/include/partitioning/custom_part_dialogs.rb:1249
+#: src/include/partitioning/custom_part_dialogs.rb:1264
 msgid "Fs&tab Options"
 msgstr "Fs&tab ayarları"
 
 #
 #. label text
-#: src/include/partitioning/custom_part_dialogs.rb:1256
+#: src/include/partitioning/custom_part_dialogs.rb:1271
 msgid "&Mount Point"
 msgstr "&Bağlama noktası:"
 
 #. popup text %1 is a partition name, %2 a dirctory
-#: src/include/partitioning/custom_part_dialogs.rb:1268
+#: src/include/partitioning/custom_part_dialogs.rb:1283
 #, fuzzy
 #| msgid ""
 #| "\n"
@@ -3763,7 +4306,7 @@ msgstr ""
 "Devam edecek misiniz?\n"
 
 #. Popup text
-#: src/include/partitioning/custom_part_dialogs.rb:1297
+#: src/include/partitioning/custom_part_dialogs.rb:1312
 #, fuzzy
 msgid ""
 "\n"
@@ -3775,7 +4318,7 @@ msgstr ""
 "Sadece fat, ext2, ext3 ve reiserfs dosya sistemleri küçültülmeye izin verir."
 
 #. Popup text
-#: src/include/partitioning/custom_part_dialogs.rb:1304
+#: src/include/partitioning/custom_part_dialogs.rb:1319
 #, fuzzy
 msgid ""
 "\n"
@@ -3787,24 +4330,24 @@ msgstr ""
 "Sadece fat, ext2, ext3 ve reiserfs dosya sistemleri küçültülmeye izin verir."
 
 #. Popup text
-#: src/include/partitioning/custom_part_dialogs.rb:1316
+#: src/include/partitioning/custom_part_dialogs.rb:1331
 #, fuzzy
 msgid "You risk losing data if you shrink this partition."
 msgstr "Bu %1 küçültme işleminde veri kaybetme riskiniz var."
 
 #. Popup text
-#: src/include/partitioning/custom_part_dialogs.rb:1322
+#: src/include/partitioning/custom_part_dialogs.rb:1337
 #, fuzzy
 msgid "You risk losing data if you shrink this logical volume."
 msgstr "Bu %1 küçültme işleminde veri kaybetme riskiniz var."
 
 # clients/online_update.ycp:45
-#: src/include/partitioning/custom_part_dialogs.rb:1326
+#: src/include/partitioning/custom_part_dialogs.rb:1341
 msgid "Continue?"
 msgstr "Devam edecek misiniz?"
 
 #. Popup text
-#: src/include/partitioning/custom_part_dialogs.rb:1342
+#: src/include/partitioning/custom_part_dialogs.rb:1357
 #, fuzzy
 msgid ""
 "\n"
@@ -3817,7 +4360,7 @@ msgstr ""
 "verir."
 
 #. Popup text
-#: src/include/partitioning/custom_part_dialogs.rb:1349
+#: src/include/partitioning/custom_part_dialogs.rb:1364
 #, fuzzy
 msgid ""
 "\n"
@@ -3829,21 +4372,21 @@ msgstr ""
 "Sadece fat, ext2, ext3 ve reiserfs dosya sistemleri genişletilmeye izin "
 "verir."
 
-#: src/include/partitioning/custom_part_dialogs.rb:1357
+#: src/include/partitioning/custom_part_dialogs.rb:1372
 #, fuzzy
 msgid "Continue resizing?"
 msgstr "%1 boyutu değiştirme işlemine devam edilsin mi?"
 
 #. Popup text
-#: src/include/partitioning/custom_part_dialogs.rb:1374
+#: src/include/partitioning/custom_part_dialogs.rb:1389
 msgid "You decreased a partition with a reiser file system on it."
 msgstr ""
 
-#: src/include/partitioning/custom_part_dialogs.rb:1376
+#: src/include/partitioning/custom_part_dialogs.rb:1391
 msgid "You decreased a logical volume with a reiser file system on it."
 msgstr ""
 
-#: src/include/partitioning/custom_part_dialogs.rb:1383
+#: src/include/partitioning/custom_part_dialogs.rb:1398
 #, fuzzy
 msgid ""
 "\n"
@@ -3860,7 +4403,7 @@ msgstr ""
 "Dosya sistemi hemen küçültülsün mü?"
 
 #. popup text, %1 is replaced by device name
-#: src/include/partitioning/custom_part_dialogs.rb:1437
+#: src/include/partitioning/custom_part_dialogs.rb:1452
 #, fuzzy
 #| msgid ""
 #| "The selected device contains partitions that are currently mounted:\n"
@@ -3882,7 +4425,7 @@ msgstr ""
 "Ne yaptığınız hakkında kesin bir bilginiz yoksa Vazgeç düğmesine basınız.\n"
 
 #. popup text, Do not translate LVM.
-#: src/include/partitioning/custom_part_dialogs.rb:1460
+#: src/include/partitioning/custom_part_dialogs.rb:1475
 #, fuzzy
 msgid ""
 "\n"
@@ -3897,7 +4440,7 @@ msgstr ""
 "bütün bölümlerini yığın gruplarından çıkarınız.\n"
 
 #. popup text, Do not translate RAID.
-#: src/include/partitioning/custom_part_dialogs.rb:1471
+#: src/include/partitioning/custom_part_dialogs.rb:1486
 #, fuzzy
 msgid ""
 "\n"
@@ -3912,7 +4455,7 @@ msgstr ""
 "aygıtın bütün bölümlerini RAID sisteminden çıkarınız.\n"
 
 #. popup text
-#: src/include/partitioning/custom_part_dialogs.rb:1482
+#: src/include/partitioning/custom_part_dialogs.rb:1497
 #, fuzzy
 msgid ""
 "\n"
@@ -3925,21 +4468,12 @@ msgstr ""
 "LVM bölümü içeriyor. Bölümlendirme tablosunu silmeden önce aygıtın\n"
 "bütün bölümlerini yığın gruplarından çıkarınız.\n"
 
-#. help text, richtext format
-#: src/include/partitioning/custom_part_dialogs.rb:1543
-#, fuzzy
-msgid "<p>Create and remove subvolumes from a Btrfs filesystem.</p>\n"
-msgstr ""
-"<p>\n"
-"Dosya sistemi şifreleme parolanızı girmeniz gerekecek.\n"
-"</p>"
-
-#: src/include/partitioning/custom_part_dialogs.rb:1548
+#: src/include/partitioning/custom_part_dialogs.rb:1563
 msgid "<p>Enable automatic snapshots for a Btrfs filesystem with snapper.</p>"
 msgstr ""
 
 #. label text
-#: src/include/partitioning/custom_part_dialogs.rb:1562
+#: src/include/partitioning/custom_part_dialogs.rb:1577
 #, fuzzy
 #| msgid "Existing fstab Lines:"
 msgid "Existing Subvolumes:"
@@ -3947,42 +4481,18 @@ msgstr "Mevcut fstab satırları:"
 
 # clients/sound_volume.ycp:58
 #. label text
-#: src/include/partitioning/custom_part_dialogs.rb:1568
+#: src/include/partitioning/custom_part_dialogs.rb:1583
 #, fuzzy
 #| msgid "Store volume"
 msgid "New Subvolume"
 msgstr "Ses düzeyini kaydet"
 
 #. button text
-#: src/include/partitioning/custom_part_dialogs.rb:1574
+#: src/include/partitioning/custom_part_dialogs.rb:1589
 #, fuzzy
 #| msgid "Add new user"
 msgid "Add new"
 msgstr "Yeni kullanıcı ekle"
-
-# clients/hwinfo.ycp:55
-#. button text
-#. push button text
-#: src/include/partitioning/custom_part_dialogs.rb:1580
-#: src/modules/DualMultiSelectionBox.rb:147
-msgid "Remove"
-msgstr "Kaldır"
-
-#. TRANSLATOR: checkbox text
-#. TRANSLATORS: checkbox text
-#: src/include/partitioning/custom_part_dialogs.rb:1592
-#: src/modules/StorageProposal.rb:6253
-msgid "Enable Snapshots"
-msgstr ""
-
-#. heading text
-#. button text
-#: src/include/partitioning/custom_part_dialogs.rb:1603
-#: src/include/partitioning/custom_part_lib.rb:409
-#, fuzzy
-#| msgid "Signature Handling"
-msgid "Subvolume Handling"
-msgstr "İmza işlemesi"
 
 # include/nfs/routines.ycp:162
 #: src/include/partitioning/custom_part_dialogs.rb:1666
@@ -4003,7 +4513,7 @@ msgstr ""
 msgid "Subvolume name %1 already exists."
 msgstr "%1 bölge adı adı mevcut."
 
-#: src/include/partitioning/custom_part_dialogs.rb:1711
+#: src/include/partitioning/custom_part_dialogs.rb:1702
 msgid "Modifications done so far in this dialog will be lost."
 msgstr ""
 
@@ -4051,7 +4561,7 @@ msgstr ""
 
 #. helptext
 #: src/include/partitioning/custom_part_helptexts.rb:87
-#: src/include/partitioning/ep-dialogs.rb:746
+#: src/include/partitioning/ep-dialogs.rb:745
 msgid ""
 "<p>\n"
 "This mount point corresponds to a temporary filesystem like /tmp or /var/"
@@ -4066,7 +4576,7 @@ msgstr ""
 #. help text, continued
 #. helptext
 #: src/include/partitioning/custom_part_helptexts.rb:100
-#: src/include/partitioning/ep-dialogs.rb:761
+#: src/include/partitioning/ep-dialogs.rb:760
 msgid ""
 "<p>\n"
 "If you forget your password, you will lose access to the data on your file "
@@ -4090,7 +4600,7 @@ msgstr ""
 #. help text, continued
 #. helptext, %1 is replaced by integer
 #: src/include/partitioning/custom_part_helptexts.rb:114
-#: src/include/partitioning/ep-dialogs.rb:775
+#: src/include/partitioning/ep-dialogs.rb:774
 #, fuzzy
 msgid ""
 "<p>\n"
@@ -4128,7 +4638,7 @@ msgstr ""
 #. help text, continued
 #. helptext
 #: src/include/partitioning/custom_part_helptexts.rb:142
-#: src/include/partitioning/ep-dialogs.rb:787
+#: src/include/partitioning/ep-dialogs.rb:786
 msgid ""
 "<p>\n"
 "Do not forget this password!\n"
@@ -4207,17 +4717,17 @@ msgid ""
 msgstr ""
 
 #. error popup text
-#: src/include/partitioning/custom_part_lib.rb:51
+#: src/include/partitioning/custom_part_lib.rb:50
 msgid "You cannot use the mount point \"%1\" for LVM.\n"
 msgstr "\"%1\" bağlama noktasını LVM için kullanamazsınız.\n"
 
 #. error popup text
-#: src/include/partitioning/custom_part_lib.rb:78
+#: src/include/partitioning/custom_part_lib.rb:77
 msgid "You cannot use the mount point %1 for RAID."
 msgstr "%1 bağlama noktasını RAID için kullanamazsınız."
 
 #. error popup text
-#: src/include/partitioning/custom_part_lib.rb:97
+#: src/include/partitioning/custom_part_lib.rb:96
 #, fuzzy
 msgid ""
 "You have selected to not automatically mount at start-up a file system\n"
@@ -4236,21 +4746,7 @@ msgstr ""
 "Bu işlemi yapmak istediğinize emin misiniz?\n"
 
 #. error popup text
-#: src/include/partitioning/custom_part_lib.rb:120
-#, fuzzy
-msgid ""
-"You have assigned an encrypted file system to a partition\n"
-"with one of the following mount points: \"/\", \"/usr\", \"/boot\",\n"
-"/var\".  This is not possible. Change the mount point or use a\n"
-"nonloopbacked file system.\n"
-msgstr ""
-"\"/\", \"/usr\", \"/boot\", \"swap\" bağlama noktalarından birine\n"
-"'loopback' dosya sistemi kullanan bir bölüm atadınız. Bu mümkün\n"
-"değildir. Bağlama noktasını değiştirin ya da 'loopback' kullanmayan\n"
-"bir dosya sistemi seçin.\n"
-
-#. error popup text
-#: src/include/partitioning/custom_part_lib.rb:158
+#: src/include/partitioning/custom_part_lib.rb:138
 #, fuzzy
 msgid ""
 "You have set a file system as mountable by users. The file system\n"
@@ -4272,30 +4768,23 @@ msgstr ""
 #. @param [Hash{String => map}] targetMap the TargetMap
 #. @param mount mount point
 #. @return [Boolean]
-#: src/include/partitioning/custom_part_lib.rb:205
+#: src/include/partitioning/custom_part_lib.rb:185
 #, fuzzy
 msgid "Mount point must not be empty."
 msgstr "Telefon numaraları boş bırakılamaz."
 
 #. error popup
-#: src/include/partitioning/custom_part_lib.rb:210
+#: src/include/partitioning/custom_part_lib.rb:190
 msgid "Swap devices must have swap as mount point."
 msgstr ""
 
 #. error popup
-#: src/include/partitioning/custom_part_lib.rb:214
+#: src/include/partitioning/custom_part_lib.rb:194
 msgid "Only swap devices may have swap as mount point."
 msgstr ""
 
-# include/partitioning/partition_defines.ycp:91
-#. && mount!="swap" )
 #. error popup text
-#: src/include/partitioning/custom_part_lib.rb:229
-msgid "This mount point is already in use. Select a different one."
-msgstr "Bu bağlama noktası kullanımda, başka bir bağlama noktası seçin."
-
-#. error popup text
-#: src/include/partitioning/custom_part_lib.rb:239
+#: src/include/partitioning/custom_part_lib.rb:219
 msgid ""
 "FAT filesystem used for system mount point (/, /usr, /opt, /var, /home).\n"
 "This is not possible."
@@ -4304,7 +4793,7 @@ msgstr ""
 "FAT dosya sistemi kullanılmış. Bu mümkün değildir."
 
 #. error popup text
-#: src/include/partitioning/custom_part_lib.rb:248
+#: src/include/partitioning/custom_part_lib.rb:228
 #, fuzzy
 msgid ""
 "Invalid character in mount point. Do not use \"`'!\"%#\" in a mount point."
@@ -4314,7 +4803,7 @@ msgstr ""
 
 # include/partitioning/partition_defines.ycp:98
 #. error popup text
-#: src/include/partitioning/custom_part_lib.rb:257
+#: src/include/partitioning/custom_part_lib.rb:237
 #, fuzzy
 #| msgid ""
 #| "You cannot use any of the following mount points:\n"
@@ -4329,34 +4818,36 @@ msgstr ""
 
 # include/partitioning/partition_defines.ycp:104
 #. error popup text
-#: src/include/partitioning/custom_part_lib.rb:266
+#: src/include/partitioning/custom_part_lib.rb:246
 msgid "Your mount point must start with a \"/\" "
 msgstr "Bağlama noktası \"/\" ile başlamalıdır."
 
 #. error popup text
-#: src/include/partitioning/custom_part_lib.rb:272
+#: src/include/partitioning/custom_part_lib.rb:252
 msgid ""
 "It is not allowed to assign the mount point swap\n"
 "to a device without a swap file system."
 msgstr ""
 
 #. warning message, %1 is replaced by fs name (e.g. Ext3)
-#. %2 is prelaced by a size (e.g. 10 MB)
-#: src/include/partitioning/custom_part_lib.rb:299
+#. %2 is replaced by the user entered size (e.g. 20GB)
+#. %3 is replaced by a size (e.g. 10 MB)
+#: src/include/partitioning/custom_part_lib.rb:280
 msgid ""
 "Your partition is too small to use %1.\n"
-"The minimum size for this file system is %2.\n"
+"The size you entered (after rounding up) is %2.\n"
+"The minimum size for this file system is %3.\n"
 msgstr ""
 
 #. error popup text
-#: src/include/partitioning/custom_part_lib.rb:369
+#: src/include/partitioning/custom_part_lib.rb:346
 msgid ""
 "It is not allowed to assign a mount point\n"
 "to a device with nonexistent or unknown file system."
 msgstr ""
 
 #. warning message, %1 is replaced by fs name (e.g. Ext3)
-#: src/include/partitioning/custom_part_lib.rb:482
+#: src/include/partitioning/custom_part_lib.rb:545
 msgid ""
 "\n"
 "WARNING:\n"
@@ -4371,12 +4862,12 @@ msgstr ""
 
 #. //////////////////////////////////////////////
 #. modify map new
-#: src/include/partitioning/custom_part_lib.rb:924
-#: src/include/partitioning/custom_part_lib.rb:951
+#: src/include/partitioning/custom_part_lib.rb:980
+#: src/include/partitioning/custom_part_lib.rb:1007
 msgid "The file system is currently mounted on %1."
 msgstr ""
 
-#: src/include/partitioning/custom_part_lib.rb:929
+#: src/include/partitioning/custom_part_lib.rb:985
 msgid ""
 "You can try to unmount it now, continue without unmounting or cancel.\n"
 "Click Cancel unless you know exactly what you are doing."
@@ -4384,20 +4875,20 @@ msgstr ""
 
 #. button text
 #. button text
-#: src/include/partitioning/custom_part_lib.rb:940
-#: src/include/partitioning/custom_part_lib.rb:965
+#: src/include/partitioning/custom_part_lib.rb:996
+#: src/include/partitioning/custom_part_lib.rb:1021
 #, fuzzy
 #| msgid "Mount"
 msgid "Unmount"
 msgstr "Sisteme bağlama"
 
-#: src/include/partitioning/custom_part_lib.rb:956
+#: src/include/partitioning/custom_part_lib.rb:1012
 msgid ""
 "You can try to unmount it now or cancel.\n"
 "Click Cancel unless you know exactly what you are doing."
 msgstr ""
 
-#: src/include/partitioning/custom_part_lib.rb:1002
+#: src/include/partitioning/custom_part_lib.rb:1058
 #, fuzzy
 #| msgid ""
 #| "It is not possible to resize partition %1 \n"
@@ -4407,7 +4898,7 @@ msgstr ""
 "%1 bölümünün boyutu değiştirilemiyor\n"
 "çünkü dosya sistemi sisteme bağlanamıyor.\n"
 
-#: src/include/partitioning/custom_part_lib.rb:1015
+#: src/include/partitioning/custom_part_lib.rb:1071
 #, fuzzy
 #| msgid ""
 #| "It is not possible to resize partition %1 \n"
@@ -4417,7 +4908,7 @@ msgstr ""
 "%1 bölümünün boyutu değiştirilemiyor\n"
 "çünkü dosya sistemi sisteme bağlanamıyor.\n"
 
-#: src/include/partitioning/custom_part_lib.rb:1026
+#: src/include/partitioning/custom_part_lib.rb:1082
 #, fuzzy
 #| msgid ""
 #| "It is not possible to resize partition %1 \n"
@@ -4426,13 +4917,6 @@ msgid "It is not possible to resize the file system while it is mounted."
 msgstr ""
 "%1 bölümünün boyutu değiştirilemiyor\n"
 "çünkü dosya sistemi sisteme bağlanamıyor.\n"
-
-# clients/inst_custom_part.ycp:2918
-#. push button text
-#: src/include/partitioning/ep-all.rb:80
-#, fuzzy
-msgid "Rescan Devices"
-msgstr "Raid aygıtı"
 
 #. push button text
 #: src/include/partitioning/ep-all.rb:85
@@ -4606,14 +5090,6 @@ msgstr "<p>Eklenecek ifadenin türünü seçin.</p>"
 msgid "Unused Devices:"
 msgstr "Yapılandırılmış aygıtlar:"
 
-#. label for selection box
-#: src/include/partitioning/ep-btrfs-dialogs.rb:220
-#: src/include/partitioning/ep-raid-dialogs.rb:267
-#: src/include/partitioning/ep-raid-dialogs.rb:531
-#, fuzzy
-msgid "Selected Devices:"
-msgstr "Seçili IDE aygıtı"
-
 # include/partitioning/lvm_ui_dialogs.ycp:81
 #. dialog title
 #: src/include/partitioning/ep-btrfs-dialogs.rb:291
@@ -4721,11 +5197,9 @@ msgstr "ipsec.secrets dosyası yazılamadı:"
 #. Package:     yast2-storage
 #. Summary:     Expert Partitioner
 #. Authors:     Arvin Schnell <aschnell@suse.de>
-#: src/include/partitioning/ep-btrfs.rb:40
-#: src/include/partitioning/ep-dm.rb:36 src/include/partitioning/ep-hd.rb:61
-#: src/include/partitioning/ep-loop.rb:37
-#: src/include/partitioning/ep-lvm.rb:64
-#: src/include/partitioning/ep-raid.rb:38
+#: src/include/partitioning/ep-btrfs.rb:40 src/include/partitioning/ep-dm.rb:36
+#: src/include/partitioning/ep-hd.rb:61 src/include/partitioning/ep-loop.rb:37
+#: src/include/partitioning/ep-lvm.rb:64 src/include/partitioning/ep-raid.rb:38
 msgid "Edit"
 msgstr "Düzenle"
 
@@ -4756,9 +5230,8 @@ msgstr "Düzenle"
 #. Package:     yast2-storage
 #. Summary:     Expert Partitioner
 #. Authors:     Arvin Schnell <aschnell@suse.de>
-#: src/include/partitioning/ep-btrfs.rb:45
-#: src/include/partitioning/ep-hd.rb:43 src/include/partitioning/ep-hd.rb:64
-#: src/include/partitioning/ep-loop.rb:37
+#: src/include/partitioning/ep-btrfs.rb:45 src/include/partitioning/ep-hd.rb:43
+#: src/include/partitioning/ep-hd.rb:64 src/include/partitioning/ep-loop.rb:37
 #: src/include/partitioning/ep-lvm.rb:44 src/include/partitioning/ep-lvm.rb:66
 #: src/include/partitioning/ep-raid.rb:40
 #: src/include/partitioning/ep-tmpfs.rb:36
@@ -4804,44 +5277,44 @@ msgid "Btrfs Device: %1"
 msgstr "Aygıt URI: %1"
 
 # include/cups/ui.ycp:1525
-#: src/include/partitioning/ep-dialogs.rb:345
+#: src/include/partitioning/ep-dialogs.rb:344
 #, fuzzy
 msgid "Format partition"
 msgstr "Bölümün boyutu."
 
 # include/cups/ui.ycp:1525
-#: src/include/partitioning/ep-dialogs.rb:356
+#: src/include/partitioning/ep-dialogs.rb:355
 #, fuzzy
 msgid "Do not format partition"
 msgstr "Bölümün boyutu."
 
 # clients/inst_sw_single.ycp:1539
-#: src/include/partitioning/ep-dialogs.rb:372
+#: src/include/partitioning/ep-dialogs.rb:371
 #, fuzzy
 msgid "Do not mount partition"
 msgstr "bölüm"
 
 # clients/inst_sw_single.ycp:1539
-#: src/include/partitioning/ep-dialogs.rb:399
+#: src/include/partitioning/ep-dialogs.rb:398
 #, fuzzy
 msgid "Mount partition"
 msgstr "bölüm"
 
 # include/partitioning/custom_part_dialogs.ycp:290
 #. button text
-#: src/include/partitioning/ep-dialogs.rb:412
+#: src/include/partitioning/ep-dialogs.rb:411
 #, fuzzy
 msgid "Fs&tab Options..."
 msgstr "Fs&tab ayarları"
 
 #. error popup
-#: src/include/partitioning/ep-dialogs.rb:596
+#: src/include/partitioning/ep-dialogs.rb:595
 #, fuzzy
 msgid "Crypt files must be encrypted."
 msgstr "Bir şema seçilmemiş."
 
 #. error popup
-#: src/include/partitioning/ep-dialogs.rb:607
+#: src/include/partitioning/ep-dialogs.rb:606
 #, fuzzy
 msgid ""
 "You chose to create the crypt file, but did not specify\n"
@@ -4855,20 +5328,20 @@ msgstr ""
 "Lütfen ayrıca biçimlendime seçeneğini belirtin.\n"
 
 #. error popup
-#: src/include/partitioning/ep-dialogs.rb:623
+#: src/include/partitioning/ep-dialogs.rb:622
 #, fuzzy
 msgid "Crypt files require a mount point."
 msgstr "Bir bağlama noktası sağla."
 
 #. error popup
-#: src/include/partitioning/ep-dialogs.rb:637
+#: src/include/partitioning/ep-dialogs.rb:636
 #, fuzzy
 msgid "Tmpfs requires a mount point."
 msgstr "Bir bağlama noktası sağla."
 
 # include/partitioning/custom_part_helptexts.ycp:34
 #. helptext
-#: src/include/partitioning/ep-dialogs.rb:721
+#: src/include/partitioning/ep-dialogs.rb:720
 #, fuzzy
 msgid ""
 "<p>\n"
@@ -4885,7 +5358,7 @@ msgstr ""
 "</p>\n"
 
 #. helptext
-#: src/include/partitioning/ep-dialogs.rb:734
+#: src/include/partitioning/ep-dialogs.rb:733
 msgid ""
 "<p>\n"
 "The file system used for this volume is swap. You can leave the encryption \n"
@@ -4895,23 +5368,19 @@ msgid ""
 msgstr ""
 
 # include/ui/common_popups.ycp:279
-#: src/include/partitioning/ep-dialogs.rb:804
+#: src/include/partitioning/ep-dialogs.rb:803
 #, fuzzy
 #| msgid "All changes will be lost!"
 msgid "All data stored on the volume will be lost!"
 msgstr "Tüm değişiklikler kaybolacaktır!"
 
-#: src/include/partitioning/ep-dialogs.rb:827
-msgid "Password"
-msgstr "Parola"
-
 #. popup text
-#: src/include/partitioning/ep-dialogs.rb:924
+#: src/include/partitioning/ep-dialogs.rb:923
 msgid "Resize not supported by underlying device."
 msgstr ""
 
 #. popup text
-#: src/include/partitioning/ep-dialogs.rb:929
+#: src/include/partitioning/ep-dialogs.rb:928
 #, fuzzy
 msgid ""
 "\n"
@@ -4923,7 +5392,7 @@ msgstr ""
 "üzerindeki dosya sistemi boyut değiştirme işlemini desteklememektedir.\n"
 
 # clients/inst_custom_part.ycp:3159
-#: src/include/partitioning/ep-dialogs.rb:953
+#: src/include/partitioning/ep-dialogs.rb:952
 #, fuzzy
 msgid ""
 "It is not possible to check whether a NTFS\n"
@@ -4931,7 +5400,7 @@ msgid ""
 msgstr "%1 üzerinde yeni bir bölüm oluşturmak olanaksız."
 
 #. FIXME: Really?
-#: src/include/partitioning/ep-dialogs.rb:972
+#: src/include/partitioning/ep-dialogs.rb:971
 #, fuzzy
 msgid ""
 "Partition %1 cannot be resized\n"
@@ -4942,26 +5411,26 @@ msgstr ""
 
 # clients/inst_do_resize.ycp:450
 #. Heading for dialog
-#: src/include/partitioning/ep-dialogs.rb:999
+#: src/include/partitioning/ep-dialogs.rb:998
 #, fuzzy
 msgid "Resize Partition %1"
 msgstr "Bölümü &boyutlandır"
 
 # include/partitioning/lvm_ui_dialogs.ycp:81
 #. Heading for dialog
-#: src/include/partitioning/ep-dialogs.rb:1020
+#: src/include/partitioning/ep-dialogs.rb:1019
 #, fuzzy
 msgid "Resize Logical Volume %1"
 msgstr "Mantıksal yığın boyutu değiştir"
 
 # clients/inst_sw_single.ycp:718
 #. size_k + min_size_k could be > max_size_k
-#: src/include/partitioning/ep-dialogs.rb:1052
+#: src/include/partitioning/ep-dialogs.rb:1051
 #, fuzzy
 msgid "Current size: %1"
 msgstr "Geçerli Zaman Dilimi: %1"
 
-#: src/include/partitioning/ep-dialogs.rb:1064
+#: src/include/partitioning/ep-dialogs.rb:1063
 #, fuzzy
 msgid "Currently used: %1"
 msgstr ""
@@ -4969,14 +5438,14 @@ msgstr ""
 "\tGeçerli değer: %1"
 
 #. radio button text, %1 is replaced by size
-#: src/include/partitioning/ep-dialogs.rb:1097
+#: src/include/partitioning/ep-dialogs.rb:1096
 #, fuzzy
 msgid "Minimum Size (%1)"
 msgstr "En yüksek &boyut (MB)"
 
 # clients/inst_resize_ui.ycp:607
 #. help text
-#: src/include/partitioning/ep-dialogs.rb:1140
+#: src/include/partitioning/ep-dialogs.rb:1139
 #, fuzzy
 msgid "<p>Choose new size.</p>"
 msgstr ""
@@ -4988,7 +5457,7 @@ msgstr ""
 #. after user tries to do that is stupid - in some cases
 #. we can tell beforehand, thus user should never get to this
 #. point (e.g. when the partition is mounted)
-#: src/include/partitioning/ep-dialogs.rb:1234
+#: src/include/partitioning/ep-dialogs.rb:1233
 msgid ""
 "You are extending a mounted filesystem by %1 Gigabyte. \n"
 "This may be quite slow and can take hours. You might possibly want \n"
@@ -4997,16 +5466,10 @@ msgid ""
 msgstr ""
 
 #. label for log view
-#: src/include/partitioning/ep-dialogs.rb:1310
+#: src/include/partitioning/ep-dialogs.rb:1309
 #, fuzzy
 msgid "Output of %1"
 msgstr "Çıktı:"
-
-#. popup text
-#: src/include/partitioning/ep-dialogs.rb:1337
-#, fuzzy
-msgid "Rescanning disks..."
-msgstr "Komut dosyaları çalıştırılıyor..."
 
 #. dialog title
 #: src/include/partitioning/ep-dm-dialogs.rb:62
@@ -5176,6 +5639,12 @@ msgstr ""
 "Bitiş silindiri:   "
 
 #. dialog title
+#: src/include/partitioning/ep-hd-dialogs.rb:549
+#, fuzzy
+msgid "Add Partition on %1"
+msgstr "&Bölüm ekle"
+
+#. dialog title
 #: src/include/partitioning/ep-hd-dialogs.rb:595
 #, fuzzy
 msgid "Edit Partition %1"
@@ -5225,6 +5694,12 @@ msgstr "İleri yön"
 msgid "Backward"
 msgstr "Arka plan"
 
+#
+#: src/include/partitioning/ep-hd-dialogs.rb:726
+#, fuzzy
+msgid "Confirm Deleting of All Partitions"
+msgstr "Tüm bölümler sisteme bağlanıyor..."
+
 # clients/inst_lvm_pv.ycp:233 clients/lvm_config_ui.ycp:277
 #: src/include/partitioning/ep-hd-dialogs.rb:728
 #, fuzzy
@@ -5257,7 +5732,7 @@ msgstr ""
 
 #. error popup
 #. TRANSLATORS: error popup
-#: src/include/partitioning/ep-hd-lib.rb:57 src/modules/Storage.rb:5226
+#: src/include/partitioning/ep-hd-lib.rb:57 src/modules/Storage.rb:5234
 msgid "The disk is in use and cannot be modified."
 msgstr ""
 
@@ -5303,6 +5778,13 @@ msgstr "%1 üzerindeki tüm bölümleri silmek istediğinize emin misiniz?"
 #, fuzzy
 msgid "There are no partitions to delete on this disk."
 msgstr "Bu modül için seçenek yok."
+
+# clients/inst_custom_part.ycp:3159
+#. error popup
+#: src/include/partitioning/ep-hd-lib.rb:235
+#, fuzzy
+msgid "It is not possible to create a partition on %1."
+msgstr "%1 üzerinde yeni bir bölüm oluşturmak olanaksız."
 
 #. error popup
 #. error popup
@@ -5478,8 +5960,7 @@ msgstr "&Yukarı"
 
 # clients/inst_custom_part.ycp:2953
 #: src/include/partitioning/ep-hd.rb:63 src/include/partitioning/ep-lvm.rb:43
-#: src/include/partitioning/ep-lvm.rb:65
-#: src/include/partitioning/ep-raid.rb:39
+#: src/include/partitioning/ep-lvm.rb:65 src/include/partitioning/ep-raid.rb:39
 #, fuzzy
 msgid "Resize"
 msgstr "&Boyut değiştir"
@@ -6084,19 +6565,6 @@ msgstr ""
 "Girdiğiniz fiziksel boyut 8KB ile 512MB arasında,\n"
 "ve 2'nin kuvvetleri şeklinde olmalıdır, mesela \"4M\" ya da \"512K\" gibi.\n"
 
-# clients/inst_root.ycp:54
-#. error popup text
-#: src/include/partitioning/ep-lvm-dialogs.rb:167
-#, fuzzy
-msgid "Enter a name for the logical volume."
-msgstr "Yeni profilin adını girin."
-
-#. error popup text
-#: src/include/partitioning/ep-lvm-dialogs.rb:172
-#, fuzzy
-msgid "The name for the logical volume is longer than 128 characters."
-msgstr "Şema adının uzunluğu 32 karakterden fazla olamaz."
-
 #. error popup text
 #: src/include/partitioning/ep-lvm-dialogs.rb:178
 #, fuzzy
@@ -6187,12 +6655,6 @@ msgid ""
 "Thin Volumes cannot have a Stripe Count."
 msgstr ""
 
-# include/sound/ui.ycp:335
-#. combo box label
-#: src/include/partitioning/ep-lvm-dialogs.rb:606
-msgid "Number"
-msgstr "Numara"
-
 # include/partitioning/lvm_ui_dialogs.ycp:93 include/partitioning/lvm_ui_dialogs.ycp:106
 #. A dialog title - %1 is a logical volume name, %2 is a volume group.
 #: src/include/partitioning/ep-lvm-dialogs.rb:631
@@ -6238,48 +6700,6 @@ msgid ""
 "This means the volume allocates needed space on demand from a <b>Thin Pool</"
 "b>.</p>"
 msgstr ""
-
-#. heading for frame
-#: src/include/partitioning/ep-lvm-dialogs.rb:827
-msgid "Name"
-msgstr "Ad"
-
-# include/partitioning/lvm_ui_lib.ycp:210
-#: src/include/partitioning/ep-lvm-dialogs.rb:828
-#: src/include/partitioning/ep-lvm.rb:195
-#, fuzzy
-msgid "Logical Volume"
-msgstr "Mantıksal yığınlar"
-
-# include/partitioning/lvm_ui_lib.ycp:210
-#. radio button label
-#: src/include/partitioning/ep-lvm-dialogs.rb:848
-#, fuzzy
-msgid "Normal Volume"
-msgstr "Mantıksal yığınlar"
-
-# clients/lan_inetd_custom.ycp:754
-#. radio button label
-#: src/include/partitioning/ep-lvm-dialogs.rb:851
-#, fuzzy
-#| msgid "Pool"
-msgid "Thin Pool"
-msgstr "Bilardo"
-
-# include/sound/ui.ycp:161 include/sound/ui.ycp:166 include/sound/ui.ycp:342
-#. radio button label
-#: src/include/partitioning/ep-lvm-dialogs.rb:857
-#, fuzzy
-#| msgid "&Volume"
-msgid "Thin Volume"
-msgstr "&Ses seviyesi..."
-
-#. combo box label
-#: src/include/partitioning/ep-lvm-dialogs.rb:865
-#, fuzzy
-#| msgid "Used by"
-msgid "Used Pool"
-msgstr "Kullanan"
 
 # include/partitioning/lvm_ui_dialogs.ycp:93 include/partitioning/lvm_ui_dialogs.ycp:106
 #. dialog title, %1 is a volume group
@@ -6395,11 +6815,6 @@ msgstr ""
 msgid "Add Logical Volume"
 msgstr "Mantıksal yığınlar"
 
-# include/partitioning/lvm_ui_lib.ycp:245
-#: src/include/partitioning/ep-lvm.rb:190
-msgid "Volume Group"
-msgstr "Yığın grubu"
-
 #. helptext
 #: src/include/partitioning/ep-lvm.rb:222
 #, fuzzy
@@ -6428,6 +6843,17 @@ msgstr ""
 msgid ""
 "<p>This view shows all logical volumes of the\n"
 "selected volume group.</p>"
+msgstr ""
+"<p><b>Bölüm ekle:</b> Yığın grubuna fiziksel yığın bölümleri ekleme içindir."
+"</p>"
+
+# include/partitioning/lvm_ui_lib.ycp:92
+#. helptext
+#: src/include/partitioning/ep-lvm.rb:419
+#, fuzzy
+msgid ""
+"<p>This view shows all physical volumes used by\n"
+"the selected volume group.</p>"
 msgstr ""
 "<p><b>Bölüm ekle:</b> Yığın grubuna fiziksel yığın bölümleri ekleme içindir."
 "</p>"
@@ -6607,49 +7033,6 @@ msgstr ""
 "alan kullanarak veri kurtarma işleminin başarısı için bölümler\n"
 "farklı sürücüler üstünde olmalıdır.</p>\n"
 
-#. Translators, 'Striping' is a technical term here. Translate only if
-#. you are sure!! If in doubt, leave it in English.
-#: src/include/partitioning/ep-raid-dialogs.rb:201
-msgid "RAID &0  (Striping)"
-msgstr "RAID &0  (Striping)"
-
-#. Translators, 'Mirroring' is a technical term here. Translate only if
-#. you are sure!! If in doubt, leave it in English.
-#: src/include/partitioning/ep-raid-dialogs.rb:210
-msgid "RAID &1  (Mirroring)"
-msgstr "RAID &1  (Mirroring)"
-
-#. Translators, 'Redundant Striping' is a technical term here. Translate
-#. only if you are sure!! If in doubt, leave it in English.
-#: src/include/partitioning/ep-raid-dialogs.rb:219
-msgid "RAID &5  (Redundant Striping)"
-msgstr "RAID &5  (Redundant Striping)"
-
-#. Translators, 'Redundant Striping' is a technical term here. Translate only if
-#. you are sure!! If in doubt, leave it in English.
-#: src/include/partitioning/ep-raid-dialogs.rb:228
-#, fuzzy
-msgid "RAID &6  (Dual Redundant Striping)"
-msgstr "RAID &5  (Redundant Striping)"
-
-#. Translators, 'Mirroring' and 'Striping' are technical terms here. Translate only if
-#. you are sure!! If in doubt, leave it in English.
-#: src/include/partitioning/ep-raid-dialogs.rb:237
-#, fuzzy
-msgid "RAID &10  (Mirroring and Striping)"
-msgstr "RAID &1  (Mirroring)"
-
-#. label text
-#: src/include/partitioning/ep-raid-dialogs.rb:248
-msgid "Raid &Name (optional)"
-msgstr ""
-
-#. label for selection box
-#: src/include/partitioning/ep-raid-dialogs.rb:265
-#: src/include/partitioning/ep-raid-dialogs.rb:530
-msgid "Available Devices:"
-msgstr "Mevcut aygıtlar:"
-
 #. helptext
 #: src/include/partitioning/ep-raid-dialogs.rb:338
 #, fuzzy
@@ -6809,12 +7192,6 @@ msgstr ""
 "Değiştirilecek RAID (%1) diskte zaten oluşturulmuş durumda.\n"
 "Bu şekilde değişiklik yapılamaz. %1 RAID'ini değiştirebilmeniz\n"
 "için silip yeniden oluşturmalısınız.\n"
-
-#. push button text
-#: src/include/partitioning/ep-raid.rb:132
-#, fuzzy
-msgid "Add RAID..."
-msgstr "RAID &ekle"
 
 # include/scanner/scanner_overview.ycp:73
 #. helptext
@@ -7261,24 +7638,6 @@ msgstr ""
 msgid "Classify"
 msgstr "Sınıf"
 
-#. push button text
-#: src/modules/DualMultiSelectionBox.rb:134
-msgid "Add"
-msgstr "Ekle"
-
-#. push button text
-#: src/modules/DualMultiSelectionBox.rb:140
-#, fuzzy
-msgid "Add All"
-msgstr "RAID &ekle"
-
-# clients/hwinfo.ycp:55
-#. push button text
-#: src/modules/DualMultiSelectionBox.rb:153
-#, fuzzy
-msgid "Remove All"
-msgstr "Kaldır"
-
 #. error popup text
 #: src/modules/DualMultiSelectionBox.rb:183
 msgid "File %1 is not a regular file!"
@@ -7388,14 +7747,14 @@ msgid "Pattern File"
 msgstr "Model"
 
 #. label text
-#: src/modules/FileSystems.rb:278
+#: src/modules/FileSystems.rb:289
 #, fuzzy
 #| msgid "&Size"
 msgid "Tmpfs &Size"
 msgstr "&Boyut"
 
 #. popup text
-#: src/modules/FileSystems.rb:287
+#: src/modules/FileSystems.rb:298
 #, fuzzy
 #| msgid "Value must be between 0 and 32767. Try again."
 msgid ""
@@ -7403,14 +7762,14 @@ msgid ""
 "Value must be above 100k or between 1% and 200%. Try again."
 msgstr "Değer 0 ile 32767 arasında olmalıdır. Lütfen tekrar deneyin."
 
-#: src/modules/FileSystems.rb:290
+#: src/modules/FileSystems.rb:301
 #, fuzzy
 #| msgid "Value must be between 0 and 32767. Try again."
 msgid "Value must be between 1% and 200%. Try again."
 msgstr "Değer 0 ile 32767 arasında olmalıdır. Lütfen tekrar deneyin."
 
 #. help text, richtext format
-#: src/modules/FileSystems.rb:297
+#: src/modules/FileSystems.rb:308
 msgid ""
 "<p><b>Tmpfs Size:</b>\n"
 "Size may be either entered as a number followed by K,M,G for Kilo-, Mega- or "
@@ -7419,19 +7778,19 @@ msgid ""
 msgstr ""
 
 #. popup text
-#: src/modules/FileSystems.rb:319
+#: src/modules/FileSystems.rb:330
 msgid "Value must be between 0 and 32767. Try again."
 msgstr "Değer 0 ile 32767 arasında olmalıdır. Lütfen tekrar deneyin."
 
 #. button text
-#: src/modules/FileSystems.rb:511
+#: src/modules/FileSystems.rb:524
 #, fuzzy
 #| msgid "Mountable by &user"
 msgid "Mountable by User"
 msgstr "&Kullanıcı tarafından bağlanılabilir"
 
 #. help text, richtext format
-#: src/modules/FileSystems.rb:534
+#: src/modules/FileSystems.rb:547
 #, fuzzy
 msgid ""
 "<p><b>Do Not Mount at System Start-up:</b>\n"
@@ -7450,7 +7809,7 @@ msgstr ""
 "belirtir). Öntanımlı değeri 'kapalı'dır.</p>\n"
 
 #. help text, richtext format
-#: src/modules/FileSystems.rb:610
+#: src/modules/FileSystems.rb:623
 msgid ""
 "<p><b>Access Control Lists (ACL):</b>\n"
 "Enable access control lists on the file system.</p>\n"
@@ -7459,7 +7818,7 @@ msgstr ""
 "Dosya sisteminde erişim kontrol listelerini mümkün kılar.</p>\n"
 
 #. help text, richtext format
-#: src/modules/FileSystems.rb:625
+#: src/modules/FileSystems.rb:638
 msgid ""
 "<p><b>Extended User Attributes:</b>\n"
 "Allow extended user attributes on the file system.</p>\n"
@@ -7467,7 +7826,7 @@ msgstr ""
 "<p><b>Genişletilmiş kullanıcı özellikleri:</b>\n"
 "Dosya sisteminde genişletilmiş kullanıcı özelliklerine izin verir.</p>\n"
 
-#: src/modules/FileSystems.rb:647
+#: src/modules/FileSystems.rb:660
 #, fuzzy
 msgid ""
 "Invalid characters in arbitrary option value. Do not use spaces or tabs. Try "
@@ -7477,7 +7836,7 @@ msgstr ""
 "kullanmayın."
 
 #. help text, richtext format
-#: src/modules/FileSystems.rb:651
+#: src/modules/FileSystems.rb:664
 #, fuzzy
 msgid ""
 "<p><b>Arbitrary Option Value:</b>\n"
@@ -7492,13 +7851,13 @@ msgstr ""
 
 # include/partitioning/custom_part_filesystems.ycp:131
 #. label text
-#: src/modules/FileSystems.rb:720
+#: src/modules/FileSystems.rb:733
 msgid "Number of &FATs"
 msgstr "&FAT sayısı"
 
 # include/partitioning/custom_part_filesystems.ycp:134
 #. help text, richtext format
-#: src/modules/FileSystems.rb:726
+#: src/modules/FileSystems.rb:739
 msgid ""
 "<p><b>Number of FATs:</b>\n"
 "Specify the number of file allocation tables in the file system. The default "
@@ -7510,7 +7869,7 @@ msgstr ""
 
 # include/partitioning/custom_part_filesystems.ycp:138
 #. label text
-#: src/modules/FileSystems.rb:735
+#: src/modules/FileSystems.rb:748
 #, fuzzy
 #| msgid "FAT &size"
 msgid "FAT &Size"
@@ -7518,7 +7877,7 @@ msgstr "FAT &boyutu"
 
 # include/partitioning/custom_part_filesystems.ycp:144
 #. help text, richtext format
-#: src/modules/FileSystems.rb:746
+#: src/modules/FileSystems.rb:759
 #, fuzzy
 msgid ""
 "<p><b>FAT Size:</b>\n"
@@ -7533,7 +7892,7 @@ msgstr ""
 
 # include/partitioning/custom_part_filesystems.ycp:157
 #. label text
-#: src/modules/FileSystems.rb:755
+#: src/modules/FileSystems.rb:768
 #, fuzzy
 #| msgid "Root &dir entries"
 msgid "Root &Dir Entries"
@@ -7541,7 +7900,7 @@ msgstr "Root d&izini girdileri"
 
 # include/partitioning/custom_part_filesystems.ycp:162
 #. popup text
-#: src/modules/FileSystems.rb:763
+#: src/modules/FileSystems.rb:776
 #, fuzzy
 #| msgid "The minimum size for \"Root dir entries\" is 112. Please try again."
 msgid "The minimum size for \"Root Dir Entries\" is 112. Try again."
@@ -7551,7 +7910,7 @@ msgstr ""
 
 # include/partitioning/custom_part_filesystems.ycp:163
 #. help text, richtext format
-#: src/modules/FileSystems.rb:767
+#: src/modules/FileSystems.rb:780
 #, fuzzy
 #| msgid ""
 #| "<p><b>Root dir entries:</b>\n"
@@ -7566,7 +7925,7 @@ msgstr ""
 
 # include/partitioning/custom_part_filesystems.ycp:205
 #. label text
-#: src/modules/FileSystems.rb:780
+#: src/modules/FileSystems.rb:793
 #, fuzzy
 #| msgid "Hash &function"
 msgid "Hash &Function"
@@ -7574,7 +7933,7 @@ msgstr "&Hash fonksiyonu"
 
 # include/partitioning/custom_part_filesystems.ycp:208
 #. help text, richtext format
-#: src/modules/FileSystems.rb:787
+#: src/modules/FileSystems.rb:800
 #, fuzzy
 #| msgid ""
 #| "<p><b>Hash function:</b>\n"
@@ -7590,14 +7949,14 @@ msgstr ""
 "fonksiyonunun adını belirtir.</p>"
 
 #. label text
-#: src/modules/FileSystems.rb:796
+#: src/modules/FileSystems.rb:809
 #, fuzzy
 #| msgid "FS &revision"
 msgid "FS &Revision"
 msgstr "Dosya sistemi s&ürümü"
 
 #. help text, richtext format
-#: src/modules/FileSystems.rb:803
+#: src/modules/FileSystems.rb:816
 #, fuzzy
 #| msgid ""
 #| "<p><b>FS revision:</b>\n"
@@ -7620,7 +7979,7 @@ msgstr ""
 
 # include/partitioning/custom_part_filesystems.ycp:76
 #. help text, richtext format
-#: src/modules/FileSystems.rb:823
+#: src/modules/FileSystems.rb:836
 #, fuzzy
 #| msgid ""
 #| "<p><b>Block size:</b>\n"
@@ -7640,7 +7999,7 @@ msgstr ""
 
 #. help text, richtext format
 #. help text, richtext format
-#: src/modules/FileSystems.rb:838 src/modules/FileSystems.rb:1068
+#: src/modules/FileSystems.rb:851 src/modules/FileSystems.rb:1081
 msgid ""
 "<p><b>Inode Size:</b>\n"
 "This option specifies the inode size of the file system.</p>\n"
@@ -7649,14 +8008,14 @@ msgstr ""
 "Bu seçenek ile dosya sisteminin inode boyutunu belirleyebilirsiniz.</p>\n"
 
 #. label text
-#: src/modules/FileSystems.rb:847
+#: src/modules/FileSystems.rb:860
 #, fuzzy
 #| msgid "&Percentage of inode space"
 msgid "&Percentage of Inode Space"
 msgstr "Inode alanı &yüzdesi"
 
 #. help text, richtext format
-#: src/modules/FileSystems.rb:875
+#: src/modules/FileSystems.rb:888
 #, fuzzy
 #| msgid ""
 #| "<p><b>Percentage of inode space:</b>\n"
@@ -7672,14 +8031,14 @@ msgstr ""
 "ayrılacağını belirtir.</p>\n"
 
 #. label text
-#: src/modules/FileSystems.rb:884
+#: src/modules/FileSystems.rb:897
 #, fuzzy
 #| msgid "Inode &aligned"
 msgid "Inode &Aligned"
 msgstr "Inode sı&ralaması"
 
 #. help text, richtext format
-#: src/modules/FileSystems.rb:890
+#: src/modules/FileSystems.rb:903
 #, fuzzy
 #| msgid ""
 #| "<p><b>Inode Aligned:</b>\n"
@@ -7704,7 +8063,7 @@ msgstr ""
 
 # include/partitioning/custom_part_filesystems.ycp:73
 #. label text
-#: src/modules/FileSystems.rb:920
+#: src/modules/FileSystems.rb:933
 #, fuzzy
 #| msgid "&Log size in megabytes"
 msgid "&Log Size in Megabytes"
@@ -7712,7 +8071,7 @@ msgstr "Kayıt dosyası boyutu (&MB olarak)"
 
 # include/partitioning/custom_part_filesystems.ycp:309
 #. popup text
-#: src/modules/FileSystems.rb:929
+#: src/modules/FileSystems.rb:942
 #, fuzzy
 #| msgid ""
 #| "The \"Log size\" value is incorrect.\n"
@@ -7726,7 +8085,7 @@ msgstr ""
 
 #. xgettext: no-c-format
 #. help text, richtext format
-#: src/modules/FileSystems.rb:934
+#: src/modules/FileSystems.rb:947
 #, fuzzy
 #| msgid ""
 #| "<p><b>Log size</b>\n"
@@ -7743,13 +8102,13 @@ msgstr ""
 "toplam boyutun yüzde 40'ı kullanılır.</p>"
 
 #. label text
-#: src/modules/FileSystems.rb:942
+#: src/modules/FileSystems.rb:955
 msgid "Invoke Bad Blocks List &Utility"
 msgstr "Bozuk blokları &çağırma aracı"
 
 # include/partitioning/custom_part_filesystems.ycp:63
 #. label text
-#: src/modules/FileSystems.rb:956
+#: src/modules/FileSystems.rb:969
 #, fuzzy
 #| msgid "Stride &length in blocks"
 msgid "Stride &Length in Blocks"
@@ -7757,7 +8116,7 @@ msgstr "Blok cinsinden stride boy&utu"
 
 # include/partitioning/custom_part_filesystems.ycp:68
 #. popup text
-#: src/modules/FileSystems.rb:964
+#: src/modules/FileSystems.rb:977
 #, fuzzy
 #| msgid ""
 #| "The \"Stride length in blocks\" value is not possible.\n"
@@ -7771,7 +8130,7 @@ msgstr ""
 
 # include/partitioning/custom_part_filesystems.ycp:69
 #. help text, richtext format
-#: src/modules/FileSystems.rb:968
+#: src/modules/FileSystems.rb:981
 msgid ""
 "<p><b>Stride Length in Blocks:</b>\n"
 "Set RAID-related options for the file system. Currently, the only supported\n"
@@ -7785,7 +8144,7 @@ msgstr ""
 
 # include/partitioning/custom_part_filesystems.ycp:76
 #. help text, richtext format
-#: src/modules/FileSystems.rb:987
+#: src/modules/FileSystems.rb:1000
 #, fuzzy
 #| msgid ""
 #| "<p><b>Block size:</b>\n"
@@ -7807,14 +8166,14 @@ msgstr ""
 
 # include/partitioning/custom_part_filesystems.ycp:80 include/partitioning/custom_part_filesystems.ycp:242
 #. label text
-#: src/modules/FileSystems.rb:996
+#: src/modules/FileSystems.rb:1009
 #, fuzzy
 #| msgid "Bytes per &inode"
 msgid "Bytes per &Inode"
 msgstr "i&node başına byte"
 
 #. help text, richtext format
-#: src/modules/FileSystems.rb:1002
+#: src/modules/FileSystems.rb:1015
 #, fuzzy
 #| msgid ""
 #| "<p><b>Bytes per inode:</b>\n"
@@ -7848,7 +8207,7 @@ msgstr ""
 
 # include/partitioning/custom_part_filesystems.ycp:97
 #. label text
-#: src/modules/FileSystems.rb:1018
+#: src/modules/FileSystems.rb:1031
 #, fuzzy
 #| msgid "Percentage of blocks &reserved for root"
 msgid "Percentage of Blocks &Reserved for root"
@@ -7856,7 +8215,7 @@ msgstr "Root için ayrılan blok y&üzdesi"
 
 # include/partitioning/custom_part_filesystems.ycp:104
 #. popup text
-#: src/modules/FileSystems.rb:1028
+#: src/modules/FileSystems.rb:1041
 #, fuzzy
 #| msgid ""
 #| "The \"Percentage of blocks reserved for root\" value is incorrect.\n"
@@ -7871,7 +8230,7 @@ msgstr ""
 # include/partitioning/custom_part_filesystems.ycp:105
 #. xgettext: no-c-format
 #. help text, richtext format
-#: src/modules/FileSystems.rb:1033
+#: src/modules/FileSystems.rb:1046
 #, fuzzy
 #| msgid ""
 #| "<p><b>Percentage of blocks reserved for root:</b> Specify the percentage "
@@ -7886,13 +8245,13 @@ msgstr ""
 "yüzdesini gösterir. Bu değer normalde yüzde 5'tir.</p>"
 
 #. checkbox text
-#: src/modules/FileSystems.rb:1042
+#: src/modules/FileSystems.rb:1055
 #, fuzzy
 msgid "Disable Regular Checks"
 msgstr "Hizmeti kapat"
 
 #. help text, richtext format
-#: src/modules/FileSystems.rb:1050
+#: src/modules/FileSystems.rb:1063
 msgid ""
 "<p><b>Disable Regular Checks:</b>\n"
 "Disable regular file system check at booting.</p>\n"
@@ -7900,25 +8259,25 @@ msgstr ""
 
 # clients/inst_source.ycp:178
 #. label text
-#: src/modules/FileSystems.rb:1077
+#: src/modules/FileSystems.rb:1090
 #, fuzzy
 msgid "&Directory Index Feature"
 msgstr "&Sunucudaki dizin"
 
 #. help text, richtext format
-#: src/modules/FileSystems.rb:1084
+#: src/modules/FileSystems.rb:1097
 msgid ""
 "<p><b>Directory Index:</b>\n"
 "Enables use of hashed b-trees to speed up lookups in large directories.</p>\n"
 msgstr ""
 
 #. label text
-#: src/modules/FileSystems.rb:1096
+#: src/modules/FileSystems.rb:1109
 msgid "&No Journal"
 msgstr ""
 
 #. help text, richtext format
-#: src/modules/FileSystems.rb:1103
+#: src/modules/FileSystems.rb:1116
 msgid ""
 "<p><b>No Journal:</b>\n"
 "Suppressed use of journaling on filesystem. Only activate this when you "
@@ -8048,7 +8407,7 @@ msgstr ""
 #. @param integer testsize
 #. @param [Symbol] used_fs
 #. @param [Boolean] verbose
-#: src/modules/Storage.rb:994
+#: src/modules/Storage.rb:992
 msgid "Resize Not Possible:"
 msgstr "Boyut değiştirme mümkün değil:"
 
@@ -8061,7 +8420,7 @@ msgstr "Boyut değiştirme mümkün değil:"
 #. mark swap-partitions with pseudo Mountpoint swap in targetMap
 #. @param [Hash{String => map}] target Disk map
 #. @return [Hash{String => map}] modified target
-#: src/modules/Storage.rb:2697 src/modules/Storage.rb:3920
+#: src/modules/Storage.rb:2695 src/modules/Storage.rb:3918
 msgid ""
 "Could not set encryption.\n"
 "System error code is %1.\n"
@@ -8071,7 +8430,7 @@ msgstr ""
 
 # include/partitioning/custom_part_dialogs.ycp:110
 #. popup text
-#: src/modules/Storage.rb:3951
+#: src/modules/Storage.rb:3949
 #, fuzzy
 msgid ""
 "The first and the second version\n"
@@ -8083,7 +8442,7 @@ msgstr ""
 "Lütfen tekrar deneyin."
 
 #. popup text
-#: src/modules/Storage.rb:3982
+#: src/modules/Storage.rb:3980
 #, fuzzy
 msgid ""
 "The password may only contain the following characters:\n"
@@ -8096,7 +8455,7 @@ msgstr ""
 
 #. Label: get password for encrypted volume
 #. Please use newline if label is longer than 40 characters
-#: src/modules/Storage.rb:4036
+#: src/modules/Storage.rb:4034
 #, fuzzy
 #| msgid "Enter Encryption Key"
 msgid "&Enter Encryption Password:"
@@ -8104,23 +8463,17 @@ msgstr "Şifreleme anahtarını girin"
 
 #
 #. Clear password fields on every round.
-#: src/modules/Storage.rb:4095
+#: src/modules/Storage.rb:4093
 #, fuzzy
 #| msgid "Enter Provider Password"
 msgid "Provide Password"
 msgstr "Servis sağlayıcı parolasını girin"
 
-#: src/modules/Storage.rb:4114
+#: src/modules/Storage.rb:4112
 msgid "The following encrypted volumes are already available."
 msgstr ""
 
-# include/partitioning/lvm_ui_lib.ycp:271
-#: src/modules/Storage.rb:4129
-#, fuzzy
-msgid "Encrypted Volume Activation"
-msgstr " Yığın grubu "
-
-#: src/modules/Storage.rb:4133
+#: src/modules/Storage.rb:4131
 msgid ""
 "The following volumes contain an encryption signature but the \n"
 "passwords are not yet known.\n"
@@ -8129,131 +8482,110 @@ msgid ""
 msgstr ""
 
 #
-#: src/modules/Storage.rb:4145
+#: src/modules/Storage.rb:4143
 #, fuzzy
 #| msgid "Enter Key Password"
 msgid "Do you want to provide encryption passwords?"
 msgstr "Anahtar parolası girin"
 
 #. text in help field
-#: src/modules/Storage.rb:4202
+#: src/modules/Storage.rb:4200
 msgid ""
 "Enter encryption password for any of the\n"
 "devices in the locked devices list.\n"
 "Password will be tried for all devices."
 msgstr ""
 
-#. header text
-#: src/modules/Storage.rb:4208
-#, fuzzy
-#| msgid "Enter Encryption Key"
-msgid "Enter Encryption Password"
-msgstr "Şifreleme anahtarını girin"
-
-#: src/modules/Storage.rb:4211
+#: src/modules/Storage.rb:4209
 msgid "There are no encrypted volume to unlock."
 msgstr ""
 
 #. label text, multiple device names follow
-#: src/modules/Storage.rb:4224
+#: src/modules/Storage.rb:4222
 #, fuzzy
 #| msgid "YaST2 detected the following device"
 msgid "Provide password for any of the following devices:"
 msgstr "YaST2 aşağıdaki aygıtları algıladı"
 
 #. label text, one device name follows
-#: src/modules/Storage.rb:4227
+#: src/modules/Storage.rb:4225
 #, fuzzy
 #| msgid "YaST2 detected the following device"
 msgid "Provide password for the following device:"
 msgstr "YaST2 aşağıdaki aygıtları algıladı"
 
-#: src/modules/Storage.rb:4240
+#: src/modules/Storage.rb:4238
 msgid "Trying to unlock encrypted volumes..."
 msgstr ""
 
-#: src/modules/Storage.rb:4264
+#: src/modules/Storage.rb:4262
 msgid "Password did not unlock any volume."
 msgstr ""
 
 # classnames.ycp:163 clients/hwinfo.ycp:70
-#: src/modules/Storage.rb:4350
+#: src/modules/Storage.rb:4348
 #, fuzzy
 #| msgid "Disk"
 msgid "IDE Disk"
 msgstr "Disk"
 
 # include/scanner/scanner_notfound.ycp:41
-#: src/modules/Storage.rb:4356
+#: src/modules/Storage.rb:4354
 #, fuzzy
 #| msgid "&SCSI devices"
 msgid "SCSI Disk"
 msgstr "&SCSI aygıtları"
 
 # classnames.ycp:163 clients/hwinfo.ycp:70
-#: src/modules/Storage.rb:4362
+#: src/modules/Storage.rb:4360
 msgid "Disk"
 msgstr "Disk"
 
-#: src/modules/Storage.rb:4390
+#: src/modules/Storage.rb:4388
 #, fuzzy
 msgid "DM RAID"
 msgstr "R&AID:"
 
-#: src/modules/Storage.rb:4403
+#: src/modules/Storage.rb:4401
 #, fuzzy
 msgid "MD RAID"
 msgstr "R&AID:"
 
-# clients/inst_sw_single.ycp:1225 clients/inst_sw_single.ycp:1283
-#. TODO: more informative error message, but the Package module does
-#. not provide anything
 #. TRANSLATORS: error popup
-#: src/modules/Storage.rb:4898
-msgid "Installing required packages failed."
-msgstr "Gerekli paketlerin kurulumu başarısız oldu."
-
-#: src/modules/Storage.rb:4899 src/modules/StorageClients.rb:159
-#, fuzzy
-#| msgid "Continue resizing the %1?"
-msgid "Continue despite the error?"
-msgstr "%1 boyutu değiştirme işlemine devam edilsin mi?"
-
-#. TRANSLATORS: error popup
-#: src/modules/Storage.rb:5238
+#: src/modules/Storage.rb:5246
 msgid ""
 "Partitions cannot be created since other partitions on the disk are used."
 msgstr ""
 
-#: src/modules/Storage.rb:5264
+#: src/modules/Storage.rb:5272
 msgid ""
 "\n"
 "Device %1 cannot be modified because it contains activated swap\n"
 "that is needed to run the installation.\n"
 msgstr ""
 
-#: src/modules/Storage.rb:5278
+#: src/modules/Storage.rb:5286
 msgid ""
 "\n"
 "Device %1 cannot be modified because it contains the installation\n"
 "data needed to perform the installation.\n"
 msgstr ""
 
-#: src/modules/Storage.rb:5307
+#: src/modules/Storage.rb:5315
 msgid ""
 "\n"
 "Device %1 cannot be removed because it contains activated swap\n"
 "that is needed to run the installation.\n"
 msgstr ""
 
-#: src/modules/Storage.rb:5316
+#: src/modules/Storage.rb:5324
 msgid ""
 "\n"
 "Device %1 cannot be removed because it contains the installation\n"
 "data needed to perform the installation.\n"
 msgstr ""
 
-#: src/modules/Storage.rb:5345
+#: src/modules/Storage.rb:5353
 msgid ""
 "\n"
 "Device %1 cannot be removed because this would indirectly change\n"
@@ -8261,7 +8593,7 @@ msgid ""
 "the installation.\n"
 msgstr ""
 
-#: src/modules/Storage.rb:5356
+#: src/modules/Storage.rb:5364
 msgid ""
 "\n"
 "Device %1 cannot be removed because this would indirectly change\n"
@@ -8269,7 +8601,7 @@ msgid ""
 msgstr ""
 
 #. the check for verbose is needed for calls from StorageProposal (see bnc#871779)
-#: src/modules/Storage.rb:5378
+#: src/modules/Storage.rb:5386
 msgid ""
 "\n"
 "Partition %1 cannot be removed since other partitions on the\n"
@@ -8277,18 +8609,18 @@ msgid ""
 msgstr ""
 
 #. FIXME: please, add description of the list that is returned by this function.
-#: src/modules/Storage.rb:5467
+#: src/modules/Storage.rb:5475
 msgid "Nothing assigned as root filesystem!"
 msgstr ""
 
-#: src/modules/Storage.rb:5468
+#: src/modules/Storage.rb:5476
 msgid "Installation will most certainly fail fatally!"
 msgstr ""
 
 #. Set rather than Add, there might be some packs left over
 #. from previous 'MakeProposal' we don't need now
 #. This also covers the case when AddPackagesList returns [] or nil
-#: src/modules/Storage.rb:6018
+#: src/modules/Storage.rb:6027
 msgid "Adding the following resolvables failed: %1"
 msgstr ""
 
@@ -8311,11 +8643,6 @@ msgstr ""
 #, fuzzy
 msgid "&Enter Password for Device %1:"
 msgstr "root için bir parola &girin:"
-
-#. Column header, abbreviation for "format" (to format a partition)
-#: src/modules/StorageFields.rb:135
-msgid "F"
-msgstr ""
 
 # classnames.ycp:134
 #. Column header
@@ -8344,13 +8671,6 @@ msgstr "Tahta türü: %1"
 msgid "RAID Version"
 msgstr "RPC S&ürümü"
 
-# classnames.ycp:63 classnames.ycp:66
-#. Column header
-#: src/modules/StorageFields.rb:198
-#, fuzzy
-msgid "Parity Algorithm"
-msgstr "Şifreleme yöntemleri"
-
 #. Column header
 #: src/modules/StorageFields.rb:201
 msgid "Vendor"
@@ -8363,6 +8683,14 @@ msgid "Model"
 msgstr "Model"
 
 #. helptext for table column and overview entry
+#: src/modules/StorageFields.rb:281
+#, fuzzy
+msgid ""
+"<b>End Cylinder</b> shows the end cylinder of\n"
+"the partition."
+msgstr "Bölümün bitiş silindiri."
+
+#. helptext for table column and overview entry
 #: src/modules/StorageFields.rb:346
 msgid ""
 "<b>Mount by</b> indicates how the file system\n"
@@ -8370,6 +8698,14 @@ msgid ""
 "by\n"
 "file system UUID, (ID) by device ID, and (Path) by device path.\n"
 msgstr ""
+
+#. helptext for table column and overview entry
+#: src/modules/StorageFields.rb:423
+#, fuzzy
+msgid ""
+"<b>Start Cylinder</b> shows the start cylinder\n"
+"of the partition."
+msgstr "Bölümün başlangıç silindiri."
 
 #. helptext for table column and overview entry
 #: src/modules/StorageFields.rb:431
@@ -8662,39 +8998,25 @@ msgstr ""
 
 #. bsc#983003
 #. penalty for not having separate /home
-#: src/modules/StorageProposal.rb:4601 src/modules/StorageProposal.rb:5724
+#: src/modules/StorageProposal.rb:4662 src/modules/StorageProposal.rb:5785
 msgid ""
 "Resize impossible due to inconsistent file system. Try checking file system "
 "under Windows."
 msgstr ""
 
-# include/partitioning/custom_part_dialogs.ycp:178
-#. TRANSLATORS: combobox label
-#: src/modules/StorageProposal.rb:6239
-#, fuzzy
-#| msgid "File system options:"
-msgid "File System for Root Partition"
-msgstr "Dosya sistemi seçenekleri:"
-
-#. TRANSLATORS: combobox label
-#: src/modules/StorageProposal.rb:6286
-#, fuzzy
-msgid "File System for Home Partition"
-msgstr "Yeni disk bölümü oluştur"
-
 #. TRANSLATORS: checkbox text
-#: src/modules/StorageProposal.rb:6304
+#: src/modules/StorageProposal.rb:6365
 msgid "Enlarge &Swap for Suspend"
 msgstr ""
 
-#: src/modules/StorageProposal.rb:6314
+#: src/modules/StorageProposal.rb:6375
 #, fuzzy
 #| msgid "Special settings"
 msgid "Proposal Settings"
 msgstr "Özel ayarlar"
 
 #. TRANSLATORS: help text
-#: src/modules/StorageProposal.rb:6329
+#: src/modules/StorageProposal.rb:6390
 msgid ""
 "<p>Choose <b>Partition-based Proposal</b> if you don't want to use LVM.\n"
 "Choose <b>LVM-based Proposal</b> for plain LVM and <b>Encrypted LVM-based\n"
@@ -8702,7 +9024,7 @@ msgid ""
 msgstr ""
 
 #. TRANSLATORS: help text
-#: src/modules/StorageProposal.rb:6337
+#: src/modules/StorageProposal.rb:6398
 msgid ""
 "<p>The filesystem for the root partition can be selected with the\n"
 "corresponding combo box. With the filesystem BtrFS the proposal can\n"
@@ -8711,51 +9033,51 @@ msgid ""
 msgstr ""
 
 #. TRANSLATORS: help text
-#: src/modules/StorageProposal.rb:6346
+#: src/modules/StorageProposal.rb:6407
 msgid ""
 "<p>The proposal can create a separate home partition. The filesystem for\n"
 "the home partition can be selected with the corresponding combo box.</p>"
 msgstr ""
 
 #. TRANSLATORS: help text
-#: src/modules/StorageProposal.rb:6353
+#: src/modules/StorageProposal.rb:6414
 msgid ""
 "<p>The swap partition can be made large enough to be used to suspend\n"
 "the system to disk in most cases.</p>"
 msgstr ""
 
 # include/partitioning/custom_part_dialogs.ycp:47
-#: src/modules/StorageProposal.rb:6378
+#: src/modules/StorageProposal.rb:6439
 #, fuzzy
 msgid "Enter your password for the proposal encryption."
 msgstr "Şifrelenmiş dosya sistemi için parolanızı giriniz"
 
 #. Label: get password for user root
 #. Please use newline if label is longer than 40 characters
-#: src/modules/StorageProposal.rb:6385
+#: src/modules/StorageProposal.rb:6446
 msgid "Password:"
 msgstr "Parola:"
 
 # include/partitioning/custom_part_dialogs.ycp:67
 #. Label: get same password again for verification
 #. Please use newline if label is longer than 40 characters
-#: src/modules/StorageProposal.rb:6396
+#: src/modules/StorageProposal.rb:6457
 #, fuzzy
 msgid "Reenter the password for verification:"
 msgstr "Kontrol için parolanızı tekrar &giriniz:"
 
 #. Clear password fields on every round.
-#: src/modules/StorageProposal.rb:6594
+#: src/modules/StorageProposal.rb:6655
 #, fuzzy
 msgid "&Partition-based Proposal"
 msgstr "Bölümlendirme planları"
 
-#: src/modules/StorageProposal.rb:6596
+#: src/modules/StorageProposal.rb:6657
 #, fuzzy
 msgid "&LVM-based Proposal"
 msgstr "EVMS kabı oluştur"
 
-#: src/modules/StorageProposal.rb:6598
+#: src/modules/StorageProposal.rb:6659
 #, fuzzy
 msgid "&Encrypted LVM-based Proposal"
 msgstr "EVMS kabı oluştur"
@@ -8813,26 +9135,98 @@ msgstr "Disk bölümü sisteme bağlı"
 msgid "Visible Information on Storage Devices:"
 msgstr "Kullanıcı bilgi kaynakları"
 
+#. TRANSLATORS: first snapshot description
+#: src/modules/StorageSnapper.rb:81
 #, fuzzy
-#~ msgid "Custom"
-#~ msgstr " -- Özelleştir"
+#| msgid "&Encrypt file system"
+msgid "first root filesystem"
+msgstr "Dosya sistemini &şifrele"
 
-# include/partitioning/custom_part_check_generated.ycp:461
+# clients/inst_sw_single.ycp:1539
+#, fuzzy
+#~| msgid "Partition"
+#~ msgid "Partitioner"
+#~ msgstr "Bölüm"
+
+# include/scanner/scanner_overview.ycp:73
 #, fuzzy
 #~ msgid ""
-#~ "Warning:\n"
-#~ "\n"
-#~ "Your root partition is very small for snapshots.\n"
-#~ "We recommend to increase the size of the root partition\n"
-#~ "to %1 or more or to disable snapshots.\n"
-#~ "\n"
-#~ "Really keep the current setup?\n"
+#~ "<p>This view shows all Btrfs filesystems.</p><p>The table contains:</p>"
 #~ msgstr ""
-#~ "Uyarı:\n"
-#~ "boot bölümünüz 12MB'den küçük.\n"
-#~ "/boot bölümünün büyüklüğünü arttırmanız önerilir.\n"
-#~ "\n"
-#~ "Bunu gerçekleştirmek istiyor musunuz?\n"
+#~ "<p>Bu genel bakış penceresi\n"
+#~ "kurulu tarayıcıları gösterir.</p>"
+
+# clients/inst_lvm_pv.ycp:233 clients/lvm_config_ui.ycp:277
+#, fuzzy
+#~ msgid ""
+#~ "The %{type} \"%{name}\" contains at least one another device.\n"
+#~ "If you proceed, the following devices will be deleted:"
+#~ msgstr ""
+#~ "\"%1\" yığın grubu en azından bir adet mantıksal yığın içeriyor, bu\n"
+#~ "yüzden silinmesi mümkün değildir. Önce tüm mantıksal\n"
+#~ "yığınları, ardından yığın grubunu silin.\n"
+
+# clients/inst_sw_single.ycp:1539
+#, fuzzy
+#~| msgid "Partition"
+#~ msgid "partition"
+#~ msgstr "Bölüm"
+
+#, fuzzy
+#~ msgid "Really delete all devices on \"%s\"?"
+#~ msgstr "%1 silinsin mi?"
+
+# clients/sound_options.ycp:183
+#, fuzzy
+#~ msgid "There are no partitions to edit."
+#~ msgstr "Bu modül için seçenek yok."
+
+# include/partitioning/lvm_ui_lib.ycp:92
+#, fuzzy
+#~ msgid ""
+#~ "<p>This view shows all logical volumes of the\n"
+#~ "selected volume group.</p><p>The overview contains:</p>"
+#~ msgstr ""
+#~ "<p><b>Bölüm ekle:</b> Yığın grubuna fiziksel yığın bölümleri ekleme "
+#~ "içindir.</p>"
+
+#, fuzzy
+#~ msgid ""
+#~ "<p>This view shows all LVM volume groups and\n"
+#~ "their logical volumes.</p><p>The overview contains:</p>"
+#~ msgstr ""
+#~ "<p>Bu araç ile mantıksal yığınları oluşturabilir ya da yönetebilirsiniz.\n"
+#~ "</p>\n"
+
+# include/partitioning/lvm_ui_lib.ycp:92
+#, fuzzy
+#~ msgid ""
+#~ "<p><p>This view shows all devices used by the\n"
+#~ "selected RAID.</p>"
+#~ msgstr ""
+#~ "<p><b>Bölüm ekle:</b> Yığın grubuna fiziksel yığın bölümleri ekleme "
+#~ "içindir.</p>"
+
+# include/partitioning/lvm_ui_lib.ycp:92
+#, fuzzy
+#~ msgid ""
+#~ "<p>This view shows all physical volumes used by\n"
+#~ "the selected volume group.</p><p>The overview contains:</p>"
+#~ msgstr ""
+#~ "<p><b>Bölüm ekle:</b> Yığın grubuna fiziksel yığın bölümleri ekleme "
+#~ "içindir.</p>"
+
+#, fuzzy
+#~ msgid ""
+#~ "You have assigned an encrypted file system to a partition\n"
+#~ "with one of the following mount points: \"/\", \"/usr\", \"/boot\",\n"
+#~ "/var\".  This is not possible. Change the mount point or use a\n"
+#~ "nonloopbacked file system.\n"
+#~ msgstr ""
+#~ "\"/\", \"/usr\", \"/boot\", \"swap\" bağlama noktalarından birine\n"
+#~ "'loopback' dosya sistemi kullanan bir bölüm atadınız. Bu mümkün\n"
+#~ "değildir. Bağlama noktasını değiştirin ya da 'loopback' kullanmayan\n"
+#~ "bir dosya sistemi seçin.\n"
 
 # please, check %1, %2, %3.
 # 2000-03-29 14:11:44 CEST -ke-
@@ -9311,9 +9705,6 @@ msgstr "Kullanıcı bilgi kaynakları"
 #, fuzzy
 #~ msgid "<b>Visible Information on Storage Devices:</b> "
 #~ msgstr "Kullanıcı bilgi kaynakları"
-
-#~ msgid "&Encrypt file system"
-#~ msgstr "Dosya sistemini &şifrele"
 
 # clients/inst_custom_part.ycp:1494
 #~ msgid "2:Format"
@@ -11797,10 +12188,6 @@ msgstr "Kullanıcı bilgi kaynakları"
 #~ msgid "max = %1 "
 #~ msgstr "en fazla = %1 "
 
-# include/partitioning/custom_part_filesystems.ycp:108 include/partitioning/custom_part_filesystems.ycp:148 include/partitioning/custom_part_filesystems.ycp:267 include/partitioning/custom_part_filesystems.ycp:294
-#~ msgid "Logical volume &name "
-#~ msgstr "Mantıksal yığın &adı"
-
 # include/partitioning/lvm_ui_dialogs.ycp:87
 #~ msgid "(e.g. var, opt)"
 #~ msgstr "(var, opt gibi)"
@@ -12424,11 +12811,6 @@ msgstr "Kullanıcı bilgi kaynakları"
 
 # clients/inst_custom_part.ycp:3440
 #, fuzzy
-#~ msgid "Edit Existing Partition %1"
-#~ msgstr "Mevcut bir disk bölümünü düzenle"
-
-# clients/inst_custom_part.ycp:3440
-#, fuzzy
 #~ msgid "Edit Existing Device %1"
 #~ msgstr "Mevcut bir disk bölümünü düzenle"
 
@@ -12724,10 +13106,6 @@ msgstr "Kullanıcı bilgi kaynakları"
 # clients/online_update.ycp:45
 #~ msgid "&Edit Container"
 #~ msgstr "Kap &düzenle"
-
-# clients/online_update.ycp:45
-#~ msgid "&Remove Container"
-#~ msgstr "Kap &sil"
 
 # clients/inst_custom_part.ycp:2928
 #~ msgid " Mount"
@@ -13641,9 +14019,6 @@ msgstr "Kullanıcı bilgi kaynakları"
 
 #~ msgid "Program Output:\n"
 #~ msgstr "Program çıktısı:\n"
-
-#~ msgid "Resize failed."
-#~ msgstr "Boyut değiştirme işlemi başarısız oldu"
 
 # clients/inst_custom_part.ycp:1957
 #~ msgid ""
