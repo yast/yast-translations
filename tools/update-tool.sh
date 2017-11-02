@@ -145,9 +145,9 @@ for DOMAIN in * ; do
 			popd >/dev/null
 			continue
 		fi
+		rm *.tmp *.nodate
 	fi
 	echo "Updating $DOMAIN."
-	rm *.tmp *.nodate
 	mv $DOMAIN.pot.new $DOMAIN.pot
 	git add $DOMAIN.pot
 	for PO in *.po ; do
