@@ -135,14 +135,16 @@ for DOMAIN in * ; do
 	weblate_create $DOMAIN $BRANCH
 	pushd $TRANDIR/$DOMAIN >/dev/null
 	# prevent re-committing when pot file uses different line format
-	msgcat $DOMAIN.pot -o $DOMAIN.pot.tmp
-	sed '1,11{/^"POT-Creation-Date:/d};1,12{/^"PO-Revision-Date:/d}' <$DOMAIN.pot.tmp >$DOMAIN.pot.nodate
-	sed '1,11{/^"POT-Creation-Date:/d};1,12{/^"PO-Revision-Date:/d}' <$DOMAIN.pot.new >$DOMAIN.pot.new.nodate
-	if cmp -s $DOMAIN.pot.nodate $DOMAIN.pot.new.nodate ; then
-		echo "No changes in $DOMAIN.pot. Skipping update."
-		rm *.tmp *.nodate *.new
-		popd >/dev/null
-		continue
+	if test -f $DOMAIN.pot ; then
+		msgcat $DOMAIN.pot -o $DOMAIN.pot.tmp
+		sed '1,11{/^"POT-Creation-Date:/d};1,12{/^"PO-Revision-Date:/d}' <$DOMAIN.pot.tmp >$DOMAIN.pot.nodate
+		sed '1,11{/^"POT-Creation-Date:/d};1,12{/^"PO-Revision-Date:/d}' <$DOMAIN.pot.new >$DOMAIN.pot.new.nodate
+		if cmp -s $DOMAIN.pot.nodate $DOMAIN.pot.new.nodate ; then
+			echo "No changes in $DOMAIN.pot. Skipping update."
+			rm *.tmp *.nodate *.new
+			popd >/dev/null
+			continue
+		fi
 	fi
 	echo "Updating $DOMAIN."
 	rm *.tmp *.nodate
