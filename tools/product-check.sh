@@ -60,6 +60,10 @@ cd - >/dev/null
 exec <product-check-list-repo.lst
 while read PACKAGE ; do
 	DBG "Checking $PACKAGE..."
+	if test $PACKAGE = ruby-bindings ; then
+		DBG "  skipping (see https://bugzilla.suse.com/show_bug.cgi?id=1066999)"
+		continue
+	fi
 	if grep -q -x -F "$PACKAGE" product-check-list-checkout.lst ; then
 		DBG "  found in checkout"
 		if test -d "$YAST_CHECKOUT/$PACKAGE" ; then
