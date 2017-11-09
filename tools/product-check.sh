@@ -1,12 +1,26 @@
 #!/bin/bash
+#
+# This script checks relation between the yast-translations package and
+# packages existing in selected product.
+#
+# Remember to run update-tool.sh to ensure that all projects are in l10n.
+# This check is not included here.
 
 APIURL=
 REPO=openSUSE:Leap:15.0
 
+# This is for SLE 15 inside the intranet
+#APIURL=https://api.suse.de/
+#REPO=SUSE:SLE-15:GA
+
 set -o errexit
 shopt -s nullglob
 
-DEBUG=false
+if test "$1" = "--debug" ; then
+	DEBUG=true
+else
+	DEBUG=false
+fi
 if $DEBUG ; then
 function DBG() {
 	echo >&2 "$*"
@@ -57,6 +71,8 @@ cd $YAST_CHECKOUT
 ls -1 | grep -x -F -v yast.github.io >$OLDPWD/product-check-list-checkout.lst
 cd - >/dev/null
 
+DBG "Check 1: Are all packages properly translated?"
+DBG "=============================================="
 exec <product-check-list-repo.lst
 while read PACKAGE ; do
 	DBG "Checking $PACKAGE..."
@@ -69,22 +85,75 @@ while read PACKAGE ; do
 		if test -d "$YAST_CHECKOUT/$PACKAGE" ; then
 			cd $YAST_CHECKOUT/$PACKAGE
 			for DOMAIN in *.pot ; do
+				DOMAIN=${DOMAIN%.pot}
 				DBG "    checking $DOMAIN..."
-				if test -d $OLDPWD/po/$DOMAIN ; then
-					echo "$PACKAGE in product and checkout, but $DOMAIN is not in yast-translations"
+				if ! test -d $OLDPWD/po/$DOMAIN ; then
+					echo "$PACKAGE is in product and checkout, but $DOMAIN is not in yast-translations."
 				fi
-				if grep -q -x -F "$DOMAIN" $OLDPWD/po/OBSOLETE_POT_FILES ; then
-					echo "$PACKAGE in product and checkout, but $DOMAIN in OBSOLETE_POT_FILES"
+				if grep -q -x -F "$DOMAIN.pot" $OLDPWD/po/OBSOLETE_POT_FILES ; then
+					echo "$PACKAGE is in product and checkout, but $DOMAIN is in po/OBSOLETE_POT_FILES."
 				fi
 			done
 			cd - >/dev/null
 		else
-			echo "$PACKAGE in product, but missing in checkout"
+			echo "$PACKAGE is in product, but missing in checkout"
 		fi
 	fi
 	if grep -q -x -F "$PACKAGE" po/SKIP_PROJECTS ; then
-		echo "$PACKAGE in product and checkout, but in SKIP_PROJECTS"
+		echo "$PACKAGE is in product and checkout, but also in SKIP_PROJECTS"
 	fi
 done
 
-rm -f product-check-list-checkout.lst product-check-list-repo.lst
+DBG "Check 2: Are all domains in yast-translations really used?"
+DBG "=========================================================="
+cd po
+for DOMAIN in * ; do
+	DBG "Checking $DOMAIN..."
+	if ! test -d "$DOMAIN" ; then
+		continue
+	fi
+	if grep -q -x -F "$DOMAIN.pot" OBSOLETE_POT_FILES ; then
+		echo "$DOMAIN is in po, but it is also in OBSOLETE_POT_FILES."
+	fi
+	# Major package is a package that contains majority of strings in the domain.
+	MAJOR_PACKAGE=$(sed -n "s/^$DOMAIN //p" <DOMAIN_MAP)
+	if test -z "$MAJOR_PACKAGE" ; then
+		echo "$DOMAIN is in po, but missing in DOMAIN_MAP."
+	else
+		if test "$MAJOR_PACKAGE" != "base" ; then
+			if ! grep -q -x -F "$MAJOR_PACKAGE" $OLDPWD/product-check-list-checkout.lst ; then
+				echo "$DOMAIN is in po, but corresponding $MAJOR_PACKAGE from DOMAIN_MAP is not present in checkout."
+			fi
+		fi
+	fi
+	LS="$(cd $YAST_CHECKOUT ; compgen -G "*/$DOMAIN.pot" || :)"
+	PACKAGES=( $(echo -n "$LS" | sed "s:/.*::" ) )
+	if test ${#PACKAGES[@]} -eq 0 ; then
+		echo "$DOMAIN is in po, but no corresponding package in yast-checkout exists."
+	fi
+	DBG "  maps to ${PACKAGES[*]}..."
+	for PACKAGE in "${PACKAGES[@]}" ; do
+		if test ${#PACKAGES[@]} -eq 1 ; then
+			MAJOR_STRING="all"
+		elif test "$PACKAGE" = "$MAJOR_PACKAGE" ; then
+			MAJOR_STRING="most"
+		else
+			MAJOR_STRING="some"
+		fi
+		DBG "    package $PACKAGE..."
+		if grep -q -x -F "$PACKAGE" SKIP_PROJECTS ; then
+			echo "$DOMAIN is in po, but corresponding $PACKAGE with $MAJOR_STRING strings is also in SKIP_PROJECTS."
+		fi
+		if test "$PACKAGE" != "base" ; then
+			if ! grep -q -x -F "$PACKAGE" $OLDPWD/product-check-list-repo.lst ; then
+				echo "$DOMAIN is in po, but corresponding yast2-$PACKAGE with $MAJOR_STRING strings is not present in repo."
+			fi
+		fi
+	done
+done
+cd - >/dev/null
+
+# Check 3: Are all packages in yast-checkout translated? This check is
+# done by update-tool.sh, not here!
+
+#rm -f product-check-list-checkout.lst product-check-list-repo.lst
