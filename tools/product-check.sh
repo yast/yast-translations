@@ -156,4 +156,4 @@ cd - >/dev/null
 # Check 3: Are all packages in yast-checkout translated? This check is
 # done by update-tool.sh, not here!
 
-#rm -f product-check-list-checkout.lst product-check-list-repo.lst
+rm -f product-check-list-checkout.lst product-check-list-repo.lst
