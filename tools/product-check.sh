@@ -9,9 +9,13 @@
 APIURL=
 REPO=openSUSE:Leap:15.0
 
+# For Tumbleweed
+APIURL=
+REPO=openSUSE:Factory
+
 # This is for SLE 15 inside the intranet
-APIURL=https://api.suse.de/
-REPO=SUSE:SLE-15:GA
+#APIURL=https://api.suse.de/
+#REPO=SUSE:SLE-15:GA
 
 set -o errexit
 shopt -s nullglob
