@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: @PACKAGE@\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-11-13 16:41+0100\n"
+"POT-Creation-Date: 2017-11-16 02:29+0000\n"
 "PO-Revision-Date: 2005-07-29 15:37+0530\n"
 "Last-Translator: Priyavert Sharma<priyavert.sharma@agreeya.com>\n"
 "Language-Team: AgreeYa Solutions <linux_team@agreeya.com>\n"
@@ -42,6 +42,54 @@ msgstr "ট্রিয়ের নাম 32 অক্ষরের চেয়ে �
 #, fuzzy
 msgid "Add Logical Volume on %s"
 msgstr "লজিক্যাল ভলিউম সম্পাদনা করুন"
+
+#. Error message to show when the given volume group name is empty
+#.
+#. @return [String]
+#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:201
+#, fuzzy
+msgid "Enter a name for the volume group."
+msgstr "নতুন প্রোফাইলের জন্য একটা নাম এন্টার করুন."
+
+#. Error message to show when the given volume group name contains illegal
+#. characters
+#.
+#. @return [String]
+#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:219
+#, fuzzy
+msgid ""
+"The name for the volume group contains illegal characters. Allowed\n"
+"are alphanumeric characters, \".\", \"_\", \"-\" and \"+\""
+msgstr "ট্রিয়ের নাম 32 অক্ষরের চেয়ে বেশি লম্বা হতে পারবে না."
+
+#. TRANSLATORS: %{vg_name} is replaced by the name of the volume group
+#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:242
+#, fuzzy
+#| msgid ""
+#| "The volume group name \"%1\" conflicts\n"
+#| "with another entry in the /dev directory.\n"
+msgid ""
+"The volume group name \"%{vg_name}\" conflicts\n"
+"with another entry in the /dev directory."
+msgstr ""
+"\"%1\" নামের ভলিউম গ্রুপটির /dev ডাইরেক্টরীর অন্য একটি লিপিবদ্ধকরণের সঙ্গে দ্বন্দ্ব "
+"আছে।                              \n"
+
+#. Error message to show when the given extent size is not valid
+#.
+#. @see #invalid_extent_size?
+#.
+#. @return [String]
+#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:267
+#, fuzzy
+msgid ""
+"The data entered in invalid. Insert a physical extent size larger than 1 "
+"KiB\n"
+"in powers of 2 and multiple of 128 KiB, for example, \"512 KiB\" or \"4 MiB\""
+msgstr ""
+"  লিপিবদ্ধ করা তথ্যটি অকার্যকর।\n"
+"2ঘাত বিশিষ্ট, 8KB  থেকে 512MB পর্যন্ত একটি বাস্তব পরিমাপের সীমা প্রবিষ্ট করুন, "
+"উদাহরণস্বরূপ, \"4M\"  বা \"512K\"\n"
 
 #. TRANSLATORS: dialog title. %s is a device name like /dev/md0
 #: src/lib/y2partitioner/actions/controllers/md.rb:129
@@ -171,7 +219,7 @@ msgstr "নাম"
 
 #. @macro seeAbstractWidget
 #: src/lib/y2partitioner/dialogs/lvm_lv_info.rb:73
-#: src/lib/y2partitioner/widgets/lvm_add_button.rb:52
+#: src/lib/y2partitioner/widgets/lvm_add_button.rb:54
 #, fuzzy
 msgid "Logical Volume"
 msgstr " লজিক্যাল ভলিউমগুলি "
@@ -268,6 +316,36 @@ msgstr "স্ট্রিপগুলি"
 #: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:239
 msgid "Number"
 msgstr "নাম্বার"
+
+#. @macro seeDialog
+#: src/lib/y2partitioner/dialogs/lvm_vg.rb:22
+msgid "Add Volume Group"
+msgstr "ভলিউম গ্রুপ যোগ করুন"
+
+#. TRANSLATORS: field to enter the name of a new volume group
+#: src/lib/y2partitioner/dialogs/lvm_vg.rb:57
+#, fuzzy
+#| msgid "V&olume Group Name"
+msgid "&Volume Group Name"
+msgstr "ভলিউম গ্রুপের নাম"
+
+#. TRANSLATORS: field to enter the extent size of a new volume group
+#: src/lib/y2partitioner/dialogs/lvm_vg.rb:126
+#, fuzzy
+#| msgid "&Physical Extent Size"
+msgid "Physical Extent Size"
+msgstr "বাস্তবিক  পরিমাপের সীমা"
+
+#. Validates that at least one physical volume was added to the volume group
+#. @macro seeAbstractWidget
+#.
+#. @note An error popup is shown when no physical volume was added.
+#.
+#. @return [Boolean]
+#: src/lib/y2partitioner/dialogs/lvm_vg.rb:211
+#, fuzzy
+msgid "Select at least one device."
+msgstr "অন্ততপক্ষে একটা আইটেম সিলেক্ট করুন"
 
 #. @return [Y2Storage::DeviceGraph] device graph with all changes done in dialog
 #: src/lib/y2partitioner/dialogs/main.rb:24
@@ -616,15 +694,8 @@ msgstr ""
 
 #. TRANSLATORS: button label to add a btrfs subvolume
 #. TRANSLATORS: button label to add a volume group or logical volume
-#. TRANSLATORS: button label to add a logical volume
-#. Constructor
-#.
-#. @param disk [Y2Storage::BlkDevice]
-#. @param table [ConfigurableBlkDevicesTable]
 #: src/lib/y2partitioner/widgets/btrfs_subvolumes_add_button.rb:44
-#: src/lib/y2partitioner/widgets/lvm_add_button.rb:43
-#: src/lib/y2partitioner/widgets/lvm_lv_add_button.rb:40
-#: src/lib/y2partitioner/widgets/pages/disk.rb:181
+#: src/lib/y2partitioner/widgets/lvm_add_button.rb:44
 #, fuzzy
 msgid "Add..."
 msgstr "এ&ড..."
@@ -700,9 +771,13 @@ msgstr ""
 #. @note An error popup is shown when there is no device.
 #.
 #. @return [Boolean]
-#. @param event [Hash] UI event
-#: src/lib/y2partitioner/widgets/device_button.rb:100
-#: src/lib/y2partitioner/widgets/lvm_add_button.rb:77
+#. Runs action for adding a new logical volume to the selected volume group
+#. @see Actions::AddLvmLv
+#.
+#. @return [Symbol, nil] :finish, :abort. Returns nil when it is not possible
+#. to determine the volume group (see {#vg}).
+#: src/lib/y2partitioner/widgets/device_button.rb:97
+#: src/lib/y2partitioner/widgets/lvm_add_button.rb:94
 #, fuzzy
 msgid "No device selected"
 msgstr "কোন যোজনা নির্বাচিত নেই."
@@ -1524,8 +1599,9 @@ msgstr ""
 
 #. When there is no vg, only shows an option to add a new vg.
 #. Otherwise, options for adding a vg or lv are shown.
+#.
 #. @return [Array<[Symbol, String]>] list of menu options
-#: src/lib/y2partitioner/widgets/lvm_add_button.rb:50
+#: src/lib/y2partitioner/widgets/lvm_add_button.rb:52
 msgid "Volume Group"
 msgstr "ভলিউম গ্রুপ"
 
@@ -1577,6 +1653,12 @@ msgstr ""
 #, fuzzy
 msgid "PE Size: %s"
 msgstr "সাইজ: %1"
+
+#. TRANSLATORS: button label to add a MD Raid
+#: src/lib/y2partitioner/widgets/md_add_button.rb:38
+#, fuzzy
+msgid "Add RAID..."
+msgstr " RAI&D যুক্ত করুন "
 
 #. @macro seeAbstractWidget
 #: src/lib/y2partitioner/widgets/md_description.rb:30
@@ -1764,12 +1846,6 @@ msgstr "ID: %1"
 #, fuzzy
 msgid "RAID"
 msgstr " R&AID :"
-
-#. Constructor
-#: src/lib/y2partitioner/widgets/pages/md_raids.rb:111
-#, fuzzy
-msgid "Add RAID..."
-msgstr " RAI&D যুক্ত করুন "
 
 #. TRANSLATORS: Heading. String followed by name of partition
 #: src/lib/y2partitioner/widgets/pages/partition.rb:44
@@ -4271,10 +4347,6 @@ msgstr "পার্টিশানের ডিস্ক"
 #~ msgstr " RAID  সম্পাদনা করুন"
 
 #, fuzzy
-#~ msgid "Select at least one device."
-#~ msgstr "অন্ততপক্ষে একটা আইটেম সিলেক্ট করুন"
-
-#, fuzzy
 #~ msgid "<p>Change the devices that are used by the Btrfs volume.</p>"
 #~ msgstr ""
 #~ "<p>\n"
@@ -4496,9 +4568,6 @@ msgstr "পার্টিশানের ডিস্ক"
 #, fuzzy
 #~ msgid "Add RAID"
 #~ msgstr " RAI&D যুক্ত করুন "
-
-#~ msgid "Add Volume Group"
-#~ msgstr "ভলিউম গ্রুপ যোগ করুন"
 
 #, fuzzy
 #~ msgid "Save Device Graph..."
@@ -5004,10 +5073,6 @@ msgstr "পার্টিশানের ডিস্ক"
 #~ "<p><b>আপনার ভলিউম গ্রুপে পার্টিশানগুলি</b> (বাস্তব ভলিউম বলা হয়)  যুক্ত করুন।</p>"
 
 #, fuzzy
-#~ msgid "Enter a name for the volume group."
-#~ msgstr "নতুন প্রোফাইলের জন্য একটা নাম এন্টার করুন."
-
-#, fuzzy
 #~ msgid "The name for the volume group is longer than 128 characters."
 #~ msgstr "ট্রিয়ের নাম 32 অক্ষরের চেয়ে বেশি লম্বা হতে পারবে না."
 
@@ -5016,21 +5081,8 @@ msgstr "পার্টিশানের ডিস্ক"
 #~ msgstr "ট্রিয়ের নাম 32 অক্ষরের চেয়ে বেশি লম্বা হতে পারবে না."
 
 #, fuzzy
-#~ msgid ""
-#~ "The name for the volume group contains illegal characters. Allowed\n"
-#~ "are alphanumeric characters, \".\", \"_\", \"-\" and \"+\"."
-#~ msgstr "ট্রিয়ের নাম 32 অক্ষরের চেয়ে বেশি লম্বা হতে পারবে না."
-
-#, fuzzy
 #~ msgid "The volume group \"%1\" already exists."
 #~ msgstr "গন্তব্য  %1 ইতোমধ্যেই বিদ্যমান।"
-
-#~ msgid ""
-#~ "The volume group name \"%1\" conflicts\n"
-#~ "with another entry in the /dev directory.\n"
-#~ msgstr ""
-#~ "\"%1\" নামের ভলিউম গ্রুপটির /dev ডাইরেক্টরীর অন্য একটি লিপিবদ্ধকরণের সঙ্গে "
-#~ "দ্বন্দ্ব আছে।                              \n"
 
 #, fuzzy
 #~ msgid "Confirm Deleting of Volume Group"
@@ -5048,16 +5100,6 @@ msgstr "পার্টিশানের ডিস্ক"
 #, fuzzy
 #~ msgid "Really delete volume group \"%1\" and all related logical volumes?"
 #~ msgstr "সত্যিই ভলিউম গ্রুপ\"%1\"অপসারণ করতে চান? "
-
-#, fuzzy
-#~ msgid ""
-#~ "The data entered is invalid. Insert a physical extent size larger than "
-#~ "%1\n"
-#~ "in powers of 2, for example, \"%2\" or \"%3\""
-#~ msgstr ""
-#~ "  লিপিবদ্ধ করা তথ্যটি অকার্যকর।\n"
-#~ "2ঘাত বিশিষ্ট, 8KB  থেকে 512MB পর্যন্ত একটি বাস্তব পরিমাপের সীমা প্রবিষ্ট করুন, "
-#~ "উদাহরণস্বরূপ, \"4M\"  বা \"512K\"\n"
 
 #, fuzzy
 #~ msgid ""
@@ -5084,14 +5126,6 @@ msgstr "পার্টিশানের ডিস্ক"
 #~ msgstr ""
 #~ "<p>এখানে, আপনার তথ্য সঞ্চয় করার জন্য \n"
 #~ "লজিক্যাল ভলিউমগুলি সৃষ্টি করুন।</p>\n"
-
-#, fuzzy
-#~| msgid "V&olume Group Name"
-#~ msgid "Volume Group Name"
-#~ msgstr "ভলিউম গ্রুপের নাম"
-
-#~ msgid "&Physical Extent Size"
-#~ msgstr "বাস্তবিক  পরিমাপের সীমা"
 
 #, fuzzy
 #~ msgid "Available Physical Volumes:"

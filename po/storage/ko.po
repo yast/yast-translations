@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: storage-ng.ko\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-11-13 16:41+0100\n"
+"POT-Creation-Date: 2017-11-16 02:29+0000\n"
 "PO-Revision-Date: 2009-11-04 16:54+0900\n"
 "Last-Translator: Yunseok Choi <xein@naver.com>\n"
 "Language-Team: Korean <xein@naver.com>\n"
@@ -54,6 +54,61 @@ msgstr ""
 #| msgid "Add Logical Volume on %1"
 msgid "Add Logical Volume on %s"
 msgstr "%1 에 논리적 볼륨 추가"
+
+#. Error message to show when the given volume group name is empty
+#.
+#. @return [String]
+#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:201
+msgid "Enter a name for the volume group."
+msgstr "볼륨 그룹의 이름을 입력하세요."
+
+#. Error message to show when the given volume group name contains illegal
+#. characters
+#.
+#. @return [String]
+#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:219
+#, fuzzy
+#| msgid ""
+#| "The name for the volume group contains illegal characters. Allowed\n"
+#| "are alphanumeric characters, \".\", \"_\", \"-\" and \"+\"."
+msgid ""
+"The name for the volume group contains illegal characters. Allowed\n"
+"are alphanumeric characters, \".\", \"_\", \"-\" and \"+\""
+msgstr ""
+"볼륨 그룹의 이름에 잘못된 문자가 포함되어 있습니다. 허용되는\n"
+"문자는 영숫자 및 \".\", \"_\", \"-\" 와 \"+\" 입니다."
+
+#. TRANSLATORS: %{vg_name} is replaced by the name of the volume group
+#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:242
+#, fuzzy
+#| msgid ""
+#| "The volume group name \"%1\" conflicts\n"
+#| "with another entry in the /dev directory.\n"
+msgid ""
+"The volume group name \"%{vg_name}\" conflicts\n"
+"with another entry in the /dev directory."
+msgstr ""
+"볼륨 그룹 이름 \"%1\"은(는) /dev\n"
+"디렉터리의 다른 항목과 충돌됩니다.\n"
+
+#. Error message to show when the given extent size is not valid
+#.
+#. @see #invalid_extent_size?
+#.
+#. @return [String]
+#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:267
+#, fuzzy
+#| msgid ""
+#| "The data entered is invalid. Insert a physical extent size larger than "
+#| "%1\n"
+#| "in powers of 2, for example, \"%2\" or \"%3\""
+msgid ""
+"The data entered in invalid. Insert a physical extent size larger than 1 "
+"KiB\n"
+"in powers of 2 and multiple of 128 KiB, for example, \"512 KiB\" or \"4 MiB\""
+msgstr ""
+"입력한 데이터가 잘못되었습니다. 물리 확장 크기는 2의 배승 값 %1 이상\n"
+"입력하세요. 예, \"%2\" 또는 \"%3\""
 
 #. TRANSLATORS: dialog title. %s is a device name like /dev/md0
 #: src/lib/y2partitioner/actions/controllers/md.rb:129
@@ -197,7 +252,7 @@ msgstr "이름"
 
 #. @macro seeAbstractWidget
 #: src/lib/y2partitioner/dialogs/lvm_lv_info.rb:73
-#: src/lib/y2partitioner/widgets/lvm_add_button.rb:52
+#: src/lib/y2partitioner/widgets/lvm_add_button.rb:54
 msgid "Logical Volume"
 msgstr "논리 볼륨"
 
@@ -290,6 +345,35 @@ msgstr "스트라이프"
 #: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:239
 msgid "Number"
 msgstr "번호"
+
+#. @macro seeDialog
+#: src/lib/y2partitioner/dialogs/lvm_vg.rb:22
+msgid "Add Volume Group"
+msgstr "볼륨 그룹 추가"
+
+#. TRANSLATORS: field to enter the name of a new volume group
+#: src/lib/y2partitioner/dialogs/lvm_vg.rb:57
+#, fuzzy
+#| msgid "Volume Group Name"
+msgid "&Volume Group Name"
+msgstr "볼륨 그룹 이름"
+
+#. TRANSLATORS: field to enter the extent size of a new volume group
+#: src/lib/y2partitioner/dialogs/lvm_vg.rb:126
+#, fuzzy
+#| msgid "&Physical Extent Size"
+msgid "Physical Extent Size"
+msgstr "물리적인 확장 크기(&P)"
+
+#. Validates that at least one physical volume was added to the volume group
+#. @macro seeAbstractWidget
+#.
+#. @note An error popup is shown when no physical volume was added.
+#.
+#. @return [Boolean]
+#: src/lib/y2partitioner/dialogs/lvm_vg.rb:211
+msgid "Select at least one device."
+msgstr "최소 하나 이상은 선택하세요."
 
 #. @return [Y2Storage::DeviceGraph] device graph with all changes done in dialog
 #: src/lib/y2partitioner/dialogs/main.rb:24
@@ -646,15 +730,8 @@ msgstr "<p>Btrfs 파일 시스템에서 하위 볼륨을 생성 및 제거합니
 
 #. TRANSLATORS: button label to add a btrfs subvolume
 #. TRANSLATORS: button label to add a volume group or logical volume
-#. TRANSLATORS: button label to add a logical volume
-#. Constructor
-#.
-#. @param disk [Y2Storage::BlkDevice]
-#. @param table [ConfigurableBlkDevicesTable]
 #: src/lib/y2partitioner/widgets/btrfs_subvolumes_add_button.rb:44
-#: src/lib/y2partitioner/widgets/lvm_add_button.rb:43
-#: src/lib/y2partitioner/widgets/lvm_lv_add_button.rb:40
-#: src/lib/y2partitioner/widgets/pages/disk.rb:181
+#: src/lib/y2partitioner/widgets/lvm_add_button.rb:44
 msgid "Add..."
 msgstr "추가..."
 
@@ -729,9 +806,13 @@ msgstr "<p>이 보기는 BIOS RAID를 제외한 모든 RAID를 표시합니다.<
 #. @note An error popup is shown when there is no device.
 #.
 #. @return [Boolean]
-#. @param event [Hash] UI event
-#: src/lib/y2partitioner/widgets/device_button.rb:100
-#: src/lib/y2partitioner/widgets/lvm_add_button.rb:77
+#. Runs action for adding a new logical volume to the selected volume group
+#. @see Actions::AddLvmLv
+#.
+#. @return [Symbol, nil] :finish, :abort. Returns nil when it is not possible
+#. to determine the volume group (see {#vg}).
+#: src/lib/y2partitioner/widgets/device_button.rb:97
+#: src/lib/y2partitioner/widgets/lvm_add_button.rb:94
 #, fuzzy
 #| msgid "No DM device selected."
 msgid "No device selected"
@@ -1591,8 +1672,9 @@ msgstr ""
 
 #. When there is no vg, only shows an option to add a new vg.
 #. Otherwise, options for adding a vg or lv are shown.
+#.
 #. @return [Array<[Symbol, String]>] list of menu options
-#: src/lib/y2partitioner/widgets/lvm_add_button.rb:50
+#: src/lib/y2partitioner/widgets/lvm_add_button.rb:52
 msgid "Volume Group"
 msgstr "볼륨 그룹"
 
@@ -1653,6 +1735,11 @@ msgstr ""
 #| msgid "PE Size: %1"
 msgid "PE Size: %s"
 msgstr "PE 크기: %1"
+
+#. TRANSLATORS: button label to add a MD Raid
+#: src/lib/y2partitioner/widgets/md_add_button.rb:38
+msgid "Add RAID..."
+msgstr "RAID 추가..."
 
 #. @macro seeAbstractWidget
 #: src/lib/y2partitioner/widgets/md_description.rb:30
@@ -1851,11 +1938,6 @@ msgstr "RAID: %1"
 #: src/lib/y2partitioner/widgets/pages/md_raids.rb:72
 msgid "RAID"
 msgstr "RAID"
-
-#. Constructor
-#: src/lib/y2partitioner/widgets/pages/md_raids.rb:111
-msgid "Add RAID..."
-msgstr "RAID 추가..."
 
 #. TRANSLATORS: Heading. String followed by name of partition
 #: src/lib/y2partitioner/widgets/pages/partition.rb:44
@@ -4408,9 +4490,6 @@ msgstr "논리적 파티션(&L)"
 #~ msgid "Edit Btrfs %1"
 #~ msgstr "BTRFS %1 편집"
 
-#~ msgid "Select at least one device."
-#~ msgstr "최소 하나 이상은 선택하세요."
-
 #~ msgid "<p>Change the devices that are used by the Btrfs volume.</p>"
 #~ msgstr "<p>BTRFS 볼륨에서 사용되는 장치를 변경합니다.</p>"
 
@@ -4638,9 +4717,6 @@ msgstr "논리적 파티션(&L)"
 
 #~ msgid "Add RAID"
 #~ msgstr "RAID 추가"
-
-#~ msgid "Add Volume Group"
-#~ msgstr "볼륨 그룹 추가"
 
 #~ msgid "Save Device Graph..."
 #~ msgstr "장치 그래프 저장..."
@@ -5185,9 +5261,6 @@ msgstr "논리적 파티션(&L)"
 #~ "<p>이 보기에는 선택한 crypt 파일에 대한 자세한\n"
 #~ "정보가 표시됩니다.</p>"
 
-#~ msgid "Enter a name for the volume group."
-#~ msgstr "볼륨 그룹의 이름을 입력하세요."
-
 #  Popup text
 #~ msgid "The name for the volume group is longer than 128 characters."
 #~ msgstr "볼륨 그룹의 이름이 128 자 보다 깁니다."
@@ -5195,23 +5268,9 @@ msgstr "논리적 파티션(&L)"
 #~ msgid "The name for the volume group must not start with a \"-\"."
 #~ msgstr "볼륨 그룹의 이름은 \"-\" 로 시작하면 안됩니다."
 
-#~ msgid ""
-#~ "The name for the volume group contains illegal characters. Allowed\n"
-#~ "are alphanumeric characters, \".\", \"_\", \"-\" and \"+\"."
-#~ msgstr ""
-#~ "볼륨 그룹의 이름에 잘못된 문자가 포함되어 있습니다. 허용되는\n"
-#~ "문자는 영숫자 및 \".\", \"_\", \"-\" 와 \"+\" 입니다."
-
 #  translators: error message for adding a new Listen statement
 #~ msgid "The volume group \"%1\" already exists."
 #~ msgstr "볼륨 그룹 \"%1\" 은 이미 있습니다."
-
-#~ msgid ""
-#~ "The volume group name \"%1\" conflicts\n"
-#~ "with another entry in the /dev directory.\n"
-#~ msgstr ""
-#~ "볼륨 그룹 이름 \"%1\"은(는) /dev\n"
-#~ "디렉터리의 다른 항목과 충돌됩니다.\n"
 
 #~ msgid "Confirm Deleting of Volume Group"
 #~ msgstr "볼륨 그룹의 삭제 확인"
@@ -5227,14 +5286,6 @@ msgstr "논리적 파티션(&L)"
 
 #~ msgid "Really delete volume group \"%1\" and all related logical volumes?"
 #~ msgstr "정말 \"%1\" 볼륨 그룹과 관련된 모든 논리 볼륨을 삭제하시겠습니까?"
-
-#~ msgid ""
-#~ "The data entered is invalid. Insert a physical extent size larger than "
-#~ "%1\n"
-#~ "in powers of 2, for example, \"%2\" or \"%3\""
-#~ msgstr ""
-#~ "입력한 데이터가 잘못되었습니다. 물리 확장 크기는 2의 배승 값 %1 이상\n"
-#~ "입력하세요. 예, \"%2\" 또는 \"%3\""
 
 #~ msgid ""
 #~ "The name for the logical volume contains illegal characters. Allowed\n"
@@ -5257,12 +5308,6 @@ msgstr "논리적 파티션(&L)"
 
 #~ msgid "<p>Select the physical volumes the volume group should contain.</p>"
 #~ msgstr "<p>볼륨 그룹이 포함할 물리 볼륨을 선택하세요.</p>"
-
-#~ msgid "Volume Group Name"
-#~ msgstr "볼륨 그룹 이름"
-
-#~ msgid "&Physical Extent Size"
-#~ msgstr "물리적인 확장 크기(&P)"
 
 #~ msgid "Available Physical Volumes:"
 #~ msgstr "사용 가능한 물리 볼륨:"

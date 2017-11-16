@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: YaST (@memory@)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-11-13 16:41+0100\n"
+"POT-Creation-Date: 2017-11-16 02:29+0000\n"
 "PO-Revision-Date: 2008-09-25 16:03+0400\n"
 "Last-Translator: George Machitidze <giomac@gmail.com>\n"
 "Language-Team: Georgian <i18n@suse.de>\n"
@@ -40,6 +40,43 @@ msgstr ""
 #, fuzzy
 msgid "Add Logical Volume on %s"
 msgstr "ადგილობრივი დრო"
+
+#. Error message to show when the given volume group name is empty
+#.
+#. @return [String]
+#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:201
+#, fuzzy
+msgid "Enter a name for the volume group."
+msgstr "ნამდვილად წავშალო ეს დომენი?"
+
+#. Error message to show when the given volume group name contains illegal
+#. characters
+#.
+#. @return [String]
+#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:219
+msgid ""
+"The name for the volume group contains illegal characters. Allowed\n"
+"are alphanumeric characters, \".\", \"_\", \"-\" and \"+\""
+msgstr ""
+
+#. TRANSLATORS: %{vg_name} is replaced by the name of the volume group
+#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:242
+msgid ""
+"The volume group name \"%{vg_name}\" conflicts\n"
+"with another entry in the /dev directory."
+msgstr ""
+
+#. Error message to show when the given extent size is not valid
+#.
+#. @see #invalid_extent_size?
+#.
+#. @return [String]
+#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:267
+msgid ""
+"The data entered in invalid. Insert a physical extent size larger than 1 "
+"KiB\n"
+"in powers of 2 and multiple of 128 KiB, for example, \"512 KiB\" or \"4 MiB\""
+msgstr ""
 
 #. TRANSLATORS: dialog title. %s is a device name like /dev/md0
 #: src/lib/y2partitioner/actions/controllers/md.rb:129
@@ -175,7 +212,7 @@ msgstr "დასახელება"
 
 #. @macro seeAbstractWidget
 #: src/lib/y2partitioner/dialogs/lvm_lv_info.rb:73
-#: src/lib/y2partitioner/widgets/lvm_add_button.rb:52
+#: src/lib/y2partitioner/widgets/lvm_add_button.rb:54
 #, fuzzy
 msgid "Logical Volume"
 msgstr "ადგილობრივი დრო"
@@ -264,6 +301,35 @@ msgstr ""
 #: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:239
 msgid "Number"
 msgstr "ნომერი"
+
+#. @macro seeDialog
+#: src/lib/y2partitioner/dialogs/lvm_vg.rb:22
+#, fuzzy
+#| msgid "Samba Group Name"
+msgid "Add Volume Group"
+msgstr "Samba-ის ჯგუფის სახელი"
+
+#. TRANSLATORS: field to enter the name of a new volume group
+#: src/lib/y2partitioner/dialogs/lvm_vg.rb:57
+#, fuzzy
+#| msgid "Samba Group Name"
+msgid "&Volume Group Name"
+msgstr "Samba-ის ჯგუფის სახელი"
+
+#. TRANSLATORS: field to enter the extent size of a new volume group
+#: src/lib/y2partitioner/dialogs/lvm_vg.rb:126
+msgid "Physical Extent Size"
+msgstr ""
+
+#. Validates that at least one physical volume was added to the volume group
+#. @macro seeAbstractWidget
+#.
+#. @note An error popup is shown when no physical volume was added.
+#.
+#. @return [Boolean]
+#: src/lib/y2partitioner/dialogs/lvm_vg.rb:211
+msgid "Select at least one device."
+msgstr ""
 
 #. @return [Y2Storage::DeviceGraph] device graph with all changes done in dialog
 #: src/lib/y2partitioner/dialogs/main.rb:24
@@ -596,15 +662,8 @@ msgstr ""
 
 #. TRANSLATORS: button label to add a btrfs subvolume
 #. TRANSLATORS: button label to add a volume group or logical volume
-#. TRANSLATORS: button label to add a logical volume
-#. Constructor
-#.
-#. @param disk [Y2Storage::BlkDevice]
-#. @param table [ConfigurableBlkDevicesTable]
 #: src/lib/y2partitioner/widgets/btrfs_subvolumes_add_button.rb:44
-#: src/lib/y2partitioner/widgets/lvm_add_button.rb:43
-#: src/lib/y2partitioner/widgets/lvm_lv_add_button.rb:40
-#: src/lib/y2partitioner/widgets/pages/disk.rb:181
+#: src/lib/y2partitioner/widgets/lvm_add_button.rb:44
 msgid "Add..."
 msgstr ""
 
@@ -676,9 +735,13 @@ msgstr "<p>ჩადგმის დაწყება...</p>"
 #. @note An error popup is shown when there is no device.
 #.
 #. @return [Boolean]
-#. @param event [Hash] UI event
-#: src/lib/y2partitioner/widgets/device_button.rb:100
-#: src/lib/y2partitioner/widgets/lvm_add_button.rb:77
+#. Runs action for adding a new logical volume to the selected volume group
+#. @see Actions::AddLvmLv
+#.
+#. @return [Symbol, nil] :finish, :abort. Returns nil when it is not possible
+#. to determine the volume group (see {#vg}).
+#: src/lib/y2partitioner/widgets/device_button.rb:97
+#: src/lib/y2partitioner/widgets/lvm_add_button.rb:94
 #, fuzzy
 #| msgid "No profile selected."
 msgid "No device selected"
@@ -1407,8 +1470,9 @@ msgstr ""
 
 #. When there is no vg, only shows an option to add a new vg.
 #. Otherwise, options for adding a vg or lv are shown.
+#.
 #. @return [Array<[Symbol, String]>] list of menu options
-#: src/lib/y2partitioner/widgets/lvm_add_button.rb:50
+#: src/lib/y2partitioner/widgets/lvm_add_button.rb:52
 #, fuzzy
 #| msgid "Samba Group Name"
 msgid "Volume Group"
@@ -1462,6 +1526,13 @@ msgstr "<p>ჩადგმის დაწყება...</p>"
 #| msgid "  Size  "
 msgid "PE Size: %s"
 msgstr "  ზომა  "
+
+#. TRANSLATORS: button label to add a MD Raid
+#: src/lib/y2partitioner/widgets/md_add_button.rb:38
+#, fuzzy
+#| msgid "BIOS"
+msgid "Add RAID..."
+msgstr "BIOS"
 
 #. @macro seeAbstractWidget
 #: src/lib/y2partitioner/widgets/md_description.rb:30
@@ -1657,13 +1728,6 @@ msgstr "ID: %1"
 #, fuzzy
 #| msgid "BIOS"
 msgid "RAID"
-msgstr "BIOS"
-
-#. Constructor
-#: src/lib/y2partitioner/widgets/pages/md_raids.rb:111
-#, fuzzy
-#| msgid "BIOS"
-msgid "Add RAID..."
 msgstr "BIOS"
 
 #. TRANSLATORS: Heading. String followed by name of partition
@@ -2695,11 +2759,6 @@ msgstr "დანაყოფი"
 #~ msgstr "BIOS"
 
 #, fuzzy
-#~| msgid "Samba Group Name"
-#~ msgid "Add Volume Group"
-#~ msgstr "Samba-ის ჯგუფის სახელი"
-
-#, fuzzy
 #~ msgid "Save Device Graph..."
 #~ msgstr "სიის ექსპორტი..."
 
@@ -3016,10 +3075,6 @@ msgstr "დანაყოფი"
 #~ msgstr "<p>ჩადგმის დაწყება...</p>"
 
 #, fuzzy
-#~ msgid "Enter a name for the volume group."
-#~ msgstr "ნამდვილად წავშალო ეს დომენი?"
-
-#, fuzzy
 #~| msgid "Zone name %1 already exists."
 #~ msgid "The volume group \"%1\" already exists."
 #~ msgstr "ზონა %1 უკვე არსებობს."
@@ -3048,11 +3103,6 @@ msgstr "დანაყოფი"
 #, fuzzy
 #~ msgid "<p>Select the physical volumes the volume group should contain.</p>"
 #~ msgstr "<p>ჩადგმის დაწყება...</p>"
-
-#, fuzzy
-#~| msgid "Samba Group Name"
-#~ msgid "Volume Group Name"
-#~ msgstr "Samba-ის ჯგუფის სახელი"
 
 #, fuzzy
 #~ msgid "Available Physical Volumes:"

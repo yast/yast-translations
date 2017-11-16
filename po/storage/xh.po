@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: storage\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-11-13 16:41+0100\n"
+"POT-Creation-Date: 2017-11-16 02:29+0000\n"
 "PO-Revision-Date: 2006-11-03 14:26\n"
 "Last-Translator: Novell Language <language@novell.com>\n"
 "Language-Team: Novell Language <language@novell.com>\n"
@@ -43,6 +43,54 @@ msgstr "Igama lomthi alinakuba lide kuneempawu ezingama-32"
 #, fuzzy
 msgid "Add Logical Volume on %s"
 msgstr "Hlela iSixa esineNgqiqo elindelekileyo"
+
+#. Error message to show when the given volume group name is empty
+#.
+#. @return [String]
+#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:201
+#, fuzzy
+msgid "Enter a name for the volume group."
+msgstr "Ngenisa igama lenkangeleko yecala entsha."
+
+#. Error message to show when the given volume group name contains illegal
+#. characters
+#.
+#. @return [String]
+#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:219
+#, fuzzy
+msgid ""
+"The name for the volume group contains illegal characters. Allowed\n"
+"are alphanumeric characters, \".\", \"_\", \"-\" and \"+\""
+msgstr "Igama lomthi alinakuba lide kuneempawu ezingama-32"
+
+#. TRANSLATORS: %{vg_name} is replaced by the name of the volume group
+#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:242
+#, fuzzy
+#| msgid ""
+#| "The volume group name \"%1\" conflicts\n"
+#| "with another entry in the /dev directory.\n"
+msgid ""
+"The volume group name \"%{vg_name}\" conflicts\n"
+"with another entry in the /dev directory."
+msgstr ""
+"Igama leqela lesixa \"%1\" liyaphixana\n"
+"nolunye ungeniso ku /dev vimba wefayili.\n"
+
+#. Error message to show when the given extent size is not valid
+#.
+#. @see #invalid_extent_size?
+#.
+#. @return [String]
+#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:267
+#, fuzzy
+msgid ""
+"The data entered in invalid. Insert a physical extent size larger than 1 "
+"KiB\n"
+"in powers of 2 and multiple of 128 KiB, for example, \"512 KiB\" or \"4 MiB\""
+msgstr ""
+"Inkcukacha ezifakiweyo azisebenziseki.\n"
+"Faka isayizi yobubanzi ebambekayo\n"
+" 8KB ukuya ku 512MB kumandla ka 2, umzekelo, \"4M\" okanye \"512K\".\n"
 
 #. TRANSLATORS: dialog title. %s is a device name like /dev/md0
 #: src/lib/y2partitioner/actions/controllers/md.rb:129
@@ -172,7 +220,7 @@ msgstr "Igama"
 
 #. @macro seeAbstractWidget
 #: src/lib/y2partitioner/dialogs/lvm_lv_info.rb:73
-#: src/lib/y2partitioner/widgets/lvm_add_button.rb:52
+#: src/lib/y2partitioner/widgets/lvm_add_button.rb:54
 #, fuzzy
 msgid "Logical Volume"
 msgstr "Izixa ngokwengqiqo elindelekileyo:"
@@ -269,6 +317,36 @@ msgstr "Imi&gca"
 #: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:239
 msgid "Number"
 msgstr "Inombolo"
+
+#. @macro seeDialog
+#: src/lib/y2partitioner/dialogs/lvm_vg.rb:22
+msgid "Add Volume Group"
+msgstr "Fakela Iqela Lesixa "
+
+#. TRANSLATORS: field to enter the name of a new volume group
+#: src/lib/y2partitioner/dialogs/lvm_vg.rb:57
+#, fuzzy
+#| msgid "V&olume Group Name"
+msgid "&Volume Group Name"
+msgstr "Iga&ma leQela leSixa"
+
+#. TRANSLATORS: field to enter the extent size of a new volume group
+#: src/lib/y2partitioner/dialogs/lvm_vg.rb:126
+#, fuzzy
+#| msgid "&Physical Extent Size"
+msgid "Physical Extent Size"
+msgstr "&Isayizi yobuBanzi obuBambekayo"
+
+#. Validates that at least one physical volume was added to the volume group
+#. @macro seeAbstractWidget
+#.
+#. @note An error popup is shown when no physical volume was added.
+#.
+#. @return [Boolean]
+#: src/lib/y2partitioner/dialogs/lvm_vg.rb:211
+#, fuzzy
+msgid "Select at least one device."
+msgstr "Khetha nje into ibe nye."
 
 #. @return [Y2Storage::DeviceGraph] device graph with all changes done in dialog
 #: src/lib/y2partitioner/dialogs/main.rb:24
@@ -615,15 +693,8 @@ msgstr ""
 
 #. TRANSLATORS: button label to add a btrfs subvolume
 #. TRANSLATORS: button label to add a volume group or logical volume
-#. TRANSLATORS: button label to add a logical volume
-#. Constructor
-#.
-#. @param disk [Y2Storage::BlkDevice]
-#. @param table [ConfigurableBlkDevicesTable]
 #: src/lib/y2partitioner/widgets/btrfs_subvolumes_add_button.rb:44
-#: src/lib/y2partitioner/widgets/lvm_add_button.rb:43
-#: src/lib/y2partitioner/widgets/lvm_lv_add_button.rb:40
-#: src/lib/y2partitioner/widgets/pages/disk.rb:181
+#: src/lib/y2partitioner/widgets/lvm_add_button.rb:44
 #, fuzzy
 msgid "Add..."
 msgstr "Fa&kela..."
@@ -698,9 +769,13 @@ msgstr ""
 #. @note An error popup is shown when there is no device.
 #.
 #. @return [Boolean]
-#. @param event [Hash] UI event
-#: src/lib/y2partitioner/widgets/device_button.rb:100
-#: src/lib/y2partitioner/widgets/lvm_add_button.rb:77
+#. Runs action for adding a new logical volume to the selected volume group
+#. @see Actions::AddLvmLv
+#.
+#. @return [Symbol, nil] :finish, :abort. Returns nil when it is not possible
+#. to determine the volume group (see {#vg}).
+#: src/lib/y2partitioner/widgets/device_button.rb:97
+#: src/lib/y2partitioner/widgets/lvm_add_button.rb:94
 #, fuzzy
 msgid "No device selected"
 msgstr "Akukho sicwangciso sikhethiweyo."
@@ -1514,8 +1589,9 @@ msgstr ""
 
 #. When there is no vg, only shows an option to add a new vg.
 #. Otherwise, options for adding a vg or lv are shown.
+#.
 #. @return [Array<[Symbol, String]>] list of menu options
-#: src/lib/y2partitioner/widgets/lvm_add_button.rb:50
+#: src/lib/y2partitioner/widgets/lvm_add_button.rb:52
 msgid "Volume Group"
 msgstr "Iqela Lesixa"
 
@@ -1568,6 +1644,12 @@ msgstr ""
 #, fuzzy
 msgid "PE Size: %s"
 msgstr "Isayizi%1"
+
+#. TRANSLATORS: button label to add a MD Raid
+#: src/lib/y2partitioner/widgets/md_add_button.rb:38
+#, fuzzy
+msgid "Add RAID..."
+msgstr "Faka i-RAI&D"
 
 #. @macro seeAbstractWidget
 #: src/lib/y2partitioner/widgets/md_description.rb:30
@@ -1755,12 +1837,6 @@ msgstr "i-ID: %1"
 #, fuzzy
 msgid "RAID"
 msgstr "I-R&AID:"
-
-#. Constructor
-#: src/lib/y2partitioner/widgets/pages/md_raids.rb:111
-#, fuzzy
-msgid "Add RAID..."
-msgstr "Faka i-RAI&D"
 
 #. TRANSLATORS: Heading. String followed by name of partition
 #: src/lib/y2partitioner/widgets/pages/partition.rb:44
@@ -4317,10 +4393,6 @@ msgstr "Isahlulelo kwi-Diski"
 #~ msgstr "Hlela"
 
 #, fuzzy
-#~ msgid "Select at least one device."
-#~ msgstr "Khetha nje into ibe nye."
-
-#, fuzzy
 #~ msgid "<p>Change the devices that are used by the Btrfs volume.</p>"
 #~ msgstr ""
 #~ "<p>\n"
@@ -4552,9 +4624,6 @@ msgstr "Isahlulelo kwi-Diski"
 #, fuzzy
 #~ msgid "Add RAID"
 #~ msgstr "Faka i-RAI&D"
-
-#~ msgid "Add Volume Group"
-#~ msgstr "Fakela Iqela Lesixa "
 
 #, fuzzy
 #~ msgid "Save Device Graph..."
@@ -5068,10 +5137,6 @@ msgstr "Isahlulelo kwi-Diski"
 #~ "lesixa.</p>"
 
 #, fuzzy
-#~ msgid "Enter a name for the volume group."
-#~ msgstr "Ngenisa igama lenkangeleko yecala entsha."
-
-#, fuzzy
 #~ msgid "The name for the volume group is longer than 128 characters."
 #~ msgstr "Igama lomthi alinakuba lide kuneempawu ezingama-32"
 
@@ -5080,21 +5145,8 @@ msgstr "Isahlulelo kwi-Diski"
 #~ msgstr "Igama lomthi alinakuba lide kuneempawu ezingama-32"
 
 #, fuzzy
-#~ msgid ""
-#~ "The name for the volume group contains illegal characters. Allowed\n"
-#~ "are alphanumeric characters, \".\", \"_\", \"-\" and \"+\"."
-#~ msgstr "Igama lomthi alinakuba lide kuneempawu ezingama-32"
-
-#, fuzzy
 #~ msgid "The volume group \"%1\" already exists."
 #~ msgstr "Indawo ekusingiswa kuyo %1 sele ikhona."
-
-#~ msgid ""
-#~ "The volume group name \"%1\" conflicts\n"
-#~ "with another entry in the /dev directory.\n"
-#~ msgstr ""
-#~ "Igama leqela lesixa \"%1\" liyaphixana\n"
-#~ "nolunye ungeniso ku /dev vimba wefayili.\n"
 
 #, fuzzy
 #~ msgid "Confirm Deleting of Volume Group"
@@ -5114,16 +5166,6 @@ msgstr "Isahlulelo kwi-Diski"
 #, fuzzy
 #~ msgid "Really delete volume group \"%1\" and all related logical volumes?"
 #~ msgstr "Shenxisa ngenene iqela lesixa \"%1\"?"
-
-#, fuzzy
-#~ msgid ""
-#~ "The data entered is invalid. Insert a physical extent size larger than "
-#~ "%1\n"
-#~ "in powers of 2, for example, \"%2\" or \"%3\""
-#~ msgstr ""
-#~ "Inkcukacha ezifakiweyo azisebenziseki.\n"
-#~ "Faka isayizi yobubanzi ebambekayo\n"
-#~ " 8KB ukuya ku 512MB kumandla ka 2, umzekelo, \"4M\" okanye \"512K\".\n"
 
 #, fuzzy
 #~ msgid ""
@@ -5150,14 +5192,6 @@ msgstr "Isahlulelo kwi-Diski"
 #~ msgstr ""
 #~ "<p>Apha, dala isixa esinengqiqo \n"
 #~ "elindelekileyo esisetyenziselwa ukugcina inkcukacha zakho.</p>\n"
-
-#, fuzzy
-#~| msgid "V&olume Group Name"
-#~ msgid "Volume Group Name"
-#~ msgstr "Iga&ma leQela leSixa"
-
-#~ msgid "&Physical Extent Size"
-#~ msgstr "&Isayizi yobuBanzi obuBambekayo"
 
 #, fuzzy
 #~ msgid "Available Physical Volumes:"

@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: storage-ng.el\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-11-13 16:41+0100\n"
+"POT-Creation-Date: 2017-11-16 02:29+0000\n"
 "PO-Revision-Date: 2016-11-09 17:20+0000\n"
 "Last-Translator: alexandros Vennos <alexandros.venn@gmail.com>\n"
 "Language-Team: Greek <https://l10n.opensuse.org/projects/yast-storage/ng-"
@@ -61,6 +61,61 @@ msgstr ""
 #| msgid "Add Logical Volume on %1"
 msgid "Add Logical Volume on %s"
 msgstr "Προσθήκη Λογικού Τόμου στο %1"
+
+#. Error message to show when the given volume group name is empty
+#.
+#. @return [String]
+#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:201
+msgid "Enter a name for the volume group."
+msgstr "Εισάγετε όνομα για την ομάδα τόμου."
+
+#. Error message to show when the given volume group name contains illegal
+#. characters
+#.
+#. @return [String]
+#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:219
+#, fuzzy
+#| msgid ""
+#| "The name for the volume group contains illegal characters. Allowed\n"
+#| "are alphanumeric characters, \".\", \"_\", \"-\" and \"+\"."
+msgid ""
+"The name for the volume group contains illegal characters. Allowed\n"
+"are alphanumeric characters, \".\", \"_\", \"-\" and \"+\""
+msgstr ""
+"Το όνομα της ομάδας τόμου περιέχει μη έγκυρους χαρακτήρες. Επιτρέπονται\n"
+"αλφαριθμητικοί χαρακτήρες, \".\", \"_\", \"-\" και \"+\"."
+
+#. TRANSLATORS: %{vg_name} is replaced by the name of the volume group
+#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:242
+#, fuzzy
+#| msgid ""
+#| "The volume group name \"%1\" conflicts\n"
+#| "with another entry in the /dev directory.\n"
+msgid ""
+"The volume group name \"%{vg_name}\" conflicts\n"
+"with another entry in the /dev directory."
+msgstr ""
+"Το όνομα της ομάδας του τόμου \"%1\" έρχεται σε διένεξη\n"
+"με άλλη εγγραφή στον κατάλογο /dev.\n"
+
+#. Error message to show when the given extent size is not valid
+#.
+#. @see #invalid_extent_size?
+#.
+#. @return [String]
+#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:267
+#, fuzzy
+#| msgid ""
+#| "The data entered is invalid. Insert a physical extent size larger than "
+#| "%1\n"
+#| "in powers of 2, for example, \"%2\" or \"%3\""
+msgid ""
+"The data entered in invalid. Insert a physical extent size larger than 1 "
+"KiB\n"
+"in powers of 2 and multiple of 128 KiB, for example, \"512 KiB\" or \"4 MiB\""
+msgstr ""
+"Μη έγκυρα δεδομένα που εισάγατε. Εισάγετε ένα φυσικό εκτεταμένο μέγεθος "
+"μεγαλύτερο από %1 σε δυνάμεις του 2, π.χ. \"%2\" ή \"%3\""
 
 #. TRANSLATORS: dialog title. %s is a device name like /dev/md0
 #: src/lib/y2partitioner/actions/controllers/md.rb:129
@@ -200,7 +255,7 @@ msgstr "Όνομα"
 
 #. @macro seeAbstractWidget
 #: src/lib/y2partitioner/dialogs/lvm_lv_info.rb:73
-#: src/lib/y2partitioner/widgets/lvm_add_button.rb:52
+#: src/lib/y2partitioner/widgets/lvm_add_button.rb:54
 msgid "Logical Volume"
 msgstr "Λογικός Τόμος"
 
@@ -297,6 +352,35 @@ msgstr "Stripes"
 #: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:239
 msgid "Number"
 msgstr "Αριθμός"
+
+#. @macro seeDialog
+#: src/lib/y2partitioner/dialogs/lvm_vg.rb:22
+msgid "Add Volume Group"
+msgstr "Προσθήκη Ομάδας Τόμων"
+
+#. TRANSLATORS: field to enter the name of a new volume group
+#: src/lib/y2partitioner/dialogs/lvm_vg.rb:57
+#, fuzzy
+#| msgid "Volume Group Name"
+msgid "&Volume Group Name"
+msgstr "Όνομα Ομάδας Τόμου"
+
+#. TRANSLATORS: field to enter the extent size of a new volume group
+#: src/lib/y2partitioner/dialogs/lvm_vg.rb:126
+#, fuzzy
+#| msgid "&Physical Extent Size"
+msgid "Physical Extent Size"
+msgstr "&Φυσικό εκτεταμένο μέγεθος"
+
+#. Validates that at least one physical volume was added to the volume group
+#. @macro seeAbstractWidget
+#.
+#. @note An error popup is shown when no physical volume was added.
+#.
+#. @return [Boolean]
+#: src/lib/y2partitioner/dialogs/lvm_vg.rb:211
+msgid "Select at least one device."
+msgstr "Επιλέξτε τουλάχιστον μία συσκευή."
 
 #. @return [Y2Storage::DeviceGraph] device graph with all changes done in dialog
 #: src/lib/y2partitioner/dialogs/main.rb:24
@@ -635,15 +719,8 @@ msgstr ""
 
 #. TRANSLATORS: button label to add a btrfs subvolume
 #. TRANSLATORS: button label to add a volume group or logical volume
-#. TRANSLATORS: button label to add a logical volume
-#. Constructor
-#.
-#. @param disk [Y2Storage::BlkDevice]
-#. @param table [ConfigurableBlkDevicesTable]
 #: src/lib/y2partitioner/widgets/btrfs_subvolumes_add_button.rb:44
-#: src/lib/y2partitioner/widgets/lvm_add_button.rb:43
-#: src/lib/y2partitioner/widgets/lvm_lv_add_button.rb:40
-#: src/lib/y2partitioner/widgets/pages/disk.rb:181
+#: src/lib/y2partitioner/widgets/lvm_add_button.rb:44
 msgid "Add..."
 msgstr "Προσθήκη..."
 
@@ -715,9 +792,13 @@ msgstr ""
 #. @note An error popup is shown when there is no device.
 #.
 #. @return [Boolean]
-#. @param event [Hash] UI event
-#: src/lib/y2partitioner/widgets/device_button.rb:100
-#: src/lib/y2partitioner/widgets/lvm_add_button.rb:77
+#. Runs action for adding a new logical volume to the selected volume group
+#. @see Actions::AddLvmLv
+#.
+#. @return [Symbol, nil] :finish, :abort. Returns nil when it is not possible
+#. to determine the volume group (see {#vg}).
+#: src/lib/y2partitioner/widgets/device_button.rb:97
+#: src/lib/y2partitioner/widgets/lvm_add_button.rb:94
 #, fuzzy
 #| msgid "No DM device selected."
 msgid "No device selected"
@@ -1578,8 +1659,9 @@ msgstr ""
 
 #. When there is no vg, only shows an option to add a new vg.
 #. Otherwise, options for adding a vg or lv are shown.
+#.
 #. @return [Array<[Symbol, String]>] list of menu options
-#: src/lib/y2partitioner/widgets/lvm_add_button.rb:50
+#: src/lib/y2partitioner/widgets/lvm_add_button.rb:52
 msgid "Volume Group"
 msgstr "Ομάδα Τόμων"
 
@@ -1639,6 +1721,11 @@ msgstr ""
 #| msgid "PE Size: %1"
 msgid "PE Size: %s"
 msgstr "Μέγεθος εκτελιμου αρχείου: %1"
+
+#. TRANSLATORS: button label to add a MD Raid
+#: src/lib/y2partitioner/widgets/md_add_button.rb:38
+msgid "Add RAID..."
+msgstr "Προσθήκη RAID..."
 
 #. @macro seeAbstractWidget
 #: src/lib/y2partitioner/widgets/md_description.rb:30
@@ -1821,11 +1908,6 @@ msgstr "RAID: %1"
 #: src/lib/y2partitioner/widgets/pages/md_raids.rb:72
 msgid "RAID"
 msgstr "RAID"
-
-#. Constructor
-#: src/lib/y2partitioner/widgets/pages/md_raids.rb:111
-msgid "Add RAID..."
-msgstr "Προσθήκη RAID..."
 
 #. TRANSLATORS: Heading. String followed by name of partition
 #: src/lib/y2partitioner/widgets/pages/partition.rb:44
@@ -4340,9 +4422,6 @@ msgstr "Δίσκος για Κατάτμηση"
 #~ msgid "Edit Btrfs %1"
 #~ msgstr "Επεξεργασία Btrfs %1"
 
-#~ msgid "Select at least one device."
-#~ msgstr "Επιλέξτε τουλάχιστον μία συσκευή."
-
 #~ msgid "<p>Change the devices that are used by the Btrfs volume.</p>"
 #~ msgstr "<p>Αλλαγή συσκευών που χρησιμοποιούνται από τον τόμο Btrfs.</p>"
 
@@ -4571,9 +4650,6 @@ msgstr "Δίσκος για Κατάτμηση"
 
 #~ msgid "Add RAID"
 #~ msgstr "Προσθήκη RAID"
-
-#~ msgid "Add Volume Group"
-#~ msgstr "Προσθήκη Ομάδας Τόμων"
 
 #~ msgid "Save Device Graph..."
 #~ msgstr "Αποθήκευση Γραφήματος Συσκευής..."
@@ -5110,31 +5186,14 @@ msgstr "Δίσκος για Κατάτμηση"
 #~ "<p>Αυτή η προβολή εμφανίζει λεπτομερείς πληροφορίες του\n"
 #~ "επιλεγμένου κρυπτογραφημένου αρχείου.</p>"
 
-#~ msgid "Enter a name for the volume group."
-#~ msgstr "Εισάγετε όνομα για την ομάδα τόμου."
-
 #~ msgid "The name for the volume group is longer than 128 characters."
 #~ msgstr "Το όνομα της ομάδας τόμου είναι μεγαλύτερο από 128 χαρακτήρες."
 
 #~ msgid "The name for the volume group must not start with a \"-\"."
 #~ msgstr "Το όνομα για την ομάδα τόμου δεν πρέπει να αρχίζει με \"-\"."
 
-#~ msgid ""
-#~ "The name for the volume group contains illegal characters. Allowed\n"
-#~ "are alphanumeric characters, \".\", \"_\", \"-\" and \"+\"."
-#~ msgstr ""
-#~ "Το όνομα της ομάδας τόμου περιέχει μη έγκυρους χαρακτήρες. Επιτρέπονται\n"
-#~ "αλφαριθμητικοί χαρακτήρες, \".\", \"_\", \"-\" και \"+\"."
-
 #~ msgid "The volume group \"%1\" already exists."
 #~ msgstr "Η ομάδα τόμου %1 υπάρχει ήδη."
-
-#~ msgid ""
-#~ "The volume group name \"%1\" conflicts\n"
-#~ "with another entry in the /dev directory.\n"
-#~ msgstr ""
-#~ "Το όνομα της ομάδας του τόμου \"%1\" έρχεται σε διένεξη\n"
-#~ "με άλλη εγγραφή στον κατάλογο /dev.\n"
 
 #~ msgid "Confirm Deleting of Volume Group"
 #~ msgstr "Επιβεβαίωση Διαγραφής Ομάδας Τόμου"
@@ -5154,14 +5213,6 @@ msgstr "Δίσκος για Κατάτμηση"
 #~ msgstr ""
 #~ "Θέλετε την διαγραφή ομάδας τόμου \"%1\" και όλων των συσχετισμένων "
 #~ "λογικών τόμων;"
-
-#~ msgid ""
-#~ "The data entered is invalid. Insert a physical extent size larger than "
-#~ "%1\n"
-#~ "in powers of 2, for example, \"%2\" or \"%3\""
-#~ msgstr ""
-#~ "Μη έγκυρα δεδομένα που εισάγατε. Εισάγετε ένα φυσικό εκτεταμένο μέγεθος "
-#~ "μεγαλύτερο από %1 σε δυνάμεις του 2, π.χ. \"%2\" ή \"%3\""
 
 #~ msgid ""
 #~ "The name for the logical volume contains illegal characters. Allowed\n"
@@ -5186,12 +5237,6 @@ msgstr "Δίσκος για Κατάτμηση"
 #~ msgstr ""
 #~ "<p>Επιλέξτε τους φυσικούς όγκους που η ομάδα όγκου θα πρέπει να περιέχει."
 #~ "</p>"
-
-#~ msgid "Volume Group Name"
-#~ msgstr "Όνομα Ομάδας Τόμου"
-
-#~ msgid "&Physical Extent Size"
-#~ msgstr "&Φυσικό εκτεταμένο μέγεθος"
 
 #~ msgid "Available Physical Volumes:"
 #~ msgstr "Διαθέσιμοι Φυσικοί Τόμοι:"

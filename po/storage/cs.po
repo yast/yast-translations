@@ -19,11 +19,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: storage\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-11-13 16:41+0100\n"
+"POT-Creation-Date: 2017-11-16 02:29+0000\n"
 "PO-Revision-Date: 2017-11-14 12:36+0000\n"
 "Last-Translator: Vojtech Zeisek <Vojtech.Zeisek@opensuse.org>\n"
-"Language-Team: Czech <https://l10n.opensuse.org/projects/yast-"
-"storage/master/cs/>\n"
+"Language-Team: Czech <https://l10n.opensuse.org/projects/yast-storage/master/"
+"cs/>\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -51,13 +51,70 @@ msgid ""
 "Allowed are alphanumeric characters, \".\", \"_\", \"-\" and \"+\"."
 msgstr ""
 "Jméno logického oddílu obsahuje nepovolené znaky. \n"
-"Povoleny jsou alfanumerické znaky (písmena bez diakritiky a čísla), \".\", \""
-"_\", \"-\" a \"+\"."
+"Povoleny jsou alfanumerické znaky (písmena bez diakritiky a čísla), \".\", "
+"\"_\", \"-\" a \"+\"."
 
 #. TRANSLATORS: dialog title. %s is a device name like /dev/vg0
 #: src/lib/y2partitioner/actions/controllers/lvm_lv.rb:194
 msgid "Add Logical Volume on %s"
 msgstr "Přidat logický svazek do %s"
+
+#. Error message to show when the given volume group name is empty
+#.
+#. @return [String]
+#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:201
+msgid "Enter a name for the volume group."
+msgstr "Zadejte název skupiny svazků."
+
+#. Error message to show when the given volume group name contains illegal
+#. characters
+#.
+#. @return [String]
+#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:219
+#, fuzzy
+#| msgid ""
+#| "The name for the volume group contains illegal characters. Allowed\n"
+#| "are alphanumeric characters, \".\", \"_\", \"-\" and \"+\"."
+msgid ""
+"The name for the volume group contains illegal characters. Allowed\n"
+"are alphanumeric characters, \".\", \"_\", \"-\" and \"+\""
+msgstr ""
+"Jméno skupiny svazků obsahuje nepovolené znaky. \n"
+"Povoleny jsou alfanumerické znaky(písmena bez diakritiky a čísla), \".\", \"_"
+"\", \"-\" a \"+\"."
+
+#. TRANSLATORS: %{vg_name} is replaced by the name of the volume group
+#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:242
+#, fuzzy
+#| msgid ""
+#| "The volume group name \"%1\" conflicts\n"
+#| "with another entry in the /dev directory.\n"
+msgid ""
+"The volume group name \"%{vg_name}\" conflicts\n"
+"with another entry in the /dev directory."
+msgstr ""
+"Jméno souboru svazku \"%1\" je v konfliktu\n"
+"s jinou položkou adresáře /dev.\n"
+
+#. Error message to show when the given extent size is not valid
+#.
+#. @see #invalid_extent_size?
+#.
+#. @return [String]
+#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:267
+#, fuzzy
+#| msgid ""
+#| "The data entered is invalid. Insert a physical extent size larger than "
+#| "%1\n"
+#| "in powers of 2, for example, \"%2\" or \"%3\""
+msgid ""
+"The data entered in invalid. Insert a physical extent size larger than 1 "
+"KiB\n"
+"in powers of 2 and multiple of 128 KiB, for example, \"512 KiB\" or \"4 MiB\""
+msgstr ""
+"Váš údaj je neplatný. Musíte zadat fyzickou velikost větší než %1, která je "
+"mocninou dvou.\n"
+"například \"%2\" nebo \"%3\""
 
 #. TRANSLATORS: dialog title. %s is a device name like /dev/md0
 #: src/lib/y2partitioner/actions/controllers/md.rb:129
@@ -169,7 +226,7 @@ msgstr "Název"
 
 #. @macro seeAbstractWidget
 #: src/lib/y2partitioner/dialogs/lvm_lv_info.rb:73
-#: src/lib/y2partitioner/widgets/lvm_add_button.rb:52
+#: src/lib/y2partitioner/widgets/lvm_add_button.rb:54
 msgid "Logical Volume"
 msgstr "Logický svazek"
 
@@ -252,6 +309,35 @@ msgstr "Prokládání"
 #: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:239
 msgid "Number"
 msgstr "Číslo"
+
+#. @macro seeDialog
+#: src/lib/y2partitioner/dialogs/lvm_vg.rb:22
+msgid "Add Volume Group"
+msgstr "Přidat skupinu svazků"
+
+#. TRANSLATORS: field to enter the name of a new volume group
+#: src/lib/y2partitioner/dialogs/lvm_vg.rb:57
+#, fuzzy
+#| msgid "Volume Group Name"
+msgid "&Volume Group Name"
+msgstr "Název skupiny svazků"
+
+#. TRANSLATORS: field to enter the extent size of a new volume group
+#: src/lib/y2partitioner/dialogs/lvm_vg.rb:126
+#, fuzzy
+#| msgid "&Physical Extent Size"
+msgid "Physical Extent Size"
+msgstr "&Fyzická velikost rozsahu"
+
+#. Validates that at least one physical volume was added to the volume group
+#. @macro seeAbstractWidget
+#.
+#. @note An error popup is shown when no physical volume was added.
+#.
+#. @return [Boolean]
+#: src/lib/y2partitioner/dialogs/lvm_vg.rb:211
+msgid "Select at least one device."
+msgstr "Zvolit aspoň jedno zařízení."
 
 #. @return [Y2Storage::DeviceGraph] device graph with all changes done in dialog
 #: src/lib/y2partitioner/dialogs/main.rb:24
@@ -544,15 +630,8 @@ msgstr ""
 
 #. TRANSLATORS: button label to add a btrfs subvolume
 #. TRANSLATORS: button label to add a volume group or logical volume
-#. TRANSLATORS: button label to add a logical volume
-#. Constructor
-#.
-#. @param disk [Y2Storage::BlkDevice]
-#. @param table [ConfigurableBlkDevicesTable]
 #: src/lib/y2partitioner/widgets/btrfs_subvolumes_add_button.rb:44
-#: src/lib/y2partitioner/widgets/lvm_add_button.rb:43
-#: src/lib/y2partitioner/widgets/lvm_lv_add_button.rb:40
-#: src/lib/y2partitioner/widgets/pages/disk.rb:181
+#: src/lib/y2partitioner/widgets/lvm_add_button.rb:44
 msgid "Add..."
 msgstr "Přidat.."
 
@@ -622,9 +701,13 @@ msgstr ""
 #. @note An error popup is shown when there is no device.
 #.
 #. @return [Boolean]
-#. @param event [Hash] UI event
-#: src/lib/y2partitioner/widgets/device_button.rb:100
-#: src/lib/y2partitioner/widgets/lvm_add_button.rb:77
+#. Runs action for adding a new logical volume to the selected volume group
+#. @see Actions::AddLvmLv
+#.
+#. @return [Symbol, nil] :finish, :abort. Returns nil when it is not possible
+#. to determine the volume group (see {#vg}).
+#: src/lib/y2partitioner/widgets/device_button.rb:97
+#: src/lib/y2partitioner/widgets/lvm_add_button.rb:94
 msgid "No device selected"
 msgstr "Není vybrané žadné zařízení"
 
@@ -1366,8 +1449,9 @@ msgstr ""
 
 #. When there is no vg, only shows an option to add a new vg.
 #. Otherwise, options for adding a vg or lv are shown.
+#.
 #. @return [Array<[Symbol, String]>] list of menu options
-#: src/lib/y2partitioner/widgets/lvm_add_button.rb:50
+#: src/lib/y2partitioner/widgets/lvm_add_button.rb:52
 msgid "Volume Group"
 msgstr "Skupina svazků"
 
@@ -1415,6 +1499,11 @@ msgstr ""
 #: src/lib/y2partitioner/widgets/lvm_vg_description.rb:53
 msgid "PE Size: %s"
 msgstr "PE velikost: %s"
+
+#. TRANSLATORS: button label to add a MD Raid
+#: src/lib/y2partitioner/widgets/md_add_button.rb:38
+msgid "Add RAID..."
+msgstr "Přidat RAID..."
 
 #. @macro seeAbstractWidget
 #: src/lib/y2partitioner/widgets/md_description.rb:30
@@ -1578,11 +1667,6 @@ msgstr "RAID: %s"
 #: src/lib/y2partitioner/widgets/pages/md_raids.rb:72
 msgid "RAID"
 msgstr "RAID"
-
-#. Constructor
-#: src/lib/y2partitioner/widgets/pages/md_raids.rb:111
-msgid "Add RAID..."
-msgstr "Přidat RAID..."
 
 #. TRANSLATORS: Heading. String followed by name of partition
 #: src/lib/y2partitioner/widgets/pages/partition.rb:44
@@ -3913,9 +3997,6 @@ msgstr "Diagnostický oddíl"
 #~ msgid "Edit Btrfs %1"
 #~ msgstr "Upravit Btrfs %1"
 
-#~ msgid "Select at least one device."
-#~ msgstr "Zvolit aspoň jedno zařízení."
-
 #~ msgid "<p>Change the devices that are used by the Btrfs volume.</p>"
 #~ msgstr "<p>Změňte zařízení, která jsou použita v Btrfs svazku.</p>"
 
@@ -4134,9 +4215,6 @@ msgstr "Diagnostický oddíl"
 
 #~ msgid "Add RAID"
 #~ msgstr "Přidat RAID"
-
-#~ msgid "Add Volume Group"
-#~ msgstr "Přidat skupinu svazků"
 
 #~ msgid "Save Device Graph..."
 #~ msgstr "Uložit graf zařízení..."
@@ -4645,32 +4723,14 @@ msgstr "Diagnostický oddíl"
 #~ msgstr ""
 #~ "<p>Pohled ukazuje podrobné informace o zvoleném šifrovacím souboru.</p>"
 
-#~ msgid "Enter a name for the volume group."
-#~ msgstr "Zadejte název skupiny svazků."
-
 #~ msgid "The name for the volume group is longer than 128 characters."
 #~ msgstr "Jméno skupiny svazků je delší než 128 znaků."
 
 #~ msgid "The name for the volume group must not start with a \"-\"."
 #~ msgstr "Jméno skupiny svazků nesmí začínat na \"-\"."
 
-#~ msgid ""
-#~ "The name for the volume group contains illegal characters. Allowed\n"
-#~ "are alphanumeric characters, \".\", \"_\", \"-\" and \"+\"."
-#~ msgstr ""
-#~ "Jméno skupiny svazků obsahuje nepovolené znaky. \n"
-#~ "Povoleny jsou alfanumerické znaky(písmena bez diakritiky a čísla), \".\", "
-#~ "\"_\", \"-\" a \"+\"."
-
 #~ msgid "The volume group \"%1\" already exists."
 #~ msgstr "Skupina svazků \"%1\" již existuje."
-
-#~ msgid ""
-#~ "The volume group name \"%1\" conflicts\n"
-#~ "with another entry in the /dev directory.\n"
-#~ msgstr ""
-#~ "Jméno souboru svazku \"%1\" je v konfliktu\n"
-#~ "s jinou položkou adresáře /dev.\n"
 
 #~ msgid "Confirm Deleting of Volume Group"
 #~ msgstr "Potvrzení smazání skupiny svazků"
@@ -4688,15 +4748,6 @@ msgstr "Diagnostický oddíl"
 #~ msgstr ""
 #~ "Opravdu chcete odstranit skupinu svazků \"%1\" a všechny související "
 #~ "logické svazky?"
-
-#~ msgid ""
-#~ "The data entered is invalid. Insert a physical extent size larger than "
-#~ "%1\n"
-#~ "in powers of 2, for example, \"%2\" or \"%3\""
-#~ msgstr ""
-#~ "Váš údaj je neplatný. Musíte zadat fyzickou velikost větší než %1, která "
-#~ "je mocninou dvou.\n"
-#~ "například \"%2\" nebo \"%3\""
 
 #~ msgid ""
 #~ "The name for the logical volume contains illegal characters. Allowed\n"
@@ -4717,12 +4768,6 @@ msgstr "Diagnostický oddíl"
 
 #~ msgid "<p>Select the physical volumes the volume group should contain.</p>"
 #~ msgstr "<p>Vyberte fyzický svazek, který bude  obsahovat skupinu svazků</p>"
-
-#~ msgid "Volume Group Name"
-#~ msgstr "Název skupiny svazků"
-
-#~ msgid "&Physical Extent Size"
-#~ msgstr "&Fyzická velikost rozsahu"
 
 #~ msgid "Available Physical Volumes:"
 #~ msgstr "Dostupné fyzické svazky:"

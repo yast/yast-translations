@@ -23,7 +23,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: storage-ng.fi\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-11-13 16:41+0100\n"
+"POT-Creation-Date: 2017-11-16 02:29+0000\n"
 "PO-Revision-Date: 2017-07-11 17:53+0000\n"
 "Last-Translator: Jyri Palokangas <jmp@opensuse.org>\n"
 "Language-Team: Finnish <https://l10n.opensuse.org/projects/yast-storage/ng-"
@@ -69,6 +69,61 @@ msgstr ""
 #| msgid "Add Logical Volume on %1"
 msgid "Add Logical Volume on %s"
 msgstr "Lisää looginen taltio kohteeseen %1"
+
+#. Error message to show when the given volume group name is empty
+#.
+#. @return [String]
+#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:201
+msgid "Enter a name for the volume group."
+msgstr "Anna uuden taltioryhmän nimi."
+
+#. Error message to show when the given volume group name contains illegal
+#. characters
+#.
+#. @return [String]
+#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:219
+#, fuzzy
+#| msgid ""
+#| "The name for the volume group contains illegal characters. Allowed\n"
+#| "are alphanumeric characters, \".\", \"_\", \"-\" and \"+\"."
+msgid ""
+"The name for the volume group contains illegal characters. Allowed\n"
+"are alphanumeric characters, \".\", \"_\", \"-\" and \"+\""
+msgstr ""
+"Taltioryhmän nimi sisältää kiellettyjä merkkejä. Vain\n"
+"kirjaimet, numerot ja merkit \".\", \"_\",\"-\" ja \"+\" sallitaan."
+
+#. TRANSLATORS: %{vg_name} is replaced by the name of the volume group
+#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:242
+#, fuzzy
+#| msgid ""
+#| "The volume group name \"%1\" conflicts\n"
+#| "with another entry in the /dev directory.\n"
+msgid ""
+"The volume group name \"%{vg_name}\" conflicts\n"
+"with another entry in the /dev directory."
+msgstr ""
+"Taltioryhmän nimi \"%1\" on ristiriidassa\n"
+"/dev -hakemistossa olevan toisen merkinnän kanssa.\n"
+
+#. Error message to show when the given extent size is not valid
+#.
+#. @see #invalid_extent_size?
+#.
+#. @return [String]
+#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:267
+#, fuzzy
+#| msgid ""
+#| "The data entered is invalid. Insert a physical extent size larger than "
+#| "%1\n"
+#| "in powers of 2, for example, \"%2\" or \"%3\""
+msgid ""
+"The data entered in invalid. Insert a physical extent size larger than 1 "
+"KiB\n"
+"in powers of 2 and multiple of 128 KiB, for example, \"512 KiB\" or \"4 MiB\""
+msgstr ""
+"Annettu tieto on virheellinen. Anna fyysinen jatkeen koko, joka on suurempi "
+"kuin %1 ja kahden potenssi, esimerkiksi \"%2\" tai \"%3\""
 
 #. TRANSLATORS: dialog title. %s is a device name like /dev/md0
 #: src/lib/y2partitioner/actions/controllers/md.rb:129
@@ -208,7 +263,7 @@ msgstr "Nimi"
 
 #. @macro seeAbstractWidget
 #: src/lib/y2partitioner/dialogs/lvm_lv_info.rb:73
-#: src/lib/y2partitioner/widgets/lvm_add_button.rb:52
+#: src/lib/y2partitioner/widgets/lvm_add_button.rb:54
 msgid "Logical Volume"
 msgstr "Looginen taltio"
 
@@ -297,6 +352,35 @@ msgstr "Raidat"
 #: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:239
 msgid "Number"
 msgstr "Numero"
+
+#. @macro seeDialog
+#: src/lib/y2partitioner/dialogs/lvm_vg.rb:22
+msgid "Add Volume Group"
+msgstr "Lisää taltioryhmä"
+
+#. TRANSLATORS: field to enter the name of a new volume group
+#: src/lib/y2partitioner/dialogs/lvm_vg.rb:57
+#, fuzzy
+#| msgid "Volume Group Name"
+msgid "&Volume Group Name"
+msgstr "Taltioryhmän nimi"
+
+#. TRANSLATORS: field to enter the extent size of a new volume group
+#: src/lib/y2partitioner/dialogs/lvm_vg.rb:126
+#, fuzzy
+#| msgid "&Physical Extent Size"
+msgid "Physical Extent Size"
+msgstr "&Fyysinen jatkeen koko"
+
+#. Validates that at least one physical volume was added to the volume group
+#. @macro seeAbstractWidget
+#.
+#. @note An error popup is shown when no physical volume was added.
+#.
+#. @return [Boolean]
+#: src/lib/y2partitioner/dialogs/lvm_vg.rb:211
+msgid "Select at least one device."
+msgstr "Valitse ainakin yksi laite."
 
 #. @return [Y2Storage::DeviceGraph] device graph with all changes done in dialog
 #: src/lib/y2partitioner/dialogs/main.rb:24
@@ -616,15 +700,8 @@ msgstr "<p>Luo ja poista alitaltioita Btrfs-tiedostojärjestelmästä.</p>\n"
 
 #. TRANSLATORS: button label to add a btrfs subvolume
 #. TRANSLATORS: button label to add a volume group or logical volume
-#. TRANSLATORS: button label to add a logical volume
-#. Constructor
-#.
-#. @param disk [Y2Storage::BlkDevice]
-#. @param table [ConfigurableBlkDevicesTable]
 #: src/lib/y2partitioner/widgets/btrfs_subvolumes_add_button.rb:44
-#: src/lib/y2partitioner/widgets/lvm_add_button.rb:43
-#: src/lib/y2partitioner/widgets/lvm_lv_add_button.rb:40
-#: src/lib/y2partitioner/widgets/pages/disk.rb:181
+#: src/lib/y2partitioner/widgets/lvm_add_button.rb:44
 msgid "Add..."
 msgstr "Lisää..."
 
@@ -696,9 +773,13 @@ msgstr ""
 #. @note An error popup is shown when there is no device.
 #.
 #. @return [Boolean]
-#. @param event [Hash] UI event
-#: src/lib/y2partitioner/widgets/device_button.rb:100
-#: src/lib/y2partitioner/widgets/lvm_add_button.rb:77
+#. Runs action for adding a new logical volume to the selected volume group
+#. @see Actions::AddLvmLv
+#.
+#. @return [Symbol, nil] :finish, :abort. Returns nil when it is not possible
+#. to determine the volume group (see {#vg}).
+#: src/lib/y2partitioner/widgets/device_button.rb:97
+#: src/lib/y2partitioner/widgets/lvm_add_button.rb:94
 #, fuzzy
 #| msgid "No DM device selected."
 msgid "No device selected"
@@ -1543,8 +1624,9 @@ msgstr ""
 
 #. When there is no vg, only shows an option to add a new vg.
 #. Otherwise, options for adding a vg or lv are shown.
+#.
 #. @return [Array<[Symbol, String]>] list of menu options
-#: src/lib/y2partitioner/widgets/lvm_add_button.rb:50
+#: src/lib/y2partitioner/widgets/lvm_add_button.rb:52
 msgid "Volume Group"
 msgstr "Taltioryhmä"
 
@@ -1604,6 +1686,11 @@ msgstr ""
 #| msgid "PE Size: %1"
 msgid "PE Size: %s"
 msgstr "PE-koko: %1"
+
+#. TRANSLATORS: button label to add a MD Raid
+#: src/lib/y2partitioner/widgets/md_add_button.rb:38
+msgid "Add RAID..."
+msgstr "Lisää RAID..."
 
 #. @macro seeAbstractWidget
 #: src/lib/y2partitioner/widgets/md_description.rb:30
@@ -1788,11 +1875,6 @@ msgstr "RAID: %1"
 #: src/lib/y2partitioner/widgets/pages/md_raids.rb:72
 msgid "RAID"
 msgstr "RAID"
-
-#. Constructor
-#: src/lib/y2partitioner/widgets/pages/md_raids.rb:111
-msgid "Add RAID..."
-msgstr "Lisää RAID..."
 
 #. TRANSLATORS: Heading. String followed by name of partition
 #: src/lib/y2partitioner/widgets/pages/partition.rb:44
@@ -4250,9 +4332,6 @@ msgstr "&Looginen osio"
 #~ msgid "Edit Btrfs %1"
 #~ msgstr "Muokkaa Btrfs %1"
 
-#~ msgid "Select at least one device."
-#~ msgstr "Valitse ainakin yksi laite."
-
 #~ msgid "<p>Change the devices that are used by the Btrfs volume.</p>"
 #~ msgstr "<p>Muuta laitteita joita käytetään Btrfs taltioon.</p>"
 
@@ -4471,9 +4550,6 @@ msgstr "&Looginen osio"
 
 #~ msgid "Add RAID"
 #~ msgstr "Lisää RAID"
-
-#~ msgid "Add Volume Group"
-#~ msgstr "Lisää taltioryhmä"
 
 #~ msgid "Save Device Graph..."
 #~ msgstr "Tallenna laitegrafiikka..."
@@ -4990,31 +5066,14 @@ msgstr "&Looginen osio"
 #~ "<p>Tämä näkymä näyttää lisätietoja \n"
 #~ "valitusta salaustiedostosta.</p>"
 
-#~ msgid "Enter a name for the volume group."
-#~ msgstr "Anna uuden taltioryhmän nimi."
-
 #~ msgid "The name for the volume group is longer than 128 characters."
 #~ msgstr "Taltioryhmän nimi on yli 128 merkkiä pitkä."
 
 #~ msgid "The name for the volume group must not start with a \"-\"."
 #~ msgstr "Taltioryhmän nimi ei saa alkaa merkillä \"-\"."
 
-#~ msgid ""
-#~ "The name for the volume group contains illegal characters. Allowed\n"
-#~ "are alphanumeric characters, \".\", \"_\", \"-\" and \"+\"."
-#~ msgstr ""
-#~ "Taltioryhmän nimi sisältää kiellettyjä merkkejä. Vain\n"
-#~ "kirjaimet, numerot ja merkit \".\", \"_\",\"-\" ja \"+\" sallitaan."
-
 #~ msgid "The volume group \"%1\" already exists."
 #~ msgstr "Taltioryhmä \"%1\" on jo olemassa."
-
-#~ msgid ""
-#~ "The volume group name \"%1\" conflicts\n"
-#~ "with another entry in the /dev directory.\n"
-#~ msgstr ""
-#~ "Taltioryhmän nimi \"%1\" on ristiriidassa\n"
-#~ "/dev -hakemistossa olevan toisen merkinnän kanssa.\n"
 
 #~ msgid "Confirm Deleting of Volume Group"
 #~ msgstr "Vahvista taltioryhmän poisto"
@@ -5031,14 +5090,6 @@ msgstr "&Looginen osio"
 #~ msgid "Really delete volume group \"%1\" and all related logical volumes?"
 #~ msgstr ""
 #~ "Poistetaanko taltioryhmä \"%1\" siihen liittyvine loogisine taltioineen?"
-
-#~ msgid ""
-#~ "The data entered is invalid. Insert a physical extent size larger than "
-#~ "%1\n"
-#~ "in powers of 2, for example, \"%2\" or \"%3\""
-#~ msgstr ""
-#~ "Annettu tieto on virheellinen. Anna fyysinen jatkeen koko, joka on "
-#~ "suurempi kuin %1 ja kahden potenssi, esimerkiksi \"%2\" tai \"%3\""
 
 #~ msgid ""
 #~ "The name for the logical volume contains illegal characters. Allowed\n"
@@ -5060,12 +5111,6 @@ msgstr "&Looginen osio"
 
 #~ msgid "<p>Select the physical volumes the volume group should contain.</p>"
 #~ msgstr "<p>Valitse fyysiset taltiot, jotka sisältyvät taltioryhmään.</p>"
-
-#~ msgid "Volume Group Name"
-#~ msgstr "Taltioryhmän nimi"
-
-#~ msgid "&Physical Extent Size"
-#~ msgstr "&Fyysinen jatkeen koko"
 
 #~ msgid "Available Physical Volumes:"
 #~ msgstr "Käytettävissä olevat fyysiset taltiot:"

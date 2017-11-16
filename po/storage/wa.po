@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: storage\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-11-13 16:41+0100\n"
+"POT-Creation-Date: 2017-11-16 02:29+0000\n"
 "PO-Revision-Date: 2011-01-09 10:18+0100\n"
 "Last-Translator: Jean Cayron <jean.cayron@gmail.com>\n"
 "Language-Team: Walloon <linux@walon.org>\n"
@@ -51,6 +51,46 @@ msgstr "Li no d' coxhlaedje ni pout esse pu long k' 32 caracteres"
 #, fuzzy
 msgid "Add Logical Volume on %s"
 msgstr "Candjî Lodjike"
+
+#. Error message to show when the given volume group name is empty
+#.
+#. @return [String]
+#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:201
+#, fuzzy
+msgid "Enter a name for the volume group."
+msgstr "groupe?"
+
+#. Error message to show when the given volume group name contains illegal
+#. characters
+#.
+#. @return [String]
+#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:219
+#, fuzzy
+msgid ""
+"The name for the volume group contains illegal characters. Allowed\n"
+"are alphanumeric characters, \".\", \"_\", \"-\" and \"+\""
+msgstr "Li no d' coxhlaedje ni pout esse pu long k' 32 caracteres"
+
+#. TRANSLATORS: %{vg_name} is replaced by the name of the volume group
+#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:242
+#, fuzzy
+msgid ""
+"The volume group name \"%{vg_name}\" conflicts\n"
+"with another entry in the /dev directory."
+msgstr "groupe no ni sårént aler eshonne dins"
+
+#. Error message to show when the given extent size is not valid
+#.
+#. @see #invalid_extent_size?
+#.
+#. @return [String]
+#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:267
+#, fuzzy
+msgid ""
+"The data entered in invalid. Insert a physical extent size larger than 1 "
+"KiB\n"
+"in powers of 2 and multiple of 128 KiB, for example, \"512 KiB\" or \"4 MiB\""
+msgstr "grandeu dins oudonbén"
 
 #. TRANSLATORS: dialog title. %s is a device name like /dev/md0
 #: src/lib/y2partitioner/actions/controllers/md.rb:129
@@ -185,7 +225,7 @@ msgstr "No"
 
 #. @macro seeAbstractWidget
 #: src/lib/y2partitioner/dialogs/lvm_lv_info.rb:73
-#: src/lib/y2partitioner/widgets/lvm_add_button.rb:52
+#: src/lib/y2partitioner/widgets/lvm_add_button.rb:54
 msgid "Logical Volume"
 msgstr "Volume lodjike"
 
@@ -279,6 +319,35 @@ msgstr "Bindes"
 #: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:239
 msgid "Number"
 msgstr "Nombe"
+
+#. @macro seeDialog
+#: src/lib/y2partitioner/dialogs/lvm_vg.rb:22
+msgid "Add Volume Group"
+msgstr "Radjouter on groupe di volumes"
+
+#. TRANSLATORS: field to enter the name of a new volume group
+#: src/lib/y2partitioner/dialogs/lvm_vg.rb:57
+#, fuzzy
+#| msgid "V&olume Group Name"
+msgid "&Volume Group Name"
+msgstr "No do gr&oupe di volumes"
+
+#. TRANSLATORS: field to enter the extent size of a new volume group
+#: src/lib/y2partitioner/dialogs/lvm_vg.rb:126
+#, fuzzy
+msgid "Physical Extent Size"
+msgstr "Grandeu"
+
+#. Validates that at least one physical volume was added to the volume group
+#. @macro seeAbstractWidget
+#.
+#. @note An error popup is shown when no physical volume was added.
+#.
+#. @return [Boolean]
+#: src/lib/y2partitioner/dialogs/lvm_vg.rb:211
+#, fuzzy
+msgid "Select at least one device."
+msgstr "Tchoezixhoz on éndjin."
 
 #. @return [Y2Storage::DeviceGraph] device graph with all changes done in dialog
 #: src/lib/y2partitioner/dialogs/main.rb:24
@@ -611,15 +680,8 @@ msgstr ""
 
 #. TRANSLATORS: button label to add a btrfs subvolume
 #. TRANSLATORS: button label to add a volume group or logical volume
-#. TRANSLATORS: button label to add a logical volume
-#. Constructor
-#.
-#. @param disk [Y2Storage::BlkDevice]
-#. @param table [ConfigurableBlkDevicesTable]
 #: src/lib/y2partitioner/widgets/btrfs_subvolumes_add_button.rb:44
-#: src/lib/y2partitioner/widgets/lvm_add_button.rb:43
-#: src/lib/y2partitioner/widgets/lvm_lv_add_button.rb:40
-#: src/lib/y2partitioner/widgets/pages/disk.rb:181
+#: src/lib/y2partitioner/widgets/lvm_add_button.rb:44
 msgid "Add..."
 msgstr "Radjouter..."
 
@@ -694,9 +756,13 @@ msgstr ""
 #. @note An error popup is shown when there is no device.
 #.
 #. @return [Boolean]
-#. @param event [Hash] UI event
-#: src/lib/y2partitioner/widgets/device_button.rb:100
-#: src/lib/y2partitioner/widgets/lvm_add_button.rb:77
+#. Runs action for adding a new logical volume to the selected volume group
+#. @see Actions::AddLvmLv
+#.
+#. @return [Symbol, nil] :finish, :abort. Returns nil when it is not possible
+#. to determine the volume group (see {#vg}).
+#: src/lib/y2partitioner/widgets/device_button.rb:97
+#: src/lib/y2partitioner/widgets/lvm_add_button.rb:94
 #, fuzzy
 #| msgid "No DM device selected."
 msgid "No device selected"
@@ -1482,8 +1548,9 @@ msgstr ""
 
 #. When there is no vg, only shows an option to add a new vg.
 #. Otherwise, options for adding a vg or lv are shown.
+#.
 #. @return [Array<[Symbol, String]>] list of menu options
-#: src/lib/y2partitioner/widgets/lvm_add_button.rb:50
+#: src/lib/y2partitioner/widgets/lvm_add_button.rb:52
 msgid "Volume Group"
 msgstr "Groupe di volumes"
 
@@ -1533,6 +1600,11 @@ msgstr "<p><b> Radjouter</b> groupe</p>"
 #| msgid "PE Size: %1"
 msgid "PE Size: %s"
 msgstr "Grandeu PE: %1"
+
+#. TRANSLATORS: button label to add a MD Raid
+#: src/lib/y2partitioner/widgets/md_add_button.rb:38
+msgid "Add RAID..."
+msgstr "Radjouter RAID..."
 
 #. @macro seeAbstractWidget
 #: src/lib/y2partitioner/widgets/md_description.rb:30
@@ -1718,11 +1790,6 @@ msgstr "RAID : %1"
 #: src/lib/y2partitioner/widgets/pages/md_raids.rb:72
 msgid "RAID"
 msgstr "RAID"
-
-#. Constructor
-#: src/lib/y2partitioner/widgets/pages/md_raids.rb:111
-msgid "Add RAID..."
-msgstr "Radjouter RAID..."
 
 #. TRANSLATORS: Heading. String followed by name of partition
 #: src/lib/y2partitioner/widgets/pages/partition.rb:44
@@ -4188,10 +4255,6 @@ msgstr "Plake Pårticion"
 #~ msgstr "Candjî DM %1"
 
 #, fuzzy
-#~ msgid "Select at least one device."
-#~ msgstr "Tchoezixhoz on éndjin."
-
-#, fuzzy
 #~ msgid "<p>Change the devices that are used by the Btrfs volume.</p>"
 #~ msgstr ""
 #~ "<p>\n"
@@ -4383,9 +4446,6 @@ msgstr "Plake Pårticion"
 
 #~ msgid "Add RAID"
 #~ msgstr "Radjouter RAID"
-
-#~ msgid "Add Volume Group"
-#~ msgstr "Radjouter on groupe di volumes"
 
 #, fuzzy
 #~| msgid "Export Graph..."
@@ -4847,10 +4907,6 @@ msgstr "Plake Pårticion"
 #~ msgstr "<p><b> Radjouter</b> groupe</p>"
 
 #, fuzzy
-#~ msgid "Enter a name for the volume group."
-#~ msgstr "groupe?"
-
-#, fuzzy
 #~ msgid "The name for the volume group is longer than 128 characters."
 #~ msgstr "Li no d' coxhlaedje ni pout esse pu long k' 32 caracteres"
 
@@ -4859,22 +4915,10 @@ msgstr "Plake Pårticion"
 #~ msgstr "Li no d' coxhlaedje ni pout esse pu long k' 32 caracteres"
 
 #, fuzzy
-#~ msgid ""
-#~ "The name for the volume group contains illegal characters. Allowed\n"
-#~ "are alphanumeric characters, \".\", \"_\", \"-\" and \"+\"."
-#~ msgstr "Li no d' coxhlaedje ni pout esse pu long k' 32 caracteres"
-
-#, fuzzy
 #~ msgid "The volume group \"%1\" already exists."
 #~ msgstr ""
 #~ "Li groupe di rsoûce %1 egzistêye dedja.\n"
 #~ "Eployîz on ôte no."
-
-#, fuzzy
-#~ msgid ""
-#~ "The volume group name \"%1\" conflicts\n"
-#~ "with another entry in the /dev directory.\n"
-#~ msgstr "groupe no ni sårént aler eshonne dins"
 
 #, fuzzy
 #~ msgid "Confirm Deleting of Volume Group"
@@ -4890,13 +4934,6 @@ msgstr "Plake Pårticion"
 #, fuzzy
 #~ msgid "Really delete volume group \"%1\" and all related logical volumes?"
 #~ msgstr "groupe?"
-
-#, fuzzy
-#~ msgid ""
-#~ "The data entered is invalid. Insert a physical extent size larger than "
-#~ "%1\n"
-#~ "in powers of 2, for example, \"%2\" or \"%3\""
-#~ msgstr "grandeu dins oudonbén"
 
 #, fuzzy
 #~ msgid ""
@@ -4918,15 +4955,6 @@ msgstr "Plake Pårticion"
 #, fuzzy
 #~ msgid "<p>Select the physical volumes the volume group should contain.</p>"
 #~ msgstr "<p><b> Radjouter</b> groupe</p>"
-
-#, fuzzy
-#~| msgid "V&olume Group Name"
-#~ msgid "Volume Group Name"
-#~ msgstr "No do gr&oupe di volumes"
-
-#, fuzzy
-#~ msgid "&Physical Extent Size"
-#~ msgstr "Grandeu"
 
 #, fuzzy
 #~ msgid "Available Physical Volumes:"

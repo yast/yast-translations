@@ -26,7 +26,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenSUSE\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-11-13 16:41+0100\n"
+"POT-Creation-Date: 2017-11-16 02:29+0000\n"
 "PO-Revision-Date: 2012-11-19 15:00+0200\n"
 "Last-Translator: Lucian Oprea <oprea.luci@gmail.com>\n"
 "Language-Team: Romanian <LL@li.org>\n"
@@ -72,6 +72,61 @@ msgstr ""
 #| msgid "Add Logical Volume on %1"
 msgid "Add Logical Volume on %s"
 msgstr "Adaugă Volum Logic pe %1"
+
+#. Error message to show when the given volume group name is empty
+#.
+#. @return [String]
+#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:201
+msgid "Enter a name for the volume group."
+msgstr "Propune un nume pentru grupul volumului."
+
+#. Error message to show when the given volume group name contains illegal
+#. characters
+#.
+#. @return [String]
+#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:219
+#, fuzzy
+#| msgid ""
+#| "The name for the volume group contains illegal characters. Allowed\n"
+#| "are alphanumeric characters, \".\", \"_\", \"-\" and \"+\"."
+msgid ""
+"The name for the volume group contains illegal characters. Allowed\n"
+"are alphanumeric characters, \".\", \"_\", \"-\" and \"+\""
+msgstr ""
+"Numele grupului de volum conține caractere ilegale. Cele permise\n"
+"sunt caracterele alfanumerice , \".\", \"_\", \"-\" și \"+\"."
+
+#. TRANSLATORS: %{vg_name} is replaced by the name of the volume group
+#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:242
+#, fuzzy
+#| msgid ""
+#| "The volume group name \"%1\" conflicts\n"
+#| "with another entry in the /dev directory.\n"
+msgid ""
+"The volume group name \"%{vg_name}\" conflicts\n"
+"with another entry in the /dev directory."
+msgstr ""
+"Numele grupului de volume \"%1\" intră în\n"
+"conflict cu o altă intrare din directorul /dev.\n"
+
+#. Error message to show when the given extent size is not valid
+#.
+#. @see #invalid_extent_size?
+#.
+#. @return [String]
+#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:267
+#, fuzzy
+#| msgid ""
+#| "The data entered is invalid. Insert a physical extent size larger than "
+#| "%1\n"
+#| "in powers of 2, for example, \"%2\" or \"%3\""
+msgid ""
+"The data entered in invalid. Insert a physical extent size larger than 1 "
+"KiB\n"
+"in powers of 2 and multiple of 128 KiB, for example, \"512 KiB\" or \"4 MiB\""
+msgstr ""
+"Datele intrate nu sunt valide. Inserează o mărime psihică mai mare ca %1\n"
+"la puterea a doua, de exemplu, , \"%2\" or \"%3\""
 
 #. TRANSLATORS: dialog title. %s is a device name like /dev/md0
 #: src/lib/y2partitioner/actions/controllers/md.rb:129
@@ -207,7 +262,7 @@ msgstr "Nume"
 
 #. @macro seeAbstractWidget
 #: src/lib/y2partitioner/dialogs/lvm_lv_info.rb:73
-#: src/lib/y2partitioner/widgets/lvm_add_button.rb:52
+#: src/lib/y2partitioner/widgets/lvm_add_button.rb:54
 msgid "Logical Volume"
 msgstr "Volum logic"
 
@@ -304,6 +359,35 @@ msgstr "dungi"
 #: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:239
 msgid "Number"
 msgstr "Număr"
+
+#. @macro seeDialog
+#: src/lib/y2partitioner/dialogs/lvm_vg.rb:22
+msgid "Add Volume Group"
+msgstr "Adaugă grup de volume"
+
+#. TRANSLATORS: field to enter the name of a new volume group
+#: src/lib/y2partitioner/dialogs/lvm_vg.rb:57
+#, fuzzy
+#| msgid "Volume Group Name"
+msgid "&Volume Group Name"
+msgstr "Nume grup de v&olume"
+
+#. TRANSLATORS: field to enter the extent size of a new volume group
+#: src/lib/y2partitioner/dialogs/lvm_vg.rb:126
+#, fuzzy
+#| msgid "&Physical Extent Size"
+msgid "Physical Extent Size"
+msgstr "Dimensiune fizică"
+
+#. Validates that at least one physical volume was added to the volume group
+#. @macro seeAbstractWidget
+#.
+#. @note An error popup is shown when no physical volume was added.
+#.
+#. @return [Boolean]
+#: src/lib/y2partitioner/dialogs/lvm_vg.rb:211
+msgid "Select at least one device."
+msgstr "Selectează cel puțin un dispozitiv."
 
 #. @return [Y2Storage::DeviceGraph] device graph with all changes done in dialog
 #: src/lib/y2partitioner/dialogs/main.rb:24
@@ -639,15 +723,8 @@ msgstr ""
 
 #. TRANSLATORS: button label to add a btrfs subvolume
 #. TRANSLATORS: button label to add a volume group or logical volume
-#. TRANSLATORS: button label to add a logical volume
-#. Constructor
-#.
-#. @param disk [Y2Storage::BlkDevice]
-#. @param table [ConfigurableBlkDevicesTable]
 #: src/lib/y2partitioner/widgets/btrfs_subvolumes_add_button.rb:44
-#: src/lib/y2partitioner/widgets/lvm_add_button.rb:43
-#: src/lib/y2partitioner/widgets/lvm_lv_add_button.rb:40
-#: src/lib/y2partitioner/widgets/pages/disk.rb:181
+#: src/lib/y2partitioner/widgets/lvm_add_button.rb:44
 msgid "Add..."
 msgstr "Adaugă"
 
@@ -719,9 +796,13 @@ msgstr ""
 #. @note An error popup is shown when there is no device.
 #.
 #. @return [Boolean]
-#. @param event [Hash] UI event
-#: src/lib/y2partitioner/widgets/device_button.rb:100
-#: src/lib/y2partitioner/widgets/lvm_add_button.rb:77
+#. Runs action for adding a new logical volume to the selected volume group
+#. @see Actions::AddLvmLv
+#.
+#. @return [Symbol, nil] :finish, :abort. Returns nil when it is not possible
+#. to determine the volume group (see {#vg}).
+#: src/lib/y2partitioner/widgets/device_button.rb:97
+#: src/lib/y2partitioner/widgets/lvm_add_button.rb:94
 #, fuzzy
 #| msgid "No DM device selected."
 msgid "No device selected"
@@ -1549,8 +1630,9 @@ msgstr ""
 
 #. When there is no vg, only shows an option to add a new vg.
 #. Otherwise, options for adding a vg or lv are shown.
+#.
 #. @return [Array<[Symbol, String]>] list of menu options
-#: src/lib/y2partitioner/widgets/lvm_add_button.rb:50
+#: src/lib/y2partitioner/widgets/lvm_add_button.rb:52
 msgid "Volume Group"
 msgstr "Grup de volume"
 
@@ -1610,6 +1692,11 @@ msgstr ""
 #| msgid "PE Size: %1"
 msgid "PE Size: %s"
 msgstr "Dimensiune PE: %1"
+
+#. TRANSLATORS: button label to add a MD Raid
+#: src/lib/y2partitioner/widgets/md_add_button.rb:38
+msgid "Add RAID..."
+msgstr "Adaug RAID..."
 
 #. @macro seeAbstractWidget
 #: src/lib/y2partitioner/widgets/md_description.rb:30
@@ -1796,11 +1883,6 @@ msgstr "RAID: %1"
 #: src/lib/y2partitioner/widgets/pages/md_raids.rb:72
 msgid "RAID"
 msgstr "RAID"
-
-#. Constructor
-#: src/lib/y2partitioner/widgets/pages/md_raids.rb:111
-msgid "Add RAID..."
-msgstr "Adaug RAID..."
 
 #. TRANSLATORS: Heading. String followed by name of partition
 #: src/lib/y2partitioner/widgets/pages/partition.rb:44
@@ -3925,9 +4007,6 @@ msgstr "Partiție &logică"
 #~ msgid "Edit Btrfs %1"
 #~ msgstr "Editează Btrfs %1"
 
-#~ msgid "Select at least one device."
-#~ msgstr "Selectează cel puțin un dispozitiv."
-
 #, fuzzy
 #~| msgid "<p>Change the devices that are used for the volume group.</p>"
 #~ msgid "<p>Change the devices that are used by the Btrfs volume.</p>"
@@ -4131,9 +4210,6 @@ msgstr "Partiție &logică"
 
 #~ msgid "Add RAID"
 #~ msgstr "Adaugă RAID"
-
-#~ msgid "Add Volume Group"
-#~ msgstr "Adaugă grup de volume"
 
 #, fuzzy
 #~| msgid "Export Device Graph..."
@@ -4646,31 +4722,14 @@ msgstr "Partiție &logică"
 #~ "<p>Această imagine arată imagini detaliate despre\n"
 #~ "fișierul crypt selectat.</p>"
 
-#~ msgid "Enter a name for the volume group."
-#~ msgstr "Propune un nume pentru grupul volumului."
-
 #~ msgid "The name for the volume group is longer than 128 characters."
 #~ msgstr "Numele pentru grupul volumului este mai mare de 128 de caractere."
 
 #~ msgid "The name for the volume group must not start with a \"-\"."
 #~ msgstr "Numele pentru grupul volumului nu trebuie să înceapă cu \"-\"."
 
-#~ msgid ""
-#~ "The name for the volume group contains illegal characters. Allowed\n"
-#~ "are alphanumeric characters, \".\", \"_\", \"-\" and \"+\"."
-#~ msgstr ""
-#~ "Numele grupului de volum conține caractere ilegale. Cele permise\n"
-#~ "sunt caracterele alfanumerice , \".\", \"_\", \"-\" și \"+\"."
-
 #~ msgid "The volume group \"%1\" already exists."
 #~ msgstr "Grupul volumului \"%1\" există deja."
-
-#~ msgid ""
-#~ "The volume group name \"%1\" conflicts\n"
-#~ "with another entry in the /dev directory.\n"
-#~ msgstr ""
-#~ "Numele grupului de volume \"%1\" intră în\n"
-#~ "conflict cu o altă intrare din directorul /dev.\n"
 
 #~ msgid "Confirm Deleting of Volume Group"
 #~ msgstr "Confirmați ștergerea volumului de grup"
@@ -4688,14 +4747,6 @@ msgstr "Partiție &logică"
 #~ msgstr ""
 #~ "Sigur ștergeți volumul de grup \"%1\" și toate volumele legate de cel "
 #~ "logic?"
-
-#~ msgid ""
-#~ "The data entered is invalid. Insert a physical extent size larger than "
-#~ "%1\n"
-#~ "in powers of 2, for example, \"%2\" or \"%3\""
-#~ msgstr ""
-#~ "Datele intrate nu sunt valide. Inserează o mărime psihică mai mare ca %1\n"
-#~ "la puterea a doua, de exemplu, , \"%2\" or \"%3\""
 
 #~ msgid ""
 #~ "The name for the logical volume contains illegal characters. Allowed\n"
@@ -4718,12 +4769,6 @@ msgstr "Partiție &logică"
 #~ msgid "<p>Select the physical volumes the volume group should contain.</p>"
 #~ msgstr ""
 #~ "<p>Selectează volumele psihice pe care grupul de volum le va conține.</p>"
-
-#~ msgid "Volume Group Name"
-#~ msgstr "Nume grup de v&olume"
-
-#~ msgid "&Physical Extent Size"
-#~ msgstr "Dimensiune fizică"
 
 #~ msgid "Available Physical Volumes:"
 #~ msgstr "Volume Psihice Disponibile:"

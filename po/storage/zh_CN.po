@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: storage\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-11-13 16:41+0100\n"
+"POT-Creation-Date: 2017-11-16 02:29+0000\n"
 "PO-Revision-Date: 2016-12-04 04:35+0000\n"
 "Last-Translator: Marguerite Su <i@marguerite.su>\n"
 "Language-Team: Chinese (China) <https://l10n.opensuse.org/projects/yast-"
@@ -57,6 +57,59 @@ msgstr ""
 #| msgid "Add Logical Volume on %1"
 msgid "Add Logical Volume on %s"
 msgstr "在 %1 上添加逻辑卷"
+
+#. Error message to show when the given volume group name is empty
+#.
+#. @return [String]
+#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:201
+msgid "Enter a name for the volume group."
+msgstr "为卷组输入一个名称。"
+
+#. Error message to show when the given volume group name contains illegal
+#. characters
+#.
+#. @return [String]
+#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:219
+#, fuzzy
+#| msgid ""
+#| "The name for the volume group contains illegal characters. Allowed\n"
+#| "are alphanumeric characters, \".\", \"_\", \"-\" and \"+\"."
+msgid ""
+"The name for the volume group contains illegal characters. Allowed\n"
+"are alphanumeric characters, \".\", \"_\", \"-\" and \"+\""
+msgstr ""
+"卷组名称包含非法字符。允许的字符为字母数字，''.''，''_''，''-'' 和 ''+''。"
+
+#. TRANSLATORS: %{vg_name} is replaced by the name of the volume group
+#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:242
+#, fuzzy
+#| msgid ""
+#| "The volume group name \"%1\" conflicts\n"
+#| "with another entry in the /dev directory.\n"
+msgid ""
+"The volume group name \"%{vg_name}\" conflicts\n"
+"with another entry in the /dev directory."
+msgstr ""
+"卷组名称 ''%1'' 与 /dev 目录中\n"
+"的另一项冲突。\n"
+
+#. Error message to show when the given extent size is not valid
+#.
+#. @see #invalid_extent_size?
+#.
+#. @return [String]
+#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:267
+#, fuzzy
+#| msgid ""
+#| "The data entered is invalid. Insert a physical extent size larger than "
+#| "%1\n"
+#| "in powers of 2, for example, \"%2\" or \"%3\""
+msgid ""
+"The data entered in invalid. Insert a physical extent size larger than 1 "
+"KiB\n"
+"in powers of 2 and multiple of 128 KiB, for example, \"512 KiB\" or \"4 MiB\""
+msgstr ""
+"输入的数据无效。输入一个大于 %1 两倍的物理区域尺寸，例如，''%2'' 或 ''%3''"
 
 #. TRANSLATORS: dialog title. %s is a device name like /dev/md0
 #: src/lib/y2partitioner/actions/controllers/md.rb:129
@@ -196,7 +249,7 @@ msgstr "名称"
 
 #. @macro seeAbstractWidget
 #: src/lib/y2partitioner/dialogs/lvm_lv_info.rb:73
-#: src/lib/y2partitioner/widgets/lvm_add_button.rb:52
+#: src/lib/y2partitioner/widgets/lvm_add_button.rb:54
 msgid "Logical Volume"
 msgstr "逻辑卷"
 
@@ -283,6 +336,35 @@ msgstr "条带"
 #: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:239
 msgid "Number"
 msgstr "数字"
+
+#. @macro seeDialog
+#: src/lib/y2partitioner/dialogs/lvm_vg.rb:22
+msgid "Add Volume Group"
+msgstr "添加卷组"
+
+#. TRANSLATORS: field to enter the name of a new volume group
+#: src/lib/y2partitioner/dialogs/lvm_vg.rb:57
+#, fuzzy
+#| msgid "Volume Group Name"
+msgid "&Volume Group Name"
+msgstr "卷组名称"
+
+#. TRANSLATORS: field to enter the extent size of a new volume group
+#: src/lib/y2partitioner/dialogs/lvm_vg.rb:126
+#, fuzzy
+#| msgid "&Physical Extent Size"
+msgid "Physical Extent Size"
+msgstr "物理区域尺寸(&P)"
+
+#. Validates that at least one physical volume was added to the volume group
+#. @macro seeAbstractWidget
+#.
+#. @note An error popup is shown when no physical volume was added.
+#.
+#. @return [Boolean]
+#: src/lib/y2partitioner/dialogs/lvm_vg.rb:211
+msgid "Select at least one device."
+msgstr "选择至少一个设备。"
 
 #. @return [Y2Storage::DeviceGraph] device graph with all changes done in dialog
 #: src/lib/y2partitioner/dialogs/main.rb:24
@@ -600,15 +682,8 @@ msgstr "<p>在 Btrfs 文件系统中创建和移除子卷。</p>\n"
 
 #. TRANSLATORS: button label to add a btrfs subvolume
 #. TRANSLATORS: button label to add a volume group or logical volume
-#. TRANSLATORS: button label to add a logical volume
-#. Constructor
-#.
-#. @param disk [Y2Storage::BlkDevice]
-#. @param table [ConfigurableBlkDevicesTable]
 #: src/lib/y2partitioner/widgets/btrfs_subvolumes_add_button.rb:44
-#: src/lib/y2partitioner/widgets/lvm_add_button.rb:43
-#: src/lib/y2partitioner/widgets/lvm_lv_add_button.rb:40
-#: src/lib/y2partitioner/widgets/pages/disk.rb:181
+#: src/lib/y2partitioner/widgets/lvm_add_button.rb:44
 msgid "Add..."
 msgstr "添加..."
 
@@ -679,9 +754,13 @@ msgstr "<p>该视图显示了除 BIOS RAID 以外的所有 RAID。</p>"
 #. @note An error popup is shown when there is no device.
 #.
 #. @return [Boolean]
-#. @param event [Hash] UI event
-#: src/lib/y2partitioner/widgets/device_button.rb:100
-#: src/lib/y2partitioner/widgets/lvm_add_button.rb:77
+#. Runs action for adding a new logical volume to the selected volume group
+#. @see Actions::AddLvmLv
+#.
+#. @return [Symbol, nil] :finish, :abort. Returns nil when it is not possible
+#. to determine the volume group (see {#vg}).
+#: src/lib/y2partitioner/widgets/device_button.rb:97
+#: src/lib/y2partitioner/widgets/lvm_add_button.rb:94
 #, fuzzy
 #| msgid "No DM device selected."
 msgid "No device selected"
@@ -1458,8 +1537,9 @@ msgstr ""
 
 #. When there is no vg, only shows an option to add a new vg.
 #. Otherwise, options for adding a vg or lv are shown.
+#.
 #. @return [Array<[Symbol, String]>] list of menu options
-#: src/lib/y2partitioner/widgets/lvm_add_button.rb:50
+#: src/lib/y2partitioner/widgets/lvm_add_button.rb:52
 msgid "Volume Group"
 msgstr "卷组"
 
@@ -1515,6 +1595,11 @@ msgstr "<p>该视图显示了所选卷组的详细信息。</p>"
 #| msgid "PE Size: %1"
 msgid "PE Size: %s"
 msgstr "物理区域尺寸：%1"
+
+#. TRANSLATORS: button label to add a MD Raid
+#: src/lib/y2partitioner/widgets/md_add_button.rb:38
+msgid "Add RAID..."
+msgstr "添加 RAID..."
 
 #. @macro seeAbstractWidget
 #: src/lib/y2partitioner/widgets/md_description.rb:30
@@ -1695,11 +1780,6 @@ msgstr "RAID：%1"
 #: src/lib/y2partitioner/widgets/pages/md_raids.rb:72
 msgid "RAID"
 msgstr "独立磁盘冗余阵列 (RAID)"
-
-#. Constructor
-#: src/lib/y2partitioner/widgets/pages/md_raids.rb:111
-msgid "Add RAID..."
-msgstr "添加 RAID..."
 
 #. TRANSLATORS: Heading. String followed by name of partition
 #: src/lib/y2partitioner/widgets/pages/partition.rb:44
@@ -4033,9 +4113,6 @@ msgstr "逻辑分区(&L)"
 #~ msgid "Edit Btrfs %1"
 #~ msgstr "编辑 Btrfs %1"
 
-#~ msgid "Select at least one device."
-#~ msgstr "选择至少一个设备。"
-
 #~ msgid "<p>Change the devices that are used by the Btrfs volume.</p>"
 #~ msgstr "<p>变更 Btrfs 卷使用的设备。</p>"
 
@@ -4234,9 +4311,6 @@ msgstr "逻辑分区(&L)"
 
 #~ msgid "Add RAID"
 #~ msgstr "添加 RAID"
-
-#~ msgid "Add Volume Group"
-#~ msgstr "添加卷组"
 
 #~ msgid "Save Device Graph..."
 #~ msgstr "保存设备图表..."
@@ -4713,30 +4787,14 @@ msgstr "逻辑分区(&L)"
 #~ "selected crypt file.</p>"
 #~ msgstr "<p>该视图显示了所选加密文件的详细信息。</p>"
 
-#~ msgid "Enter a name for the volume group."
-#~ msgstr "为卷组输入一个名称。"
-
 #~ msgid "The name for the volume group is longer than 128 characters."
 #~ msgstr "卷组名称不能大于 128 字节。"
 
 #~ msgid "The name for the volume group must not start with a \"-\"."
 #~ msgstr "卷组名称不能以 ''-'' 开头。"
 
-#~ msgid ""
-#~ "The name for the volume group contains illegal characters. Allowed\n"
-#~ "are alphanumeric characters, \".\", \"_\", \"-\" and \"+\"."
-#~ msgstr ""
-#~ "卷组名称包含非法字符。允许的字符为字母数字，''.''，''_''，''-'' 和 ''+''。"
-
 #~ msgid "The volume group \"%1\" already exists."
 #~ msgstr "卷组 ''%1'' 已存在。"
-
-#~ msgid ""
-#~ "The volume group name \"%1\" conflicts\n"
-#~ "with another entry in the /dev directory.\n"
-#~ msgstr ""
-#~ "卷组名称 ''%1'' 与 /dev 目录中\n"
-#~ "的另一项冲突。\n"
 
 #~ msgid "Confirm Deleting of Volume Group"
 #~ msgstr "确认删除卷组"
@@ -4751,13 +4809,6 @@ msgstr "逻辑分区(&L)"
 
 #~ msgid "Really delete volume group \"%1\" and all related logical volumes?"
 #~ msgstr "真的移除卷组 ''%1'' 和全部相关的逻辑卷吗？"
-
-#~ msgid ""
-#~ "The data entered is invalid. Insert a physical extent size larger than "
-#~ "%1\n"
-#~ "in powers of 2, for example, \"%2\" or \"%3\""
-#~ msgstr ""
-#~ "输入的数据无效。输入一个大于 %1 两倍的物理区域尺寸，例如，''%2'' 或 ''%3''"
 
 #~ msgid ""
 #~ "The name for the logical volume contains illegal characters. Allowed\n"
@@ -4777,12 +4828,6 @@ msgstr "逻辑分区(&L)"
 
 #~ msgid "<p>Select the physical volumes the volume group should contain.</p>"
 #~ msgstr "<p>选择卷组应包含的物理卷。</p>"
-
-#~ msgid "Volume Group Name"
-#~ msgstr "卷组名称"
-
-#~ msgid "&Physical Extent Size"
-#~ msgstr "物理区域尺寸(&P)"
 
 #~ msgid "Available Physical Volumes:"
 #~ msgstr "可用的物理卷："

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: storage-ng.km\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-11-13 16:41+0100\n"
+"POT-Creation-Date: 2017-11-16 02:29+0000\n"
 "PO-Revision-Date: 2012-08-14 08:44+0700\n"
 "Last-Translator: Khoem Sokhem <khoemsokhem@khmeros.info>\n"
 "Language-Team: Khmer <support@khmeros.info>\n"
@@ -52,6 +52,61 @@ msgstr ""
 #| msgid "Add Logical Volume on %1"
 msgid "Add Logical Volume on %s"
 msgstr "បន្ថែម​ភាគ​ឡូជីខល​លើ %1"
+
+#. Error message to show when the given volume group name is empty
+#.
+#. @return [String]
+#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:201
+msgid "Enter a name for the volume group."
+msgstr "បញ្ចូល​ឈ្មោះ​សម្រាប់​ក្រុម​ភាគ​ ។"
+
+#. Error message to show when the given volume group name contains illegal
+#. characters
+#.
+#. @return [String]
+#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:219
+#, fuzzy
+#| msgid ""
+#| "The name for the volume group contains illegal characters. Allowed\n"
+#| "are alphanumeric characters, \".\", \"_\", \"-\" and \"+\"."
+msgid ""
+"The name for the volume group contains illegal characters. Allowed\n"
+"are alphanumeric characters, \".\", \"_\", \"-\" and \"+\""
+msgstr ""
+"ឈ្មោះ​សម្រាប់​ក្រុម​ភាគ​​មាន​តួអក្សរ​មិន​ត្រឹមត្រូវ ។ អនុញ្ញាត\n"
+"តែ​តួអក្សរ​ក្រម​លេខ​ដូចជា \".\", \"_\", \"-\" និង \"+\" ។"
+
+#. TRANSLATORS: %{vg_name} is replaced by the name of the volume group
+#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:242
+#, fuzzy
+#| msgid ""
+#| "The volume group name \"%1\" conflicts\n"
+#| "with another entry in the /dev directory.\n"
+msgid ""
+"The volume group name \"%{vg_name}\" conflicts\n"
+"with another entry in the /dev directory."
+msgstr ""
+"ឈ្មោះ​ក្រុម​ភាគ​ \"%1\" ប៉ះទង្គិច\n"
+"ជាមួយ​ធាតុ​ផ្សេងទៀត​នៅ​ក្នុង​ថត /dev ។\n"
+
+#. Error message to show when the given extent size is not valid
+#.
+#. @see #invalid_extent_size?
+#.
+#. @return [String]
+#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:267
+#, fuzzy
+#| msgid ""
+#| "The data entered is invalid. Insert a physical extent size larger than "
+#| "%1\n"
+#| "in powers of 2, for example, \"%2\" or \"%3\""
+msgid ""
+"The data entered in invalid. Insert a physical extent size larger than 1 "
+"KiB\n"
+"in powers of 2 and multiple of 128 KiB, for example, \"512 KiB\" or \"4 MiB\""
+msgstr ""
+"ទិន្នន័យ​ដែល​បាន​បញ្ចូល​មិន​ត្រឹមត្រូវ ។ បញ្ចូល​ទំហំ​ភាគ​​ហ្វីស៊ីខល​ធំជាង %1\n"
+"ស្វ័យគុណ ២ ឧទាហរណ៍ \"%2\" ឬ \"%3\""
 
 #. TRANSLATORS: dialog title. %s is a device name like /dev/md0
 #: src/lib/y2partitioner/actions/controllers/md.rb:129
@@ -191,7 +246,7 @@ msgstr "ឈ្មោះ"
 
 #. @macro seeAbstractWidget
 #: src/lib/y2partitioner/dialogs/lvm_lv_info.rb:73
-#: src/lib/y2partitioner/widgets/lvm_add_button.rb:52
+#: src/lib/y2partitioner/widgets/lvm_add_button.rb:54
 msgid "Logical Volume"
 msgstr "ភាគ​ឡូជីខល"
 
@@ -288,6 +343,35 @@ msgstr "ឆ្នូត"
 #: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:239
 msgid "Number"
 msgstr "លេខ"
+
+#. @macro seeDialog
+#: src/lib/y2partitioner/dialogs/lvm_vg.rb:22
+msgid "Add Volume Group"
+msgstr "បន្ថែម​ក្រុម​ភាគ"
+
+#. TRANSLATORS: field to enter the name of a new volume group
+#: src/lib/y2partitioner/dialogs/lvm_vg.rb:57
+#, fuzzy
+#| msgid "Volume Group Name"
+msgid "&Volume Group Name"
+msgstr "ឈ្មោះ​ក្រុម​ភាគ"
+
+#. TRANSLATORS: field to enter the extent size of a new volume group
+#: src/lib/y2partitioner/dialogs/lvm_vg.rb:126
+#, fuzzy
+#| msgid "&Physical Extent Size"
+msgid "Physical Extent Size"
+msgstr "ទំហំ​បន្ថែម​ហ្វីស៊ីខល"
+
+#. Validates that at least one physical volume was added to the volume group
+#. @macro seeAbstractWidget
+#.
+#. @note An error popup is shown when no physical volume was added.
+#.
+#. @return [Boolean]
+#: src/lib/y2partitioner/dialogs/lvm_vg.rb:211
+msgid "Select at least one device."
+msgstr "ជ្រើស​ឧបករណ៍​យ៉ាងហោចណាស់​មួយ ។"
 
 #. @return [Y2Storage::DeviceGraph] device graph with all changes done in dialog
 #: src/lib/y2partitioner/dialogs/main.rb:24
@@ -625,15 +709,8 @@ msgstr ""
 
 #. TRANSLATORS: button label to add a btrfs subvolume
 #. TRANSLATORS: button label to add a volume group or logical volume
-#. TRANSLATORS: button label to add a logical volume
-#. Constructor
-#.
-#. @param disk [Y2Storage::BlkDevice]
-#. @param table [ConfigurableBlkDevicesTable]
 #: src/lib/y2partitioner/widgets/btrfs_subvolumes_add_button.rb:44
-#: src/lib/y2partitioner/widgets/lvm_add_button.rb:43
-#: src/lib/y2partitioner/widgets/lvm_lv_add_button.rb:40
-#: src/lib/y2partitioner/widgets/pages/disk.rb:181
+#: src/lib/y2partitioner/widgets/lvm_add_button.rb:44
 msgid "Add..."
 msgstr "បន្ថែម..."
 
@@ -704,9 +781,13 @@ msgstr "<p>ទិដ្ឋភាព​នេះ​បង្ហាញ RAIDs ទ�
 #. @note An error popup is shown when there is no device.
 #.
 #. @return [Boolean]
-#. @param event [Hash] UI event
-#: src/lib/y2partitioner/widgets/device_button.rb:100
-#: src/lib/y2partitioner/widgets/lvm_add_button.rb:77
+#. Runs action for adding a new logical volume to the selected volume group
+#. @see Actions::AddLvmLv
+#.
+#. @return [Symbol, nil] :finish, :abort. Returns nil when it is not possible
+#. to determine the volume group (see {#vg}).
+#: src/lib/y2partitioner/widgets/device_button.rb:97
+#: src/lib/y2partitioner/widgets/lvm_add_button.rb:94
 #, fuzzy
 #| msgid "No DM device selected."
 msgid "No device selected"
@@ -1546,8 +1627,9 @@ msgstr ""
 
 #. When there is no vg, only shows an option to add a new vg.
 #. Otherwise, options for adding a vg or lv are shown.
+#.
 #. @return [Array<[Symbol, String]>] list of menu options
-#: src/lib/y2partitioner/widgets/lvm_add_button.rb:50
+#: src/lib/y2partitioner/widgets/lvm_add_button.rb:52
 msgid "Volume Group"
 msgstr "ក្រុម​ភាគ"
 
@@ -1607,6 +1689,11 @@ msgstr ""
 #| msgid "PE Size: %1"
 msgid "PE Size: %s"
 msgstr "ទំហំ PE ៖ %1"
+
+#. TRANSLATORS: button label to add a MD Raid
+#: src/lib/y2partitioner/widgets/md_add_button.rb:38
+msgid "Add RAID..."
+msgstr "បន្ថែម RAID..."
 
 #. @macro seeAbstractWidget
 #: src/lib/y2partitioner/widgets/md_description.rb:30
@@ -1791,11 +1878,6 @@ msgstr "RAID ៖ %1"
 #: src/lib/y2partitioner/widgets/pages/md_raids.rb:72
 msgid "RAID"
 msgstr "RAID"
-
-#. Constructor
-#: src/lib/y2partitioner/widgets/pages/md_raids.rb:111
-msgid "Add RAID..."
-msgstr "បន្ថែម RAID..."
 
 #. TRANSLATORS: Heading. String followed by name of partition
 #: src/lib/y2partitioner/widgets/pages/partition.rb:44
@@ -4191,9 +4273,6 @@ msgstr "ភាគ​ថាស​​ឡូជីខល"
 #~ msgid "Edit Btrfs %1"
 #~ msgstr "កែសម្រួល Btrfs %1​"
 
-#~ msgid "Select at least one device."
-#~ msgstr "ជ្រើស​ឧបករណ៍​យ៉ាងហោចណាស់​មួយ ។"
-
 #~ msgid "<p>Change the devices that are used by the Btrfs volume.</p>"
 #~ msgstr "<p>ផ្លាស់ប្ដូរ​ឧបករណ៍​ដែល​ត្រូវ​បាន​ប្រើ​ដោយ​ភាគ​ Btrfs ។</p>"
 
@@ -4406,9 +4485,6 @@ msgstr "ភាគ​ថាស​​ឡូជីខល"
 
 #~ msgid "Add RAID"
 #~ msgstr "បន្ថែម RAID"
-
-#~ msgid "Add Volume Group"
-#~ msgstr "បន្ថែម​ក្រុម​ភាគ"
 
 #, fuzzy
 #~| msgid "Export Device Graph..."
@@ -4924,31 +5000,14 @@ msgstr "ភាគ​ថាស​​ឡូជីខល"
 #~ "<p>ទិដ្ឋភាព​នេះ​បង្ហាញ​ព័ត៌មាន​លម្អិត​របស់\n"
 #~ "ឯកសារ​គ្រីប​ដែល​បាន​ជ្រើស ។</p>"
 
-#~ msgid "Enter a name for the volume group."
-#~ msgstr "បញ្ចូល​ឈ្មោះ​សម្រាប់​ក្រុម​ភាគ​ ។"
-
 #~ msgid "The name for the volume group is longer than 128 characters."
 #~ msgstr "ឈ្មោះ​សម្រាប់​ក្រុម​ភាគ​​មិន​អាច​វែង​ជាង ១២៨ តួ​បាន​ឡើយ ។"
 
 #~ msgid "The name for the volume group must not start with a \"-\"."
 #~ msgstr "ឈ្មោះ​សម្រាប់​ក្រុម​ភាគ​​មិន​​​ត្រូវ​ចាប់ផ្ដើម​ដោយ \"-\" ទេ ។"
 
-#~ msgid ""
-#~ "The name for the volume group contains illegal characters. Allowed\n"
-#~ "are alphanumeric characters, \".\", \"_\", \"-\" and \"+\"."
-#~ msgstr ""
-#~ "ឈ្មោះ​សម្រាប់​ក្រុម​ភាគ​​មាន​តួអក្សរ​មិន​ត្រឹមត្រូវ ។ អនុញ្ញាត\n"
-#~ "តែ​តួអក្សរ​ក្រម​លេខ​ដូចជា \".\", \"_\", \"-\" និង \"+\" ។"
-
 #~ msgid "The volume group \"%1\" already exists."
 #~ msgstr "ក្រុម​ភាគ​ \"%1\" មាន​រួចហើយ ។"
-
-#~ msgid ""
-#~ "The volume group name \"%1\" conflicts\n"
-#~ "with another entry in the /dev directory.\n"
-#~ msgstr ""
-#~ "ឈ្មោះ​ក្រុម​ភាគ​ \"%1\" ប៉ះទង្គិច\n"
-#~ "ជាមួយ​ធាតុ​ផ្សេងទៀត​នៅ​ក្នុង​ថត /dev ។\n"
 
 #~ msgid "Confirm Deleting of Volume Group"
 #~ msgstr "អះអាង​ការ​លុប​ក្រុម​ភាគ"
@@ -4964,14 +5023,6 @@ msgstr "ភាគ​ថាស​​ឡូជីខល"
 
 #~ msgid "Really delete volume group \"%1\" and all related logical volumes?"
 #~ msgstr "ពិតជា​លុប​ក្រុម​ភាគ​ថាស \"%1\" និង​ភាគ​​ឡូជីខល​ដែល​ទាក់ទង​ទាំងអស់​ឬ ?"
-
-#~ msgid ""
-#~ "The data entered is invalid. Insert a physical extent size larger than "
-#~ "%1\n"
-#~ "in powers of 2, for example, \"%2\" or \"%3\""
-#~ msgstr ""
-#~ "ទិន្នន័យ​ដែល​បាន​បញ្ចូល​មិន​ត្រឹមត្រូវ ។ បញ្ចូល​ទំហំ​ភាគ​​ហ្វីស៊ីខល​ធំជាង %1\n"
-#~ "ស្វ័យគុណ ២ ឧទាហរណ៍ \"%2\" ឬ \"%3\""
 
 #~ msgid ""
 #~ "The name for the logical volume contains illegal characters. Allowed\n"
@@ -4993,12 +5044,6 @@ msgstr "ភាគ​ថាស​​ឡូជីខល"
 
 #~ msgid "<p>Select the physical volumes the volume group should contain.</p>"
 #~ msgstr "<p>ជ្រើស​ភាគ​ហ្វីស៊ីខល​ដែល​ក្រុម​ភាគ​គួរមាន ។</p>"
-
-#~ msgid "Volume Group Name"
-#~ msgstr "ឈ្មោះ​ក្រុម​ភាគ"
-
-#~ msgid "&Physical Extent Size"
-#~ msgstr "ទំហំ​បន្ថែម​ហ្វីស៊ីខល"
 
 #~ msgid "Available Physical Volumes:"
 #~ msgstr "ភាគ​ថាស​ហ្វីស៊ីខល​ដែល​មាន ៖"

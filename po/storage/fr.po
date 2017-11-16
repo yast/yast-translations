@@ -22,7 +22,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: storage\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-11-13 16:41+0100\n"
+"POT-Creation-Date: 2017-11-16 02:29+0000\n"
 "PO-Revision-Date: 2017-11-05 17:08+0000\n"
 "Last-Translator: Antoine Belvire <antoine.belvire@laposte.net>\n"
 "Language-Team: French <https://l10n.opensuse.org/projects/yast-storage/"
@@ -64,6 +64,65 @@ msgstr ""
 #: src/lib/y2partitioner/actions/controllers/lvm_lv.rb:194
 msgid "Add Logical Volume on %s"
 msgstr "Ajouter un volume logique sur %s"
+
+# TLABEL autoinst_2002_08_07_0216__167
+#. Error message to show when the given volume group name is empty
+#.
+#. @return [String]
+#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:201
+msgid "Enter a name for the volume group."
+msgstr "Veuillez entrer un nom pour le groupe de volumes."
+
+#. Error message to show when the given volume group name contains illegal
+#. characters
+#.
+#. @return [String]
+#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:219
+#, fuzzy
+#| msgid ""
+#| "The name for the volume group contains illegal characters. Allowed\n"
+#| "are alphanumeric characters, \".\", \"_\", \"-\" and \"+\"."
+msgid ""
+"The name for the volume group contains illegal characters. Allowed\n"
+"are alphanumeric characters, \".\", \"_\", \"-\" and \"+\""
+msgstr ""
+"Le nom du groupe de volumes contient des caractères interdits. Les "
+"caractères\n"
+"autorisés sont les caractères alphanumériques, \".\", \"_\", \"-\" et \"+\"."
+
+#. TRANSLATORS: %{vg_name} is replaced by the name of the volume group
+#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:242
+#, fuzzy
+#| msgid ""
+#| "The volume group name \"%1\" conflicts\n"
+#| "with another entry in the /dev directory.\n"
+msgid ""
+"The volume group name \"%{vg_name}\" conflicts\n"
+"with another entry in the /dev directory."
+msgstr ""
+"Le nom du groupe de volumes \"%1\" est en conflit\n"
+"avec une autre entrée dans le répertoire /dev.\n"
+
+# TLABEL partitioning_2002_03_14_2340__100
+#. Error message to show when the given extent size is not valid
+#.
+#. @see #invalid_extent_size?
+#.
+#. @return [String]
+#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:267
+#, fuzzy
+#| msgid ""
+#| "The data entered is invalid. Insert a physical extent size larger than "
+#| "%1\n"
+#| "in powers of 2, for example, \"%2\" or \"%3\""
+msgid ""
+"The data entered in invalid. Insert a physical extent size larger than 1 "
+"KiB\n"
+"in powers of 2 and multiple of 128 KiB, for example, \"512 KiB\" or \"4 MiB\""
+msgstr ""
+"Les données que vous avez entrées ne sont pas valables.\n"
+"Veuillez spécifier une taille d'extension physique plus grande que %1 \n"
+" dans la suite des puissances de 2, par exemple. \"%2\" ou \"%3\""
 
 # TLABEL partitioning_2002_01_04_0147__485
 #. TRANSLATORS: dialog title. %s is a device name like /dev/md0
@@ -189,7 +248,7 @@ msgstr "Nom"
 # TLABEL partitioning_2002_01_04_0147__389
 #. @macro seeAbstractWidget
 #: src/lib/y2partitioner/dialogs/lvm_lv_info.rb:73
-#: src/lib/y2partitioner/widgets/lvm_add_button.rb:52
+#: src/lib/y2partitioner/widgets/lvm_add_button.rb:54
 msgid "Logical Volume"
 msgstr "Volume logique"
 
@@ -281,6 +340,38 @@ msgstr "Bandes"
 #: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:239
 msgid "Number"
 msgstr "Numéro"
+
+#. @macro seeDialog
+#: src/lib/y2partitioner/dialogs/lvm_vg.rb:22
+msgid "Add Volume Group"
+msgstr "Ajouter un groupe de volumes"
+
+# TLABEL partitioning_2002_01_04_0147__383
+#. TRANSLATORS: field to enter the name of a new volume group
+#: src/lib/y2partitioner/dialogs/lvm_vg.rb:57
+#, fuzzy
+#| msgid "Volume Group Name"
+msgid "&Volume Group Name"
+msgstr "Nom du groupe de volumes"
+
+# TLABEL partitioning_2002_01_04_0147__364
+#. TRANSLATORS: field to enter the extent size of a new volume group
+#: src/lib/y2partitioner/dialogs/lvm_vg.rb:126
+#, fuzzy
+#| msgid "&Physical Extent Size"
+msgid "Physical Extent Size"
+msgstr "Taille des extents &physiques"
+
+# TLABEL autoinst_2002_08_07_0216__178
+#. Validates that at least one physical volume was added to the volume group
+#. @macro seeAbstractWidget
+#.
+#. @note An error popup is shown when no physical volume was added.
+#.
+#. @return [Boolean]
+#: src/lib/y2partitioner/dialogs/lvm_vg.rb:211
+msgid "Select at least one device."
+msgstr "Veuillez sélectionner au moins un périphérique."
 
 # TLABEL partitioning_2002_01_04_0147__52
 #. @return [Y2Storage::DeviceGraph] device graph with all changes done in dialog
@@ -633,15 +724,8 @@ msgstr ""
 
 #. TRANSLATORS: button label to add a btrfs subvolume
 #. TRANSLATORS: button label to add a volume group or logical volume
-#. TRANSLATORS: button label to add a logical volume
-#. Constructor
-#.
-#. @param disk [Y2Storage::BlkDevice]
-#. @param table [ConfigurableBlkDevicesTable]
 #: src/lib/y2partitioner/widgets/btrfs_subvolumes_add_button.rb:44
-#: src/lib/y2partitioner/widgets/lvm_add_button.rb:43
-#: src/lib/y2partitioner/widgets/lvm_lv_add_button.rb:40
-#: src/lib/y2partitioner/widgets/pages/disk.rb:181
+#: src/lib/y2partitioner/widgets/lvm_add_button.rb:44
 msgid "Add..."
 msgstr "Ajouter..."
 
@@ -715,9 +799,13 @@ msgstr ""
 #. @note An error popup is shown when there is no device.
 #.
 #. @return [Boolean]
-#. @param event [Hash] UI event
-#: src/lib/y2partitioner/widgets/device_button.rb:100
-#: src/lib/y2partitioner/widgets/lvm_add_button.rb:77
+#. Runs action for adding a new logical volume to the selected volume group
+#. @see Actions::AddLvmLv
+#.
+#. @return [Symbol, nil] :finish, :abort. Returns nil when it is not possible
+#. to determine the volume group (see {#vg}).
+#: src/lib/y2partitioner/widgets/device_button.rb:97
+#: src/lib/y2partitioner/widgets/lvm_add_button.rb:94
 msgid "No device selected"
 msgstr "Aucun périphérique sélectionné"
 
@@ -1546,8 +1634,9 @@ msgstr ""
 # TLABEL partitioning_2002_01_04_0147__409
 #. When there is no vg, only shows an option to add a new vg.
 #. Otherwise, options for adding a vg or lv are shown.
+#.
 #. @return [Array<[Symbol, String]>] list of menu options
-#: src/lib/y2partitioner/widgets/lvm_add_button.rb:50
+#: src/lib/y2partitioner/widgets/lvm_add_button.rb:52
 msgid "Volume Group"
 msgstr "Groupe de volumes"
 
@@ -1598,6 +1687,12 @@ msgstr ""
 #: src/lib/y2partitioner/widgets/lvm_vg_description.rb:53
 msgid "PE Size: %s"
 msgstr "Taille PE : %s"
+
+# TLABEL partitioning_2002_01_04_0147__485
+#. TRANSLATORS: button label to add a MD Raid
+#: src/lib/y2partitioner/widgets/md_add_button.rb:38
+msgid "Add RAID..."
+msgstr "Ajouter RAID..."
 
 #. @macro seeAbstractWidget
 #: src/lib/y2partitioner/widgets/md_description.rb:30
@@ -1786,12 +1881,6 @@ msgstr "RAID : %s"
 #: src/lib/y2partitioner/widgets/pages/md_raids.rb:72
 msgid "RAID"
 msgstr "RAID"
-
-# TLABEL partitioning_2002_01_04_0147__485
-#. Constructor
-#: src/lib/y2partitioner/widgets/pages/md_raids.rb:111
-msgid "Add RAID..."
-msgstr "Ajouter RAID..."
 
 # TLABEL partitioning_2002_01_04_0147__461
 #. TRANSLATORS: Heading. String followed by name of partition
@@ -4427,10 +4516,6 @@ msgstr "Partition de diagnostique"
 #~ msgid "Edit Btrfs %1"
 #~ msgstr "Modifier Btrfs %1"
 
-# TLABEL autoinst_2002_08_07_0216__178
-#~ msgid "Select at least one device."
-#~ msgstr "Veuillez sélectionner au moins un périphérique."
-
 #~ msgid "<p>Change the devices that are used by the Btrfs volume.</p>"
 #~ msgstr "<p>Modifier les périphériques utilisés par le volume Btrfs.</p>"
 
@@ -4688,9 +4773,6 @@ msgstr "Partition de diagnostique"
 # TLABEL partitioning_2002_01_04_0147__485
 #~ msgid "Add RAID"
 #~ msgstr "Ajouter un RAID"
-
-#~ msgid "Add Volume Group"
-#~ msgstr "Ajouter un groupe de volumes"
 
 #~ msgid "Save Device Graph..."
 #~ msgstr "Sauvegarder le graphe de périphériques..."
@@ -5290,35 +5372,15 @@ msgstr "Partition de diagnostique"
 #~ "<p>Cette vue affiche des informations détaillées\n"
 #~ "sur le fichier de chiffrement sélectionné.</p>"
 
-# TLABEL autoinst_2002_08_07_0216__167
-#~ msgid "Enter a name for the volume group."
-#~ msgstr "Veuillez entrer un nom pour le groupe de volumes."
-
 #~ msgid "The name for the volume group is longer than 128 characters."
 #~ msgstr "Le nom du groupe de volumes est plus long que 128 caractères."
 
 #~ msgid "The name for the volume group must not start with a \"-\"."
 #~ msgstr "Le nom du groupe de volumes ne peut débuter par un \"-\"."
 
-#~ msgid ""
-#~ "The name for the volume group contains illegal characters. Allowed\n"
-#~ "are alphanumeric characters, \".\", \"_\", \"-\" and \"+\"."
-#~ msgstr ""
-#~ "Le nom du groupe de volumes contient des caractères interdits. Les "
-#~ "caractères\n"
-#~ "autorisés sont les caractères alphanumériques, \".\", \"_\", \"-\" et \"+"
-#~ "\"."
-
 # TLABEL network_2002_03_14_2340__39
 #~ msgid "The volume group \"%1\" already exists."
 #~ msgstr "Le groupe de volumes '%1' existe déjà."
-
-#~ msgid ""
-#~ "The volume group name \"%1\" conflicts\n"
-#~ "with another entry in the /dev directory.\n"
-#~ msgstr ""
-#~ "Le nom du groupe de volumes \"%1\" est en conflit\n"
-#~ "avec une autre entrée dans le répertoire /dev.\n"
 
 # TLABEL autoinst_2002_03_14_2340__32
 #~ msgid "Confirm Deleting of Volume Group"
@@ -5339,16 +5401,6 @@ msgstr "Partition de diagnostique"
 #~ msgstr ""
 #~ "Voulez-vous vraiment supprimer le groupe de volumes \"%1\" et tous les "
 #~ "volumes logiques associés ?"
-
-# TLABEL partitioning_2002_03_14_2340__100
-#~ msgid ""
-#~ "The data entered is invalid. Insert a physical extent size larger than "
-#~ "%1\n"
-#~ "in powers of 2, for example, \"%2\" or \"%3\""
-#~ msgstr ""
-#~ "Les données que vous avez entrées ne sont pas valables.\n"
-#~ "Veuillez spécifier une taille d'extension physique plus grande que %1 \n"
-#~ " dans la suite des puissances de 2, par exemple. \"%2\" ou \"%3\""
 
 #~ msgid ""
 #~ "The name for the logical volume contains illegal characters. Allowed\n"
@@ -5378,14 +5430,6 @@ msgstr "Partition de diagnostique"
 #~ msgstr ""
 #~ "<p>Sélectionnez les volumes physiques qui devront faire parti du groupe "
 #~ "de volumes.</p>"
-
-# TLABEL partitioning_2002_01_04_0147__383
-#~ msgid "Volume Group Name"
-#~ msgstr "Nom du groupe de volumes"
-
-# TLABEL partitioning_2002_01_04_0147__364
-#~ msgid "&Physical Extent Size"
-#~ msgstr "Taille des extents &physiques"
 
 # TLABEL partitioning_2002_01_04_0147__387
 #~ msgid "Available Physical Volumes:"
