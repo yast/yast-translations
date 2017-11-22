@@ -16,11 +16,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: drbd\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-09-13 20:09+0200\n"
+"POT-Creation-Date: 2017-11-22 02:28+0000\n"
 "PO-Revision-Date: 2016-11-21 08:48+0000\n"
 "Last-Translator: Alessio Adamo <alessio.adamo@gmail.com>\n"
-"Language-Team: Italian <https://l10n.opensuse.org/projects/yast-"
-"drbd/master/it/>\n"
+"Language-Team: Italian <https://l10n.opensuse.org/projects/yast-drbd/master/"
+"it/>\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -166,19 +166,23 @@ msgid "Second part of configuration of DRBD"
 msgstr "Seconda parte della configurazione di SRBD"
 
 #. encoding: utf-8
-#: src/include/drbd/global_conf.rb:36
+#: src/include/drbd/global_conf.rb:42
 msgid "Global Configuration of DRBD"
 msgstr "Configurazione globale di DRBD"
 
-#: src/include/drbd/global_conf.rb:42
+#: src/include/drbd/global_conf.rb:48
 msgid "Minor Count"
 msgstr "Conteggio minore"
 
-#: src/include/drbd/global_conf.rb:51
+#: src/include/drbd/global_conf.rb:57
 msgid "Dialog Refresh"
 msgstr "Aggiornamento finestra"
 
-#: src/include/drbd/global_conf.rb:61
+#: src/include/drbd/global_conf.rb:67
+msgid "Udev Always Use VNR"
+msgstr ""
+
+#: src/include/drbd/global_conf.rb:75
 msgid "Disable IP Verification"
 msgstr "Disabilita la verifica dell'IP"
 
@@ -422,36 +426,6 @@ msgid "<p><b><big>LVM Configuration</big></b></p>"
 msgstr "<p><b><big>Configurazione LVM</big></b></p>"
 
 #: src/include/drbd/helps.rb:116
-#| msgid ""
-#| "\n"
-#| "\t\t<p><b>LVM configuration file /etc/lvm/lvm.conf</b></p>\n"
-#| "\t\t<p>To use LVM with DRBD, it is necessary to change some options in "
-#| "the LVM configuration file and to remove stale cache entries on the nodes."
-#| "</p>\t\t<p>Refer to 'man lvm.conf' for further information including the "
-#| "file layout.</p>\n"
-#| "\t\t\t\t\t\t\t\t\t\t  \n"
-#| "\t\t<p><b>Device Filter</b>: This masks the underlying block device from "
-#| "the list of devices LVM scans for Physical Volume signatures. This way, "
-#| "LVM is instructed to read Physical Volume signatures from DRBD devices, "
-#| "rather than from the underlying backing block devices.</p>\t"
-#| "\t<p><b>AutoFilter</b>: According to the configuration of drbd, LVM "
-#| "filter will always be changed automatically. To change it manually, "
-#| "disable the checkbox of AutoFilter.</p>\n"
-#| "\t\t<p>The filter consists of an array of regular expressions. These "
-#| "expressions can be delimited by a character of your choice, and prefixed "
-#| "with either an 'a' (for accept) or 'r' (for reject).</p>\t\t<p>For "
-#| "example, setting filter as [\"r|/dev/sda.*|\"]</p>\n"
-#| "\n"
-#| "\t\t<p><b>LVM cache</b>: Enable/turn on writing the LVM cache is default. "
-#| "Should disable the LVM cache when combined drbd with LVM.</p>\n"
-#| "\n"
-#| "\t\t<p><b>LVMetad</b>: When lvmetad is enabled, the volume group metadata "
-#| "and PV state flags are obtained from the lvmetad instance and no scanning "
-#| "is done by the individual commands. Because lvmetad's cache cannot be "
-#| "synchronized between nodes, users are advised to disable lvmetad in "
-#| "cluster environments.</p>\n"
-#| "\n"
-#| "\t\t"
 msgid ""
 "\n"
 "\t\t<p><b>LVM configuration file /etc/lvm/lvm.conf</b></p>\n"
@@ -495,8 +469,8 @@ msgstr ""
 "sottostanti.</p>\t\t<p><b>Filtro LVM</b>: un filtro che comunica a LVM2 di "
 "utilizzare solo un insieme ristretto di dispositivi.</p>\n"
 "\t\t<p>Il filtro consiste in una matrice di espressioni regolari che possono "
-"essere delimitate da un carattere a scelta e precedute da un prefisso 'a' ("
-"per l'accettazione) o 'r' (per il rifiuto).</p>\t\t<p>Ad esempio "
+"essere delimitate da un carattere a scelta e precedute da un prefisso "
+"'a' (per l'accettazione) o 'r' (per il rifiuto).</p>\t\t<p>Ad esempio "
 "l'impostazione del filtro come [\"r|/dev/sda.*|\"]</p>\n"
 "\n"
 "\t\t<p><b>Cache LVM</b>: abilita/attiva per default la scrittura della cache "
@@ -517,22 +491,41 @@ msgstr "<p><b><big>Configurazione globale di DRBD</big></b></p>"
 
 #: src/include/drbd/helps.rb:136
 msgid ""
+"<p>Check <b>\"Udev Always Use VNR\"</b> treat implicit define volume number "
+"the same as explicit volumes. When udev asks drbdadm for a list of device "
+"related symlinks, drbdadm would suggest symlinks with differing naming "
+"conventions, depending on whether the resource has explicit volume VNR { } "
+"definitions or only one single volume with the implicit volume number 0.This "
+"is enable by default, should be off for legacy backward compatibility.</p>"
+msgstr ""
+
+#: src/include/drbd/helps.rb:144
+msgid ""
 "<p>Check <b>\"Disable IP Verification\"</b> to disable one of drbdadm's "
 "sanity check</p>"
 msgstr ""
 "<p>Selezionare <b>\"Disabilita la verifica dell'IP \"</b> per disabilitare "
 "il controllo di integrità di drbdadm</p>"
 
-#: src/include/drbd/helps.rb:139
+#: src/include/drbd/helps.rb:147
+#, fuzzy
+#| msgid ""
+#| "<p><b>Dialog Refresh:</b> The user dialog counts and displays the seconds "
+#| "it waited so\n"
+#| "                far. You might want to disable this if you have the "
+#| "console\n"
+#| "                of your server connected to a serial terminal server "
+#| "with\n"
+#| "                limited logging capacity.\n"
+#| "                The Dialog will print the count each 'dialog-refresh' "
+#| "seconds,\n"
+#| "                set it to 0 to disable redrawing completely. </p>"
 msgid ""
 "<p><b>Dialog Refresh:</b> The user dialog counts and displays the seconds it "
-"waited so\n"
-"                far. You might want to disable this if you have the console\n"
-"                of your server connected to a serial terminal server with\n"
-"                limited logging capacity.\n"
-"                The Dialog will print the count each 'dialog-refresh' "
-"seconds,\n"
-"                set it to 0 to disable redrawing completely. </p>"
+"waited so far. You might want to disable this if you have the console of "
+"your server connected to a serial terminal server with limited logging "
+"capacity. The Dialog will print the count each 'dialog-refresh' seconds, set "
+"it to 0 to disable redrawing completely. </p>"
 msgstr ""
 "<p><b>Aggiornamento finestra:</b> la finestra utente conta e mostra i "
 "secondi che ha atteso\n"
@@ -546,13 +539,18 @@ msgstr ""
 "                per disabilitare completamente l'aggiornamento, impostarlo "
 "su 0. </p>"
 
-#: src/include/drbd/helps.rb:147
+#: src/include/drbd/helps.rb:154
+#, fuzzy
+#| msgid ""
+#| "<p><b>Minor Count:</b>\n"
+#| "           use this if you want to define more resources later\n"
+#| "           without reloading the module.\n"
+#| "           by default we load the module with exactly as many devices\n"
+#| "           as configured mentioned in this file. </p>"
 msgid ""
-"<p><b>Minor Count:</b>\n"
-"           use this if you want to define more resources later\n"
-"           without reloading the module.\n"
-"           by default we load the module with exactly as many devices\n"
-"           as configured mentioned in this file. </p>"
+"<p><b>Minor Count:</b> use this if you want to define more resources later "
+"without reloading the module. by default we load the module with exactly as "
+"many devices as configured mentioned in this file. </p>"
 msgstr ""
 "<p><b>Conteggio minore:</b>\n"
 "           se in seguito si desiderano definire più risorse, questa funzione "
@@ -562,7 +560,7 @@ msgstr ""
 "           dispositivi pari a quelli configurati nel file in oggetto. </p>"
 
 #. Summary dialog help 1/3
-#: src/include/drbd/helps.rb:155
+#: src/include/drbd/helps.rb:160
 msgid ""
 "<p><b><big>DRBD Configuration</big></b><br>\n"
 "Configure drbd here.<br></p>\n"
@@ -571,7 +569,7 @@ msgstr ""
 "Configurare drbd qui.<br></p>\n"
 
 #. Summary dialog help 2/3
-#: src/include/drbd/helps.rb:159
+#: src/include/drbd/helps.rb:164
 msgid ""
 "<p><b><big>Adding a drbd:</big></b><br>\n"
 "Choose an drbd from the list of detected drbds.\n"
@@ -585,7 +583,7 @@ msgstr ""
 "Quindi fare clic su <b>Configura </b>.</p>\n"
 
 #. Summary dialog help 3/3
-#: src/include/drbd/helps.rb:166
+#: src/include/drbd/helps.rb:171
 msgid ""
 "<p><b><big>Editing or Deleting:</big></b><br>\n"
 "If you press <b>Edit</b>, an additional dialog in which to change\n"
@@ -597,7 +595,7 @@ msgstr ""
 "in cui è possibile modificare la configurazione.</p>\n"
 
 #. Ovreview dialog help 1/3
-#: src/include/drbd/helps.rb:172
+#: src/include/drbd/helps.rb:177
 msgid ""
 "<p><b><big>DRBD Configuration Overview</big></b><br>\n"
 "Obtain an overview of installed drbds. Additionally\n"
@@ -608,7 +606,7 @@ msgstr ""
 "consente di modificarne le configurazioni.<br></p>\n"
 
 #. Ovreview dialog help 2/3
-#: src/include/drbd/helps.rb:178
+#: src/include/drbd/helps.rb:183
 msgid ""
 "<p><b><big>Adding a drbd:</big></b><br>\n"
 "Press <b>Add</b> to configure a drbd.</p>"
@@ -617,7 +615,7 @@ msgstr ""
 "Fare clic su <b>Aggiungi</b> per configurare un drbd.</p>"
 
 #. Ovreview dialog help 3/3
-#: src/include/drbd/helps.rb:182
+#: src/include/drbd/helps.rb:187
 msgid ""
 "<p><b><big>Editing or Deleting:</big></b><br>\n"
 "Choose a drbd to change or remove.\n"
@@ -628,7 +626,7 @@ msgstr ""
 "Quindi fare clic su: <b>Modifica</b> o <b>Elimina</b>.</p>\n"
 
 #. Configure1 dialog help 1/2
-#: src/include/drbd/helps.rb:188
+#: src/include/drbd/helps.rb:193
 msgid ""
 "<p><b><big>Configuration Part One</big></b><br>\n"
 "Press <b>Next</b> to continue.\n"
@@ -640,7 +638,7 @@ msgstr ""
 
 #. Configure1 dialog help 2/2
 #. Configure2 dialog help 2/2
-#: src/include/drbd/helps.rb:194 src/include/drbd/helps.rb:206
+#: src/include/drbd/helps.rb:199 src/include/drbd/helps.rb:211
 msgid ""
 "<p><b><big>Selecting Something</big></b><br>\n"
 "It is not possible. You must code it first. :-)\n"
@@ -652,7 +650,7 @@ msgstr ""
 "</p>"
 
 #. Configure2 dialog help 1/2
-#: src/include/drbd/helps.rb:200
+#: src/include/drbd/helps.rb:205
 msgid ""
 "<p><b><big>Configuration Part Two</big></b><br>\n"
 "Press <b>Next</b> to continue.\n"
@@ -1022,6 +1020,21 @@ msgstr "Scrittura delle impostazioni di SuSEfirewall"
 msgid "Failed to make directory /etc/drbd.d"
 msgstr "Errore nella creazione della directory /etc/drbd.d"
 
+#~ msgid ""
+#~ "<p><b>Minor Count:</b>\n"
+#~ "           use this if you want to define more resources later\n"
+#~ "           without reloading the module.\n"
+#~ "           by default we load the module with exactly as many devices\n"
+#~ "           as configured mentioned in this file. </p>"
+#~ msgstr ""
+#~ "<p><b>Conteggio minore:</b>\n"
+#~ "           se in seguito si desiderano definire più risorse, questa "
+#~ "funzione consente di non\n"
+#~ "           ricaricare il modulo.\n"
+#~ "           In modo predefinito, il modulo viene caricato con un numero "
+#~ "di\n"
+#~ "           dispositivi pari a quelli configurati nel file in oggetto. </p>"
+
 #~ msgid "Modify LVM Device filter Automatically"
 #~ msgstr "Modifica il filtro dei dispositivi LVM automaticamente"
 
@@ -1216,26 +1229,6 @@ msgstr "Errore nella creazione della directory /etc/drbd.d"
 #~ "finestra' secondi,\n"
 #~ "                per disabilitare completamente l'aggiornamento, "
 #~ "impostarlo su 0. </p>"
-
-#, fuzzy
-#~| msgid ""
-#~| "<p><b>Minor Count:</b>\n"
-#~| "           use this if you want to define more resources later\n"
-#~| "           without reloading the module.\n"
-#~| "           by default we load the module with exactly as many devices\n"
-#~| "           as configured mentioned in this file. </p>"
-#~ msgid ""
-#~ "<p><b>Minor Count:</b>\\nUse this option if you want to define more "
-#~ "resources later without reloading the\\nmodule. By default we load the "
-#~ "module with exactly as many devices as\\nconfigured in this file.</p>\\n"
-#~ msgstr ""
-#~ "<p><b>Conteggio minore:</b>\n"
-#~ "           se in seguito si desiderano definire più risorse, questa "
-#~ "funzione consente di non\n"
-#~ "           ricaricare il modulo.\n"
-#~ "           In modo predefinito, il modulo viene caricato con un numero "
-#~ "di\n"
-#~ "           dispositivi pari a quelli configurati nel file in oggetto. </p>"
 
 #, fuzzy
 #~| msgid ""
