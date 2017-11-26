@@ -100,6 +100,7 @@ Y2M=$YAST_CHECKOUT/meta/y2m
 
 cd $YAST_CHECKOUT
 
+$Y2M read-only ALL
 $Y2M pull
 
 shopt -s nullglob
