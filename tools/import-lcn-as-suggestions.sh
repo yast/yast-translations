@@ -76,10 +76,6 @@ for PO in */*.po ; do
 		rm $PO.new
 #BEGIN URL slug
 		NAME=yast-$DOMAIN
-		# special handling for textdomains starting by "yast2-"
-		if test "${NAME#yast-yast2-}" != "$NAME" ; then
-			NAME="yast-${NAME#yast-yast2-}"
-		fi
 		SLUG="$(echo $NAME | tr A-Z. a-z-)"
 		if test -n "$(echo $SLUG | sed 's/[-a-z0-9_]//g')" ; then
 			echo "Project URL slug \"$SLUG\" should contain only lowercase letters, \"-\" and \"_\"." >&2
