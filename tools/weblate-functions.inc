@@ -30,10 +30,6 @@ function weblate_manage() {
 # weblate_create_project yast_textdomain yast_project
 function weblate_create_project() {
 	local NAME=yast-$1
-	# special handling for textdomains starting by "yast2-"
-	if test "${NAME#yast-yast2-}" != "$NAME" ; then
-		NAME="yast-${NAME#yast-yast2-}"
-	fi
 	local SLUG="$(echo $NAME | tr A-Z. a-z-)"
 	if test -n "$(echo $SLUG | sed 's/[-a-z0-9_]//g')" ; then
 		echo "Project URL slug \"$SLUG\" should contain only lowercase letters, \"-\" and \"_\"." >&2
@@ -76,10 +72,6 @@ EOF
 # weblate_create_project yast_textdomain yast_project yast_branch
 function weblate_create_component() {
 	local PROJECT_NAME=yast-$1
-	# special handling for textdomains starting by "yast2-"
-	if test "${PROJECT_NAME#yast-yast2-}" != "$PROJECT_NAME" ; then
-		PROJECT_NAME="yast-${PROJECT_NAME#yast-yast2-}"
-	fi
 	local PROJECT_SLUG="$(echo $PROJECT_NAME | tr A-Z. a-z-)"
 	if test -n "$(echo $PROJECT_SLUG | sed 's/[-a-z0-9_]//g')" ; then
 		echo "Project URL slug \"$PROJECT_SLUG\" should contain only lowercase letters, \"-\" and \"_\"." >&2

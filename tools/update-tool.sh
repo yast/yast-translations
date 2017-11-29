@@ -26,16 +26,8 @@ function weblate_create() {
 	esac
 
 	local WEBLATE_PROJECT=yast-$PROJECT
-	# special handling for textdomains starting by "yast2-"
-	if test "${WEBLATE_PROJECT#yast-yast2-}" != "$WEBLATE_PROJECT" ; then
-		WEBLATE_PROJECT="yast-${WEBLATE_PROJECT#yast-yast2-}"
-	fi
 
 	local PROJECT_NAME=yast-$1
-	# special handling for textdomains starting by "yast2-"
-	if test "${PROJECT_NAME#yast-yast2-}" != "$PROJECT_NAME" ; then
-		PROJECT_NAME="yast-${PROJECT_NAME#yast-yast2-}"
-	fi
 	local PROJECT_SLUG="$(echo $PROJECT_NAME | tr A-Z. a-z-)"
 	if test -n "$(echo $PROJECT_SLUG | sed 's/[-a-z0-9_]//g')" ; then
 		echo "Project URL slug \"$PROJECT_SLUG\" should contain only lowercase letters, \"-\" and \"_\"." >&2
