@@ -11,11 +11,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: storage.nl\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-11-29 02:29+0000\n"
+"POT-Creation-Date: 2018-01-10 16:56+0100\n"
 "PO-Revision-Date: 2017-12-28 17:41+0000\n"
 "Last-Translator: Freek de Kruijf <freek@opensuse.org>\n"
-"Language-Team: Dutch <https://l10n.opensuse.org/projects/yast-"
-"storage/master/nl/>\n"
+"Language-Team: Dutch <https://l10n.opensuse.org/projects/yast-storage/master/"
+"nl/>\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -103,25 +103,31 @@ msgstr ""
 #.
 #. @return [String]
 #: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:267
+#, fuzzy
+#| msgid ""
+#| "The data entered in invalid. Insert a physical extent size larger than 1 "
+#| "KiB\n"
+#| "in powers of 2 and multiple of 128 KiB, for example, \"512 KiB\" or \"4 "
+#| "MiB\""
 msgid ""
-"The data entered in invalid. Insert a physical extent size larger than 1 "
+"The data entered is invalid. Insert a physical extent size larger than 1 "
 "KiB\n"
 "in powers of 2 and multiple of 128 KiB, for example, \"512 KiB\" or \"4 MiB\""
 msgstr ""
 "De ingegeven gegevens zijn ongeldig. U moet een fysieke uitbreidingsgrootte "
 "opgeven groter\n"
-"dan 1KiB in machten van 2 en meervouden van 128 KiB, bijvoorbeeld \"512 KiB\""
-" of \"4 MiB\""
+"dan 1KiB in machten van 2 en meervouden van 128 KiB, bijvoorbeeld \"512 KiB"
+"\" of \"4 MiB\""
 
 #. TRANSLATORS: dialog title when creating a MD RAID.
 #. %s is a device name like /dev/md0
-#: src/lib/y2partitioner/actions/controllers/md.rb:146
+#: src/lib/y2partitioner/actions/controllers/md.rb:180
 msgid "Add RAID %s"
 msgstr "RAID %s toevoegen"
 
 #. TRANSLATORS: dialog title when resizing a MD RAID.
 #. %s is a device name like /dev/md0
-#: src/lib/y2partitioner/actions/controllers/md.rb:150
+#: src/lib/y2partitioner/actions/controllers/md.rb:184
 msgid "Resize RAID %s"
 msgstr "RAID %s vergroten/verkleinen"
 
@@ -180,6 +186,13 @@ msgstr "Partitie %s bewerken"
 #: src/lib/y2partitioner/actions/edit_blk_device.rb:87
 msgid "An extended partition cannot be edited"
 msgstr "Een uitgebreide partitie kan niet worden bewerkt"
+
+#. TRANSLATORS: an error popup message
+#: src/lib/y2partitioner/actions/resize_partition.rb:89
+#, fuzzy
+#| msgid "An extended partition cannot be resized."
+msgid "This partition cannot be resized."
+msgstr "Een uitgebreide partitie kan niet worden vergroot/verkleind."
 
 #. @param filesystem [Y2Storage::Filesystems::BlkFilesystem] a btrfs filesystem
 #: src/lib/y2partitioner/dialogs/btrfs_subvolume.rb:24
@@ -302,10 +315,14 @@ msgstr "Gebruikte pool"
 #. @macro seeAbstractWidget
 #. @macro seeAbstractWidget
 #. @macro seeAbstractWidget
+#. @macro seeAbstractWidget
+#. @macro seeAbstractWidget
 #. TRANSLATORS: table header, size of block device e.g. "8.00 GiB"
 #: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:69
 #: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:145
 #: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:262
+#: src/lib/y2partitioner/dialogs/partition_resize.rb:152
+#: src/lib/y2partitioner/dialogs/partition_resize.rb:296
 #: src/lib/y2partitioner/dialogs/partition_size.rb:160
 #: src/lib/y2partitioner/widgets/blk_devices_table.rb:93
 msgid "Size"
@@ -317,12 +334,15 @@ msgid "Maximum Size (%s)"
 msgstr "Maximum grootte (%s)"
 
 #: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:78
+#: src/lib/y2partitioner/dialogs/partition_resize.rb:162
 #: src/lib/y2partitioner/dialogs/partition_size.rb:69
 msgid "Custom Size"
 msgstr "Aangepaste grootte"
 
 #. error popup, :min and :max are replaced by sizes
+#. TRANSLATORS: error popup message, where %{min} and %{max} are replaced by sizes.
 #: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:161
+#: src/lib/y2partitioner/dialogs/partition_resize.rb:209
 msgid "The size entered is invalid. Enter a size between %{min} and %{max}."
 msgstr ""
 "De opgegeven grootte is ongeldig. Geef een grootte tussen %{min} en %{max} "
@@ -423,6 +443,31 @@ msgstr "Chunk-grootte"
 #: src/lib/y2partitioner/dialogs/md_options.rb:81
 msgid "Parity Algorithm"
 msgstr "Pariteit-algoritme"
+
+#. TRANSLATORS: dialog title, where %{name} is the name of a partition (e.g., /dev/sda1)
+#: src/lib/y2partitioner/dialogs/partition_resize.rb:30
+#, fuzzy
+#| msgid "Resize Partition %1"
+msgid "Resize Partition %{name}"
+msgstr "Grootte wijzigen van partitie %1"
+
+#. @see Widgets::ControllerRadioButtons
+#: src/lib/y2partitioner/dialogs/partition_resize.rb:157
+#, fuzzy
+#| msgid "Maximum Size (%s)"
+msgid "Maximum Size (%{size})"
+msgstr "Maximum grootte (%s)"
+
+#: src/lib/y2partitioner/dialogs/partition_resize.rb:158
+#, fuzzy
+#| msgid "Minimum Size (%1)"
+msgid "Minimum Size (%{size})"
+msgstr "Minimum grootte (%1)"
+
+#. @macro seeAbstractWidget
+#: src/lib/y2partitioner/dialogs/partition_resize.rb:190
+msgid "<p>Choose new size.</p>"
+msgstr "<p>Kies de nieuwe grootte.</p>"
 
 #. @macro seeAbstractWidget
 #: src/lib/y2partitioner/dialogs/partition_role.rb:49
@@ -758,40 +803,40 @@ msgstr "Geen apparaat geselecteerd"
 
 # /usr/lib/YaST2/clients/inst_config_x11.ycp:794
 #. TRANSLATORS: %s is a disk size. E.g. "10.5 GiB"
-#: src/lib/y2partitioner/widgets/devices_selection.rb:123
+#: src/lib/y2partitioner/widgets/devices_selection.rb:124
 msgid "Resulting size: %s"
 msgstr "Resulterende grootte: %s"
 
 #. TRANSLATORS: %s is a disk size. E.g. "10.5 GiB"
-#: src/lib/y2partitioner/widgets/devices_selection.rb:127
+#: src/lib/y2partitioner/widgets/devices_selection.rb:128
 msgid "Total size: %s"
 msgstr "Totale grootte: %s"
 
-#: src/lib/y2partitioner/widgets/devices_selection.rb:134
+#: src/lib/y2partitioner/widgets/devices_selection.rb:135
 msgid "Selected Devices:"
 msgstr "Geselecteerde apparaten:"
 
-#: src/lib/y2partitioner/widgets/devices_selection.rb:138
+#: src/lib/y2partitioner/widgets/devices_selection.rb:139
 msgid "Available Devices:"
 msgstr "Beschikbare apparaten:"
 
 #. push button text
-#: src/lib/y2partitioner/widgets/devices_selection.rb:147
+#: src/lib/y2partitioner/widgets/devices_selection.rb:159
 msgid "Add"
 msgstr "Toevoegen"
 
 #. push button text
-#: src/lib/y2partitioner/widgets/devices_selection.rb:153
+#: src/lib/y2partitioner/widgets/devices_selection.rb:165
 msgid "Add All"
 msgstr "Alles toevoegen"
 
 #. push button text
-#: src/lib/y2partitioner/widgets/devices_selection.rb:160
+#: src/lib/y2partitioner/widgets/devices_selection.rb:172
 msgid "Remove"
 msgstr "Verwijderen"
 
 #. push button text
-#: src/lib/y2partitioner/widgets/devices_selection.rb:166
+#: src/lib/y2partitioner/widgets/devices_selection.rb:178
 msgid "Remove All"
 msgstr "Alles verwijderen"
 
@@ -1674,31 +1719,31 @@ msgid "Btrfs Volumes"
 msgstr "Btrfs-volumes"
 
 #. @macro seeCustomWidget
-#: src/lib/y2partitioner/widgets/pages/disk.rb:72
+#: src/lib/y2partitioner/widgets/pages/disk.rb:73
 msgid "Hard Disk: %s"
 msgstr "Vaste schijf: %s"
 
 #. @macro seeAbstractWidget
 #. @macro seeAbstractWidget
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/pages/disk.rb:133
+#: src/lib/y2partitioner/widgets/pages/disk.rb:134
 #: src/lib/y2partitioner/widgets/pages/lvm_vg.rb:94
 #: src/lib/y2partitioner/widgets/pages/md_raid.rb:94
 msgid "&Overview"
 msgstr "&Overzicht"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/pages/disk.rb:164
+#: src/lib/y2partitioner/widgets/pages/disk.rb:165
 msgid "&Partitions"
 msgstr "&Partities"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/pages/disks.rb:48
+#: src/lib/y2partitioner/widgets/pages/disks.rb:51
 msgid "Hard Disks"
 msgstr "Vaste schijven"
 
 #. TRANSLATORS: Heading. String followed by name of partition
-#: src/lib/y2partitioner/widgets/pages/disks.rb:62
+#: src/lib/y2partitioner/widgets/pages/disks.rb:65
 msgid "Hard Disks "
 msgstr "Vaste schijven "
 
@@ -1750,7 +1795,7 @@ msgid "RAID"
 msgstr "RAID"
 
 #. TRANSLATORS: Heading. String followed by name of partition
-#: src/lib/y2partitioner/widgets/pages/partition.rb:44
+#: src/lib/y2partitioner/widgets/pages/partition.rb:45
 msgid "Partition: "
 msgstr "Partitie: "
 
@@ -1963,7 +2008,8 @@ msgstr "Bestandssysteem-opties"
 
 #: src/lib/y2storage/dialogs/guided_setup/select_root_disk.rb:69
 msgid "Please select a disk to use as the \"root\" partition (/)"
-msgstr "Selecteer een schijf om gebruikt te worden als de \"root\" partitie (/)"
+msgstr ""
+"Selecteer een schijf om gebruikt te worden als de \"root\" partitie (/)"
 
 #: src/lib/y2storage/dialogs/guided_setup/select_root_disk.rb:86
 msgid "Choose what to do with existing Windows systems"
@@ -2104,7 +2150,7 @@ msgstr ""
 #. Class to represent all the possible MD levels
 #.
 #. This is a wrapper for the Storage::MdLevel enum
-#: src/lib/y2storage/md_level.rb:36 src/lib/y2storage/partition_id.rb:54
+#: src/lib/y2storage/md_level.rb:36 src/lib/y2storage/partition_id.rb:55
 msgid "Unknown"
 msgstr "Onbekend"
 
@@ -2227,63 +2273,63 @@ msgstr "De volgende pakketten toevoegen is mislukt: %s"
 #. Class to represent all the possible partition ids
 #.
 #. This is a wrapper for the Storage::ID enum
-#: src/lib/y2storage/partition_id.rb:39
+#: src/lib/y2storage/partition_id.rb:40
 msgid "DOS12"
 msgstr "DOS12"
 
-#: src/lib/y2storage/partition_id.rb:40
+#: src/lib/y2storage/partition_id.rb:41
 msgid "DOS16"
 msgstr "DOS16"
 
-#: src/lib/y2storage/partition_id.rb:41
+#: src/lib/y2storage/partition_id.rb:42
 msgid "DOS32"
 msgstr "DOS32"
 
-#: src/lib/y2storage/partition_id.rb:42
+#: src/lib/y2storage/partition_id.rb:43
 msgid "Linux Swap"
 msgstr "Linux Swap"
 
-#: src/lib/y2storage/partition_id.rb:43
+#: src/lib/y2storage/partition_id.rb:44
 msgid "Linux Native"
 msgstr "Inheems Linux"
 
-#: src/lib/y2storage/partition_id.rb:44
+#: src/lib/y2storage/partition_id.rb:45
 msgid "Linux LVM"
 msgstr "Linux LVM"
 
-#: src/lib/y2storage/partition_id.rb:45
+#: src/lib/y2storage/partition_id.rb:46
 msgid "Linux RAID"
 msgstr "Linux RAID"
 
-#: src/lib/y2storage/partition_id.rb:46
+#: src/lib/y2storage/partition_id.rb:47
 msgid "EFI System Partition"
 msgstr "EFI-systeempartitie"
 
-#: src/lib/y2storage/partition_id.rb:47
+#: src/lib/y2storage/partition_id.rb:48
 msgid "BIOS Boot Partition"
 msgstr "BIOS-boot-partitie"
 
-#: src/lib/y2storage/partition_id.rb:48
+#: src/lib/y2storage/partition_id.rb:49
 msgid "PReP Boot Partition"
 msgstr "PReP-bootpartitie"
 
-#: src/lib/y2storage/partition_id.rb:49
+#: src/lib/y2storage/partition_id.rb:50
 msgid "NTFS"
 msgstr "NTFS"
 
-#: src/lib/y2storage/partition_id.rb:50
+#: src/lib/y2storage/partition_id.rb:51
 msgid "Extended"
 msgstr "Uitgebreid"
 
-#: src/lib/y2storage/partition_id.rb:51
+#: src/lib/y2storage/partition_id.rb:52
 msgid "Windows Data Partition"
 msgstr "Windows-gegevenspartitie"
 
-#: src/lib/y2storage/partition_id.rb:52
+#: src/lib/y2storage/partition_id.rb:53
 msgid "Microsoft Reserved Partition"
 msgstr "Gereserveerde partitie van Microsoft"
 
-#: src/lib/y2storage/partition_id.rb:53
+#: src/lib/y2storage/partition_id.rb:54
 msgid "Diagnostics Partition"
 msgstr "Diagnostische partitie"
 
@@ -4347,9 +4393,6 @@ msgstr "Diagnostische partitie"
 #~ "De grootte van partitie %1 kan niet worden aangepast\n"
 #~ "omdat het bestandssysteem inconsistent blijkt te zijn.\n"
 
-#~ msgid "Resize Partition %1"
-#~ msgstr "Grootte wijzigen van partitie %1"
-
 #~ msgid "Resize Logical Volume %1"
 #~ msgstr "Grootte wijzigen van logisch volume %1"
 
@@ -4359,12 +4402,6 @@ msgstr "Diagnostische partitie"
 
 #~ msgid "Currently used: %1"
 #~ msgstr "Nu in gebruik: %1"
-
-#~ msgid "Minimum Size (%1)"
-#~ msgstr "Minimum grootte (%1)"
-
-#~ msgid "<p>Choose new size.</p>"
-#~ msgstr "<p>Kies de nieuwe grootte.</p>"
 
 #~ msgid ""
 #~ "You are extending a mounted filesystem by %1 Gigabyte. \n"
@@ -4560,9 +4597,6 @@ msgstr "Diagnostische partitie"
 #~ "De partitie %1 is in gebruik. Het kan niet in grootte worden\n"
 #~ "gewijzigd. Om %1 in grootte te wijzigen, zorg er voor dat deze niet in "
 #~ "gebruik is."
-
-#~ msgid "An extended partition cannot be resized."
-#~ msgstr "Een uitgebreide partitie kan niet worden vergroot/verkleind."
 
 #~ msgid ""
 #~ "<p>Select one or more (if available) hard disks\n"

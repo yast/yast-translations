@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: @PACKAGE@\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-11-29 02:29+0000\n"
+"POT-Creation-Date: 2018-01-10 16:56+0100\n"
 "PO-Revision-Date: 2005-07-29 15:37+0530\n"
 "Last-Translator: Priyavert Sharma<priyavert.sharma@agreeya.com>\n"
 "Language-Team: AgreeYa Solutions <linux_team@agreeya.com>\n"
@@ -99,7 +99,7 @@ msgstr ""
 #: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:267
 #, fuzzy
 msgid ""
-"The data entered in invalid. Insert a physical extent size larger than 1 "
+"The data entered is invalid. Insert a physical extent size larger than 1 "
 "KiB\n"
 "in powers of 2 and multiple of 128 KiB, for example, \"512 KiB\" or \"4 MiB\""
 msgstr ""
@@ -109,14 +109,14 @@ msgstr ""
 
 #. TRANSLATORS: dialog title when creating a MD RAID.
 #. %s is a device name like /dev/md0
-#: src/lib/y2partitioner/actions/controllers/md.rb:146
+#: src/lib/y2partitioner/actions/controllers/md.rb:180
 #, fuzzy
 msgid "Add RAID %s"
 msgstr " RAI&D যুক্ত করুন "
 
 #. TRANSLATORS: dialog title when resizing a MD RAID.
 #. %s is a device name like /dev/md0
-#: src/lib/y2partitioner/actions/controllers/md.rb:150
+#: src/lib/y2partitioner/actions/controllers/md.rb:184
 #, fuzzy
 msgid "Resize RAID %s"
 msgstr " RAID অপসারণ করুন"
@@ -184,6 +184,12 @@ msgstr "পার্টিশান %1 সম্পাদনা করুন"
 #: src/lib/y2partitioner/actions/edit_blk_device.rb:87
 #, fuzzy
 msgid "An extended partition cannot be edited"
+msgstr "একটি পরিবর্ধিত পার্টিশন তৈরি করা যায় না।"
+
+#. TRANSLATORS: an error popup message
+#: src/lib/y2partitioner/actions/resize_partition.rb:89
+#, fuzzy
+msgid "This partition cannot be resized."
 msgstr "একটি পরিবর্ধিত পার্টিশন তৈরি করা যায় না।"
 
 #. @param filesystem [Y2Storage::Filesystems::BlkFilesystem] a btrfs filesystem
@@ -326,10 +332,14 @@ msgstr "দ্বারা ব্যবহৃত"
 #. @macro seeAbstractWidget
 #. @macro seeAbstractWidget
 #. @macro seeAbstractWidget
+#. @macro seeAbstractWidget
+#. @macro seeAbstractWidget
 #. TRANSLATORS: table header, size of block device e.g. "8.00 GiB"
 #: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:69
 #: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:145
 #: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:262
+#: src/lib/y2partitioner/dialogs/partition_resize.rb:152
+#: src/lib/y2partitioner/dialogs/partition_resize.rb:296
 #: src/lib/y2partitioner/dialogs/partition_size.rb:160
 #: src/lib/y2partitioner/widgets/blk_devices_table.rb:93
 msgid "Size"
@@ -342,13 +352,16 @@ msgid "Maximum Size (%s)"
 msgstr "লিনাক্স সাইজ %1"
 
 #: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:78
+#: src/lib/y2partitioner/dialogs/partition_resize.rb:162
 #: src/lib/y2partitioner/dialogs/partition_size.rb:69
 #, fuzzy
 msgid "Custom Size"
 msgstr "কাস্টম &সাইজ"
 
 #. error popup, :min and :max are replaced by sizes
+#. TRANSLATORS: error popup message, where %{min} and %{max} are replaced by sizes.
 #: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:161
+#: src/lib/y2partitioner/dialogs/partition_resize.rb:209
 #, fuzzy
 msgid "The size entered is invalid. Enter a size between %{min} and %{max}."
 msgstr ""
@@ -462,6 +475,32 @@ msgstr " চাঙ্ক সাইজ KB-এ"
 #, fuzzy
 msgid "Parity Algorithm"
 msgstr "এনক্রিপশন এলগরিথমস"
+
+#. TRANSLATORS: dialog title, where %{name} is the name of a partition (e.g., /dev/sda1)
+#: src/lib/y2partitioner/dialogs/partition_resize.rb:30
+#, fuzzy
+msgid "Resize Partition %{name}"
+msgstr "এডিট পার্টিশন"
+
+#. @see Widgets::ControllerRadioButtons
+#: src/lib/y2partitioner/dialogs/partition_resize.rb:157
+#, fuzzy
+msgid "Maximum Size (%{size})"
+msgstr "লিনাক্স সাইজ %1"
+
+#: src/lib/y2partitioner/dialogs/partition_resize.rb:158
+#, fuzzy
+msgid "Minimum Size (%{size})"
+msgstr "লিনাক্স সাইজ %1"
+
+#. @macro seeAbstractWidget
+#: src/lib/y2partitioner/dialogs/partition_resize.rb:190
+#, fuzzy
+msgid "<p>Choose new size.</p>"
+msgstr ""
+"<p>\n"
+"আপনার %1 পার্টিশানের জন্য একটি নতুন পরিমাপ নির্বাচন করুন।\n"
+"</p>"
 
 #. @macro seeAbstractWidget
 #: src/lib/y2partitioner/dialogs/partition_role.rb:49
@@ -857,45 +896,45 @@ msgstr "কোন যোজনা নির্বাচিত নেই."
 
 #  button label
 #. TRANSLATORS: %s is a disk size. E.g. "10.5 GiB"
-#: src/lib/y2partitioner/widgets/devices_selection.rb:123
+#: src/lib/y2partitioner/widgets/devices_selection.rb:124
 #, fuzzy
 msgid "Resulting size: %s"
 msgstr "ফল: %1"
 
 #. TRANSLATORS: %s is a disk size. E.g. "10.5 GiB"
-#: src/lib/y2partitioner/widgets/devices_selection.rb:127
+#: src/lib/y2partitioner/widgets/devices_selection.rb:128
 #, fuzzy
 msgid "Total size: %s"
 msgstr "মোট সাইজ: "
 
-#: src/lib/y2partitioner/widgets/devices_selection.rb:134
+#: src/lib/y2partitioner/widgets/devices_selection.rb:135
 #, fuzzy
 msgid "Selected Devices:"
 msgstr "IDE ডিভাইস নির্বাচিন করুন"
 
-#: src/lib/y2partitioner/widgets/devices_selection.rb:138
+#: src/lib/y2partitioner/widgets/devices_selection.rb:139
 msgid "Available Devices:"
 msgstr "সরঞ্জম উপলব্ধ:"
 
 # সংযোজিত করো
 #. push button text
-#: src/lib/y2partitioner/widgets/devices_selection.rb:147
+#: src/lib/y2partitioner/widgets/devices_selection.rb:159
 msgid "Add"
 msgstr "যোগ করো"
 
 #. push button text
-#: src/lib/y2partitioner/widgets/devices_selection.rb:153
+#: src/lib/y2partitioner/widgets/devices_selection.rb:165
 #, fuzzy
 msgid "Add All"
 msgstr " RAI&D যুক্ত করুন "
 
 #. push button text
-#: src/lib/y2partitioner/widgets/devices_selection.rb:160
+#: src/lib/y2partitioner/widgets/devices_selection.rb:172
 msgid "Remove"
 msgstr "সরাও"
 
 #. push button text
-#: src/lib/y2partitioner/widgets/devices_selection.rb:166
+#: src/lib/y2partitioner/widgets/devices_selection.rb:178
 #, fuzzy
 msgid "Remove All"
 msgstr "সরাও"
@@ -1833,7 +1872,7 @@ msgid "Btrfs Volumes"
 msgstr " পুনরায় লজিক্যাল ভলিউমের পরিমাপ স্থির করুন।"
 
 #. @macro seeCustomWidget
-#: src/lib/y2partitioner/widgets/pages/disk.rb:72
+#: src/lib/y2partitioner/widgets/pages/disk.rb:73
 #, fuzzy
 #| msgid "Hard Disks"
 msgid "Hard Disk: %s"
@@ -1842,25 +1881,25 @@ msgstr "হার্ড ডিস্কসমূহ"
 #. @macro seeAbstractWidget
 #. @macro seeAbstractWidget
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/pages/disk.rb:133
+#: src/lib/y2partitioner/widgets/pages/disk.rb:134
 #: src/lib/y2partitioner/widgets/pages/lvm_vg.rb:94
 #: src/lib/y2partitioner/widgets/pages/md_raid.rb:94
 msgid "&Overview"
 msgstr "বর্ননা (&O)"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/pages/disk.rb:164
+#: src/lib/y2partitioner/widgets/pages/disk.rb:165
 #, fuzzy
 msgid "&Partitions"
 msgstr "পার্টিশন"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/pages/disks.rb:48
+#: src/lib/y2partitioner/widgets/pages/disks.rb:51
 msgid "Hard Disks"
 msgstr "হার্ড ডিস্কসমূহ"
 
 #. TRANSLATORS: Heading. String followed by name of partition
-#: src/lib/y2partitioner/widgets/pages/disks.rb:62
+#: src/lib/y2partitioner/widgets/pages/disks.rb:65
 #, fuzzy
 #| msgid "Hard Disks"
 msgid "Hard Disks "
@@ -1921,7 +1960,7 @@ msgid "RAID"
 msgstr " R&AID :"
 
 #. TRANSLATORS: Heading. String followed by name of partition
-#: src/lib/y2partitioner/widgets/pages/partition.rb:44
+#: src/lib/y2partitioner/widgets/pages/partition.rb:45
 #, fuzzy
 msgid "Partition: "
 msgstr "পার্টিশান 1"
@@ -2319,7 +2358,7 @@ msgstr ""
 #. Class to represent all the possible MD levels
 #.
 #. This is a wrapper for the Storage::MdLevel enum
-#: src/lib/y2storage/md_level.rb:36 src/lib/y2storage/partition_id.rb:54
+#: src/lib/y2storage/md_level.rb:36 src/lib/y2storage/partition_id.rb:55
 #, fuzzy
 #| msgid "unknown"
 msgid "Unknown"
@@ -2456,76 +2495,76 @@ msgstr "প্রয়োজনীয় প্যাকেজগুলো ইনস�
 #. Class to represent all the possible partition ids
 #.
 #. This is a wrapper for the Storage::ID enum
-#: src/lib/y2storage/partition_id.rb:39
+#: src/lib/y2storage/partition_id.rb:40
 msgid "DOS12"
 msgstr ""
 
-#: src/lib/y2storage/partition_id.rb:40
+#: src/lib/y2storage/partition_id.rb:41
 msgid "DOS16"
 msgstr ""
 
-#: src/lib/y2storage/partition_id.rb:41
+#: src/lib/y2storage/partition_id.rb:42
 msgid "DOS32"
 msgstr ""
 
-#: src/lib/y2storage/partition_id.rb:42
+#: src/lib/y2storage/partition_id.rb:43
 #, fuzzy
 #| msgid "Linux"
 msgid "Linux Swap"
 msgstr "Linux"
 
-#: src/lib/y2storage/partition_id.rb:43
+#: src/lib/y2storage/partition_id.rb:44
 #, fuzzy
 #| msgid "Linux"
 msgid "Linux Native"
 msgstr "Linux"
 
-#: src/lib/y2storage/partition_id.rb:44
+#: src/lib/y2storage/partition_id.rb:45
 msgid "Linux LVM"
 msgstr "লাইনাক্স LVM "
 
-#: src/lib/y2storage/partition_id.rb:45
+#: src/lib/y2storage/partition_id.rb:46
 #, fuzzy
 #| msgid "Linux"
 msgid "Linux RAID"
 msgstr "Linux"
 
-#: src/lib/y2storage/partition_id.rb:46
+#: src/lib/y2storage/partition_id.rb:47
 #, fuzzy
 msgid "EFI System Partition"
 msgstr "বিভাগের মাপ"
 
-#: src/lib/y2storage/partition_id.rb:47
+#: src/lib/y2storage/partition_id.rb:48
 #, fuzzy
 msgid "BIOS Boot Partition"
 msgstr "বিভাগের মাপ"
 
-#: src/lib/y2storage/partition_id.rb:48
+#: src/lib/y2storage/partition_id.rb:49
 #, fuzzy
 msgid "PReP Boot Partition"
 msgstr "বিভাগের মাপ"
 
-#: src/lib/y2storage/partition_id.rb:49
+#: src/lib/y2storage/partition_id.rb:50
 msgid "NTFS"
 msgstr ""
 
-#: src/lib/y2storage/partition_id.rb:50
+#: src/lib/y2storage/partition_id.rb:51
 msgid "Extended"
 msgstr ""
 
-#: src/lib/y2storage/partition_id.rb:51
+#: src/lib/y2storage/partition_id.rb:52
 #, fuzzy
 #| msgid "&Shrink Windows partition"
 msgid "Windows Data Partition"
 msgstr "উন্ডোস-এর পার্টিশান সংকুচিত করুন"
 
-#: src/lib/y2storage/partition_id.rb:52
+#: src/lib/y2storage/partition_id.rb:53
 #, fuzzy
 #| msgid "Disk to Partition"
 msgid "Microsoft Reserved Partition"
 msgstr "পার্টিশানের ডিস্ক"
 
-#: src/lib/y2storage/partition_id.rb:53
+#: src/lib/y2storage/partition_id.rb:54
 #, fuzzy
 #| msgid "Disk to Partition"
 msgid "Diagnostics Partition"
@@ -4573,10 +4612,6 @@ msgstr "পার্টিশানের ডিস্ক"
 #~ "যাবে না।\n"
 
 #, fuzzy
-#~ msgid "Resize Partition %1"
-#~ msgstr "এডিট পার্টিশন"
-
-#, fuzzy
 #~ msgid "Resize Logical Volume %1"
 #~ msgstr " পুনরায় লজিক্যাল ভলিউমের পরিমাপ স্থির করুন।"
 
@@ -4587,17 +4622,6 @@ msgstr "পার্টিশানের ডিস্ক"
 #, fuzzy
 #~ msgid "Currently used: %1"
 #~ msgstr "বর্তমান অবস্থা: %1"
-
-#, fuzzy
-#~ msgid "Minimum Size (%1)"
-#~ msgstr "লিনাক্স সাইজ %1"
-
-#, fuzzy
-#~ msgid "<p>Choose new size.</p>"
-#~ msgstr ""
-#~ "<p>\n"
-#~ "আপনার %1 পার্টিশানের জন্য একটি নতুন পরিমাপ নির্বাচন করুন।\n"
-#~ "</p>"
 
 #, fuzzy
 #~ msgid "Output of %1"
@@ -4805,10 +4829,6 @@ msgstr "পার্টিশানের ডিস্ক"
 #~ "(%1) পরিবর্তন করার জন্য RAIDটি ইতিমধ্যেই ডিস্কে সৃষ্টি হয়ে গেছে। \n"
 #~ " এটি আর পরিবর্তন করা যাবে না। (%1) পরিবর্তন করার জন্য, \n"
 #~ " এটিকে আবার অপসারণ করুন এবং সৃষ্টি করুন। \n"
-
-#, fuzzy
-#~ msgid "An extended partition cannot be resized."
-#~ msgstr "একটি পরিবর্ধিত পার্টিশন তৈরি করা যায় না।"
 
 #, fuzzy
 #~| msgid "Really delete the selected option?"

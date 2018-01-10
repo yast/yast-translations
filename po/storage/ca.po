@@ -2,11 +2,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Catalan (yast-storage)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-11-29 02:29+0000\n"
+"POT-Creation-Date: 2018-01-10 16:56+0100\n"
 "PO-Revision-Date: 2017-11-29 09:06+0000\n"
 "Last-Translator: David Medina <medipas@gmail.com>\n"
-"Language-Team: Catalan <https://l10n.opensuse.org/projects/yast-"
-"storage/master/ca/>\n"
+"Language-Team: Catalan <https://l10n.opensuse.org/projects/yast-storage/"
+"master/ca/>\n"
 "Language: ca\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -93,8 +93,14 @@ msgstr ""
 #.
 #. @return [String]
 #: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:267
+#, fuzzy
+#| msgid ""
+#| "The data entered in invalid. Insert a physical extent size larger than 1 "
+#| "KiB\n"
+#| "in powers of 2 and multiple of 128 KiB, for example, \"512 KiB\" or \"4 "
+#| "MiB\""
 msgid ""
-"The data entered in invalid. Insert a physical extent size larger than 1 "
+"The data entered is invalid. Insert a physical extent size larger than 1 "
 "KiB\n"
 "in powers of 2 and multiple of 128 KiB, for example, \"512 KiB\" or \"4 MiB\""
 msgstr ""
@@ -105,13 +111,13 @@ msgstr ""
 
 #. TRANSLATORS: dialog title when creating a MD RAID.
 #. %s is a device name like /dev/md0
-#: src/lib/y2partitioner/actions/controllers/md.rb:146
+#: src/lib/y2partitioner/actions/controllers/md.rb:180
 msgid "Add RAID %s"
 msgstr "Afegeix el RAID %s"
 
 #. TRANSLATORS: dialog title when resizing a MD RAID.
 #. %s is a device name like /dev/md0
-#: src/lib/y2partitioner/actions/controllers/md.rb:150
+#: src/lib/y2partitioner/actions/controllers/md.rb:184
 msgid "Resize RAID %s"
 msgstr "Canvia la mida del RAID %"
 
@@ -169,6 +175,13 @@ msgstr "Edita la partició %s"
 #: src/lib/y2partitioner/actions/edit_blk_device.rb:87
 msgid "An extended partition cannot be edited"
 msgstr "No es pot editar una partició ampliada."
+
+#. TRANSLATORS: an error popup message
+#: src/lib/y2partitioner/actions/resize_partition.rb:89
+#, fuzzy
+#| msgid "An extended partition cannot be resized."
+msgid "This partition cannot be resized."
+msgstr "No es pot canviar la mida d'una partició ampliada."
 
 #. @param filesystem [Y2Storage::Filesystems::BlkFilesystem] a btrfs filesystem
 #: src/lib/y2partitioner/dialogs/btrfs_subvolume.rb:24
@@ -291,10 +304,14 @@ msgstr "Pool usat"
 #. @macro seeAbstractWidget
 #. @macro seeAbstractWidget
 #. @macro seeAbstractWidget
+#. @macro seeAbstractWidget
+#. @macro seeAbstractWidget
 #. TRANSLATORS: table header, size of block device e.g. "8.00 GiB"
 #: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:69
 #: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:145
 #: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:262
+#: src/lib/y2partitioner/dialogs/partition_resize.rb:152
+#: src/lib/y2partitioner/dialogs/partition_resize.rb:296
 #: src/lib/y2partitioner/dialogs/partition_size.rb:160
 #: src/lib/y2partitioner/widgets/blk_devices_table.rb:93
 msgid "Size"
@@ -306,12 +323,15 @@ msgid "Maximum Size (%s)"
 msgstr "Mida màxima (%s)"
 
 #: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:78
+#: src/lib/y2partitioner/dialogs/partition_resize.rb:162
 #: src/lib/y2partitioner/dialogs/partition_size.rb:69
 msgid "Custom Size"
 msgstr "Mida personalitzada"
 
 #. error popup, :min and :max are replaced by sizes
+#. TRANSLATORS: error popup message, where %{min} and %{max} are replaced by sizes.
 #: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:161
+#: src/lib/y2partitioner/dialogs/partition_resize.rb:209
 msgid "The size entered is invalid. Enter a size between %{min} and %{max}."
 msgstr ""
 "La mida que heu introduït no és vàlida. Introduïu una mida d'entre %{min} i "
@@ -412,6 +432,31 @@ msgstr "Mida del tros"
 #: src/lib/y2partitioner/dialogs/md_options.rb:81
 msgid "Parity Algorithm"
 msgstr "Algorisme de paritat"
+
+#. TRANSLATORS: dialog title, where %{name} is the name of a partition (e.g., /dev/sda1)
+#: src/lib/y2partitioner/dialogs/partition_resize.rb:30
+#, fuzzy
+#| msgid "Resize Partition %1"
+msgid "Resize Partition %{name}"
+msgstr "Canvia la mida de la partició %1"
+
+#. @see Widgets::ControllerRadioButtons
+#: src/lib/y2partitioner/dialogs/partition_resize.rb:157
+#, fuzzy
+#| msgid "Maximum Size (%s)"
+msgid "Maximum Size (%{size})"
+msgstr "Mida màxima (%s)"
+
+#: src/lib/y2partitioner/dialogs/partition_resize.rb:158
+#, fuzzy
+#| msgid "Minimum Size (%1)"
+msgid "Minimum Size (%{size})"
+msgstr "Mida mínima (%1)"
+
+#. @macro seeAbstractWidget
+#: src/lib/y2partitioner/dialogs/partition_resize.rb:190
+msgid "<p>Choose new size.</p>"
+msgstr "<p>Escolliu una nova mida.</p>"
 
 #. @macro seeAbstractWidget
 #: src/lib/y2partitioner/dialogs/partition_role.rb:49
@@ -744,40 +789,40 @@ msgid "No device selected"
 msgstr "No s'ha seleccionat cap dispositiu"
 
 #. TRANSLATORS: %s is a disk size. E.g. "10.5 GiB"
-#: src/lib/y2partitioner/widgets/devices_selection.rb:123
+#: src/lib/y2partitioner/widgets/devices_selection.rb:124
 msgid "Resulting size: %s"
 msgstr "Mida resultant: %s"
 
 #. TRANSLATORS: %s is a disk size. E.g. "10.5 GiB"
-#: src/lib/y2partitioner/widgets/devices_selection.rb:127
+#: src/lib/y2partitioner/widgets/devices_selection.rb:128
 msgid "Total size: %s"
 msgstr "Mida total: %s"
 
-#: src/lib/y2partitioner/widgets/devices_selection.rb:134
+#: src/lib/y2partitioner/widgets/devices_selection.rb:135
 msgid "Selected Devices:"
 msgstr "Dispositius seleccionats:"
 
-#: src/lib/y2partitioner/widgets/devices_selection.rb:138
+#: src/lib/y2partitioner/widgets/devices_selection.rb:139
 msgid "Available Devices:"
 msgstr "Dispositius disponibles:"
 
 #. push button text
-#: src/lib/y2partitioner/widgets/devices_selection.rb:147
+#: src/lib/y2partitioner/widgets/devices_selection.rb:159
 msgid "Add"
 msgstr "Afegeix"
 
 #. push button text
-#: src/lib/y2partitioner/widgets/devices_selection.rb:153
+#: src/lib/y2partitioner/widgets/devices_selection.rb:165
 msgid "Add All"
 msgstr "Afegeix-ho tot"
 
 #. push button text
-#: src/lib/y2partitioner/widgets/devices_selection.rb:160
+#: src/lib/y2partitioner/widgets/devices_selection.rb:172
 msgid "Remove"
 msgstr "Elimina"
 
 #. push button text
-#: src/lib/y2partitioner/widgets/devices_selection.rb:166
+#: src/lib/y2partitioner/widgets/devices_selection.rb:178
 msgid "Remove All"
 msgstr "Elimina-ho tot"
 
@@ -1658,31 +1703,31 @@ msgid "Btrfs Volumes"
 msgstr "Volums Btrfs"
 
 #. @macro seeCustomWidget
-#: src/lib/y2partitioner/widgets/pages/disk.rb:72
+#: src/lib/y2partitioner/widgets/pages/disk.rb:73
 msgid "Hard Disk: %s"
 msgstr "Disc dur: %s"
 
 #. @macro seeAbstractWidget
 #. @macro seeAbstractWidget
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/pages/disk.rb:133
+#: src/lib/y2partitioner/widgets/pages/disk.rb:134
 #: src/lib/y2partitioner/widgets/pages/lvm_vg.rb:94
 #: src/lib/y2partitioner/widgets/pages/md_raid.rb:94
 msgid "&Overview"
 msgstr "&Resum"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/pages/disk.rb:164
+#: src/lib/y2partitioner/widgets/pages/disk.rb:165
 msgid "&Partitions"
 msgstr "&Particions"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/pages/disks.rb:48
+#: src/lib/y2partitioner/widgets/pages/disks.rb:51
 msgid "Hard Disks"
 msgstr "Discs durs"
 
 #. TRANSLATORS: Heading. String followed by name of partition
-#: src/lib/y2partitioner/widgets/pages/disks.rb:62
+#: src/lib/y2partitioner/widgets/pages/disks.rb:65
 msgid "Hard Disks "
 msgstr "Discs durs "
 
@@ -1734,7 +1779,7 @@ msgid "RAID"
 msgstr "RAID"
 
 #. TRANSLATORS: Heading. String followed by name of partition
-#: src/lib/y2partitioner/widgets/pages/partition.rb:44
+#: src/lib/y2partitioner/widgets/pages/partition.rb:45
 msgid "Partition: "
 msgstr "Partició: "
 
@@ -2082,7 +2127,7 @@ msgstr ""
 #. Class to represent all the possible MD levels
 #.
 #. This is a wrapper for the Storage::MdLevel enum
-#: src/lib/y2storage/md_level.rb:36 src/lib/y2storage/partition_id.rb:54
+#: src/lib/y2storage/md_level.rb:36 src/lib/y2storage/partition_id.rb:55
 msgid "Unknown"
 msgstr "Desconegut"
 
@@ -2203,63 +2248,63 @@ msgstr "Ha fallat l'addició dels paquets següents: %1"
 #. Class to represent all the possible partition ids
 #.
 #. This is a wrapper for the Storage::ID enum
-#: src/lib/y2storage/partition_id.rb:39
+#: src/lib/y2storage/partition_id.rb:40
 msgid "DOS12"
 msgstr "DOS12"
 
-#: src/lib/y2storage/partition_id.rb:40
+#: src/lib/y2storage/partition_id.rb:41
 msgid "DOS16"
 msgstr "DOS16"
 
-#: src/lib/y2storage/partition_id.rb:41
+#: src/lib/y2storage/partition_id.rb:42
 msgid "DOS32"
 msgstr "DOS32"
 
-#: src/lib/y2storage/partition_id.rb:42
+#: src/lib/y2storage/partition_id.rb:43
 msgid "Linux Swap"
 msgstr "Intercanvi de Linux"
 
-#: src/lib/y2storage/partition_id.rb:43
+#: src/lib/y2storage/partition_id.rb:44
 msgid "Linux Native"
 msgstr "Natiu de Linux"
 
-#: src/lib/y2storage/partition_id.rb:44
+#: src/lib/y2storage/partition_id.rb:45
 msgid "Linux LVM"
 msgstr "LVM de Linux"
 
-#: src/lib/y2storage/partition_id.rb:45
+#: src/lib/y2storage/partition_id.rb:46
 msgid "Linux RAID"
 msgstr "RAID de Linux"
 
-#: src/lib/y2storage/partition_id.rb:46
+#: src/lib/y2storage/partition_id.rb:47
 msgid "EFI System Partition"
 msgstr "Partició de sistema EFI"
 
-#: src/lib/y2storage/partition_id.rb:47
+#: src/lib/y2storage/partition_id.rb:48
 msgid "BIOS Boot Partition"
 msgstr "Partició d'arrencada BIOS"
 
-#: src/lib/y2storage/partition_id.rb:48
+#: src/lib/y2storage/partition_id.rb:49
 msgid "PReP Boot Partition"
 msgstr "Partició d'arrencada PReP"
 
-#: src/lib/y2storage/partition_id.rb:49
+#: src/lib/y2storage/partition_id.rb:50
 msgid "NTFS"
 msgstr "NTFS"
 
-#: src/lib/y2storage/partition_id.rb:50
+#: src/lib/y2storage/partition_id.rb:51
 msgid "Extended"
 msgstr "Ampliada"
 
-#: src/lib/y2storage/partition_id.rb:51
+#: src/lib/y2storage/partition_id.rb:52
 msgid "Windows Data Partition"
 msgstr "Partició de dades de Windows"
 
-#: src/lib/y2storage/partition_id.rb:52
+#: src/lib/y2storage/partition_id.rb:53
 msgid "Microsoft Reserved Partition"
 msgstr "Partició reservada de Microsoft"
 
-#: src/lib/y2storage/partition_id.rb:53
+#: src/lib/y2storage/partition_id.rb:54
 msgid "Diagnostics Partition"
 msgstr "Partició de diagnòstics"
 
@@ -4277,9 +4322,6 @@ msgstr "Partició de diagnòstics"
 #~ "No es pot redimensionar la partició %1\n"
 #~ "perquè sembla que hi ha incoherències al sistema de fitxers.\n"
 
-#~ msgid "Resize Partition %1"
-#~ msgstr "Canvia la mida de la partició %1"
-
 #~ msgid "Resize Logical Volume %1"
 #~ msgstr "Canvia la mida del volum lògic %1"
 
@@ -4288,12 +4330,6 @@ msgstr "Partició de diagnòstics"
 
 #~ msgid "Currently used: %1"
 #~ msgstr "Usat actualment: %1"
-
-#~ msgid "Minimum Size (%1)"
-#~ msgstr "Mida mínima (%1)"
-
-#~ msgid "<p>Choose new size.</p>"
-#~ msgstr "<p>Escolliu una nova mida.</p>"
 
 #~ msgid ""
 #~ "You are extending a mounted filesystem by %1 Gigabyte. \n"
@@ -4479,9 +4515,6 @@ msgstr "Partició de diagnòstics"
 #~ msgstr ""
 #~ "La partició %1 s'usa. No se'n pot canviar la mida.\n"
 #~ "Per canviar la mida de %1, assegureu-vos que no s'utilitza."
-
-#~ msgid "An extended partition cannot be resized."
-#~ msgstr "No es pot canviar la mida d'una partició ampliada."
 
 #~ msgid ""
 #~ "<p>Select one or more (if available) hard disks\n"

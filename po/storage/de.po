@@ -22,11 +22,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: storage-ng.de\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-11-29 02:29+0000\n"
+"POT-Creation-Date: 2018-01-10 16:56+0100\n"
 "PO-Revision-Date: 2017-12-23 22:02+0000\n"
 "Last-Translator: Sarah Kriesch <ada.lovelace@gmx.de>\n"
-"Language-Team: German <https://l10n.opensuse.org/projects/yast-"
-"storage/master/de/>\n"
+"Language-Team: German <https://l10n.opensuse.org/projects/yast-storage/"
+"master/de/>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -114,8 +114,14 @@ msgstr ""
 #.
 #. @return [String]
 #: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:267
+#, fuzzy
+#| msgid ""
+#| "The data entered in invalid. Insert a physical extent size larger than 1 "
+#| "KiB\n"
+#| "in powers of 2 and multiple of 128 KiB, for example, \"512 KiB\" or \"4 "
+#| "MiB\""
 msgid ""
-"The data entered in invalid. Insert a physical extent size larger than 1 "
+"The data entered is invalid. Insert a physical extent size larger than 1 "
 "KiB\n"
 "in powers of 2 and multiple of 128 KiB, for example, \"512 KiB\" or \"4 MiB\""
 msgstr ""
@@ -126,13 +132,13 @@ msgstr ""
 
 #. TRANSLATORS: dialog title when creating a MD RAID.
 #. %s is a device name like /dev/md0
-#: src/lib/y2partitioner/actions/controllers/md.rb:146
+#: src/lib/y2partitioner/actions/controllers/md.rb:180
 msgid "Add RAID %s"
 msgstr "RAID %s hinzufügen"
 
 #. TRANSLATORS: dialog title when resizing a MD RAID.
 #. %s is a device name like /dev/md0
-#: src/lib/y2partitioner/actions/controllers/md.rb:150
+#: src/lib/y2partitioner/actions/controllers/md.rb:184
 msgid "Resize RAID %s"
 msgstr "Größe von RAID %s ändern"
 
@@ -190,6 +196,13 @@ msgstr "Partition %s bearbeiten"
 #: src/lib/y2partitioner/actions/edit_blk_device.rb:87
 msgid "An extended partition cannot be edited"
 msgstr "Eine erweiterte Partition kann nicht bearbeitet werden"
+
+#. TRANSLATORS: an error popup message
+#: src/lib/y2partitioner/actions/resize_partition.rb:89
+#, fuzzy
+#| msgid "An extended partition cannot be resized."
+msgid "This partition cannot be resized."
+msgstr "Die Größe einer erweiterten Partition kann nicht geändert werden."
 
 #. @param filesystem [Y2Storage::Filesystems::BlkFilesystem] a btrfs filesystem
 #: src/lib/y2partitioner/dialogs/btrfs_subvolume.rb:24
@@ -314,10 +327,14 @@ msgstr "Benutzter Pool"
 #. @macro seeAbstractWidget
 #. @macro seeAbstractWidget
 #. @macro seeAbstractWidget
+#. @macro seeAbstractWidget
+#. @macro seeAbstractWidget
 #. TRANSLATORS: table header, size of block device e.g. "8.00 GiB"
 #: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:69
 #: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:145
 #: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:262
+#: src/lib/y2partitioner/dialogs/partition_resize.rb:152
+#: src/lib/y2partitioner/dialogs/partition_resize.rb:296
 #: src/lib/y2partitioner/dialogs/partition_size.rb:160
 #: src/lib/y2partitioner/widgets/blk_devices_table.rb:93
 msgid "Size"
@@ -329,12 +346,15 @@ msgid "Maximum Size (%s)"
 msgstr "Maximale Größe (%s)"
 
 #: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:78
+#: src/lib/y2partitioner/dialogs/partition_resize.rb:162
 #: src/lib/y2partitioner/dialogs/partition_size.rb:69
 msgid "Custom Size"
 msgstr "Benutzerdefinierte Größe"
 
 #. error popup, :min and :max are replaced by sizes
+#. TRANSLATORS: error popup message, where %{min} and %{max} are replaced by sizes.
 #: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:161
+#: src/lib/y2partitioner/dialogs/partition_resize.rb:209
 msgid "The size entered is invalid. Enter a size between %{min} and %{max}."
 msgstr ""
 "Die eingegebene Größe ist ungültig. Geben Sie eine Größe zwischen %{min} und "
@@ -435,6 +455,31 @@ msgstr "Chunk-Größe"
 #: src/lib/y2partitioner/dialogs/md_options.rb:81
 msgid "Parity Algorithm"
 msgstr "Paritätsalgorithmus"
+
+#. TRANSLATORS: dialog title, where %{name} is the name of a partition (e.g., /dev/sda1)
+#: src/lib/y2partitioner/dialogs/partition_resize.rb:30
+#, fuzzy
+#| msgid "Resize Partition %1"
+msgid "Resize Partition %{name}"
+msgstr "Größe der Partition %1 ändern"
+
+#. @see Widgets::ControllerRadioButtons
+#: src/lib/y2partitioner/dialogs/partition_resize.rb:157
+#, fuzzy
+#| msgid "Maximum Size (%s)"
+msgid "Maximum Size (%{size})"
+msgstr "Maximale Größe (%s)"
+
+#: src/lib/y2partitioner/dialogs/partition_resize.rb:158
+#, fuzzy
+#| msgid "Minimum Size (%1)"
+msgid "Minimum Size (%{size})"
+msgstr "Minimale Größe (%1)"
+
+#. @macro seeAbstractWidget
+#: src/lib/y2partitioner/dialogs/partition_resize.rb:190
+msgid "<p>Choose new size.</p>"
+msgstr "<p>Wählen Sie die neue Größe .</p>"
 
 #. @macro seeAbstractWidget
 #: src/lib/y2partitioner/dialogs/partition_role.rb:49
@@ -769,40 +814,40 @@ msgid "No device selected"
 msgstr "Kein Gerät ausgewählt"
 
 #. TRANSLATORS: %s is a disk size. E.g. "10.5 GiB"
-#: src/lib/y2partitioner/widgets/devices_selection.rb:123
+#: src/lib/y2partitioner/widgets/devices_selection.rb:124
 msgid "Resulting size: %s"
 msgstr "Resultierende Größe: %s"
 
 #. TRANSLATORS: %s is a disk size. E.g. "10.5 GiB"
-#: src/lib/y2partitioner/widgets/devices_selection.rb:127
+#: src/lib/y2partitioner/widgets/devices_selection.rb:128
 msgid "Total size: %s"
 msgstr "Gesamtgröße: %s"
 
-#: src/lib/y2partitioner/widgets/devices_selection.rb:134
+#: src/lib/y2partitioner/widgets/devices_selection.rb:135
 msgid "Selected Devices:"
 msgstr "Ausgewählte Geräte:"
 
-#: src/lib/y2partitioner/widgets/devices_selection.rb:138
+#: src/lib/y2partitioner/widgets/devices_selection.rb:139
 msgid "Available Devices:"
 msgstr "Verfügbare Geräte:"
 
 #. push button text
-#: src/lib/y2partitioner/widgets/devices_selection.rb:147
+#: src/lib/y2partitioner/widgets/devices_selection.rb:159
 msgid "Add"
 msgstr "Hinzufügen"
 
 #. push button text
-#: src/lib/y2partitioner/widgets/devices_selection.rb:153
+#: src/lib/y2partitioner/widgets/devices_selection.rb:165
 msgid "Add All"
 msgstr "Alle Hinzufügen"
 
 #. push button text
-#: src/lib/y2partitioner/widgets/devices_selection.rb:160
+#: src/lib/y2partitioner/widgets/devices_selection.rb:172
 msgid "Remove"
 msgstr "Entfernen"
 
 #. push button text
-#: src/lib/y2partitioner/widgets/devices_selection.rb:166
+#: src/lib/y2partitioner/widgets/devices_selection.rb:178
 msgid "Remove All"
 msgstr "Alle Entfernen"
 
@@ -894,8 +939,8 @@ msgstr ""
 "</p>\n"
 "<p>\n"
 "Wenn das verschlüsselte Dateisystem keine Systemdatei enthält und daher\n"
-"nicht für die Aktualisierung erforderlich ist, können Sie <b>Überspringen</b>"
-"\n"
+"nicht für die Aktualisierung erforderlich ist, können Sie <b>Überspringen</"
+"b>\n"
 "auswählen. In diesem Fall erfolgt während der Aktualisierung kein Zugriff\n"
 "auf das Dateisystem.\n"
 "</p>\n"
@@ -951,8 +996,8 @@ msgid ""
 "be mounted and enter the mount point (/, /boot, /home, /var, etc.).</p>"
 msgstr ""
 "<p>Geben Sie danach an, ob die Partition gemountet\n"
-"werden soll, und geben Sie den Mountpoint ein (/, /boot, /home, /var "
-"usw.).</p>"
+"werden soll, und geben Sie den Mountpoint ein (/, /boot, /home, /var usw.).</"
+"p>"
 
 #: src/lib/y2partitioner/widgets/format_and_mount.rb:102
 msgid "Formatting Options"
@@ -1128,8 +1173,8 @@ msgid ""
 "The file system may be mounted by an ordinary user. Default is false.</p>\n"
 msgstr ""
 "<p><b>Durch Benutzer mountbar:</b>\n"
-"Normale Benutzer dürfen das Dateisystem mounten. Standardwert ist false.</p>"
-"\n"
+"Normale Benutzer dürfen das Dateisystem mounten. Standardwert ist false.</"
+"p>\n"
 
 #. CheckBox to enable the use of user quotas
 #: src/lib/y2partitioner/widgets/fstab_options.rb:324
@@ -1687,31 +1732,31 @@ msgid "Btrfs Volumes"
 msgstr "Btrfs-Volumes"
 
 #. @macro seeCustomWidget
-#: src/lib/y2partitioner/widgets/pages/disk.rb:72
+#: src/lib/y2partitioner/widgets/pages/disk.rb:73
 msgid "Hard Disk: %s"
 msgstr "Festplatte: %s"
 
 #. @macro seeAbstractWidget
 #. @macro seeAbstractWidget
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/pages/disk.rb:133
+#: src/lib/y2partitioner/widgets/pages/disk.rb:134
 #: src/lib/y2partitioner/widgets/pages/lvm_vg.rb:94
 #: src/lib/y2partitioner/widgets/pages/md_raid.rb:94
 msgid "&Overview"
 msgstr "Üb&erblick"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/pages/disk.rb:164
+#: src/lib/y2partitioner/widgets/pages/disk.rb:165
 msgid "&Partitions"
 msgstr "&Partitionen"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/pages/disks.rb:48
+#: src/lib/y2partitioner/widgets/pages/disks.rb:51
 msgid "Hard Disks"
 msgstr "Festplatten"
 
 #. TRANSLATORS: Heading. String followed by name of partition
-#: src/lib/y2partitioner/widgets/pages/disks.rb:62
+#: src/lib/y2partitioner/widgets/pages/disks.rb:65
 msgid "Hard Disks "
 msgstr "Festplatten "
 
@@ -1763,7 +1808,7 @@ msgid "RAID"
 msgstr "RAID"
 
 #. TRANSLATORS: Heading. String followed by name of partition
-#: src/lib/y2partitioner/widgets/pages/partition.rb:44
+#: src/lib/y2partitioner/widgets/pages/partition.rb:45
 msgid "Partition: "
 msgstr "Partition: "
 
@@ -1800,8 +1845,8 @@ msgid ""
 "That includes the result and settings of the guided setup as well as\n"
 "the manual changes performed in the expert partitioner."
 msgstr ""
-"Durch erneutes Scannen der Speichergeräte werden alle Konfigurationsoptionen,"
-"\n"
+"Durch erneutes Scannen der Speichergeräte werden alle "
+"Konfigurationsoptionen,\n"
 "die im Installer bezüglich des Speichers gemacht wurden, ungültig. Es "
 "besteht keine\n"
 "Möglichkeit dies rückgängig zu machen.\n"
@@ -2119,7 +2164,7 @@ msgstr ""
 #. Class to represent all the possible MD levels
 #.
 #. This is a wrapper for the Storage::MdLevel enum
-#: src/lib/y2storage/md_level.rb:36 src/lib/y2storage/partition_id.rb:54
+#: src/lib/y2storage/md_level.rb:36 src/lib/y2storage/partition_id.rb:55
 msgid "Unknown"
 msgstr "Unbekannt"
 
@@ -2240,63 +2285,63 @@ msgstr "Das Hinzufügen folgender Pakete schlug fehl: %s"
 #. Class to represent all the possible partition ids
 #.
 #. This is a wrapper for the Storage::ID enum
-#: src/lib/y2storage/partition_id.rb:39
+#: src/lib/y2storage/partition_id.rb:40
 msgid "DOS12"
 msgstr "DOS12"
 
-#: src/lib/y2storage/partition_id.rb:40
+#: src/lib/y2storage/partition_id.rb:41
 msgid "DOS16"
 msgstr "DOS16"
 
-#: src/lib/y2storage/partition_id.rb:41
+#: src/lib/y2storage/partition_id.rb:42
 msgid "DOS32"
 msgstr "DOS32"
 
-#: src/lib/y2storage/partition_id.rb:42
+#: src/lib/y2storage/partition_id.rb:43
 msgid "Linux Swap"
 msgstr "Linux Swap"
 
-#: src/lib/y2storage/partition_id.rb:43
+#: src/lib/y2storage/partition_id.rb:44
 msgid "Linux Native"
 msgstr "Linux Native"
 
-#: src/lib/y2storage/partition_id.rb:44
+#: src/lib/y2storage/partition_id.rb:45
 msgid "Linux LVM"
 msgstr "Linux LVM"
 
-#: src/lib/y2storage/partition_id.rb:45
+#: src/lib/y2storage/partition_id.rb:46
 msgid "Linux RAID"
 msgstr "Linux RAID"
 
-#: src/lib/y2storage/partition_id.rb:46
+#: src/lib/y2storage/partition_id.rb:47
 msgid "EFI System Partition"
 msgstr "EFI-System-Partition"
 
-#: src/lib/y2storage/partition_id.rb:47
+#: src/lib/y2storage/partition_id.rb:48
 msgid "BIOS Boot Partition"
 msgstr "BIOS-Boot-Partition"
 
-#: src/lib/y2storage/partition_id.rb:48
+#: src/lib/y2storage/partition_id.rb:49
 msgid "PReP Boot Partition"
 msgstr "PReP-Boot-Partition"
 
-#: src/lib/y2storage/partition_id.rb:49
+#: src/lib/y2storage/partition_id.rb:50
 msgid "NTFS"
 msgstr "NTFS"
 
-#: src/lib/y2storage/partition_id.rb:50
+#: src/lib/y2storage/partition_id.rb:51
 msgid "Extended"
 msgstr "Erweitert"
 
-#: src/lib/y2storage/partition_id.rb:51
+#: src/lib/y2storage/partition_id.rb:52
 msgid "Windows Data Partition"
 msgstr "Windows-Daten-Partition"
 
-#: src/lib/y2storage/partition_id.rb:52
+#: src/lib/y2storage/partition_id.rb:53
 msgid "Microsoft Reserved Partition"
 msgstr "Microsoft Reservierte Partition"
 
-#: src/lib/y2storage/partition_id.rb:53
+#: src/lib/y2storage/partition_id.rb:54
 msgid "Diagnostics Partition"
 msgstr "Diagnose-Partition"
 
@@ -4347,9 +4392,6 @@ msgstr "Diagnose-Partition"
 #~ "Die Größe von Partition %1 kann nicht geändert werden,\n"
 #~ "da das Dateisystem inkonsistent zu sein scheint.\n"
 
-#~ msgid "Resize Partition %1"
-#~ msgstr "Größe der Partition %1 ändern"
-
 #~ msgid "Resize Logical Volume %1"
 #~ msgstr "Größe des logischen Volumes %1 ändern"
 
@@ -4358,12 +4400,6 @@ msgstr "Diagnose-Partition"
 
 #~ msgid "Currently used: %1"
 #~ msgstr "Derzeit benutzt: %1"
-
-#~ msgid "Minimum Size (%1)"
-#~ msgstr "Minimale Größe (%1)"
-
-#~ msgid "<p>Choose new size.</p>"
-#~ msgstr "<p>Wählen Sie die neue Größe .</p>"
 
 #~ msgid ""
 #~ "You are extending a mounted filesystem by %1 Gigabyte. \n"
@@ -4553,9 +4589,6 @@ msgstr "Diagnose-Partition"
 #~ "Die Partition %1 ist in Benutzung. Ihre Größe kann nicht\n"
 #~ "geändert werden. Um die Größe von %1 zu ändern, stellen Sie sicher, dass "
 #~ "sie nicht in Benutzung ist."
-
-#~ msgid "An extended partition cannot be resized."
-#~ msgstr "Die Größe einer erweiterten Partition kann nicht geändert werden."
 
 #~ msgid ""
 #~ "<p>Select one or more (if available) hard disks\n"

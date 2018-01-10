@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: storage-ng.tr\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-11-29 02:29+0000\n"
+"POT-Creation-Date: 2018-01-10 16:56+0100\n"
 "PO-Revision-Date: 2004-09-21 02:03+0200\n"
 "Last-Translator: Arda Saltoglu <ardasaltoglu@gmx.net>\n"
 "Language-Team: Turkish <yast-int@suse.de>\n"
@@ -102,7 +102,7 @@ msgstr ""
 #: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:267
 #, fuzzy
 msgid ""
-"The data entered in invalid. Insert a physical extent size larger than 1 "
+"The data entered is invalid. Insert a physical extent size larger than 1 "
 "KiB\n"
 "in powers of 2 and multiple of 128 KiB, for example, \"512 KiB\" or \"4 MiB\""
 msgstr ""
@@ -112,7 +112,7 @@ msgstr ""
 
 #. TRANSLATORS: dialog title when creating a MD RAID.
 #. %s is a device name like /dev/md0
-#: src/lib/y2partitioner/actions/controllers/md.rb:146
+#: src/lib/y2partitioner/actions/controllers/md.rb:180
 #, fuzzy
 msgid "Add RAID %s"
 msgstr "RAID &ekle"
@@ -120,7 +120,7 @@ msgstr "RAID &ekle"
 # include/cups/ui.ycp:2589
 #. TRANSLATORS: dialog title when resizing a MD RAID.
 #. %s is a device name like /dev/md0
-#: src/lib/y2partitioner/actions/controllers/md.rb:150
+#: src/lib/y2partitioner/actions/controllers/md.rb:184
 #, fuzzy
 msgid "Resize RAID %s"
 msgstr "boyut %1"
@@ -190,6 +190,13 @@ msgstr "Disk bölümü düzenle"
 #: src/lib/y2partitioner/actions/edit_blk_device.rb:87
 #, fuzzy
 msgid "An extended partition cannot be edited"
+msgstr "Genişletilmiş bir bölüm zaten var."
+
+# clients/inst_custom_part.ycp:2587
+#. TRANSLATORS: an error popup message
+#: src/lib/y2partitioner/actions/resize_partition.rb:89
+#, fuzzy
+msgid "This partition cannot be resized."
 msgstr "Genişletilmiş bir bölüm zaten var."
 
 # include/partitioning/lvm_ui_lib.ycp:274
@@ -345,10 +352,14 @@ msgstr "Kullanan"
 #. @macro seeAbstractWidget
 #. @macro seeAbstractWidget
 #. @macro seeAbstractWidget
+#. @macro seeAbstractWidget
+#. @macro seeAbstractWidget
 #. TRANSLATORS: table header, size of block device e.g. "8.00 GiB"
 #: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:69
 #: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:145
 #: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:262
+#: src/lib/y2partitioner/dialogs/partition_resize.rb:152
+#: src/lib/y2partitioner/dialogs/partition_resize.rb:296
 #: src/lib/y2partitioner/dialogs/partition_size.rb:160
 #: src/lib/y2partitioner/widgets/blk_devices_table.rb:93
 msgid "Size"
@@ -361,13 +372,16 @@ msgid "Maximum Size (%s)"
 msgstr "En yüksek &boyut (MB)"
 
 #: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:78
+#: src/lib/y2partitioner/dialogs/partition_resize.rb:162
 #: src/lib/y2partitioner/dialogs/partition_size.rb:69
 #, fuzzy
 msgid "Custom Size"
 msgstr " -- Özelleştir"
 
 #. error popup, :min and :max are replaced by sizes
+#. TRANSLATORS: error popup message, where %{min} and %{max} are replaced by sizes.
 #: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:161
+#: src/lib/y2partitioner/dialogs/partition_resize.rb:209
 #, fuzzy
 msgid "The size entered is invalid. Enter a size between %{min} and %{max}."
 msgstr ""
@@ -488,6 +502,34 @@ msgstr "C&hunk büyüklüğü (KB olarak)"
 #, fuzzy
 msgid "Parity Algorithm"
 msgstr "Şifreleme yöntemleri"
+
+# clients/inst_do_resize.ycp:450
+#. TRANSLATORS: dialog title, where %{name} is the name of a partition (e.g., /dev/sda1)
+#: src/lib/y2partitioner/dialogs/partition_resize.rb:30
+#, fuzzy
+msgid "Resize Partition %{name}"
+msgstr "Bölümü &boyutlandır"
+
+#. @see Widgets::ControllerRadioButtons
+#: src/lib/y2partitioner/dialogs/partition_resize.rb:157
+#, fuzzy
+msgid "Maximum Size (%{size})"
+msgstr "En yüksek &boyut (MB)"
+
+#: src/lib/y2partitioner/dialogs/partition_resize.rb:158
+#, fuzzy
+msgid "Minimum Size (%{size})"
+msgstr "En yüksek &boyut (MB)"
+
+# clients/inst_resize_ui.ycp:607
+#. @macro seeAbstractWidget
+#: src/lib/y2partitioner/dialogs/partition_resize.rb:190
+#, fuzzy
+msgid "<p>Choose new size.</p>"
+msgstr ""
+"<p>\n"
+"%1 bölümünüz için yeni boyut seçin.\n"
+"</p>"
 
 #. @macro seeAbstractWidget
 #: src/lib/y2partitioner/dialogs/partition_role.rb:49
@@ -910,46 +952,46 @@ msgid "No device selected"
 msgstr "Bir ad sunucusu seçilmemiş."
 
 #. TRANSLATORS: %s is a disk size. E.g. "10.5 GiB"
-#: src/lib/y2partitioner/widgets/devices_selection.rb:123
+#: src/lib/y2partitioner/widgets/devices_selection.rb:124
 #, fuzzy
 msgid "Resulting size: %s"
 msgstr "Aygıt siliniyor: %1"
 
 #. TRANSLATORS: %s is a disk size. E.g. "10.5 GiB"
-#: src/lib/y2partitioner/widgets/devices_selection.rb:127
+#: src/lib/y2partitioner/widgets/devices_selection.rb:128
 #, fuzzy
 msgid "Total size: %s"
 msgstr "Tüm boyut: "
 
-#: src/lib/y2partitioner/widgets/devices_selection.rb:134
+#: src/lib/y2partitioner/widgets/devices_selection.rb:135
 #, fuzzy
 msgid "Selected Devices:"
 msgstr "Seçili IDE aygıtı"
 
-#: src/lib/y2partitioner/widgets/devices_selection.rb:138
+#: src/lib/y2partitioner/widgets/devices_selection.rb:139
 msgid "Available Devices:"
 msgstr "Mevcut aygıtlar:"
 
 #. push button text
-#: src/lib/y2partitioner/widgets/devices_selection.rb:147
+#: src/lib/y2partitioner/widgets/devices_selection.rb:159
 msgid "Add"
 msgstr "Ekle"
 
 #. push button text
-#: src/lib/y2partitioner/widgets/devices_selection.rb:153
+#: src/lib/y2partitioner/widgets/devices_selection.rb:165
 #, fuzzy
 msgid "Add All"
 msgstr "RAID &ekle"
 
 # clients/hwinfo.ycp:55
 #. push button text
-#: src/lib/y2partitioner/widgets/devices_selection.rb:160
+#: src/lib/y2partitioner/widgets/devices_selection.rb:172
 msgid "Remove"
 msgstr "Kaldır"
 
 # clients/hwinfo.ycp:55
 #. push button text
-#: src/lib/y2partitioner/widgets/devices_selection.rb:166
+#: src/lib/y2partitioner/widgets/devices_selection.rb:178
 #, fuzzy
 msgid "Remove All"
 msgstr "Kaldır"
@@ -1904,7 +1946,7 @@ msgstr "Mantıksal yığın boyutu değiştir"
 
 # clients/inst_source.ycp:186
 #. @macro seeCustomWidget
-#: src/lib/y2partitioner/widgets/pages/disk.rb:72
+#: src/lib/y2partitioner/widgets/pages/disk.rb:73
 #, fuzzy
 msgid "Hard Disk: %s"
 msgstr "Sabit disk"
@@ -1913,7 +1955,7 @@ msgstr "Sabit disk"
 #. @macro seeAbstractWidget
 #. @macro seeAbstractWidget
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/pages/disk.rb:133
+#: src/lib/y2partitioner/widgets/pages/disk.rb:134
 #: src/lib/y2partitioner/widgets/pages/lvm_vg.rb:94
 #: src/lib/y2partitioner/widgets/pages/md_raid.rb:94
 msgid "&Overview"
@@ -1921,21 +1963,21 @@ msgstr "&Genel görünüm"
 
 # clients/inst_sw_single.ycp:1539
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/pages/disk.rb:164
+#: src/lib/y2partitioner/widgets/pages/disk.rb:165
 #, fuzzy
 msgid "&Partitions"
 msgstr "Bölüm"
 
 # clients/inst_source.ycp:186
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/pages/disks.rb:48
+#: src/lib/y2partitioner/widgets/pages/disks.rb:51
 #, fuzzy
 msgid "Hard Disks"
 msgstr "Sabit disk"
 
 # clients/inst_source.ycp:186
 #. TRANSLATORS: Heading. String followed by name of partition
-#: src/lib/y2partitioner/widgets/pages/disks.rb:62
+#: src/lib/y2partitioner/widgets/pages/disks.rb:65
 #, fuzzy
 msgid "Hard Disks "
 msgstr "Sabit disk"
@@ -2000,7 +2042,7 @@ msgstr "R&AID:"
 
 # menuentries/menuentry_disk.ycp:27
 #. TRANSLATORS: Heading. String followed by name of partition
-#: src/lib/y2partitioner/widgets/pages/partition.rb:44
+#: src/lib/y2partitioner/widgets/pages/partition.rb:45
 #, fuzzy
 msgid "Partition: "
 msgstr "Bölüm 1"
@@ -2422,7 +2464,7 @@ msgstr ""
 #. Class to represent all the possible MD levels
 #.
 #. This is a wrapper for the Storage::MdLevel enum
-#: src/lib/y2storage/md_level.rb:36 src/lib/y2storage/partition_id.rb:54
+#: src/lib/y2storage/md_level.rb:36 src/lib/y2storage/partition_id.rb:55
 #, fuzzy
 #| msgid "unknown"
 msgid "Unknown"
@@ -2566,86 +2608,86 @@ msgstr "Gerekli paketlerin kurulumu başarısız oldu."
 #. Class to represent all the possible partition ids
 #.
 #. This is a wrapper for the Storage::ID enum
-#: src/lib/y2storage/partition_id.rb:39
+#: src/lib/y2storage/partition_id.rb:40
 msgid "DOS12"
 msgstr ""
 
-#: src/lib/y2storage/partition_id.rb:40
+#: src/lib/y2storage/partition_id.rb:41
 msgid "DOS16"
 msgstr ""
 
-#: src/lib/y2storage/partition_id.rb:41
+#: src/lib/y2storage/partition_id.rb:42
 msgid "DOS32"
 msgstr ""
 
 # clients/inst_resize_ui.ycp:702
-#: src/lib/y2storage/partition_id.rb:42
+#: src/lib/y2storage/partition_id.rb:43
 #, fuzzy
 #| msgid "Linux"
 msgid "Linux Swap"
 msgstr "Linux"
 
 # clients/inst_resize_ui.ycp:702
-#: src/lib/y2storage/partition_id.rb:43
+#: src/lib/y2storage/partition_id.rb:44
 #, fuzzy
 #| msgid "Linux"
 msgid "Linux Native"
 msgstr "Linux"
 
 # clients/inst_resize_ui.ycp:702
-#: src/lib/y2storage/partition_id.rb:44
+#: src/lib/y2storage/partition_id.rb:45
 msgid "Linux LVM"
 msgstr "Linux LVM"
 
 # clients/inst_resize_ui.ycp:702
-#: src/lib/y2storage/partition_id.rb:45
+#: src/lib/y2storage/partition_id.rb:46
 #, fuzzy
 #| msgid "Linux"
 msgid "Linux RAID"
 msgstr "Linux"
 
 # include/cups/ui.ycp:1525
-#: src/lib/y2storage/partition_id.rb:46
+#: src/lib/y2storage/partition_id.rb:47
 #, fuzzy
 msgid "EFI System Partition"
 msgstr "Bölümün boyutu."
 
 # include/cups/ui.ycp:1525
-#: src/lib/y2storage/partition_id.rb:47
+#: src/lib/y2storage/partition_id.rb:48
 #, fuzzy
 msgid "BIOS Boot Partition"
 msgstr "Bölümün boyutu."
 
 # include/cups/ui.ycp:1525
-#: src/lib/y2storage/partition_id.rb:48
+#: src/lib/y2storage/partition_id.rb:49
 #, fuzzy
 msgid "PReP Boot Partition"
 msgstr "Bölümün boyutu."
 
-#: src/lib/y2storage/partition_id.rb:49
+#: src/lib/y2storage/partition_id.rb:50
 msgid "NTFS"
 msgstr ""
 
-#: src/lib/y2storage/partition_id.rb:50
+#: src/lib/y2storage/partition_id.rb:51
 msgid "Extended"
 msgstr ""
 
 #
 # include/partitioning/auto_part_ui.ycp:151
-#: src/lib/y2storage/partition_id.rb:51
+#: src/lib/y2storage/partition_id.rb:52
 #, fuzzy
 #| msgid "&Shrink Windows partition"
 msgid "Windows Data Partition"
 msgstr "&Windows bölümünü küçült"
 
 # clients/inst_sw_single.ycp:1539
-#: src/lib/y2storage/partition_id.rb:52
+#: src/lib/y2storage/partition_id.rb:53
 #, fuzzy
 msgid "Microsoft Reserved Partition"
 msgstr "bölüm"
 
 # clients/inst_sw_single.ycp:1539
-#: src/lib/y2storage/partition_id.rb:53
+#: src/lib/y2storage/partition_id.rb:54
 #, fuzzy
 msgid "Diagnostics Partition"
 msgstr "bölüm"
@@ -4677,11 +4719,6 @@ msgstr "bölüm"
 #~ "%1 bölümünün boyutu değiştirilemiyor\n"
 #~ "çünkü dosya sistemi sisteme bağlanamıyor.\n"
 
-# clients/inst_do_resize.ycp:450
-#, fuzzy
-#~ msgid "Resize Partition %1"
-#~ msgstr "Bölümü &boyutlandır"
-
 # include/partitioning/lvm_ui_dialogs.ycp:81
 #, fuzzy
 #~ msgid "Resize Logical Volume %1"
@@ -4697,18 +4734,6 @@ msgstr "bölüm"
 #~ msgstr ""
 #~ "\n"
 #~ "\tGeçerli değer: %1"
-
-#, fuzzy
-#~ msgid "Minimum Size (%1)"
-#~ msgstr "En yüksek &boyut (MB)"
-
-# clients/inst_resize_ui.ycp:607
-#, fuzzy
-#~ msgid "<p>Choose new size.</p>"
-#~ msgstr ""
-#~ "<p>\n"
-#~ "%1 bölümünüz için yeni boyut seçin.\n"
-#~ "</p>"
 
 #, fuzzy
 #~ msgid "Output of %1"
@@ -4943,11 +4968,6 @@ msgstr "bölüm"
 #~ "Değiştirilecek RAID (%1) diskte zaten oluşturulmuş durumda.\n"
 #~ "Bu şekilde değişiklik yapılamaz. %1 RAID'ini değiştirebilmeniz\n"
 #~ "için silip yeniden oluşturmalısınız.\n"
-
-# clients/inst_custom_part.ycp:2587
-#, fuzzy
-#~ msgid "An extended partition cannot be resized."
-#~ msgstr "Genişletilmiş bir bölüm zaten var."
 
 #, fuzzy
 #~| msgid "Really delete the selected option?"
