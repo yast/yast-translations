@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: storage-ng.ko\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-11-29 02:29+0000\n"
+"POT-Creation-Date: 2018-01-10 16:56+0100\n"
 "PO-Revision-Date: 2009-11-04 16:54+0900\n"
 "Last-Translator: Yunseok Choi <xein@naver.com>\n"
 "Language-Team: Korean <xein@naver.com>\n"
@@ -121,7 +121,7 @@ msgstr ""
 #| "%1\n"
 #| "in powers of 2, for example, \"%2\" or \"%3\""
 msgid ""
-"The data entered in invalid. Insert a physical extent size larger than 1 "
+"The data entered is invalid. Insert a physical extent size larger than 1 "
 "KiB\n"
 "in powers of 2 and multiple of 128 KiB, for example, \"512 KiB\" or \"4 MiB\""
 msgstr ""
@@ -130,7 +130,7 @@ msgstr ""
 
 #. TRANSLATORS: dialog title when creating a MD RAID.
 #. %s is a device name like /dev/md0
-#: src/lib/y2partitioner/actions/controllers/md.rb:146
+#: src/lib/y2partitioner/actions/controllers/md.rb:180
 #, fuzzy
 #| msgid "Add RAID %1"
 msgid "Add RAID %s"
@@ -138,7 +138,7 @@ msgstr "RAID 추가 %1"
 
 #. TRANSLATORS: dialog title when resizing a MD RAID.
 #. %s is a device name like /dev/md0
-#: src/lib/y2partitioner/actions/controllers/md.rb:150
+#: src/lib/y2partitioner/actions/controllers/md.rb:184
 #, fuzzy
 #| msgid "Resize RAID %1"
 msgid "Resize RAID %s"
@@ -216,6 +216,13 @@ msgstr " %1 파티션 편집"
 #| msgid "An extended partition cannot be edited."
 msgid "An extended partition cannot be edited"
 msgstr "확장 파티션을 편집할 수 없습니다."
+
+#. TRANSLATORS: an error popup message
+#: src/lib/y2partitioner/actions/resize_partition.rb:89
+#, fuzzy
+#| msgid "An extended partition cannot be resized."
+msgid "This partition cannot be resized."
+msgstr "확장 파티션의 크기를 조정할 수 없습니다."
 
 #. @param filesystem [Y2Storage::Filesystems::BlkFilesystem] a btrfs filesystem
 #: src/lib/y2partitioner/dialogs/btrfs_subvolume.rb:24
@@ -361,10 +368,14 @@ msgstr "사용된 풀"
 #. @macro seeAbstractWidget
 #. @macro seeAbstractWidget
 #. @macro seeAbstractWidget
+#. @macro seeAbstractWidget
+#. @macro seeAbstractWidget
 #. TRANSLATORS: table header, size of block device e.g. "8.00 GiB"
 #: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:69
 #: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:145
 #: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:262
+#: src/lib/y2partitioner/dialogs/partition_resize.rb:152
+#: src/lib/y2partitioner/dialogs/partition_resize.rb:296
 #: src/lib/y2partitioner/dialogs/partition_size.rb:160
 #: src/lib/y2partitioner/widgets/blk_devices_table.rb:93
 msgid "Size"
@@ -379,12 +390,15 @@ msgid "Maximum Size (%s)"
 msgstr "최대 크기 (%1)"
 
 #: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:78
+#: src/lib/y2partitioner/dialogs/partition_resize.rb:162
 #: src/lib/y2partitioner/dialogs/partition_size.rb:69
 msgid "Custom Size"
 msgstr "사용자 정의 크기"
 
 #. error popup, :min and :max are replaced by sizes
+#. TRANSLATORS: error popup message, where %{min} and %{max} are replaced by sizes.
 #: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:161
+#: src/lib/y2partitioner/dialogs/partition_resize.rb:209
 #, fuzzy
 #| msgid "The size entered is invalid. Enter a size between %1 and %2."
 msgid "The size entered is invalid. Enter a size between %{min} and %{max}."
@@ -502,6 +516,33 @@ msgstr "Chunk 크기"
 #: src/lib/y2partitioner/dialogs/md_options.rb:81
 msgid "Parity Algorithm"
 msgstr "Parity 알고리즘"
+
+#. TRANSLATORS: dialog title, where %{name} is the name of a partition (e.g., /dev/sda1)
+#: src/lib/y2partitioner/dialogs/partition_resize.rb:30
+#, fuzzy
+#| msgid "Resize Partition %1"
+msgid "Resize Partition %{name}"
+msgstr "%1 파티션 크기 조정"
+
+#  IntField - max. log size
+#. @see Widgets::ControllerRadioButtons
+#: src/lib/y2partitioner/dialogs/partition_resize.rb:157
+#, fuzzy
+#| msgid "Maximum Size (%1)"
+msgid "Maximum Size (%{size})"
+msgstr "최대 크기 (%1)"
+
+#  IntField - max. log size
+#: src/lib/y2partitioner/dialogs/partition_resize.rb:158
+#, fuzzy
+#| msgid "Minimum Size (%1)"
+msgid "Minimum Size (%{size})"
+msgstr "최소 크기 (%1)"
+
+#. @macro seeAbstractWidget
+#: src/lib/y2partitioner/dialogs/partition_resize.rb:190
+msgid "<p>Choose new size.</p>"
+msgstr "<p>새 크기를 선택하세요.</p>"
 
 #. @macro seeAbstractWidget
 #: src/lib/y2partitioner/dialogs/partition_role.rb:49
@@ -896,47 +937,47 @@ msgid "No device selected"
 msgstr "DM 장치를 선택하지 않았습니다."
 
 #. TRANSLATORS: %s is a disk size. E.g. "10.5 GiB"
-#: src/lib/y2partitioner/widgets/devices_selection.rb:123
+#: src/lib/y2partitioner/widgets/devices_selection.rb:124
 #, fuzzy
 #| msgid "Resulting size: %1"
 msgid "Resulting size: %s"
 msgstr "결과 크기: %1"
 
 #. TRANSLATORS: %s is a disk size. E.g. "10.5 GiB"
-#: src/lib/y2partitioner/widgets/devices_selection.rb:127
+#: src/lib/y2partitioner/widgets/devices_selection.rb:128
 #, fuzzy
 #| msgid "Total size: %1"
 msgid "Total size: %s"
 msgstr "전체 크기: %1"
 
 #  option description
-#: src/lib/y2partitioner/widgets/devices_selection.rb:134
+#: src/lib/y2partitioner/widgets/devices_selection.rb:135
 msgid "Selected Devices:"
 msgstr "선택한 장치:"
 
 #  Headline
-#: src/lib/y2partitioner/widgets/devices_selection.rb:138
+#: src/lib/y2partitioner/widgets/devices_selection.rb:139
 msgid "Available Devices:"
 msgstr "사용 가능한 장치들:"
 
 #  Pushbutton label - add host into list
 #. push button text
-#: src/lib/y2partitioner/widgets/devices_selection.rb:147
+#: src/lib/y2partitioner/widgets/devices_selection.rb:159
 msgid "Add"
 msgstr "추가"
 
 #. push button text
-#: src/lib/y2partitioner/widgets/devices_selection.rb:153
+#: src/lib/y2partitioner/widgets/devices_selection.rb:165
 msgid "Add All"
 msgstr "모두 추가"
 
 #. push button text
-#: src/lib/y2partitioner/widgets/devices_selection.rb:160
+#: src/lib/y2partitioner/widgets/devices_selection.rb:172
 msgid "Remove"
 msgstr "제거"
 
 #. push button text
-#: src/lib/y2partitioner/widgets/devices_selection.rb:166
+#: src/lib/y2partitioner/widgets/devices_selection.rb:178
 msgid "Remove All"
 msgstr "모두 제거"
 
@@ -1923,7 +1964,7 @@ msgstr "BTRFS 볼륨"
 #  are allowed, otherwise translartion won't be used
 #  try to keep short, may be shortened due to bootloader limitations
 #. @macro seeCustomWidget
-#: src/lib/y2partitioner/widgets/pages/disk.rb:72
+#: src/lib/y2partitioner/widgets/pages/disk.rb:73
 #, fuzzy
 #| msgid "Hard Disks"
 msgid "Hard Disk: %s"
@@ -1932,14 +1973,14 @@ msgstr "하드 디스크"
 #. @macro seeAbstractWidget
 #. @macro seeAbstractWidget
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/pages/disk.rb:133
+#: src/lib/y2partitioner/widgets/pages/disk.rb:134
 #: src/lib/y2partitioner/widgets/pages/lvm_vg.rb:94
 #: src/lib/y2partitioner/widgets/pages/md_raid.rb:94
 msgid "&Overview"
 msgstr "개요(&O)"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/pages/disk.rb:164
+#: src/lib/y2partitioner/widgets/pages/disk.rb:165
 msgid "&Partitions"
 msgstr "파티션(&P)"
 
@@ -1947,7 +1988,7 @@ msgstr "파티션(&P)"
 #  are allowed, otherwise translartion won't be used
 #  try to keep short, may be shortened due to bootloader limitations
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/pages/disks.rb:48
+#: src/lib/y2partitioner/widgets/pages/disks.rb:51
 msgid "Hard Disks"
 msgstr "하드 디스크"
 
@@ -1955,7 +1996,7 @@ msgstr "하드 디스크"
 #  are allowed, otherwise translartion won't be used
 #  try to keep short, may be shortened due to bootloader limitations
 #. TRANSLATORS: Heading. String followed by name of partition
-#: src/lib/y2partitioner/widgets/pages/disks.rb:62
+#: src/lib/y2partitioner/widgets/pages/disks.rb:65
 #, fuzzy
 #| msgid "Hard Disks"
 msgid "Hard Disks "
@@ -2017,7 +2058,7 @@ msgid "RAID"
 msgstr "RAID"
 
 #. TRANSLATORS: Heading. String followed by name of partition
-#: src/lib/y2partitioner/widgets/pages/partition.rb:44
+#: src/lib/y2partitioner/widgets/pages/partition.rb:45
 #, fuzzy
 #| msgid "Partition: %1"
 msgid "Partition: "
@@ -2427,7 +2468,7 @@ msgstr ""
 #. Class to represent all the possible MD levels
 #.
 #. This is a wrapper for the Storage::MdLevel enum
-#: src/lib/y2storage/md_level.rb:36 src/lib/y2storage/partition_id.rb:54
+#: src/lib/y2storage/md_level.rb:36 src/lib/y2storage/partition_id.rb:55
 msgid "Unknown"
 msgstr ""
 
@@ -2573,22 +2614,22 @@ msgstr "다음 resolvable을 추가하지 못했습니다. %1"
 #. Class to represent all the possible partition ids
 #.
 #. This is a wrapper for the Storage::ID enum
-#: src/lib/y2storage/partition_id.rb:39
+#: src/lib/y2storage/partition_id.rb:40
 msgid "DOS12"
 msgstr ""
 
-#: src/lib/y2storage/partition_id.rb:40
+#: src/lib/y2storage/partition_id.rb:41
 msgid "DOS16"
 msgstr ""
 
-#: src/lib/y2storage/partition_id.rb:41
+#: src/lib/y2storage/partition_id.rb:42
 msgid "DOS32"
 msgstr ""
 
 #  entry of bootloader menu - only a-z, A-Z, 0-9, _ and blank space
 #  are allowed, otherwise translartion won't be used
 #  try to keep short, may be shortened due to bootloader limitations
-#: src/lib/y2storage/partition_id.rb:42
+#: src/lib/y2storage/partition_id.rb:43
 #, fuzzy
 #| msgid "Linux"
 msgid "Linux Swap"
@@ -2597,7 +2638,7 @@ msgstr "리눅스"
 #  entry of bootloader menu - only a-z, A-Z, 0-9, _ and blank space
 #  are allowed, otherwise translartion won't be used
 #  try to keep short, may be shortened due to bootloader limitations
-#: src/lib/y2storage/partition_id.rb:43
+#: src/lib/y2storage/partition_id.rb:44
 #, fuzzy
 #| msgid "Linux"
 msgid "Linux Native"
@@ -2606,7 +2647,7 @@ msgstr "리눅스"
 #  entry of bootloader menu - only a-z, A-Z, 0-9, _ and blank space
 #  are allowed, otherwise translartion won't be used
 #  try to keep short, may be shortened due to bootloader limitations
-#: src/lib/y2storage/partition_id.rb:44
+#: src/lib/y2storage/partition_id.rb:45
 #, fuzzy
 #| msgid "Linux"
 msgid "Linux LVM"
@@ -2615,51 +2656,51 @@ msgstr "리눅스"
 #  entry of bootloader menu - only a-z, A-Z, 0-9, _ and blank space
 #  are allowed, otherwise translartion won't be used
 #  try to keep short, may be shortened due to bootloader limitations
-#: src/lib/y2storage/partition_id.rb:45
+#: src/lib/y2storage/partition_id.rb:46
 #, fuzzy
 #| msgid "Linux"
 msgid "Linux RAID"
 msgstr "리눅스"
 
-#: src/lib/y2storage/partition_id.rb:46
+#: src/lib/y2storage/partition_id.rb:47
 #, fuzzy
 #| msgid "EFI Boot Partition"
 msgid "EFI System Partition"
 msgstr "EFI 부트 파티션"
 
-#: src/lib/y2storage/partition_id.rb:47
+#: src/lib/y2storage/partition_id.rb:48
 #, fuzzy
 #| msgid "EFI Boot Partition"
 msgid "BIOS Boot Partition"
 msgstr "EFI 부트 파티션"
 
-#: src/lib/y2storage/partition_id.rb:48
+#: src/lib/y2storage/partition_id.rb:49
 #, fuzzy
 #| msgid "EFI Boot Partition"
 msgid "PReP Boot Partition"
 msgstr "EFI 부트 파티션"
 
-#: src/lib/y2storage/partition_id.rb:49
+#: src/lib/y2storage/partition_id.rb:50
 msgid "NTFS"
 msgstr ""
 
-#: src/lib/y2storage/partition_id.rb:50
+#: src/lib/y2storage/partition_id.rb:51
 msgid "Extended"
 msgstr ""
 
-#: src/lib/y2storage/partition_id.rb:51
+#: src/lib/y2storage/partition_id.rb:52
 #, fuzzy
 #| msgid "&Shrink Windows Partition"
 msgid "Windows Data Partition"
 msgstr "Windows 파티션 축소(&S)"
 
-#: src/lib/y2storage/partition_id.rb:52
+#: src/lib/y2storage/partition_id.rb:53
 #, fuzzy
 #| msgid "&Logical Partition"
 msgid "Microsoft Reserved Partition"
 msgstr "논리적 파티션(&L)"
 
-#: src/lib/y2storage/partition_id.rb:53
+#: src/lib/y2storage/partition_id.rb:54
 #, fuzzy
 #| msgid "&Logical Partition"
 msgid "Diagnostics Partition"
@@ -4717,9 +4758,6 @@ msgstr "논리적 파티션(&L)"
 #~ "파일 시스템에 일관성이 없기 때문에\n"
 #~ "%1 파티션의 크기를 조정할 수 없습니다.\n"
 
-#~ msgid "Resize Partition %1"
-#~ msgstr "%1 파티션 크기 조정"
-
 #~ msgid "Resize Logical Volume %1"
 #~ msgstr "%1 논리 볼륨 크기 조정"
 
@@ -4730,13 +4768,6 @@ msgstr "논리적 파티션(&L)"
 #  table header
 #~ msgid "Currently used: %1"
 #~ msgstr "현재 사용: %1"
-
-#  IntField - max. log size
-#~ msgid "Minimum Size (%1)"
-#~ msgstr "최소 크기 (%1)"
-
-#~ msgid "<p>Choose new size.</p>"
-#~ msgstr "<p>새 크기를 선택하세요.</p>"
 
 #~ msgid ""
 #~ "You are extending a mounted filesystem by %1 Gigabyte. \n"
@@ -4932,9 +4963,6 @@ msgstr "논리적 파티션(&L)"
 #~ msgstr ""
 #~ "파티션 %1 은 사용 중입니다. 크기변경을\n"
 #~ "할 수 없습니다. %1 을 크기 변경하려면 사용을 해제시켜야 합니다."
-
-#~ msgid "An extended partition cannot be resized."
-#~ msgstr "확장 파티션의 크기를 조정할 수 없습니다."
 
 #~ msgid ""
 #~ "<p>Select one or more (if available) hard disks\n"

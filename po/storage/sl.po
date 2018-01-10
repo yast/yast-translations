@@ -17,7 +17,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: storage\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-11-29 02:29+0000\n"
+"POT-Creation-Date: 2018-01-10 16:56+0100\n"
 "PO-Revision-Date: 2014-09-24 21:00+0200\n"
 "Last-Translator: Jure Repinc <jlp@holodeck1.com>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
@@ -129,7 +129,7 @@ msgstr ""
 #| "%1\n"
 #| "in powers of 2, for example, \"%2\" or \"%3\""
 msgid ""
-"The data entered in invalid. Insert a physical extent size larger than 1 "
+"The data entered is invalid. Insert a physical extent size larger than 1 "
 "KiB\n"
 "in powers of 2 and multiple of 128 KiB, for example, \"512 KiB\" or \"4 MiB\""
 msgstr ""
@@ -138,7 +138,7 @@ msgstr ""
 
 #. TRANSLATORS: dialog title when creating a MD RAID.
 #. %s is a device name like /dev/md0
-#: src/lib/y2partitioner/actions/controllers/md.rb:146
+#: src/lib/y2partitioner/actions/controllers/md.rb:180
 #, fuzzy
 #| msgid "Add RAID %1"
 msgid "Add RAID %s"
@@ -146,7 +146,7 @@ msgstr "Dodaj RAID %1"
 
 #. TRANSLATORS: dialog title when resizing a MD RAID.
 #. %s is a device name like /dev/md0
-#: src/lib/y2partitioner/actions/controllers/md.rb:150
+#: src/lib/y2partitioner/actions/controllers/md.rb:184
 #, fuzzy
 #| msgid "Resize RAID %1"
 msgid "Resize RAID %s"
@@ -221,6 +221,13 @@ msgstr "Uredi razdelek %1"
 #| msgid "An extended partition cannot be edited."
 msgid "An extended partition cannot be edited"
 msgstr "Razširjenega razdelka ni moč urejati."
+
+#. TRANSLATORS: an error popup message
+#: src/lib/y2partitioner/actions/resize_partition.rb:89
+#, fuzzy
+#| msgid "An extended partition cannot be resized."
+msgid "This partition cannot be resized."
+msgstr "Razširjenemu razdelku ni moč spreminjati velikosti."
 
 #. @param filesystem [Y2Storage::Filesystems::BlkFilesystem] a btrfs filesystem
 #: src/lib/y2partitioner/dialogs/btrfs_subvolume.rb:24
@@ -363,10 +370,14 @@ msgstr "Uporabljena zaloga"
 #. @macro seeAbstractWidget
 #. @macro seeAbstractWidget
 #. @macro seeAbstractWidget
+#. @macro seeAbstractWidget
+#. @macro seeAbstractWidget
 #. TRANSLATORS: table header, size of block device e.g. "8.00 GiB"
 #: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:69
 #: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:145
 #: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:262
+#: src/lib/y2partitioner/dialogs/partition_resize.rb:152
+#: src/lib/y2partitioner/dialogs/partition_resize.rb:296
 #: src/lib/y2partitioner/dialogs/partition_size.rb:160
 #: src/lib/y2partitioner/widgets/blk_devices_table.rb:93
 msgid "Size"
@@ -380,12 +391,15 @@ msgid "Maximum Size (%s)"
 msgstr "Največja velikost (%1)"
 
 #: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:78
+#: src/lib/y2partitioner/dialogs/partition_resize.rb:162
 #: src/lib/y2partitioner/dialogs/partition_size.rb:69
 msgid "Custom Size"
 msgstr "Velikost po meri"
 
 #. error popup, :min and :max are replaced by sizes
+#. TRANSLATORS: error popup message, where %{min} and %{max} are replaced by sizes.
 #: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:161
+#: src/lib/y2partitioner/dialogs/partition_resize.rb:209
 #, fuzzy
 #| msgid "The size entered is invalid. Enter a size between %1 and %2."
 msgid "The size entered is invalid. Enter a size between %{min} and %{max}."
@@ -490,6 +504,31 @@ msgstr "Velikost delcev"
 #: src/lib/y2partitioner/dialogs/md_options.rb:81
 msgid "Parity Algorithm"
 msgstr "Algoritem parnosti"
+
+#. TRANSLATORS: dialog title, where %{name} is the name of a partition (e.g., /dev/sda1)
+#: src/lib/y2partitioner/dialogs/partition_resize.rb:30
+#, fuzzy
+#| msgid "Resize Partition %1"
+msgid "Resize Partition %{name}"
+msgstr "Spremeni velikost razdelka %1"
+
+#. @see Widgets::ControllerRadioButtons
+#: src/lib/y2partitioner/dialogs/partition_resize.rb:157
+#, fuzzy
+#| msgid "Maximum Size (%1)"
+msgid "Maximum Size (%{size})"
+msgstr "Največja velikost (%1)"
+
+#: src/lib/y2partitioner/dialogs/partition_resize.rb:158
+#, fuzzy
+#| msgid "Minimum Size (%1)"
+msgid "Minimum Size (%{size})"
+msgstr "Najmanjša velikost (%1)"
+
+#. @macro seeAbstractWidget
+#: src/lib/y2partitioner/dialogs/partition_resize.rb:190
+msgid "<p>Choose new size.</p>"
+msgstr "<p>Izberite novo velikost.</p>"
 
 #. @macro seeAbstractWidget
 #: src/lib/y2partitioner/dialogs/partition_role.rb:49
@@ -861,14 +900,14 @@ msgid "No device selected"
 msgstr "izbrana ni nobena naprava DM."
 
 #. TRANSLATORS: %s is a disk size. E.g. "10.5 GiB"
-#: src/lib/y2partitioner/widgets/devices_selection.rb:123
+#: src/lib/y2partitioner/widgets/devices_selection.rb:124
 #, fuzzy
 #| msgid "Resulting size: %1"
 msgid "Resulting size: %s"
 msgstr "Končna velikost: %1"
 
 #. TRANSLATORS: %s is a disk size. E.g. "10.5 GiB"
-#: src/lib/y2partitioner/widgets/devices_selection.rb:127
+#: src/lib/y2partitioner/widgets/devices_selection.rb:128
 #, fuzzy
 #| msgid "Total size: %1"
 msgid "Total size: %s"
@@ -876,31 +915,31 @@ msgstr "Skupna velikost: %1"
 
 # &W is taken by &Weiter
 # 2001-06-28 16:18:52 CEST -ke-
-#: src/lib/y2partitioner/widgets/devices_selection.rb:134
+#: src/lib/y2partitioner/widgets/devices_selection.rb:135
 msgid "Selected Devices:"
 msgstr "Izbrane naprave:"
 
-#: src/lib/y2partitioner/widgets/devices_selection.rb:138
+#: src/lib/y2partitioner/widgets/devices_selection.rb:139
 msgid "Available Devices:"
 msgstr "Razpoložljive naprave:"
 
 #. push button text
-#: src/lib/y2partitioner/widgets/devices_selection.rb:147
+#: src/lib/y2partitioner/widgets/devices_selection.rb:159
 msgid "Add"
 msgstr "Dodaj"
 
 #. push button text
-#: src/lib/y2partitioner/widgets/devices_selection.rb:153
+#: src/lib/y2partitioner/widgets/devices_selection.rb:165
 msgid "Add All"
 msgstr "Dodaj vse"
 
 #. push button text
-#: src/lib/y2partitioner/widgets/devices_selection.rb:160
+#: src/lib/y2partitioner/widgets/devices_selection.rb:172
 msgid "Remove"
 msgstr "Odstrani"
 
 #. push button text
-#: src/lib/y2partitioner/widgets/devices_selection.rb:166
+#: src/lib/y2partitioner/widgets/devices_selection.rb:178
 msgid "Remove All"
 msgstr "Odstrani vse"
 
@@ -1849,7 +1888,7 @@ msgstr "Nosilci Btrfs"
 # &F is taken by "&FTP"
 # 2001-10-12 11:34:26 CEST -ke-
 #. @macro seeCustomWidget
-#: src/lib/y2partitioner/widgets/pages/disk.rb:72
+#: src/lib/y2partitioner/widgets/pages/disk.rb:73
 #, fuzzy
 #| msgid "Hard Disks"
 msgid "Hard Disk: %s"
@@ -1858,28 +1897,28 @@ msgstr "Trdi diski"
 #. @macro seeAbstractWidget
 #. @macro seeAbstractWidget
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/pages/disk.rb:133
+#: src/lib/y2partitioner/widgets/pages/disk.rb:134
 #: src/lib/y2partitioner/widgets/pages/lvm_vg.rb:94
 #: src/lib/y2partitioner/widgets/pages/md_raid.rb:94
 msgid "&Overview"
 msgstr "&Pregled"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/pages/disk.rb:164
+#: src/lib/y2partitioner/widgets/pages/disk.rb:165
 msgid "&Partitions"
 msgstr "&Razdelki"
 
 # &F is taken by "&FTP"
 # 2001-10-12 11:34:26 CEST -ke-
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/pages/disks.rb:48
+#: src/lib/y2partitioner/widgets/pages/disks.rb:51
 msgid "Hard Disks"
 msgstr "Trdi diski"
 
 # &F is taken by "&FTP"
 # 2001-10-12 11:34:26 CEST -ke-
 #. TRANSLATORS: Heading. String followed by name of partition
-#: src/lib/y2partitioner/widgets/pages/disks.rb:62
+#: src/lib/y2partitioner/widgets/pages/disks.rb:65
 #, fuzzy
 #| msgid "Hard Disks"
 msgid "Hard Disks "
@@ -1941,7 +1980,7 @@ msgid "RAID"
 msgstr "RAID"
 
 #. TRANSLATORS: Heading. String followed by name of partition
-#: src/lib/y2partitioner/widgets/pages/partition.rb:44
+#: src/lib/y2partitioner/widgets/pages/partition.rb:45
 #, fuzzy
 #| msgid "Partition: %1"
 msgid "Partition: "
@@ -2344,7 +2383,7 @@ msgstr ""
 #. Class to represent all the possible MD levels
 #.
 #. This is a wrapper for the Storage::MdLevel enum
-#: src/lib/y2storage/md_level.rb:36 src/lib/y2storage/partition_id.rb:54
+#: src/lib/y2storage/md_level.rb:36 src/lib/y2storage/partition_id.rb:55
 #, fuzzy
 #| msgid "unknown"
 msgid "Unknown"
@@ -2491,78 +2530,78 @@ msgstr "Dodajanje naslednjih razrešitev ni uspelo: %1"
 #. Class to represent all the possible partition ids
 #.
 #. This is a wrapper for the Storage::ID enum
-#: src/lib/y2storage/partition_id.rb:39
+#: src/lib/y2storage/partition_id.rb:40
 msgid "DOS12"
 msgstr ""
 
-#: src/lib/y2storage/partition_id.rb:40
+#: src/lib/y2storage/partition_id.rb:41
 msgid "DOS16"
 msgstr ""
 
-#: src/lib/y2storage/partition_id.rb:41
+#: src/lib/y2storage/partition_id.rb:42
 msgid "DOS32"
 msgstr ""
 
-#: src/lib/y2storage/partition_id.rb:42
+#: src/lib/y2storage/partition_id.rb:43
 #, fuzzy
 #| msgid "Linux"
 msgid "Linux Swap"
 msgstr "Linux"
 
-#: src/lib/y2storage/partition_id.rb:43
+#: src/lib/y2storage/partition_id.rb:44
 #, fuzzy
 #| msgid "Linux"
 msgid "Linux Native"
 msgstr "Linux"
 
-#: src/lib/y2storage/partition_id.rb:44
+#: src/lib/y2storage/partition_id.rb:45
 msgid "Linux LVM"
 msgstr "Linux LVM"
 
-#: src/lib/y2storage/partition_id.rb:45
+#: src/lib/y2storage/partition_id.rb:46
 #, fuzzy
 #| msgid "Linux"
 msgid "Linux RAID"
 msgstr "Linux"
 
-#: src/lib/y2storage/partition_id.rb:46
+#: src/lib/y2storage/partition_id.rb:47
 #, fuzzy
 #| msgid "Format partition"
 msgid "EFI System Partition"
 msgstr "Sformatiraj razdelek"
 
-#: src/lib/y2storage/partition_id.rb:47
+#: src/lib/y2storage/partition_id.rb:48
 #, fuzzy
 #| msgid "Format partition"
 msgid "BIOS Boot Partition"
 msgstr "Sformatiraj razdelek"
 
-#: src/lib/y2storage/partition_id.rb:48
+#: src/lib/y2storage/partition_id.rb:49
 #, fuzzy
 #| msgid "Format partition"
 msgid "PReP Boot Partition"
 msgstr "Sformatiraj razdelek"
 
-#: src/lib/y2storage/partition_id.rb:49
+#: src/lib/y2storage/partition_id.rb:50
 msgid "NTFS"
 msgstr ""
 
-#: src/lib/y2storage/partition_id.rb:50
+#: src/lib/y2storage/partition_id.rb:51
 msgid "Extended"
 msgstr ""
 
-#: src/lib/y2storage/partition_id.rb:51
+#: src/lib/y2storage/partition_id.rb:52
 #, fuzzy
 #| msgid "&Shrink Windows Partition"
 msgid "Windows Data Partition"
 msgstr "&Skrči razdelek za Windows"
 
-#: src/lib/y2storage/partition_id.rb:52
+#: src/lib/y2storage/partition_id.rb:53
 #, fuzzy
 msgid "Microsoft Reserved Partition"
 msgstr "razdelek"
 
-#: src/lib/y2storage/partition_id.rb:53
+#: src/lib/y2storage/partition_id.rb:54
 #, fuzzy
 msgid "Diagnostics Partition"
 msgstr "razdelek"
@@ -4543,9 +4582,6 @@ msgstr "razdelek"
 #~ "Velikosti razdelka %1 ni mogoče spremeniti,\n"
 #~ "ker je datotečni sistem najverjetneje neskladen.\n"
 
-#~ msgid "Resize Partition %1"
-#~ msgstr "Spremeni velikost razdelka %1"
-
 #~ msgid "Resize Logical Volume %1"
 #~ msgstr "Spremeni velikost logičnega nosilca %1"
 
@@ -4554,12 +4590,6 @@ msgstr "razdelek"
 
 #~ msgid "Currently used: %1"
 #~ msgstr "Trenutno uporabljeno: %1"
-
-#~ msgid "Minimum Size (%1)"
-#~ msgstr "Najmanjša velikost (%1)"
-
-#~ msgid "<p>Choose new size.</p>"
-#~ msgstr "<p>Izberite novo velikost.</p>"
 
 #~ msgid ""
 #~ "You are extending a mounted filesystem by %1 Gigabyte. \n"
@@ -4740,9 +4770,6 @@ msgstr "razdelek"
 #~ msgstr ""
 #~ "Razdelek %1 je v uporabi Ni mu moč spreminjati velikosti. Za\n"
 #~ "spreminjanje velikosti %1 se prepričajte, da ni v uporabi."
-
-#~ msgid "An extended partition cannot be resized."
-#~ msgstr "Razširjenemu razdelku ni moč spreminjati velikosti."
 
 #~ msgid ""
 #~ "<p>Select one or more (if available) hard disks\n"

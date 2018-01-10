@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: YaST (@memory@)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-11-29 02:29+0000\n"
+"POT-Creation-Date: 2018-01-10 16:56+0100\n"
 "PO-Revision-Date: 2013-05-29 21:56+0200\n"
 "Last-Translator: Eliran Itzhak <eliran@bigfoot.com>\n"
 "Language-Team: Hebrew <i18n@suse.de>\n"
@@ -101,7 +101,7 @@ msgstr ""
 #: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:267
 #, fuzzy
 msgid ""
-"The data entered in invalid. Insert a physical extent size larger than 1 "
+"The data entered is invalid. Insert a physical extent size larger than 1 "
 "KiB\n"
 "in powers of 2 and multiple of 128 KiB, for example, \"512 KiB\" or \"4 MiB\""
 msgstr ""
@@ -112,7 +112,7 @@ msgstr ""
 #  button text
 #. TRANSLATORS: dialog title when creating a MD RAID.
 #. %s is a device name like /dev/md0
-#: src/lib/y2partitioner/actions/controllers/md.rb:146
+#: src/lib/y2partitioner/actions/controllers/md.rb:180
 #, fuzzy
 msgid "Add RAID %s"
 msgstr "&הוסף RAID"
@@ -120,7 +120,7 @@ msgstr "&הוסף RAID"
 #  button text
 #. TRANSLATORS: dialog title when resizing a MD RAID.
 #. %s is a device name like /dev/md0
-#: src/lib/y2partitioner/actions/controllers/md.rb:150
+#: src/lib/y2partitioner/actions/controllers/md.rb:184
 #, fuzzy
 msgid "Resize RAID %s"
 msgstr "הס&ר RAID"
@@ -193,6 +193,13 @@ msgstr "ערוך מחיצה"
 #: src/lib/y2partitioner/actions/edit_blk_device.rb:87
 #, fuzzy
 msgid "An extended partition cannot be edited"
+msgstr "מחיצה מורחבת כבר קיימת."
+
+#  popup text
+#. TRANSLATORS: an error popup message
+#: src/lib/y2partitioner/actions/resize_partition.rb:89
+#, fuzzy
+msgid "This partition cannot be resized."
 msgstr "מחיצה מורחבת כבר קיימת."
 
 #  button text
@@ -353,10 +360,14 @@ msgstr "בשימוש ע\"י"
 #. @macro seeAbstractWidget
 #. @macro seeAbstractWidget
 #. @macro seeAbstractWidget
+#. @macro seeAbstractWidget
+#. @macro seeAbstractWidget
 #. TRANSLATORS: table header, size of block device e.g. "8.00 GiB"
 #: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:69
 #: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:145
 #: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:262
+#: src/lib/y2partitioner/dialogs/partition_resize.rb:152
+#: src/lib/y2partitioner/dialogs/partition_resize.rb:296
 #: src/lib/y2partitioner/dialogs/partition_size.rb:160
 #: src/lib/y2partitioner/widgets/blk_devices_table.rb:93
 msgid "Size"
@@ -371,6 +382,7 @@ msgstr "גודל לינוקס (%1)"
 
 #  Raid combobox description (don't translate to much ..)
 #: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:78
+#: src/lib/y2partitioner/dialogs/partition_resize.rb:162
 #: src/lib/y2partitioner/dialogs/partition_size.rb:69
 #, fuzzy
 msgid "Custom Size"
@@ -378,7 +390,9 @@ msgstr "גודל &נתח ב KB"
 
 #  error popup text
 #. error popup, :min and :max are replaced by sizes
+#. TRANSLATORS: error popup message, where %{min} and %{max} are replaced by sizes.
 #: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:161
+#: src/lib/y2partitioner/dialogs/partition_resize.rb:209
 #, fuzzy
 msgid "The size entered is invalid. Enter a size between %{min} and %{max}."
 msgstr ""
@@ -514,6 +528,38 @@ msgstr "גודל &נתח ב KB"
 #, fuzzy
 msgid "Parity Algorithm"
 msgstr "%אלגוריתם בדיקה (כונני RAID בלבד)"
+
+#  to translators: * Resize partition hda1 to 1.8GB.
+#. TRANSLATORS: dialog title, where %{name} is the name of a partition (e.g., /dev/sda1)
+#: src/lib/y2partitioner/dialogs/partition_resize.rb:30
+#, fuzzy
+msgid "Resize Partition %{name}"
+msgstr "שנה גודל מחיצה %1 ל %2"
+
+#  label text, %1 is replaced by a unit value ("MB")
+#. @see Widgets::ControllerRadioButtons
+#: src/lib/y2partitioner/dialogs/partition_resize.rb:157
+#, fuzzy
+msgid "Maximum Size (%{size})"
+msgstr "גודל לינוקס (%1)"
+
+#  label text, %1 is replaced by a unit value ("MB")
+#: src/lib/y2partitioner/dialogs/partition_resize.rb:158
+#, fuzzy
+msgid "Minimum Size (%{size})"
+msgstr "גודל לינוקס (%1)"
+
+#  Help text for partition resizing -
+#  common part for both graphical mode (with bar graphs)
+#  and non-graphical mode (text only).
+#. @macro seeAbstractWidget
+#: src/lib/y2partitioner/dialogs/partition_resize.rb:190
+#, fuzzy
+msgid "<p>Choose new size.</p>"
+msgstr ""
+"<p>\n"
+"בחרו גודל חדש עבור המחיצה %1.\n"
+"</p>"
 
 #. @macro seeAbstractWidget
 #: src/lib/y2partitioner/dialogs/partition_role.rb:49
@@ -953,25 +999,25 @@ msgstr "Probing דיסקים קשיחים"
 
 #  label text
 #. TRANSLATORS: %s is a disk size. E.g. "10.5 GiB"
-#: src/lib/y2partitioner/widgets/devices_selection.rb:123
+#: src/lib/y2partitioner/widgets/devices_selection.rb:124
 #, fuzzy
 msgid "Resulting size: %s"
 msgstr "גודל צילינדר:"
 
 #  label text %1 is prelaced by e.g. 4 GB
 #. TRANSLATORS: %s is a disk size. E.g. "10.5 GiB"
-#: src/lib/y2partitioner/widgets/devices_selection.rb:127
+#: src/lib/y2partitioner/widgets/devices_selection.rb:128
 #, fuzzy
 msgid "Total size: %s"
 msgstr "גודל %1"
 
-#: src/lib/y2partitioner/widgets/devices_selection.rb:134
+#: src/lib/y2partitioner/widgets/devices_selection.rb:135
 #, fuzzy
 msgid "Selected Devices:"
 msgstr "בחר ספריה:"
 
 #  label text
-#: src/lib/y2partitioner/widgets/devices_selection.rb:138
+#: src/lib/y2partitioner/widgets/devices_selection.rb:139
 #, fuzzy
 msgid "Available Devices:"
 msgstr "גודל זמין:"
@@ -980,14 +1026,14 @@ msgstr "גודל זמין:"
 #  Button in RAID-WF
 #  button text
 #. push button text
-#: src/lib/y2partitioner/widgets/devices_selection.rb:147
+#: src/lib/y2partitioner/widgets/devices_selection.rb:159
 #, fuzzy
 msgid "Add"
 msgstr "ה&וסף"
 
 #  button text
 #. push button text
-#: src/lib/y2partitioner/widgets/devices_selection.rb:153
+#: src/lib/y2partitioner/widgets/devices_selection.rb:165
 #, fuzzy
 msgid "Add All"
 msgstr "&הוסף RAID"
@@ -996,14 +1042,14 @@ msgstr "&הוסף RAID"
 #  Button in RAID-WF
 #  button text
 #. push button text
-#: src/lib/y2partitioner/widgets/devices_selection.rb:160
+#: src/lib/y2partitioner/widgets/devices_selection.rb:172
 #, fuzzy
 msgid "Remove"
 msgstr "הס&ר"
 
 #  button text
 #. push button text
-#: src/lib/y2partitioner/widgets/devices_selection.rb:166
+#: src/lib/y2partitioner/widgets/devices_selection.rb:178
 #, fuzzy
 msgid "Remove All"
 msgstr "הס&ר RAID"
@@ -1967,7 +2013,7 @@ msgid "Btrfs Volumes"
 msgstr "שנה "
 
 #. @macro seeCustomWidget
-#: src/lib/y2partitioner/widgets/pages/disk.rb:72
+#: src/lib/y2partitioner/widgets/pages/disk.rb:73
 #, fuzzy
 msgid "Hard Disk: %s"
 msgstr "כונן"
@@ -1975,7 +2021,7 @@ msgstr "כונן"
 #. @macro seeAbstractWidget
 #. @macro seeAbstractWidget
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/pages/disk.rb:133
+#: src/lib/y2partitioner/widgets/pages/disk.rb:134
 #: src/lib/y2partitioner/widgets/pages/lvm_vg.rb:94
 #: src/lib/y2partitioner/widgets/pages/md_raid.rb:94
 #, fuzzy
@@ -1984,19 +2030,19 @@ msgstr "&צפיה"
 
 #  label text
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/pages/disk.rb:164
+#: src/lib/y2partitioner/widgets/pages/disk.rb:165
 #, fuzzy
 msgid "&Partitions"
 msgstr "מחיצה"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/pages/disks.rb:48
+#: src/lib/y2partitioner/widgets/pages/disks.rb:51
 #, fuzzy
 msgid "Hard Disks"
 msgstr "כונן"
 
 #. TRANSLATORS: Heading. String followed by name of partition
-#: src/lib/y2partitioner/widgets/pages/disks.rb:62
+#: src/lib/y2partitioner/widgets/pages/disks.rb:65
 #, fuzzy
 msgid "Hard Disks "
 msgstr "כונן"
@@ -2062,7 +2108,7 @@ msgstr "R&AID:"
 
 #  heading text
 #. TRANSLATORS: Heading. String followed by name of partition
-#: src/lib/y2partitioner/widgets/pages/partition.rb:44
+#: src/lib/y2partitioner/widgets/pages/partition.rb:45
 #, fuzzy
 msgid "Partition: "
 msgstr "מחיצה 1"
@@ -2507,7 +2553,7 @@ msgstr ""
 #. Class to represent all the possible MD levels
 #.
 #. This is a wrapper for the Storage::MdLevel enum
-#: src/lib/y2storage/md_level.rb:36 src/lib/y2storage/partition_id.rb:54
+#: src/lib/y2storage/md_level.rb:36 src/lib/y2storage/partition_id.rb:55
 #, fuzzy
 #| msgid "unknown"
 msgid "Unknown"
@@ -2653,80 +2699,80 @@ msgstr ""
 #. Class to represent all the possible partition ids
 #.
 #. This is a wrapper for the Storage::ID enum
-#: src/lib/y2storage/partition_id.rb:39
+#: src/lib/y2storage/partition_id.rb:40
 msgid "DOS12"
 msgstr ""
 
-#: src/lib/y2storage/partition_id.rb:40
+#: src/lib/y2storage/partition_id.rb:41
 msgid "DOS16"
 msgstr ""
 
-#: src/lib/y2storage/partition_id.rb:41
+#: src/lib/y2storage/partition_id.rb:42
 msgid "DOS32"
 msgstr ""
 
 #  Edit field label for linux partition size in non-graphical mode
-#: src/lib/y2storage/partition_id.rb:42
+#: src/lib/y2storage/partition_id.rb:43
 #, fuzzy
 msgid "Linux Swap"
 msgstr "לינוקס:"
 
 #  Edit field label for linux partition size in non-graphical mode
-#: src/lib/y2storage/partition_id.rb:43
+#: src/lib/y2storage/partition_id.rb:44
 #, fuzzy
 msgid "Linux Native"
 msgstr "לינוקס:"
 
 #  label text
-#: src/lib/y2storage/partition_id.rb:44
+#: src/lib/y2storage/partition_id.rb:45
 msgid "Linux LVM"
 msgstr "Linux LVM"
 
 #  Edit field label for linux partition size in non-graphical mode
-#: src/lib/y2storage/partition_id.rb:45
+#: src/lib/y2storage/partition_id.rb:46
 #, fuzzy
 msgid "Linux RAID"
 msgstr "לינוקס:"
 
 #  button text
-#: src/lib/y2storage/partition_id.rb:46
+#: src/lib/y2storage/partition_id.rb:47
 #, fuzzy
 msgid "EFI System Partition"
 msgstr "מחיצה &ראשית"
 
 #  button text
-#: src/lib/y2storage/partition_id.rb:47
+#: src/lib/y2storage/partition_id.rb:48
 #, fuzzy
 msgid "BIOS Boot Partition"
 msgstr "מחיצה &ראשית"
 
 #  button text
-#: src/lib/y2storage/partition_id.rb:48
+#: src/lib/y2storage/partition_id.rb:49
 #, fuzzy
 msgid "PReP Boot Partition"
 msgstr "מחיצה &ראשית"
 
-#: src/lib/y2storage/partition_id.rb:49
+#: src/lib/y2storage/partition_id.rb:50
 msgid "NTFS"
 msgstr ""
 
-#: src/lib/y2storage/partition_id.rb:50
+#: src/lib/y2storage/partition_id.rb:51
 msgid "Extended"
 msgstr ""
 
 #  Radio button for resizing a (Windows) partition
-#: src/lib/y2storage/partition_id.rb:51
+#: src/lib/y2storage/partition_id.rb:52
 #, fuzzy
 #| msgid "&Shrink Windows partition"
 msgid "Windows Data Partition"
 msgstr "&כווץ את מחיצת חלונות"
 
-#: src/lib/y2storage/partition_id.rb:52
+#: src/lib/y2storage/partition_id.rb:53
 #, fuzzy
 msgid "Microsoft Reserved Partition"
 msgstr "מחיצה"
 
-#: src/lib/y2storage/partition_id.rb:53
+#: src/lib/y2storage/partition_id.rb:54
 #, fuzzy
 msgid "Diagnostics Partition"
 msgstr "מחיצה"
@@ -4878,11 +4924,6 @@ msgstr "מחיצה"
 #~ "can be resized while it is mounted."
 #~ msgstr "אי אפשר ליצור מחיצה על %1"
 
-#  to translators: * Resize partition hda1 to 1.8GB.
-#, fuzzy
-#~ msgid "Resize Partition %1"
-#~ msgstr "שנה גודל מחיצה %1 ל %2"
-
 #, fuzzy
 #~ msgid "Resize Logical Volume %1"
 #~ msgstr "שנה "
@@ -4895,21 +4936,6 @@ msgstr "מחיצה"
 #, fuzzy
 #~ msgid "Currently used: %1"
 #~ msgstr "ד: %1 (%2)"
-
-#  label text, %1 is replaced by a unit value ("MB")
-#, fuzzy
-#~ msgid "Minimum Size (%1)"
-#~ msgstr "גודל לינוקס (%1)"
-
-#  Help text for partition resizing -
-#  common part for both graphical mode (with bar graphs)
-#  and non-graphical mode (text only).
-#, fuzzy
-#~ msgid "<p>Choose new size.</p>"
-#~ msgstr ""
-#~ "<p>\n"
-#~ "בחרו גודל חדש עבור המחיצה %1.\n"
-#~ "</p>"
 
 #  menu entry text
 #, fuzzy
@@ -5143,11 +5169,6 @@ msgstr "מחיצה"
 #~ "מערך ה RAID שברצוכם לשנות (%1) כבר קיים על הדיסק.\n"
 #~ "אין אפשרות לשנות אותו יותר. כדי לשנות את %1,\n"
 #~ "מחקו אותו וצרו אותו מחדש.\n"
-
-#  popup text
-#, fuzzy
-#~ msgid "An extended partition cannot be resized."
-#~ msgstr "מחיצה מורחבת כבר קיימת."
 
 #  popup text %1 is replaced by a disk name e.g. /dev/hda
 #, fuzzy

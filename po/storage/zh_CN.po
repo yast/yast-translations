@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: storage\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-11-29 02:29+0000\n"
+"POT-Creation-Date: 2018-01-10 16:56+0100\n"
 "PO-Revision-Date: 2018-01-10 16:12+0000\n"
 "Last-Translator: Dingzhong Chen <wsxy162@gmail.com>\n"
 "Language-Team: Chinese (China) <https://l10n.opensuse.org/projects/yast-"
@@ -101,23 +101,27 @@ msgstr ""
 #.
 #. @return [String]
 #: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:267
+#, fuzzy
+#| msgid ""
+#| "The data entered is invalid. Insert a physical extent size larger than "
+#| "%1\n"
+#| "in powers of 2, for example, \"%2\" or \"%3\""
 msgid ""
-"The data entered in invalid. Insert a physical extent size larger than 1 "
+"The data entered is invalid. Insert a physical extent size larger than 1 "
 "KiB\n"
 "in powers of 2 and multiple of 128 KiB, for example, \"512 KiB\" or \"4 MiB\""
 msgstr ""
-"输入的数据无效。输入一个大于 1 KiB 的物理区域尺寸，且\n"
-"必须是 2 的幂和 128 KiB 的倍数，如“512 KiB”或“4 MiB”"
+"输入的数据无效。输入一个大于 %1 两倍的物理区域尺寸，例如，''%2'' 或 ''%3''"
 
 #. TRANSLATORS: dialog title when creating a MD RAID.
 #. %s is a device name like /dev/md0
-#: src/lib/y2partitioner/actions/controllers/md.rb:146
+#: src/lib/y2partitioner/actions/controllers/md.rb:180
 msgid "Add RAID %s"
 msgstr "添加 RAID %s"
 
 #. TRANSLATORS: dialog title when resizing a MD RAID.
 #. %s is a device name like /dev/md0
-#: src/lib/y2partitioner/actions/controllers/md.rb:150
+#: src/lib/y2partitioner/actions/controllers/md.rb:184
 msgid "Resize RAID %s"
 msgstr "调整 RAID %s"
 
@@ -174,6 +178,13 @@ msgstr "编辑分区 %s"
 #: src/lib/y2partitioner/actions/edit_blk_device.rb:87
 msgid "An extended partition cannot be edited"
 msgstr "有个扩展分区无法编辑"
+
+#. TRANSLATORS: an error popup message
+#: src/lib/y2partitioner/actions/resize_partition.rb:89
+#, fuzzy
+#| msgid "An extended partition cannot be resized."
+msgid "This partition cannot be resized."
+msgstr "一个扩展分区不能调整。"
 
 #. @param filesystem [Y2Storage::Filesystems::BlkFilesystem] a btrfs filesystem
 #: src/lib/y2partitioner/dialogs/btrfs_subvolume.rb:24
@@ -279,10 +290,9 @@ msgstr "标准卷"
 
 #: src/lib/y2partitioner/dialogs/lvm_lv_info.rb:135
 msgid "Thin Pool"
-msgstr ""
+msgstr "瘦池"
 
 #: src/lib/y2partitioner/dialogs/lvm_lv_info.rb:136
-#, fuzzy
 msgid "Thin Volume"
 msgstr "瘦卷"
 
@@ -295,10 +305,14 @@ msgstr "已用池"
 #. @macro seeAbstractWidget
 #. @macro seeAbstractWidget
 #. @macro seeAbstractWidget
+#. @macro seeAbstractWidget
+#. @macro seeAbstractWidget
 #. TRANSLATORS: table header, size of block device e.g. "8.00 GiB"
 #: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:69
 #: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:145
 #: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:262
+#: src/lib/y2partitioner/dialogs/partition_resize.rb:152
+#: src/lib/y2partitioner/dialogs/partition_resize.rb:296
 #: src/lib/y2partitioner/dialogs/partition_size.rb:160
 #: src/lib/y2partitioner/widgets/blk_devices_table.rb:93
 msgid "Size"
@@ -310,12 +324,15 @@ msgid "Maximum Size (%s)"
 msgstr "最大尺寸 (%s)"
 
 #: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:78
+#: src/lib/y2partitioner/dialogs/partition_resize.rb:162
 #: src/lib/y2partitioner/dialogs/partition_size.rb:69
 msgid "Custom Size"
 msgstr "自定义尺寸"
 
 #. error popup, :min and :max are replaced by sizes
+#. TRANSLATORS: error popup message, where %{min} and %{max} are replaced by sizes.
 #: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:161
+#: src/lib/y2partitioner/dialogs/partition_resize.rb:209
 msgid "The size entered is invalid. Enter a size between %{min} and %{max}."
 msgstr "输入的尺寸无效。请输入 %{min} 到 %2 之间的尺寸。"
 
@@ -323,13 +340,11 @@ msgstr "输入的尺寸无效。请输入 %{min} 到 %2 之间的尺寸。"
 #. TRANSLATORS: table header, number of LVM LV stripes
 #: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:204
 #: src/lib/y2partitioner/widgets/lvm_devices_table.rb:54
-#, fuzzy
 msgid "Stripes"
 msgstr "条带"
 
 #. @macro seeAbstractWidget
 #: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:239
-#, fuzzy
 msgid "Number"
 msgstr "数字"
 
@@ -378,21 +393,18 @@ msgstr "RAID &1（镜像）"
 #. TRANSLATORS: 'Redundant Striping' is a technical term here. Translate
 #. only if you are sure!! If in doubt, leave it in English.
 #: src/lib/y2partitioner/dialogs/md.rb:135
-#, fuzzy
 msgid "RAID &5  (Redundant Striping)"
 msgstr "RAID 5(冗余分带)(&5)"
 
 #. TRANSLATORS: 'Dual Redundant Striping' is a technical term here.
 #. Translate only if you are sure!! If in doubt, leave it in English.
 #: src/lib/y2partitioner/dialogs/md.rb:138
-#, fuzzy
 msgid "RAID &6  (Dual Redundant Striping)"
 msgstr "RAID 6(双重冗余分带)(&6)"
 
 #. TRANSLATORS: 'Mirroring' and `Striping` are technical terms here.
 #. Translate only if you are sure!! If in doubt, leave it in English.
 #: src/lib/y2partitioner/dialogs/md.rb:141
-#, fuzzy
 msgid "RAID &10  (Mirroring and Striping)"
 msgstr "RAID 10(镜像和分带)(&10)"
 
@@ -420,6 +432,31 @@ msgstr "区块尺寸"
 msgid "Parity Algorithm"
 msgstr "奇偶校验算法"
 
+#. TRANSLATORS: dialog title, where %{name} is the name of a partition (e.g., /dev/sda1)
+#: src/lib/y2partitioner/dialogs/partition_resize.rb:30
+#, fuzzy
+#| msgid "Resize Partition %1"
+msgid "Resize Partition %{name}"
+msgstr "调整分区 %1"
+
+#. @see Widgets::ControllerRadioButtons
+#: src/lib/y2partitioner/dialogs/partition_resize.rb:157
+#, fuzzy
+#| msgid "Maximum Size (%1)"
+msgid "Maximum Size (%{size})"
+msgstr "最大尺寸 (%1)"
+
+#: src/lib/y2partitioner/dialogs/partition_resize.rb:158
+#, fuzzy
+#| msgid "Minimum Size (%1)"
+msgid "Minimum Size (%{size})"
+msgstr "最小尺寸 (%1)"
+
+#. @macro seeAbstractWidget
+#: src/lib/y2partitioner/dialogs/partition_resize.rb:190
+msgid "<p>Choose new size.</p>"
+msgstr "<p>选择新的尺寸。</p>"
+
 #. @macro seeAbstractWidget
 #: src/lib/y2partitioner/dialogs/partition_role.rb:49
 msgid "Role"
@@ -435,7 +472,6 @@ msgid "Operating System"
 msgstr "操作系统"
 
 #: src/lib/y2partitioner/dialogs/partition_role.rb:60
-#, fuzzy
 msgid "Data and ISV Applications"
 msgstr "数据和独立软件供应商应用程序"
 
@@ -500,9 +536,8 @@ msgid "&GPT"
 msgstr "&GPT"
 
 #: src/lib/y2partitioner/dialogs/partition_table_type.rb:36
-#, fuzzy
 msgid "&MS-DOS (Classic PC Style)"
-msgstr "&MS-DOS（经典计算机风格）"
+msgstr "& MS-DOS （计算机典型系统）"
 
 #: src/lib/y2partitioner/dialogs/partition_table_type.rb:37
 msgid "&DASD"
@@ -606,7 +641,6 @@ msgstr "标签：%s"
 
 #. TRANSLATORS: "F" stands for Format flag. Keep it short, ideally a single letter.
 #: src/lib/y2partitioner/widgets/blk_devices_table.rb:60
-#, fuzzy
 msgid "F"
 msgstr "格式化"
 
@@ -747,44 +781,44 @@ msgid "No device selected"
 msgstr "未选中任何设备映射器设备。"
 
 #. TRANSLATORS: %s is a disk size. E.g. "10.5 GiB"
-#: src/lib/y2partitioner/widgets/devices_selection.rb:123
+#: src/lib/y2partitioner/widgets/devices_selection.rb:124
 #, fuzzy
 #| msgid "Resulting size: %1"
 msgid "Resulting size: %s"
 msgstr "结果尺寸：%1"
 
 #. TRANSLATORS: %s is a disk size. E.g. "10.5 GiB"
-#: src/lib/y2partitioner/widgets/devices_selection.rb:127
+#: src/lib/y2partitioner/widgets/devices_selection.rb:128
 #, fuzzy
 #| msgid "Total size: %1"
 msgid "Total size: %s"
 msgstr "总尺寸： %1"
 
-#: src/lib/y2partitioner/widgets/devices_selection.rb:134
+#: src/lib/y2partitioner/widgets/devices_selection.rb:135
 msgid "Selected Devices:"
 msgstr "选中的设备："
 
-#: src/lib/y2partitioner/widgets/devices_selection.rb:138
+#: src/lib/y2partitioner/widgets/devices_selection.rb:139
 msgid "Available Devices:"
 msgstr "可用设备："
 
 #. push button text
-#: src/lib/y2partitioner/widgets/devices_selection.rb:147
+#: src/lib/y2partitioner/widgets/devices_selection.rb:159
 msgid "Add"
 msgstr "添加"
 
 #. push button text
-#: src/lib/y2partitioner/widgets/devices_selection.rb:153
+#: src/lib/y2partitioner/widgets/devices_selection.rb:165
 msgid "Add All"
 msgstr "全部添加"
 
 #. push button text
-#: src/lib/y2partitioner/widgets/devices_selection.rb:160
+#: src/lib/y2partitioner/widgets/devices_selection.rb:172
 msgid "Remove"
 msgstr "移除"
 
 #. push button text
-#: src/lib/y2partitioner/widgets/devices_selection.rb:166
+#: src/lib/y2partitioner/widgets/devices_selection.rb:178
 msgid "Remove All"
 msgstr "全部删除"
 
@@ -1676,31 +1710,31 @@ msgid "Btrfs Volumes"
 msgstr "Btrfs 卷"
 
 #. @macro seeCustomWidget
-#: src/lib/y2partitioner/widgets/pages/disk.rb:72
+#: src/lib/y2partitioner/widgets/pages/disk.rb:73
 msgid "Hard Disk: %s"
 msgstr "硬盘: %s"
 
 #. @macro seeAbstractWidget
 #. @macro seeAbstractWidget
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/pages/disk.rb:133
+#: src/lib/y2partitioner/widgets/pages/disk.rb:134
 #: src/lib/y2partitioner/widgets/pages/lvm_vg.rb:94
 #: src/lib/y2partitioner/widgets/pages/md_raid.rb:94
 msgid "&Overview"
 msgstr "纵览(&O)"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/pages/disk.rb:164
+#: src/lib/y2partitioner/widgets/pages/disk.rb:165
 msgid "&Partitions"
 msgstr "分区(&P)"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/pages/disks.rb:48
+#: src/lib/y2partitioner/widgets/pages/disks.rb:51
 msgid "Hard Disks"
 msgstr "硬盘"
 
 #. TRANSLATORS: Heading. String followed by name of partition
-#: src/lib/y2partitioner/widgets/pages/disks.rb:62
+#: src/lib/y2partitioner/widgets/pages/disks.rb:65
 #, fuzzy
 #| msgid "Hard Disks"
 msgid "Hard Disks "
@@ -1762,7 +1796,7 @@ msgid "RAID"
 msgstr "独立磁盘冗余阵列 (RAID)"
 
 #. TRANSLATORS: Heading. String followed by name of partition
-#: src/lib/y2partitioner/widgets/pages/partition.rb:44
+#: src/lib/y2partitioner/widgets/pages/partition.rb:45
 #, fuzzy
 #| msgid "Partition: %1"
 msgid "Partition: "
@@ -2152,7 +2186,7 @@ msgstr ""
 #. Class to represent all the possible MD levels
 #.
 #. This is a wrapper for the Storage::MdLevel enum
-#: src/lib/y2storage/md_level.rb:36 src/lib/y2storage/partition_id.rb:54
+#: src/lib/y2storage/md_level.rb:36 src/lib/y2storage/partition_id.rb:55
 msgid "Unknown"
 msgstr ""
 
@@ -2297,85 +2331,94 @@ msgstr "添加以下解析项失败：%1"
 #. Class to represent all the possible partition ids
 #.
 #. This is a wrapper for the Storage::ID enum
-#: src/lib/y2storage/partition_id.rb:39
+#: src/lib/y2storage/partition_id.rb:40
 msgid "DOS12"
 msgstr ""
 
-#: src/lib/y2storage/partition_id.rb:40
+#: src/lib/y2storage/partition_id.rb:41
 msgid "DOS16"
 msgstr ""
 
-#: src/lib/y2storage/partition_id.rb:41
+#: src/lib/y2storage/partition_id.rb:42
 msgid "DOS32"
 msgstr ""
 
-#: src/lib/y2storage/partition_id.rb:42
+#: src/lib/y2storage/partition_id.rb:43
 #, fuzzy
 #| msgid "Linux"
 msgid "Linux Swap"
 msgstr "Linux"
 
-#: src/lib/y2storage/partition_id.rb:43
+#: src/lib/y2storage/partition_id.rb:44
 #, fuzzy
 #| msgid "Linux"
 msgid "Linux Native"
 msgstr "Linux"
 
-#: src/lib/y2storage/partition_id.rb:44
+#: src/lib/y2storage/partition_id.rb:45
 #, fuzzy
 #| msgid "Linux"
 msgid "Linux LVM"
 msgstr "Linux"
 
-#: src/lib/y2storage/partition_id.rb:45
+#: src/lib/y2storage/partition_id.rb:46
 #, fuzzy
 #| msgid "Linux"
 msgid "Linux RAID"
 msgstr "Linux"
 
-#: src/lib/y2storage/partition_id.rb:46
+#: src/lib/y2storage/partition_id.rb:47
 #, fuzzy
 #| msgid "EFI Boot Partition"
 msgid "EFI System Partition"
 msgstr "EFI 引导分区"
 
-#: src/lib/y2storage/partition_id.rb:47
+#: src/lib/y2storage/partition_id.rb:48
 #, fuzzy
 #| msgid "EFI Boot Partition"
 msgid "BIOS Boot Partition"
 msgstr "EFI 引导分区"
 
-#: src/lib/y2storage/partition_id.rb:48
+#: src/lib/y2storage/partition_id.rb:49
 #, fuzzy
 #| msgid "EFI Boot Partition"
 msgid "PReP Boot Partition"
 msgstr "EFI 引导分区"
 
-#: src/lib/y2storage/partition_id.rb:49
+#: src/lib/y2storage/partition_id.rb:50
 msgid "NTFS"
 msgstr ""
 
-#: src/lib/y2storage/partition_id.rb:50
+#: src/lib/y2storage/partition_id.rb:51
 msgid "Extended"
 msgstr ""
 
-#: src/lib/y2storage/partition_id.rb:51
+#: src/lib/y2storage/partition_id.rb:52
 #, fuzzy
 #| msgid "&Shrink Windows Partition"
 msgid "Windows Data Partition"
 msgstr "收缩 Windows 分区(&S)"
 
-#: src/lib/y2storage/partition_id.rb:52
+#: src/lib/y2storage/partition_id.rb:53
 #, fuzzy
 #| msgid "&Logical Partition"
 msgid "Microsoft Reserved Partition"
 msgstr "逻辑分区(&L)"
 
-#: src/lib/y2storage/partition_id.rb:53
+#: src/lib/y2storage/partition_id.rb:54
 #, fuzzy
 #| msgid "&Logical Partition"
 msgid "Diagnostics Partition"
 msgstr "逻辑分区(&L)"
+
+#~ msgid ""
+#~ "The data entered in invalid. Insert a physical extent size larger than 1 "
+#~ "KiB\n"
+#~ "in powers of 2 and multiple of 128 KiB, for example, \"512 KiB\" or \"4 "
+#~ "MiB\""
+#~ msgstr ""
+#~ "输入的数据无效。输入一个大于 1 KiB 的物理区域尺寸，且\n"
+#~ "必须是 2 的幂和 128 KiB 的倍数，如“512 KiB”或“4 MiB”"
 
 #, fuzzy
 #~| msgid "For %1, select at least %2 device."
@@ -4242,9 +4285,6 @@ msgstr "逻辑分区(&L)"
 
 #~ msgid "Minimum Size (%1)"
 #~ msgstr "最小尺寸 (%1)"
-
-#~ msgid "<p>Choose new size.</p>"
-#~ msgstr "<p>选择新的尺寸。</p>"
 
 #~ msgid ""
 #~ "You are extending a mounted filesystem by %1 Gigabyte. \n"
