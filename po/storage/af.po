@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: storage\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-10 16:56+0100\n"
+"POT-Creation-Date: 2018-01-19 20:35+0100\n"
 "PO-Revision-Date: 2006-11-03 14:26\n"
 "Last-Translator: Novell Language <language@novell.com>\n"
 "Language-Team: Novell Language <language@novell.com>\n"
@@ -124,10 +124,42 @@ msgid "Resize RAID %s"
 msgstr "Verwy&der RAID"
 
 #. TRANSLATORS: dialog title. %s is a device name like /dev/sda
-#: src/lib/y2partitioner/actions/controllers/partition.rb:133
+#: src/lib/y2partitioner/actions/controllers/partition.rb:165
 #, fuzzy
 msgid "Add Partition on %s"
 msgstr "Hersien partisie %1"
+
+#. starting block must be in a region,
+#. TRANSLATORS: text for an error popup
+#: src/lib/y2partitioner/actions/controllers/partition.rb:181
+msgid "The block entered as start is not available."
+msgstr ""
+
+#. TRANSLATORS: text for an error popup
+#: src/lib/y2partitioner/actions/controllers/partition.rb:184
+msgid "The end block cannot be before the start."
+msgstr ""
+
+#. ending block must be in the same region than the start
+#. TRANSLATORS: text for an error popup
+#: src/lib/y2partitioner/actions/controllers/partition.rb:189
+#, fuzzy
+msgid "The region entered collides with the existing partitions."
+msgstr "Die ingevoerde LDAP URL is ongeldig."
+
+#. It's so small that we already know that we can't align both
+#. start and end
+#. TRANSLATORS: text for an error popup
+#: src/lib/y2partitioner/actions/controllers/partition.rb:195
+msgid "The region entered is too small, not supported by this device."
+msgstr ""
+
+#. Almost pathological case, but still can happen if the user tries
+#. to break stuff
+#. TRANSLATORS: text for an error popup
+#: src/lib/y2partitioner/actions/controllers/partition.rb:201
+msgid "Invalid region entered, increase the size or align the start."
+msgstr ""
 
 #. TRANSLATORS: dialog title. %s is a device name like /dev/sda
 #: src/lib/y2partitioner/actions/controllers/partition_table.rb:95
@@ -189,7 +221,7 @@ msgid "An extended partition cannot be edited"
 msgstr "’n Uitgebreide partisie kan nie geskep word nie."
 
 #. TRANSLATORS: an error popup message
-#: src/lib/y2partitioner/actions/resize_partition.rb:89
+#: src/lib/y2partitioner/actions/resize_partition.rb:91
 #, fuzzy
 msgid "This partition cannot be resized."
 msgstr "’n Uitgebreide partisie kan nie geskep word nie."
@@ -340,9 +372,9 @@ msgstr "Gebruik deur"
 #: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:69
 #: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:145
 #: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:262
-#: src/lib/y2partitioner/dialogs/partition_resize.rb:152
-#: src/lib/y2partitioner/dialogs/partition_resize.rb:296
-#: src/lib/y2partitioner/dialogs/partition_size.rb:160
+#: src/lib/y2partitioner/dialogs/partition_resize.rb:145
+#: src/lib/y2partitioner/dialogs/partition_resize.rb:293
+#: src/lib/y2partitioner/dialogs/partition_size.rb:181
 #: src/lib/y2partitioner/widgets/blk_devices_table.rb:93
 msgid "Size"
 msgstr "Grootte"
@@ -354,8 +386,8 @@ msgid "Maximum Size (%s)"
 msgstr "Linux-grootte (%1)"
 
 #: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:78
-#: src/lib/y2partitioner/dialogs/partition_resize.rb:162
-#: src/lib/y2partitioner/dialogs/partition_size.rb:69
+#: src/lib/y2partitioner/dialogs/partition_resize.rb:155
+#: src/lib/y2partitioner/dialogs/partition_size.rb:75
 #, fuzzy
 msgid "Custom Size"
 msgstr "&Pasmaakgrootte"
@@ -363,7 +395,7 @@ msgstr "&Pasmaakgrootte"
 #. error popup, :min and :max are replaced by sizes
 #. TRANSLATORS: error popup message, where %{min} and %{max} are replaced by sizes.
 #: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:161
-#: src/lib/y2partitioner/dialogs/partition_resize.rb:209
+#: src/lib/y2partitioner/dialogs/partition_resize.rb:202
 #, fuzzy
 msgid "The size entered is invalid. Enter a size between %{min} and %{max}."
 msgstr ""
@@ -479,24 +511,24 @@ msgid "Parity Algorithm"
 msgstr "Enkripsie-algoritmes"
 
 #. TRANSLATORS: dialog title, where %{name} is the name of a partition (e.g., /dev/sda1)
-#: src/lib/y2partitioner/dialogs/partition_resize.rb:30
+#: src/lib/y2partitioner/dialogs/partition_resize.rb:28
 #, fuzzy
 msgid "Resize Partition %{name}"
 msgstr "Verstel grootte van partisie"
 
 #. @see Widgets::ControllerRadioButtons
-#: src/lib/y2partitioner/dialogs/partition_resize.rb:157
+#: src/lib/y2partitioner/dialogs/partition_resize.rb:150
 #, fuzzy
 msgid "Maximum Size (%{size})"
 msgstr "Linux-grootte (%1)"
 
-#: src/lib/y2partitioner/dialogs/partition_resize.rb:158
+#: src/lib/y2partitioner/dialogs/partition_resize.rb:151
 #, fuzzy
 msgid "Minimum Size (%{size})"
 msgstr "Linux-grootte (%1)"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/dialogs/partition_resize.rb:190
+#: src/lib/y2partitioner/dialogs/partition_resize.rb:183
 #, fuzzy
 msgid "<p>Choose new size.</p>"
 msgstr ""
@@ -546,23 +578,36 @@ msgid "Raw Volume (unformatted)"
 msgstr ""
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/dialogs/partition_size.rb:61
+#: src/lib/y2partitioner/dialogs/partition_size.rb:67
 #, fuzzy
 msgid "New Partition Size"
 msgstr "Partisie 1"
 
-#: src/lib/y2partitioner/dialogs/partition_size.rb:65
+#: src/lib/y2partitioner/dialogs/partition_size.rb:71
 #, fuzzy
 msgid "Maximum Size (%1)"
 msgstr "Linux-grootte (%1)"
 
-#: src/lib/y2partitioner/dialogs/partition_size.rb:70
+#: src/lib/y2partitioner/dialogs/partition_size.rb:76
 #, fuzzy
 msgid "Custom Region"
 msgstr "Gewone reparasie"
 
+#. helptext
+#: src/lib/y2partitioner/dialogs/partition_size.rb:106
+msgid ""
+"<p>Choose the size for the new partition.</p>\n"
+"<p>If a size is specified (any of the two first options in the form),\n"
+"the start and end of the partition will be aligned to ensure optimal\n"
+"performance and to minimize gaps. That may result in a slightly\n"
+"smaller partition.</p>\n"
+"<p>If a custom region is specified, the start and end will be honored\n"
+"as closely as possible, with no performance optimizations. This is the\n"
+"best option to create very small partitions.</p>"
+msgstr ""
+
 #. error popup, %1 and %2 are replaced by sizes
-#: src/lib/y2partitioner/dialogs/partition_size.rb:184
+#: src/lib/y2partitioner/dialogs/partition_size.rb:206
 #, fuzzy
 msgid "The size entered is invalid. Enter a size between %1 and %2."
 msgstr ""
@@ -570,24 +615,17 @@ msgstr ""
 "Voer ’n grootte vanaf 1M tot %1 in. Voorbeeld: 40M of 1G."
 
 #. FIXME: libyui widget overflow :-(
-#: src/lib/y2partitioner/dialogs/partition_size.rb:235
+#: src/lib/y2partitioner/dialogs/partition_size.rb:260
 #, fuzzy
 #| msgid "Start"
 msgid "Start Block"
 msgstr "Begin"
 
-#: src/lib/y2partitioner/dialogs/partition_size.rb:236
+#: src/lib/y2partitioner/dialogs/partition_size.rb:261
 #, fuzzy
 #| msgid "End "
 msgid "End Block"
 msgstr "Eindig"
-
-#. TODO: a better description why
-#. error popup
-#: src/lib/y2partitioner/dialogs/partition_size.rb:265
-#, fuzzy
-msgid "The region entered is invalid."
-msgstr "Die ingevoerde LDAP URL is ongeldig."
 
 #. @macro seeAbstractWidget
 #: src/lib/y2partitioner/dialogs/partition_table_type.rb:23
@@ -647,84 +685,132 @@ msgstr "&Uitgebreide partisie"
 msgid "&Logical Partition"
 msgstr "&Logiese partisie"
 
-#. TRANSLATORS: here device stands for kernel path to device
-#: src/lib/y2partitioner/widgets/blk_device_attributes.rb:24
-#: src/lib/y2partitioner/widgets/lvm_vg_description.rb:59
+#. TRANSLATORS
+#: src/lib/y2partitioner/setup_errors_presenter.rb:64
+msgid "The system might not be able to boot:\n"
+msgstr ""
+
+#. TRANSLATORS
+#: src/lib/y2partitioner/setup_errors_presenter.rb:75
+msgid ""
+"The system could not work properly because the following errors were found:\n"
+msgstr ""
+
+#. TRANSLATORS: Device name information, where %s is replaced by the
+#. kernel path to device
+#: src/lib/y2partitioner/widgets/blk_device_attributes.rb:46
 #, fuzzy
 msgid "Device: %s"
 msgstr "Toestel-URI: %1"
 
-#. TRANSLATORS: size of partition
-#: src/lib/y2partitioner/widgets/blk_device_attributes.rb:31
-#: src/lib/y2partitioner/widgets/lvm_vg_description.rb:60
+#. TRANSLATORS: size information, where %s is replaced by a size (e.g., 10 GiB)
+#: src/lib/y2partitioner/widgets/blk_device_attributes.rb:54
 #, fuzzy
 msgid "Size: %s"
 msgstr "Grootte %1"
 
-#. TRANSLATORS: Device path is where on motherboard is device connected,
-#. %i is number when there are more paths
-#: src/lib/y2partitioner/widgets/blk_device_attributes.rb:42
+#. TRANSLATORS: Device udev path information, where %i is replaced by an index number
+#. and %s is replaced by the path where the device is connected on motherboard
+#: src/lib/y2partitioner/widgets/blk_device_attributes.rb:66
 #, fuzzy
 msgid "Device Path %i: %s"
 msgstr "Toestelpad"
 
-#. TRANSLATORS: Device path is where on motherboard is device connected
-#: src/lib/y2partitioner/widgets/blk_device_attributes.rb:46
+#. TRANSLATORS: Device udev path information, where %s is replaced by the path where
+#. the device is connected on motherboard
+#: src/lib/y2partitioner/widgets/blk_device_attributes.rb:71
 #, fuzzy
 msgid "Device Path: %s"
 msgstr "Toestelpad"
 
-#. TRANSLATORS: Device ID is udev ID for device,
-#. %i is number when there are more paths
-#: src/lib/y2partitioner/widgets/blk_device_attributes.rb:58
+#. TRANSLATORS: Device udev id information, where %i is replaced by an index number
+#. and %s is replaced by the udev ID for the device
+#: src/lib/y2partitioner/widgets/blk_device_attributes.rb:84
 #, fuzzy
 msgid "Device ID %i: %s"
 msgstr "Toestel-URI: %1"
 
-#. TRANSLATORS: Device ID is udev ID for device,
-#: src/lib/y2partitioner/widgets/blk_device_attributes.rb:62
+#. TRANSLATORS: Device udev id information, where %s is replaced by the udev ID
+#. for the device
+#: src/lib/y2partitioner/widgets/blk_device_attributes.rb:89
 #, fuzzy
 msgid "Device ID: %s"
 msgstr "Toestel-URI: %1"
 
-#. Information if device is encrypted
-#. @return [String]
-#: src/lib/y2partitioner/widgets/blk_device_attributes.rb:69
+#. TRANSLATORS: Device encryption information, where %s is replaced by
+#. 'Yes' when the device is encrypted or by 'No' otherwise
+#: src/lib/y2partitioner/widgets/blk_device_attributes.rb:99
 #, fuzzy
 msgid "Encrypted: %s"
 msgstr "En&kripteringslêer ..."
 
 #. Values
-#: src/lib/y2partitioner/widgets/blk_device_attributes.rb:69
+#: src/lib/y2partitioner/widgets/blk_device_attributes.rb:99
 #: src/lib/y2partitioner/widgets/btrfs_subvolumes_table.rb:108
 msgid "Yes"
 msgstr "Ja"
 
-#: src/lib/y2partitioner/widgets/blk_device_attributes.rb:69
+#: src/lib/y2partitioner/widgets/blk_device_attributes.rb:99
 #: src/lib/y2partitioner/widgets/btrfs_subvolumes_table.rb:108
 msgid "No"
 msgstr "Nee"
 
-#. TRANSLATORS: heading for section about Filesystem on device
-#: src/lib/y2partitioner/widgets/blk_device_attributes.rb:75
+#. TRANSLATORS: Device vendor information, where %s is replaced by a device vendor
+#: src/lib/y2partitioner/widgets/blk_device_attributes.rb:107
 #, fuzzy
-msgid "File System:"
-msgstr "Lêerstelsel"
+msgid "Vendor: %s"
+msgstr "Verkoper:"
 
-#. TRANSLATORS: File system and its type as human string
-#: src/lib/y2partitioner/widgets/blk_device_attributes.rb:84
+#. TRANSLATORS: Device model information, where %s is replaced by a device model
+#: src/lib/y2partitioner/widgets/blk_device_attributes.rb:115
+#, fuzzy
+msgid "Model: %s"
+msgstr "Modus: %1"
+
+#. TRANSLATORS: Device bus information, where %s is replaced by the computer bus
+#. which the device is connected to (e.g., SATA or ATA)
+#: src/lib/y2partitioner/widgets/blk_device_attributes.rb:124
+#, fuzzy
+msgid "Bus: %s"
+msgstr "Eweknieë: %1"
+
+#. TRANSLATORS: Number of sectors in the device, where %s is replaced by a number
+#: src/lib/y2partitioner/widgets/blk_device_attributes.rb:132
+#, fuzzy
+msgid "Number of Sectors: %i"
+msgstr "Aantal ou stortings: %1"
+
+#. TRANSLATORS: Device sector size information, where %s is replaced by
+#. a size (e.g., 1 MiB)
+#: src/lib/y2partitioner/widgets/blk_device_attributes.rb:141
+#, fuzzy
+#| msgid "Memory Size: %1 MB"
+msgid "Sector Size: %s"
+msgstr "Geheuegrootte: %1 MG"
+
+#. TRANSLATORS: partition table type information, where %s is replaced by
+#. a partition table type (e.g., GPT, MS-DOS)
+#: src/lib/y2partitioner/widgets/blk_device_attributes.rb:153
+#, fuzzy
+msgid "Disk Label: %s"
+msgstr "RAM-skyfafbeelding: %1"
+
+#. TRANSLATORS: Filesystem type information, where %s is replaced by
+#. a filesystem type (e.g., VFAT, BTRFS)
+#: src/lib/y2partitioner/widgets/blk_device_attributes.rb:163
 #, fuzzy
 msgid "File System: %s"
 msgstr "Lêerstelsel"
 
-#. TRANSLATORS: File system and its type as human string
-#: src/lib/y2partitioner/widgets/blk_device_attributes.rb:86
+#. TRANSLATORS: Mount point information, where %s is replaced by a mount point
+#: src/lib/y2partitioner/widgets/blk_device_attributes.rb:171
 #, fuzzy
 msgid "Mount Point: %s"
 msgstr "&Hegpunt:"
 
-#. TRANSLATORS: Label associated with file system
-#: src/lib/y2partitioner/widgets/blk_device_attributes.rb:88
+#. TRANSLATORS: Filesystem label information, where %s is replaced by the
+#. label associated to the filesystem
+#: src/lib/y2partitioner/widgets/blk_device_attributes.rb:180
 #, fuzzy
 msgid "Label: %s"
 msgstr "Etiket"
@@ -773,6 +859,48 @@ msgstr "Begin"
 #: src/lib/y2partitioner/widgets/blk_devices_table.rb:133
 msgid "End"
 msgstr "Eindig"
+
+#. Table icon for the device
+#.
+#. @see DEVICE_ICONS
+#.
+#. @param device [Y2Storage::BlkDevice]
+#. @return [Yast::Term] icon
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:225
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:226
+msgid "Disk"
+msgstr "Skyf"
+
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:227
+#, fuzzy
+#| msgid "Multimedia"
+msgid "Multipath"
+msgstr "Multimedia"
+
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:228
+#, fuzzy
+msgid "BIOS RAID"
+msgstr "BTAS"
+
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:229
+#, fuzzy
+msgid "MD RAID"
+msgstr "R&AID:"
+
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:230
+#, fuzzy
+msgid "PV"
+msgstr "PR"
+
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:231
+#, fuzzy
+#| msgid "&LVM..."
+msgid "LVM"
+msgstr "&LVM ..."
+
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:232
+msgid "LV"
+msgstr ""
 
 #. @see CWM::PushButton#Label
 #: src/lib/y2partitioner/widgets/btrfs_edit_button.rb:21
@@ -893,6 +1021,19 @@ msgstr ""
 msgid "No device selected"
 msgstr "Geen skema gekies nie."
 
+#. Header to show in help
+#.
+#. @see #help
+#.
+#. @return [String]
+#: src/lib/y2partitioner/widgets/device_description.rb:65
+#, fuzzy
+msgid ""
+"<p>This view shows detailed information about the selected device.</p>\n"
+"<p>The overview contains:</p>"
+msgstr ""
+"<p><b>Voeg partisies by</b> (genaamd fisiese volumes) u volumegroep.</p>"
+
 #. TRANSLATORS: %s is a disk size. E.g. "10.5 GiB"
 #: src/lib/y2partitioner/widgets/devices_selection.rb:124
 #, fuzzy
@@ -943,74 +1084,6 @@ msgstr "Verwyder"
 #, fuzzy
 msgid "Unpartitioned"
 msgstr "Partisieplanne"
-
-#. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/disk_description.rb:30
-#, fuzzy
-msgid ""
-"<p>This view shows detailed information about the\n"
-"selected hard disk.</p><p>The overview contains:</p>"
-msgstr ""
-"<p><b>Voeg partisies by</b> (genaamd fisiese volumes) u volumegroep.</p>"
-
-#. TODO: consider using e.g. erb for this kind of output
-#. for erb examples see
-#. https://github.com/yast/yast-registration/blob/master/src/data/registration/certificate_summary.erb
-#. https://github.com/yast/yast-registration/blob/327ab34c020a89f8b7e3f4bff55deea82e457237/src/lib/registration/helpers.rb#L165
-#. TRANSLATORS: heading for section about device
-#. TODO: consider using e.g. erb for this kind of output
-#. TRANSLATORS: heading for section about device
-#. TODO: consider using e.g. erb for this kind of output
-#. for erb examples see
-#. https://github.com/yast/yast-registration/blob/master/src/data/registration/certificate_summary.erb
-#. https://github.com/yast/yast-registration/blob/327ab34c020a89f8b7e3f4bff55deea82e457237/src/lib/registration/helpers.rb#L165
-#. TRANSLATORS: heading for section about device
-#. TODO: consider using e.g. erb for this kind of output
-#. for erb examples see
-#. https://github.com/yast/yast-registration/blob/master/src/data/registration/certificate_summary.erb
-#. https://github.com/yast/yast-registration/blob/327ab34c020a89f8b7e3f4bff55deea82e457237/src/lib/registration/helpers.rb#L165
-#. TRANSLATORS: heading for section about device
-#. TODO: consider using e.g. erb for this kind of output
-#. TRANSLATORS: heading for section about device
-#: src/lib/y2partitioner/widgets/disk_description.rb:51
-#: src/lib/y2partitioner/widgets/lvm_lv_description.rb:51
-#: src/lib/y2partitioner/widgets/lvm_vg_description.rb:43
-#: src/lib/y2partitioner/widgets/md_description.rb:51
-#: src/lib/y2partitioner/widgets/partition_description.rb:49
-#, fuzzy
-msgid "Device:"
-msgstr "Toestel"
-
-#. TRANSLATORS: heading for section about Hard Disk details
-#: src/lib/y2partitioner/widgets/disk_description.rb:54
-#, fuzzy
-msgid "Hard Disk:"
-msgstr "Harde skyf:"
-
-#. TRANSLATORS: Disk Vendor
-#: src/lib/y2partitioner/widgets/disk_description.rb:62
-#, fuzzy
-msgid "Vendor: %s"
-msgstr "Verkoper:"
-
-#. TRANSLATORS: Disk Model
-#: src/lib/y2partitioner/widgets/disk_description.rb:64
-#, fuzzy
-msgid "Model: %s"
-msgstr "Modus: %1"
-
-#. TODO: to_human_string for Y2Storage::DataTransport
-#. TRANSLATORS: Computer bus which the device is connected to e.g. SATA or ATA.
-#: src/lib/y2partitioner/widgets/disk_description.rb:67
-#, fuzzy
-msgid "Bus: %s"
-msgstr "Eweknieë: %1"
-
-#. TRANSLATORS: disk partition table label
-#: src/lib/y2partitioner/widgets/disk_description.rb:69
-#, fuzzy
-msgid "Disk Label: %s"
-msgstr "RAM-skyfafbeelding: %1"
 
 #. help text for cryptofs
 #: src/lib/y2partitioner/widgets/encrypt_password.rb:17
@@ -1200,8 +1273,10 @@ msgstr "Blok&grootte in grepe"
 
 #. Synchronize the widget with the information from the controller
 #: src/lib/y2partitioner/widgets/format_and_mount.rb:739
-msgid "File system &ID:"
-msgstr "Lêerstelsel-&ID:"
+#, fuzzy
+#| msgid "Partition 2"
+msgid "Partition &ID:"
+msgstr "Partisie 2"
 
 #. Push button that launch a dialog for set the fstab options
 #: src/lib/y2partitioner/widgets/fstab_options.rb:82
@@ -1456,12 +1531,17 @@ msgstr "Die aanvangsilinder van die partisie."
 
 #: src/lib/y2partitioner/widgets/help.rb:28
 #, fuzzy
+msgid "<b>Number of Sectors</b> shows how many sectors the hard disk has."
+msgstr "Die endsilinder van die partisie."
+
+#: src/lib/y2partitioner/widgets/help.rb:30
+#, fuzzy
 msgid ""
 "<b>Sector Size</b> shows the size of the\n"
 "sectors of the hard disk."
 msgstr "Die aanvangsilinder van die partisie."
 
-#: src/lib/y2partitioner/widgets/help.rb:30
+#: src/lib/y2partitioner/widgets/help.rb:32
 #, fuzzy
 msgid ""
 "<b>Device</b> shows the kernel name of the\n"
@@ -1470,13 +1550,13 @@ msgstr ""
 "<p><b>Worteltoestel</b> stel die toestel om as worteltoestel na die kern aan "
 "te gee.</p>"
 
-#: src/lib/y2partitioner/widgets/help.rb:32
+#: src/lib/y2partitioner/widgets/help.rb:34
 msgid ""
 "<b>Disk Label</b> shows the partition table\n"
 "type of the disk, e.g <tt>MSDOS</tt> or <tt>GPT</tt>."
 msgstr ""
 
-#: src/lib/y2partitioner/widgets/help.rb:35
+#: src/lib/y2partitioner/widgets/help.rb:37
 #, fuzzy
 msgid ""
 "<b>Encrypted</b> shows whether the device is\n"
@@ -1485,32 +1565,32 @@ msgstr ""
 "<p><b>Worteltoestel</b> stel die toestel om as worteltoestel na die kern aan "
 "te gee.</p>"
 
-#: src/lib/y2partitioner/widgets/help.rb:37
+#: src/lib/y2partitioner/widgets/help.rb:39
 #, fuzzy
 msgid ""
 "<b>End</b> shows the end block of\n"
 "the partition."
 msgstr "Die endsilinder van die partisie."
 
-#: src/lib/y2partitioner/widgets/help.rb:39
+#: src/lib/y2partitioner/widgets/help.rb:41
 msgid ""
 "<b>LUN</b> shows the Logical Unit Number for\n"
 "Fibre Channel disks."
 msgstr ""
 
-#: src/lib/y2partitioner/widgets/help.rb:41
+#: src/lib/y2partitioner/widgets/help.rb:43
 msgid ""
 "<b>Port ID</b> shows the port id for Fibre\n"
 "Channel disks."
 msgstr ""
 
-#: src/lib/y2partitioner/widgets/help.rb:43
+#: src/lib/y2partitioner/widgets/help.rb:45
 msgid ""
 "<b>WWPN</b> shows the World Wide Port Name for\n"
 "Fibre Channel disks."
 msgstr ""
 
-#: src/lib/y2partitioner/widgets/help.rb:46
+#: src/lib/y2partitioner/widgets/help.rb:48
 #, fuzzy
 msgid ""
 "<b>File Path</b> shows the path of the file for\n"
@@ -1519,25 +1599,25 @@ msgstr ""
 "<p><b>Worteltoestel</b> stel die toestel om as worteltoestel na die kern aan "
 "te gee.</p>"
 
-#: src/lib/y2partitioner/widgets/help.rb:49
+#: src/lib/y2partitioner/widgets/help.rb:51
 msgid ""
 "<b>Format</b> shows some flags: <tt>F</tt>\n"
 "means the device is selected to be formatted."
 msgstr ""
 
-#: src/lib/y2partitioner/widgets/help.rb:52
+#: src/lib/y2partitioner/widgets/help.rb:54
 #, fuzzy
 #| msgid "It is not possible to create a partition on %1."
-msgid "<b>FS ID</b> shows the file system id."
+msgid "<b>Partition ID</b> shows the partition id."
 msgstr "Dit is nie moontlik om ’n partisie op %1 te skep nie."
 
-#: src/lib/y2partitioner/widgets/help.rb:54
+#: src/lib/y2partitioner/widgets/help.rb:56
 #, fuzzy
 #| msgid "It is not possible to create a partition on %1."
 msgid "<b>FS Type</b> shows the file system type."
 msgstr "Dit is nie moontlik om ’n partisie op %1 te skep nie."
 
-#: src/lib/y2partitioner/widgets/help.rb:56
+#: src/lib/y2partitioner/widgets/help.rb:58
 #, fuzzy
 msgid ""
 "<b>Label</b> shows the label of the file\n"
@@ -1546,20 +1626,20 @@ msgstr ""
 "<p><b>Worteltoestel</b> stel die toestel om as worteltoestel na die kern aan "
 "te gee.</p>"
 
-#: src/lib/y2partitioner/widgets/help.rb:58
+#: src/lib/y2partitioner/widgets/help.rb:60
 msgid ""
 "<b>Metadata</b> shows the LVM metadata type for\n"
 "volume groups."
 msgstr ""
 
-#: src/lib/y2partitioner/widgets/help.rb:60
+#: src/lib/y2partitioner/widgets/help.rb:62
 #, fuzzy
 msgid "<b>Model</b> shows the device model."
 msgstr ""
 "<p><b>Worteltoestel</b> stel die toestel om as worteltoestel na die kern aan "
 "te gee.</p>"
 
-#: src/lib/y2partitioner/widgets/help.rb:62
+#: src/lib/y2partitioner/widgets/help.rb:64
 #, fuzzy
 msgid ""
 "<b>Mount by</b> indicates how the file system\n"
@@ -1574,7 +1654,7 @@ msgstr ""
 "Toestelpad.\n"
 " </p>\n"
 
-#: src/lib/y2partitioner/widgets/help.rb:66
+#: src/lib/y2partitioner/widgets/help.rb:68
 #, fuzzy
 #| msgid "It is not possible to create a partition on %1."
 msgid ""
@@ -1582,81 +1662,81 @@ msgid ""
 "is mounted."
 msgstr "Dit is nie moontlik om ’n partisie op %1 te skep nie."
 
-#: src/lib/y2partitioner/widgets/help.rb:68
+#: src/lib/y2partitioner/widgets/help.rb:70
 #, fuzzy
 msgid ""
 "<b>Number of Cylinders</b> shows how many\n"
 "cylinders the hard disk has."
 msgstr "Die endsilinder van die partisie."
 
-#: src/lib/y2partitioner/widgets/help.rb:71
+#: src/lib/y2partitioner/widgets/help.rb:73
 msgid ""
 "<b>Parity Algorithm</b> shows the parity\n"
 "algorithm for RAID devices with RAID type 5, 6 or 10."
 msgstr ""
 
-#: src/lib/y2partitioner/widgets/help.rb:74
+#: src/lib/y2partitioner/widgets/help.rb:76
 #, fuzzy
 msgid ""
 "<b>PE Size</b> shows the physical extent size\n"
 "for LVM volume groups."
 msgstr "Voer 'n naam vir die nuwe profiel in."
 
-#: src/lib/y2partitioner/widgets/help.rb:77
+#: src/lib/y2partitioner/widgets/help.rb:79
 msgid "<b>RAID Version</b> shows the RAID version."
 msgstr ""
 
-#: src/lib/y2partitioner/widgets/help.rb:79
+#: src/lib/y2partitioner/widgets/help.rb:81
 msgid ""
 "<b>RAID Type</b> shows the RAID type, also\n"
 "called RAID level, for RAID devices."
 msgstr ""
 
-#: src/lib/y2partitioner/widgets/help.rb:82
+#: src/lib/y2partitioner/widgets/help.rb:84
 #, fuzzy
 msgid "<b>Size</b> shows the size of the device."
 msgstr ""
 "<p><b>Worteltoestel</b> stel die toestel om as worteltoestel na die kern aan "
 "te gee.</p>"
 
-#: src/lib/y2partitioner/widgets/help.rb:84
+#: src/lib/y2partitioner/widgets/help.rb:86
 #, fuzzy
 msgid ""
 "<b>Start</b> shows the start block\n"
 "of the partition."
 msgstr "Die aanvangsilinder van die partisie."
 
-#: src/lib/y2partitioner/widgets/help.rb:86
+#: src/lib/y2partitioner/widgets/help.rb:88
 msgid ""
 "<b>Stripes</b> shows the stripe number for LVM\n"
 "logical volumes and, if greater than one, the stripe size in parenthesis.\n"
 msgstr ""
 
-#: src/lib/y2partitioner/widgets/help.rb:89
+#: src/lib/y2partitioner/widgets/help.rb:91
 msgid ""
 "<b>Type</b> gives a general overview about the\n"
 "device type."
 msgstr ""
 
-#: src/lib/y2partitioner/widgets/help.rb:91
+#: src/lib/y2partitioner/widgets/help.rb:93
 msgid ""
 "<b>Device ID</b> shows the persistent device\n"
 "IDs. This field can be empty."
 msgstr ""
 
-#: src/lib/y2partitioner/widgets/help.rb:94
+#: src/lib/y2partitioner/widgets/help.rb:96
 msgid ""
 "<b>Device Path</b> shows the persistent device\n"
 "path. This field can be empty."
 msgstr ""
 
-#: src/lib/y2partitioner/widgets/help.rb:97
+#: src/lib/y2partitioner/widgets/help.rb:99
 msgid ""
 "<b>Used By</b> shows if a device is used by\n"
 "e.g. RAID or LVM. If not, this column is empty."
 msgstr ""
 
-#: src/lib/y2partitioner/widgets/help.rb:100
+#: src/lib/y2partitioner/widgets/help.rb:102
 #, fuzzy
 msgid ""
 "<b>UUID</b> shows the Universally Unique\n"
@@ -1665,7 +1745,7 @@ msgstr ""
 "<p><b>Worteltoestel</b> stel die toestel om as worteltoestel na die kern aan "
 "te gee.</p>"
 
-#: src/lib/y2partitioner/widgets/help.rb:103
+#: src/lib/y2partitioner/widgets/help.rb:105
 #, fuzzy
 msgid "<b>Vendor</b> shows the device vendor."
 msgstr ""
@@ -1673,7 +1753,7 @@ msgstr ""
 "te gee.</p>"
 
 #. help texts that are appended to the common help only in Mode.normal
-#: src/lib/y2partitioner/widgets/help.rb:108
+#: src/lib/y2partitioner/widgets/help.rb:110
 msgid ""
 "A question mark (?) indicates that\n"
 "the file system is not listed in <tt>/etc/fstab</tt>. It is either mounted\n"
@@ -1682,7 +1762,7 @@ msgid ""
 "YaST will not update <tt>/etc/fstab</tt>.\n"
 msgstr ""
 
-#: src/lib/y2partitioner/widgets/help.rb:113
+#: src/lib/y2partitioner/widgets/help.rb:115
 #, fuzzy
 msgid ""
 "An asterisk (*) after the mount point\n"
@@ -1710,47 +1790,18 @@ msgstr "Volumegroep"
 msgid "PE Size"
 msgstr "Grootte"
 
-#. TRANSLATORS: first %s is number of LVM stripes
-#. and the second one is for size of stripe
-#: src/lib/y2partitioner/widgets/lvm_lv_attributes.rb:41
-msgid "%s (%s)"
-msgstr ""
-
-#. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/lvm_lv_description.rb:32
-#, fuzzy
-msgid ""
-"<p>This view shows detailed information about the\n"
-"selected logical volume.</p><p>The overview contains:</p>"
-msgstr ""
-"<p><b>Voeg partisies by</b> (genaamd fisiese volumes) u volumegroep.</p>"
-
-#. TRANSLATORS: heading for section about Hard Disk details
-#: src/lib/y2partitioner/widgets/lvm_lv_description.rb:53
-#: src/lib/y2partitioner/widgets/lvm_vg_description.rb:46
-msgid "LVM:"
-msgstr ""
-
-#. TRANSLATORS: value for number of LVM stripes
-#: src/lib/y2partitioner/widgets/lvm_lv_description.rb:68
+#. TRANSLATORS: logical volume stripes information, where %s is replaces by
+#. the stripes info
+#: src/lib/y2partitioner/widgets/lvm_lv_attributes.rb:44
 #, fuzzy
 msgid "Stripes: %s"
 msgstr "Stre&pe"
 
-#. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/lvm_vg_description.rb:27
-#, fuzzy
-msgid ""
-"<p>This view shows detailed information about the\n"
-"selected volume group.</p><p>The overview contains:</p>"
+#. TRANSLATORS: first %s is the number of LVM stripes and the second one is
+#. the stripe size
+#: src/lib/y2partitioner/widgets/lvm_lv_attributes.rb:55
+msgid "%s (%s)"
 msgstr ""
-"<p><b>Voeg partisies by</b> (genaamd fisiese volumes) u volumegroep.</p>"
-
-#. TRANSLATORS: Physical Extend size
-#: src/lib/y2partitioner/widgets/lvm_vg_description.rb:53
-#, fuzzy
-msgid "PE Size: %s"
-msgstr "Grootte %1"
 
 #. TRANSLATORS: button label to add a MD Raid
 #: src/lib/y2partitioner/widgets/md_add_button.rb:38
@@ -1759,88 +1810,60 @@ msgid "Add RAID..."
 msgstr "Voeg RAI&D by"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/md_description.rb:30
-#, fuzzy
-msgid ""
-"<p>This view shows detailed information about the\n"
-"selected RAID.</p><p>The overview contains:</p>"
-msgstr ""
-"<p><b>Voeg partisies by</b> (genaamd fisiese volumes) u volumegroep.</p>"
-
-#. TRANSLATORS: heading for section about Hard Disk details
-#: src/lib/y2partitioner/widgets/md_description.rb:54
-#, fuzzy
-msgid "RAID:"
-msgstr "R&AID:"
-
-#. TRANSLATORS: Type of RAID
-#: src/lib/y2partitioner/widgets/md_description.rb:62
-#, fuzzy
-msgid "RAID Type: %s"
-msgstr "RAID-s&oort"
-
-#. TRANSLATORS: chunk size of md raid
-#. according to mdadm(8): chunk size "is only meaningful for RAID0, RAID4,
-#. RAID5, RAID6, and RAID10"
-#: src/lib/y2partitioner/widgets/md_description.rb:66
-#, fuzzy
-msgid "Chunk Size: %s"
-msgstr "Grootte %1"
-
-#. TRANSLATORS: parity algorithm of md raid
-#: src/lib/y2partitioner/widgets/md_description.rb:69
-#, fuzzy
-msgid "Partity algorithm: %s"
-msgstr "Enkripsie-algoritmes:"
-
-#. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/overview.rb:53
+#: src/lib/y2partitioner/widgets/overview.rb:57
 #, fuzzy
 msgid "System View"
 msgstr "Stelselnagaan"
 
 #. TODO: only if there is graph support UI.HasSpecialWidget(:Graph)
-#: src/lib/y2partitioner/widgets/overview.rb:78
+#: src/lib/y2partitioner/widgets/overview.rb:82
 #, fuzzy
 #| msgid "Device Path"
 msgid "Device Graph"
 msgstr "Toestelpad"
 
 #. TODO: only if there is graph support UI.HasSpecialWidget(:Graph)
-#: src/lib/y2partitioner/widgets/overview.rb:80
+#: src/lib/y2partitioner/widgets/overview.rb:84
 #, fuzzy
 msgid "Mount Graph"
 msgstr "&Uitvoer ..."
 
-#: src/lib/y2partitioner/widgets/overview.rb:81
+#: src/lib/y2partitioner/widgets/overview.rb:85
 msgid "Installation Summary"
 msgstr "Installasie-opsomming"
 
-#: src/lib/y2partitioner/widgets/overview.rb:82
+#: src/lib/y2partitioner/widgets/overview.rb:86
 msgid "Settings"
 msgstr "Instellings"
 
+#. FIXME: improve Yast2::Popup to allow some text before the buttons
+#: src/lib/y2partitioner/widgets/overview.rb:122
+#, fuzzy
+#| msgid "Do you want to retry?"
+msgid "Do you want to continue?"
+msgstr "Wil u weer probeer?"
+
 #. TODO: real subtree
-#: src/lib/y2partitioner/widgets/overview.rb:179
+#: src/lib/y2partitioner/widgets/overview.rb:204
 #, fuzzy
 msgid "Crypt Files"
 msgstr "En&kripteringslêer ..."
 
 #. TODO: real subtree
-#: src/lib/y2partitioner/widgets/overview.rb:184
+#: src/lib/y2partitioner/widgets/overview.rb:209
 #, fuzzy
 msgid "Device Mapper"
 msgstr "Toestelsoort"
 
-#: src/lib/y2partitioner/widgets/overview.rb:188
+#: src/lib/y2partitioner/widgets/overview.rb:213
 msgid "NFS"
 msgstr "NFS"
 
-#: src/lib/y2partitioner/widgets/overview.rb:197
+#: src/lib/y2partitioner/widgets/overview.rb:222
 msgid "tmpfs"
 msgstr ""
 
-#: src/lib/y2partitioner/widgets/overview.rb:201
+#: src/lib/y2partitioner/widgets/overview.rb:226
 #, fuzzy
 msgid "Unused Devices"
 msgstr "Gekonfigureerde toestelle:"
@@ -1956,21 +1979,6 @@ msgstr "Partisie 1"
 msgid "Available Storage on %s"
 msgstr "Beskikbare skemas: %1"
 
-#. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/partition_description.rb:31
-#, fuzzy
-msgid ""
-"<p>This view shows detailed information about the\n"
-"selected partition.</p><p>The overview contains:</p>"
-msgstr ""
-"<p><b>Voeg partisies by</b> (genaamd fisiese volumes) u volumegroep.</p>"
-
-#. TRANSLATORS: acronym for Filesystem Identifier
-#: src/lib/y2partitioner/widgets/partition_description.rb:63
-#, fuzzy
-msgid "FS ID: %s"
-msgstr "ID: %1"
-
 #. TRANSLATORS: button label to rescan devices
 #: src/lib/y2partitioner/widgets/rescan_devices_button.rb:41
 #, fuzzy
@@ -2007,6 +2015,12 @@ msgstr "Lees van skyfpartisies..."
 msgid "&Used Devices"
 msgstr "Gebrugde toestelle"
 
+#. TRANSLATORS: error message
+#: src/lib/y2storage/boot_requirements_strategies/base.rb:153
+msgid ""
+"Boot requirements cannot be determined because there is no '/' mount point"
+msgstr ""
+
 #. class to implement callbacks used during activate
 #: src/lib/y2storage/callbacks/activate.rb:43
 msgid ""
@@ -2035,30 +2049,17 @@ msgstr ""
 msgid "Continue despite the error?"
 msgstr "Voortgaan met grootteverstelling van die %1?"
 
-#. Proposal client to show the list of storage actions.
-#.
-#. This client is used in autoyast summary dialog, where a new
-#. client instance is created with each event that requires to
-#. update the summary dialog content.
-#.
-#. To manage collapsing/expanding subvolumes list it is necessary
-#. to save the previous state of that list, but it is not possible
-#. to do that in the client instance itself because a new client
-#. instance is created each time.
-#.
-#. To solve that, instance class attributes are used. PartitionsProposal
-#. class has an internal state that is updated with each object creation.
-#.
-#. @see PartitionsProposal.update_state
-#: src/lib/y2storage/clients/partitions_proposal.rb:76
+#. Also run the expert partitioner as default option if no id was
+#. specified by the caller (bsc#1076732)
+#: src/lib/y2storage/clients/partitions_proposal.rb:78
 msgid "This is not enabled at this moment (event: %s)"
 msgstr ""
 
-#: src/lib/y2storage/clients/partitions_proposal.rb:87
+#: src/lib/y2storage/clients/partitions_proposal.rb:89
 msgid "Partitioning"
 msgstr "Partisionering"
 
-#: src/lib/y2storage/clients/partitions_proposal.rb:88
+#: src/lib/y2storage/clients/partitions_proposal.rb:90
 msgid "&Partitioning"
 msgstr "&Partisionering"
 
@@ -2068,21 +2069,21 @@ msgstr "&Partisionering"
 #. is different to the last saved revision.
 #.
 #. @see ActionsPresenter
-#: src/lib/y2storage/clients/partitions_proposal.rb:135
 #: src/lib/y2storage/clients/partitions_proposal.rb:137
+#: src/lib/y2storage/clients/partitions_proposal.rb:139
 #, fuzzy
 #| msgid "Proposal type"
 msgid "No proposal possible"
 msgstr "Voorstelsoort"
 
 #. Translators: Short description of the partitioning setup
-#: src/lib/y2storage/clients/partitions_proposal.rb:152
+#: src/lib/y2storage/clients/partitions_proposal.rb:154
 #, fuzzy
 msgid "Custom"
 msgstr "&Pasmaakgrootte"
 
 #. TODO: should be tested by some real OPS guy, I (JR) pick human wording from `man mdadm`
-#: src/lib/y2storage/clients/partitions_proposal.rb:152
+#: src/lib/y2storage/clients/partitions_proposal.rb:154
 #: src/lib/y2storage/md_parity.rb:37
 #, fuzzy
 msgid "Default"
@@ -2556,6 +2557,73 @@ msgstr "Skyf na partisie"
 #| msgid "Disk to Partition"
 msgid "Diagnostics Partition"
 msgstr "Skyf na partisie"
+
+#, fuzzy
+#~ msgid "File System:"
+#~ msgstr "Lêerstelsel"
+
+#, fuzzy
+#~ msgid ""
+#~ "<p>This view shows detailed information about the\n"
+#~ "selected hard disk.</p><p>The overview contains:</p>"
+#~ msgstr ""
+#~ "<p><b>Voeg partisies by</b> (genaamd fisiese volumes) u volumegroep.</p>"
+
+#, fuzzy
+#~ msgid "Device:"
+#~ msgstr "Toestel"
+
+#, fuzzy
+#~ msgid "Hard Disk:"
+#~ msgstr "Harde skyf:"
+
+#~ msgid "File system &ID:"
+#~ msgstr "Lêerstelsel-&ID:"
+
+#, fuzzy
+#~ msgid ""
+#~ "<p>This view shows detailed information about the\n"
+#~ "selected logical volume.</p><p>The overview contains:</p>"
+#~ msgstr ""
+#~ "<p><b>Voeg partisies by</b> (genaamd fisiese volumes) u volumegroep.</p>"
+
+#, fuzzy
+#~ msgid ""
+#~ "<p>This view shows detailed information about the\n"
+#~ "selected volume group.</p><p>The overview contains:</p>"
+#~ msgstr ""
+#~ "<p><b>Voeg partisies by</b> (genaamd fisiese volumes) u volumegroep.</p>"
+
+#, fuzzy
+#~ msgid "PE Size: %s"
+#~ msgstr "Grootte %1"
+
+#, fuzzy
+#~ msgid "RAID:"
+#~ msgstr "R&AID:"
+
+#, fuzzy
+#~ msgid "RAID Type: %s"
+#~ msgstr "RAID-s&oort"
+
+#, fuzzy
+#~ msgid "Chunk Size: %s"
+#~ msgstr "Grootte %1"
+
+#, fuzzy
+#~ msgid "Partity algorithm: %s"
+#~ msgstr "Enkripsie-algoritmes:"
+
+#, fuzzy
+#~ msgid ""
+#~ "<p>This view shows detailed information about the\n"
+#~ "selected partition.</p><p>The overview contains:</p>"
+#~ msgstr ""
+#~ "<p><b>Voeg partisies by</b> (genaamd fisiese volumes) u volumegroep.</p>"
+
+#, fuzzy
+#~ msgid "FS ID: %s"
+#~ msgstr "ID: %1"
 
 #, fuzzy
 #~ msgid "For %{raid_level}, select at least %{min} devices."
@@ -6371,11 +6439,6 @@ msgstr "Skyf na partisie"
 #~ msgstr "Voer verskafferwagwoord in"
 
 #, fuzzy
-#~| msgid "Do you want to retry?"
-#~ msgid "Do you want to provide encryption passwords?"
-#~ msgstr "Wil u weer probeer?"
-
-#, fuzzy
 #~| msgid "YaST2 detected the following device"
 #~ msgid "Provide password for any of the following devices:"
 #~ msgstr "YaST2 het die volgende toestel bespeur"
@@ -6395,15 +6458,8 @@ msgstr "Skyf na partisie"
 #~ msgid "SCSI Disk"
 #~ msgstr "DASD-skywe"
 
-#~ msgid "Disk"
-#~ msgstr "Skyf"
-
 #, fuzzy
 #~ msgid "DM RAID"
-#~ msgstr "R&AID:"
-
-#, fuzzy
-#~ msgid "MD RAID"
 #~ msgstr "R&AID:"
 
 #, fuzzy
@@ -6585,10 +6641,6 @@ msgstr "Skyf na partisie"
 #~ msgstr "Enkripsie-algoritmes:"
 
 #, fuzzy
-#~ msgid "Number of Cylinders: %1"
-#~ msgstr "Aantal ou stortings: %1"
-
-#, fuzzy
 #~ msgid "Cylinder Size: %1"
 #~ msgstr "Silindergrootte:"
 
@@ -6601,11 +6653,6 @@ msgstr "Skyf na partisie"
 #~ msgstr ""
 #~ "\n"
 #~ " Eindsilinder:  "
-
-#, fuzzy
-#~| msgid "Memory Size: %1 MB"
-#~ msgid "Sector Size: %1"
-#~ msgstr "Geheuegrootte: %1 MG"
 
 #, fuzzy
 #~ msgid "FS ID: %1"
@@ -7581,15 +7628,6 @@ msgstr "Skyf na partisie"
 #~ msgstr "Verwyder inskrywing vir hegpunt %1$s uit %2$s"
 
 #, fuzzy
-#~ msgid "BIOS RAID"
-#~ msgstr "BTAS"
-
-#, fuzzy
-#~| msgid "Multimedia"
-#~ msgid "Multipath"
-#~ msgstr "Multimedia"
-
-#, fuzzy
 #~ msgid "B"
 #~ msgstr "MG"
 
@@ -7638,10 +7676,6 @@ msgstr "Skyf na partisie"
 #~| msgid "KiB"
 #~ msgid "PiB"
 #~ msgstr "KiG"
-
-#, fuzzy
-#~ msgid "P"
-#~ msgstr "PR"
 
 #~ msgid "Deleting file-based device %1$s"
 #~ msgstr "Skrap van lêergebaseerde toestel %1$s"
@@ -9804,9 +9838,6 @@ msgstr "Skyf na partisie"
 #~ msgid "Raid Device"
 #~ msgstr "Raid-toestel"
 
-#~ msgid "Partition 2"
-#~ msgstr "Partisie 2"
-
 #~ msgid "Other..."
 #~ msgstr "Ander ..."
 
@@ -9942,9 +9973,6 @@ msgstr "Skyf na partisie"
 #, fuzzy
 #~ msgid "Call &iSCSI configuration"
 #~ msgstr "Berg van iSCSI-konfigurasie ..."
-
-#~ msgid "&LVM..."
-#~ msgstr "&LVM ..."
 
 #~ msgid "&NFS..."
 #~ msgstr "&NFS ..."
