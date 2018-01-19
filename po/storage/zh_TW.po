@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: storage\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-10 16:56+0100\n"
+"POT-Creation-Date: 2018-01-19 20:35+0100\n"
 "PO-Revision-Date: 2017-03-14 16:00+0000\n"
 "Last-Translator: Fun MR <mrfun1993@protonmail.com>\n"
 "Language-Team: Chinese (Taiwan) <https://l10n.opensuse.org/projects/yast-"
@@ -143,11 +143,44 @@ msgid "Resize RAID %s"
 msgstr "調整 RAID %1 的大小"
 
 #. TRANSLATORS: dialog title. %s is a device name like /dev/sda
-#: src/lib/y2partitioner/actions/controllers/partition.rb:133
+#: src/lib/y2partitioner/actions/controllers/partition.rb:165
 #, fuzzy
 #| msgid "Add Partition on %1"
 msgid "Add Partition on %s"
 msgstr "在 %1 上新增分割區"
+
+#. starting block must be in a region,
+#. TRANSLATORS: text for an error popup
+#: src/lib/y2partitioner/actions/controllers/partition.rb:181
+msgid "The block entered as start is not available."
+msgstr ""
+
+#. TRANSLATORS: text for an error popup
+#: src/lib/y2partitioner/actions/controllers/partition.rb:184
+msgid "The end block cannot be before the start."
+msgstr ""
+
+#. ending block must be in the same region than the start
+#. TRANSLATORS: text for an error popup
+#: src/lib/y2partitioner/actions/controllers/partition.rb:189
+#, fuzzy
+#| msgid "The region entered is invalid."
+msgid "The region entered collides with the existing partitions."
+msgstr "輸入的區域無效。"
+
+#. It's so small that we already know that we can't align both
+#. start and end
+#. TRANSLATORS: text for an error popup
+#: src/lib/y2partitioner/actions/controllers/partition.rb:195
+msgid "The region entered is too small, not supported by this device."
+msgstr ""
+
+#. Almost pathological case, but still can happen if the user tries
+#. to break stuff
+#. TRANSLATORS: text for an error popup
+#: src/lib/y2partitioner/actions/controllers/partition.rb:201
+msgid "Invalid region entered, increase the size or align the start."
+msgstr ""
 
 #. TRANSLATORS: dialog title. %s is a device name like /dev/sda
 #: src/lib/y2partitioner/actions/controllers/partition_table.rb:95
@@ -213,7 +246,7 @@ msgid "An extended partition cannot be edited"
 msgstr "無法編輯延伸分割區。"
 
 #. TRANSLATORS: an error popup message
-#: src/lib/y2partitioner/actions/resize_partition.rb:89
+#: src/lib/y2partitioner/actions/resize_partition.rb:91
 #, fuzzy
 #| msgid "An extended partition cannot be resized."
 msgid "This partition cannot be resized."
@@ -364,9 +397,9 @@ msgstr "已使用的池"
 #: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:69
 #: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:145
 #: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:262
-#: src/lib/y2partitioner/dialogs/partition_resize.rb:152
-#: src/lib/y2partitioner/dialogs/partition_resize.rb:296
-#: src/lib/y2partitioner/dialogs/partition_size.rb:160
+#: src/lib/y2partitioner/dialogs/partition_resize.rb:145
+#: src/lib/y2partitioner/dialogs/partition_resize.rb:293
+#: src/lib/y2partitioner/dialogs/partition_size.rb:181
 #: src/lib/y2partitioner/widgets/blk_devices_table.rb:93
 msgid "Size"
 msgstr "大小"
@@ -379,15 +412,15 @@ msgid "Maximum Size (%s)"
 msgstr "最大大小 (%1)"
 
 #: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:78
-#: src/lib/y2partitioner/dialogs/partition_resize.rb:162
-#: src/lib/y2partitioner/dialogs/partition_size.rb:69
+#: src/lib/y2partitioner/dialogs/partition_resize.rb:155
+#: src/lib/y2partitioner/dialogs/partition_size.rb:75
 msgid "Custom Size"
 msgstr "自訂大小"
 
 #. error popup, :min and :max are replaced by sizes
 #. TRANSLATORS: error popup message, where %{min} and %{max} are replaced by sizes.
 #: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:161
-#: src/lib/y2partitioner/dialogs/partition_resize.rb:209
+#: src/lib/y2partitioner/dialogs/partition_resize.rb:202
 #, fuzzy
 #| msgid "The size entered is invalid. Enter a size between %1 and %2."
 msgid "The size entered is invalid. Enter a size between %{min} and %{max}."
@@ -494,27 +527,27 @@ msgid "Parity Algorithm"
 msgstr "同位演算法"
 
 #. TRANSLATORS: dialog title, where %{name} is the name of a partition (e.g., /dev/sda1)
-#: src/lib/y2partitioner/dialogs/partition_resize.rb:30
+#: src/lib/y2partitioner/dialogs/partition_resize.rb:28
 #, fuzzy
 #| msgid "Resize Partition %1"
 msgid "Resize Partition %{name}"
 msgstr "調整分割區 %1 的大小"
 
 #. @see Widgets::ControllerRadioButtons
-#: src/lib/y2partitioner/dialogs/partition_resize.rb:157
+#: src/lib/y2partitioner/dialogs/partition_resize.rb:150
 #, fuzzy
 #| msgid "Maximum Size (%1)"
 msgid "Maximum Size (%{size})"
 msgstr "最大大小 (%1)"
 
-#: src/lib/y2partitioner/dialogs/partition_resize.rb:158
+#: src/lib/y2partitioner/dialogs/partition_resize.rb:151
 #, fuzzy
 #| msgid "Minimum Size (%1)"
 msgid "Minimum Size (%{size})"
 msgstr "最小大小 (%1)"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/dialogs/partition_resize.rb:190
+#: src/lib/y2partitioner/dialogs/partition_resize.rb:183
 msgid "<p>Choose new size.</p>"
 msgstr "<p>選擇新大小。</p>"
 
@@ -549,41 +582,48 @@ msgid "Raw Volume (unformatted)"
 msgstr "原始磁碟區 (未格式化)"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/dialogs/partition_size.rb:61
+#: src/lib/y2partitioner/dialogs/partition_size.rb:67
 msgid "New Partition Size"
 msgstr "新分割區大小"
 
-#: src/lib/y2partitioner/dialogs/partition_size.rb:65
+#: src/lib/y2partitioner/dialogs/partition_size.rb:71
 msgid "Maximum Size (%1)"
 msgstr "最大大小 (%1)"
 
-#: src/lib/y2partitioner/dialogs/partition_size.rb:70
+#: src/lib/y2partitioner/dialogs/partition_size.rb:76
 msgid "Custom Region"
 msgstr "自訂區域"
 
+#. helptext
+#: src/lib/y2partitioner/dialogs/partition_size.rb:106
+msgid ""
+"<p>Choose the size for the new partition.</p>\n"
+"<p>If a size is specified (any of the two first options in the form),\n"
+"the start and end of the partition will be aligned to ensure optimal\n"
+"performance and to minimize gaps. That may result in a slightly\n"
+"smaller partition.</p>\n"
+"<p>If a custom region is specified, the start and end will be honored\n"
+"as closely as possible, with no performance optimizations. This is the\n"
+"best option to create very small partitions.</p>"
+msgstr ""
+
 #. error popup, %1 and %2 are replaced by sizes
-#: src/lib/y2partitioner/dialogs/partition_size.rb:184
+#: src/lib/y2partitioner/dialogs/partition_size.rb:206
 msgid "The size entered is invalid. Enter a size between %1 and %2."
 msgstr "輸入的大小無效。請輸入介於 %1 與 %2 之間的大小。"
 
 #. FIXME: libyui widget overflow :-(
-#: src/lib/y2partitioner/dialogs/partition_size.rb:235
+#: src/lib/y2partitioner/dialogs/partition_size.rb:260
 #, fuzzy
 #| msgid "Start"
 msgid "Start Block"
 msgstr "開始"
 
-#: src/lib/y2partitioner/dialogs/partition_size.rb:236
+#: src/lib/y2partitioner/dialogs/partition_size.rb:261
 #, fuzzy
 #| msgid "End "
 msgid "End Block"
 msgstr "結束 "
-
-#. TODO: a better description why
-#. error popup
-#: src/lib/y2partitioner/dialogs/partition_size.rb:265
-msgid "The region entered is invalid."
-msgstr "輸入的區域無效。"
 
 #. @macro seeAbstractWidget
 #: src/lib/y2partitioner/dialogs/partition_table_type.rb:23
@@ -637,92 +677,146 @@ msgstr "延伸分割區(&E)"
 msgid "&Logical Partition"
 msgstr "邏輯分割區(&L)"
 
-#. TRANSLATORS: here device stands for kernel path to device
-#: src/lib/y2partitioner/widgets/blk_device_attributes.rb:24
-#: src/lib/y2partitioner/widgets/lvm_vg_description.rb:59
+#. TRANSLATORS
+#: src/lib/y2partitioner/setup_errors_presenter.rb:64
+msgid "The system might not be able to boot:\n"
+msgstr ""
+
+#. TRANSLATORS
+#: src/lib/y2partitioner/setup_errors_presenter.rb:75
+msgid ""
+"The system could not work properly because the following errors were found:\n"
+msgstr ""
+
+#. TRANSLATORS: Device name information, where %s is replaced by the
+#. kernel path to device
+#: src/lib/y2partitioner/widgets/blk_device_attributes.rb:46
 #, fuzzy
 #| msgid "Device: %1"
 msgid "Device: %s"
 msgstr "裝置： %1"
 
-#. TRANSLATORS: size of partition
-#: src/lib/y2partitioner/widgets/blk_device_attributes.rb:31
-#: src/lib/y2partitioner/widgets/lvm_vg_description.rb:60
+#. TRANSLATORS: size information, where %s is replaced by a size (e.g., 10 GiB)
+#: src/lib/y2partitioner/widgets/blk_device_attributes.rb:54
 #, fuzzy
 #| msgid "Size: %1"
 msgid "Size: %s"
 msgstr "大小：%1"
 
-#. TRANSLATORS: Device path is where on motherboard is device connected,
-#. %i is number when there are more paths
-#: src/lib/y2partitioner/widgets/blk_device_attributes.rb:42
+#. TRANSLATORS: Device udev path information, where %i is replaced by an index number
+#. and %s is replaced by the path where the device is connected on motherboard
+#: src/lib/y2partitioner/widgets/blk_device_attributes.rb:66
 #, fuzzy
 #| msgid "Device Path: %1"
 msgid "Device Path %i: %s"
 msgstr "裝置路徑︰%1"
 
-#. TRANSLATORS: Device path is where on motherboard is device connected
-#: src/lib/y2partitioner/widgets/blk_device_attributes.rb:46
+#. TRANSLATORS: Device udev path information, where %s is replaced by the path where
+#. the device is connected on motherboard
+#: src/lib/y2partitioner/widgets/blk_device_attributes.rb:71
 #, fuzzy
 #| msgid "Device Path: %1"
 msgid "Device Path: %s"
 msgstr "裝置路徑︰%1"
 
-#. TRANSLATORS: Device ID is udev ID for device,
-#. %i is number when there are more paths
-#: src/lib/y2partitioner/widgets/blk_device_attributes.rb:58
+#. TRANSLATORS: Device udev id information, where %i is replaced by an index number
+#. and %s is replaced by the udev ID for the device
+#: src/lib/y2partitioner/widgets/blk_device_attributes.rb:84
 #, fuzzy
 #| msgid "Device ID %1: %2"
 msgid "Device ID %i: %s"
 msgstr "裝置 ID %1：%2"
 
-#. TRANSLATORS: Device ID is udev ID for device,
-#: src/lib/y2partitioner/widgets/blk_device_attributes.rb:62
+#. TRANSLATORS: Device udev id information, where %s is replaced by the udev ID
+#. for the device
+#: src/lib/y2partitioner/widgets/blk_device_attributes.rb:89
 #, fuzzy
 #| msgid "Device ID %1: %2"
 msgid "Device ID: %s"
 msgstr "裝置 ID %1：%2"
 
-#. Information if device is encrypted
-#. @return [String]
-#: src/lib/y2partitioner/widgets/blk_device_attributes.rb:69
+#. TRANSLATORS: Device encryption information, where %s is replaced by
+#. 'Yes' when the device is encrypted or by 'No' otherwise
+#: src/lib/y2partitioner/widgets/blk_device_attributes.rb:99
 #, fuzzy
 #| msgid "Encrypted: %1"
 msgid "Encrypted: %s"
 msgstr "已加密：%1"
 
 #. Values
-#: src/lib/y2partitioner/widgets/blk_device_attributes.rb:69
+#: src/lib/y2partitioner/widgets/blk_device_attributes.rb:99
 #: src/lib/y2partitioner/widgets/btrfs_subvolumes_table.rb:108
 msgid "Yes"
 msgstr "是"
 
-#: src/lib/y2partitioner/widgets/blk_device_attributes.rb:69
+#: src/lib/y2partitioner/widgets/blk_device_attributes.rb:99
 #: src/lib/y2partitioner/widgets/btrfs_subvolumes_table.rb:108
 msgid "No"
 msgstr "無"
 
-#. TRANSLATORS: heading for section about Filesystem on device
-#: src/lib/y2partitioner/widgets/blk_device_attributes.rb:75
-msgid "File System:"
-msgstr "檔案系統："
+#. TRANSLATORS: Device vendor information, where %s is replaced by a device vendor
+#: src/lib/y2partitioner/widgets/blk_device_attributes.rb:107
+#, fuzzy
+#| msgid "Vendor: %1"
+msgid "Vendor: %s"
+msgstr "廠商：%1"
 
-#. TRANSLATORS: File system and its type as human string
-#: src/lib/y2partitioner/widgets/blk_device_attributes.rb:84
+#. TRANSLATORS: Device model information, where %s is replaced by a device model
+#: src/lib/y2partitioner/widgets/blk_device_attributes.rb:115
+#, fuzzy
+#| msgid "Model: %1"
+msgid "Model: %s"
+msgstr "型號： %1"
+
+#. TRANSLATORS: Device bus information, where %s is replaced by the computer bus
+#. which the device is connected to (e.g., SATA or ATA)
+#: src/lib/y2partitioner/widgets/blk_device_attributes.rb:124
+#, fuzzy
+#| msgid "Bus: %1"
+msgid "Bus: %s"
+msgstr "匯流排：%1"
+
+#. TRANSLATORS: Number of sectors in the device, where %s is replaced by a number
+#: src/lib/y2partitioner/widgets/blk_device_attributes.rb:132
+#, fuzzy
+#| msgid "Number of Cylinders: %1"
+msgid "Number of Sectors: %i"
+msgstr "磁柱數：%1"
+
+#. TRANSLATORS: Device sector size information, where %s is replaced by
+#. a size (e.g., 1 MiB)
+#: src/lib/y2partitioner/widgets/blk_device_attributes.rb:141
+#, fuzzy
+#| msgid "Sector Size: %1"
+msgid "Sector Size: %s"
+msgstr "磁區大小：%1"
+
+#. TRANSLATORS: partition table type information, where %s is replaced by
+#. a partition table type (e.g., GPT, MS-DOS)
+#: src/lib/y2partitioner/widgets/blk_device_attributes.rb:153
+#, fuzzy
+#| msgid "Disk Label: %1"
+msgid "Disk Label: %s"
+msgstr "磁碟標籤：%1"
+
+#. TRANSLATORS: Filesystem type information, where %s is replaced by
+#. a filesystem type (e.g., VFAT, BTRFS)
+#: src/lib/y2partitioner/widgets/blk_device_attributes.rb:163
 #, fuzzy
 #| msgid "File System: %1"
 msgid "File System: %s"
 msgstr "檔案系統：%1"
 
-#. TRANSLATORS: File system and its type as human string
-#: src/lib/y2partitioner/widgets/blk_device_attributes.rb:86
+#. TRANSLATORS: Mount point information, where %s is replaced by a mount point
+#: src/lib/y2partitioner/widgets/blk_device_attributes.rb:171
 #, fuzzy
 #| msgid "Mount Point: %1"
 msgid "Mount Point: %s"
 msgstr "裝載點： %1"
 
-#. TRANSLATORS: Label associated with file system
-#: src/lib/y2partitioner/widgets/blk_device_attributes.rb:88
+#. TRANSLATORS: Filesystem label information, where %s is replaced by the
+#. label associated to the filesystem
+#: src/lib/y2partitioner/widgets/blk_device_attributes.rb:180
 #, fuzzy
 #| msgid "Label: %1"
 msgid "Label: %s"
@@ -770,6 +864,50 @@ msgstr "開始"
 #: src/lib/y2partitioner/widgets/blk_devices_table.rb:133
 msgid "End"
 msgstr "結束"
+
+#. Table icon for the device
+#.
+#. @see DEVICE_ICONS
+#.
+#. @param device [Y2Storage::BlkDevice]
+#. @return [Yast::Term] icon
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:225
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:226
+msgid "Disk"
+msgstr "磁碟"
+
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:227
+#, fuzzy
+#| msgid "Multicast"
+msgid "Multipath"
+msgstr "多路廣播"
+
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:228
+#, fuzzy
+#| msgid "BIOS ID"
+msgid "BIOS RAID"
+msgstr "BIOS ID"
+
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:229
+msgid "MD RAID"
+msgstr "MD RAID"
+
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:230
+#, fuzzy
+msgid "PV"
+msgstr "B"
+
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:231
+#, fuzzy
+#| msgid "LVM:"
+msgid "LVM"
+msgstr "LVM："
+
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:232
+#, fuzzy
+#| msgid "LVM:"
+msgid "LV"
+msgstr "LVM："
 
 #. @see CWM::PushButton#Label
 #: src/lib/y2partitioner/widgets/btrfs_edit_button.rb:21
@@ -879,6 +1017,23 @@ msgstr "<p>此檢視窗顯示除 BIOS RAID 以外的所有 RAID。</p>"
 msgid "No device selected"
 msgstr "未選取 DM 裝置。"
 
+#. Header to show in help
+#.
+#. @see #help
+#.
+#. @return [String]
+#: src/lib/y2partitioner/widgets/device_description.rb:65
+#, fuzzy
+#| msgid ""
+#| "<p>This view shows detailed information about the\n"
+#| "selected RAID.</p>"
+msgid ""
+"<p>This view shows detailed information about the selected device.</p>\n"
+"<p>The overview contains:</p>"
+msgstr ""
+"<p>此檢視顯示選定 RAID 的\n"
+"詳細資訊。</p>"
+
 #. TRANSLATORS: %s is a disk size. E.g. "10.5 GiB"
 #: src/lib/y2partitioner/widgets/devices_selection.rb:124
 #, fuzzy
@@ -926,80 +1081,6 @@ msgstr "全部移除"
 #: src/lib/y2partitioner/widgets/disk_bar_graph.rb:16
 msgid "Unpartitioned"
 msgstr "未分割"
-
-#. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/disk_description.rb:30
-#, fuzzy
-#| msgid ""
-#| "<p>This view shows detailed information about the\n"
-#| "selected hard disk.</p>"
-msgid ""
-"<p>This view shows detailed information about the\n"
-"selected hard disk.</p><p>The overview contains:</p>"
-msgstr ""
-"<p>此檢視顯示選定硬碟的\n"
-"詳細資訊。</p>"
-
-#. TODO: consider using e.g. erb for this kind of output
-#. for erb examples see
-#. https://github.com/yast/yast-registration/blob/master/src/data/registration/certificate_summary.erb
-#. https://github.com/yast/yast-registration/blob/327ab34c020a89f8b7e3f4bff55deea82e457237/src/lib/registration/helpers.rb#L165
-#. TRANSLATORS: heading for section about device
-#. TODO: consider using e.g. erb for this kind of output
-#. TRANSLATORS: heading for section about device
-#. TODO: consider using e.g. erb for this kind of output
-#. for erb examples see
-#. https://github.com/yast/yast-registration/blob/master/src/data/registration/certificate_summary.erb
-#. https://github.com/yast/yast-registration/blob/327ab34c020a89f8b7e3f4bff55deea82e457237/src/lib/registration/helpers.rb#L165
-#. TRANSLATORS: heading for section about device
-#. TODO: consider using e.g. erb for this kind of output
-#. for erb examples see
-#. https://github.com/yast/yast-registration/blob/master/src/data/registration/certificate_summary.erb
-#. https://github.com/yast/yast-registration/blob/327ab34c020a89f8b7e3f4bff55deea82e457237/src/lib/registration/helpers.rb#L165
-#. TRANSLATORS: heading for section about device
-#. TODO: consider using e.g. erb for this kind of output
-#. TRANSLATORS: heading for section about device
-#: src/lib/y2partitioner/widgets/disk_description.rb:51
-#: src/lib/y2partitioner/widgets/lvm_lv_description.rb:51
-#: src/lib/y2partitioner/widgets/lvm_vg_description.rb:43
-#: src/lib/y2partitioner/widgets/md_description.rb:51
-#: src/lib/y2partitioner/widgets/partition_description.rb:49
-msgid "Device:"
-msgstr "裝置︰"
-
-#. TRANSLATORS: heading for section about Hard Disk details
-#: src/lib/y2partitioner/widgets/disk_description.rb:54
-msgid "Hard Disk:"
-msgstr "硬碟："
-
-#. TRANSLATORS: Disk Vendor
-#: src/lib/y2partitioner/widgets/disk_description.rb:62
-#, fuzzy
-#| msgid "Vendor: %1"
-msgid "Vendor: %s"
-msgstr "廠商：%1"
-
-#. TRANSLATORS: Disk Model
-#: src/lib/y2partitioner/widgets/disk_description.rb:64
-#, fuzzy
-#| msgid "Model: %1"
-msgid "Model: %s"
-msgstr "型號： %1"
-
-#. TODO: to_human_string for Y2Storage::DataTransport
-#. TRANSLATORS: Computer bus which the device is connected to e.g. SATA or ATA.
-#: src/lib/y2partitioner/widgets/disk_description.rb:67
-#, fuzzy
-#| msgid "Bus: %1"
-msgid "Bus: %s"
-msgstr "匯流排：%1"
-
-#. TRANSLATORS: disk partition table label
-#: src/lib/y2partitioner/widgets/disk_description.rb:69
-#, fuzzy
-#| msgid "Disk Label: %1"
-msgid "Disk Label: %s"
-msgstr "磁碟標籤：%1"
 
 #. help text for cryptofs
 #: src/lib/y2partitioner/widgets/encrypt_password.rb:17
@@ -1183,8 +1264,10 @@ msgstr "區塊大小 (以位元組為單位)(&S)"
 
 #. Synchronize the widget with the information from the controller
 #: src/lib/y2partitioner/widgets/format_and_mount.rb:739
-msgid "File system &ID:"
-msgstr "檔案系統 ID(&I)："
+#, fuzzy
+#| msgid "Partition 2"
+msgid "Partition &ID:"
+msgstr "分割區 2"
 
 #. Push button that launch a dialog for set the fstab options
 #: src/lib/y2partitioner/widgets/fstab_options.rb:82
@@ -1423,6 +1506,16 @@ msgstr ""
 "磁柱大小。"
 
 #: src/lib/y2partitioner/widgets/help.rb:28
+#, fuzzy
+#| msgid ""
+#| "<b>Number of Cylinders</b> shows how many\n"
+#| "cylinders the hard disk has."
+msgid "<b>Number of Sectors</b> shows how many sectors the hard disk has."
+msgstr ""
+"<b>「磁柱數」</b>顯示硬碟有多少個\n"
+"磁柱。"
+
+#: src/lib/y2partitioner/widgets/help.rb:30
 msgid ""
 "<b>Sector Size</b> shows the size of the\n"
 "sectors of the hard disk."
@@ -1430,7 +1523,7 @@ msgstr ""
 "<b>「磁區大小」</b>顯示硬碟的\n"
 "磁區大小。"
 
-#: src/lib/y2partitioner/widgets/help.rb:30
+#: src/lib/y2partitioner/widgets/help.rb:32
 msgid ""
 "<b>Device</b> shows the kernel name of the\n"
 "device."
@@ -1438,7 +1531,7 @@ msgstr ""
 "<b>「裝置」</b>顯示裝置的\n"
 "核心名稱。"
 
-#: src/lib/y2partitioner/widgets/help.rb:32
+#: src/lib/y2partitioner/widgets/help.rb:34
 msgid ""
 "<b>Disk Label</b> shows the partition table\n"
 "type of the disk, e.g <tt>MSDOS</tt> or <tt>GPT</tt>."
@@ -1446,7 +1539,7 @@ msgstr ""
 "<b>「磁碟標籤」</b>顯示磁碟的分割區表類型，\n"
 "例如，<tt>MSDOS</tt> 或 <tt>GPT</tt>。"
 
-#: src/lib/y2partitioner/widgets/help.rb:35
+#: src/lib/y2partitioner/widgets/help.rb:37
 msgid ""
 "<b>Encrypted</b> shows whether the device is\n"
 "encrypted."
@@ -1454,7 +1547,7 @@ msgstr ""
 "<b>「已加密」</b>指出裝置是否\n"
 "已加密。"
 
-#: src/lib/y2partitioner/widgets/help.rb:37
+#: src/lib/y2partitioner/widgets/help.rb:39
 #, fuzzy
 #| msgid ""
 #| "<b>End Cylinder</b> shows the end cylinder of\n"
@@ -1466,7 +1559,7 @@ msgstr ""
 "<b>「結束磁柱」</b>顯示分割區的\n"
 "結束磁柱。"
 
-#: src/lib/y2partitioner/widgets/help.rb:39
+#: src/lib/y2partitioner/widgets/help.rb:41
 msgid ""
 "<b>LUN</b> shows the Logical Unit Number for\n"
 "Fibre Channel disks."
@@ -1474,7 +1567,7 @@ msgstr ""
 "<b>「LUN」</b>顯示光纖通道磁碟的\n"
 "邏輯單位編號。"
 
-#: src/lib/y2partitioner/widgets/help.rb:41
+#: src/lib/y2partitioner/widgets/help.rb:43
 msgid ""
 "<b>Port ID</b> shows the port id for Fibre\n"
 "Channel disks."
@@ -1482,7 +1575,7 @@ msgstr ""
 "<b>「埠 ID」</b>顯示光纖通道磁碟的\n"
 "埠 ID。"
 
-#: src/lib/y2partitioner/widgets/help.rb:43
+#: src/lib/y2partitioner/widgets/help.rb:45
 msgid ""
 "<b>WWPN</b> shows the World Wide Port Name for\n"
 "Fibre Channel disks."
@@ -1490,7 +1583,7 @@ msgstr ""
 "<b>「WWPN」</b>顯示光纖通道磁碟的\n"
 "全球埠名稱。"
 
-#: src/lib/y2partitioner/widgets/help.rb:46
+#: src/lib/y2partitioner/widgets/help.rb:48
 msgid ""
 "<b>File Path</b> shows the path of the file for\n"
 "an encrypted loop device."
@@ -1498,7 +1591,7 @@ msgstr ""
 "<b>「檔案路徑」</b>顯示已加密迴路裝置的\n"
 "檔案路徑。"
 
-#: src/lib/y2partitioner/widgets/help.rb:49
+#: src/lib/y2partitioner/widgets/help.rb:51
 msgid ""
 "<b>Format</b> shows some flags: <tt>F</tt>\n"
 "means the device is selected to be formatted."
@@ -1506,15 +1599,17 @@ msgstr ""
 "<b>「格式化」</b>會顯示一些旗標︰<tt>F</tt>\n"
 "表示裝置已選定要進行格式化。"
 
-#: src/lib/y2partitioner/widgets/help.rb:52
-msgid "<b>FS ID</b> shows the file system id."
+#: src/lib/y2partitioner/widgets/help.rb:54
+#, fuzzy
+#| msgid "<b>FS ID</b> shows the file system id."
+msgid "<b>Partition ID</b> shows the partition id."
 msgstr "<b>FS ID</b>顯示檔案系統 ID。"
 
-#: src/lib/y2partitioner/widgets/help.rb:54
+#: src/lib/y2partitioner/widgets/help.rb:56
 msgid "<b>FS Type</b> shows the file system type."
 msgstr "<b>「FS 類型」</b>顯示檔案系統類型。"
 
-#: src/lib/y2partitioner/widgets/help.rb:56
+#: src/lib/y2partitioner/widgets/help.rb:58
 msgid ""
 "<b>Label</b> shows the label of the file\n"
 "system."
@@ -1522,7 +1617,7 @@ msgstr ""
 "<b>「標籤」</b>顯示檔案系統的\n"
 "標籤。"
 
-#: src/lib/y2partitioner/widgets/help.rb:58
+#: src/lib/y2partitioner/widgets/help.rb:60
 msgid ""
 "<b>Metadata</b> shows the LVM metadata type for\n"
 "volume groups."
@@ -1530,11 +1625,11 @@ msgstr ""
 "<b>「中繼資料」</b>顯示磁碟區群組的\n"
 "LVM 中繼資料類型。"
 
-#: src/lib/y2partitioner/widgets/help.rb:60
+#: src/lib/y2partitioner/widgets/help.rb:62
 msgid "<b>Model</b> shows the device model."
 msgstr "<b>「型號」</b>顯示裝置型號。"
 
-#: src/lib/y2partitioner/widgets/help.rb:62
+#: src/lib/y2partitioner/widgets/help.rb:64
 #, fuzzy
 #| msgid ""
 #| "<b>Mount by</b> indicates how the file system\n"
@@ -1551,7 +1646,7 @@ msgstr ""
 "(核心) 根據核心名稱、(標籤) 根據檔案系統標籤、\n"
 "(UUID) 根據檔案系統 UUID、(ID) 根據裝置 ID 以及 (路徑) 根據裝置路徑。\n"
 
-#: src/lib/y2partitioner/widgets/help.rb:66
+#: src/lib/y2partitioner/widgets/help.rb:68
 msgid ""
 "<b>Mount Point</b> shows where the file system\n"
 "is mounted."
@@ -1559,7 +1654,7 @@ msgstr ""
 "<b>「掛接點」</b>顯示檔案系統的\n"
 "安裝位置。"
 
-#: src/lib/y2partitioner/widgets/help.rb:68
+#: src/lib/y2partitioner/widgets/help.rb:70
 msgid ""
 "<b>Number of Cylinders</b> shows how many\n"
 "cylinders the hard disk has."
@@ -1567,7 +1662,7 @@ msgstr ""
 "<b>「磁柱數」</b>顯示硬碟有多少個\n"
 "磁柱。"
 
-#: src/lib/y2partitioner/widgets/help.rb:71
+#: src/lib/y2partitioner/widgets/help.rb:73
 msgid ""
 "<b>Parity Algorithm</b> shows the parity\n"
 "algorithm for RAID devices with RAID type 5, 6 or 10."
@@ -1575,7 +1670,7 @@ msgstr ""
 "<b>「同位演算法」</b>顯示 RAID 類型為 5、6 或 10 之\n"
 "RAID 裝置的同位演算法。"
 
-#: src/lib/y2partitioner/widgets/help.rb:74
+#: src/lib/y2partitioner/widgets/help.rb:76
 msgid ""
 "<b>PE Size</b> shows the physical extent size\n"
 "for LVM volume groups."
@@ -1583,11 +1678,11 @@ msgstr ""
 "<b>「PE 大小」</b>顯示 LVM 磁碟區群組的\n"
 "實體範圍大小。"
 
-#: src/lib/y2partitioner/widgets/help.rb:77
+#: src/lib/y2partitioner/widgets/help.rb:79
 msgid "<b>RAID Version</b> shows the RAID version."
 msgstr "<b>「RAID 版本」</b>顯示 RAID 版本。"
 
-#: src/lib/y2partitioner/widgets/help.rb:79
+#: src/lib/y2partitioner/widgets/help.rb:81
 msgid ""
 "<b>RAID Type</b> shows the RAID type, also\n"
 "called RAID level, for RAID devices."
@@ -1595,11 +1690,11 @@ msgstr ""
 "<b>「RAID 類型」</b>顯示 RAID 裝置的 RAID 類型，\n"
 "也稱為 RAID 層級。"
 
-#: src/lib/y2partitioner/widgets/help.rb:82
+#: src/lib/y2partitioner/widgets/help.rb:84
 msgid "<b>Size</b> shows the size of the device."
 msgstr "<b>「大小」</b>顯示裝置的大小。"
 
-#: src/lib/y2partitioner/widgets/help.rb:84
+#: src/lib/y2partitioner/widgets/help.rb:86
 #, fuzzy
 #| msgid ""
 #| "<b>Start Cylinder</b> shows the start cylinder\n"
@@ -1611,7 +1706,7 @@ msgstr ""
 "<b>「開始磁柱」</b>顯示分割區的\n"
 "開始磁柱。"
 
-#: src/lib/y2partitioner/widgets/help.rb:86
+#: src/lib/y2partitioner/widgets/help.rb:88
 #, fuzzy
 #| msgid ""
 #| "<b>Stripes</b> shows the stripe number for LVM\n"
@@ -1624,7 +1719,7 @@ msgstr ""
 "<b>等量磁碟區</b>顯示 LVM 邏輯磁碟區的等量磁碟區數，\n"
 "如果大於 1，則用括弧括住等量磁碟區大小。\n"
 
-#: src/lib/y2partitioner/widgets/help.rb:89
+#: src/lib/y2partitioner/widgets/help.rb:91
 msgid ""
 "<b>Type</b> gives a general overview about the\n"
 "device type."
@@ -1632,7 +1727,7 @@ msgstr ""
 "<b>「類型」</b>提供裝置類型的\n"
 "一般綜覽。"
 
-#: src/lib/y2partitioner/widgets/help.rb:91
+#: src/lib/y2partitioner/widgets/help.rb:93
 #, fuzzy
 #| msgid ""
 #| "<b>Device ID</b> shows the persistent device\n"
@@ -1644,7 +1739,7 @@ msgstr ""
 "<b>裝置 ID</b>顯示永久的裝置 ID。\n"
 "此欄位可以為空。\n"
 
-#: src/lib/y2partitioner/widgets/help.rb:94
+#: src/lib/y2partitioner/widgets/help.rb:96
 msgid ""
 "<b>Device Path</b> shows the persistent device\n"
 "path. This field can be empty."
@@ -1652,7 +1747,7 @@ msgstr ""
 "<b>「裝置路徑」</b>顯示永久的裝置路徑。\n"
 "此欄位可以為空白。"
 
-#: src/lib/y2partitioner/widgets/help.rb:97
+#: src/lib/y2partitioner/widgets/help.rb:99
 #, fuzzy
 #| msgid ""
 #| "<b>Used By</b> shows if a device is used by\n"
@@ -1664,7 +1759,7 @@ msgstr ""
 "<b>使用者</b>顯示裝置是否\n"
 "由 RAID 或 LVM 等所使用。如果不是，此欄則為空。\n"
 
-#: src/lib/y2partitioner/widgets/help.rb:100
+#: src/lib/y2partitioner/widgets/help.rb:102
 msgid ""
 "<b>UUID</b> shows the Universally Unique\n"
 "Identifier of the file system."
@@ -1672,12 +1767,12 @@ msgstr ""
 "<b>「UUID」</b>顯示檔案系統的\n"
 "通用唯一識別碼。"
 
-#: src/lib/y2partitioner/widgets/help.rb:103
+#: src/lib/y2partitioner/widgets/help.rb:105
 msgid "<b>Vendor</b> shows the device vendor."
 msgstr "<b>「廠商」</b>顯示裝置廠商。"
 
 #. help texts that are appended to the common help only in Mode.normal
-#: src/lib/y2partitioner/widgets/help.rb:108
+#: src/lib/y2partitioner/widgets/help.rb:110
 msgid ""
 "A question mark (?) indicates that\n"
 "the file system is not listed in <tt>/etc/fstab</tt>. It is either mounted\n"
@@ -1690,7 +1785,7 @@ msgstr ""
 "已由某個自動掛載系統掛接。變更此磁碟區的設定時，\n"
 "YaST 不會更新 <tt>/etc/fstab</tt>。\n"
 
-#: src/lib/y2partitioner/widgets/help.rb:113
+#: src/lib/y2partitioner/widgets/help.rb:115
 msgid ""
 "An asterisk (*) after the mount point\n"
 "indicates a file system that is currently not mounted (for example, because "
@@ -1714,57 +1809,19 @@ msgstr "磁碟區群組"
 msgid "PE Size"
 msgstr "PE 大小"
 
-#. TRANSLATORS: first %s is number of LVM stripes
-#. and the second one is for size of stripe
-#: src/lib/y2partitioner/widgets/lvm_lv_attributes.rb:41
-msgid "%s (%s)"
-msgstr ""
-
-#. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/lvm_lv_description.rb:32
-#, fuzzy
-#| msgid ""
-#| "<p>This view shows detailed information about the\n"
-#| "selected logical volume.</p>"
-msgid ""
-"<p>This view shows detailed information about the\n"
-"selected logical volume.</p><p>The overview contains:</p>"
-msgstr ""
-"<p>此檢視顯示選定邏輯磁碟區的\n"
-"詳細資訊。</p>"
-
-#. TRANSLATORS: heading for section about Hard Disk details
-#: src/lib/y2partitioner/widgets/lvm_lv_description.rb:53
-#: src/lib/y2partitioner/widgets/lvm_vg_description.rb:46
-msgid "LVM:"
-msgstr "LVM："
-
-#. TRANSLATORS: value for number of LVM stripes
-#: src/lib/y2partitioner/widgets/lvm_lv_description.rb:68
+#. TRANSLATORS: logical volume stripes information, where %s is replaces by
+#. the stripes info
+#: src/lib/y2partitioner/widgets/lvm_lv_attributes.rb:44
 #, fuzzy
 #| msgid "Stripes: %1"
 msgid "Stripes: %s"
 msgstr "等量磁碟區：%1"
 
-#. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/lvm_vg_description.rb:27
-#, fuzzy
-#| msgid ""
-#| "<p>This view shows detailed information about the\n"
-#| "selected volume group.</p>"
-msgid ""
-"<p>This view shows detailed information about the\n"
-"selected volume group.</p><p>The overview contains:</p>"
+#. TRANSLATORS: first %s is the number of LVM stripes and the second one is
+#. the stripe size
+#: src/lib/y2partitioner/widgets/lvm_lv_attributes.rb:55
+msgid "%s (%s)"
 msgstr ""
-"<p>此檢視顯示選定磁碟區群組的\n"
-"詳細資訊。</p>"
-
-#. TRANSLATORS: Physical Extend size
-#: src/lib/y2partitioner/widgets/lvm_vg_description.rb:53
-#, fuzzy
-#| msgid "PE Size: %1"
-msgid "PE Size: %s"
-msgstr "PE 大小：%1"
 
 #. TRANSLATORS: button label to add a MD Raid
 #: src/lib/y2partitioner/widgets/md_add_button.rb:38
@@ -1772,88 +1829,54 @@ msgid "Add RAID..."
 msgstr "新增 RAID..."
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/md_description.rb:30
-#, fuzzy
-#| msgid ""
-#| "<p>This view shows detailed information about the\n"
-#| "selected RAID.</p>"
-msgid ""
-"<p>This view shows detailed information about the\n"
-"selected RAID.</p><p>The overview contains:</p>"
-msgstr ""
-"<p>此檢視顯示選定 RAID 的\n"
-"詳細資訊。</p>"
-
-#. TRANSLATORS: heading for section about Hard Disk details
-#: src/lib/y2partitioner/widgets/md_description.rb:54
-msgid "RAID:"
-msgstr "RAID："
-
-#. TRANSLATORS: Type of RAID
-#: src/lib/y2partitioner/widgets/md_description.rb:62
-#, fuzzy
-#| msgid "RAID Type: %1"
-msgid "RAID Type: %s"
-msgstr "RAID 類型︰%1"
-
-#. TRANSLATORS: chunk size of md raid
-#. according to mdadm(8): chunk size "is only meaningful for RAID0, RAID4,
-#. RAID5, RAID6, and RAID10"
-#: src/lib/y2partitioner/widgets/md_description.rb:66
-#, fuzzy
-#| msgid "Chunk Size: %1"
-msgid "Chunk Size: %s"
-msgstr "區塊大小：%1"
-
-#. TRANSLATORS: parity algorithm of md raid
-#: src/lib/y2partitioner/widgets/md_description.rb:69
-#, fuzzy
-#| msgid "Parity Algorithm: %1"
-msgid "Partity algorithm: %s"
-msgstr "同位演算法：%1"
-
-#. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/overview.rb:53
+#: src/lib/y2partitioner/widgets/overview.rb:57
 msgid "System View"
 msgstr "系統檢視"
 
 #. TODO: only if there is graph support UI.HasSpecialWidget(:Graph)
-#: src/lib/y2partitioner/widgets/overview.rb:78
+#: src/lib/y2partitioner/widgets/overview.rb:82
 msgid "Device Graph"
 msgstr "裝置圖表"
 
 #. TODO: only if there is graph support UI.HasSpecialWidget(:Graph)
-#: src/lib/y2partitioner/widgets/overview.rb:80
+#: src/lib/y2partitioner/widgets/overview.rb:84
 msgid "Mount Graph"
 msgstr "掛接圖表"
 
-#: src/lib/y2partitioner/widgets/overview.rb:81
+#: src/lib/y2partitioner/widgets/overview.rb:85
 msgid "Installation Summary"
 msgstr "安裝摘要"
 
-#: src/lib/y2partitioner/widgets/overview.rb:82
+#: src/lib/y2partitioner/widgets/overview.rb:86
 msgid "Settings"
 msgstr "設定"
 
+#. FIXME: improve Yast2::Popup to allow some text before the buttons
+#: src/lib/y2partitioner/widgets/overview.rb:122
+#, fuzzy
+#| msgid "Do you want to provide encryption passwords?"
+msgid "Do you want to continue?"
+msgstr "您是否要提供加密密碼？"
+
 #. TODO: real subtree
-#: src/lib/y2partitioner/widgets/overview.rb:179
+#: src/lib/y2partitioner/widgets/overview.rb:204
 msgid "Crypt Files"
 msgstr "加密檔案"
 
 #. TODO: real subtree
-#: src/lib/y2partitioner/widgets/overview.rb:184
+#: src/lib/y2partitioner/widgets/overview.rb:209
 msgid "Device Mapper"
 msgstr "裝置對應程式"
 
-#: src/lib/y2partitioner/widgets/overview.rb:188
+#: src/lib/y2partitioner/widgets/overview.rb:213
 msgid "NFS"
 msgstr "NFS"
 
-#: src/lib/y2partitioner/widgets/overview.rb:197
+#: src/lib/y2partitioner/widgets/overview.rb:222
 msgid "tmpfs"
 msgstr "tmpfs"
 
-#: src/lib/y2partitioner/widgets/overview.rb:201
+#: src/lib/y2partitioner/widgets/overview.rb:226
 msgid "Unused Devices"
 msgstr "未使用的裝置"
 
@@ -1969,26 +1992,6 @@ msgstr "分割區︰%1"
 msgid "Available Storage on %s"
 msgstr "%1 上的可用儲存"
 
-#. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/partition_description.rb:31
-#, fuzzy
-#| msgid ""
-#| "<p>This view shows detailed information about the\n"
-#| "selected partition.</p>"
-msgid ""
-"<p>This view shows detailed information about the\n"
-"selected partition.</p><p>The overview contains:</p>"
-msgstr ""
-"<p>此檢視顯示選定分割區的\n"
-"詳細資訊。</p>"
-
-#. TRANSLATORS: acronym for Filesystem Identifier
-#: src/lib/y2partitioner/widgets/partition_description.rb:63
-#, fuzzy
-#| msgid "FS ID: %1"
-msgid "FS ID: %s"
-msgstr "FS ID：%1"
-
 #. TRANSLATORS: button label to rescan devices
 #: src/lib/y2partitioner/widgets/rescan_devices_button.rb:41
 msgid "Rescan Devices"
@@ -2022,6 +2025,12 @@ msgstr "正在重新掃描磁碟..."
 msgid "&Used Devices"
 msgstr "使用的裝置(&U)"
 
+#. TRANSLATORS: error message
+#: src/lib/y2storage/boot_requirements_strategies/base.rb:153
+msgid ""
+"Boot requirements cannot be determined because there is no '/' mount point"
+msgstr ""
+
 #. class to implement callbacks used during activate
 #: src/lib/y2storage/callbacks/activate.rb:43
 msgid ""
@@ -2048,30 +2057,17 @@ msgstr ""
 msgid "Continue despite the error?"
 msgstr "忽略此錯誤並繼續？"
 
-#. Proposal client to show the list of storage actions.
-#.
-#. This client is used in autoyast summary dialog, where a new
-#. client instance is created with each event that requires to
-#. update the summary dialog content.
-#.
-#. To manage collapsing/expanding subvolumes list it is necessary
-#. to save the previous state of that list, but it is not possible
-#. to do that in the client instance itself because a new client
-#. instance is created each time.
-#.
-#. To solve that, instance class attributes are used. PartitionsProposal
-#. class has an internal state that is updated with each object creation.
-#.
-#. @see PartitionsProposal.update_state
-#: src/lib/y2storage/clients/partitions_proposal.rb:76
+#. Also run the expert partitioner as default option if no id was
+#. specified by the caller (bsc#1076732)
+#: src/lib/y2storage/clients/partitions_proposal.rb:78
 msgid "This is not enabled at this moment (event: %s)"
 msgstr ""
 
-#: src/lib/y2storage/clients/partitions_proposal.rb:87
+#: src/lib/y2storage/clients/partitions_proposal.rb:89
 msgid "Partitioning"
 msgstr "磁碟分割程式"
 
-#: src/lib/y2storage/clients/partitions_proposal.rb:88
+#: src/lib/y2storage/clients/partitions_proposal.rb:90
 msgid "&Partitioning"
 msgstr "製作分割(&P)"
 
@@ -2081,22 +2077,22 @@ msgstr "製作分割(&P)"
 #. is different to the last saved revision.
 #.
 #. @see ActionsPresenter
-#: src/lib/y2storage/clients/partitions_proposal.rb:135
 #: src/lib/y2storage/clients/partitions_proposal.rb:137
+#: src/lib/y2storage/clients/partitions_proposal.rb:139
 #, fuzzy
 #| msgid "No proposal possible."
 msgid "No proposal possible"
 msgstr "沒有可行的方案。"
 
 #. Translators: Short description of the partitioning setup
-#: src/lib/y2storage/clients/partitions_proposal.rb:152
+#: src/lib/y2storage/clients/partitions_proposal.rb:154
 #, fuzzy
 #| msgid "Custom Size"
 msgid "Custom"
 msgstr "自訂大小"
 
 #. TODO: should be tested by some real OPS guy, I (JR) pick human wording from `man mdadm`
-#: src/lib/y2storage/clients/partitions_proposal.rb:152
+#: src/lib/y2storage/clients/partitions_proposal.rb:154
 #: src/lib/y2storage/md_parity.rb:37
 #, fuzzy
 #| msgid "Default Mount by"
@@ -2578,6 +2574,90 @@ msgstr "要分割的磁碟"
 #| msgid "Disk to Partition"
 msgid "Diagnostics Partition"
 msgstr "要分割的磁碟"
+
+#~ msgid "File System:"
+#~ msgstr "檔案系統："
+
+#, fuzzy
+#~| msgid ""
+#~| "<p>This view shows detailed information about the\n"
+#~| "selected hard disk.</p>"
+#~ msgid ""
+#~ "<p>This view shows detailed information about the\n"
+#~ "selected hard disk.</p><p>The overview contains:</p>"
+#~ msgstr ""
+#~ "<p>此檢視顯示選定硬碟的\n"
+#~ "詳細資訊。</p>"
+
+#~ msgid "Device:"
+#~ msgstr "裝置︰"
+
+#~ msgid "Hard Disk:"
+#~ msgstr "硬碟："
+
+#~ msgid "File system &ID:"
+#~ msgstr "檔案系統 ID(&I)："
+
+#, fuzzy
+#~| msgid ""
+#~| "<p>This view shows detailed information about the\n"
+#~| "selected logical volume.</p>"
+#~ msgid ""
+#~ "<p>This view shows detailed information about the\n"
+#~ "selected logical volume.</p><p>The overview contains:</p>"
+#~ msgstr ""
+#~ "<p>此檢視顯示選定邏輯磁碟區的\n"
+#~ "詳細資訊。</p>"
+
+#, fuzzy
+#~| msgid ""
+#~| "<p>This view shows detailed information about the\n"
+#~| "selected volume group.</p>"
+#~ msgid ""
+#~ "<p>This view shows detailed information about the\n"
+#~ "selected volume group.</p><p>The overview contains:</p>"
+#~ msgstr ""
+#~ "<p>此檢視顯示選定磁碟區群組的\n"
+#~ "詳細資訊。</p>"
+
+#, fuzzy
+#~| msgid "PE Size: %1"
+#~ msgid "PE Size: %s"
+#~ msgstr "PE 大小：%1"
+
+#~ msgid "RAID:"
+#~ msgstr "RAID："
+
+#, fuzzy
+#~| msgid "RAID Type: %1"
+#~ msgid "RAID Type: %s"
+#~ msgstr "RAID 類型︰%1"
+
+#, fuzzy
+#~| msgid "Chunk Size: %1"
+#~ msgid "Chunk Size: %s"
+#~ msgstr "區塊大小：%1"
+
+#, fuzzy
+#~| msgid "Parity Algorithm: %1"
+#~ msgid "Partity algorithm: %s"
+#~ msgstr "同位演算法：%1"
+
+#, fuzzy
+#~| msgid ""
+#~| "<p>This view shows detailed information about the\n"
+#~| "selected partition.</p>"
+#~ msgid ""
+#~ "<p>This view shows detailed information about the\n"
+#~ "selected partition.</p><p>The overview contains:</p>"
+#~ msgstr ""
+#~ "<p>此檢視顯示選定分割區的\n"
+#~ "詳細資訊。</p>"
+
+#, fuzzy
+#~| msgid "FS ID: %1"
+#~ msgid "FS ID: %s"
+#~ msgstr "FS ID：%1"
 
 #, fuzzy
 #~| msgid "For %1, select at least %2 device."
@@ -6260,9 +6340,6 @@ msgstr "要分割的磁碟"
 #~ "如果更新期間需要磁碟區，\n"
 #~ "或者磁碟區包含加密的 LVM 實體磁碟區，則需要知道密碼。"
 
-#~ msgid "Do you want to provide encryption passwords?"
-#~ msgstr "您是否要提供加密密碼？"
-
 #~ msgid ""
 #~ "Enter encryption password for any of the\n"
 #~ "devices in the locked devices list.\n"
@@ -6293,14 +6370,8 @@ msgstr "要分割的磁碟"
 #~ msgid "SCSI Disk"
 #~ msgstr "SCSI 磁碟"
 
-#~ msgid "Disk"
-#~ msgstr "磁碟"
-
 #~ msgid "DM RAID"
 #~ msgstr "DM RAID"
-
-#~ msgid "MD RAID"
-#~ msgstr "MD RAID"
 
 #~ msgid ""
 #~ "Partitions cannot be created since other partitions on the disk are used."
@@ -6531,9 +6602,6 @@ msgstr "要分割的磁碟"
 #~ msgid "Parity Algorithm: %1"
 #~ msgstr "同位演算法：%1"
 
-#~ msgid "Number of Cylinders: %1"
-#~ msgstr "磁柱數：%1"
-
 #~ msgid "Cylinder Size: %1"
 #~ msgstr "磁柱大小：%1"
 
@@ -6542,9 +6610,6 @@ msgstr "要分割的磁碟"
 
 #~ msgid "End Cylinder: %1"
 #~ msgstr "結束磁柱：%1"
-
-#~ msgid "Sector Size: %1"
-#~ msgstr "磁區大小：%1"
 
 #~ msgid "FS ID: %1"
 #~ msgstr "FS ID：%1"
@@ -7608,16 +7673,6 @@ msgstr "要分割的磁碟"
 #~ msgid "Remove entry for mount point %1$s from %2$s"
 #~ msgstr "從 %2$s 移除用於裝載點 %1$s 的項目"
 
-#, fuzzy
-#~| msgid "BIOS ID"
-#~ msgid "BIOS RAID"
-#~ msgstr "BIOS ID"
-
-#, fuzzy
-#~| msgid "Multicast"
-#~ msgid "Multipath"
-#~ msgstr "多路廣播"
-
 #~ msgid "B"
 #~ msgstr "B"
 
@@ -7668,10 +7723,6 @@ msgstr "要分割的磁碟"
 
 #, fuzzy
 #~ msgid "PiB"
-#~ msgstr "B"
-
-#, fuzzy
-#~ msgid "P"
 #~ msgstr "B"
 
 #~ msgid "Deleting file-based device %1$s"
@@ -9808,9 +9859,6 @@ msgstr "要分割的磁碟"
 
 #~ msgid "Create"
 #~ msgstr "建立"
-
-#~ msgid "Partition 2"
-#~ msgstr "分割區 2"
 
 #~ msgid "Other..."
 #~ msgstr "其他..."
