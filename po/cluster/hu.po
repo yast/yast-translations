@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: YaST (@memory@)\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-01-19 20:32+0100\n"
-"PO-Revision-Date: 2018-01-31 23:02+0000\n"
+"PO-Revision-Date: 2018-02-03 17:01+0000\n"
 "Last-Translator: Robert Taisz <robert.taisz@emerald.hu>\n"
 "Language-Team: Hungarian <https://l10n.opensuse.org/projects/yast-"
 "cluster/master/hu/>\n"
@@ -67,7 +67,7 @@ msgstr "Kommunikációs csatornák"
 
 #: src/include/cluster/common.rb:48
 msgid "Corosync Qdevice"
-msgstr ""
+msgstr "Corosync Qdevice"
 
 # modules/inst_sw_single.ycp:85
 # clients/inst_sw_single.ycp:150
@@ -179,7 +179,7 @@ msgstr "Multicast cím:"
 
 #: src/include/cluster/dialogs.rb:466 src/include/cluster/dialogs.rb:483
 msgid "Port:"
-msgstr ""
+msgstr "Port:"
 
 #: src/include/cluster/dialogs.rb:473
 msgid "Redundant Channel"
@@ -228,6 +228,8 @@ msgid ""
 "The model basically defines the type of arbitrator, currently only net is "
 "support"
 msgstr ""
+"A modell alapvetően definiálja az értelmező típusát, jelenleg csak a net "
+"támogatott."
 
 #: src/include/cluster/dialogs.rb:723
 msgid "Qdevice votes must be a positive integer"
@@ -235,7 +237,7 @@ msgstr "A qdevice szavazatainak pozitív egész számnak kell lennie"
 
 #: src/include/cluster/dialogs.rb:729
 msgid "Qdevice host mush have a valid IP address"
-msgstr ""
+msgstr "A Qdevice-géphez érvényes IP-címnek kell tartoznia"
 
 #: src/include/cluster/dialogs.rb:735
 msgid "The corosync qdevice port must be a positive integer"
@@ -246,15 +248,19 @@ msgid ""
 "The algorithm only can be one of the ffsplit, lms, test or 2nodelms.YaST "
 "will overwrite test and 2nodelms."
 msgstr ""
+"Az algoritmus csak ffsplit, lms, test vagy 2nodelms lehet. A YaST felül "
+"fogja írni a test és a 2nodelms algoritmust."
 
 #: src/include/cluster/dialogs.rb:749
 msgid ""
 "The tie breaker can be one of lowest, highest or a valid node id (number)"
 msgstr ""
+"Az ütközésfeloldó lehet a legkisebb, a legnagyobb vagy egy érvényes "
+"csomópont-azonosító (szám)"
 
 #: src/include/cluster/dialogs.rb:777
 msgid "Qdevice model:"
-msgstr ""
+msgstr "Qdevice-modell:"
 
 #: src/include/cluster/dialogs.rb:780
 msgid "Qdevice votes:"
@@ -262,27 +268,27 @@ msgstr "Qdevice szavazatai:"
 
 #: src/include/cluster/dialogs.rb:786
 msgid "Qnetd server host:"
-msgstr ""
+msgstr "Qnetd-kiszolgálógép:"
 
 #: src/include/cluster/dialogs.rb:788
 msgid "Qnetd server TCP port:"
-msgstr ""
+msgstr "Qnetd-kiszolgáló TCP-portja:"
 
 #: src/include/cluster/dialogs.rb:792
 msgid "TLS:"
-msgstr ""
+msgstr "TLS:"
 
 #: src/include/cluster/dialogs.rb:796
 msgid "Algorithm:"
-msgstr ""
+msgstr "Algoritmus:"
 
 #: src/include/cluster/dialogs.rb:803
 msgid "Tie breaker:"
-msgstr ""
+msgstr "Ütközésfeloldó:"
 
 #: src/include/cluster/dialogs.rb:812
 msgid "En&able Corosync Qdevice"
-msgstr ""
+msgstr "Corosync Qdevice &engedélyezése"
 
 #: src/include/cluster/dialogs.rb:918
 msgid "Enable Security Auth"
@@ -611,6 +617,41 @@ msgid ""
 "containing the node with the given node id is chosen. Default is 'lowest'.</"
 "p>\n"
 msgstr ""
+"<p><b><big>Modell</big></b><br>Megadja a használandó modellt. Ezt a "
+"paramétert kötelező megadni. A corosync-qdevice moduláris, több különböző "
+"modellt is tud támogatni. Alapvetően a modell határozza meg a használandó "
+"értelmezőt. Jelenleg csak a 'net' támogatott.</p>\n"
+"<p><b><big>Szavazatok</big></b><br>A qdevice által a csoportnak megadott "
+"szavazatok száma. Ajánlott beállítása 1 az 'ffsplit' algoritmus használata "
+"esetén, illetve sum(szavazat/csomópont) - 1 az 'lms' algoritmus használata "
+"esetén. Az alapérték 1 vagy (csomópontok száma - 1) vagy általában "
+"sum(szavazat/csomópont) - 1 az algoritmus alapján.</p>\n"
+"<p><b><big>Host</big></b><br>Specifies the IP address or host name of the "
+"qnetd server to be used. This parameter is required.</p>\n"
+"<p><b><big>Port</big></b><br>Specifies TCP port of qnetd server. Default is "
+"5403.</p>\n"
+"<p><b><big>TLS</big></b><br>Can be one of 'on', 'off' or 'required' and "
+"specifies if tls should be used. 'on' means a connection with TLS is "
+"attempted first, but if the server doesn't advertise TLS support then non-"
+"TLS will be used. 'off' is used then TLS is not required and it's then not "
+"even tried. This mode is the only one which doesn't need a properly "
+"initialized NSS database. 'required' means TLS is required and if the server "
+"doesn't support TLS, qdevice will exit with error message. 'on' need "
+"manually change, refer to corosync-qdevice's man page for more details. "
+"Default is 'off' in yast.</p>\n"
+"<p><b><big>Algorithm</big></b><br>Decision algorithm. Can be one of the "
+"'ffsplit' or 'lms'.  (Actually there are also 'test' and '2nodelms', both of "
+"which are mainly for developers and shouldn't be used for production "
+"clusters, so yast will convert to 'ffsplit' automatically). For a "
+"description of what each algorithm means and how the algorithms differ see "
+"their individual sections.  Default value is ffsplit.</p>\n"
+"<p><b><big>Tie breaker</big></b><br>Can be one of 'lowest', 'highest' or "
+"'valid_node_id' (number) values. It's used as a fallback if qdevice has to "
+"decide between two or more equal partitions. 'lowest' means the partition "
+"with the lowest node id is chosen. 'highest' means the partition with "
+"highest node id is chosen. And 'valid_node_id' means that the partition "
+"containing the node with the given node id is chosen. Default is "
+"'lowest'.</p>\n"
 
 #: src/include/cluster/helps.rb:54
 msgid ""
