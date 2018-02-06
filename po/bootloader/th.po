@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: YaST (@memory@)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-10 16:55+0100\n"
+"POT-Creation-Date: 2018-02-06 15:49+0100\n"
 "PO-Revision-Date: 2010-07-02 20:56+0700\n"
 "Last-Translator: Thanomsub Noppaburana <donga.nb@gmail.com>\n"
 "Language-Team: Thai <thai-l10n@googlegroups.com>\n"
@@ -60,24 +60,29 @@ msgid "Boot Loader Settings"
 msgstr "การตั้งค่าตัวจัดการการบูตระบบ"
 
 #. Represents dialog for modification of device map
-#: src/lib/bootloader/device_map_dialog.rb:58
+#: src/lib/bootloader/device_map_dialog.rb:56
 #, fuzzy
 msgid "Device map must contain at least one device"
 msgstr "คลาสต้องมีเครื่องพิมพ์อย่างน้อยหนึ่งเครื่อง"
 
 #. we just go back to original dialog
-#: src/lib/bootloader/device_map_dialog.rb:114
+#: src/lib/bootloader/device_map_dialog.rb:108
 msgid "Disk order settings"
 msgstr "ตั้งค่าลำดับของดิสก์"
 
-#: src/lib/bootloader/device_map_dialog.rb:120
+#: src/lib/bootloader/device_map_dialog.rb:113
 msgid "D&isks"
 msgstr "ดิสก์"
 
 #. textentry header
-#: src/lib/bootloader/device_map_dialog.rb:170
+#: src/lib/bootloader/device_map_dialog.rb:157
 msgid "&Device"
 msgstr "อุ&ปกรณ์"
+
+#. TRANSLATORS: %s stands for partition
+#: src/lib/bootloader/disk_change_detector.rb:29
+msgid "Selected bootloader partition %s is not available any more."
+msgstr ""
 
 #. TRANSLATORS: %s is translated description of error
 #: src/lib/bootloader/exceptions.rb:24
@@ -173,25 +178,25 @@ msgstr ""
 #. @return a list of summary lines
 #. Display bootloader summary
 #. @return a list of summary lines
-#: src/lib/bootloader/grub2.rb:99 src/lib/bootloader/grub2efi.rb:82
+#: src/lib/bootloader/grub2.rb:99 src/lib/bootloader/grub2efi.rb:86
 msgid "Boot Loader Type: %1"
 msgstr "ประเภทของตัวจัดการการบูต: %1"
 
-#: src/lib/bootloader/grub2.rb:103 src/lib/bootloader/grub2efi.rb:90
+#: src/lib/bootloader/grub2.rb:103 src/lib/bootloader/grub2efi.rb:94
 #, fuzzy
 #| msgid "Enable &GSS Security"
 msgid "Enable Trusted Boot: %1"
 msgstr "เปิดใช้ความปลอดภัยแบบ &GSS"
 
-#: src/lib/bootloader/grub2.rb:104 src/lib/bootloader/grub2efi.rb:87
-#: src/lib/bootloader/grub2efi.rb:91
+#: src/lib/bootloader/grub2.rb:104 src/lib/bootloader/grub2efi.rb:91
+#: src/lib/bootloader/grub2efi.rb:95
 #, fuzzy
 #| msgid "Yes"
 msgid "yes"
 msgstr "ใช่"
 
-#: src/lib/bootloader/grub2.rb:104 src/lib/bootloader/grub2efi.rb:87
-#: src/lib/bootloader/grub2efi.rb:91
+#: src/lib/bootloader/grub2.rb:104 src/lib/bootloader/grub2efi.rb:91
+#: src/lib/bootloader/grub2efi.rb:95
 msgid "no"
 msgstr ""
 
@@ -204,19 +209,18 @@ msgstr "สถานะตำแหน่ง: %1"
 msgid "Order of Hard Disks: %1"
 msgstr "ลำดับของฮาร์ดดิสก์: %1"
 
-#: src/lib/bootloader/grub2.rb:188
-#, fuzzy
-#| msgid " (\"/boot\")"
-msgid " (/boot)"
-msgstr " (\"/boot\")"
+#. TRANSLATORS: extended is here for extended partition. Keep translation short.
+#: src/lib/bootloader/grub2.rb:191
+msgid " (extended)"
+msgstr " (ส่วนขยาย)"
 
 #. TRANSLATORS: MBR is acronym for Master Boot Record, if nothing locally specific
 #. is used in your language, then keep it as it is.
-#: src/lib/bootloader/grub2.rb:192
+#: src/lib/bootloader/grub2.rb:196
 msgid " (MBR)"
 msgstr " (MBR)"
 
-#: src/lib/bootloader/grub2.rb:201
+#: src/lib/bootloader/grub2.rb:217
 #, fuzzy
 #| msgid "Boot from MBR is enabled (<a href=\"disable_boot_mbr\">disable</a>"
 msgid ""
@@ -225,7 +229,7 @@ msgstr ""
 "การบูตจากส่วนพื้นที่หลักการบูตถูกเปิดใช้งาน (<a href=\"disable_boot_mbr\">ปิดการใช้งาน</"
 "a>)"
 
-#: src/lib/bootloader/grub2.rb:205
+#: src/lib/bootloader/grub2.rb:221
 #, fuzzy
 #| msgid "Boot from MBR is disabled (<a href=\"enable_boot_mbr\">enable</a>"
 msgid ""
@@ -233,39 +237,64 @@ msgid ""
 msgstr ""
 "การบูตจากส่วนพื้นที่หลักการบูตถูกปิดการใช้งาน (<a href=\"enable_boot_mbr\">เปิดใช้งาน</a>)"
 
-#: src/lib/bootloader/grub2.rb:213
+#. check for separated boot partition, use root otherwise
+#: src/lib/bootloader/grub2.rb:231
 #, fuzzy
 #| msgid ""
-#| "Boot from /boot partition is enabled (<a href=\"disable_boot_boot"
+#| "Boot from \"/\" partition is enabled (<a href=\"disable_boot_root"
 #| "\">disable</a>"
 msgid ""
-"Install boot code into a partition with /boot (<a href=\"disable_boot_boot"
-"\">do not install</a>)"
+"Install bootcode into /boot partition (<a href=\"disable_boot_boot\">do not "
+"install</a>)"
 msgstr ""
-"การบูตจากพาร์ทิชัน /boot ถูกเปิดใช้งาน (<a href=\"disable_boot_boot\">ปิดการใช้งาน</"
+"การบูตจากพาร์ทิชัน \"/\" ถูกเปิดใช้งาน (<a href=\"disable_boot_root\">ปิดการใช้งาน</"
 "a>)"
 
-#: src/lib/bootloader/grub2.rb:218
+#: src/lib/bootloader/grub2.rb:236
 #, fuzzy
 #| msgid ""
-#| "Boot from /boot partition is disabled (<a href=\"enable_boot_boot"
+#| "Boot from \"/\" partition is disabled (<a href=\"enable_boot_root"
 #| "\">enable</a>"
 msgid ""
-"Do not install boot code into a partition with /boot (<a href="
-"\"enable_boot_boot\">install</a>)"
+"Do not install bootcode into /boot partition (<a href=\"enable_boot_boot"
+"\">install</a>)"
 msgstr ""
-"การบูตจากพาร์ทิชัน /boot ถูกปิดการใช้งาน (<a href=\"enable_boot_boot\">เปิดการใช้งาน</"
+"การบูตจากพาร์ทิชัน \"/\" ถูกปิดการใช้งาน (<a href=\"enable_boot_root\">เปิดการใช้งาน</"
+"a>)"
+
+#: src/lib/bootloader/grub2.rb:242
+#, fuzzy
+#| msgid ""
+#| "Boot from \"/\" partition is enabled (<a href=\"disable_boot_root"
+#| "\">disable</a>"
+msgid ""
+"Install bootcode into \"/\" partition (<a href=\"disable_boot_root\">do not "
+"install</a>)"
+msgstr ""
+"การบูตจากพาร์ทิชัน \"/\" ถูกเปิดใช้งาน (<a href=\"disable_boot_root\">ปิดการใช้งาน</"
+"a>)"
+
+#: src/lib/bootloader/grub2.rb:247
+#, fuzzy
+#| msgid ""
+#| "Boot from \"/\" partition is disabled (<a href=\"enable_boot_root"
+#| "\">enable</a>"
+msgid ""
+"Do not install bootcode into \"/\" partition (<a href=\"enable_boot_root"
+"\">install</a>)"
+msgstr ""
+"การบูตจากพาร์ทิชัน \"/\" ถูกปิดการใช้งาน (<a href=\"enable_boot_root\">เปิดการใช้งาน</"
 "a>)"
 
 #. no location chosen, so warn user that it is problem unless he is sure
-#: src/lib/bootloader/grub2.rb:243
+#: src/lib/bootloader/grub2.rb:272
 msgid ""
 "Warning: No location for bootloader stage1 selected.Unless you know what you "
 "are doing please select above location."
 msgstr ""
 
 #. TRANSLATORS: title for list of location proposals
-#: src/lib/bootloader/grub2.rb:251
+#: src/lib/bootloader/grub2.rb:280
 #, fuzzy
 #| msgid "Change Location: %1"
 msgid "Change Location: %s"
@@ -596,33 +625,42 @@ msgstr ""
 msgid "Boot Loader Location"
 msgstr "ตำแหน่งของตัวจัดการการบูตระบบ"
 
-#. Add it exactly as specified by the user
-#: src/lib/bootloader/grub2_widgets.rb:745
+#: src/lib/bootloader/grub2_widgets.rb:744
 msgid "Custom boot device have to be specied if checked"
 msgstr ""
 
+#: src/lib/bootloader/grub2_widgets.rb:772
+#, fuzzy
+#| msgid "Boot from Boot Partition"
+msgid "Boo&t from Boot Partition"
+msgstr "บูตระบบจากพาร์ทิชันการบูต"
+
 #: src/lib/bootloader/grub2_widgets.rb:773
 #, fuzzy
-#| msgid "Boo&t from Boot Partition"
-msgid "Boo&t from Partition"
-msgstr "บูตระบบจากพาร์ทิชันการ&บูต"
+#| msgid "Boot from Root Partition"
+msgid "Boo&t from Root Partition"
+msgstr "บูตระบบจากพาร์ทิชันราก"
 
 #: src/lib/bootloader/grub2_widgets.rb:774
 msgid "Boot from &Master Boot Record"
 msgstr "บูตระบบจากส่วนพื้นที่ห&ลักการบูต (Master boot record - MBR)"
 
-#: src/lib/bootloader/grub2_widgets.rb:785
+#: src/lib/bootloader/grub2_widgets.rb:775
+msgid "Boot from &Extended Partition"
+msgstr "บูตระบบจากพาร์ทิชัน&ขยาย"
+
+#: src/lib/bootloader/grub2_widgets.rb:786
 msgid "C&ustom Boot Partition"
 msgstr "กำหนดพาร์ทิชันที่ใช้บูตระบบเอ&ง"
 
 #. Represents button that open Device Map edit dialog
-#: src/lib/bootloader/grub2_widgets.rb:798
+#: src/lib/bootloader/grub2_widgets.rb:799
 #, fuzzy
 #| msgid "Disk Order"
 msgid "&Edit Disk Boot Order"
 msgstr "ลำดับดิสก์"
 
-#: src/lib/bootloader/grub2_widgets.rb:804
+#: src/lib/bootloader/grub2_widgets.rb:805
 msgid ""
 "<p><big><b>Disks Order</b></big><br>\n"
 "To specify the order of the disks according to the order in BIOS, use\n"
@@ -637,27 +675,27 @@ msgstr ""
 "หากต้องการเอาดิสก์ออก ให้ใช้ปุ่ม <b>เอาออก</b></p>"
 
 #. represents Tab with kernel related configuration
-#: src/lib/bootloader/grub2_widgets.rb:825
+#: src/lib/bootloader/grub2_widgets.rb:826
 #, fuzzy
 #| msgid "Other Kernel &Parameters"
 msgid "&Kernel Parameters"
 msgstr "ตัวเลือกอื่น ๆ ที่จะส่งไปให้เคอร์เนล"
 
 #. Represent tab with options related to stage1 location and bootloader type
-#: src/lib/bootloader/grub2_widgets.rb:850
+#: src/lib/bootloader/grub2_widgets.rb:851
 #, fuzzy
 #| msgid "Boot Loader Options"
 msgid "Boot Co&de Options"
 msgstr "ตัวเลือกของตัวจัดการการบูตระบบ"
 
 #. Represents bootloader specific options like its timeout, default section or password protection
-#: src/lib/bootloader/grub2_widgets.rb:920
+#: src/lib/bootloader/grub2_widgets.rb:921
 #, fuzzy
 #| msgid "Boot Loader Options"
 msgid "Boot&loader Options"
 msgstr "ตัวเลือกของตัวจัดการการบูตระบบ"
 
-#: src/lib/bootloader/grub2efi.rb:86
+#: src/lib/bootloader/grub2efi.rb:90
 #, fuzzy
 #| msgid "Enable &GSS Security"
 msgid "Enable Secure Boot: %1"
@@ -682,28 +720,28 @@ msgstr "ไม่ต้องติดตั้งตัวจัดการก
 #. in installation always propose missing stuff
 #. current below use proposed value if not already set
 #. If set, then use same bootloader, but propose it again
-#: src/lib/bootloader/proposal_client.rb:69
+#: src/lib/bootloader/proposal_client.rb:71
 msgid "Cannot detect device mounted as root. Please check partitioning."
 msgstr ""
 
 #. proposal part - bootloader label
-#: src/lib/bootloader/proposal_client.rb:100
+#: src/lib/bootloader/proposal_client.rb:102
 msgid "Booting"
 msgstr "การบูตระบบ"
 
 #. menubutton entry
-#: src/lib/bootloader/proposal_client.rb:102
+#: src/lib/bootloader/proposal_client.rb:104
 msgid "&Booting"
 msgstr "การบู&ตระบบ"
 
 #. warning text in the summary richtext
-#: src/lib/bootloader/proposal_client.rb:202
+#: src/lib/bootloader/proposal_client.rb:200
 msgid ""
 "No boot loader is selected for installation. Your system might not be "
 "bootable."
 msgstr "ยังไม่มีบูตโหลดเดอร์ที่ถูกเลือกไว้สำหรับการติดตั้ง ระบบของคุณอาจจะทำการบูตระบบไม่ได้"
 
-#: src/lib/bootloader/proposal_client.rb:210
+#: src/lib/bootloader/proposal_client.rb:208
 msgid ""
 "Because of the partitioning, the bootloader cannot be installed properly"
 msgstr "ตัวบูตโหลดเดอร์อาจจะไม่สามารถติดตั้งได้อย่างถูกต้อง ซึ่งอาจเนื่องมาจากการปรับแต่งพาร์ทิชัน"
@@ -722,7 +760,7 @@ msgstr ""
 "เปลี่ยนการตั้งค่าตัวจัดการการบูตระบบของคุณ</P>"
 
 #. TRANSLATORS: error message, %s stands for problematic device.
-#: src/lib/bootloader/udev_mapping.rb:86
+#: src/lib/bootloader/udev_mapping.rb:95
 msgid "Unknown udev device '%s'"
 msgstr ""
 
@@ -751,13 +789,13 @@ msgid ""
 msgstr ""
 
 #. do not activate for ppc and GPT see bsc#983194
-#: src/modules/BootSupportCheck.rb:154
+#: src/modules/BootSupportCheck.rb:217
 msgid ""
 "Activate flag is not set by installer. If it is not set at all, some BIOSes "
 "could refuse to boot."
 msgstr ""
 
-#: src/modules/BootSupportCheck.rb:161
+#: src/modules/BootSupportCheck.rb:224
 msgid ""
 "The installer will not modify the MBR of the disk. Unless it already "
 "contains boot code, the BIOS won't be able to boot from this disk."
@@ -840,38 +878,37 @@ msgstr "กำลังจัดเก็บการปรับแต่งค
 msgid "Saving Boot Loader Configuration"
 msgstr "กำลังจัดเก็บการปรับแต่งค่าการบูตเริ่มระบบ"
 
-#~ msgid " (extended)"
-#~ msgstr " (ส่วนขยาย)"
+#, fuzzy
+#~| msgid " (\"/boot\")"
+#~ msgid " (/boot)"
+#~ msgstr " (\"/boot\")"
 
 #, fuzzy
 #~| msgid ""
-#~| "Boot from \"/\" partition is enabled (<a href=\"disable_boot_root"
+#~| "Boot from /boot partition is enabled (<a href=\"disable_boot_boot"
 #~| "\">disable</a>"
 #~ msgid ""
-#~ "Install bootcode into \"/\" partition (<a href=\"disable_boot_root\">do "
-#~ "not install</a>)"
+#~ "Install boot code into a partition with /boot (<a href=\"disable_boot_boot"
+#~ "\">do not install</a>)"
 #~ msgstr ""
-#~ "การบูตจากพาร์ทิชัน \"/\" ถูกเปิดใช้งาน (<a href=\"disable_boot_root"
+#~ "การบูตจากพาร์ทิชัน /boot ถูกเปิดใช้งาน (<a href=\"disable_boot_boot"
 #~ "\">ปิดการใช้งาน</a>)"
 
 #, fuzzy
 #~| msgid ""
-#~| "Boot from \"/\" partition is disabled (<a href=\"enable_boot_root"
+#~| "Boot from /boot partition is disabled (<a href=\"enable_boot_boot"
 #~| "\">enable</a>"
 #~ msgid ""
-#~ "Do not install bootcode into \"/\" partition (<a href=\"enable_boot_root"
-#~ "\">install</a>)"
+#~ "Do not install boot code into a partition with /boot (<a href="
+#~ "\"enable_boot_boot\">install</a>)"
 #~ msgstr ""
-#~ "การบูตจากพาร์ทิชัน \"/\" ถูกปิดการใช้งาน (<a href=\"enable_boot_root"
+#~ "การบูตจากพาร์ทิชัน /boot ถูกปิดการใช้งาน (<a href=\"enable_boot_boot"
 #~ "\">เปิดการใช้งาน</a>)"
 
 #, fuzzy
-#~| msgid "Boot from Root Partition"
-#~ msgid "Boo&t from Root Partition"
-#~ msgstr "บูตระบบจากพาร์ทิชันราก"
-
-#~ msgid "Boot from &Extended Partition"
-#~ msgstr "บูตระบบจากพาร์ทิชัน&ขยาย"
+#~| msgid "Boo&t from Boot Partition"
+#~ msgid "Boo&t from Partition"
+#~ msgstr "บูตระบบจากพาร์ทิชันการ&บูต"
 
 #, fuzzy
 #~ msgid "The boot device is on raid type: %1. System will not boot."
@@ -1017,9 +1054,6 @@ msgstr "กำลังจัดเก็บการปรับแต่งค
 
 #~ msgid "Boot from Master Boot Record"
 #~ msgstr "บูตระบบจากส่วนพื้นที่หลักการบูต (Master boot record - MBR)"
-
-#~ msgid "Boot from Boot Partition"
-#~ msgstr "บูตระบบจากพาร์ทิชันการบูต"
 
 #~ msgid "Boot from Extended Partition"
 #~ msgstr "บูตระบบจากพาร์ทิชันขยาย"

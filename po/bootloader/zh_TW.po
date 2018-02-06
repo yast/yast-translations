@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bootloader\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-10 16:55+0100\n"
+"POT-Creation-Date: 2018-02-06 15:49+0100\n"
 "PO-Revision-Date: 2018-02-02 10:01+0000\n"
 "Last-Translator: Emily Dong <Emily.Dong@excel-gits.com>\n"
 "Language-Team: Chinese (Taiwan) <https://l10n.opensuse.org/projects/yast-"
@@ -63,23 +63,28 @@ msgid "Boot Loader Settings"
 msgstr "開機載入器設定"
 
 #. Represents dialog for modification of device map
-#: src/lib/bootloader/device_map_dialog.rb:58
+#: src/lib/bootloader/device_map_dialog.rb:56
 msgid "Device map must contain at least one device"
 msgstr "裝置地圖必須包含至少一台裝置"
 
 #. we just go back to original dialog
-#: src/lib/bootloader/device_map_dialog.rb:114
+#: src/lib/bootloader/device_map_dialog.rb:108
 msgid "Disk order settings"
 msgstr "磁碟順序設定"
 
-#: src/lib/bootloader/device_map_dialog.rb:120
+#: src/lib/bootloader/device_map_dialog.rb:113
 msgid "D&isks"
 msgstr "磁碟(&I)"
 
 #. textentry header
-#: src/lib/bootloader/device_map_dialog.rb:170
+#: src/lib/bootloader/device_map_dialog.rb:157
 msgid "&Device"
 msgstr "裝置(&D)"
+
+#. TRANSLATORS: %s stands for partition
+#: src/lib/bootloader/disk_change_detector.rb:29
+msgid "Selected bootloader partition %s is not available any more."
+msgstr "選定的開機載入程式分割區 %s 不再可用。"
 
 #. TRANSLATORS: %s is translated description of error
 #: src/lib/bootloader/exceptions.rb:24
@@ -167,21 +172,21 @@ msgstr ""
 #. @return a list of summary lines
 #. Display bootloader summary
 #. @return a list of summary lines
-#: src/lib/bootloader/grub2.rb:99 src/lib/bootloader/grub2efi.rb:82
+#: src/lib/bootloader/grub2.rb:99 src/lib/bootloader/grub2efi.rb:86
 msgid "Boot Loader Type: %1"
 msgstr "開機載入器類型：%1"
 
-#: src/lib/bootloader/grub2.rb:103 src/lib/bootloader/grub2efi.rb:90
+#: src/lib/bootloader/grub2.rb:103 src/lib/bootloader/grub2efi.rb:94
 msgid "Enable Trusted Boot: %1"
 msgstr "啟用可信開機︰%1"
 
-#: src/lib/bootloader/grub2.rb:104 src/lib/bootloader/grub2efi.rb:87
-#: src/lib/bootloader/grub2efi.rb:91
+#: src/lib/bootloader/grub2.rb:104 src/lib/bootloader/grub2efi.rb:91
+#: src/lib/bootloader/grub2efi.rb:95
 msgid "yes"
 msgstr "是"
 
-#: src/lib/bootloader/grub2.rb:104 src/lib/bootloader/grub2efi.rb:87
-#: src/lib/bootloader/grub2efi.rb:91
+#: src/lib/bootloader/grub2.rb:104 src/lib/bootloader/grub2efi.rb:91
+#: src/lib/bootloader/grub2efi.rb:95
 msgid "no"
 msgstr "否"
 
@@ -194,40 +199,62 @@ msgstr "狀態位置： %1"
 msgid "Order of Hard Disks: %1"
 msgstr "硬碟的順序：%1"
 
-#: src/lib/bootloader/grub2.rb:188
-msgid " (/boot)"
-msgstr " (/boot)"
+#. TRANSLATORS: extended is here for extended partition. Keep translation short.
+#: src/lib/bootloader/grub2.rb:191
+msgid " (extended)"
+msgstr " (extended)"
 
 #. TRANSLATORS: MBR is acronym for Master Boot Record, if nothing locally specific
 #. is used in your language, then keep it as it is.
-#: src/lib/bootloader/grub2.rb:192
+#: src/lib/bootloader/grub2.rb:196
 msgid " (MBR)"
 msgstr " (MBR)"
 
-#: src/lib/bootloader/grub2.rb:201
+#: src/lib/bootloader/grub2.rb:217
 msgid ""
 "Install bootcode into MBR (<a href=\"disable_boot_mbr\">do not install</a>)"
 msgstr "將開機碼載入 MBR (<a href=\"disable_boot_mbr\">不安裝</a>)"
 
-#: src/lib/bootloader/grub2.rb:205
+#: src/lib/bootloader/grub2.rb:221
 msgid ""
 "Do not install bootcode into MBR (<a href=\"enable_boot_mbr\">install</a>)"
 msgstr "不要將開機碼載入 MBR (<a href=\"enable_boot_mbr\">安裝</a>)"
 
-#: src/lib/bootloader/grub2.rb:213
+#. check for separated boot partition, use root otherwise
+#: src/lib/bootloader/grub2.rb:231
+#, fuzzy
+#| msgid ""
+#| "Install bootcode into \"/\" partition (<a href=\"disable_boot_root\">do "
+#| "not install</a>)"
 msgid ""
-"Install boot code into a partition with /boot (<a href=\"disable_boot_boot"
-"\">do not install</a>)"
-msgstr "將開機碼安裝到包含 /boot 的分割區 (<a href=\"disable_boot_boot\">不安裝</a>)"
+"Install bootcode into /boot partition (<a href=\"disable_boot_boot\">do not "
+"install</a>)"
+msgstr "將開機碼載入「/」分割區 (<a href=\"disable_boot_mbr\">不安裝</a>)"
 
-#: src/lib/bootloader/grub2.rb:218
+#: src/lib/bootloader/grub2.rb:236
+#, fuzzy
+#| msgid ""
+#| "Do not install bootcode into \"/\" partition (<a href=\"enable_boot_root"
+#| "\">install</a>)"
 msgid ""
-"Do not install boot code into a partition with /boot (<a href="
-"\"enable_boot_boot\">install</a>)"
-msgstr "不要將開機碼安裝到包含 /boot 的分割區 (<a href=\"enable_boot_boot\">安裝</a>)"
+"Do not install bootcode into /boot partition (<a href=\"enable_boot_boot"
+"\">install</a>)"
+msgstr "不要將開機碼安裝到「/」分割區 (<a href=\"enable_boot_root\">安裝</a>)"
+
+#: src/lib/bootloader/grub2.rb:242
+msgid ""
+"Install bootcode into \"/\" partition (<a href=\"disable_boot_root\">do not "
+"install</a>)"
+msgstr "將開機碼載入「/」分割區 (<a href=\"disable_boot_mbr\">不安裝</a>)"
+
+#: src/lib/bootloader/grub2.rb:247
+msgid ""
+"Do not install bootcode into \"/\" partition (<a href=\"enable_boot_root"
+"\">install</a>)"
+msgstr "不要將開機碼安裝到「/」分割區 (<a href=\"enable_boot_root\">安裝</a>)"
 
 #. no location chosen, so warn user that it is problem unless he is sure
-#: src/lib/bootloader/grub2.rb:243
+#: src/lib/bootloader/grub2.rb:272
 msgid ""
 "Warning: No location for bootloader stage1 selected.Unless you know what you "
 "are doing please select above location."
@@ -236,7 +263,7 @@ msgstr ""
 "述位置。"
 
 #. TRANSLATORS: title for list of location proposals
-#: src/lib/bootloader/grub2.rb:251
+#: src/lib/bootloader/grub2.rb:280
 msgid "Change Location: %s"
 msgstr "變更位置：%s"
 
@@ -451,10 +478,13 @@ msgid ""
 "users. If you need them, use a separate GRUB2 script.</p>"
 msgstr ""
 "<p><b>使用密碼保護開機載入程式</b><br>\n"
-"在開機時，修改任何項目甚至將其開機都需要提供密碼。如果核取<b>僅啟用項目修改防護</b>，則將任何項目開機都不會受到限制，但修改項目需要提供密碼 ("
-"這是 GRUB 1 的行為方式)。此選項的副作用是，rd.shell=0 會新增至核心參數來阻止對 initrd "
-"外圍程序進行未授權存取。<br>僅當您在<b>再次輸入密碼</b>中重複輸入了密碼時，YaST 才接受該密碼。密碼將適用於 GRUB2 使用者 root "
-"(與 Linux 的使用者 root 不同)。YaST 目前不支援其他 GRUB2 使用者。若您需要用到它們，請使用單獨的 GRUB2 程序檔。</p>"
+"在開機時，修改任何項目甚至將其開機都需要提供密碼。如果核取<b>僅啟用項目修改防"
+"護</b>，則將任何項目開機都不會受到限制，但修改項目需要提供密碼 (這是 GRUB 1 "
+"的行為方式)。此選項的副作用是，rd.shell=0 會新增至核心參數來阻止對 initrd 外"
+"圍程序進行未授權存取。<br>僅當您在<b>再次輸入密碼</b>中重複輸入了密碼時，"
+"YaST 才接受該密碼。密碼將適用於 GRUB2 使用者 root (與 Linux 的使用者 root 不"
+"同)。YaST 目前不支援其他 GRUB2 使用者。若您需要用到它們，請使用單獨的 GRUB2 "
+"程序檔。</p>"
 
 #. Translators: do not translate the quoted parts like "unit"
 #: src/lib/bootloader/grub2_widgets.rb:470
@@ -469,10 +499,12 @@ msgid ""
 "positive number like 8. Example parameters are <tt>serial --speed=38400 --"
 "unit=0</tt>.</p>"
 msgstr ""
-"<p>當使用圖形主控台時，它允許使用多種顯示方案。<tt>自動</tt>選項會在開始開機時找出最佳方案。</p>\n"
-"<p>使用一系列主控台時，開機輸出將會列印到類似 <tt>ttyS0</tt> 的一系列裝置。至少必須設定 <tt>--unit</tt> 選項，"
-"完整的語法為 <tt>%s</tt>。其他部分都是選擇性的，如果不設定，將使用預設值。指令中的 <tt>NUM</tt> 代表正數，例如 8。範例參數為 "
-"<tt>serial --speed=38400 --unit=0</tt></p>"
+"<p>當使用圖形主控台時，它允許使用多種顯示方案。<tt>自動</tt>選項會在開始開機"
+"時找出最佳方案。</p>\n"
+"<p>使用一系列主控台時，開機輸出將會列印到類似 <tt>ttyS0</tt> 的一系列裝置。至"
+"少必須設定 <tt>--unit</tt> 選項，完整的語法為 <tt>%s</tt>。其他部分都是選擇性"
+"的，如果不設定，將使用預設值。指令中的 <tt>NUM</tt> 代表正數，例如 8。範例參"
+"數為 <tt>serial --speed=38400 --unit=0</tt></p>"
 
 #. there's mode specified, use it
 #: src/lib/bootloader/grub2_widgets.rb:507
@@ -552,29 +584,38 @@ msgstr ""
 msgid "Boot Loader Location"
 msgstr "開機載入器位置"
 
-#. Add it exactly as specified by the user
-#: src/lib/bootloader/grub2_widgets.rb:745
+#: src/lib/bootloader/grub2_widgets.rb:744
 msgid "Custom boot device have to be specied if checked"
 msgstr "若核取則必須指定自訂開機裝置"
 
+#: src/lib/bootloader/grub2_widgets.rb:772
+#, fuzzy
+#| msgid "Boot from Boot Partition"
+msgid "Boo&t from Boot Partition"
+msgstr "從開機分割區開機"
+
 #: src/lib/bootloader/grub2_widgets.rb:773
-msgid "Boo&t from Partition"
-msgstr "從分割區開機(&T)"
+msgid "Boo&t from Root Partition"
+msgstr "從根分割區開機(&T)"
 
 #: src/lib/bootloader/grub2_widgets.rb:774
 msgid "Boot from &Master Boot Record"
 msgstr "從主開機記錄開機(&M)"
 
-#: src/lib/bootloader/grub2_widgets.rb:785
+#: src/lib/bootloader/grub2_widgets.rb:775
+msgid "Boot from &Extended Partition"
+msgstr "從擴充分割區開機(&E)"
+
+#: src/lib/bootloader/grub2_widgets.rb:786
 msgid "C&ustom Boot Partition"
 msgstr "自定開機分割區(&U)"
 
 #. Represents button that open Device Map edit dialog
-#: src/lib/bootloader/grub2_widgets.rb:798
+#: src/lib/bootloader/grub2_widgets.rb:799
 msgid "&Edit Disk Boot Order"
 msgstr "編輯磁碟開機順序(&E)"
 
-#: src/lib/bootloader/grub2_widgets.rb:804
+#: src/lib/bootloader/grub2_widgets.rb:805
 msgid ""
 "<p><big><b>Disks Order</b></big><br>\n"
 "To specify the order of the disks according to the order in BIOS, use\n"
@@ -589,21 +630,21 @@ msgstr ""
 "要移除磁碟，按 <b>移除</b>。</p>"
 
 #. represents Tab with kernel related configuration
-#: src/lib/bootloader/grub2_widgets.rb:825
+#: src/lib/bootloader/grub2_widgets.rb:826
 msgid "&Kernel Parameters"
 msgstr "核心參數(&K)"
 
 #. Represent tab with options related to stage1 location and bootloader type
-#: src/lib/bootloader/grub2_widgets.rb:850
+#: src/lib/bootloader/grub2_widgets.rb:851
 msgid "Boot Co&de Options"
 msgstr "開機碼選項(&D)"
 
 #. Represents bootloader specific options like its timeout, default section or password protection
-#: src/lib/bootloader/grub2_widgets.rb:920
+#: src/lib/bootloader/grub2_widgets.rb:921
 msgid "Boot&loader Options"
 msgstr "開機載入程式選項(&L)"
 
-#: src/lib/bootloader/grub2efi.rb:86
+#: src/lib/bootloader/grub2efi.rb:90
 msgid "Enable Secure Boot: %1"
 msgstr "啟用安全開機︰%1"
 
@@ -623,28 +664,28 @@ msgstr "請勿安裝任何開機載入器"
 #. in installation always propose missing stuff
 #. current below use proposed value if not already set
 #. If set, then use same bootloader, but propose it again
-#: src/lib/bootloader/proposal_client.rb:69
+#: src/lib/bootloader/proposal_client.rb:71
 msgid "Cannot detect device mounted as root. Please check partitioning."
 msgstr "無法偵測到掛載為根的裝置。請檢查磁碟分割。"
 
 #. proposal part - bootloader label
-#: src/lib/bootloader/proposal_client.rb:100
+#: src/lib/bootloader/proposal_client.rb:102
 msgid "Booting"
 msgstr "開機"
 
 #. menubutton entry
-#: src/lib/bootloader/proposal_client.rb:102
+#: src/lib/bootloader/proposal_client.rb:104
 msgid "&Booting"
 msgstr "開機(&B)"
 
 #. warning text in the summary richtext
-#: src/lib/bootloader/proposal_client.rb:202
+#: src/lib/bootloader/proposal_client.rb:200
 msgid ""
 "No boot loader is selected for installation. Your system might not be "
 "bootable."
 msgstr "未選取要安裝的開機載入器。您的系統可能無法開機。"
 
-#: src/lib/bootloader/proposal_client.rb:210
+#: src/lib/bootloader/proposal_client.rb:208
 msgid ""
 "Because of the partitioning, the bootloader cannot be installed properly"
 msgstr "因為分割區因素，所以無法正確安裝開機載入器"
@@ -659,7 +700,7 @@ msgstr ""
 "正在讀取目前組態...</P>"
 
 #. TRANSLATORS: error message, %s stands for problematic device.
-#: src/lib/bootloader/udev_mapping.rb:86
+#: src/lib/bootloader/udev_mapping.rb:95
 msgid "Unknown udev device '%s'"
 msgstr "未知的 udev 裝置 '%s'"
 
@@ -691,13 +732,13 @@ msgstr ""
 "在 MBR 上安裝 stage1。"
 
 #. do not activate for ppc and GPT see bsc#983194
-#: src/modules/BootSupportCheck.rb:154
+#: src/modules/BootSupportCheck.rb:217
 msgid ""
 "Activate flag is not set by installer. If it is not set at all, some BIOSes "
 "could refuse to boot."
 msgstr "安裝程式未設定啟動旗標。若完全未設定，則某些 BIOS 會拒絕開機。"
 
-#: src/modules/BootSupportCheck.rb:161
+#: src/modules/BootSupportCheck.rb:224
 msgid ""
 "The installer will not modify the MBR of the disk. Unless it already "
 "contains boot code, the BIOS won't be able to boot from this disk."
@@ -774,28 +815,25 @@ msgstr "正在儲存開機載入程式組態..."
 msgid "Saving Boot Loader Configuration"
 msgstr "正在儲存開機載入器組態"
 
-#~ msgid " (extended)"
-#~ msgstr " (extended)"
+#~ msgid " (/boot)"
+#~ msgstr " (/boot)"
 
 #~ msgid ""
-#~ "Install bootcode into \"/\" partition (<a href=\"disable_boot_root\">do "
-#~ "not install</a>)"
-#~ msgstr "將開機碼載入「/」分割區 (<a href=\"disable_boot_mbr\">不安裝</a>)"
-
-#~ msgid ""
-#~ "Do not install bootcode into \"/\" partition (<a href=\"enable_boot_root"
-#~ "\">install</a>)"
+#~ "Install boot code into a partition with /boot (<a href=\"disable_boot_boot"
+#~ "\">do not install</a>)"
 #~ msgstr ""
-#~ "不要將開機碼安裝到「/」分割區 (<a href=\"enable_boot_root\">安裝</a>)"
+#~ "將開機碼安裝到包含 /boot 的分割區 (<a href=\"disable_boot_boot\">不安裝</"
+#~ "a>)"
 
-#~ msgid "Boo&t from Root Partition"
-#~ msgstr "從根分割區開機(&T)"
+#~ msgid ""
+#~ "Do not install boot code into a partition with /boot (<a href="
+#~ "\"enable_boot_boot\">install</a>)"
+#~ msgstr ""
+#~ "不要將開機碼安裝到包含 /boot 的分割區 (<a href=\"enable_boot_boot\">安裝</"
+#~ "a>)"
 
-#~ msgid "Boot from &Extended Partition"
-#~ msgstr "從擴充分割區開機(&E)"
-
-#~ msgid "Selected bootloader partition %s is not available any more."
-#~ msgstr "選定的開機載入程式分割區 %s 不再可用。"
+#~ msgid "Boo&t from Partition"
+#~ msgstr "從分割區開機(&T)"
 
 #~ msgid "The boot device is on raid type: %1. System will not boot."
 #~ msgstr "開機裝置在磁碟陣列種類: %1. 系統可能無法開機。"
@@ -971,9 +1009,6 @@ msgstr "正在儲存開機載入器組態"
 
 #~ msgid "Boot from Root Partition"
 #~ msgstr "從根分割區開機"
-
-#~ msgid "Boot from Boot Partition"
-#~ msgstr "從開機分割區開機"
 
 #~ msgid "Boot from Extended Partition"
 #~ msgstr "從擴充分割區開機"
