@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: storage\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-19 20:35+0100\n"
+"POT-Creation-Date: 2018-02-06 15:50+0100\n"
 "PO-Revision-Date: 2018-02-05 08:58+0000\n"
 "Last-Translator: Emily Dong <Emily.Dong@excel-gits.com>\n"
 "Language-Team: Chinese (Taiwan) <https://l10n.opensuse.org/projects/yast-"
@@ -43,16 +43,24 @@ msgstr ""
 msgid "It is not possible to create a partition on %{name}."
 msgstr "無法在 %{name} 上建立分割區。"
 
-#. Validates a candidate name for the LV
-#.
-#. @param name [String]
-#. @return [String, nil] nil if the name is valid, an error string
-#. otherwise
-#: src/lib/y2partitioner/actions/controllers/lvm_lv.rb:173
+#. TRANSLATORS: dialog title. %s is a device name like /dev/vg0
+#: src/lib/y2partitioner/actions/controllers/lvm_lv.rb:245
+msgid "Add Logical Volume on %s"
+msgstr "在 %s 上新增邏輯磁碟區"
+
+#. TRANSLATORS: Error message when there is no name for the new logical volume
+#: src/lib/y2partitioner/actions/controllers/lvm_lv.rb:299
+msgid "Enter a name for the logical volume."
+msgstr "輸入邏輯磁碟區的名稱。"
+
+#. TRANSLATORS: Error message when the name of the logical volume is too long
+#: src/lib/y2partitioner/actions/controllers/lvm_lv.rb:309
 msgid "The name for the logical volume is longer than 128 characters."
 msgstr "邏輯磁碟區的名稱長度超過 128 個字元。"
 
-#: src/lib/y2partitioner/actions/controllers/lvm_lv.rb:175
+#. TRANSLATORS: Error message when the name of the logical volume contains
+#. illegal characters
+#: src/lib/y2partitioner/actions/controllers/lvm_lv.rb:320
 msgid ""
 "The name for the logical volume contains illegal characters.\n"
 "Allowed are alphanumeric characters, \".\", \"_\", \"-\" and \"+\"."
@@ -60,15 +68,34 @@ msgstr ""
 "邏輯磁碟區的名稱包含不合法的字元。\n"
 "允許的字元包括英數字元、「.」、「_」、「-」與「+」。"
 
-#. TRANSLATORS: dialog title. %s is a device name like /dev/vg0
-#: src/lib/y2partitioner/actions/controllers/lvm_lv.rb:194
-msgid "Add Logical Volume on %s"
-msgstr "在 %s 上新增邏輯磁碟區"
+#. TRANSLATORS: Error message when the name of the volume group is already used.
+#. %{lv_name} is replaced by a logical volume name (e.g., lv1) and %{vg_name} is
+#. replaced by a volume group name (e.g., system)
+#: src/lib/y2partitioner/actions/controllers/lvm_lv.rb:336
+msgid ""
+"A logical volume named \"%{lv_name}\" already exists\n"
+"in volume group \"%{vg_name}\"."
+msgstr ""
+"磁碟區群組「%{vg_name}」中已存在\n"
+"名為「%{lv_name}」的邏輯磁碟區。"
+
+#. TRANSLATORS: dialog title when creating an LVM volume group
+#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:77
+msgid "Add Volume Group"
+msgstr "新增磁碟區群組"
+
+#. TRANSLATORS: dialog title when resizing an LVM volume group, where %s is replaced
+#. by a device name (e.g., /dev/vg0)
+#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:81
+#, fuzzy
+#| msgid "Resize Volume Group %1"
+msgid "Resize Volume Group %s"
+msgstr "調整磁碟區群組  %1 的大小"
 
 #. Error message to show when the given volume group name is empty
 #.
 #. @return [String]
-#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:201
+#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:291
 msgid "Enter a name for the volume group."
 msgstr "輸入磁碟區群組的名稱。"
 
@@ -76,7 +103,7 @@ msgstr "輸入磁碟區群組的名稱。"
 #. characters
 #.
 #. @return [String]
-#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:219
+#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:309
 msgid ""
 "The name for the volume group contains illegal characters. Allowed\n"
 "are alphanumeric characters, \".\", \"_\", \"-\" and \"+\""
@@ -85,7 +112,7 @@ msgstr ""
 "允許的字元包括英數字元、「.」、「_」、「-」與「+」"
 
 #. TRANSLATORS: %{vg_name} is replaced by the name of the volume group
-#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:242
+#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:332
 msgid ""
 "The volume group name \"%{vg_name}\" conflicts\n"
 "with another entry in the /dev directory."
@@ -98,7 +125,7 @@ msgstr ""
 #. @see #invalid_extent_size?
 #.
 #. @return [String]
-#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:267
+#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:357
 msgid ""
 "The data entered is invalid. Insert a physical extent size larger than 1 "
 "KiB\n"
@@ -200,14 +227,91 @@ msgstr "編輯 %{vg} 上的邏輯磁碟區 %{lv_name}"
 msgid "Edit Partition %s"
 msgstr "編輯分割區 %s"
 
-#: src/lib/y2partitioner/actions/edit_blk_device.rb:87
+#. TRANSLATORS: Error message when trying to edit an extented partition
+#: src/lib/y2partitioner/actions/edit_blk_device.rb:105
 msgid "An extended partition cannot be edited"
 msgstr "無法編輯延伸分割區"
 
+#. TRANSLATORS: Error message when trying to edit an LVM thin pool. %{name} is
+#. replaced by a logical volume name (e.g., /dev/system/lv1)
+#: src/lib/y2partitioner/actions/edit_blk_device.rb:116
+#, fuzzy
+#| msgid ""
+#| "The volume %1 is a thin pool.\n"
+#| "It cannot be edited."
+msgid ""
+"The volume %{name} is a thin pool.\n"
+"It cannot be edited."
+msgstr ""
+"磁碟區 %1 是一個簡易池，\n"
+"無法編輯。"
+
 #. TRANSLATORS: an error popup message
-#: src/lib/y2partitioner/actions/resize_partition.rb:91
-msgid "This partition cannot be resized."
+#: src/lib/y2partitioner/actions/resize_blk_device.rb:91
+#, fuzzy
+#| msgid "This partition cannot be resized."
+msgid "This device cannot be resized."
 msgstr "無法調整此分割區大小。"
+
+#. TRANSLATORS: dialog title, where %{name} is the name of a partition
+#. (e.g. /dev/sda1) or LVM logical volume (e.g. /dev/system/home)
+#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:30
+#, fuzzy
+#| msgid "Resize Partition %{name}"
+msgid "Resize %{name}"
+msgstr "調整分割區 %{name} 的大小"
+
+#. @macro seeAbstractWidget
+#. @macro seeAbstractWidget
+#. @macro seeAbstractWidget
+#. @macro seeAbstractWidget
+#. @macro seeAbstractWidget
+#. @macro seeAbstractWidget
+#. TRANSLATORS: table header, size of block device e.g. "8.00 GiB"
+#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:148
+#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:338
+#: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:70
+#: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:148
+#: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:281
+#: src/lib/y2partitioner/dialogs/partition_size.rb:184
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:94
+msgid "Size"
+msgstr "大小"
+
+#. @see Widgets::ControllerRadioButtons
+#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:153
+msgid "Maximum Size (%{size})"
+msgstr "最大大小 (%{size})"
+
+#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:154
+msgid "Minimum Size (%{size})"
+msgstr "最小大小 (%{size})"
+
+#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:158
+#: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:79
+#: src/lib/y2partitioner/dialogs/partition_size.rb:76
+msgid "Custom Size"
+msgstr "自訂大小"
+
+#. @macro seeAbstractWidget
+#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:187
+msgid "<p>Choose new size.</p>"
+msgstr "<p>選擇新大小。</p>"
+
+#. TRANSLATORS: error popup message, where %{min} and %{max} are replaced by sizes.
+#. error popup, :min and :max are replaced by sizes
+#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:206
+#: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:164
+msgid "The size entered is invalid. Enter a size between %{min} and %{max}."
+msgstr "輸入的大小無效。請輸入介於 %{min} 與 %{max} 之間的大小。"
+
+#. Warning when the resizing device is an LVM thin pool and it is overcommitted
+#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:269
+msgid ""
+"The LVM thin pool %{name} is overcomitted (needs %{total_thin_size} and only "
+"has %{size}).\n"
+"It might not have enough space for some LVM thin volumes."
+msgstr ""
 
 #. @param filesystem [Y2Storage::Filesystems::BlkFilesystem] a btrfs filesystem
 #: src/lib/y2partitioner/dialogs/btrfs_subvolume.rb:24
@@ -278,125 +382,68 @@ msgid "Fstab Options:"
 msgstr "Fstab 選項："
 
 #. @macro seeDialog
-#: src/lib/y2partitioner/dialogs/lvm_lv_info.rb:52
+#: src/lib/y2partitioner/dialogs/lvm_lv_info.rb:53
 msgid "Name"
 msgstr "名稱"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/dialogs/lvm_lv_info.rb:73
+#: src/lib/y2partitioner/dialogs/lvm_lv_info.rb:74
 #: src/lib/y2partitioner/widgets/lvm_add_button.rb:54
 msgid "Logical Volume"
 msgstr "邏輯磁碟區"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/dialogs/lvm_lv_info.rb:92
-msgid "Enter a name for the logical volume."
-msgstr "輸入邏輯磁碟區的名稱。"
-
-#: src/lib/y2partitioner/dialogs/lvm_lv_info.rb:99
-msgid ""
-"A logical volume named \"%{lv_name}\" already exists\n"
-"in volume group \"%{vg_name}\"."
-msgstr ""
-"磁碟區群組「%{vg_name}」中已存在\n"
-"名為「%{lv_name}」的邏輯磁碟區。"
-
-#. @macro seeAbstractWidget
 #. TRANSLATORS: table header, type of disk or partition. Can be longer. E.g. "Linux swap"
-#: src/lib/y2partitioner/dialogs/lvm_lv_info.rb:128
-#: src/lib/y2partitioner/widgets/blk_devices_table.rb:108
+#: src/lib/y2partitioner/dialogs/lvm_lv_info.rb:113
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:109
 msgid "Type"
 msgstr "類型"
 
 #. @see Widgets::ControllerRadioButtons
-#: src/lib/y2partitioner/dialogs/lvm_lv_info.rb:134
+#: src/lib/y2partitioner/dialogs/lvm_lv_info.rb:119
 msgid "Normal Volume"
 msgstr "一般磁碟區"
 
-#: src/lib/y2partitioner/dialogs/lvm_lv_info.rb:135
+#: src/lib/y2partitioner/dialogs/lvm_lv_info.rb:120
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:242
 msgid "Thin Pool"
 msgstr "簡易池"
 
-#: src/lib/y2partitioner/dialogs/lvm_lv_info.rb:136
+#: src/lib/y2partitioner/dialogs/lvm_lv_info.rb:121
 msgid "Thin Volume"
 msgstr "簡易磁碟區"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/dialogs/lvm_lv_info.rb:175
+#: src/lib/y2partitioner/dialogs/lvm_lv_info.rb:200
 msgid "Used Pool"
 msgstr "已使用的池"
 
-#. @macro seeAbstractWidget
-#. @macro seeAbstractWidget
-#. @macro seeAbstractWidget
-#. @macro seeAbstractWidget
-#. @macro seeAbstractWidget
-#. @macro seeAbstractWidget
-#. TRANSLATORS: table header, size of block device e.g. "8.00 GiB"
-#: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:69
-#: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:145
-#: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:262
-#: src/lib/y2partitioner/dialogs/partition_resize.rb:145
-#: src/lib/y2partitioner/dialogs/partition_resize.rb:293
-#: src/lib/y2partitioner/dialogs/partition_size.rb:181
-#: src/lib/y2partitioner/widgets/blk_devices_table.rb:93
-msgid "Size"
-msgstr "大小"
-
 #. TRANSLATORS: %s is a size like '15.00 GiB'
-#: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:75
+#: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:76
 msgid "Maximum Size (%s)"
 msgstr "最大大小 (%s)"
 
-#: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:78
-#: src/lib/y2partitioner/dialogs/partition_resize.rb:155
-#: src/lib/y2partitioner/dialogs/partition_size.rb:75
-msgid "Custom Size"
-msgstr "自訂大小"
-
-#. error popup, :min and :max are replaced by sizes
-#. TRANSLATORS: error popup message, where %{min} and %{max} are replaced by sizes.
-#: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:161
-#: src/lib/y2partitioner/dialogs/partition_resize.rb:202
-msgid "The size entered is invalid. Enter a size between %{min} and %{max}."
-msgstr "輸入的大小無效。請輸入介於 %{min} 與 %{max} 之間的大小。"
-
 #. @macro seeAbstractWidget
 #. TRANSLATORS: table header, number of LVM LV stripes
-#: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:204
+#: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:205
 #: src/lib/y2partitioner/widgets/lvm_devices_table.rb:54
 msgid "Stripes"
 msgstr "等量磁碟區"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:239
+#: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:258
 msgid "Number"
 msgstr "數目"
 
-#. @macro seeDialog
-#: src/lib/y2partitioner/dialogs/lvm_vg.rb:22
-msgid "Add Volume Group"
-msgstr "新增磁碟區群組"
-
 #. TRANSLATORS: field to enter the name of a new volume group
-#: src/lib/y2partitioner/dialogs/lvm_vg.rb:57
+#: src/lib/y2partitioner/dialogs/lvm_vg.rb:78
 msgid "&Volume Group Name"
 msgstr "磁碟區群組名稱(&V)"
 
 #. TRANSLATORS: field to enter the extent size of a new volume group
-#: src/lib/y2partitioner/dialogs/lvm_vg.rb:126
+#: src/lib/y2partitioner/dialogs/lvm_vg.rb:147
 msgid "Physical Extent Size"
 msgstr "實體範圍大小"
-
-#. Validates that at least one physical volume was added to the volume group
-#. @macro seeAbstractWidget
-#.
-#. @note An error popup is shown when no physical volume was added.
-#.
-#. @return [Boolean]
-#: src/lib/y2partitioner/dialogs/lvm_vg.rb:211
-msgid "Select at least one device."
-msgstr "請至少選取一個裝置。"
 
 #. @return [Y2Storage::DeviceGraph] device graph with all changes done in dialog
 #: src/lib/y2partitioner/dialogs/main.rb:24
@@ -457,25 +504,6 @@ msgstr "區塊大小"
 msgid "Parity Algorithm"
 msgstr "同位演算法"
 
-#. TRANSLATORS: dialog title, where %{name} is the name of a partition (e.g., /dev/sda1)
-#: src/lib/y2partitioner/dialogs/partition_resize.rb:28
-msgid "Resize Partition %{name}"
-msgstr "調整分割區 %{name} 的大小"
-
-#. @see Widgets::ControllerRadioButtons
-#: src/lib/y2partitioner/dialogs/partition_resize.rb:150
-msgid "Maximum Size (%{size})"
-msgstr "最大大小 (%{size})"
-
-#: src/lib/y2partitioner/dialogs/partition_resize.rb:151
-msgid "Minimum Size (%{size})"
-msgstr "最小大小 (%{size})"
-
-#. @macro seeAbstractWidget
-#: src/lib/y2partitioner/dialogs/partition_resize.rb:183
-msgid "<p>Choose new size.</p>"
-msgstr "<p>選擇新大小。</p>"
-
 #. @macro seeAbstractWidget
 #: src/lib/y2partitioner/dialogs/partition_role.rb:49
 msgid "Role"
@@ -507,20 +535,20 @@ msgid "Raw Volume (unformatted)"
 msgstr "原始磁碟區 (未格式化)"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/dialogs/partition_size.rb:67
+#: src/lib/y2partitioner/dialogs/partition_size.rb:68
 msgid "New Partition Size"
 msgstr "新分割區大小"
 
-#: src/lib/y2partitioner/dialogs/partition_size.rb:71
+#: src/lib/y2partitioner/dialogs/partition_size.rb:72
 msgid "Maximum Size (%1)"
 msgstr "最大大小 (%1)"
 
-#: src/lib/y2partitioner/dialogs/partition_size.rb:76
+#: src/lib/y2partitioner/dialogs/partition_size.rb:77
 msgid "Custom Region"
 msgstr "自訂區域"
 
 #. helptext
-#: src/lib/y2partitioner/dialogs/partition_size.rb:106
+#: src/lib/y2partitioner/dialogs/partition_size.rb:107
 msgid ""
 "<p>Choose the size for the new partition.</p>\n"
 "<p>If a size is specified (any of the two first options in the form),\n"
@@ -539,16 +567,16 @@ msgstr ""
 "採用效能優化措施。這是建立極小分割區的最佳選擇。</p>"
 
 #. error popup, %1 and %2 are replaced by sizes
-#: src/lib/y2partitioner/dialogs/partition_size.rb:206
+#: src/lib/y2partitioner/dialogs/partition_size.rb:209
 msgid "The size entered is invalid. Enter a size between %1 and %2."
 msgstr "輸入的大小無效。請輸入介於 %1 與 %2 之間的大小。"
 
 #. FIXME: libyui widget overflow :-(
-#: src/lib/y2partitioner/dialogs/partition_size.rb:260
+#: src/lib/y2partitioner/dialogs/partition_size.rb:261
 msgid "Start Block"
 msgstr "啟始區塊"
 
-#: src/lib/y2partitioner/dialogs/partition_size.rb:261
+#: src/lib/y2partitioner/dialogs/partition_size.rb:262
 msgid "End Block"
 msgstr "結束區塊"
 
@@ -719,40 +747,40 @@ msgid "F"
 msgstr "F"
 
 #. TRANSLATORS: table header, Device is physical name of block device, e.g. "/dev/sda1"
-#: src/lib/y2partitioner/widgets/blk_devices_table.rb:88
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:89
 msgid "Device"
 msgstr "裝置"
 
 #. TRANSLATORS: table header, flag if device is encrypted. Keep it short,
 #. ideally three letters. Keep in sync with Enc used later for format marker.
-#: src/lib/y2partitioner/widgets/blk_devices_table.rb:103
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:104
 msgid "Enc"
 msgstr "已加密"
 
 #. TRANSLATORS: table header, file system type
-#: src/lib/y2partitioner/widgets/blk_devices_table.rb:113
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:114
 msgid "FS Type"
 msgstr "FS 類型"
 
 #. TRANSLATORS: table header, disk or partition label. Can be empty.
-#: src/lib/y2partitioner/widgets/blk_devices_table.rb:118
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:119
 msgid "Label"
 msgstr "標籤"
 
 #. TRANSLATORS: table header, where is device mounted. Can be empty. E.g. "/" or "/home"
 #. Synchronize the widget with the information from the controller
-#: src/lib/y2partitioner/widgets/blk_devices_table.rb:123
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:124
 #: src/lib/y2partitioner/widgets/format_and_mount.rb:432
 msgid "Mount Point"
 msgstr "裝載點"
 
 #. TRANSLATORS: table header, which sector is the first one for device. E.g. "0"
-#: src/lib/y2partitioner/widgets/blk_devices_table.rb:128
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:129
 msgid "Start"
 msgstr "開始"
 
 #. TRANSLATORS: table header, which sector is the the last for device. E.g. "126"
-#: src/lib/y2partitioner/widgets/blk_devices_table.rb:133
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:134
 msgid "End"
 msgstr "結束"
 
@@ -762,34 +790,46 @@ msgstr "結束"
 #.
 #. @param device [Y2Storage::BlkDevice]
 #. @return [Yast::Term] icon
-#: src/lib/y2partitioner/widgets/blk_devices_table.rb:225
-#: src/lib/y2partitioner/widgets/blk_devices_table.rb:226
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:233
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:234
 msgid "Disk"
 msgstr "磁碟"
 
-#: src/lib/y2partitioner/widgets/blk_devices_table.rb:227
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:235
 msgid "Multipath"
 msgstr "多重路徑"
 
-#: src/lib/y2partitioner/widgets/blk_devices_table.rb:228
+#. @macro seeAbstractWidget
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:236
+#: src/lib/y2partitioner/widgets/pages/nfs_mounts.rb:47
+msgid "NFS"
+msgstr "NFS"
+
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:237
 msgid "BIOS RAID"
 msgstr "BIOS RAID"
 
-#: src/lib/y2partitioner/widgets/blk_devices_table.rb:229
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:238
 msgid "MD RAID"
 msgstr "MD RAID"
 
-#: src/lib/y2partitioner/widgets/blk_devices_table.rb:230
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:239
 msgid "PV"
 msgstr "PV"
 
-#: src/lib/y2partitioner/widgets/blk_devices_table.rb:231
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:240
 msgid "LVM"
 msgstr "LVM"
 
-#: src/lib/y2partitioner/widgets/blk_devices_table.rb:232
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:241
 msgid "LV"
 msgstr "LV"
+
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:243
+#, fuzzy
+#| msgid "Thin Volume"
+msgid "Thin LV"
+msgstr "簡易磁碟區"
 
 #. @see CWM::PushButton#Label
 #: src/lib/y2partitioner/widgets/btrfs_edit_button.rb:21
@@ -863,9 +903,11 @@ msgid ""
 "This is useful when runtime performace is required, so there is no risk for "
 "delaying copy when application is running."
 msgstr ""
-"<b>noCoW</b> 顯示子磁碟區的 noCoW 屬性。如果設定，則子磁碟區明確不使用 Btrfs 的寫入時複製功能。寫入時複製表示當複製某些資料時，"
-"會共用資源而不是真的執行複製。只有在第一次執行寫入操作時，才會真的複製共用的資源。當不用寫入時複製時，一律在啟始化期間就複製資源。當對執行時期效能有要求時"
-"，此屬性十分有用，這樣就不會在應用程式執行時有延遲複製的風險。"
+"<b>noCoW</b> 顯示子磁碟區的 noCoW 屬性。如果設定，則子磁碟區明確不使用 Btrfs "
+"的寫入時複製功能。寫入時複製表示當複製某些資料時，會共用資源而不是真的執行複"
+"製。只有在第一次執行寫入操作時，才會真的複製共用的資源。當不用寫入時複製時，"
+"一律在啟始化期間就複製資源。當對執行時期效能有要求時，此屬性十分有用，這樣就"
+"不會在應用程式執行時有延遲複製的風險。"
 
 #. @macro seeAbstractWidget
 #. @see #columns_help
@@ -941,7 +983,7 @@ msgstr "全部移除"
 
 #. @return [Array<Array(Y2Storage::Region,String)>]
 #. regions with labels, sorted by region start
-#: src/lib/y2partitioner/widgets/disk_bar_graph.rb:16
+#: src/lib/y2partitioner/widgets/disk_bar_graph.rb:37
 msgid "Unpartitioned"
 msgstr "未分割"
 
@@ -1110,50 +1152,52 @@ msgstr "區塊大小 (以位元組為單位)(&S)"
 msgid "Partition &ID:"
 msgstr "分割區 ID(&I)："
 
-#. Push button that launch a dialog for set the fstab options
-#: src/lib/y2partitioner/widgets/fstab_options.rb:82
-msgid "Fstab options..."
-msgstr "Fstab 選項..."
+#. Push button that launch a dialog to set the fstab options
+#: src/lib/y2partitioner/widgets/fstab_options.rb:97
+#, fuzzy
+#| msgid "Fs&tab Options..."
+msgid "Fstab Options..."
+msgstr "Fstab 選項(&T)..."
 
 #. Input field to set the partition Label
-#: src/lib/y2partitioner/widgets/fstab_options.rb:150
-#: src/lib/y2partitioner/widgets/fstab_options.rb:188
+#: src/lib/y2partitioner/widgets/fstab_options.rb:189
+#: src/lib/y2partitioner/widgets/fstab_options.rb:227
 msgid "Volume &Label"
 msgstr "卷冊標籤(&L)"
 
 #. Group of radio buttons to select the type of identifier to be used for
 #. mouth the specific device (UUID, Label, Path...)
-#: src/lib/y2partitioner/widgets/fstab_options.rb:168
+#: src/lib/y2partitioner/widgets/fstab_options.rb:207
 msgid "Mount in /etc/fstab by"
 msgstr "裝載於 /etc/fstab，依據為"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:187
+#: src/lib/y2partitioner/widgets/fstab_options.rb:226
 msgid "&Device Name"
 msgstr "設備名稱(&D)"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:189
+#: src/lib/y2partitioner/widgets/fstab_options.rb:228
 msgid "&UUID"
 msgstr "UUID(&U)"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:193
+#: src/lib/y2partitioner/widgets/fstab_options.rb:232
 msgid "Device &ID"
 msgstr "裝置 ID(&I)"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:194
+#: src/lib/y2partitioner/widgets/fstab_options.rb:233
 msgid "Device &Path"
 msgstr "裝置路徑(&P)"
 
 #. CheckBox to disable the automount option when starting up
-#: src/lib/y2partitioner/widgets/fstab_options.rb:269
+#: src/lib/y2partitioner/widgets/fstab_options.rb:303
 msgid "Do Not Mount at System &Start-up"
 msgstr "不要在系統啟動時裝載(&S)"
 
 #. CheckBox to enable the read only option ("ro")
-#: src/lib/y2partitioner/widgets/fstab_options.rb:279
+#: src/lib/y2partitioner/widgets/fstab_options.rb:313
 msgid "Mount &Read-Only"
 msgstr "掛接唯讀(&R)"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:283
+#: src/lib/y2partitioner/widgets/fstab_options.rb:317
 msgid ""
 "<p><b>Mount Read-Only:</b>\n"
 "Writing to the file system is not possible. Default is false. During "
@@ -1165,11 +1209,11 @@ msgstr ""
 "將始終以讀寫模式掛接檔案系統。</p>"
 
 #. CheckBox to enable the noatime option
-#: src/lib/y2partitioner/widgets/fstab_options.rb:294
+#: src/lib/y2partitioner/widgets/fstab_options.rb:328
 msgid "No &Access Time"
 msgstr "無存取時間(&A)"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:298
+#: src/lib/y2partitioner/widgets/fstab_options.rb:332
 msgid ""
 "<p><b>No Access Time:</b>\n"
 "Access times are not updated when a file is read. Default is false.</p>\n"
@@ -1179,11 +1223,11 @@ msgstr ""
 
 #. CheckBox to enable the user option which means allow to mount the
 #. filesystem by an ordinary user
-#: src/lib/y2partitioner/widgets/fstab_options.rb:309
-msgid "Mountable by user"
+#: src/lib/y2partitioner/widgets/fstab_options.rb:343
+msgid "Mountable by User"
 msgstr "可由使用者掛接"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:313
+#: src/lib/y2partitioner/widgets/fstab_options.rb:347
 msgid ""
 "<p><b>Mountable by User:</b>\n"
 "The file system may be mounted by an ordinary user. Default is false.</p>\n"
@@ -1192,39 +1236,73 @@ msgstr ""
 "檔案系統可由一般使用者裝載。預設為 False。</p>\n"
 
 #. CheckBox to enable the use of user quotas
-#: src/lib/y2partitioner/widgets/fstab_options.rb:324
+#: src/lib/y2partitioner/widgets/fstab_options.rb:358
 msgid "Enable &Quota Support"
 msgstr "啟用限額支援(&Q)"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:328
+#: src/lib/y2partitioner/widgets/fstab_options.rb:362
+#, fuzzy
+#| msgid ""
+#| "<p><b>Enable Quota Support:</b>\n"
+#| "The file system is mounted with user quotas enabled.\n"
+#| "Default is false.</p>\n"
 msgid ""
 "<p><b>Enable Quota Support:</b>\n"
 "The file system is mounted with user quotas enabled.\n"
-"Default is false.</p>\n"
+"Default is false.</p>"
 msgstr ""
 "<p><b>啟用限額支援：</b>\n"
 "啟用使用者限額來掛載檔案系統。\n"
 "預設為不使用。</p>\n"
 
+#. CheckBox to enable access control lists (acl)
+#: src/lib/y2partitioner/widgets/fstab_options.rb:402
+msgid "&Access Control Lists (ACL)"
+msgstr "存取控制清單 (ACL)(&A)"
+
+#: src/lib/y2partitioner/widgets/fstab_options.rb:406
+#, fuzzy
+#| msgid ""
+#| "<p><b>Access Control Lists (ACL):</b>\n"
+#| "Enable access control lists on the file system.</p>\n"
+msgid ""
+"<p><b>Access Control Lists (acl):</b>\n"
+"Enable POSIX access control lists and thus more fine-grained user "
+"permissions on the file system. See also man 5 acl.\n"
+msgstr ""
+"<p><b>存取控制清單 (ACL)：</b>\n"
+"啟用檔案系統上的存取控制清單。</p>\n"
+
+#. CheckBox to enable extended user attributes (user_xattr)
+#: src/lib/y2partitioner/widgets/fstab_options.rb:419
+msgid "&Extended User Attributes"
+msgstr "延伸的使用者屬性(&E)"
+
+#: src/lib/y2partitioner/widgets/fstab_options.rb:423
+msgid ""
+"<p><b>Extended User Attributes (user_xattr):</b>\n"
+"Enable extended attributes (name:value pairs) on files and directories.\n"
+"This is an extension to ACLs. See also man 7 xattr.\n"
+msgstr ""
+
 #. ComboBox to specify the journal mode to use by the filesystem
-#: src/lib/y2partitioner/widgets/fstab_options.rb:355
+#: src/lib/y2partitioner/widgets/fstab_options.rb:508
 msgid "Data &Journaling Mode"
 msgstr "資料日誌式模式(&J)"
 
-#. The options can only be modified using BlkDevice#fstab_options=
-#: src/lib/y2partitioner/widgets/fstab_options.rb:367
+#: src/lib/y2partitioner/widgets/fstab_options.rb:517
 msgid "journal"
 msgstr "記錄"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:368
+#: src/lib/y2partitioner/widgets/fstab_options.rb:518
 msgid "ordered"
 msgstr "排序"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:369
+#: src/lib/y2partitioner/widgets/fstab_options.rb:519
 msgid "writeback"
 msgstr "寫回"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:374
+#: src/lib/y2partitioner/widgets/fstab_options.rb:524
 msgid ""
 "<p><b>Data Journaling Mode:</b>\n"
 "Specifies the journaling mode for file data.\n"
@@ -1244,35 +1322,34 @@ msgstr ""
 "直接強制將所有資料送入主要檔案系統中。對效能產生中等影響。\n"
 "<tt>寫回</tt> -- 不會保留資料排列的順序。對效能無影響。</p>\n"
 
-#. Custom widget that allows to enable ACL and the use of extended
-#. attributes
-#.
-#. TODO: FIXME: Pending implementation, currently it is only draw
-#: src/lib/y2partitioner/widgets/fstab_options.rb:395
-msgid "&Access Control Lists (ACL)"
-msgstr "存取控制清單 (ACL)(&A)"
-
-#: src/lib/y2partitioner/widgets/fstab_options.rb:396
-msgid "&Extended User Attributes"
-msgstr "延伸的使用者屬性(&E)"
-
-#. A input field that allows to set other options that are not handled by
-#. specific widgets
-#.
-#. TODO: FIXME: Pending implementation, currently it is only draw, all the options
-#. that it is responsable of should be defined, removing them if not set or
-#. supported by the current filesystem.
-#: src/lib/y2partitioner/widgets/fstab_options.rb:417
+#. An input field that allows to set other options that are not handled by
+#. specific widgets.
+#: src/lib/y2partitioner/widgets/fstab_options.rb:552
 msgid "Arbitrary Option &Value"
 msgstr "任意的選項值(&V)"
 
+#. Intentionally NOT filtering out only unhandled options: When the user
+#. adds anything here that also has a corresponding checkbox or combo
+#. box in this same dialog, the value here will win, and when entering
+#. this dialog again the dedicated widget will take the value from
+#. there, and it will be filtered out in this arbitrary options widget.
+#.
+#. So, when a user insists in adding "noauto,user" here, it is applied
+#. correctly, but when entering the dialog again, the checkboxes pick up
+#. those values and they won't show up in this field anymore.
+#: src/lib/y2partitioner/widgets/fstab_options.rb:576
+msgid ""
+"<p><b>Arbitrary Option Value:</b> Enter any other mount options here, "
+"separated with commas. Notice that this does not do any checking, so be "
+"careful what you enter here!</p>"
+msgstr ""
+
 #. Swap priority
-#: src/lib/y2partitioner/widgets/fstab_options.rb:449
+#: src/lib/y2partitioner/widgets/fstab_options.rb:652
 msgid "Swap &Priority"
 msgstr "交換優先程度(&P)"
 
-#. The options can only be modified using BlkDevice#fstab_options=
-#: src/lib/y2partitioner/widgets/fstab_options.rb:460
+#: src/lib/y2partitioner/widgets/fstab_options.rb:661
 msgid ""
 "<p><b>Swap Priority:</b>\n"
 "Enter the swap priority. Higher numbers mean higher priority.</p>\n"
@@ -1280,12 +1357,12 @@ msgstr ""
 "<p><b>交換優先程度：</b>\n"
 "請輸入交換優先程度。數字愈大，優先程度愈高。</p>\n"
 
-#. The options can only be modified using BlkDevice#fstab_options=
-#: src/lib/y2partitioner/widgets/fstab_options.rb:492
+#. VFAT IOCharset
+#: src/lib/y2partitioner/widgets/fstab_options.rb:686
 msgid "Char&set for file names"
 msgstr "檔案名稱的字元集(&S)"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:496
+#: src/lib/y2partitioner/widgets/fstab_options.rb:690
 msgid ""
 "<p><b>Charset for File Names:</b>\n"
 "Set the charset used for display of file names in Windows partitions.</p>\n"
@@ -1293,12 +1370,12 @@ msgstr ""
 "<p><b>檔案名稱的字元集：</b>\n"
 "設定在 Windows 分割區顯示檔案名稱時所使用的字元集。</p>\n"
 
-#. The options can only be modified using BlkDevice#fstab_options=
-#: src/lib/y2partitioner/widgets/fstab_options.rb:529
+#. VFAT Codepage
+#: src/lib/y2partitioner/widgets/fstab_options.rb:706
 msgid "Code&page for short FAT names"
 msgstr "短 FAT 名稱的內碼頁(&P)"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:533
+#: src/lib/y2partitioner/widgets/fstab_options.rb:710
 msgid ""
 "<p><b>Codepage for Short FAT Names:</b>\n"
 "This codepage is used for converting to shortname characters on FAT file "
@@ -1628,47 +1705,39 @@ msgid "System View"
 msgstr "系統檢視"
 
 #. TODO: only if there is graph support UI.HasSpecialWidget(:Graph)
-#: src/lib/y2partitioner/widgets/overview.rb:82
+#: src/lib/y2partitioner/widgets/overview.rb:93
 msgid "Device Graph"
 msgstr "裝置圖表"
 
 #. TODO: only if there is graph support UI.HasSpecialWidget(:Graph)
-#: src/lib/y2partitioner/widgets/overview.rb:84
+#: src/lib/y2partitioner/widgets/overview.rb:95
 msgid "Mount Graph"
 msgstr "掛接圖表"
 
-#: src/lib/y2partitioner/widgets/overview.rb:85
+#: src/lib/y2partitioner/widgets/overview.rb:96
 msgid "Installation Summary"
 msgstr "安裝摘要"
 
-#: src/lib/y2partitioner/widgets/overview.rb:86
+#: src/lib/y2partitioner/widgets/overview.rb:97
 msgid "Settings"
 msgstr "設定"
 
 #. FIXME: improve Yast2::Popup to allow some text before the buttons
-#: src/lib/y2partitioner/widgets/overview.rb:122
+#: src/lib/y2partitioner/widgets/overview.rb:139
 msgid "Do you want to continue?"
 msgstr "是否要繼續？"
 
 #. TODO: real subtree
-#: src/lib/y2partitioner/widgets/overview.rb:204
+#: src/lib/y2partitioner/widgets/overview.rb:220
 msgid "Crypt Files"
 msgstr "加密檔案"
 
 #. TODO: real subtree
-#: src/lib/y2partitioner/widgets/overview.rb:209
+#: src/lib/y2partitioner/widgets/overview.rb:225
 msgid "Device Mapper"
 msgstr "裝置對應程式"
 
-#: src/lib/y2partitioner/widgets/overview.rb:213
-msgid "NFS"
-msgstr "NFS"
-
-#: src/lib/y2partitioner/widgets/overview.rb:222
-msgid "tmpfs"
-msgstr "tmpfs"
-
-#: src/lib/y2partitioner/widgets/overview.rb:226
+#: src/lib/y2partitioner/widgets/overview.rb:239
 msgid "Unused Devices"
 msgstr "未使用的裝置"
 
@@ -1738,7 +1807,7 @@ msgid "Log&ical Volumes"
 msgstr "邏輯磁碟區(&I)"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/pages/lvm_vg.rb:175
+#: src/lib/y2partitioner/widgets/pages/lvm_vg.rb:184
 msgid "&Physical Volumes"
 msgstr "實體磁碟區(&P)"
 
@@ -1758,13 +1827,27 @@ msgstr "RAID：%s"
 msgid "RAID"
 msgstr "RAID"
 
+#. TRANSLATORS: Heading for the expert partitioner page
+#: src/lib/y2partitioner/widgets/pages/nfs_mounts.rb:62
+msgid "Network File System (NFS)"
+msgstr "網路檔案系統 (NFS)"
+
+#. TRANSLATORS: %s is the name of a package (i.g. 'yast2-nfs-client')
+#: src/lib/y2partitioner/widgets/pages/nfs_mounts.rb:102
+#, fuzzy
+#| msgid ""
+#| "NFS configuration is not available. Check yast2-nfs-client package "
+#| "installation."
+msgid "NFS configuration is not available. Check %s package installation."
+msgstr "NFS 組態無法使用。請檢查 yast2-nfs-client 套件安裝。"
+
 #. TRANSLATORS: Heading. String followed by name of partition
 #: src/lib/y2partitioner/widgets/pages/partition.rb:45
 msgid "Partition: "
 msgstr "分割區： "
 
 #. TRANSLATORS: Heading. String followed by the hostname
-#: src/lib/y2partitioner/widgets/pages/system.rb:39
+#: src/lib/y2partitioner/widgets/pages/system.rb:40
 msgid "Available Storage on %s"
 msgstr "%s 上的可用儲存"
 
@@ -1900,16 +1983,6 @@ msgid ""
 msgstr ""
 "如果裝置包含要更新的信息，或屬於安裝期間\n"
 "要使用的 LVM，則需要提供密碼。"
-
-#. Should be implemented by derived classes.
-#: src/lib/y2storage/dialogs/guided_setup/base.rb:113
-msgid ""
-"<p>\n"
-"TODO: this dialog is just temporary. Hopefully it will end up including help "
-"of each setup.</p>"
-msgstr ""
-"<p>\n"
-"代辦工作：此對話方塊只是暫時顯示。它最終可能包含每個設定的說明。</p>"
 
 #. Before skipping, settings should be assigned.
 #. Before skipping, settings should be assigned.
@@ -2257,6 +2330,26 @@ msgstr "Microsoft 保留的分割區"
 #: src/lib/y2storage/partition_id.rb:54
 msgid "Diagnostics Partition"
 msgstr "診斷分割區"
+
+#~ msgid "Select at least one device."
+#~ msgstr "請至少選取一個裝置。"
+
+#~ msgid "Fstab options..."
+#~ msgstr "Fstab 選項..."
+
+#~ msgid "Mountable by user"
+#~ msgstr "可由使用者掛接"
+
+#~ msgid "tmpfs"
+#~ msgstr "tmpfs"
+
+#~ msgid ""
+#~ "<p>\n"
+#~ "TODO: this dialog is just temporary. Hopefully it will end up including "
+#~ "help of each setup.</p>"
+#~ msgstr ""
+#~ "<p>\n"
+#~ "代辦工作：此對話方塊只是暫時顯示。它最終可能包含每個設定的說明。</p>"
 
 #~ msgid "File System:"
 #~ msgstr "檔案系統："
@@ -4184,9 +4277,6 @@ msgstr "診斷分割區"
 #~ msgid "Mount partition"
 #~ msgstr "掛接分割區"
 
-#~ msgid "Fs&tab Options..."
-#~ msgstr "Fstab 選項(&T)..."
-
 #~ msgid "Crypt files must be encrypted."
 #~ msgstr "必須加密 crypt 檔案。"
 
@@ -4913,9 +5003,6 @@ msgstr "診斷分割區"
 #~ msgid "Add Logical volume %1 on %2"
 #~ msgstr "在 %2 上新增邏輯磁碟區 %1"
 
-#~ msgid "Resize Volume Group %1"
-#~ msgstr "調整磁碟區群組  %1 的大小"
-
 #~ msgid "<p>Enter the name of the new logical volume.</p>"
 #~ msgstr "<p>輸入新邏輯磁碟區的名稱。</p>"
 
@@ -4978,13 +5065,6 @@ msgstr "診斷分割區"
 
 #~ msgid "No free space left in the volume group \"%1\"."
 #~ msgstr "磁碟區群組「%1」中沒有可用空間。"
-
-#~ msgid ""
-#~ "The volume %1 is a thin pool.\n"
-#~ "It cannot be edited."
-#~ msgstr ""
-#~ "磁碟區 %1 是一個簡易池，\n"
-#~ "無法編輯。"
 
 #~ msgid ""
 #~ "The volume %1 is in use. It cannot be\n"
@@ -5054,14 +5134,6 @@ msgstr "診斷分割區"
 
 #~ msgid ": Summary"
 #~ msgstr "︰摘要"
-
-#~ msgid ""
-#~ "NFS configuration is not available. Check yast2-nfs-client package "
-#~ "installation."
-#~ msgstr "NFS 組態無法使用。請檢查 yast2-nfs-client 套件安裝。"
-
-#~ msgid "Network File System (NFS)"
-#~ msgstr "網路檔案系統 (NFS)"
 
 #~ msgid ""
 #~ "Test mount of NFS share '%1' failed.\n"
@@ -5597,9 +5669,6 @@ msgstr "診斷分割區"
 #~ msgid "Value must be between 0 and 32767. Try again."
 #~ msgstr "必須是 0 至 32767 之間的值。請再試一次。"
 
-#~ msgid "Mountable by User"
-#~ msgstr "可由使用者掛接"
-
 #~ msgid ""
 #~ "<p><b>Do Not Mount at System Start-up:</b>\n"
 #~ "The file system is not automatically mounted when the system starts.\n"
@@ -5614,13 +5683,6 @@ msgstr "診斷分割區"
 #~ "當輸入指令 <tt>mount &lt;掛接點&gt;</tt>\n"
 #~ "(&lt;掛接點&gt; 是要掛接檔案系統的目錄) 時，會於 /etc/fstab 中建立項目，\n"
 #~ "並以適當的選項掛接檔案系統。預設為 False。</p>\n"
-
-#~ msgid ""
-#~ "<p><b>Access Control Lists (ACL):</b>\n"
-#~ "Enable access control lists on the file system.</p>\n"
-#~ msgstr ""
-#~ "<p><b>存取控制清單 (ACL)：</b>\n"
-#~ "啟用檔案系統上的存取控制清單。</p>\n"
 
 #~ msgid ""
 #~ "<p><b>Extended User Attributes:</b>\n"

@@ -4,11 +4,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: storage-ng.ko\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-19 20:35+0100\n"
+"POT-Creation-Date: 2018-02-06 15:50+0100\n"
 "PO-Revision-Date: 2018-01-31 11:03+0000\n"
 "Last-Translator: Hwajin Kim <hwajin.kim@e4net.net>\n"
-"Language-Team: Korean <https://l10n.opensuse.org/projects/yast-"
-"storage/master/ko/>\n"
+"Language-Team: Korean <https://l10n.opensuse.org/projects/yast-storage/"
+"master/ko/>\n"
 "Language: ko\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -45,17 +45,26 @@ msgstr ""
 msgid "It is not possible to create a partition on %{name}."
 msgstr "%{name}에 파티션을 생성할 수 없습니다."
 
+#  popup heading
+#. TRANSLATORS: dialog title. %s is a device name like /dev/vg0
+#: src/lib/y2partitioner/actions/controllers/lvm_lv.rb:245
+msgid "Add Logical Volume on %s"
+msgstr "%s에 논리적 볼륨 추가"
+
+#. TRANSLATORS: Error message when there is no name for the new logical volume
+#: src/lib/y2partitioner/actions/controllers/lvm_lv.rb:299
+msgid "Enter a name for the logical volume."
+msgstr "논리적 볼륨에 대한 이름을 입력합니다."
+
 #  Popup text
-#. Validates a candidate name for the LV
-#.
-#. @param name [String]
-#. @return [String, nil] nil if the name is valid, an error string
-#. otherwise
-#: src/lib/y2partitioner/actions/controllers/lvm_lv.rb:173
+#. TRANSLATORS: Error message when the name of the logical volume is too long
+#: src/lib/y2partitioner/actions/controllers/lvm_lv.rb:309
 msgid "The name for the logical volume is longer than 128 characters."
 msgstr "논리적 볼륨에 대한 이름이 128자를 초과합니다."
 
-#: src/lib/y2partitioner/actions/controllers/lvm_lv.rb:175
+#. TRANSLATORS: Error message when the name of the logical volume contains
+#. illegal characters
+#: src/lib/y2partitioner/actions/controllers/lvm_lv.rb:320
 msgid ""
 "The name for the logical volume contains illegal characters.\n"
 "Allowed are alphanumeric characters, \".\", \"_\", \"-\" and \"+\"."
@@ -63,16 +72,34 @@ msgstr ""
 "논리 볼륨 그룹의 이름에 잘못된 문자가 포함되어 있습니다. 허용되는\n"
 "문자는 영숫자 및 \".\", \"_\", \"-\" 와 \"+\"입니다."
 
-#  popup heading
-#. TRANSLATORS: dialog title. %s is a device name like /dev/vg0
-#: src/lib/y2partitioner/actions/controllers/lvm_lv.rb:194
-msgid "Add Logical Volume on %s"
-msgstr "%s에 논리적 볼륨 추가"
+#. TRANSLATORS: Error message when the name of the volume group is already used.
+#. %{lv_name} is replaced by a logical volume name (e.g., lv1) and %{vg_name} is
+#. replaced by a volume group name (e.g., system)
+#: src/lib/y2partitioner/actions/controllers/lvm_lv.rb:336
+msgid ""
+"A logical volume named \"%{lv_name}\" already exists\n"
+"in volume group \"%{vg_name}\"."
+msgstr ""
+"논리 볼륨 이름 \"%{lv_name}\"은(는) 볼륨 그룹 \"%{vg_name}\"에서\n"
+"이미 사용 중입니다."
+
+#. TRANSLATORS: dialog title when creating an LVM volume group
+#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:77
+msgid "Add Volume Group"
+msgstr "볼륨 그룹 추가"
+
+#. TRANSLATORS: dialog title when resizing an LVM volume group, where %s is replaced
+#. by a device name (e.g., /dev/vg0)
+#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:81
+#, fuzzy
+#| msgid "Resize Volume Group %1"
+msgid "Resize Volume Group %s"
+msgstr "볼륨 그룹 %1 크기 조정"
 
 #. Error message to show when the given volume group name is empty
 #.
 #. @return [String]
-#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:201
+#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:291
 msgid "Enter a name for the volume group."
 msgstr "볼륨 그룹의 이름을 입력하세요."
 
@@ -80,7 +107,7 @@ msgstr "볼륨 그룹의 이름을 입력하세요."
 #. characters
 #.
 #. @return [String]
-#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:219
+#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:309
 msgid ""
 "The name for the volume group contains illegal characters. Allowed\n"
 "are alphanumeric characters, \".\", \"_\", \"-\" and \"+\""
@@ -89,7 +116,7 @@ msgstr ""
 "문자는 영숫자 및 \".\", \"_\", \"-\" 와 \"+\"입니다."
 
 #. TRANSLATORS: %{vg_name} is replaced by the name of the volume group
-#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:242
+#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:332
 msgid ""
 "The volume group name \"%{vg_name}\" conflicts\n"
 "with another entry in the /dev directory."
@@ -102,7 +129,7 @@ msgstr ""
 #. @see #invalid_extent_size?
 #.
 #. @return [String]
-#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:267
+#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:357
 msgid ""
 "The data entered is invalid. Insert a physical extent size larger than 1 "
 "KiB\n"
@@ -211,14 +238,96 @@ msgstr "%{vg}의 논리 볼륨 %{lv_name} 편집"
 msgid "Edit Partition %s"
 msgstr "%s 파티션 편집"
 
-#: src/lib/y2partitioner/actions/edit_blk_device.rb:87
+#. TRANSLATORS: Error message when trying to edit an extented partition
+#: src/lib/y2partitioner/actions/edit_blk_device.rb:105
 msgid "An extended partition cannot be edited"
 msgstr "확장 파티션을 편집할 수 없습니다."
 
+#. TRANSLATORS: Error message when trying to edit an LVM thin pool. %{name} is
+#. replaced by a logical volume name (e.g., /dev/system/lv1)
+#: src/lib/y2partitioner/actions/edit_blk_device.rb:116
+#, fuzzy
+#| msgid ""
+#| "The volume %1 is a thin pool.\n"
+#| "It cannot be edited."
+msgid ""
+"The volume %{name} is a thin pool.\n"
+"It cannot be edited."
+msgstr ""
+"볼륨 %1은(는) 씬 풀입니다.\n"
+"이것은 편집할 수 없습니다."
+
 #. TRANSLATORS: an error popup message
-#: src/lib/y2partitioner/actions/resize_partition.rb:91
-msgid "This partition cannot be resized."
+#: src/lib/y2partitioner/actions/resize_blk_device.rb:91
+#, fuzzy
+#| msgid "This partition cannot be resized."
+msgid "This device cannot be resized."
 msgstr "이 파티션의 크기를 조정할 수 없습니다."
+
+#. TRANSLATORS: dialog title, where %{name} is the name of a partition
+#. (e.g. /dev/sda1) or LVM logical volume (e.g. /dev/system/home)
+#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:30
+#, fuzzy
+#| msgid "Resize Partition %{name}"
+msgid "Resize %{name}"
+msgstr "%{name} 파티션 크기 조정"
+
+#  label text
+#  table column headings
+#. @macro seeAbstractWidget
+#. @macro seeAbstractWidget
+#. @macro seeAbstractWidget
+#. @macro seeAbstractWidget
+#. @macro seeAbstractWidget
+#. @macro seeAbstractWidget
+#. TRANSLATORS: table header, size of block device e.g. "8.00 GiB"
+#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:148
+#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:338
+#: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:70
+#: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:148
+#: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:281
+#: src/lib/y2partitioner/dialogs/partition_size.rb:184
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:94
+msgid "Size"
+msgstr "크기"
+
+#  IntField - max. log size
+#. @see Widgets::ControllerRadioButtons
+#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:153
+msgid "Maximum Size (%{size})"
+msgstr "최대 크기(%{size})"
+
+#  IntField - max. log size
+#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:154
+msgid "Minimum Size (%{size})"
+msgstr "최소 크기(%{size})"
+
+#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:158
+#: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:79
+#: src/lib/y2partitioner/dialogs/partition_size.rb:76
+msgid "Custom Size"
+msgstr "사용자 정의 크기"
+
+#. @macro seeAbstractWidget
+#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:187
+msgid "<p>Choose new size.</p>"
+msgstr "<p>새 크기를 선택하세요.</p>"
+
+#. TRANSLATORS: error popup message, where %{min} and %{max} are replaced by sizes.
+#. error popup, :min and :max are replaced by sizes
+#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:206
+#: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:164
+msgid "The size entered is invalid. Enter a size between %{min} and %{max}."
+msgstr ""
+"입력한 크기가 잘못되었습니다. 크기를 %{min}과(와) %{max} 사이로 입력하십시오."
+
+#. Warning when the resizing device is an LVM thin pool and it is overcommitted
+#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:269
+msgid ""
+"The LVM thin pool %{name} is overcomitted (needs %{total_thin_size} and only "
+"has %{size}).\n"
+"It might not have enough space for some LVM thin volumes."
+msgstr ""
 
 #. @param filesystem [Y2Storage::Filesystems::BlkFilesystem] a btrfs filesystem
 #: src/lib/y2partitioner/dialogs/btrfs_subvolume.rb:24
@@ -292,129 +401,70 @@ msgstr "Fstab 옵션:"
 # src/isdn/complex.ycp:266 src/modem/complex.ycp:207
 # src/provider/complex.ycp:186
 #. @macro seeDialog
-#: src/lib/y2partitioner/dialogs/lvm_lv_info.rb:52
+#: src/lib/y2partitioner/dialogs/lvm_lv_info.rb:53
 msgid "Name"
 msgstr "이름"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/dialogs/lvm_lv_info.rb:73
+#: src/lib/y2partitioner/dialogs/lvm_lv_info.rb:74
 #: src/lib/y2partitioner/widgets/lvm_add_button.rb:54
 msgid "Logical Volume"
 msgstr "논리적 볼륨"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/dialogs/lvm_lv_info.rb:92
-msgid "Enter a name for the logical volume."
-msgstr "논리적 볼륨에 대한 이름을 입력합니다."
-
-#: src/lib/y2partitioner/dialogs/lvm_lv_info.rb:99
-msgid ""
-"A logical volume named \"%{lv_name}\" already exists\n"
-"in volume group \"%{vg_name}\"."
-msgstr ""
-"논리 볼륨 이름 \"%{lv_name}\"은(는) 볼륨 그룹 \"%{vg_name}\"에서\n"
-"이미 사용 중입니다."
-
-#. @macro seeAbstractWidget
 #. TRANSLATORS: table header, type of disk or partition. Can be longer. E.g. "Linux swap"
-#: src/lib/y2partitioner/dialogs/lvm_lv_info.rb:128
-#: src/lib/y2partitioner/widgets/blk_devices_table.rb:108
+#: src/lib/y2partitioner/dialogs/lvm_lv_info.rb:113
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:109
 msgid "Type"
 msgstr "유형"
 
 #. @see Widgets::ControllerRadioButtons
-#: src/lib/y2partitioner/dialogs/lvm_lv_info.rb:134
+#: src/lib/y2partitioner/dialogs/lvm_lv_info.rb:119
 msgid "Normal Volume"
 msgstr "일반 볼륨"
 
-#: src/lib/y2partitioner/dialogs/lvm_lv_info.rb:135
+#: src/lib/y2partitioner/dialogs/lvm_lv_info.rb:120
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:242
 msgid "Thin Pool"
 msgstr "씬 풀"
 
-#: src/lib/y2partitioner/dialogs/lvm_lv_info.rb:136
+#: src/lib/y2partitioner/dialogs/lvm_lv_info.rb:121
 msgid "Thin Volume"
 msgstr "씬 볼륨"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/dialogs/lvm_lv_info.rb:175
+#: src/lib/y2partitioner/dialogs/lvm_lv_info.rb:200
 msgid "Used Pool"
 msgstr "사용된 풀"
 
-#  label text
-#  table column headings
-#. @macro seeAbstractWidget
-#. @macro seeAbstractWidget
-#. @macro seeAbstractWidget
-#. @macro seeAbstractWidget
-#. @macro seeAbstractWidget
-#. @macro seeAbstractWidget
-#. TRANSLATORS: table header, size of block device e.g. "8.00 GiB"
-#: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:69
-#: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:145
-#: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:262
-#: src/lib/y2partitioner/dialogs/partition_resize.rb:145
-#: src/lib/y2partitioner/dialogs/partition_resize.rb:293
-#: src/lib/y2partitioner/dialogs/partition_size.rb:181
-#: src/lib/y2partitioner/widgets/blk_devices_table.rb:93
-msgid "Size"
-msgstr "크기"
-
 #  IntField - max. log size
 #. TRANSLATORS: %s is a size like '15.00 GiB'
-#: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:75
+#: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:76
 msgid "Maximum Size (%s)"
 msgstr "최대 크기(%s)"
 
-#: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:78
-#: src/lib/y2partitioner/dialogs/partition_resize.rb:155
-#: src/lib/y2partitioner/dialogs/partition_size.rb:75
-msgid "Custom Size"
-msgstr "사용자 정의 크기"
-
-#. error popup, :min and :max are replaced by sizes
-#. TRANSLATORS: error popup message, where %{min} and %{max} are replaced by sizes.
-#: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:161
-#: src/lib/y2partitioner/dialogs/partition_resize.rb:202
-msgid "The size entered is invalid. Enter a size between %{min} and %{max}."
-msgstr "입력한 크기가 잘못되었습니다. 크기를 %{min}과(와) %{max} 사이로 입력하십시오."
-
 #. @macro seeAbstractWidget
 #. TRANSLATORS: table header, number of LVM LV stripes
-#: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:204
+#: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:205
 #: src/lib/y2partitioner/widgets/lvm_devices_table.rb:54
 msgid "Stripes"
 msgstr "스트라이프"
 
 #  table header label
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:239
+#: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:258
 msgid "Number"
 msgstr "번호"
 
-#. @macro seeDialog
-#: src/lib/y2partitioner/dialogs/lvm_vg.rb:22
-msgid "Add Volume Group"
-msgstr "볼륨 그룹 추가"
-
 #. TRANSLATORS: field to enter the name of a new volume group
-#: src/lib/y2partitioner/dialogs/lvm_vg.rb:57
+#: src/lib/y2partitioner/dialogs/lvm_vg.rb:78
 msgid "&Volume Group Name"
 msgstr "볼륨 그룹 이름(&V)"
 
 #. TRANSLATORS: field to enter the extent size of a new volume group
-#: src/lib/y2partitioner/dialogs/lvm_vg.rb:126
+#: src/lib/y2partitioner/dialogs/lvm_vg.rb:147
 msgid "Physical Extent Size"
 msgstr "물리적인 확장 크기"
-
-#. Validates that at least one physical volume was added to the volume group
-#. @macro seeAbstractWidget
-#.
-#. @note An error popup is shown when no physical volume was added.
-#.
-#. @return [Boolean]
-#: src/lib/y2partitioner/dialogs/lvm_vg.rb:211
-msgid "Select at least one device."
-msgstr "최소 하나 이상은 선택하세요."
 
 #. @return [Y2Storage::DeviceGraph] device graph with all changes done in dialog
 #: src/lib/y2partitioner/dialogs/main.rb:24
@@ -487,27 +537,6 @@ msgstr "청크 크기"
 msgid "Parity Algorithm"
 msgstr "패리티 알고리즘"
 
-#. TRANSLATORS: dialog title, where %{name} is the name of a partition (e.g., /dev/sda1)
-#: src/lib/y2partitioner/dialogs/partition_resize.rb:28
-msgid "Resize Partition %{name}"
-msgstr "%{name} 파티션 크기 조정"
-
-#  IntField - max. log size
-#. @see Widgets::ControllerRadioButtons
-#: src/lib/y2partitioner/dialogs/partition_resize.rb:150
-msgid "Maximum Size (%{size})"
-msgstr "최대 크기(%{size})"
-
-#  IntField - max. log size
-#: src/lib/y2partitioner/dialogs/partition_resize.rb:151
-msgid "Minimum Size (%{size})"
-msgstr "최소 크기(%{size})"
-
-#. @macro seeAbstractWidget
-#: src/lib/y2partitioner/dialogs/partition_resize.rb:183
-msgid "<p>Choose new size.</p>"
-msgstr "<p>새 크기를 선택하세요.</p>"
-
 #. @macro seeAbstractWidget
 #: src/lib/y2partitioner/dialogs/partition_role.rb:49
 msgid "Role"
@@ -539,22 +568,22 @@ msgid "Raw Volume (unformatted)"
 msgstr "원시 볼륨(포맷되지 않음)"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/dialogs/partition_size.rb:67
+#: src/lib/y2partitioner/dialogs/partition_size.rb:68
 msgid "New Partition Size"
 msgstr "새 파티션 크기"
 
 #  IntField - max. log size
-#: src/lib/y2partitioner/dialogs/partition_size.rb:71
+#: src/lib/y2partitioner/dialogs/partition_size.rb:72
 msgid "Maximum Size (%1)"
 msgstr "최대 크기(%1)"
 
 #  Second entry - customise analyse (headline)
-#: src/lib/y2partitioner/dialogs/partition_size.rb:76
+#: src/lib/y2partitioner/dialogs/partition_size.rb:77
 msgid "Custom Region"
 msgstr "사용자 정의 영역"
 
 #. helptext
-#: src/lib/y2partitioner/dialogs/partition_size.rb:106
+#: src/lib/y2partitioner/dialogs/partition_size.rb:107
 msgid ""
 "<p>Choose the size for the new partition.</p>\n"
 "<p>If a size is specified (any of the two first options in the form),\n"
@@ -575,16 +604,16 @@ msgstr ""
 "파티션을 생성하려는 경우 가장 좋은 옵션입니다.</p>"
 
 #. error popup, %1 and %2 are replaced by sizes
-#: src/lib/y2partitioner/dialogs/partition_size.rb:206
+#: src/lib/y2partitioner/dialogs/partition_size.rb:209
 msgid "The size entered is invalid. Enter a size between %1 and %2."
 msgstr "입력한 크기가 잘못되었습니다. 크기를 %1과(와) %2 사이로 입력합니다."
 
 #. FIXME: libyui widget overflow :-(
-#: src/lib/y2partitioner/dialogs/partition_size.rb:260
+#: src/lib/y2partitioner/dialogs/partition_size.rb:261
 msgid "Start Block"
 msgstr "차단 시작"
 
-#: src/lib/y2partitioner/dialogs/partition_size.rb:261
+#: src/lib/y2partitioner/dialogs/partition_size.rb:262
 msgid "End Block"
 msgstr "차단 종료"
 
@@ -777,41 +806,41 @@ msgstr "F"
 #  Column header
 #  header text
 #. TRANSLATORS: table header, Device is physical name of block device, e.g. "/dev/sda1"
-#: src/lib/y2partitioner/widgets/blk_devices_table.rb:88
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:89
 msgid "Device"
 msgstr "장치"
 
 #. TRANSLATORS: table header, flag if device is encrypted. Keep it short,
 #. ideally three letters. Keep in sync with Enc used later for format marker.
-#: src/lib/y2partitioner/widgets/blk_devices_table.rb:103
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:104
 msgid "Enc"
 msgstr "암호화됨"
 
 #  tree node string
 #. TRANSLATORS: table header, file system type
-#: src/lib/y2partitioner/widgets/blk_devices_table.rb:113
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:114
 msgid "FS Type"
 msgstr "FS 형식"
 
 #. TRANSLATORS: table header, disk or partition label. Can be empty.
-#: src/lib/y2partitioner/widgets/blk_devices_table.rb:118
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:119
 msgid "Label"
 msgstr "레이블"
 
 #. TRANSLATORS: table header, where is device mounted. Can be empty. E.g. "/" or "/home"
 #. Synchronize the widget with the information from the controller
-#: src/lib/y2partitioner/widgets/blk_devices_table.rb:123
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:124
 #: src/lib/y2partitioner/widgets/format_and_mount.rb:432
 msgid "Mount Point"
 msgstr "마운트 포인트"
 
 #. TRANSLATORS: table header, which sector is the first one for device. E.g. "0"
-#: src/lib/y2partitioner/widgets/blk_devices_table.rb:128
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:129
 msgid "Start"
 msgstr "시작"
 
 #. TRANSLATORS: table header, which sector is the the last for device. E.g. "126"
-#: src/lib/y2partitioner/widgets/blk_devices_table.rb:133
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:134
 msgid "End"
 msgstr "종료"
 
@@ -822,35 +851,47 @@ msgstr "종료"
 #.
 #. @param device [Y2Storage::BlkDevice]
 #. @return [Yast::Term] icon
-#: src/lib/y2partitioner/widgets/blk_devices_table.rb:225
-#: src/lib/y2partitioner/widgets/blk_devices_table.rb:226
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:233
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:234
 msgid "Disk"
 msgstr "디스크"
 
-#: src/lib/y2partitioner/widgets/blk_devices_table.rb:227
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:235
 msgid "Multipath"
 msgstr "다중 경로"
 
+#. @macro seeAbstractWidget
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:236
+#: src/lib/y2partitioner/widgets/pages/nfs_mounts.rb:47
+msgid "NFS"
+msgstr "NFS"
+
 #  tree node string
-#: src/lib/y2partitioner/widgets/blk_devices_table.rb:228
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:237
 msgid "BIOS RAID"
 msgstr "BIOS RAID"
 
-#: src/lib/y2partitioner/widgets/blk_devices_table.rb:229
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:238
 msgid "MD RAID"
 msgstr "MD RAID"
 
-#: src/lib/y2partitioner/widgets/blk_devices_table.rb:230
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:239
 msgid "PV"
 msgstr "PV"
 
-#: src/lib/y2partitioner/widgets/blk_devices_table.rb:231
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:240
 msgid "LVM"
 msgstr "LVM"
 
-#: src/lib/y2partitioner/widgets/blk_devices_table.rb:232
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:241
 msgid "LV"
 msgstr "LV"
+
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:243
+#, fuzzy
+#| msgid "Thin Volume"
+msgid "Thin LV"
+msgstr "씬 볼륨"
 
 #. @see CWM::PushButton#Label
 #: src/lib/y2partitioner/widgets/btrfs_edit_button.rb:21
@@ -927,10 +968,13 @@ msgid ""
 "This is useful when runtime performace is required, so there is no risk for "
 "delaying copy when application is running."
 msgstr ""
-"<b>noCoW</b>는 하위 볼륨 noCoW 특성을 보여 줍니다. 설정하는 경우 하위 볼륨에서 작성 시 Btrfs 복사를 명시적으로 "
-"사용하지 않습니다. 작성 시 복사는 항목을 복사할 때 실제 복사를 수행하지 않고 리소스를 공유한다는 것을 의미합니다. 처음 쓰기 작업을 "
-"수행할 때 공유된 리소스가 실제로 복사됩니다. noCoW를 사용하면 초기화 중 리소스가\n"
-" 항상 복사됩니다. 응용 프로그램이 실행 중일 때 복사가 지연될 위험이 없으므로 런타임 성능이 필요한 경우 유용합니다."
+"<b>noCoW</b>는 하위 볼륨 noCoW 특성을 보여 줍니다. 설정하는 경우 하위 볼륨에"
+"서 작성 시 Btrfs 복사를 명시적으로 사용하지 않습니다. 작성 시 복사는 항목을 "
+"복사할 때 실제 복사를 수행하지 않고 리소스를 공유한다는 것을 의미합니다. 처"
+"음 쓰기 작업을 수행할 때 공유된 리소스가 실제로 복사됩니다. noCoW를 사용하면 "
+"초기화 중 리소스가\n"
+" 항상 복사됩니다. 응용 프로그램이 실행 중일 때 복사가 지연될 위험이 없으므로 "
+"런타임 성능이 필요한 경우 유용합니다."
 
 #. @macro seeAbstractWidget
 #. @see #columns_help
@@ -1011,7 +1055,7 @@ msgstr "모두 제거"
 
 #. @return [Array<Array(Y2Storage::Region,String)>]
 #. regions with labels, sorted by region start
-#: src/lib/y2partitioner/widgets/disk_bar_graph.rb:16
+#: src/lib/y2partitioner/widgets/disk_bar_graph.rb:37
 msgid "Unpartitioned"
 msgstr "파티션되지 않음"
 
@@ -1186,55 +1230,57 @@ msgid "Partition &ID:"
 msgstr "파티션 ID(&I):"
 
 #  button text
-#. Push button that launch a dialog for set the fstab options
-#: src/lib/y2partitioner/widgets/fstab_options.rb:82
-msgid "Fstab options..."
-msgstr "Fstab 옵션..."
+#. Push button that launch a dialog to set the fstab options
+#: src/lib/y2partitioner/widgets/fstab_options.rb:97
+#, fuzzy
+#| msgid "Fs&tab Options..."
+msgid "Fstab Options..."
+msgstr "Fstab 옵션(&T)..."
 
 #  label text
 #. Input field to set the partition Label
-#: src/lib/y2partitioner/widgets/fstab_options.rb:150
-#: src/lib/y2partitioner/widgets/fstab_options.rb:188
+#: src/lib/y2partitioner/widgets/fstab_options.rb:189
+#: src/lib/y2partitioner/widgets/fstab_options.rb:227
 msgid "Volume &Label"
 msgstr "볼륨 레이블(&L)"
 
 #  label text
 #. Group of radio buttons to select the type of identifier to be used for
 #. mouth the specific device (UUID, Label, Path...)
-#: src/lib/y2partitioner/widgets/fstab_options.rb:168
+#: src/lib/y2partitioner/widgets/fstab_options.rb:207
 msgid "Mount in /etc/fstab by"
 msgstr "/etc/fstab에 의한 마운트"
 
 #  label text
-#: src/lib/y2partitioner/widgets/fstab_options.rb:187
+#: src/lib/y2partitioner/widgets/fstab_options.rb:226
 msgid "&Device Name"
 msgstr "장치 이름(&D)"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:189
+#: src/lib/y2partitioner/widgets/fstab_options.rb:228
 msgid "&UUID"
 msgstr "&UUID"
 
 #  table column headings
-#: src/lib/y2partitioner/widgets/fstab_options.rb:193
+#: src/lib/y2partitioner/widgets/fstab_options.rb:232
 msgid "Device &ID"
 msgstr "장치 ID(&I)"
 
 #  table column headings
-#: src/lib/y2partitioner/widgets/fstab_options.rb:194
+#: src/lib/y2partitioner/widgets/fstab_options.rb:233
 msgid "Device &Path"
 msgstr "장치 경로(&P)"
 
 #. CheckBox to disable the automount option when starting up
-#: src/lib/y2partitioner/widgets/fstab_options.rb:269
+#: src/lib/y2partitioner/widgets/fstab_options.rb:303
 msgid "Do Not Mount at System &Start-up"
 msgstr "시스템이 시작할때 마운트를 하지 않습니다(&S)"
 
 #. CheckBox to enable the read only option ("ro")
-#: src/lib/y2partitioner/widgets/fstab_options.rb:279
+#: src/lib/y2partitioner/widgets/fstab_options.rb:313
 msgid "Mount &Read-Only"
 msgstr "읽기 전용 마운트(&R)"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:283
+#: src/lib/y2partitioner/widgets/fstab_options.rb:317
 msgid ""
 "<p><b>Mount Read-Only:</b>\n"
 "Writing to the file system is not possible. Default is false. During "
@@ -1246,11 +1292,11 @@ msgstr ""
 "파일 시스템은 항상 읽기/쓰기로 마운트됩니다.</p>"
 
 #. CheckBox to enable the noatime option
-#: src/lib/y2partitioner/widgets/fstab_options.rb:294
+#: src/lib/y2partitioner/widgets/fstab_options.rb:328
 msgid "No &Access Time"
 msgstr "액세스 시간 없음(&A)"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:298
+#: src/lib/y2partitioner/widgets/fstab_options.rb:332
 msgid ""
 "<p><b>No Access Time:</b>\n"
 "Access times are not updated when a file is read. Default is false.</p>\n"
@@ -1261,11 +1307,11 @@ msgstr ""
 
 #. CheckBox to enable the user option which means allow to mount the
 #. filesystem by an ordinary user
-#: src/lib/y2partitioner/widgets/fstab_options.rb:309
-msgid "Mountable by user"
+#: src/lib/y2partitioner/widgets/fstab_options.rb:343
+msgid "Mountable by User"
 msgstr "사용자가 마운트 가능"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:313
+#: src/lib/y2partitioner/widgets/fstab_options.rb:347
 msgid ""
 "<p><b>Mountable by User:</b>\n"
 "The file system may be mounted by an ordinary user. Default is false.</p>\n"
@@ -1275,39 +1321,73 @@ msgstr ""
 
 #  yes-no popup
 #. CheckBox to enable the use of user quotas
-#: src/lib/y2partitioner/widgets/fstab_options.rb:324
+#: src/lib/y2partitioner/widgets/fstab_options.rb:358
 msgid "Enable &Quota Support"
 msgstr "할당량 지원 활성화(&Q)"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:328
+#: src/lib/y2partitioner/widgets/fstab_options.rb:362
+#, fuzzy
+#| msgid ""
+#| "<p><b>Enable Quota Support:</b>\n"
+#| "The file system is mounted with user quotas enabled.\n"
+#| "Default is false.</p>\n"
 msgid ""
 "<p><b>Enable Quota Support:</b>\n"
 "The file system is mounted with user quotas enabled.\n"
-"Default is false.</p>\n"
+"Default is false.</p>"
 msgstr ""
 "<p><b>할당량 지원 활성화:</b>\n"
 "파일 시스템은 사용자 할당량을 활성화한 상태로 탑재됩니다.\n"
 "기본값은 false입니다.</p>\n"
 
+#. CheckBox to enable access control lists (acl)
+#: src/lib/y2partitioner/widgets/fstab_options.rb:402
+msgid "&Access Control Lists (ACL)"
+msgstr "ACL(액세스 제어 목록)(&A)"
+
+#: src/lib/y2partitioner/widgets/fstab_options.rb:406
+#, fuzzy
+#| msgid ""
+#| "<p><b>Access Control Lists (ACL):</b>\n"
+#| "Enable access control lists on the file system.</p>\n"
+msgid ""
+"<p><b>Access Control Lists (acl):</b>\n"
+"Enable POSIX access control lists and thus more fine-grained user "
+"permissions on the file system. See also man 5 acl.\n"
+msgstr ""
+"<p><b>Access Control Lists (ACL):</b>\n"
+"파일 시스템에 ACL을 활성화합니다.</p>\n"
+
+#. CheckBox to enable extended user attributes (user_xattr)
+#: src/lib/y2partitioner/widgets/fstab_options.rb:419
+msgid "&Extended User Attributes"
+msgstr "확장된 사용자 속성(&E)"
+
+#: src/lib/y2partitioner/widgets/fstab_options.rb:423
+msgid ""
+"<p><b>Extended User Attributes (user_xattr):</b>\n"
+"Enable extended attributes (name:value pairs) on files and directories.\n"
+"This is an extension to ACLs. See also man 7 xattr.\n"
+msgstr ""
+
 #. ComboBox to specify the journal mode to use by the filesystem
-#: src/lib/y2partitioner/widgets/fstab_options.rb:355
+#: src/lib/y2partitioner/widgets/fstab_options.rb:508
 msgid "Data &Journaling Mode"
 msgstr "데이터 저널링 모드(&J)"
 
-#. The options can only be modified using BlkDevice#fstab_options=
-#: src/lib/y2partitioner/widgets/fstab_options.rb:367
+#: src/lib/y2partitioner/widgets/fstab_options.rb:517
 msgid "journal"
 msgstr "저널"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:368
+#: src/lib/y2partitioner/widgets/fstab_options.rb:518
 msgid "ordered"
 msgstr "순서대로"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:369
+#: src/lib/y2partitioner/widgets/fstab_options.rb:519
 msgid "writeback"
 msgstr "다시쓰기"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:374
+#: src/lib/y2partitioner/widgets/fstab_options.rb:524
 msgid ""
 "<p><b>Data Journaling Mode:</b>\n"
 "Specifies the journaling mode for file data.\n"
@@ -1328,35 +1408,34 @@ msgstr ""
 "<tt>writeback</tt> -- 데이터 순서가 유지되지 않습니다. 성능에 영향을 미치지 "
 "않습니다.</p>\n"
 
-#. Custom widget that allows to enable ACL and the use of extended
-#. attributes
-#.
-#. TODO: FIXME: Pending implementation, currently it is only draw
-#: src/lib/y2partitioner/widgets/fstab_options.rb:395
-msgid "&Access Control Lists (ACL)"
-msgstr "ACL(액세스 제어 목록)(&A)"
-
-#: src/lib/y2partitioner/widgets/fstab_options.rb:396
-msgid "&Extended User Attributes"
-msgstr "확장된 사용자 속성(&E)"
-
-#. A input field that allows to set other options that are not handled by
-#. specific widgets
-#.
-#. TODO: FIXME: Pending implementation, currently it is only draw, all the options
-#. that it is responsable of should be defined, removing them if not set or
-#. supported by the current filesystem.
-#: src/lib/y2partitioner/widgets/fstab_options.rb:417
+#. An input field that allows to set other options that are not handled by
+#. specific widgets.
+#: src/lib/y2partitioner/widgets/fstab_options.rb:552
 msgid "Arbitrary Option &Value"
 msgstr "임의 옵션 값(&V)"
 
+#. Intentionally NOT filtering out only unhandled options: When the user
+#. adds anything here that also has a corresponding checkbox or combo
+#. box in this same dialog, the value here will win, and when entering
+#. this dialog again the dedicated widget will take the value from
+#. there, and it will be filtered out in this arbitrary options widget.
+#.
+#. So, when a user insists in adding "noauto,user" here, it is applied
+#. correctly, but when entering the dialog again, the checkboxes pick up
+#. those values and they won't show up in this field anymore.
+#: src/lib/y2partitioner/widgets/fstab_options.rb:576
+msgid ""
+"<p><b>Arbitrary Option Value:</b> Enter any other mount options here, "
+"separated with commas. Notice that this does not do any checking, so be "
+"careful what you enter here!</p>"
+msgstr ""
+
 #. Swap priority
-#: src/lib/y2partitioner/widgets/fstab_options.rb:449
+#: src/lib/y2partitioner/widgets/fstab_options.rb:652
 msgid "Swap &Priority"
 msgstr "스왑 우선순위(&p)"
 
-#. The options can only be modified using BlkDevice#fstab_options=
-#: src/lib/y2partitioner/widgets/fstab_options.rb:460
+#: src/lib/y2partitioner/widgets/fstab_options.rb:661
 msgid ""
 "<p><b>Swap Priority:</b>\n"
 "Enter the swap priority. Higher numbers mean higher priority.</p>\n"
@@ -1364,13 +1443,13 @@ msgstr ""
 "<p><b>스왑 우선순위:</b>\n"
 "스왑 우선순위를 입력해 주세요. 높은 숫자가 높은 우선순위를 의미합니다.</p>\n"
 
-#. The options can only be modified using BlkDevice#fstab_options=
-#: src/lib/y2partitioner/widgets/fstab_options.rb:492
+#. VFAT IOCharset
+#: src/lib/y2partitioner/widgets/fstab_options.rb:686
 msgid "Char&set for file names"
 msgstr "파일이름을 위한 문자셋(&S)"
 
 #  help text, richtext format
-#: src/lib/y2partitioner/widgets/fstab_options.rb:496
+#: src/lib/y2partitioner/widgets/fstab_options.rb:690
 msgid ""
 "<p><b>Charset for File Names:</b>\n"
 "Set the charset used for display of file names in Windows partitions.</p>\n"
@@ -1378,13 +1457,13 @@ msgstr ""
 "<p><b>파일이름을 위한 문자셋:</b>\n"
 "윈도우 파티션의 파일이름을 표시하기 위해 사용될 문자셋을 설정하십시오.</p>\n"
 
-#. The options can only be modified using BlkDevice#fstab_options=
-#: src/lib/y2partitioner/widgets/fstab_options.rb:529
+#. VFAT Codepage
+#: src/lib/y2partitioner/widgets/fstab_options.rb:706
 msgid "Code&page for short FAT names"
 msgstr "간단한 FAT 이름을 위한 코드페이지(&P)"
 
 #  help text, richtext format
-#: src/lib/y2partitioner/widgets/fstab_options.rb:533
+#: src/lib/y2partitioner/widgets/fstab_options.rb:710
 msgid ""
 "<p><b>Codepage for Short FAT Names:</b>\n"
 "This codepage is used for converting to shortname characters on FAT file "
@@ -1676,7 +1755,8 @@ msgid ""
 "has the <tt>noauto</tt> option set in <tt>/etc/fstab</tt>)."
 msgstr ""
 "마운트 포인트 뒤에 있는 별표(*)는 현재 마운트되지 않은\n"
-"파일 시스템을 나타냅니다(예: <tt>/etc/fstab</tt>에 <tt>noauto</tt> 옵션이 설정되었기 때문)."
+"파일 시스템을 나타냅니다(예: <tt>/etc/fstab</tt>에 <tt>noauto</tt> 옵션이 설"
+"정되었기 때문)."
 
 #. When there is no vg, only shows an option to add a new vg.
 #. Otherwise, options for adding a vg or lv are shown.
@@ -1715,49 +1795,41 @@ msgid "System View"
 msgstr "시스템 보기"
 
 #. TODO: only if there is graph support UI.HasSpecialWidget(:Graph)
-#: src/lib/y2partitioner/widgets/overview.rb:82
+#: src/lib/y2partitioner/widgets/overview.rb:93
 msgid "Device Graph"
 msgstr "장치 그래프"
 
 #. TODO: only if there is graph support UI.HasSpecialWidget(:Graph)
-#: src/lib/y2partitioner/widgets/overview.rb:84
+#: src/lib/y2partitioner/widgets/overview.rb:95
 msgid "Mount Graph"
 msgstr "마운트 그래프"
 
-#: src/lib/y2partitioner/widgets/overview.rb:85
+#: src/lib/y2partitioner/widgets/overview.rb:96
 msgid "Installation Summary"
 msgstr "설치 요약"
 
-#: src/lib/y2partitioner/widgets/overview.rb:86
+#: src/lib/y2partitioner/widgets/overview.rb:97
 msgid "Settings"
 msgstr "설정"
 
 #. FIXME: improve Yast2::Popup to allow some text before the buttons
-#: src/lib/y2partitioner/widgets/overview.rb:122
+#: src/lib/y2partitioner/widgets/overview.rb:139
 msgid "Do you want to continue?"
 msgstr "계속하시겠습니까?"
 
 #  button text
 #. TODO: real subtree
-#: src/lib/y2partitioner/widgets/overview.rb:204
+#: src/lib/y2partitioner/widgets/overview.rb:220
 msgid "Crypt Files"
 msgstr "암호화된 파일"
 
 #  ComboBox label
 #. TODO: real subtree
-#: src/lib/y2partitioner/widgets/overview.rb:209
+#: src/lib/y2partitioner/widgets/overview.rb:225
 msgid "Device Mapper"
 msgstr "장치 매퍼"
 
-#: src/lib/y2partitioner/widgets/overview.rb:213
-msgid "NFS"
-msgstr "NFS"
-
-#: src/lib/y2partitioner/widgets/overview.rb:222
-msgid "tmpfs"
-msgstr "TMPFS"
-
-#: src/lib/y2partitioner/widgets/overview.rb:226
+#: src/lib/y2partitioner/widgets/overview.rb:239
 msgid "Unused Devices"
 msgstr "사용하지 않는 장치"
 
@@ -1836,7 +1908,7 @@ msgid "Log&ical Volumes"
 msgstr "논리 볼륨(&I)"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/pages/lvm_vg.rb:175
+#: src/lib/y2partitioner/widgets/pages/lvm_vg.rb:184
 msgid "&Physical Volumes"
 msgstr "물리적 볼륨(&P)"
 
@@ -1856,6 +1928,26 @@ msgstr "RAID: %s"
 msgid "RAID"
 msgstr "RAID"
 
+#  combobox label
+#. TRANSLATORS: Heading for the expert partitioner page
+#: src/lib/y2partitioner/widgets/pages/nfs_mounts.rb:62
+msgid "Network File System (NFS)"
+msgstr "네트워크 파일 시스템 (NFS)"
+
+#  not to be displayed, #37554.
+#  but ProbePackages still has to be called.
+#  continue-cancel popup
+#. TRANSLATORS: %s is the name of a package (i.g. 'yast2-nfs-client')
+#: src/lib/y2partitioner/widgets/pages/nfs_mounts.rb:102
+#, fuzzy
+#| msgid ""
+#| "NFS configuration is not available. Check yast2-nfs-client package "
+#| "installation."
+msgid "NFS configuration is not available. Check %s package installation."
+msgstr ""
+"NFS 구성을 사용할 수 없습니다. yast2-nfs-client 꾸러미 설치 여부를 확인하세"
+"요."
+
 #. TRANSLATORS: Heading. String followed by name of partition
 #: src/lib/y2partitioner/widgets/pages/partition.rb:45
 msgid "Partition: "
@@ -1863,7 +1955,7 @@ msgstr "파티션: "
 
 #  table item / label
 #. TRANSLATORS: Heading. String followed by the hostname
-#: src/lib/y2partitioner/widgets/pages/system.rb:39
+#: src/lib/y2partitioner/widgets/pages/system.rb:40
 msgid "Available Storage on %s"
 msgstr "사용할 수 있는 %s의 저장매체"
 
@@ -2007,16 +2099,6 @@ msgid ""
 msgstr ""
 "장치가 업데이트할 시스템을 포함하고 있거나 설치 중 사용할 LVM에\n"
 "속해 있는 경우 비밀번호를 알고 있어야 합니다."
-
-#. Should be implemented by derived classes.
-#: src/lib/y2storage/dialogs/guided_setup/base.rb:113
-msgid ""
-"<p>\n"
-"TODO: this dialog is just temporary. Hopefully it will end up including help "
-"of each setup.</p>"
-msgstr ""
-"<p>\n"
-"할 일: 임시 대화 상자일 뿐입니다. 각 설치에 대한 도움말이 포함되는 것이 바람직합니다.</p>"
 
 #  entry of bootloader menu - only a-z, A-Z, 0-9, _ and blank space
 #  are allowed, otherwise translartion won't be used
@@ -2390,6 +2472,28 @@ msgstr "Microsoft 예약 파티션"
 #: src/lib/y2storage/partition_id.rb:54
 msgid "Diagnostics Partition"
 msgstr "진단 파티션"
+
+#~ msgid "Select at least one device."
+#~ msgstr "최소 하나 이상은 선택하세요."
+
+#  button text
+#~ msgid "Fstab options..."
+#~ msgstr "Fstab 옵션..."
+
+#~ msgid "Mountable by user"
+#~ msgstr "사용자가 마운트 가능"
+
+#~ msgid "tmpfs"
+#~ msgstr "TMPFS"
+
+#~ msgid ""
+#~ "<p>\n"
+#~ "TODO: this dialog is just temporary. Hopefully it will end up including "
+#~ "help of each setup.</p>"
+#~ msgstr ""
+#~ "<p>\n"
+#~ "할 일: 임시 대화 상자일 뿐입니다. 각 설치에 대한 도움말이 포함되는 것이 바"
+#~ "람직합니다.</p>"
 
 #  type of item (displayed in the table)
 #~ msgid "File System:"
@@ -4452,10 +4556,6 @@ msgstr "진단 파티션"
 #~ msgid "Mount partition"
 #~ msgstr "파티션 마운트"
 
-#  button text
-#~ msgid "Fs&tab Options..."
-#~ msgstr "Fstab 옵션(&T)..."
-
 #  popup message
 #~ msgid "Crypt files must be encrypted."
 #~ msgstr "Crypt 파일은 암호화 되어야 합니다."
@@ -5226,9 +5326,6 @@ msgstr "진단 파티션"
 #~ msgid "Add Logical volume %1 on %2"
 #~ msgstr "%2에 %1 논리 볼륨 추가"
 
-#~ msgid "Resize Volume Group %1"
-#~ msgstr "볼륨 그룹 %1 크기 조정"
-
 #~ msgid "<p>Enter the name of the new logical volume.</p>"
 #~ msgstr "<p>새 논리 볼륨의 이름을 입력하세요.</p>"
 
@@ -5304,13 +5401,6 @@ msgstr "진단 파티션"
 #~ msgstr "볼륨 그룹 \"%1\" 남은 공간이 없습니다."
 
 #~ msgid ""
-#~ "The volume %1 is a thin pool.\n"
-#~ "It cannot be edited."
-#~ msgstr ""
-#~ "볼륨 %1은(는) 씬 풀입니다.\n"
-#~ "이것은 편집할 수 없습니다."
-
-#~ msgid ""
 #~ "The volume %1 is in use. It cannot be\n"
 #~ "edited. To edit %1, make sure it is not used."
 #~ msgstr ""
@@ -5380,20 +5470,6 @@ msgstr "진단 파티션"
 
 #~ msgid ": Summary"
 #~ msgstr ": 요약"
-
-#  not to be displayed, #37554.
-#  but ProbePackages still has to be called.
-#  continue-cancel popup
-#~ msgid ""
-#~ "NFS configuration is not available. Check yast2-nfs-client package "
-#~ "installation."
-#~ msgstr ""
-#~ "NFS 구성을 사용할 수 없습니다. yast2-nfs-client 꾸러미 설치 여부를 확인하"
-#~ "세요."
-
-#  combobox label
-#~ msgid "Network File System (NFS)"
-#~ msgstr "네트워크 파일 시스템 (NFS)"
 
 #~ msgid ""
 #~ "Test mount of NFS share '%1' failed.\n"
@@ -5967,9 +6043,6 @@ msgstr "진단 파티션"
 #~ msgid "Value must be between 0 and 32767. Try again."
 #~ msgstr "값은 반드시 0에서 32767사이어야 합니다. 다시 시도하세요"
 
-#~ msgid "Mountable by User"
-#~ msgstr "사용자가 마운트 가능"
-
 #~ msgid ""
 #~ "<p><b>Do Not Mount at System Start-up:</b>\n"
 #~ "The file system is not automatically mounted when the system starts.\n"
@@ -5985,13 +6058,6 @@ msgstr "진단 파티션"
 #~ "지정된 경우 적절한 옵션을 사용하여 파일 시스템이 마운트됩니다.\n"
 #~ "&lt;마운트 지점&gt;은 파일 시스템이 마운트되는 디렉토리입니다.\n"
 #~ "기본값은 false입니다.</p>\n"
-
-#~ msgid ""
-#~ "<p><b>Access Control Lists (ACL):</b>\n"
-#~ "Enable access control lists on the file system.</p>\n"
-#~ msgstr ""
-#~ "<p><b>Access Control Lists (ACL):</b>\n"
-#~ "파일 시스템에 ACL을 활성화합니다.</p>\n"
 
 #~ msgid ""
 #~ "<p><b>Extended User Attributes:</b>\n"
