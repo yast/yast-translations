@@ -12,13 +12,6 @@ WORKDIR=$PWD
 TRANDIR=$WORKDIR/translations/po
 TRANPARTS=$WORKDIR/translations/po-parts
 
-# Check for the yast2-meta tool:
-if ! Y2M=`command -v y2m`; then
-    echo "The yast2 meta tool (y2m) is required to run this script."
-    echo "Find it here: https://github.com/yast/yast-meta"
-    exit 1
-fi
-
 # Check for y2makepot:
 if ! Y2MAKEPOT=`command -v y2makepot`; then
     echo "y2makepot is required to run this script."
@@ -34,7 +27,7 @@ function make_pot {
 
     pushd $MODULE_DIR
 
-    [ *.pot ] && rm *.pot
+    rm -f *.pot
     $Y2MAKEPOT
 
     for POT in *.pot ; do
@@ -67,9 +60,6 @@ function strip_POT_dates {
 
 # main
 # -------
-
-# Pull all yast2 repositories:
-$Y2M pull
 
 # Clear the POT target directory
 rm -rf $TRANPARTS
