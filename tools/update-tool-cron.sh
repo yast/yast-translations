@@ -33,7 +33,10 @@ function make_pot {
     local MODULE_DIR=$1
 
     pushd $MODULE_DIR
+
+    [ *.pot ] && rm *.pot
     $Y2MAKEPOT
+
     for POT in *.pot ; do
 	local DOMAIN=${POT%.pot}
 	if grep -q "^$DOMAIN\\.pot$" $TRANDIR/OBSOLETE_POT_FILES; then
@@ -73,6 +76,7 @@ rm -rf $TRANPARTS
 
 # Create POT files for (nearly) all subdirectories
 for DIR in * ; do
+    [ -d "$DIR" ] || continue
     [ "$DIR" != 'translations' ] || continue
     if grep -q "^$DIR\$" $TRANDIR/SKIP_PROJECTS; then
 	continue
@@ -84,6 +88,7 @@ done
 cd $TRANPARTS
 
 for DOMAIN in * ; do
+    [ -d "$DOMAIN" ] || continue
     # This directory is most likely already there, but just to make sure ...
     mkdir -p $TRANDIR/$DOMAIN
 
@@ -97,20 +102,24 @@ for DOMAIN in * ; do
 
     # Normalize the old POT files, because different gettext versions might
     # produce differently formatted lines.
-    msgcat $DOMAIN.pot -o $DOMAIN.pot.old
-    strip_POT_dates $DOMAIN.pot.old $DOMAIN.pot.old.nodate
-    strip_POT_dates $DOMAIN.pot.new $DOMAIN.pot.new.nodate
+    if [ -s $DOMAIN.pot ]; then
+        msgcat $DOMAIN.pot -o $DOMAIN.pot.old
+        strip_POT_dates $DOMAIN.pot.new $DOMAIN.pot.new.nodate
+        strip_POT_dates $DOMAIN.pot.old $DOMAIN.pot.old.nodate
 
-    if cmp -s $DOMAIN.pot.old.nodate $DOMAIN.pot.new.nodate; then
-	echo "No changes in $DOMAIN.pot. Skipping update."
-	rm *.old *.nodate *.new
-	popd
-	continue
+        if cmp -s $DOMAIN.pot.old.nodate $DOMAIN.pot.new.nodate; then
+  	    echo "No changes in $DOMAIN.pot. Skipping update."
+	    rm *.old *.nodate *.new
+	    popd
+	    continue
+        fi
+        # Remove the stripped POT files used for comparison.
+        rm *.old *.nodate
+
+        echo "Updating $DOMAIN."
+    else
+	echo "New text domain $DOMAIN."
     fi
-
-    echo "Updating $DOMAIN."
-    # Remove the stripped POT files used for comparison.
-    rm *.old *.nodate
 
     # Replace the old POT by the new one
     mv $DOMAIN.pot.new $DOMAIN.pot
