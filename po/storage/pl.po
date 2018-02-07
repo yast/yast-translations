@@ -8,11 +8,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: storage\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-19 20:35+0100\n"
+"POT-Creation-Date: 2018-02-06 15:50+0100\n"
 "PO-Revision-Date: 2018-01-31 07:53+0000\n"
 "Last-Translator: Ewelina Michalowska <ewelina.michalowska@stgambit.com>\n"
-"Language-Team: Polish <https://l10n.opensuse.org/projects/yast-"
-"storage/master/pl/>\n"
+"Language-Team: Polish <https://l10n.opensuse.org/projects/yast-storage/"
+"master/pl/>\n"
 "Language: pl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -44,16 +44,24 @@ msgstr ""
 msgid "It is not possible to create a partition on %{name}."
 msgstr "Nie można utworzyć partycji na urządzeniu %{name}."
 
-#. Validates a candidate name for the LV
-#.
-#. @param name [String]
-#. @return [String, nil] nil if the name is valid, an error string
-#. otherwise
-#: src/lib/y2partitioner/actions/controllers/lvm_lv.rb:173
+#. TRANSLATORS: dialog title. %s is a device name like /dev/vg0
+#: src/lib/y2partitioner/actions/controllers/lvm_lv.rb:245
+msgid "Add Logical Volume on %s"
+msgstr "Dodawanie woluminu logicznego na urządzeniu %s"
+
+#. TRANSLATORS: Error message when there is no name for the new logical volume
+#: src/lib/y2partitioner/actions/controllers/lvm_lv.rb:299
+msgid "Enter a name for the logical volume."
+msgstr "Wprowadź nazwę woluminu logicznego."
+
+#. TRANSLATORS: Error message when the name of the logical volume is too long
+#: src/lib/y2partitioner/actions/controllers/lvm_lv.rb:309
 msgid "The name for the logical volume is longer than 128 characters."
 msgstr "Nazwa woluminu logicznego jest dłuższa niż 128 znaków."
 
-#: src/lib/y2partitioner/actions/controllers/lvm_lv.rb:175
+#. TRANSLATORS: Error message when the name of the logical volume contains
+#. illegal characters
+#: src/lib/y2partitioner/actions/controllers/lvm_lv.rb:320
 msgid ""
 "The name for the logical volume contains illegal characters.\n"
 "Allowed are alphanumeric characters, \".\", \"_\", \"-\" and \"+\"."
@@ -62,15 +70,34 @@ msgstr ""
 "Dozwolone są znaki alfanumeryczne, kropka (.),\n"
 "podkreślenie (_), myślnik (-) oraz znak plusa (+)."
 
-#. TRANSLATORS: dialog title. %s is a device name like /dev/vg0
-#: src/lib/y2partitioner/actions/controllers/lvm_lv.rb:194
-msgid "Add Logical Volume on %s"
-msgstr "Dodawanie woluminu logicznego na urządzeniu %s"
+#. TRANSLATORS: Error message when the name of the volume group is already used.
+#. %{lv_name} is replaced by a logical volume name (e.g., lv1) and %{vg_name} is
+#. replaced by a volume group name (e.g., system)
+#: src/lib/y2partitioner/actions/controllers/lvm_lv.rb:336
+msgid ""
+"A logical volume named \"%{lv_name}\" already exists\n"
+"in volume group \"%{vg_name}\"."
+msgstr ""
+"Wolumin logiczny o nazwie %{lv_name} już istnieje\n"
+"w grupie woluminów %2{vg_name}."
+
+#. TRANSLATORS: dialog title when creating an LVM volume group
+#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:77
+msgid "Add Volume Group"
+msgstr "Dodaj grupę woluminów"
+
+#. TRANSLATORS: dialog title when resizing an LVM volume group, where %s is replaced
+#. by a device name (e.g., /dev/vg0)
+#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:81
+#, fuzzy
+#| msgid "Resize Volume Group %1"
+msgid "Resize Volume Group %s"
+msgstr "Zmień rozmiar grupy woluminów %1"
 
 #. Error message to show when the given volume group name is empty
 #.
 #. @return [String]
-#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:201
+#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:291
 msgid "Enter a name for the volume group."
 msgstr "Proszę podać nazwę grupy woluminów."
 
@@ -78,7 +105,7 @@ msgstr "Proszę podać nazwę grupy woluminów."
 #. characters
 #.
 #. @return [String]
-#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:219
+#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:309
 msgid ""
 "The name for the volume group contains illegal characters. Allowed\n"
 "are alphanumeric characters, \".\", \"_\", \"-\" and \"+\""
@@ -88,7 +115,7 @@ msgstr ""
 "oraz znak plusa (+)"
 
 #. TRANSLATORS: %{vg_name} is replaced by the name of the volume group
-#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:242
+#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:332
 msgid ""
 "The volume group name \"%{vg_name}\" conflicts\n"
 "with another entry in the /dev directory."
@@ -101,7 +128,7 @@ msgstr ""
 #. @see #invalid_extent_size?
 #.
 #. @return [String]
-#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:267
+#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:357
 msgid ""
 "The data entered is invalid. Insert a physical extent size larger than 1 "
 "KiB\n"
@@ -206,14 +233,92 @@ msgstr "Edycja woluminu logicznego %(lv_name) na urządzeniu %2"
 msgid "Edit Partition %s"
 msgstr "Edycja partycji %s"
 
-#: src/lib/y2partitioner/actions/edit_blk_device.rb:87
+#. TRANSLATORS: Error message when trying to edit an extented partition
+#: src/lib/y2partitioner/actions/edit_blk_device.rb:105
 msgid "An extended partition cannot be edited"
 msgstr "Partycji rozszerzonej nie można edytować"
 
+#. TRANSLATORS: Error message when trying to edit an LVM thin pool. %{name} is
+#. replaced by a logical volume name (e.g., /dev/system/lv1)
+#: src/lib/y2partitioner/actions/edit_blk_device.rb:116
+#, fuzzy
+#| msgid ""
+#| "The volume %1 is a thin pool.\n"
+#| "It cannot be edited."
+msgid ""
+"The volume %{name} is a thin pool.\n"
+"It cannot be edited."
+msgstr ""
+"Wolumin %1 jest w puli cienkiej.\n"
+"Nie można go edytować."
+
 #. TRANSLATORS: an error popup message
-#: src/lib/y2partitioner/actions/resize_partition.rb:91
-msgid "This partition cannot be resized."
+#: src/lib/y2partitioner/actions/resize_blk_device.rb:91
+#, fuzzy
+#| msgid "This partition cannot be resized."
+msgid "This device cannot be resized."
 msgstr "Nie można zmieniać rozmiaru tej partycji."
+
+#. TRANSLATORS: dialog title, where %{name} is the name of a partition
+#. (e.g. /dev/sda1) or LVM logical volume (e.g. /dev/system/home)
+#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:30
+#, fuzzy
+#| msgid "Resize Partition %{name}"
+msgid "Resize %{name}"
+msgstr "Zmiana rozmiaru partycji %{name}"
+
+#. @macro seeAbstractWidget
+#. @macro seeAbstractWidget
+#. @macro seeAbstractWidget
+#. @macro seeAbstractWidget
+#. @macro seeAbstractWidget
+#. @macro seeAbstractWidget
+#. TRANSLATORS: table header, size of block device e.g. "8.00 GiB"
+#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:148
+#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:338
+#: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:70
+#: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:148
+#: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:281
+#: src/lib/y2partitioner/dialogs/partition_size.rb:184
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:94
+msgid "Size"
+msgstr "Rozmiar"
+
+#. @see Widgets::ControllerRadioButtons
+#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:153
+msgid "Maximum Size (%{size})"
+msgstr "Maksymalny rozmiar (%{size})"
+
+#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:154
+msgid "Minimum Size (%{size})"
+msgstr "Minimalny rozmiar (%{size})"
+
+#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:158
+#: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:79
+#: src/lib/y2partitioner/dialogs/partition_size.rb:76
+msgid "Custom Size"
+msgstr "Własny rozmiar"
+
+#. @macro seeAbstractWidget
+#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:187
+msgid "<p>Choose new size.</p>"
+msgstr "<p>Wybierz nowy rozmiar.</p>"
+
+#. TRANSLATORS: error popup message, where %{min} and %{max} are replaced by sizes.
+#. error popup, :min and :max are replaced by sizes
+#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:206
+#: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:164
+msgid "The size entered is invalid. Enter a size between %{min} and %{max}."
+msgstr ""
+"Wprowadzony rozmiar jest nieprawidłowy. Wprowadź rozmiar od %{min} do %{max}."
+
+#. Warning when the resizing device is an LVM thin pool and it is overcommitted
+#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:269
+msgid ""
+"The LVM thin pool %{name} is overcomitted (needs %{total_thin_size} and only "
+"has %{size}).\n"
+"It might not have enough space for some LVM thin volumes."
+msgstr ""
 
 #. @param filesystem [Y2Storage::Filesystems::BlkFilesystem] a btrfs filesystem
 #: src/lib/y2partitioner/dialogs/btrfs_subvolume.rb:24
@@ -284,126 +389,68 @@ msgid "Fstab Options:"
 msgstr "Opcje fstab:"
 
 #. @macro seeDialog
-#: src/lib/y2partitioner/dialogs/lvm_lv_info.rb:52
+#: src/lib/y2partitioner/dialogs/lvm_lv_info.rb:53
 msgid "Name"
 msgstr "Nazwa"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/dialogs/lvm_lv_info.rb:73
+#: src/lib/y2partitioner/dialogs/lvm_lv_info.rb:74
 #: src/lib/y2partitioner/widgets/lvm_add_button.rb:54
 msgid "Logical Volume"
 msgstr "Wolumen logiczny"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/dialogs/lvm_lv_info.rb:92
-msgid "Enter a name for the logical volume."
-msgstr "Wprowadź nazwę woluminu logicznego."
-
-#: src/lib/y2partitioner/dialogs/lvm_lv_info.rb:99
-msgid ""
-"A logical volume named \"%{lv_name}\" already exists\n"
-"in volume group \"%{vg_name}\"."
-msgstr ""
-"Wolumin logiczny o nazwie %{lv_name} już istnieje\n"
-"w grupie woluminów %2{vg_name}."
-
-#. @macro seeAbstractWidget
 #. TRANSLATORS: table header, type of disk or partition. Can be longer. E.g. "Linux swap"
-#: src/lib/y2partitioner/dialogs/lvm_lv_info.rb:128
-#: src/lib/y2partitioner/widgets/blk_devices_table.rb:108
+#: src/lib/y2partitioner/dialogs/lvm_lv_info.rb:113
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:109
 msgid "Type"
 msgstr "Typ"
 
 #. @see Widgets::ControllerRadioButtons
-#: src/lib/y2partitioner/dialogs/lvm_lv_info.rb:134
+#: src/lib/y2partitioner/dialogs/lvm_lv_info.rb:119
 msgid "Normal Volume"
 msgstr "Wolumin zwykły"
 
-#: src/lib/y2partitioner/dialogs/lvm_lv_info.rb:135
+#: src/lib/y2partitioner/dialogs/lvm_lv_info.rb:120
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:242
 msgid "Thin Pool"
 msgstr "Pula cienka"
 
-#: src/lib/y2partitioner/dialogs/lvm_lv_info.rb:136
+#: src/lib/y2partitioner/dialogs/lvm_lv_info.rb:121
 msgid "Thin Volume"
 msgstr "Wolumin cienki"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/dialogs/lvm_lv_info.rb:175
+#: src/lib/y2partitioner/dialogs/lvm_lv_info.rb:200
 msgid "Used Pool"
 msgstr "Pula wykorzystana"
 
-#. @macro seeAbstractWidget
-#. @macro seeAbstractWidget
-#. @macro seeAbstractWidget
-#. @macro seeAbstractWidget
-#. @macro seeAbstractWidget
-#. @macro seeAbstractWidget
-#. TRANSLATORS: table header, size of block device e.g. "8.00 GiB"
-#: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:69
-#: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:145
-#: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:262
-#: src/lib/y2partitioner/dialogs/partition_resize.rb:145
-#: src/lib/y2partitioner/dialogs/partition_resize.rb:293
-#: src/lib/y2partitioner/dialogs/partition_size.rb:181
-#: src/lib/y2partitioner/widgets/blk_devices_table.rb:93
-msgid "Size"
-msgstr "Rozmiar"
-
 #. TRANSLATORS: %s is a size like '15.00 GiB'
-#: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:75
+#: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:76
 msgid "Maximum Size (%s)"
 msgstr "Maksymalny rozmiar (%s)"
 
-#: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:78
-#: src/lib/y2partitioner/dialogs/partition_resize.rb:155
-#: src/lib/y2partitioner/dialogs/partition_size.rb:75
-msgid "Custom Size"
-msgstr "Własny rozmiar"
-
-#. error popup, :min and :max are replaced by sizes
-#. TRANSLATORS: error popup message, where %{min} and %{max} are replaced by sizes.
-#: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:161
-#: src/lib/y2partitioner/dialogs/partition_resize.rb:202
-msgid "The size entered is invalid. Enter a size between %{min} and %{max}."
-msgstr ""
-"Wprowadzony rozmiar jest nieprawidłowy. Wprowadź rozmiar od %{min} do %{max}."
-
 #. @macro seeAbstractWidget
 #. TRANSLATORS: table header, number of LVM LV stripes
-#: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:204
+#: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:205
 #: src/lib/y2partitioner/widgets/lvm_devices_table.rb:54
 msgid "Stripes"
 msgstr "Wartości Stripe"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:239
+#: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:258
 msgid "Number"
 msgstr "Numer"
 
-#. @macro seeDialog
-#: src/lib/y2partitioner/dialogs/lvm_vg.rb:22
-msgid "Add Volume Group"
-msgstr "Dodaj grupę woluminów"
-
 #. TRANSLATORS: field to enter the name of a new volume group
-#: src/lib/y2partitioner/dialogs/lvm_vg.rb:57
+#: src/lib/y2partitioner/dialogs/lvm_vg.rb:78
 msgid "&Volume Group Name"
 msgstr "Nazwa grupy &woluminów"
 
 #. TRANSLATORS: field to enter the extent size of a new volume group
-#: src/lib/y2partitioner/dialogs/lvm_vg.rb:126
+#: src/lib/y2partitioner/dialogs/lvm_vg.rb:147
 msgid "Physical Extent Size"
 msgstr "Rozmiar zakresu fizycznego"
-
-#. Validates that at least one physical volume was added to the volume group
-#. @macro seeAbstractWidget
-#.
-#. @note An error popup is shown when no physical volume was added.
-#.
-#. @return [Boolean]
-#: src/lib/y2partitioner/dialogs/lvm_vg.rb:211
-msgid "Select at least one device."
-msgstr "Wybierz przynajmniej jedno urządzenie."
 
 #. @return [Y2Storage::DeviceGraph] device graph with all changes done in dialog
 #: src/lib/y2partitioner/dialogs/main.rb:24
@@ -464,25 +511,6 @@ msgstr "Rozmiar fragmentu"
 msgid "Parity Algorithm"
 msgstr "Algorytm parzystości"
 
-#. TRANSLATORS: dialog title, where %{name} is the name of a partition (e.g., /dev/sda1)
-#: src/lib/y2partitioner/dialogs/partition_resize.rb:28
-msgid "Resize Partition %{name}"
-msgstr "Zmiana rozmiaru partycji %{name}"
-
-#. @see Widgets::ControllerRadioButtons
-#: src/lib/y2partitioner/dialogs/partition_resize.rb:150
-msgid "Maximum Size (%{size})"
-msgstr "Maksymalny rozmiar (%{size})"
-
-#: src/lib/y2partitioner/dialogs/partition_resize.rb:151
-msgid "Minimum Size (%{size})"
-msgstr "Minimalny rozmiar (%{size})"
-
-#. @macro seeAbstractWidget
-#: src/lib/y2partitioner/dialogs/partition_resize.rb:183
-msgid "<p>Choose new size.</p>"
-msgstr "<p>Wybierz nowy rozmiar.</p>"
-
 #. @macro seeAbstractWidget
 #: src/lib/y2partitioner/dialogs/partition_role.rb:49
 msgid "Role"
@@ -514,20 +542,20 @@ msgid "Raw Volume (unformatted)"
 msgstr "Wolumin surowy (niesformatowany)"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/dialogs/partition_size.rb:67
+#: src/lib/y2partitioner/dialogs/partition_size.rb:68
 msgid "New Partition Size"
 msgstr "Nowy rozmiar partycji"
 
-#: src/lib/y2partitioner/dialogs/partition_size.rb:71
+#: src/lib/y2partitioner/dialogs/partition_size.rb:72
 msgid "Maximum Size (%1)"
 msgstr "Maksymalny rozmiar (%1)"
 
-#: src/lib/y2partitioner/dialogs/partition_size.rb:76
+#: src/lib/y2partitioner/dialogs/partition_size.rb:77
 msgid "Custom Region"
 msgstr "Własny region"
 
 #. helptext
-#: src/lib/y2partitioner/dialogs/partition_size.rb:106
+#: src/lib/y2partitioner/dialogs/partition_size.rb:107
 msgid ""
 "<p>Choose the size for the new partition.</p>\n"
 "<p>If a size is specified (any of the two first options in the form),\n"
@@ -539,8 +567,8 @@ msgid ""
 "best option to create very small partitions.</p>"
 msgstr ""
 "<p>Wybierz rozmiar nowej partycji.</p>\n"
-"<p>Jeśli określono rozmiar (dowolną z dwóch pierwszych opcji na formularzu),"
-"\n"
+"<p>Jeśli określono rozmiar (dowolną z dwóch pierwszych opcji na "
+"formularzu),\n"
 "początek i koniec partycji zostaną wyrównane w celu zapewnienia optymalnej\n"
 "wydajności i zminimalizowania przerw. W związku z tym partycja może być\n"
 "trochę mniejsza.</p>\n"
@@ -550,18 +578,18 @@ msgstr ""
 "To najlepsza opcja w przypadku tworzenia bardzo małych partycji.</p>"
 
 #. error popup, %1 and %2 are replaced by sizes
-#: src/lib/y2partitioner/dialogs/partition_size.rb:206
+#: src/lib/y2partitioner/dialogs/partition_size.rb:209
 msgid "The size entered is invalid. Enter a size between %1 and %2."
 msgstr ""
 "Wprowadzony rozmiar jest nieprawidłowy.\n"
 "Wprowadź wartość pomiędzy %1 a %2."
 
 #. FIXME: libyui widget overflow :-(
-#: src/lib/y2partitioner/dialogs/partition_size.rb:260
+#: src/lib/y2partitioner/dialogs/partition_size.rb:261
 msgid "Start Block"
 msgstr "Blok początkowy"
 
-#: src/lib/y2partitioner/dialogs/partition_size.rb:261
+#: src/lib/y2partitioner/dialogs/partition_size.rb:262
 msgid "End Block"
 msgstr "Blok końcowy"
 
@@ -733,40 +761,40 @@ msgid "F"
 msgstr "F"
 
 #. TRANSLATORS: table header, Device is physical name of block device, e.g. "/dev/sda1"
-#: src/lib/y2partitioner/widgets/blk_devices_table.rb:88
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:89
 msgid "Device"
 msgstr "Urządzenie"
 
 #. TRANSLATORS: table header, flag if device is encrypted. Keep it short,
 #. ideally three letters. Keep in sync with Enc used later for format marker.
-#: src/lib/y2partitioner/widgets/blk_devices_table.rb:103
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:104
 msgid "Enc"
 msgstr "Szyfr"
 
 #. TRANSLATORS: table header, file system type
-#: src/lib/y2partitioner/widgets/blk_devices_table.rb:113
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:114
 msgid "FS Type"
 msgstr "Typ systemu plików"
 
 #. TRANSLATORS: table header, disk or partition label. Can be empty.
-#: src/lib/y2partitioner/widgets/blk_devices_table.rb:118
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:119
 msgid "Label"
 msgstr "Etykieta"
 
 #. TRANSLATORS: table header, where is device mounted. Can be empty. E.g. "/" or "/home"
 #. Synchronize the widget with the information from the controller
-#: src/lib/y2partitioner/widgets/blk_devices_table.rb:123
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:124
 #: src/lib/y2partitioner/widgets/format_and_mount.rb:432
 msgid "Mount Point"
 msgstr "Punkt montowania"
 
 #. TRANSLATORS: table header, which sector is the first one for device. E.g. "0"
-#: src/lib/y2partitioner/widgets/blk_devices_table.rb:128
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:129
 msgid "Start"
 msgstr "Początek"
 
 #. TRANSLATORS: table header, which sector is the the last for device. E.g. "126"
-#: src/lib/y2partitioner/widgets/blk_devices_table.rb:133
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:134
 msgid "End"
 msgstr "Koniec"
 
@@ -776,34 +804,46 @@ msgstr "Koniec"
 #.
 #. @param device [Y2Storage::BlkDevice]
 #. @return [Yast::Term] icon
-#: src/lib/y2partitioner/widgets/blk_devices_table.rb:225
-#: src/lib/y2partitioner/widgets/blk_devices_table.rb:226
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:233
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:234
 msgid "Disk"
 msgstr "Dysk"
 
-#: src/lib/y2partitioner/widgets/blk_devices_table.rb:227
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:235
 msgid "Multipath"
 msgstr "Wielościeżkowy"
 
-#: src/lib/y2partitioner/widgets/blk_devices_table.rb:228
+#. @macro seeAbstractWidget
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:236
+#: src/lib/y2partitioner/widgets/pages/nfs_mounts.rb:47
+msgid "NFS"
+msgstr "NFS"
+
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:237
 msgid "BIOS RAID"
 msgstr "RAID BIOS"
 
-#: src/lib/y2partitioner/widgets/blk_devices_table.rb:229
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:238
 msgid "MD RAID"
 msgstr "MD RAID"
 
-#: src/lib/y2partitioner/widgets/blk_devices_table.rb:230
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:239
 msgid "PV"
 msgstr "PV"
 
-#: src/lib/y2partitioner/widgets/blk_devices_table.rb:231
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:240
 msgid "LVM"
 msgstr "LVM"
 
-#: src/lib/y2partitioner/widgets/blk_devices_table.rb:232
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:241
 msgid "LV"
 msgstr "LV"
+
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:243
+#, fuzzy
+#| msgid "Thin Volume"
+msgid "Thin LV"
+msgstr "Wolumin cienki"
 
 #. @see CWM::PushButton#Label
 #: src/lib/y2partitioner/widgets/btrfs_edit_button.rb:21
@@ -920,8 +960,8 @@ msgid ""
 "<p>This view shows detailed information about the selected device.</p>\n"
 "<p>The overview contains:</p>"
 msgstr ""
-"<p>W tym widoku wyświetlane są szczegółowe informacje o wybranym "
-"urządzeniu.</p>\n"
+"<p>W tym widoku wyświetlane są szczegółowe informacje o wybranym urządzeniu."
+"</p>\n"
 "<p>Zawarte informacje:</p>"
 
 #. TRANSLATORS: %s is a disk size. E.g. "10.5 GiB"
@@ -964,7 +1004,7 @@ msgstr "Usuń wszystkie"
 
 #. @return [Array<Array(Y2Storage::Region,String)>]
 #. regions with labels, sorted by region start
-#: src/lib/y2partitioner/widgets/disk_bar_graph.rb:16
+#: src/lib/y2partitioner/widgets/disk_bar_graph.rb:37
 msgid "Unpartitioned"
 msgstr "Niepodzielone na partycje"
 
@@ -985,8 +1025,8 @@ msgstr ""
 "Wymagane będzie wprowadzenie hasła szyfrowania.\n"
 "</p>\n"
 "<p>Jeśli szyfrowany system plików nie zawiera żadnego pliku systemowego \n"
-"i z tego powodu nie musi być aktualizowany, możesz wybrać opcję <b>Pomiń</b>."
-"\n"
+"i z tego powodu nie musi być aktualizowany, możesz wybrać opcję <b>Pomiń</"
+"b>.\n"
 "W takim przypadku podczas aktualizacji nie będą podejmowane próby dostępu do "
 "systemu plików.\n"
 "</p>\n"
@@ -1135,50 +1175,52 @@ msgstr "Rozmiar &bloku w bajtach"
 msgid "Partition &ID:"
 msgstr "&Identyfikator partycji:"
 
-#. Push button that launch a dialog for set the fstab options
-#: src/lib/y2partitioner/widgets/fstab_options.rb:82
-msgid "Fstab options..."
-msgstr "Opcje fstab..."
+#. Push button that launch a dialog to set the fstab options
+#: src/lib/y2partitioner/widgets/fstab_options.rb:97
+#, fuzzy
+#| msgid "Fs&tab Options..."
+msgid "Fstab Options..."
+msgstr "Opcje fs&tab..."
 
 #. Input field to set the partition Label
-#: src/lib/y2partitioner/widgets/fstab_options.rb:150
-#: src/lib/y2partitioner/widgets/fstab_options.rb:188
+#: src/lib/y2partitioner/widgets/fstab_options.rb:189
+#: src/lib/y2partitioner/widgets/fstab_options.rb:227
 msgid "Volume &Label"
 msgstr "Etykieta wo&luminu"
 
 #. Group of radio buttons to select the type of identifier to be used for
 #. mouth the specific device (UUID, Label, Path...)
-#: src/lib/y2partitioner/widgets/fstab_options.rb:168
+#: src/lib/y2partitioner/widgets/fstab_options.rb:207
 msgid "Mount in /etc/fstab by"
 msgstr "Montowanie w /etc/fstab przez"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:187
+#: src/lib/y2partitioner/widgets/fstab_options.rb:226
 msgid "&Device Name"
 msgstr "Nazwa &urządzenia"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:189
+#: src/lib/y2partitioner/widgets/fstab_options.rb:228
 msgid "&UUID"
 msgstr "&UUID"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:193
+#: src/lib/y2partitioner/widgets/fstab_options.rb:232
 msgid "Device &ID"
 msgstr "&Identyfikator urządzenia"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:194
+#: src/lib/y2partitioner/widgets/fstab_options.rb:233
 msgid "Device &Path"
 msgstr "Ś&cieżka urządzenia"
 
 #. CheckBox to disable the automount option when starting up
-#: src/lib/y2partitioner/widgets/fstab_options.rb:269
+#: src/lib/y2partitioner/widgets/fstab_options.rb:303
 msgid "Do Not Mount at System &Start-up"
 msgstr "Nie montuj przy &starcie systemu"
 
 #. CheckBox to enable the read only option ("ro")
-#: src/lib/y2partitioner/widgets/fstab_options.rb:279
+#: src/lib/y2partitioner/widgets/fstab_options.rb:313
 msgid "Mount &Read-Only"
 msgstr "Zamontuj tylko do &odczytu"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:283
+#: src/lib/y2partitioner/widgets/fstab_options.rb:317
 msgid ""
 "<p><b>Mount Read-Only:</b>\n"
 "Writing to the file system is not possible. Default is false. During "
@@ -1187,15 +1229,15 @@ msgid ""
 msgstr ""
 "<p><b>Zamontuj tylko do odczytu:</b>\n"
 "Brak możliwości zapisu w systemie plików. Domyślnie wyłączone. Podczas\n"
-"instalacji system plików jest zawsze zamontowany w trybie odczytu i "
-"zapisu.</p>"
+"instalacji system plików jest zawsze zamontowany w trybie odczytu i zapisu.</"
+"p>"
 
 #. CheckBox to enable the noatime option
-#: src/lib/y2partitioner/widgets/fstab_options.rb:294
+#: src/lib/y2partitioner/widgets/fstab_options.rb:328
 msgid "No &Access Time"
 msgstr "Bez cz&asu dostępu"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:298
+#: src/lib/y2partitioner/widgets/fstab_options.rb:332
 msgid ""
 "<p><b>No Access Time:</b>\n"
 "Access times are not updated when a file is read. Default is false.</p>\n"
@@ -1206,11 +1248,11 @@ msgstr ""
 
 #. CheckBox to enable the user option which means allow to mount the
 #. filesystem by an ordinary user
-#: src/lib/y2partitioner/widgets/fstab_options.rb:309
-msgid "Mountable by user"
-msgstr "Montowalny przez użytkownika"
+#: src/lib/y2partitioner/widgets/fstab_options.rb:343
+msgid "Mountable by User"
+msgstr "Montowalne przez użytkownika"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:313
+#: src/lib/y2partitioner/widgets/fstab_options.rb:347
 msgid ""
 "<p><b>Mountable by User:</b>\n"
 "The file system may be mounted by an ordinary user. Default is false.</p>\n"
@@ -1219,39 +1261,73 @@ msgstr ""
 "Zwykły użytkownik może montować system plików. Domyślnie: wyłączone.</p>\n"
 
 #. CheckBox to enable the use of user quotas
-#: src/lib/y2partitioner/widgets/fstab_options.rb:324
+#: src/lib/y2partitioner/widgets/fstab_options.rb:358
 msgid "Enable &Quota Support"
 msgstr "Włącz &obsługę przydziałów"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:328
+#: src/lib/y2partitioner/widgets/fstab_options.rb:362
+#, fuzzy
+#| msgid ""
+#| "<p><b>Enable Quota Support:</b>\n"
+#| "The file system is mounted with user quotas enabled.\n"
+#| "Default is false.</p>\n"
 msgid ""
 "<p><b>Enable Quota Support:</b>\n"
 "The file system is mounted with user quotas enabled.\n"
-"Default is false.</p>\n"
+"Default is false.</p>"
 msgstr ""
 "<p><b>Włącz obsługę przydziałów:</b>\n"
 "System plików jest zamontowany z włączonymi przydziałami użytkownika. \n"
 "Domyślnie: wyłączone.</p>\n"
 
+#. CheckBox to enable access control lists (acl)
+#: src/lib/y2partitioner/widgets/fstab_options.rb:402
+msgid "&Access Control Lists (ACL)"
+msgstr "Listy &kontroli dostępu (ACL)"
+
+#: src/lib/y2partitioner/widgets/fstab_options.rb:406
+#, fuzzy
+#| msgid ""
+#| "<p><b>Access Control Lists (ACL):</b>\n"
+#| "Enable access control lists on the file system.</p>\n"
+msgid ""
+"<p><b>Access Control Lists (acl):</b>\n"
+"Enable POSIX access control lists and thus more fine-grained user "
+"permissions on the file system. See also man 5 acl.\n"
+msgstr ""
+"<p><b>Listy kontroli dostępu (ACL):</b>\n"
+"Opcja ta włącza listy kontroli dostępu w systemie plików.</p>\n"
+
+#. CheckBox to enable extended user attributes (user_xattr)
+#: src/lib/y2partitioner/widgets/fstab_options.rb:419
+msgid "&Extended User Attributes"
+msgstr "Rozsz&erzone atrybuty użytkownika"
+
+#: src/lib/y2partitioner/widgets/fstab_options.rb:423
+msgid ""
+"<p><b>Extended User Attributes (user_xattr):</b>\n"
+"Enable extended attributes (name:value pairs) on files and directories.\n"
+"This is an extension to ACLs. See also man 7 xattr.\n"
+msgstr ""
+
 #. ComboBox to specify the journal mode to use by the filesystem
-#: src/lib/y2partitioner/widgets/fstab_options.rb:355
+#: src/lib/y2partitioner/widgets/fstab_options.rb:508
 msgid "Data &Journaling Mode"
 msgstr "Tryb księ&gowania danych"
 
-#. The options can only be modified using BlkDevice#fstab_options=
-#: src/lib/y2partitioner/widgets/fstab_options.rb:367
+#: src/lib/y2partitioner/widgets/fstab_options.rb:517
 msgid "journal"
 msgstr "dziennik"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:368
+#: src/lib/y2partitioner/widgets/fstab_options.rb:518
 msgid "ordered"
 msgstr "uporządkowany"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:369
+#: src/lib/y2partitioner/widgets/fstab_options.rb:519
 msgid "writeback"
 msgstr "wystronowanie"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:374
+#: src/lib/y2partitioner/widgets/fstab_options.rb:524
 msgid ""
 "<p><b>Data Journaling Mode:</b>\n"
 "Specifies the journaling mode for file data.\n"
@@ -1273,35 +1349,34 @@ msgstr ""
 "<tt>writeback</tt> — kolejność danych nie jest zachowywana. Brak wpływu na "
 "wydajność.</p>\n"
 
-#. Custom widget that allows to enable ACL and the use of extended
-#. attributes
-#.
-#. TODO: FIXME: Pending implementation, currently it is only draw
-#: src/lib/y2partitioner/widgets/fstab_options.rb:395
-msgid "&Access Control Lists (ACL)"
-msgstr "Listy &kontroli dostępu (ACL)"
-
-#: src/lib/y2partitioner/widgets/fstab_options.rb:396
-msgid "&Extended User Attributes"
-msgstr "Rozsz&erzone atrybuty użytkownika"
-
-#. A input field that allows to set other options that are not handled by
-#. specific widgets
-#.
-#. TODO: FIXME: Pending implementation, currently it is only draw, all the options
-#. that it is responsable of should be defined, removing them if not set or
-#. supported by the current filesystem.
-#: src/lib/y2partitioner/widgets/fstab_options.rb:417
+#. An input field that allows to set other options that are not handled by
+#. specific widgets.
+#: src/lib/y2partitioner/widgets/fstab_options.rb:552
 msgid "Arbitrary Option &Value"
 msgstr "Bezwzględna &wartość opcji"
 
+#. Intentionally NOT filtering out only unhandled options: When the user
+#. adds anything here that also has a corresponding checkbox or combo
+#. box in this same dialog, the value here will win, and when entering
+#. this dialog again the dedicated widget will take the value from
+#. there, and it will be filtered out in this arbitrary options widget.
+#.
+#. So, when a user insists in adding "noauto,user" here, it is applied
+#. correctly, but when entering the dialog again, the checkboxes pick up
+#. those values and they won't show up in this field anymore.
+#: src/lib/y2partitioner/widgets/fstab_options.rb:576
+msgid ""
+"<p><b>Arbitrary Option Value:</b> Enter any other mount options here, "
+"separated with commas. Notice that this does not do any checking, so be "
+"careful what you enter here!</p>"
+msgstr ""
+
 #. Swap priority
-#: src/lib/y2partitioner/widgets/fstab_options.rb:449
+#: src/lib/y2partitioner/widgets/fstab_options.rb:652
 msgid "Swap &Priority"
 msgstr "&Priorytet swap"
 
-#. The options can only be modified using BlkDevice#fstab_options=
-#: src/lib/y2partitioner/widgets/fstab_options.rb:460
+#: src/lib/y2partitioner/widgets/fstab_options.rb:661
 msgid ""
 "<p><b>Swap Priority:</b>\n"
 "Enter the swap priority. Higher numbers mean higher priority.</p>\n"
@@ -1310,12 +1385,12 @@ msgstr ""
 "Proszę określić priorytet swap. Większe liczby oznaczają wyższy priorytet.</"
 "p>\n"
 
-#. The options can only be modified using BlkDevice#fstab_options=
-#: src/lib/y2partitioner/widgets/fstab_options.rb:492
+#. VFAT IOCharset
+#: src/lib/y2partitioner/widgets/fstab_options.rb:686
 msgid "Char&set for file names"
 msgstr "Ze&staw znaków dla nazw plików"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:496
+#: src/lib/y2partitioner/widgets/fstab_options.rb:690
 msgid ""
 "<p><b>Charset for File Names:</b>\n"
 "Set the charset used for display of file names in Windows partitions.</p>\n"
@@ -1324,12 +1399,12 @@ msgstr ""
 "Opcja służąca do określania zestawów znaków dla nazw plików na partycji "
 "Windows.</p>\n"
 
-#. The options can only be modified using BlkDevice#fstab_options=
-#: src/lib/y2partitioner/widgets/fstab_options.rb:529
+#. VFAT Codepage
+#: src/lib/y2partitioner/widgets/fstab_options.rb:706
 msgid "Code&page for short FAT names"
 msgstr "Strona ko&dowa dla krótkich nazw FAT"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:533
+#: src/lib/y2partitioner/widgets/fstab_options.rb:710
 msgid ""
 "<p><b>Codepage for Short FAT Names:</b>\n"
 "This codepage is used for converting to shortname characters on FAT file "
@@ -1557,8 +1632,8 @@ msgid ""
 "logical volumes and, if greater than one, the stripe size in parenthesis.\n"
 msgstr ""
 "<b>Stripe</b> wyświetla wartość stripe dla woluminów logicznych LVM.\n"
-"Jeśli jest ona większa od jeden, rozmiar stripe zostanie podany w nawiasach."
-"\n"
+"Jeśli jest ona większa od jeden, rozmiar stripe zostanie podany w "
+"nawiasach.\n"
 
 #: src/lib/y2partitioner/widgets/help.rb:91
 msgid ""
@@ -1614,12 +1689,12 @@ msgid ""
 "volume\n"
 "YaST will not update <tt>/etc/fstab</tt>.\n"
 msgstr ""
-"Znak zapytania (?) oznacza, że system plików nie jest zawarty w pliku "
-"<tt>/etc/fstab</tt>.\n"
+"Znak zapytania (?) oznacza, że system plików nie jest zawarty w pliku <tt>/"
+"etc/fstab</tt>.\n"
 "Jest montowany ręcznie lub przez system automatycznego montowania. Jeśli "
 "ustawienia\n"
-"tego woluminu zostaną zmienione, program YaST nie zaktualizuje "
-"pliku<tt>/etc/fstab</tt>.\n"
+"tego woluminu zostaną zmienione, program YaST nie zaktualizuje pliku<tt>/etc/"
+"fstab</tt>.\n"
 
 #: src/lib/y2partitioner/widgets/help.rb:115
 msgid ""
@@ -1668,47 +1743,39 @@ msgid "System View"
 msgstr "Widok systemu"
 
 #. TODO: only if there is graph support UI.HasSpecialWidget(:Graph)
-#: src/lib/y2partitioner/widgets/overview.rb:82
+#: src/lib/y2partitioner/widgets/overview.rb:93
 msgid "Device Graph"
 msgstr "Wykres urządzenia"
 
 #. TODO: only if there is graph support UI.HasSpecialWidget(:Graph)
-#: src/lib/y2partitioner/widgets/overview.rb:84
+#: src/lib/y2partitioner/widgets/overview.rb:95
 msgid "Mount Graph"
 msgstr "Wykres montowania"
 
-#: src/lib/y2partitioner/widgets/overview.rb:85
+#: src/lib/y2partitioner/widgets/overview.rb:96
 msgid "Installation Summary"
 msgstr "Podsumowanie instalacji"
 
-#: src/lib/y2partitioner/widgets/overview.rb:86
+#: src/lib/y2partitioner/widgets/overview.rb:97
 msgid "Settings"
 msgstr "Ustawienia"
 
 #. FIXME: improve Yast2::Popup to allow some text before the buttons
-#: src/lib/y2partitioner/widgets/overview.rb:122
+#: src/lib/y2partitioner/widgets/overview.rb:139
 msgid "Do you want to continue?"
 msgstr "Czy chcesz kontynuować?"
 
 #. TODO: real subtree
-#: src/lib/y2partitioner/widgets/overview.rb:204
+#: src/lib/y2partitioner/widgets/overview.rb:220
 msgid "Crypt Files"
 msgstr "Pliki szyfrowane"
 
 #. TODO: real subtree
-#: src/lib/y2partitioner/widgets/overview.rb:209
+#: src/lib/y2partitioner/widgets/overview.rb:225
 msgid "Device Mapper"
 msgstr "Device Mapper"
 
-#: src/lib/y2partitioner/widgets/overview.rb:213
-msgid "NFS"
-msgstr "NFS"
-
-#: src/lib/y2partitioner/widgets/overview.rb:222
-msgid "tmpfs"
-msgstr "tmpfs"
-
-#: src/lib/y2partitioner/widgets/overview.rb:226
+#: src/lib/y2partitioner/widgets/overview.rb:239
 msgid "Unused Devices"
 msgstr "Nieużywane urządzenia"
 
@@ -1778,7 +1845,7 @@ msgid "Log&ical Volumes"
 msgstr "Woluminy &logiczne"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/pages/lvm_vg.rb:175
+#: src/lib/y2partitioner/widgets/pages/lvm_vg.rb:184
 msgid "&Physical Volumes"
 msgstr "Woluminy &fizyczne"
 
@@ -1798,13 +1865,29 @@ msgstr "RAID: %s"
 msgid "RAID"
 msgstr "RAID"
 
+#. TRANSLATORS: Heading for the expert partitioner page
+#: src/lib/y2partitioner/widgets/pages/nfs_mounts.rb:62
+msgid "Network File System (NFS)"
+msgstr "Network File System (NFS)"
+
+#. TRANSLATORS: %s is the name of a package (i.g. 'yast2-nfs-client')
+#: src/lib/y2partitioner/widgets/pages/nfs_mounts.rb:102
+#, fuzzy
+#| msgid ""
+#| "NFS configuration is not available. Check yast2-nfs-client package "
+#| "installation."
+msgid "NFS configuration is not available. Check %s package installation."
+msgstr ""
+"Konfiguracja NFS nie jest dostępna. Sprawdź instalację pakietu yast2-nfs-"
+"client."
+
 #. TRANSLATORS: Heading. String followed by name of partition
 #: src/lib/y2partitioner/widgets/pages/partition.rb:45
 msgid "Partition: "
 msgstr "Partycja: "
 
 #. TRANSLATORS: Heading. String followed by the hostname
-#: src/lib/y2partitioner/widgets/pages/system.rb:39
+#: src/lib/y2partitioner/widgets/pages/system.rb:40
 msgid "Available Storage on %s"
 msgstr "Dostępna pamięć masowa na %s"
 
@@ -1947,17 +2030,6 @@ msgid ""
 msgstr ""
 "Hasło jest potrzebne, jeśli urządzenie zawiera aktualizowany\n"
 "system lub należy do LVM, która będzie używana podczas instalacji."
-
-#. Should be implemented by derived classes.
-#: src/lib/y2storage/dialogs/guided_setup/base.rb:113
-msgid ""
-"<p>\n"
-"TODO: this dialog is just temporary. Hopefully it will end up including help "
-"of each setup.</p>"
-msgstr ""
-"<p>\n"
-"W OPRACOWANIU: to okno dialogowe jest tymczasowe. Będzie zawierać pomoc "
-"dotyczącą każdej konfiguracji.</p>"
 
 #. Before skipping, settings should be assigned.
 #. Before skipping, settings should be assigned.
@@ -2305,6 +2377,27 @@ msgstr "Zastrzeżona partycja firmy Microsoft"
 #: src/lib/y2storage/partition_id.rb:54
 msgid "Diagnostics Partition"
 msgstr "Partycja diagnostyczna"
+
+#~ msgid "Select at least one device."
+#~ msgstr "Wybierz przynajmniej jedno urządzenie."
+
+#~ msgid "Fstab options..."
+#~ msgstr "Opcje fstab..."
+
+#~ msgid "Mountable by user"
+#~ msgstr "Montowalny przez użytkownika"
+
+#~ msgid "tmpfs"
+#~ msgstr "tmpfs"
+
+#~ msgid ""
+#~ "<p>\n"
+#~ "TODO: this dialog is just temporary. Hopefully it will end up including "
+#~ "help of each setup.</p>"
+#~ msgstr ""
+#~ "<p>\n"
+#~ "W OPRACOWANIU: to okno dialogowe jest tymczasowe. Będzie zawierać pomoc "
+#~ "dotyczącą każdej konfiguracji.</p>"
 
 #~ msgid "File System:"
 #~ msgstr "System plików:"
@@ -4303,9 +4396,6 @@ msgstr "Partycja diagnostyczna"
 #~ msgid "Mount partition"
 #~ msgstr "Montuj partycję"
 
-#~ msgid "Fs&tab Options..."
-#~ msgstr "Opcje fs&tab..."
-
 #~ msgid "Crypt files must be encrypted."
 #~ msgstr "Pliki szyfrowane muszą być zaszyfrowane."
 
@@ -5060,9 +5150,6 @@ msgstr "Partycja diagnostyczna"
 #~ msgid "Add Logical volume %1 on %2"
 #~ msgstr "Dodaj logiczny wolumin %1 na %2"
 
-#~ msgid "Resize Volume Group %1"
-#~ msgstr "Zmień rozmiar grupy woluminów %1"
-
 #~ msgid "<p>Enter the name of the new logical volume.</p>"
 #~ msgstr "<p>Podaj nazwę nowego woluminu logicznego.</p>"
 
@@ -5130,13 +5217,6 @@ msgstr "Partycja diagnostyczna"
 
 #~ msgid "No free space left in the volume group \"%1\"."
 #~ msgstr "Brak wolnego miejsca w grupie woluminów \"%1\"."
-
-#~ msgid ""
-#~ "The volume %1 is a thin pool.\n"
-#~ "It cannot be edited."
-#~ msgstr ""
-#~ "Wolumin %1 jest w puli cienkiej.\n"
-#~ "Nie można go edytować."
 
 #~ msgid ""
 #~ "The volume %1 is in use. It cannot be\n"
@@ -5210,16 +5290,6 @@ msgstr "Partycja diagnostyczna"
 
 #~ msgid ": Summary"
 #~ msgstr ": Podsumowanie"
-
-#~ msgid ""
-#~ "NFS configuration is not available. Check yast2-nfs-client package "
-#~ "installation."
-#~ msgstr ""
-#~ "Konfiguracja NFS nie jest dostępna. Sprawdź instalację pakietu yast2-nfs-"
-#~ "client."
-
-#~ msgid "Network File System (NFS)"
-#~ msgstr "Network File System (NFS)"
 
 #~ msgid ""
 #~ "Test mount of NFS share '%1' failed.\n"
@@ -5797,9 +5867,6 @@ msgstr "Partycja diagnostyczna"
 #~ msgid "Value must be between 0 and 32767. Try again."
 #~ msgstr "Wartość musi być pomiędzy 0 a 32767. Proszę spróbować ponownie."
 
-#~ msgid "Mountable by User"
-#~ msgstr "Montowalne przez użytkownika"
-
 #~ msgid ""
 #~ "<p><b>Do Not Mount at System Start-up:</b>\n"
 #~ "The file system is not automatically mounted when the system starts.\n"
@@ -5817,13 +5884,6 @@ msgstr "Partycja diagnostyczna"
 #~ "(&lt;punkt montowania&gt; to katalog, w którym system plików zostanie "
 #~ "zamontowany).\n"
 #~ "Domyślnie wyłączone.</p>\n"
-
-#~ msgid ""
-#~ "<p><b>Access Control Lists (ACL):</b>\n"
-#~ "Enable access control lists on the file system.</p>\n"
-#~ msgstr ""
-#~ "<p><b>Listy kontroli dostępu (ACL):</b>\n"
-#~ "Opcja ta włącza listy kontroli dostępu w systemie plików.</p>\n"
 
 #~ msgid ""
 #~ "<p><b>Extended User Attributes:</b>\n"
