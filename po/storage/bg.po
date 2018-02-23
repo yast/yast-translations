@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: storage-ng.bg\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-22 02:29+0000\n"
+"POT-Creation-Date: 2018-02-23 02:29+0000\n"
 "PO-Revision-Date: 2012-08-08 12:29+0300\n"
 "Last-Translator: Borislav Mitev <morbid_viper@tkzs.org>\n"
 "Language-Team: Bulgarian <kde-i18n-doc@kde.org>\n"
@@ -22,6 +22,50 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Lokalize 1.4\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+
+#. TRANSLATORS: %s is a volume group name (e.g. "system")
+#: src/lib/y2partitioner/actions/add_lvm_lv.rb:112
+#, fuzzy
+#| msgid "No free space left in the volume group \"%1\"."
+msgid "No free space left in the volume group \"%s\"."
+msgstr "Няма повече свободно място в текущата група от масиви „%1“."
+
+#. @see TransactionWizard
+#. @note The action is only run when there are available devices to create a new
+#. volume group (see {Controllers::LvmVg#available_devices}).
+#.
+#. @return [Boolean] true whether there are available devices; false otherwise.
+#: src/lib/y2partitioner/actions/add_lvm_vg.rb:79
+#, fuzzy
+#| msgid "There are not enough suitable unused devices to create a RAID."
+msgid ""
+"There are not enough suitable unused devices to create a volume group.\n"
+msgstr "Няма достатъчно подходящи неизползвани устройства за нов RAID."
+
+#: src/lib/y2partitioner/actions/add_lvm_vg.rb:80
+#, fuzzy
+#| msgid ""
+#| "There are not enough suitable unused devices to create a volume group.\n"
+#| "\n"
+#| "To use LVM, at least one unused partition of type 0x8e (or 0x83) or one "
+#| "unused\n"
+#| "RAID device is required. Change your partition table accordingly."
+msgid ""
+"To use LVM, at least one unused partition of type 0x8e (or 0x83) or one "
+"disk\n"
+"or one RAID device is required. Change your partition table accordingly."
+msgstr ""
+"Няма достатъчно подходящи неизползвани устройства\n"
+"за да се създаде група от масиви.\n"
+"\n"
+"За да използвате LVM се изисква поне един неизползван дял\n"
+"от тип 0x8e (или 0x83) или едно неизползвано RAID устройство.\n"
+"Променете таблицата с дяловете."
+
+#. @see TransactionWizard
+#: src/lib/y2partitioner/actions/add_md.rb:80
+msgid "There are not enough suitable unused devices to create a RAID."
+msgstr "Няма достатъчно подходящи неизползвани устройства за нов RAID."
 
 #. Checks whether the device is not used
 #.
@@ -219,7 +263,7 @@ msgid "Invalid region entered, increase the size or align the start."
 msgstr ""
 
 #. TRANSLATORS: dialog title. %s is a device name like /dev/sda
-#: src/lib/y2partitioner/actions/controllers/partition_table.rb:96
+#: src/lib/y2partitioner/actions/controllers/partition_table.rb:102
 #, fuzzy
 #| msgid "Create New Partition Table"
 msgid "Create New Partition Table on %s"
@@ -252,6 +296,235 @@ msgstr "Не е възможно да се създаде дял на %1 "
 #| msgid "Really delete %1?"
 msgid "Really delete %s?"
 msgstr "Наистина ли желаете да изтриете %1?"
+
+#. Checks whether there is any partition for deleting
+#.
+#. @note An error popup is shown when there is no partition.
+#.
+#. @return [Boolean]
+#: src/lib/y2partitioner/actions/delete_disk.rb:45
+#, fuzzy
+#| msgid "There are no partitions to delete on this disk."
+msgid "There are no partitions to delete on this disk"
+msgstr "На този диск няма дялове за изтриване."
+
+#. Confirmation message before performing the delete action
+#.
+#. It shows all partitions (and dependent devices) that will be deleted.
+#.
+#. @see DeleteDevice#dependent_devices
+#. @see DeleteDevice#confirm_recursive_delete
+#: src/lib/y2partitioner/actions/delete_disk.rb:61
+msgid "Confirm Deleting of All Partitions"
+msgstr "Потвърждение за изтриване на всички дялове"
+
+#. TRANSLATORS: name is the name of the disk to be deleted (e.g., /dev/sda)
+#: src/lib/y2partitioner/actions/delete_disk.rb:63
+#, fuzzy
+#| msgid ""
+#| "The disk \"%1\" contains at least one partition.\n"
+#| "If you proceed, the following partitions will be deleted:"
+msgid ""
+"The disk \"%{name}\" contains at least one partition.\n"
+"If you proceed, the following devices will be deleted:"
+msgstr ""
+"Дискът „%1“ съдържа поне един дял.\n"
+"Ако продължите следните дялове ще бъдат изтрити:"
+
+#. TRANSLATORS: name is the name of the disk to be deleted (e.g., /dev/sda)
+#: src/lib/y2partitioner/actions/delete_disk.rb:66
+#, fuzzy
+#| msgid "Really delete all partitions on \"%1\"?"
+msgid "Really delete all partitions on \"%{name}\"?"
+msgstr "Наистина ли желаете да изтриете всички дялове от „%1“?"
+
+#. TRANSLATORS: Confirmation message when a LVM logical volume is going to be deleted,
+#. where %{name} is replaced by the name of the logical volume (e.g., /dev/system/lv1)
+#: src/lib/y2partitioner/actions/delete_lvm_lv.rb:65
+#, fuzzy
+#| msgid "Remove the logical volume %1?"
+msgid "Remove the logical volume %{name}?"
+msgstr ""
+"Желаете ли да премахнете \n"
+"логическия масив %1?"
+
+#. Confirmation when the device is a LVM thin pool and there is any thin volume over it
+#.
+#. @see DeleteDevice#dependent_devices
+#. @see DeleteDevice#confirm_recursive_delete
+#: src/lib/y2partitioner/actions/delete_lvm_lv.rb:76
+#, fuzzy
+#| msgid "Confirm Deleting of Volume Group"
+msgid "Confirm Deleting of LVM Thin Pool"
+msgstr "Потвърждение за изтриването на група от масиви"
+
+#. TRANSLATORS: Confirmation message when a LVM thin pool is going to be deleted,
+#. where %{name} is replaced by the name of the thin pool (e.g., /dev/system/pool)
+#: src/lib/y2partitioner/actions/delete_lvm_lv.rb:80
+#, fuzzy
+#| msgid ""
+#| "The volume group \"%1\" contains at least one logical volume.\n"
+#| "If you proceed, the following volumes will be unmounted (if mounted)\n"
+#| "and deleted:"
+msgid ""
+"The thin pool %{name} is used by at least one thin volume.\n"
+"If you proceed, the following thin volumes will be unmounted (if mounted)\n"
+"and deleted:"
+msgstr ""
+"Групата от масиви „%1“ съдържа поне един логически масив.\n"
+"Ако продължите следните масиви ще бъдат евентуално \n"
+"демонтирани и изтрити:"
+
+#. TRANSLATORS: %{name} is replaced by the name of the thin pool (e.g., /dev/system/pool)
+#: src/lib/y2partitioner/actions/delete_lvm_lv.rb:87
+#, fuzzy
+#| msgid "Really delete volume group \"%1\" and all related logical volumes?"
+msgid "Really delete the thin pool \"%{name}\" and all related thin volumes?"
+msgstr ""
+"Наистина ли желаете да изтриете групата от \n"
+"масиви „%1“  и всички прилежащи логически масиви?"
+
+#. Confirmation when the device contains logical volumes
+#.
+#. @see DeleteDevice#dependent_devices
+#. @see DeleteDevice#confirm_recursive_delete
+#: src/lib/y2partitioner/actions/delete_lvm_vg.rb:60
+msgid "Confirm Deleting of Volume Group"
+msgstr "Потвърждение за изтриването на група от масиви"
+
+#. TRANSLATORS: %s is the name of the volume group (e.g. "system")
+#: src/lib/y2partitioner/actions/delete_lvm_vg.rb:62
+#, fuzzy
+#| msgid ""
+#| "The volume group \"%1\" contains at least one logical volume.\n"
+#| "If you proceed, the following volumes will be unmounted (if mounted)\n"
+#| "and deleted:"
+msgid ""
+"The volume group \"%s\" contains at least one logical volume.\n"
+"If you proceed, the following volumes will be unmounted (if mounted)\n"
+"and deleted:"
+msgstr ""
+"Групата от масиви „%1“ съдържа поне един логически масив.\n"
+"Ако продължите следните масиви ще бъдат евентуално \n"
+"демонтирани и изтрити:"
+
+#. TRANSLATORS: %s is the name of the volume group (e.g. "system")
+#: src/lib/y2partitioner/actions/delete_lvm_vg.rb:67
+#, fuzzy
+#| msgid "Really delete volume group \"%1\" and all related logical volumes?"
+msgid "Really delete volume group \"%s\" and all related logical volumes?"
+msgstr ""
+"Наистина ли желаете да изтриете групата от \n"
+"масиви „%1“  и всички прилежащи логически масиви?"
+
+#. Confirmation when the device belongs to a volume group
+#.
+#. @see DeleteDevice#dependent_devices
+#. @see DeleteDevice#confirm_recursive_delete
+#. @see DeleteDevice#lvm_vg
+#: src/lib/y2partitioner/actions/delete_md.rb:61
+#, fuzzy
+#| msgid "Confirm Deleting Partition Used by LVM"
+msgid "Confirm Deleting RAID Used by LVM"
+msgstr "С потвърждение за изтриване на дял от LVM"
+
+#. TRANSLATORS: name is the name of the volume group that the md raid
+#. belongs to (e.g., /dev/system)
+#: src/lib/y2partitioner/actions/delete_md.rb:64
+#, fuzzy
+#| msgid ""
+#| "The selected partition is used by volume group \"%1\".\n"
+#| "To keep the system in a consistent state, the following volume group\n"
+#| "and its logical volumes will be deleted:\n"
+msgid ""
+"The selected RAID is used by volume group \"%{name}\".\n"
+"To keep the system in a consistent state, the following volume group\n"
+"and its logical volumes will be deleted:"
+msgstr ""
+"Избраният дял се използва от групата от масиви „%1“.\n"
+"За да се запази цялостта на системата следната\n"
+"група от масиви и логическите ѝ масиви ще бъдат изтрити:\n"
+
+#. TRANSLATORS: md is the name of the md raid to be deleted (e.g., /dev/md/md1),
+#. and vg is the name of the volume group to be deleted (e.g., /dev/system)
+#: src/lib/y2partitioner/actions/delete_md.rb:69
+#, fuzzy
+#| msgid "Delete partition \"%1\" and volume group \"%2\" now?"
+msgid "Delete RAID \"%{md}\" and volume group \"%{lvm_vg}\"?"
+msgstr ""
+"Желаете ли да бъде изтрити сега дял „%1“ и\n"
+"групата от масиви „%2“?"
+
+#. Confirmation when the partition belongs to a volume group
+#.
+#. @see DeleteDevice#dependent_devices
+#. @see DeleteDevice#confirm_recursive_delete
+#. @see DeleteDevice#lvm_vg
+#: src/lib/y2partitioner/actions/delete_partition.rb:66
+msgid "Confirm Deleting Partition Used by LVM"
+msgstr "С потвърждение за изтриване на дял от LVM"
+
+#. TRANSLATORS: name is the name of the volume group that the partition
+#. belongs to (e.g., /dev/system)
+#: src/lib/y2partitioner/actions/delete_partition.rb:69
+#, fuzzy
+#| msgid ""
+#| "The selected partition is used by volume group \"%1\".\n"
+#| "To keep the system in a consistent state, the following volume group\n"
+#| "and its logical volumes will be deleted:\n"
+msgid ""
+"The selected partition is used by volume group \"%{name}\".\n"
+"To keep the system in a consistent state, the following volume group\n"
+"and its logical volumes will be deleted:"
+msgstr ""
+"Избраният дял се използва от групата от масиви „%1“.\n"
+"За да се запази цялостта на системата следната\n"
+"група от масиви и логическите ѝ масиви ще бъдат изтрити:\n"
+
+#. TRANSLATORS: partition is the name of the partition to be deleted (e.g., /dev/sda1),
+#. and vg is the name of the volume group to be deleted (e.g., /dev/system)
+#: src/lib/y2partitioner/actions/delete_partition.rb:74
+#, fuzzy
+#| msgid "Delete partition \"%1\" and volume group \"%2\" now?"
+msgid "Delete partition \"%{partition}\" and volume group \"%{lvm_vg}\"?"
+msgstr ""
+"Желаете ли да бъде изтрити сега дял „%1“ и\n"
+"групата от масиви „%2“?"
+
+#. Confirmation when the partition belongs to a md raid
+#.
+#. @see DeleteDevice#dependent_devices
+#. @see DeleteDevice#confirm_recursive_delete
+#. @see DeleteDevice#md
+#: src/lib/y2partitioner/actions/delete_partition.rb:87
+msgid "Confirm Deleting Partition Used by RAID"
+msgstr "С потвърждение за изтриване на дял от RAID"
+
+#. TRANSLATORS: name is the name of the partition to be deleted (e.g., /dev/sda1)
+#: src/lib/y2partitioner/actions/delete_partition.rb:89
+#, fuzzy
+#| msgid ""
+#| "The selected partition belongs to RAID  \"%1\".\n"
+#| "To keep the system in a consistent state, the following\n"
+#| "RAID device will be deleted:\n"
+msgid ""
+"The selected partition belongs to RAID \"%{name}\".\n"
+"To keep the system in a consistent state, the following\n"
+"RAID device will be deleted:"
+msgstr ""
+"Избраният дял принадлежи на RAID масива „%1“.\n"
+"За да се запази цялостта на системата следното\n"
+" RAID устройство ще бъде изтрито:\n"
+
+#. TRANSLATORS: partition is the name of the partition to be deleted (e.g., /dev/sda1),
+#. and md_raid is the name of the raid to be deleted (e.g., /dev/md/md1)
+#: src/lib/y2partitioner/actions/delete_partition.rb:94
+#, fuzzy
+#| msgid "Delete partition \"%1\" and RAID \"%2\" now?"
+msgid "Delete partition \"%{partition}\" and RAID \"%{md}\"?"
+msgstr ""
+"Желаете ли да бъде изтрити сега дял „%1“ и\n"
+"RAID масива „%2“?"
 
 #. TRANSLATORS: dialog title. %s is a device name like /dev/md0
 #: src/lib/y2partitioner/actions/edit_blk_device.rb:78
@@ -304,6 +577,35 @@ msgstr ""
 #| msgid "An extended partition cannot be resized."
 msgid "This device cannot be resized."
 msgstr "Разширен дял не може да бъде преоразмеряван."
+
+#. TRANSLATORS: error popup, %{name} is replaced by device name (e.g., /dev/md1)
+#: src/lib/y2partitioner/actions/resize_md.rb:87
+#, fuzzy
+#| msgid ""
+#| "The RAID %1 is already created on disk. It cannot be\n"
+#| "resized. To resize %1, remove it and create it again."
+msgid ""
+"The RAID %{name} is already created on disk. It cannot be\n"
+"resized. To resize %{name}, remove it and create it again."
+msgstr ""
+"RAID %1 вече е създаден на диска и размерът му\n"
+"вече не може да бъде променян. Ако искате да\n"
+"промените размера, изтрийте %1 и след това\n"
+"го създайте отново."
+
+#. TRANSLATORS: error popup, %{name} is replaced by device name (e.g., /dev/md1)
+#: src/lib/y2partitioner/actions/resize_md.rb:108
+#, fuzzy
+#| msgid ""
+#| "The RAID %1 is in use. It cannot be\n"
+#| "resized. To resize %1, make sure it is not used."
+msgid ""
+"The RAID %{name} is in use. It cannot be\n"
+"resized. To resize %{name}, make sure it is not used."
+msgstr ""
+"RAID  %1 се използва и размерът не може \n"
+"да бъде променян За да правите промени по\n"
+"%1 първо го извадете от употреба."
 
 #. TRANSLATORS: dialog title, where %{name} is the name of a partition
 #. (e.g. /dev/sda1) or LVM logical volume (e.g. /dev/system/home)
@@ -755,7 +1057,11 @@ msgstr ""
 
 #. TRANSLATORS: Device name information, where %s is replaced by the
 #. kernel path to device
+#. Attributes for describing a device when it is a volume group
+#.
+#. @return [Array<String>]
 #: src/lib/y2partitioner/widgets/blk_device_attributes.rb:46
+#: src/lib/y2partitioner/widgets/lvm_vg_description.rb:52
 #, fuzzy
 #| msgid "Device: %1"
 msgid "Device: %s"
@@ -763,6 +1069,7 @@ msgstr "Устройството: %1"
 
 #. TRANSLATORS: size information, where %s is replaced by a size (e.g., 10 GiB)
 #: src/lib/y2partitioner/widgets/blk_device_attributes.rb:54
+#: src/lib/y2partitioner/widgets/lvm_vg_description.rb:53
 #, fuzzy
 #| msgid "Size: %1"
 msgid "Size: %s"
@@ -887,6 +1194,32 @@ msgstr "Път за монтиране: %1"
 msgid "Label: %s"
 msgstr "Етикет: %1"
 
+#. TRANSLATORS: heading for the section about a block device
+#. A volume group description is composed by the header "Device" and a list
+#. of attributes
+#.
+#. @see #lvm_vg_description
+#.
+#. @return [String]
+#: src/lib/y2partitioner/widgets/blk_device_description.rb:56
+#: src/lib/y2partitioner/widgets/lvm_vg_description.rb:42
+msgid "Device:"
+msgstr "Устройство:"
+
+#. TRANSLATORS: heading for the section about a filesystem on a block device
+#: src/lib/y2partitioner/widgets/blk_device_description.rb:81
+msgid "File System:"
+msgstr "Файлова система:"
+
+#. TRANSLATORS: button label for editing a block device
+#. @see CWM::PushButton#Label
+#. @macro seeAbstractWidget
+#: src/lib/y2partitioner/widgets/blk_device_edit_button.rb:41
+#: src/lib/y2partitioner/widgets/btrfs_edit_button.rb:21
+#: src/lib/y2partitioner/widgets/lvm_edit_button.rb:39
+msgid "Edit..."
+msgstr "Редактиране..."
+
 #. TRANSLATORS: "F" stands for Format flag. Keep it short, ideally a single letter.
 #: src/lib/y2partitioner/widgets/blk_devices_table.rb:72
 msgid "F"
@@ -916,7 +1249,7 @@ msgstr "Етикет"
 #. TRANSLATORS: table header, where is device mounted. Can be empty. E.g. "/" or "/home"
 #. Synchronize the widget with the information from the controller
 #: src/lib/y2partitioner/widgets/blk_devices_table.rb:136
-#: src/lib/y2partitioner/widgets/format_and_mount.rb:468
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:515
 msgid "Mount Point"
 msgstr "Път за монтиране"
 
@@ -985,11 +1318,6 @@ msgstr "LVM:"
 msgid "Thin LV"
 msgstr "&Сила на звука"
 
-#. @see CWM::PushButton#Label
-#: src/lib/y2partitioner/widgets/btrfs_edit_button.rb:21
-msgid "Edit..."
-msgstr "Редактиране..."
-
 #. Opens a dialog to manage the list of subvolumes of the selected device
 #.
 #. @note In case of there is no selected table row, it shows an error.
@@ -1016,8 +1344,11 @@ msgstr ""
 
 #. TRANSLATORS: button label to add a btrfs subvolume
 #. TRANSLATORS: button label to add a volume group or logical volume
+#. TRANSLATORS: button label to add a logical volume
 #: src/lib/y2partitioner/widgets/btrfs_subvolumes_add_button.rb:44
 #: src/lib/y2partitioner/widgets/lvm_add_button.rb:44
+#: src/lib/y2partitioner/widgets/lvm_lv_add_button.rb:38
+#: src/lib/y2partitioner/widgets/partition_add_button.rb:39
 msgid "Add..."
 msgstr "Нов"
 
@@ -1031,7 +1362,9 @@ msgid "Mount point %s is shadowed."
 msgstr "Път за монтиране: %1"
 
 #. TRANSLATORS: button label to delete a btrfs subvolume
+#. TRANSLATORS: label for button to delete a device
 #: src/lib/y2partitioner/widgets/btrfs_subvolumes_delete_button.rb:46
+#: src/lib/y2partitioner/widgets/device_delete_button.rb:42
 msgid "Delete..."
 msgstr "Изтриване…"
 
@@ -1135,6 +1468,24 @@ msgstr "Изнасяне монтирането на картата…"
 msgid "Saving graph file failed."
 msgstr "Запазването на картата бе неуспешно."
 
+#. TRANSLATORS: label for button for resizing a device
+#: src/lib/y2partitioner/widgets/device_resize_button.rb:42
+msgid "Resize..."
+msgstr "Промяна на размера…"
+
+#. Checks whether the device supports resizing
+#.
+#. @note An error popup is shown when the device does not support resizing.
+#.
+#. @return [Boolean] true if the device supports resizing; false otherwise.
+#: src/lib/y2partitioner/widgets/device_resize_button.rb:62
+msgid ""
+"Hard disks, BIOS RAIDs and multipath\n"
+"devices cannot be resized."
+msgstr ""
+"Твърдите дискове, BIOS RAID и мултипът\n"
+"устройствата не могат да бъдат преоразмерявани."
+
 #. TRANSLATORS: %s is a disk size. E.g. "10.5 GiB"
 #: src/lib/y2partitioner/widgets/devices_selection.rb:124
 #, fuzzy
@@ -1182,6 +1533,27 @@ msgstr "Премахване на всички"
 #: src/lib/y2partitioner/widgets/disk_bar_graph.rb:37
 msgid "Unpartitioned"
 msgstr "Без дялове"
+
+#. TRANSLATORS: heading for section about a disk device
+#: src/lib/y2partitioner/widgets/disk_device_description.rb:51
+msgid "Hard Disk:"
+msgstr "Твърд диск:"
+
+#. Translators: Expert menu for disks in the partitioner.
+#: src/lib/y2partitioner/widgets/disk_expert_menu_button.rb:39
+#, fuzzy
+#| msgid "Expert..."
+msgid "&Expert..."
+msgstr "Експертно"
+
+#. Menu items
+#.
+#. @return [Array<[Symbol, String]>]
+#: src/lib/y2partitioner/widgets/disk_expert_menu_button.rb:46
+#, fuzzy
+#| msgid "Create New Partition Table"
+msgid "Create New Partition &Table..."
+msgstr "Нова таблица с дялове"
 
 #. help text for cryptofs
 #: src/lib/y2partitioner/widgets/encrypt_password.rb:17
@@ -1296,22 +1668,35 @@ msgstr "Устройството: %1"
 msgid "Do not mount device"
 msgstr "Без монтиране"
 
+#. TRANSLATORS: Error message when a device should be mounted by label but no label
+#. is given.
+#. TRANSLATORS: Error messagge when the label is not given.
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:286
+#: src/lib/y2partitioner/widgets/fstab_options.rb:280
+msgid "Provide a volume label to mount by label."
+msgstr "Задайте етикет на масива за монтиране по етикет."
+
 #. Synchronize the widget with the information from the controller
-#: src/lib/y2partitioner/widgets/format_and_mount.rb:335
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:382
 #, fuzzy
 #| msgid "File &system"
 msgid "Filesystem"
 msgstr "Файлова &система"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/format_and_mount.rb:403
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:450
 #, fuzzy
 #| msgid "O&ptions..."
 msgid "Options..."
 msgstr "&Параметри"
 
 #. @param controller [Actions::Controllers::Filesystem]
-#: src/lib/y2partitioner/widgets/format_and_mount.rb:429
+#. Check box for enabling snapshots
+#.
+#. @return [WidgetTerm]
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:476
+#: src/lib/y2storage/dialogs/guided_setup/select_filesystem/legacy.rb:73
+#: src/lib/y2storage/dialogs/guided_setup/select_filesystem/volume_widget.rb:227
 msgid "Enable Snapshots"
 msgstr ""
 
@@ -1319,7 +1704,7 @@ msgstr ""
 #. An error popup is shown when an empty mount point is entered.
 #.
 #. @return [Boolean] true if mount point is not empty
-#: src/lib/y2partitioner/widgets/format_and_mount.rb:502
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:549
 #, fuzzy
 #| msgid "Empty subvolume name not allowed."
 msgid "Empty mount point not allowed."
@@ -1331,7 +1716,7 @@ msgstr "Не се допуска празно име на подмасив!"
 #. @see #duplicated_mount_point?
 #.
 #. @return [Boolean] true if mount point is unique
-#: src/lib/y2partitioner/widgets/format_and_mount.rb:515
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:562
 msgid "This mount point is already in use. Select a different one."
 msgstr "Този път за монтиране вече е използван. Изберете друг."
 
@@ -1339,26 +1724,26 @@ msgstr "Този път за монтиране вече е използван. 
 #. An error popup is shown when a subvolume is shadowed by the mount point.
 #.
 #. @return [Boolean] true if mount point does not shadow a subvolume
-#: src/lib/y2partitioner/widgets/format_and_mount.rb:527
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:574
 #, fuzzy
 #| msgid "Mount Point: %1"
 msgid "The Btrfs subvolume mounted at %s is shadowed."
 msgstr "Път за монтиране: %1"
 
 #. @param controller [Actions::Controllers::Filesystem]
-#: src/lib/y2partitioner/widgets/format_and_mount.rb:579
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:626
 msgid "Subvolume Handling"
 msgstr "Управление на подмасиви"
 
 #. @param controller [Actions::Controllers::Filesystem]
-#: src/lib/y2partitioner/widgets/format_and_mount.rb:597
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:644
 #, fuzzy
 #| msgid "&Encrypt Device"
 msgid "Encrypt Device"
 msgstr "Криптира&не"
 
 #. Inode Size format option
-#: src/lib/y2partitioner/widgets/format_and_mount.rb:631
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:678
 msgid "&Inode Size"
 msgstr "&Размер на инод"
 
@@ -1373,69 +1758,79 @@ msgstr "&Размер на инод"
 #. - :help texts automatically get the :label text prepended as a title
 #. - options will only appear in the final command line if the selected value
 #. is different from the default value
-#: src/lib/y2partitioner/widgets/format_and_mount.rb:648
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:695
 #: src/lib/y2partitioner/widgets/mkfs_optiondata.rb:52
 #: src/lib/y2partitioner/widgets/mkfs_optiondata.rb:182
 msgid "Block &Size in Bytes"
 msgstr "Размер на &блока в В"
 
 #. Synchronize the widget with the information from the controller
-#: src/lib/y2partitioner/widgets/format_and_mount.rb:731
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:778
 #, fuzzy
 #| msgid "Partition 2"
 msgid "Partition &ID:"
 msgstr "Дял 2"
 
 #. Push button that launch a dialog to set the fstab options
-#: src/lib/y2partitioner/widgets/fstab_options.rb:133
+#: src/lib/y2partitioner/widgets/fstab_options.rb:143
 #, fuzzy
 #| msgid "Fs&tab Options..."
 msgid "Fstab Options..."
 msgstr "Пара&метри на fstab"
 
-#. Input field to set the partition Label
-#: src/lib/y2partitioner/widgets/fstab_options.rb:225
-#: src/lib/y2partitioner/widgets/fstab_options.rb:263
+#. Constructor
+#.
+#. @param controller [Actions::Controllers:Filesystem]
+#. @param parent_widget [Widgets::FstabOptions]
+#: src/lib/y2partitioner/widgets/fstab_options.rb:243
+#: src/lib/y2partitioner/widgets/fstab_options.rb:355
 msgid "Volume &Label"
 msgstr "&Етикет на дяла"
 
+#. TRANSLATORS: Error message when the given label is already in use.
+#: src/lib/y2partitioner/widgets/fstab_options.rb:295
+#, fuzzy
+#| msgid "This volume label is already in use. Select a different one."
+msgid "This volumem label is already in use. Select a different one."
+msgstr "Този етикет вече е използван – изберете някой друг."
+
 #. Group of radio buttons to select the type of identifier to be used for
 #. mouth the specific device (UUID, Label, Path...)
-#: src/lib/y2partitioner/widgets/fstab_options.rb:243
+#: src/lib/y2partitioner/widgets/fstab_options.rb:335
 #, fuzzy
 #| msgid "Mount in /etc/fstab by"
 msgid "Mount in /etc/fstab By"
 msgstr "Монтиране в /etc/fstab по"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:262
+#: src/lib/y2partitioner/widgets/fstab_options.rb:354
 msgid "&Device Name"
 msgstr "&Име на устройството"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:264
+#: src/lib/y2partitioner/widgets/fstab_options.rb:356
 #, fuzzy
 #| msgid "UUID"
 msgid "&UUID"
 msgstr "UUID"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:268
+#: src/lib/y2partitioner/widgets/fstab_options.rb:360
 msgid "Device &ID"
 msgstr "&ID на устройството"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:269
+#: src/lib/y2partitioner/widgets/fstab_options.rb:361
 msgid "Device &Path"
 msgstr "&Път до устройството"
 
 #. CheckBox to disable the automount option when starting up
-#: src/lib/y2partitioner/widgets/fstab_options.rb:337
+#: src/lib/y2partitioner/widgets/fstab_options.rb:440
 msgid "Do Not Mount at System &Start-up"
 msgstr "Без &монтиране при зареждане"
 
 #. CheckBox to enable the read only option ("ro")
-#: src/lib/y2partitioner/widgets/fstab_options.rb:347
+#: src/lib/y2partitioner/widgets/fstab_options.rb:450
 msgid "Mount &Read-Only"
 msgstr "Монтиране &само за четене"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:351
+#: src/lib/y2partitioner/widgets/fstab_options.rb:454
 #, fuzzy
 #| msgid ""
 #| "<p><b>Mount Read-Only:</b>\n"
@@ -1451,11 +1846,11 @@ msgstr ""
 "По подразбиране е изключено.</p>\n"
 
 #. CheckBox to enable the noatime option
-#: src/lib/y2partitioner/widgets/fstab_options.rb:362
+#: src/lib/y2partitioner/widgets/fstab_options.rb:465
 msgid "No &Access Time"
 msgstr "Бе&з време на достъп"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:366
+#: src/lib/y2partitioner/widgets/fstab_options.rb:469
 msgid ""
 "<p><b>No Access Time:</b>\n"
 "Access times are not updated when a file is read. Default is false.</p>\n"
@@ -1466,13 +1861,13 @@ msgstr ""
 
 #. CheckBox to enable the user option which means allow to mount the
 #. filesystem by an ordinary user
-#: src/lib/y2partitioner/widgets/fstab_options.rb:377
+#: src/lib/y2partitioner/widgets/fstab_options.rb:480
 #, fuzzy
 #| msgid "Mountable by &User"
 msgid "Mountable by User"
 msgstr "По&требител може да монтира"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:381
+#: src/lib/y2partitioner/widgets/fstab_options.rb:484
 msgid ""
 "<p><b>Mountable by User:</b>\n"
 "The file system may be mounted by an ordinary user. Default is false.</p>\n"
@@ -1482,11 +1877,11 @@ msgstr ""
 "По подразбиране е изключено.</p>\n"
 
 #. CheckBox to enable the use of user quotas
-#: src/lib/y2partitioner/widgets/fstab_options.rb:392
+#: src/lib/y2partitioner/widgets/fstab_options.rb:495
 msgid "Enable &Quota Support"
 msgstr "С поддръжка на квота"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:396
+#: src/lib/y2partitioner/widgets/fstab_options.rb:499
 #, fuzzy
 #| msgid ""
 #| "<p><b>Enable Quota Support:</b>\n"
@@ -1502,11 +1897,11 @@ msgstr ""
 "По подразбиране е изключено.</p>\n"
 
 #. CheckBox to enable access control lists (acl)
-#: src/lib/y2partitioner/widgets/fstab_options.rb:436
+#: src/lib/y2partitioner/widgets/fstab_options.rb:539
 msgid "&Access Control Lists (ACL)"
 msgstr "&Списъци за контрол на достъпа (ACL)"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:440
+#: src/lib/y2partitioner/widgets/fstab_options.rb:543
 #, fuzzy
 #| msgid ""
 #| "<p><b>Access Control Lists (ACL):</b>\n"
@@ -1520,11 +1915,11 @@ msgstr ""
 "Разрешаване на такива списъци за файловата система.</p>\n"
 
 #. CheckBox to enable extended user attributes (user_xattr)
-#: src/lib/y2partitioner/widgets/fstab_options.rb:453
+#: src/lib/y2partitioner/widgets/fstab_options.rb:556
 msgid "&Extended User Attributes"
 msgstr "&Разширени потребителски атрибути"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:457
+#: src/lib/y2partitioner/widgets/fstab_options.rb:560
 msgid ""
 "<p><b>Extended User Attributes (user_xattr):</b>\n"
 "Enable extended attributes (name:value pairs) on files and directories.\n"
@@ -1532,27 +1927,27 @@ msgid ""
 msgstr ""
 
 #. ComboBox to specify the journal mode to use by the filesystem
-#: src/lib/y2partitioner/widgets/fstab_options.rb:553
+#: src/lib/y2partitioner/widgets/fstab_options.rb:656
 msgid "Data &Journaling Mode"
 msgstr "&Журнален режим на данните"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:562
+#: src/lib/y2partitioner/widgets/fstab_options.rb:665
 #, fuzzy
 #| msgid "&No Journal"
 msgid "journal"
 msgstr "&Без журнал"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:563
+#: src/lib/y2partitioner/widgets/fstab_options.rb:666
 msgid "ordered"
 msgstr ""
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:564
+#: src/lib/y2partitioner/widgets/fstab_options.rb:667
 msgid "writeback"
 msgstr ""
 
 #. journal options tend to break remounting root rw (bsc#1077859).
 #. See also root_fstab_options() in lib/y2storage/filesystems/type.rb
-#: src/lib/y2partitioner/widgets/fstab_options.rb:575
+#: src/lib/y2partitioner/widgets/fstab_options.rb:678
 msgid ""
 "<p><b>Data Journaling Mode:</b>\n"
 "Specifies the journaling mode for file data.\n"
@@ -1577,7 +1972,7 @@ msgstr ""
 
 #. An input field that allows to set other options that are not handled by
 #. specific widgets.
-#: src/lib/y2partitioner/widgets/fstab_options.rb:603
+#: src/lib/y2partitioner/widgets/fstab_options.rb:706
 msgid "Arbitrary Option &Value"
 msgstr "&Допълнителни параметри"
 
@@ -1590,7 +1985,7 @@ msgstr "&Допълнителни параметри"
 #. So, when a user insists in adding "noauto,user" here, it is applied
 #. correctly, but when entering the dialog again, the checkboxes pick up
 #. those values and they won't show up in this field anymore.
-#: src/lib/y2partitioner/widgets/fstab_options.rb:627
+#: src/lib/y2partitioner/widgets/fstab_options.rb:730
 msgid ""
 "<p><b>Arbitrary Option Value:</b> Enter any other mount options here, "
 "separated with commas. Notice that this does not do any checking, so be "
@@ -1598,11 +1993,11 @@ msgid ""
 msgstr ""
 
 #. Swap priority
-#: src/lib/y2partitioner/widgets/fstab_options.rb:703
+#: src/lib/y2partitioner/widgets/fstab_options.rb:806
 msgid "Swap &Priority"
 msgstr "Приоритет на &swap"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:712
+#: src/lib/y2partitioner/widgets/fstab_options.rb:815
 msgid ""
 "<p><b>Swap Priority:</b>\n"
 "Enter the swap priority. Higher numbers mean higher priority.</p>\n"
@@ -1613,13 +2008,13 @@ msgstr ""
 
 #. "iocharset=utf8" breaks VFAT case insensitivity (bsc#1080731).
 #. See also boot_fstab_options() in lib/y2storage/filesystems/type.rb
-#: src/lib/y2partitioner/widgets/fstab_options.rb:745
+#: src/lib/y2partitioner/widgets/fstab_options.rb:848
 #, fuzzy
 #| msgid "Char&set for file names"
 msgid "Char&set for File Names"
 msgstr "К&одова таблица да имената на файловете"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:749
+#: src/lib/y2partitioner/widgets/fstab_options.rb:852
 msgid ""
 "<p><b>Charset for File Names:</b>\n"
 "Set the charset used for display of file names in Windows partitions.</p>\n"
@@ -1629,13 +2024,13 @@ msgstr ""
 "файловете в Windows дяловете.</p>\n"
 
 #. VFAT Codepage
-#: src/lib/y2partitioner/widgets/fstab_options.rb:765
+#: src/lib/y2partitioner/widgets/fstab_options.rb:868
 #, fuzzy
 #| msgid "Code&page for short FAT names"
 msgid "Code&page for Short FAT Names"
 msgstr "Кодова &таблица за кратки FAT имена"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:769
+#: src/lib/y2partitioner/widgets/fstab_options.rb:872
 msgid ""
 "<p><b>Codepage for Short FAT Names:</b>\n"
 "This codepage is used for converting to shortname characters on FAT file "
@@ -2008,10 +2403,117 @@ msgstr "Ленти: %1"
 msgid "%s (%s)"
 msgstr ""
 
+#. Richtext description of a logical volume
+#.
+#. A logical volume description is composed by the header "LVM" and a list of attributes.
+#.
+#. @return [String]
+#. TRANSLATORS: heading for the section about a volume group
+#: src/lib/y2partitioner/widgets/lvm_lv_description.rb:66
+#: src/lib/y2partitioner/widgets/lvm_vg_description.rb:64
+msgid "LVM:"
+msgstr ""
+
+#. TRANSLATORS: Volume group extent size information, where %s is replaced by
+#. a size (e.g., 8 KiB)
+#: src/lib/y2partitioner/widgets/lvm_vg_description.rb:83
+#, fuzzy
+#| msgid "PE Size: %1"
+msgid "PE Size: %s"
+msgstr "Физически размер: %1"
+
+#. TRANSLATORS: Error message when no device is selected
+#: src/lib/y2partitioner/widgets/lvm_vg_devices_selector.rb:103
+msgid "Select at least one device."
+msgstr "Изберете поне едно устройство."
+
+#. TRANSLATORS: Error message when the resulting volume group size is not
+#. enough. %s is replaced by a size (e.g., 4 GiB).
+#: src/lib/y2partitioner/widgets/lvm_vg_devices_selector.rb:119
+#, fuzzy
+#| msgid "The volume group \"%1\" already exists."
+msgid "The volume group size cannot be less than %s."
+msgstr "Групата от масиви „%1“ вече съществува."
+
+#. TRANSLATORS: Error message when several physical volumes cannot be removed, where
+#. %{pvs} is replaced by device names (e.g., /dev/sda1, /dev/sda2) and %{vg} is
+#. replaced by the volume group name (e.g., system)
+#: src/lib/y2partitioner/widgets/lvm_vg_devices_selector.rb:140
+msgid ""
+"Removing physical volumes %{pvs} from the volume group %{vg}\n"
+"is not supported because the physical volumes may be already in use"
+msgstr ""
+
+#. TRANSLATORS: Error message when a physical volume cannot be removed, where
+#. %{pvs} is replaced by device name (e.g., /dev/sda1) and %{vg} is replaced
+#. by the volume group name (e.g., system)
+#: src/lib/y2partitioner/widgets/lvm_vg_devices_selector.rb:146
+msgid ""
+"Removing the physical volume %{pvs} from the volume group %{vg}\n"
+"is not supported because the physical volume may be already in use"
+msgstr ""
+
 #. TRANSLATORS: button label to add a MD Raid
 #: src/lib/y2partitioner/widgets/md_add_button.rb:38
 msgid "Add RAID..."
 msgstr "Нов RAID"
+
+#. TRANSLATORS: heading for section about RAID details
+#: src/lib/y2partitioner/widgets/md_description.rb:51
+msgid "RAID:"
+msgstr "RAID:"
+
+#. TRANSLATORS: RAID type information, where %s is replaced by a
+#. raid type (e.g., RAID0)
+#: src/lib/y2partitioner/widgets/md_description.rb:72
+#, fuzzy
+#| msgid "RAID Type: %1"
+msgid "RAID Type: %s"
+msgstr "Тип на RAID: %1"
+
+#. TRANSLATORS: chunk size information of the MD RAID, where %s is replaced by
+#. a size (e.g., 8 KiB)
+#: src/lib/y2partitioner/widgets/md_description.rb:83
+#, fuzzy
+#| msgid "Chunk Size: %1"
+msgid "Chunk Size: %s"
+msgstr "Размер на къса: %1"
+
+#. TRANSLATORS: parity algorithm information of a MD RAID, where %s is replaced by
+#. the name of the parity strategy
+#: src/lib/y2partitioner/widgets/md_description.rb:92
+#, fuzzy
+#| msgid "Parity Algorithm: %1"
+msgid "Partity algorithm: %s"
+msgstr "Алгоритъм за четност: %1"
+
+#. TRANSLATORS: raid_level is a RAID level (e.g. RAID10); min is a number
+#: src/lib/y2partitioner/widgets/md_devices_selector.rb:81
+#, fuzzy
+#| msgid "For %1, select at least %2 device."
+#| msgid_plural "For %1, select at least %2 devices."
+msgid "For %{raid_level}, select at least %{min} devices."
+msgstr "За %1 изберете поне %2 устройство."
+
+#. TRANSLATORS: button to move an item to the first position of a sorted list
+#: src/lib/y2partitioner/widgets/md_devices_selector.rb:138
+msgid "Top"
+msgstr "Най-горе"
+
+#. TRANSLATORS: button to move an item one position up in a sorted list
+#: src/lib/y2partitioner/widgets/md_devices_selector.rb:141
+msgid "Up"
+msgstr "Нагоре"
+
+#. TRANSLATORS: button to move an item one position down in a sorted list
+#: src/lib/y2partitioner/widgets/md_devices_selector.rb:144
+msgid "Down"
+msgstr "Надолу"
+
+#. TRANSLATORS: button to move an item to the last position of a sorted list
+#: src/lib/y2partitioner/widgets/md_devices_selector.rb:147
+msgid "Bottom"
+msgstr "Най-долу"
 
 #. help text, richtext format
 #: src/lib/y2partitioner/widgets/mkfs_optiondata.rb:57
@@ -2278,7 +2780,7 @@ msgstr "Преглед на системата"
 
 #. so only warnings there
 #. FIXME: improve Yast2::Popup to allow some text before the buttons
-#: src/lib/y2partitioner/widgets/overview.rb:129
+#: src/lib/y2partitioner/widgets/overview.rb:130
 #, fuzzy
 #| msgid "Do you want to provide encryption passwords?"
 msgid "Do you want to continue?"
@@ -2447,6 +2949,18 @@ msgstr "Дял: %1"
 
 #. @macro seeAbstractWidget
 #. TRANSLATORS: Heading for the expert partitioner page
+#: src/lib/y2partitioner/widgets/pages/settings.rb:42
+#: src/lib/y2partitioner/widgets/pages/settings.rb:55
+msgid "Settings"
+msgstr "Настройки"
+
+#. @macro seeAbstractWidget
+#: src/lib/y2partitioner/widgets/pages/settings.rb:75
+msgid "Default Mount by"
+msgstr "Стандартно монтиране по"
+
+#. @macro seeAbstractWidget
+#. TRANSLATORS: Heading for the expert partitioner page
 #: src/lib/y2partitioner/widgets/pages/summary.rb:40
 #: src/lib/y2partitioner/widgets/pages/summary.rb:53
 msgid "Installation Summary"
@@ -2458,6 +2972,18 @@ msgstr "Сводка за инсталацията"
 #| msgid "Available Storage on %1"
 msgid "Available Storage on %s"
 msgstr "Налични съхраняващи устройства на %1"
+
+#. TRANSLATORS: label for button to add a partition
+#: src/lib/y2partitioner/widgets/partition_add_button.rb:39
+msgid "Add Partition..."
+msgstr "Нов дял"
+
+#. TRANSLATORS: Partition Identifier, where %s is replaced by the partition id (e.g., SWAP)
+#: src/lib/y2partitioner/widgets/partition_description.rb:50
+#, fuzzy
+#| msgid "&Partitions"
+msgid "Partition ID: %s"
+msgstr "&Дялове"
 
 #. TRANSLATORS: button label to rescan devices
 #: src/lib/y2partitioner/widgets/rescan_devices_button.rb:41
@@ -2518,6 +3044,119 @@ msgstr "<p>Промени по настройките на съхраняващ�
 msgid "&Used Devices"
 msgstr "&Използвани устройства"
 
+#. TRANSLATORS: pop-up message. %s is replaced for something like 'server:/path'
+#: src/lib/y2partitioner/yast_nfs_client.rb:223
+#, fuzzy
+#| msgid ""
+#| "Test mount of NFS share '%1' failed.\n"
+#| "Save it anyway?"
+msgid ""
+"Test mount of NFS share '%s' failed.\n"
+"Save it anyway?"
+msgstr ""
+"Пробното монтиране на на „%1“ бе неуспешно.\n"
+"Желаете ли да го запазите въпреки това?"
+
+#. Return the error message to be displayed
+#.
+#. @return [String] Error message
+#. @see Issue#message
+#: src/lib/y2storage/autoinst_issues/exception.rb:63
+msgid "A problem ocurred while creating the partitioning plan: %s"
+msgstr ""
+
+#. TRANSLATORS: 'value' is a generic value (number or string) 'attr' is an AutoYaST element
+#. name; 'new_value_message' is a short explanation about what should be done with the value.
+#: src/lib/y2storage/autoinst_issues/invalid_value.rb:71
+msgid ""
+"Invalid value '%{value}' for attribute '%{attr}' (%{new_value_message})."
+msgstr ""
+
+#. TRANSLATORS: it refers to an AutoYaST profile section
+#: src/lib/y2storage/autoinst_issues/invalid_value.rb:81
+msgid "the section will be skipped"
+msgstr ""
+
+#. TRANSLATORS: 'value' is the value for an AutoYaST element (a number or a string)
+#: src/lib/y2storage/autoinst_issues/invalid_value.rb:84
+msgid "replaced by '%{value}'"
+msgstr ""
+
+#. Return the error message to be displayed
+#.
+#. @return [String] Error message
+#. @see Issue#message
+#: src/lib/y2storage/autoinst_issues/missing_reusable_device.rb:52
+msgid "Reusable device not found"
+msgstr ""
+
+#. Return the error message to be displayed
+#.
+#. @return [String] Error message
+#. @see Issue#message
+#: src/lib/y2storage/autoinst_issues/missing_reuse_info.rb:53
+msgid "Not enough information to locate a device to reuse"
+msgstr ""
+
+#. Return the error message to be displayed
+#.
+#. @return [String] Error message
+#. @see Issue#message
+#: src/lib/y2storage/autoinst_issues/missing_root.rb:48
+msgid "No root partition (/) was found."
+msgstr ""
+
+#. TRANSLATORS: AutoYaST element
+#: src/lib/y2storage/autoinst_issues/missing_value.rb:59
+msgid "Missing element '%{attr}'"
+msgstr ""
+
+#. TRANSLATORS: kernel device name (eg. '/dev/sda1')
+#: src/lib/y2storage/autoinst_issues/no_disk.rb:52
+msgid "Disk '%s' was not found"
+msgstr ""
+
+#: src/lib/y2storage/autoinst_issues/no_disk.rb:54
+msgid "Not suitable disk was found"
+msgstr ""
+
+#. Return the error message to be displayed
+#.
+#. @return [String] Error message
+#. @see Issue#message
+#: src/lib/y2storage/autoinst_issues/no_disk_space.rb:46
+#, fuzzy
+#| msgid "No hard disk selected."
+msgid "Not enough disk space"
+msgstr "Не е избран твърд диск."
+
+#. TRANSLATORS: %{diff} will be replaced by a size (eg. '4 GiB');
+#. %{device_type} is a device type ('partitions' or 'logical volumes').
+#: src/lib/y2storage/autoinst_issues/shrinked_planned_devices.rb:67
+msgid ""
+"Some additional space (%{diff}) was required for new %{device_type}. As a "
+"consequence, the size of some devices will be adjusted as follows: "
+msgstr ""
+
+#. TRANSLATORS: identifier: partition/logical volume (eg. /dev/sda1, /dev/system/root);
+#. size and diff: disk space (eg. 5.00 GiB)
+#: src/lib/y2storage/autoinst_issues/shrinked_planned_devices.rb:84
+msgid "%{identifier} to %{size} (-%{diff})"
+msgstr ""
+
+#. @return [Hash<String, String>] Device types translations
+#: src/lib/y2storage/autoinst_issues/shrinked_planned_devices.rb:108
+#, fuzzy
+#| msgid "Partition"
+msgid "partitions"
+msgstr "Дял"
+
+#: src/lib/y2storage/autoinst_issues/shrinked_planned_devices.rb:109
+#, fuzzy
+#| msgid "logical volume"
+msgid "logical volumes"
+msgstr "Логически дял"
+
 #. All fatal boot errors detected in the setup, for example, when a / partition
 #. is missing
 #.
@@ -2534,6 +3173,25 @@ msgstr ""
 #: src/lib/y2storage/boot_requirements_strategies/base.rb:169
 msgid ""
 "Boot requirements cannot be determined because there is no '/' mount point"
+msgstr ""
+
+#. TRANSLATORS: error message
+#: src/lib/y2storage/boot_requirements_strategies/legacy.rb:187
+msgid ""
+"Boot disk has no partition table and it is not possible to boot from it.You "
+"can fix it by creating a partition table on the boot disk."
+msgstr ""
+
+#. TRANSLATORS: error message
+#: src/lib/y2storage/boot_requirements_strategies/legacy.rb:199
+msgid "MBR gap size is not enough to correctly install bootloader"
+msgstr ""
+
+#. TRANSLATORS: error message
+#: src/lib/y2storage/boot_requirements_strategies/zipl.rb:87
+msgid ""
+"Looks like the system is going to be installed on a FBA or LDL device. "
+"Booting from such device is not supported."
 msgstr ""
 
 #. class to implement callbacks used during activate
@@ -2667,6 +3325,155 @@ msgstr "Не е избран твърд диск."
 #| msgid "File system options:"
 msgid "Filesystem Options"
 msgstr "Параметри на файловата система:"
+
+#. Dialog to select filesystems.
+#. This is the simpler version for the legacy-style proposal settings that
+#. support only a separate home volume.
+#. See also SelectFilesystem::Ng.
+#: src/lib/y2storage/dialogs/guided_setup/select_filesystem/legacy.rb:66
+#, fuzzy
+#| msgid "File system options:"
+msgid "File System for Root Partition"
+msgstr "Параметри на файловата система:"
+
+#. @see #proposed_term
+#: src/lib/y2storage/dialogs/guided_setup/select_filesystem/legacy.rb:82
+#: src/lib/y2storage/dialogs/guided_setup/select_filesystem/volume_widget.rb:200
+#, fuzzy
+#| msgid "Propose Separate &Home Partition"
+msgid "Propose Separate Home Partition"
+msgstr "Предложение за отделен дял за &home "
+
+#: src/lib/y2storage/dialogs/guided_setup/select_filesystem/legacy.rb:88
+#, fuzzy
+#| msgid "Propose Separate &Home Partition"
+msgid "File System for Home Partition"
+msgstr "Предложение за отделен дял за &home "
+
+#. TRANSLATORS: "Volume" refers to an LVM logical volume.
+#: src/lib/y2storage/dialogs/guided_setup/select_filesystem/volume_widget.rb:133
+msgid "Settings for the Root Volume"
+msgstr ""
+
+#. TRANSLATORS: "Volume" refers to an LVM logical volume.
+#: src/lib/y2storage/dialogs/guided_setup/select_filesystem/volume_widget.rb:136
+msgid "Settings for the Home Volume"
+msgstr ""
+
+#. TRANSLATORS: "Volume" refers to an LVM logical volume.
+#: src/lib/y2storage/dialogs/guided_setup/select_filesystem/volume_widget.rb:139
+msgid "Settings for Swap Volume"
+msgstr ""
+
+#. TRANSLATORS: "Volume" refers to an LVM logical volume and
+#. "Additional" implies it will be created but not mounted
+#: src/lib/y2storage/dialogs/guided_setup/select_filesystem/volume_widget.rb:143
+msgid "Settings for Additional Volume"
+msgstr ""
+
+#. TRANSLATORS: "Volume" refers to a LVM logical volume. %s is a mount point.
+#: src/lib/y2storage/dialogs/guided_setup/select_filesystem/volume_widget.rb:146
+msgid "Settings for the %s Volume"
+msgstr ""
+
+#. @see #header_term
+#: src/lib/y2storage/dialogs/guided_setup/select_filesystem/volume_widget.rb:154
+#, fuzzy
+#| msgid "File system options:"
+msgid "Settings for the Root Partition"
+msgstr "Параметри на файловата система:"
+
+#: src/lib/y2storage/dialogs/guided_setup/select_filesystem/volume_widget.rb:156
+#, fuzzy
+#| msgid "Propose Separate &Home Partition"
+msgid "Settings for the Home Partition"
+msgstr "Предложение за отделен дял за &home "
+
+#: src/lib/y2storage/dialogs/guided_setup/select_filesystem/volume_widget.rb:158
+#, fuzzy
+#| msgid "Deleting raid partition %1$s"
+msgid "Settings for Swap Partition"
+msgstr "Изтриване на raid дял %1$s"
+
+#. TRANSLATORS: "Additional" because it will be created but not mounted
+#: src/lib/y2storage/dialogs/guided_setup/select_filesystem/volume_widget.rb:161
+msgid "Settings for Additional Partition"
+msgstr ""
+
+#. TRANSLATORS: %s is a mount point (e.g. /var/lib)
+#: src/lib/y2storage/dialogs/guided_setup/select_filesystem/volume_widget.rb:164
+#, fuzzy
+msgid "Settings for the %s Partition"
+msgstr "Експертно управление на дяловете"
+
+#. TRANSLATORS: "Volume" refers to a LVM logical volume.
+#: src/lib/y2storage/dialogs/guided_setup/select_filesystem/volume_widget.rb:182
+#, fuzzy
+#| msgid "Propose Separate &Home Partition"
+msgid "Propose Separate Home Volume"
+msgstr "Предложение за отделен дял за &home "
+
+#. TRANSLATORS: "Volume" refers to a LVM logical volume.
+#: src/lib/y2storage/dialogs/guided_setup/select_filesystem/volume_widget.rb:185
+#, fuzzy
+#| msgid "Propose Separate &Home Partition"
+msgid "Propose Separate Swap Volume"
+msgstr "Предложение за отделен дял за &home "
+
+#. TRANSLATORS: "Volume" refers to an LVM logical volume and
+#. "Additional" implies it will be created but not mounted
+#: src/lib/y2storage/dialogs/guided_setup/select_filesystem/volume_widget.rb:189
+#, fuzzy
+#| msgid "Add Logical Volume"
+msgid "Propose Additional Volume"
+msgstr "Нов логически масив"
+
+#. TRANSLATORS: "Volume" refers to a LVM logical volume. %s is a mount point.
+#: src/lib/y2storage/dialogs/guided_setup/select_filesystem/volume_widget.rb:192
+#, fuzzy
+#| msgid "Propose Separate &Home Partition"
+msgid "Propose Separate %s Volume"
+msgstr "Предложение за отделен дял за &home "
+
+#: src/lib/y2storage/dialogs/guided_setup/select_filesystem/volume_widget.rb:202
+#, fuzzy
+#| msgid "Propose Separate &Home Partition"
+msgid "Propose Separate Swap Partition"
+msgstr "Предложение за отделен дял за &home "
+
+#. TRANSLATORS: "Additional" because it will be created but not mounted
+#: src/lib/y2storage/dialogs/guided_setup/select_filesystem/volume_widget.rb:205
+#, fuzzy
+#| msgid "Propose Separate &Home Partition"
+msgid "Propose Additional Partition"
+msgstr "Предложение за отделен дял за &home "
+
+#. TRANSLATORS: %s is a mount point (e.g. /var/lib)
+#: src/lib/y2storage/dialogs/guided_setup/select_filesystem/volume_widget.rb:208
+#, fuzzy
+#| msgid "Propose Separate &Home Partition"
+msgid "Propose Separate %s Partition"
+msgstr "Предложение за отделен дял за &home "
+
+#. Return a widget term for the volume's filesystem type.
+#.
+#. @return [WidgetTerm]
+#: src/lib/y2storage/dialogs/guided_setup/select_filesystem/volume_widget.rb:220
+#, fuzzy
+#| msgid "File System:"
+msgid "File System Type"
+msgstr "Файлова система:"
+
+#. Check box for enlarging to RAM size
+#.
+#. @return [WidgetTerm]
+#: src/lib/y2storage/dialogs/guided_setup/select_filesystem/volume_widget.rb:234
+msgid "Enlarge to RAM Size for Suspend"
+msgstr ""
+
+#: src/lib/y2storage/dialogs/guided_setup/select_filesystem/volume_widget.rb:234
+msgid "Enlarge to RAM size"
+msgstr ""
 
 #: src/lib/y2storage/dialogs/guided_setup/select_root_disk.rb:69
 msgid "Please select a disk to use as the \"root\" partition (/)"
@@ -2854,6 +3661,31 @@ msgstr ""
 "<p>\n"
 "Твърдите дискове бяха проверени. Показано е\n"
 "предложението за настройка за дяловете на този диск.</p>"
+
+#. Hash with the properties for each mount by type.
+#.
+#. Keys are the symbols representing the types and values are hashes that
+#. can contain:
+#. - `:name` for human string
+#: src/lib/y2storage/filesystems/mount_by_type.rb:44
+msgid "Device Name"
+msgstr "Име на устройството"
+
+#: src/lib/y2storage/filesystems/mount_by_type.rb:47
+msgid "Device ID"
+msgstr "ID на устройството"
+
+#: src/lib/y2storage/filesystems/mount_by_type.rb:50
+msgid "Volume Label"
+msgstr "Етикет на масива"
+
+#: src/lib/y2storage/filesystems/mount_by_type.rb:53
+msgid "Device Path"
+msgstr "Път до устройството"
+
+#: src/lib/y2storage/filesystems/mount_by_type.rb:56
+msgid "UUID"
+msgstr "UUID"
 
 #. Class to represent all the possible MD levels
 #.
@@ -3095,12 +3927,6 @@ msgstr "Диск за разделяне"
 #~ msgid "Mount Graph"
 #~ msgstr "Монтиране на картата"
 
-#~ msgid "Settings"
-#~ msgstr "Настройки"
-
-#~ msgid "Select at least one device."
-#~ msgstr "Изберете поне едно устройство."
-
 #, fuzzy
 #~| msgid "Fs&tab Options..."
 #~ msgid "Fstab options..."
@@ -3114,9 +3940,6 @@ msgstr "Диск за разделяне"
 #~ msgid "tmpfs"
 #~ msgstr "tmpfs"
 
-#~ msgid "File System:"
-#~ msgstr "Файлова система:"
-
 #, fuzzy
 #~| msgid ""
 #~| "<p>This view shows detailed information about the\n"
@@ -3127,12 +3950,6 @@ msgstr "Диск за разделяне"
 #~ msgstr ""
 #~ "<p>Този изглед показва подробна информация \n"
 #~ "относно избрания твърд диск.</p>"
-
-#~ msgid "Device:"
-#~ msgstr "Устройство:"
-
-#~ msgid "Hard Disk:"
-#~ msgstr "Твърд диск:"
 
 #~ msgid "File system &ID:"
 #~ msgstr "&ID на файловата система:"
@@ -3160,29 +3977,6 @@ msgstr "Диск за разделяне"
 #~ "относно избраната група от масиви.</p>"
 
 #, fuzzy
-#~| msgid "PE Size: %1"
-#~ msgid "PE Size: %s"
-#~ msgstr "Физически размер: %1"
-
-#~ msgid "RAID:"
-#~ msgstr "RAID:"
-
-#, fuzzy
-#~| msgid "RAID Type: %1"
-#~ msgid "RAID Type: %s"
-#~ msgstr "Тип на RAID: %1"
-
-#, fuzzy
-#~| msgid "Chunk Size: %1"
-#~ msgid "Chunk Size: %s"
-#~ msgstr "Размер на къса: %1"
-
-#, fuzzy
-#~| msgid "Parity Algorithm: %1"
-#~ msgid "Partity algorithm: %s"
-#~ msgstr "Алгоритъм за четност: %1"
-
-#, fuzzy
 #~| msgid ""
 #~| "<p>This view shows detailed information about the\n"
 #~| "selected partition.</p>"
@@ -3197,27 +3991,6 @@ msgstr "Диск за разделяне"
 #~| msgid "FS ID: %1"
 #~ msgid "FS ID: %s"
 #~ msgstr "ID на файловата система: %1"
-
-#, fuzzy
-#~| msgid "For %1, select at least %2 device."
-#~| msgid_plural "For %1, select at least %2 devices."
-#~ msgid "For %{raid_level}, select at least %{min} devices."
-#~ msgstr "За %1 изберете поне %2 устройство."
-
-#, fuzzy
-#~| msgid "File system options:"
-#~ msgid "File System for Root Partition"
-#~ msgstr "Параметри на файловата система:"
-
-#, fuzzy
-#~| msgid "Propose Separate &Home Partition"
-#~ msgid "Propose Separate Home Partition"
-#~ msgstr "Предложение за отделен дял за &home "
-
-#, fuzzy
-#~| msgid "Propose Separate &Home Partition"
-#~ msgid "File System for Home Partition"
-#~ msgstr "Предложение за отделен дял за &home "
 
 #~ msgid ""
 #~ "Only use this program if you are familiar with partitioning hard disks.\n"
@@ -4389,12 +5162,6 @@ msgstr "Диск за разделяне"
 #~ "файлова система е %1. Въведеният низ ще бъде отрязан\n"
 #~ "до тази дължина.\n"
 
-#~ msgid "Provide a volume label to mount by label."
-#~ msgstr "Задайте етикет на масива за монтиране по етикет."
-
-#~ msgid "This volume label is already in use. Select a different one."
-#~ msgstr "Този етикет вече е използван – изберете някой друг."
-
 #~ msgid "File &System"
 #~ msgstr "Файлова &система"
 
@@ -5275,22 +6042,6 @@ msgstr "Диск за разделяне"
 #~ msgid "Backward"
 #~ msgstr "Назад"
 
-#~ msgid "Confirm Deleting of All Partitions"
-#~ msgstr "Потвърждение за изтриване на всички дялове"
-
-#~ msgid ""
-#~ "The disk \"%1\" contains at least one partition.\n"
-#~ "If you proceed, the following partitions will be deleted:"
-#~ msgstr ""
-#~ "Дискът „%1“ съдържа поне един дял.\n"
-#~ "Ако продължите следните дялове ще бъдат изтрити:"
-
-#~ msgid "Really delete all partitions on \"%1\"?"
-#~ msgstr "Наистина ли желаете да изтриете всички дялове от „%1“?"
-
-#~ msgid "No hard disk selected."
-#~ msgstr "Не е избран твърд диск."
-
 #~ msgid "Select new partition table type for %1."
 #~ msgstr "Изберете тип на дяла за „%1“."
 
@@ -5310,9 +6061,6 @@ msgstr "Диск за разделяне"
 
 #~ msgid "Really delete Partitioned RAID %1?"
 #~ msgstr "Наистина ли желаете да изтриете RAID „%1“?"
-
-#~ msgid "There are no partitions to delete on this disk."
-#~ msgstr "На този диск няма дялове за изтриване."
 
 #~ msgid "It is not possible to create a partition on %1."
 #~ msgstr "Не е възможно да се създаде дял на %1 "
@@ -5426,25 +6174,12 @@ msgstr "Диск за разделяне"
 #~ msgid "Move..."
 #~ msgstr "Преместване…"
 
-#~ msgid "Resize..."
-#~ msgstr "Промяна на размера…"
-
 #~ msgid ""
 #~ "Hard disks, BIOS RAIDs and multipath\n"
 #~ "devices cannot be moved."
 #~ msgstr ""
 #~ "Твърдите дискове, BIOS RAID и мултипът\n"
 #~ "устройствата не могат да бъдат премествани."
-
-#~ msgid ""
-#~ "Hard disks, BIOS RAIDs and multipath\n"
-#~ "devices cannot be resized."
-#~ msgstr ""
-#~ "Твърдите дискове, BIOS RAID и мултипът\n"
-#~ "устройствата не могат да бъдат преоразмерявани."
-
-#~ msgid "Add Partition..."
-#~ msgstr "Нов дял"
 
 #~ msgid ""
 #~ "<p>This view shows all hard disks including\n"
@@ -5477,9 +6212,6 @@ msgstr "Диск за разделяне"
 
 #~ msgid "Execute dasd&fmt on the DASD Device"
 #~ msgstr "Изпълняване на dasd&fmt върху DASD устройство"
-
-#~ msgid "Expert..."
-#~ msgstr "Експертно"
 
 #~ msgid ""
 #~ "<p>This view shows all partitions of the selected\n"
@@ -5553,40 +6285,6 @@ msgstr "Диск за разделяне"
 
 #~ msgid "Wrong Password Provided."
 #~ msgstr "Предоставената парола е невалидна."
-
-#~ msgid "Confirm Deleting Partition Used by LVM"
-#~ msgstr "С потвърждение за изтриване на дял от LVM"
-
-#~ msgid ""
-#~ "The selected partition is used by volume group \"%1\".\n"
-#~ "To keep the system in a consistent state, the following volume group\n"
-#~ "and its logical volumes will be deleted:\n"
-#~ msgstr ""
-#~ "Избраният дял се използва от групата от масиви „%1“.\n"
-#~ "За да се запази цялостта на системата следната\n"
-#~ "група от масиви и логическите ѝ масиви ще бъдат изтрити:\n"
-
-#~ msgid "Delete partition \"%1\" and volume group \"%2\" now?"
-#~ msgstr ""
-#~ "Желаете ли да бъде изтрити сега дял „%1“ и\n"
-#~ "групата от масиви „%2“?"
-
-#~ msgid "Confirm Deleting Partition Used by RAID"
-#~ msgstr "С потвърждение за изтриване на дял от RAID"
-
-#~ msgid ""
-#~ "The selected partition belongs to RAID  \"%1\".\n"
-#~ "To keep the system in a consistent state, the following\n"
-#~ "RAID device will be deleted:\n"
-#~ msgstr ""
-#~ "Избраният дял принадлежи на RAID масива „%1“.\n"
-#~ "За да се запази цялостта на системата следното\n"
-#~ " RAID устройство ще бъде изтрито:\n"
-
-#~ msgid "Delete partition \"%1\" and RAID \"%2\" now?"
-#~ msgstr ""
-#~ "Желаете ли да бъде изтрити сега дял „%1“ и\n"
-#~ "RAID масива „%2“?"
 
 #~ msgid "Really delete %1?"
 #~ msgstr "Наистина ли желаете да изтриете %1?"
@@ -5725,26 +6423,6 @@ msgstr "Диск за разделяне"
 #~ msgid "The name for the volume group must not start with a \"-\"."
 #~ msgstr "Името на групата от масиви не може да започва с „-“."
 
-#~ msgid "The volume group \"%1\" already exists."
-#~ msgstr "Групата от масиви „%1“ вече съществува."
-
-#~ msgid "Confirm Deleting of Volume Group"
-#~ msgstr "Потвърждение за изтриването на група от масиви"
-
-#~ msgid ""
-#~ "The volume group \"%1\" contains at least one logical volume.\n"
-#~ "If you proceed, the following volumes will be unmounted (if mounted)\n"
-#~ "and deleted:"
-#~ msgstr ""
-#~ "Групата от масиви „%1“ съдържа поне един логически масив.\n"
-#~ "Ако продължите следните масиви ще бъдат евентуално \n"
-#~ "демонтирани и изтрити:"
-
-#~ msgid "Really delete volume group \"%1\" and all related logical volumes?"
-#~ msgstr ""
-#~ "Наистина ли желаете да изтриете групата от \n"
-#~ "масиви „%1“  и всички прилежащи логически масиви?"
-
 #~ msgid ""
 #~ "The name for the logical volume contains illegal characters. Allowed\n"
 #~ "are alphanumeric characters, \".\", \"_\", \"-\" and \"+\"."
@@ -5800,20 +6478,6 @@ msgstr "Диск за разделяне"
 #~ msgid "Edit Logical Volume %1 on %2"
 #~ msgstr "Редактиране на логическия масив %1 на %2"
 
-#~ msgid ""
-#~ "There are not enough suitable unused devices to create a volume group.\n"
-#~ "\n"
-#~ "To use LVM, at least one unused partition of type 0x8e (or 0x83) or one "
-#~ "unused\n"
-#~ "RAID device is required. Change your partition table accordingly."
-#~ msgstr ""
-#~ "Няма достатъчно подходящи неизползвани устройства\n"
-#~ "за да се създаде група от масиви.\n"
-#~ "\n"
-#~ "За да използвате LVM се изисква поне един неизползван дял\n"
-#~ "от тип 0x8e (или 0x83) или едно неизползвано RAID устройство.\n"
-#~ "Променете таблицата с дяловете."
-
 #~ msgid "No volume group selected."
 #~ msgstr "Не е избрана група от масиви."
 
@@ -5826,9 +6490,6 @@ msgstr "Диск за разделяне"
 #~ msgid "No logical volume selected."
 #~ msgstr "Не е избран логически масив."
 
-#~ msgid "No free space left in the volume group \"%1\"."
-#~ msgstr "Няма повече свободно място в текущата група от масиви „%1“."
-
 #~ msgid ""
 #~ "The volume %1 is in use. It cannot be\n"
 #~ "edited. To edit %1, make sure it is not used."
@@ -5836,9 +6497,6 @@ msgstr "Диск за разделяне"
 #~ "Масивът %1 се използва и не може да бъде\n"
 #~ "редактиран. За да редактирате %1 първо\n"
 #~ "го извадете от употреба."
-
-#~ msgid "Add Logical Volume"
-#~ msgstr "Нов логически масив"
 
 #~ msgid ""
 #~ "<p>This view shows all LVM volume groups and\n"
@@ -5899,13 +6557,6 @@ msgstr "Диск за разделяне"
 
 #~ msgid ": Summary"
 #~ msgstr ": Сводка"
-
-#~ msgid ""
-#~ "Test mount of NFS share '%1' failed.\n"
-#~ "Save it anyway?"
-#~ msgstr ""
-#~ "Пробното монтиране на на „%1“ бе неуспешно.\n"
-#~ "Желаете ли да го запазите въпреки това?"
 
 #, fuzzy
 #~| msgid "For %1, select at least %2 device."
@@ -6018,9 +6669,6 @@ msgstr "Диск за разделяне"
 #~ msgid "Edit RAID %1"
 #~ msgstr "Редактиране на RAID %1"
 
-#~ msgid "There are not enough suitable unused devices to create a RAID."
-#~ msgstr "Няма достатъчно подходящи неизползвани устройства за нов RAID."
-
 #~ msgid "No RAID selected."
 #~ msgstr "Не е избран RAID."
 
@@ -6031,23 +6679,6 @@ msgstr "Диск за разделяне"
 #~ "RAID  %1 се използва и не може да бъде\n"
 #~ "променян. За да редактирате %1 първо\n"
 #~ "го извадете от употреба."
-
-#~ msgid ""
-#~ "The RAID %1 is already created on disk. It cannot be\n"
-#~ "resized. To resize %1, remove it and create it again."
-#~ msgstr ""
-#~ "RAID %1 вече е създаден на диска и размерът му\n"
-#~ "вече не може да бъде променян. Ако искате да\n"
-#~ "промените размера, изтрийте %1 и след това\n"
-#~ "го създайте отново."
-
-#~ msgid ""
-#~ "The RAID %1 is in use. It cannot be\n"
-#~ "resized. To resize %1, make sure it is not used."
-#~ msgstr ""
-#~ "RAID  %1 се използва и размерът не може \n"
-#~ "да бъде променян За да правите промени по\n"
-#~ "%1 първо го извадете от употреба."
 
 #~ msgid "<p>This view shows all RAIDs except BIOS RAIDs.</p>"
 #~ msgstr ""
@@ -6070,9 +6701,6 @@ msgstr "Диск за разделяне"
 #~ msgid "RAID: %1"
 #~ msgstr "RAID: %1"
 
-#~ msgid "UUID"
-#~ msgstr "UUID"
-
 #~ msgid "Mount by"
 #~ msgstr "Монтиран по"
 
@@ -6091,18 +6719,6 @@ msgstr "Диск за разделяне"
 #~ msgid "Encryption"
 #~ msgstr "Криптиране"
 
-#~ msgid "Device Name"
-#~ msgstr "Име на устройството"
-
-#~ msgid "Volume Label"
-#~ msgstr "Етикет на масива"
-
-#~ msgid "Device ID"
-#~ msgstr "ID на устройството"
-
-#~ msgid "Device Path"
-#~ msgstr "Път до устройството"
-
 #, fuzzy
 #~| msgid "Optional"
 #~ msgid "Optimal"
@@ -6112,9 +6728,6 @@ msgstr "Диск за разделяне"
 #~| msgid "End Cylinder"
 #~ msgid "Cylinder"
 #~ msgstr "Краен цилиндър"
-
-#~ msgid "Default Mount by"
-#~ msgstr "Стандартно монтиране по"
 
 #~ msgid "Default File System"
 #~ msgstr "Стандартна файлова система"
@@ -6260,11 +6873,6 @@ msgstr "Диск за разделяне"
 #~ msgid "You can only remove logical volumes."
 #~ msgstr "Можете да махате само логически масиви."
 
-#~ msgid "Remove the logical volume %1?"
-#~ msgstr ""
-#~ "Желаете ли да премахнете \n"
-#~ "логическия масив %1?"
-
 #~ msgid "Total size: %1"
 #~ msgstr "Общ размер: %1"
 
@@ -6273,18 +6881,6 @@ msgstr "Диск за разделяне"
 
 #~ msgid "Class"
 #~ msgstr "Клас"
-
-#~ msgid "Top"
-#~ msgstr "Най-горе"
-
-#~ msgid "Up"
-#~ msgstr "Нагоре"
-
-#~ msgid "Down"
-#~ msgstr "Надолу"
-
-#~ msgid "Bottom"
-#~ msgstr "Най-долу"
 
 #~ msgid "Classify"
 #~ msgstr "Клас"
@@ -7206,11 +7802,6 @@ msgstr "Диск за разделяне"
 #~ msgstr "Изтриване…"
 
 #, fuzzy
-#~| msgid "&Partitions"
-#~ msgid "Partition: %s"
-#~ msgstr "&Дялове"
-
-#, fuzzy
 #~| msgid "Name"
 #~ msgid "VG Name"
 #~ msgstr "Име"
@@ -7260,11 +7851,6 @@ msgstr "Диск за разделяне"
 #~ msgstr ""
 #~ "Дискът „%1“ съдържа поне един дял.\n"
 #~ "Ако продължите следните дялове ще бъдат изтрити:"
-
-#, fuzzy
-#~| msgid "Partition"
-#~ msgid "partition"
-#~ msgstr "Дял"
 
 #, fuzzy
 #~| msgid "Really delete all partitions on \"%1\"?"
@@ -7983,9 +8569,6 @@ msgstr "Диск за разделяне"
 #, fuzzy
 #~ msgid "Set disk label of multipath disk %1$s to %2$s"
 #~ msgstr "Задаване етикета на %1$s да е %2$s"
-
-#~ msgid "Deleting raid partition %1$s"
-#~ msgstr "Изтриване на raid дял %1$s"
 
 #~ msgid "Delete raid partition %1$s (%2$s)"
 #~ msgstr "Изтриване на raid дял %1$s (%2$s)"
@@ -9343,10 +9926,6 @@ msgstr "Диск за разделяне"
 #, fuzzy
 #~ msgid "Space on Logical Volume "
 #~ msgstr "Създаване на логически дялове"
-
-#, fuzzy
-#~ msgid "Space on the Partition"
-#~ msgstr "Експертно управление на дяловете"
 
 #, fuzzy
 #~ msgid "LV Size Restrictions"
@@ -10829,9 +11408,6 @@ msgstr "Диск за разделяне"
 
 #~ msgid "Use &Old LVM1 Compatible Metadata Format"
 #~ msgstr "Използване на &стар LVM1 съвместим формат"
-
-#~ msgid "logical volume"
-#~ msgstr "Логически дял"
 
 #~ msgid "No changes made so far could be performed."
 #~ msgstr "Няма промени досега, които да бъдат изпълнени."

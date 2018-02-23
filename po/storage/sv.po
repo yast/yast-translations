@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: storage\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-22 02:29+0000\n"
+"POT-Creation-Date: 2018-02-23 02:29+0000\n"
 "PO-Revision-Date: 2016-10-23 03:18+0000\n"
 "Last-Translator: Jonas Svensson <jonas@ekhorva.se>\n"
 "Language-Team: Swedish <https://l10n.opensuse.org/projects/yast-storage/ng-"
@@ -22,6 +22,52 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 2.6\n"
+
+#. TRANSLATORS: %s is a volume group name (e.g. "system")
+#: src/lib/y2partitioner/actions/add_lvm_lv.rb:112
+#, fuzzy
+#| msgid "No free space left in the volume group \"%1\"."
+msgid "No free space left in the volume group \"%s\"."
+msgstr "Det finns inget tillgängligt utrymme i volymgruppen %1."
+
+#. @see TransactionWizard
+#. @note The action is only run when there are available devices to create a new
+#. volume group (see {Controllers::LvmVg#available_devices}).
+#.
+#. @return [Boolean] true whether there are available devices; false otherwise.
+#: src/lib/y2partitioner/actions/add_lvm_vg.rb:79
+#, fuzzy
+#| msgid "There are not enough suitable unused devices to create a RAID."
+msgid ""
+"There are not enough suitable unused devices to create a volume group.\n"
+msgstr ""
+"Det finns inte tillräckligt med oanvända enheter för att skapa en RAID-enhet."
+
+#: src/lib/y2partitioner/actions/add_lvm_vg.rb:80
+#, fuzzy
+#| msgid ""
+#| "There are not enough suitable unused devices to create a volume group.\n"
+#| "\n"
+#| "To use LVM, at least one unused partition of type 0x8e (or 0x83) or one "
+#| "unused\n"
+#| "RAID device is required. Change your partition table accordingly."
+msgid ""
+"To use LVM, at least one unused partition of type 0x8e (or 0x83) or one "
+"disk\n"
+"or one RAID device is required. Change your partition table accordingly."
+msgstr ""
+"Det finns inte tillräckligt med lämpliga och oanvända enheter för att skapa "
+"en volymgrupp. \n"
+"\n"
+"Om du vill använda LVM krävs det minst en oanvänd partition av typen 0x8e "
+"(eller 0x83) eller en oanvänd\n"
+"RAID-enhet. Ändra partitionstabellen så att den passar."
+
+#. @see TransactionWizard
+#: src/lib/y2partitioner/actions/add_md.rb:80
+msgid "There are not enough suitable unused devices to create a RAID."
+msgstr ""
+"Det finns inte tillräckligt med oanvända enheter för att skapa en RAID-enhet."
 
 #. Checks whether the device is not used
 #.
@@ -217,7 +263,7 @@ msgid "Invalid region entered, increase the size or align the start."
 msgstr ""
 
 #. TRANSLATORS: dialog title. %s is a device name like /dev/sda
-#: src/lib/y2partitioner/actions/controllers/partition_table.rb:96
+#: src/lib/y2partitioner/actions/controllers/partition_table.rb:102
 #, fuzzy
 #| msgid "Create New Partition Table"
 msgid "Create New Partition Table on %s"
@@ -250,6 +296,227 @@ msgstr "Partition kan inte skapas på %1."
 #| msgid "Really delete %1?"
 msgid "Really delete %s?"
 msgstr "Verkligen ta bort %1?"
+
+#. Checks whether there is any partition for deleting
+#.
+#. @note An error popup is shown when there is no partition.
+#.
+#. @return [Boolean]
+#: src/lib/y2partitioner/actions/delete_disk.rb:45
+#, fuzzy
+#| msgid "There are no partitions to delete on this disk."
+msgid "There are no partitions to delete on this disk"
+msgstr "Det finns inga partitioner att ta bort på den här disken."
+
+#. Confirmation message before performing the delete action
+#.
+#. It shows all partitions (and dependent devices) that will be deleted.
+#.
+#. @see DeleteDevice#dependent_devices
+#. @see DeleteDevice#confirm_recursive_delete
+#: src/lib/y2partitioner/actions/delete_disk.rb:61
+msgid "Confirm Deleting of All Partitions"
+msgstr "Bekräfta borttagning av alla partitioner"
+
+#. TRANSLATORS: name is the name of the disk to be deleted (e.g., /dev/sda)
+#: src/lib/y2partitioner/actions/delete_disk.rb:63
+#, fuzzy
+#| msgid ""
+#| "The disk \"%1\" contains at least one partition.\n"
+#| "If you proceed, the following partitions will be deleted:"
+msgid ""
+"The disk \"%{name}\" contains at least one partition.\n"
+"If you proceed, the following devices will be deleted:"
+msgstr ""
+"Disken %1 innehåller minst en partition.\n"
+"Om du fortsätter kommer följande partitioner att tas bort:"
+
+#. TRANSLATORS: name is the name of the disk to be deleted (e.g., /dev/sda)
+#: src/lib/y2partitioner/actions/delete_disk.rb:66
+#, fuzzy
+#| msgid "Really delete all partitions on \"%1\"?"
+msgid "Really delete all partitions on \"%{name}\"?"
+msgstr "Vill du ta bort alla partitioner på %1?"
+
+#. TRANSLATORS: Confirmation message when a LVM logical volume is going to be deleted,
+#. where %{name} is replaced by the name of the logical volume (e.g., /dev/system/lv1)
+#: src/lib/y2partitioner/actions/delete_lvm_lv.rb:65
+#, fuzzy
+#| msgid "Remove the logical volume %1?"
+msgid "Remove the logical volume %{name}?"
+msgstr "Ta bort den logiska volymen %1?"
+
+#. Confirmation when the device is a LVM thin pool and there is any thin volume over it
+#.
+#. @see DeleteDevice#dependent_devices
+#. @see DeleteDevice#confirm_recursive_delete
+#: src/lib/y2partitioner/actions/delete_lvm_lv.rb:76
+#, fuzzy
+#| msgid "Confirm Deleting of Volume Group"
+msgid "Confirm Deleting of LVM Thin Pool"
+msgstr "Bekräfta borttagning av volymgrupp"
+
+#. TRANSLATORS: Confirmation message when a LVM thin pool is going to be deleted,
+#. where %{name} is replaced by the name of the thin pool (e.g., /dev/system/pool)
+#: src/lib/y2partitioner/actions/delete_lvm_lv.rb:80
+#, fuzzy
+#| msgid ""
+#| "The volume group \"%1\" contains at least one logical volume.\n"
+#| "If you proceed, the following volumes will be unmounted (if mounted)\n"
+#| "and deleted:"
+msgid ""
+"The thin pool %{name} is used by at least one thin volume.\n"
+"If you proceed, the following thin volumes will be unmounted (if mounted)\n"
+"and deleted:"
+msgstr ""
+"Volymgruppen %1 innehåller minst en logisk volym.\n"
+"Om du fortsätter kommer följande volymer att avmonteras (om de är "
+"monterade)\n"
+"och tas bort:"
+
+#. TRANSLATORS: %{name} is replaced by the name of the thin pool (e.g., /dev/system/pool)
+#: src/lib/y2partitioner/actions/delete_lvm_lv.rb:87
+#, fuzzy
+#| msgid "Really delete volume group \"%1\" and all related logical volumes?"
+msgid "Really delete the thin pool \"%{name}\" and all related thin volumes?"
+msgstr "Vill du ta bort volymgruppen %1 och alla relaterade logiska volymer?"
+
+#. Confirmation when the device contains logical volumes
+#.
+#. @see DeleteDevice#dependent_devices
+#. @see DeleteDevice#confirm_recursive_delete
+#: src/lib/y2partitioner/actions/delete_lvm_vg.rb:60
+msgid "Confirm Deleting of Volume Group"
+msgstr "Bekräfta borttagning av volymgrupp"
+
+#. TRANSLATORS: %s is the name of the volume group (e.g. "system")
+#: src/lib/y2partitioner/actions/delete_lvm_vg.rb:62
+#, fuzzy
+#| msgid ""
+#| "The volume group \"%1\" contains at least one logical volume.\n"
+#| "If you proceed, the following volumes will be unmounted (if mounted)\n"
+#| "and deleted:"
+msgid ""
+"The volume group \"%s\" contains at least one logical volume.\n"
+"If you proceed, the following volumes will be unmounted (if mounted)\n"
+"and deleted:"
+msgstr ""
+"Volymgruppen %1 innehåller minst en logisk volym.\n"
+"Om du fortsätter kommer följande volymer att avmonteras (om de är "
+"monterade)\n"
+"och tas bort:"
+
+#. TRANSLATORS: %s is the name of the volume group (e.g. "system")
+#: src/lib/y2partitioner/actions/delete_lvm_vg.rb:67
+#, fuzzy
+#| msgid "Really delete volume group \"%1\" and all related logical volumes?"
+msgid "Really delete volume group \"%s\" and all related logical volumes?"
+msgstr "Vill du ta bort volymgruppen %1 och alla relaterade logiska volymer?"
+
+#. Confirmation when the device belongs to a volume group
+#.
+#. @see DeleteDevice#dependent_devices
+#. @see DeleteDevice#confirm_recursive_delete
+#. @see DeleteDevice#lvm_vg
+#: src/lib/y2partitioner/actions/delete_md.rb:61
+#, fuzzy
+#| msgid "Confirm Deleting Partition Used by LVM"
+msgid "Confirm Deleting RAID Used by LVM"
+msgstr "Bekräfta borttagning av partition använd av LVM"
+
+#. TRANSLATORS: name is the name of the volume group that the md raid
+#. belongs to (e.g., /dev/system)
+#: src/lib/y2partitioner/actions/delete_md.rb:64
+#, fuzzy
+#| msgid ""
+#| "The selected partition is used by volume group \"%1\".\n"
+#| "To keep the system in a consistent state, the following volume group\n"
+#| "and its logical volumes will be deleted:\n"
+msgid ""
+"The selected RAID is used by volume group \"%{name}\".\n"
+"To keep the system in a consistent state, the following volume group\n"
+"and its logical volumes will be deleted:"
+msgstr ""
+"Den valda partitionen används av volymgruppen %1.\n"
+"För att systemet ska behållas i ett konsekvent tillstånd kommer följande "
+"volymgrupp \n"
+"och dess logiska volymer att tas bort:\n"
+
+#. TRANSLATORS: md is the name of the md raid to be deleted (e.g., /dev/md/md1),
+#. and vg is the name of the volume group to be deleted (e.g., /dev/system)
+#: src/lib/y2partitioner/actions/delete_md.rb:69
+#, fuzzy
+#| msgid "Delete partition \"%1\" and volume group \"%2\" now?"
+msgid "Delete RAID \"%{md}\" and volume group \"%{lvm_vg}\"?"
+msgstr "Vill du ta bort partitionen %1 och volymgruppen %2 nu?"
+
+#. Confirmation when the partition belongs to a volume group
+#.
+#. @see DeleteDevice#dependent_devices
+#. @see DeleteDevice#confirm_recursive_delete
+#. @see DeleteDevice#lvm_vg
+#: src/lib/y2partitioner/actions/delete_partition.rb:66
+msgid "Confirm Deleting Partition Used by LVM"
+msgstr "Bekräfta borttagning av partition använd av LVM"
+
+#. TRANSLATORS: name is the name of the volume group that the partition
+#. belongs to (e.g., /dev/system)
+#: src/lib/y2partitioner/actions/delete_partition.rb:69
+#, fuzzy
+#| msgid ""
+#| "The selected partition is used by volume group \"%1\".\n"
+#| "To keep the system in a consistent state, the following volume group\n"
+#| "and its logical volumes will be deleted:\n"
+msgid ""
+"The selected partition is used by volume group \"%{name}\".\n"
+"To keep the system in a consistent state, the following volume group\n"
+"and its logical volumes will be deleted:"
+msgstr ""
+"Den valda partitionen används av volymgruppen %1.\n"
+"För att systemet ska behållas i ett konsekvent tillstånd kommer följande "
+"volymgrupp \n"
+"och dess logiska volymer att tas bort:\n"
+
+#. TRANSLATORS: partition is the name of the partition to be deleted (e.g., /dev/sda1),
+#. and vg is the name of the volume group to be deleted (e.g., /dev/system)
+#: src/lib/y2partitioner/actions/delete_partition.rb:74
+#, fuzzy
+#| msgid "Delete partition \"%1\" and volume group \"%2\" now?"
+msgid "Delete partition \"%{partition}\" and volume group \"%{lvm_vg}\"?"
+msgstr "Vill du ta bort partitionen %1 och volymgruppen %2 nu?"
+
+#. Confirmation when the partition belongs to a md raid
+#.
+#. @see DeleteDevice#dependent_devices
+#. @see DeleteDevice#confirm_recursive_delete
+#. @see DeleteDevice#md
+#: src/lib/y2partitioner/actions/delete_partition.rb:87
+msgid "Confirm Deleting Partition Used by RAID"
+msgstr "Bekräfta borttagning av partition som används av RAID"
+
+#. TRANSLATORS: name is the name of the partition to be deleted (e.g., /dev/sda1)
+#: src/lib/y2partitioner/actions/delete_partition.rb:89
+#, fuzzy
+#| msgid ""
+#| "The selected partition belongs to RAID  \"%1\".\n"
+#| "To keep the system in a consistent state, the following\n"
+#| "RAID device will be deleted:\n"
+msgid ""
+"The selected partition belongs to RAID \"%{name}\".\n"
+"To keep the system in a consistent state, the following\n"
+"RAID device will be deleted:"
+msgstr ""
+"Den valda partitionen tillhör RAID %1.\n"
+"För att systemet ska behållas i ett konsekvent tillstånd kommer följande \n"
+"RAID-enhet att tas bort:\n"
+
+#. TRANSLATORS: partition is the name of the partition to be deleted (e.g., /dev/sda1),
+#. and md_raid is the name of the raid to be deleted (e.g., /dev/md/md1)
+#: src/lib/y2partitioner/actions/delete_partition.rb:94
+#, fuzzy
+#| msgid "Delete partition \"%1\" and RAID \"%2\" now?"
+msgid "Delete partition \"%{partition}\" and RAID \"%{md}\"?"
+msgstr "Vill du ta bort partitionen %1 och RAID-enheten %2?"
 
 #. TRANSLATORS: dialog title. %s is a device name like /dev/md0
 #: src/lib/y2partitioner/actions/edit_blk_device.rb:78
@@ -300,6 +567,34 @@ msgstr ""
 #| msgid "An extended partition cannot be resized."
 msgid "This device cannot be resized."
 msgstr "Det går inte att ändra storlek på en utökad partition."
+
+#. TRANSLATORS: error popup, %{name} is replaced by device name (e.g., /dev/md1)
+#: src/lib/y2partitioner/actions/resize_md.rb:87
+#, fuzzy
+#| msgid ""
+#| "The RAID %1 is already created on disk. It cannot be\n"
+#| "resized. To resize %1, remove it and create it again."
+msgid ""
+"The RAID %{name} is already created on disk. It cannot be\n"
+"resized. To resize %{name}, remove it and create it again."
+msgstr ""
+"RAID %1 som ska ändras har redan skapats på disk.\n"
+"Du kan inte ändra storlek på den. Om du vill ändra storlek på %1 tar du bort "
+"den och skapar den igen."
+
+#. TRANSLATORS: error popup, %{name} is replaced by device name (e.g., /dev/md1)
+#: src/lib/y2partitioner/actions/resize_md.rb:108
+#, fuzzy
+#| msgid ""
+#| "The RAID %1 is in use. It cannot be\n"
+#| "resized. To resize %1, make sure it is not used."
+msgid ""
+"The RAID %{name} is in use. It cannot be\n"
+"resized. To resize %{name}, make sure it is not used."
+msgstr ""
+"RAID-enheten %1 används. Du kan inte ändra \n"
+"storlek på den. Om du vill ändra storlek på %1 måste du se till att den inte "
+"används."
 
 #. TRANSLATORS: dialog title, where %{name} is the name of a partition
 #. (e.g. /dev/sda1) or LVM logical volume (e.g. /dev/system/home)
@@ -733,7 +1028,11 @@ msgstr ""
 
 #. TRANSLATORS: Device name information, where %s is replaced by the
 #. kernel path to device
+#. Attributes for describing a device when it is a volume group
+#.
+#. @return [Array<String>]
 #: src/lib/y2partitioner/widgets/blk_device_attributes.rb:46
+#: src/lib/y2partitioner/widgets/lvm_vg_description.rb:52
 #, fuzzy
 #| msgid "Device: %1"
 msgid "Device: %s"
@@ -741,6 +1040,7 @@ msgstr "Enhet: %1"
 
 #. TRANSLATORS: size information, where %s is replaced by a size (e.g., 10 GiB)
 #: src/lib/y2partitioner/widgets/blk_device_attributes.rb:54
+#: src/lib/y2partitioner/widgets/lvm_vg_description.rb:53
 #, fuzzy
 #| msgid "Size: %1"
 msgid "Size: %s"
@@ -865,6 +1165,32 @@ msgstr "Monteringspunkt: %1"
 msgid "Label: %s"
 msgstr "Etikett: %1"
 
+#. TRANSLATORS: heading for the section about a block device
+#. A volume group description is composed by the header "Device" and a list
+#. of attributes
+#.
+#. @see #lvm_vg_description
+#.
+#. @return [String]
+#: src/lib/y2partitioner/widgets/blk_device_description.rb:56
+#: src/lib/y2partitioner/widgets/lvm_vg_description.rb:42
+msgid "Device:"
+msgstr "Enhet:"
+
+#. TRANSLATORS: heading for the section about a filesystem on a block device
+#: src/lib/y2partitioner/widgets/blk_device_description.rb:81
+msgid "File System:"
+msgstr "Filsystem:"
+
+#. TRANSLATORS: button label for editing a block device
+#. @see CWM::PushButton#Label
+#. @macro seeAbstractWidget
+#: src/lib/y2partitioner/widgets/blk_device_edit_button.rb:41
+#: src/lib/y2partitioner/widgets/btrfs_edit_button.rb:21
+#: src/lib/y2partitioner/widgets/lvm_edit_button.rb:39
+msgid "Edit..."
+msgstr "Redigera..."
+
 #. TRANSLATORS: "F" stands for Format flag. Keep it short, ideally a single letter.
 #: src/lib/y2partitioner/widgets/blk_devices_table.rb:72
 msgid "F"
@@ -894,7 +1220,7 @@ msgstr "Etikett"
 #. TRANSLATORS: table header, where is device mounted. Can be empty. E.g. "/" or "/home"
 #. Synchronize the widget with the information from the controller
 #: src/lib/y2partitioner/widgets/blk_devices_table.rb:136
-#: src/lib/y2partitioner/widgets/format_and_mount.rb:468
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:515
 msgid "Mount Point"
 msgstr "Monteringspunkt"
 
@@ -964,11 +1290,6 @@ msgstr "LVM:"
 msgid "Thin LV"
 msgstr "Tunn volym"
 
-#. @see CWM::PushButton#Label
-#: src/lib/y2partitioner/widgets/btrfs_edit_button.rb:21
-msgid "Edit..."
-msgstr "Redigera..."
-
 #. Opens a dialog to manage the list of subvolumes of the selected device
 #.
 #. @note In case of there is no selected table row, it shows an error.
@@ -988,8 +1309,11 @@ msgstr "<p>Skapa och ta bort undervolymer från ett Btrfs-filsystem.</p>\n"
 
 #. TRANSLATORS: button label to add a btrfs subvolume
 #. TRANSLATORS: button label to add a volume group or logical volume
+#. TRANSLATORS: button label to add a logical volume
 #: src/lib/y2partitioner/widgets/btrfs_subvolumes_add_button.rb:44
 #: src/lib/y2partitioner/widgets/lvm_add_button.rb:44
+#: src/lib/y2partitioner/widgets/lvm_lv_add_button.rb:38
+#: src/lib/y2partitioner/widgets/partition_add_button.rb:39
 msgid "Add..."
 msgstr "Lägg till..."
 
@@ -1003,7 +1327,9 @@ msgid "Mount point %s is shadowed."
 msgstr "Monteringspunkt: %1"
 
 #. TRANSLATORS: button label to delete a btrfs subvolume
+#. TRANSLATORS: label for button to delete a device
 #: src/lib/y2partitioner/widgets/btrfs_subvolumes_delete_button.rb:46
+#: src/lib/y2partitioner/widgets/device_delete_button.rb:42
 msgid "Delete..."
 msgstr "Ta bort..."
 
@@ -1105,6 +1431,24 @@ msgstr "Spara monteringsgraf..."
 msgid "Saving graph file failed."
 msgstr "Det gick inte att spara graf-filen."
 
+#. TRANSLATORS: label for button for resizing a device
+#: src/lib/y2partitioner/widgets/device_resize_button.rb:42
+msgid "Resize..."
+msgstr "Ändra storlek..."
+
+#. Checks whether the device supports resizing
+#.
+#. @note An error popup is shown when the device does not support resizing.
+#.
+#. @return [Boolean] true if the device supports resizing; false otherwise.
+#: src/lib/y2partitioner/widgets/device_resize_button.rb:62
+msgid ""
+"Hard disks, BIOS RAIDs and multipath\n"
+"devices cannot be resized."
+msgstr ""
+"Hårddiskar, BIOS-RAID-enheter och multipath-\n"
+"enheter kan inte storleksändras."
+
 #. TRANSLATORS: %s is a disk size. E.g. "10.5 GiB"
 #: src/lib/y2partitioner/widgets/devices_selection.rb:124
 #, fuzzy
@@ -1152,6 +1496,27 @@ msgstr "Ta bort alla"
 #: src/lib/y2partitioner/widgets/disk_bar_graph.rb:37
 msgid "Unpartitioned"
 msgstr "Opartitionerad"
+
+#. TRANSLATORS: heading for section about a disk device
+#: src/lib/y2partitioner/widgets/disk_device_description.rb:51
+msgid "Hard Disk:"
+msgstr "Hårddisk:"
+
+#. Translators: Expert menu for disks in the partitioner.
+#: src/lib/y2partitioner/widgets/disk_expert_menu_button.rb:39
+#, fuzzy
+#| msgid "Expert..."
+msgid "&Expert..."
+msgstr "Expert..."
+
+#. Menu items
+#.
+#. @return [Array<[Symbol, String]>]
+#: src/lib/y2partitioner/widgets/disk_expert_menu_button.rb:46
+#, fuzzy
+#| msgid "Create New Partition Table"
+msgid "Create New Partition &Table..."
+msgstr "Skapa ny partitionstabell"
 
 #. help text for cryptofs
 #: src/lib/y2partitioner/widgets/encrypt_password.rb:17
@@ -1265,22 +1630,36 @@ msgstr "Enhet: %1"
 msgid "Do not mount device"
 msgstr "Montera inte partitionen"
 
+#. TRANSLATORS: Error message when a device should be mounted by label but no label
+#. is given.
+#. TRANSLATORS: Error messagge when the label is not given.
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:286
+#: src/lib/y2partitioner/widgets/fstab_options.rb:280
+msgid "Provide a volume label to mount by label."
+msgstr ""
+"Du måste tillhandahålla en volymetikett om du vill montera via etikett."
+
 #. Synchronize the widget with the information from the controller
-#: src/lib/y2partitioner/widgets/format_and_mount.rb:335
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:382
 #, fuzzy
 #| msgid "File &system"
 msgid "Filesystem"
 msgstr "&Filsystem"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/format_and_mount.rb:403
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:450
 #, fuzzy
 #| msgid "O&ptions..."
 msgid "Options..."
 msgstr "Alternati&v..."
 
 #. @param controller [Actions::Controllers::Filesystem]
-#: src/lib/y2partitioner/widgets/format_and_mount.rb:429
+#. Check box for enabling snapshots
+#.
+#. @return [WidgetTerm]
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:476
+#: src/lib/y2storage/dialogs/guided_setup/select_filesystem/legacy.rb:73
+#: src/lib/y2storage/dialogs/guided_setup/select_filesystem/volume_widget.rb:227
 msgid "Enable Snapshots"
 msgstr "Aktivera ögonblicksbilder"
 
@@ -1288,7 +1667,7 @@ msgstr "Aktivera ögonblicksbilder"
 #. An error popup is shown when an empty mount point is entered.
 #.
 #. @return [Boolean] true if mount point is not empty
-#: src/lib/y2partitioner/widgets/format_and_mount.rb:502
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:549
 #, fuzzy
 #| msgid "Empty subvolume name not allowed."
 msgid "Empty mount point not allowed."
@@ -1300,7 +1679,7 @@ msgstr "Undervolymens namn får inte vara tomt."
 #. @see #duplicated_mount_point?
 #.
 #. @return [Boolean] true if mount point is unique
-#: src/lib/y2partitioner/widgets/format_and_mount.rb:515
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:562
 msgid "This mount point is already in use. Select a different one."
 msgstr "Monteringspunkten används redan. Välj en annan."
 
@@ -1308,26 +1687,26 @@ msgstr "Monteringspunkten används redan. Välj en annan."
 #. An error popup is shown when a subvolume is shadowed by the mount point.
 #.
 #. @return [Boolean] true if mount point does not shadow a subvolume
-#: src/lib/y2partitioner/widgets/format_and_mount.rb:527
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:574
 #, fuzzy
 #| msgid "Mount Point: %1"
 msgid "The Btrfs subvolume mounted at %s is shadowed."
 msgstr "Monteringspunkt: %1"
 
 #. @param controller [Actions::Controllers::Filesystem]
-#: src/lib/y2partitioner/widgets/format_and_mount.rb:579
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:626
 msgid "Subvolume Handling"
 msgstr "Undervolymhantering"
 
 #. @param controller [Actions::Controllers::Filesystem]
-#: src/lib/y2partitioner/widgets/format_and_mount.rb:597
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:644
 #, fuzzy
 #| msgid "&Encrypt Device"
 msgid "Encrypt Device"
 msgstr "&Kryptera enheten"
 
 #. Inode Size format option
-#: src/lib/y2partitioner/widgets/format_and_mount.rb:631
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:678
 msgid "&Inode Size"
 msgstr "&Inode-storlek"
 
@@ -1342,67 +1721,77 @@ msgstr "&Inode-storlek"
 #. - :help texts automatically get the :label text prepended as a title
 #. - options will only appear in the final command line if the selected value
 #. is different from the default value
-#: src/lib/y2partitioner/widgets/format_and_mount.rb:648
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:695
 #: src/lib/y2partitioner/widgets/mkfs_optiondata.rb:52
 #: src/lib/y2partitioner/widgets/mkfs_optiondata.rb:182
 msgid "Block &Size in Bytes"
 msgstr "Block&storlek i byte"
 
 #. Synchronize the widget with the information from the controller
-#: src/lib/y2partitioner/widgets/format_and_mount.rb:731
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:778
 #, fuzzy
 #| msgid "Partition 2"
 msgid "Partition &ID:"
 msgstr "Partition 2"
 
 #. Push button that launch a dialog to set the fstab options
-#: src/lib/y2partitioner/widgets/fstab_options.rb:133
+#: src/lib/y2partitioner/widgets/fstab_options.rb:143
 #, fuzzy
 #| msgid "Fs&tab Options..."
 msgid "Fstab Options..."
 msgstr "Fs&tab-alternativ..."
 
-#. Input field to set the partition Label
-#: src/lib/y2partitioner/widgets/fstab_options.rb:225
-#: src/lib/y2partitioner/widgets/fstab_options.rb:263
+#. Constructor
+#.
+#. @param controller [Actions::Controllers:Filesystem]
+#. @param parent_widget [Widgets::FstabOptions]
+#: src/lib/y2partitioner/widgets/fstab_options.rb:243
+#: src/lib/y2partitioner/widgets/fstab_options.rb:355
 msgid "Volume &Label"
 msgstr "Vo&lymetikett"
 
+#. TRANSLATORS: Error message when the given label is already in use.
+#: src/lib/y2partitioner/widgets/fstab_options.rb:295
+#, fuzzy
+#| msgid "This volume label is already in use. Select a different one."
+msgid "This volumem label is already in use. Select a different one."
+msgstr "Volymetiketten används redan. Välj en annan."
+
 #. Group of radio buttons to select the type of identifier to be used for
 #. mouth the specific device (UUID, Label, Path...)
-#: src/lib/y2partitioner/widgets/fstab_options.rb:243
+#: src/lib/y2partitioner/widgets/fstab_options.rb:335
 #, fuzzy
 #| msgid "Mount in /etc/fstab by"
 msgid "Mount in /etc/fstab By"
 msgstr "Montera i /etc/fstab genom"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:262
+#: src/lib/y2partitioner/widgets/fstab_options.rb:354
 msgid "&Device Name"
 msgstr "&Enhetsnamn"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:264
+#: src/lib/y2partitioner/widgets/fstab_options.rb:356
 msgid "&UUID"
 msgstr "&UUID"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:268
+#: src/lib/y2partitioner/widgets/fstab_options.rb:360
 msgid "Device &ID"
 msgstr "Enhets-&ID"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:269
+#: src/lib/y2partitioner/widgets/fstab_options.rb:361
 msgid "Device &Path"
 msgstr "Enhets&sökväg"
 
 #. CheckBox to disable the automount option when starting up
-#: src/lib/y2partitioner/widgets/fstab_options.rb:337
+#: src/lib/y2partitioner/widgets/fstab_options.rb:440
 msgid "Do Not Mount at System &Start-up"
 msgstr "Montera inte vid system&start"
 
 #. CheckBox to enable the read only option ("ro")
-#: src/lib/y2partitioner/widgets/fstab_options.rb:347
+#: src/lib/y2partitioner/widgets/fstab_options.rb:450
 msgid "Mount &Read-Only"
 msgstr "Montera sk&rivskyddad"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:351
+#: src/lib/y2partitioner/widgets/fstab_options.rb:454
 msgid ""
 "<p><b>Mount Read-Only:</b>\n"
 "Writing to the file system is not possible. Default is false. During "
@@ -1415,11 +1804,11 @@ msgstr ""
 "monteras filsystemet alltid med läs- och skrivrättigheter.</p>"
 
 #. CheckBox to enable the noatime option
-#: src/lib/y2partitioner/widgets/fstab_options.rb:362
+#: src/lib/y2partitioner/widgets/fstab_options.rb:465
 msgid "No &Access Time"
 msgstr "Ingen &åtkomsttid"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:366
+#: src/lib/y2partitioner/widgets/fstab_options.rb:469
 msgid ""
 "<p><b>No Access Time:</b>\n"
 "Access times are not updated when a file is read. Default is false.</p>\n"
@@ -1429,11 +1818,11 @@ msgstr ""
 
 #. CheckBox to enable the user option which means allow to mount the
 #. filesystem by an ordinary user
-#: src/lib/y2partitioner/widgets/fstab_options.rb:377
+#: src/lib/y2partitioner/widgets/fstab_options.rb:480
 msgid "Mountable by User"
 msgstr "Kan monteras av användare"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:381
+#: src/lib/y2partitioner/widgets/fstab_options.rb:484
 msgid ""
 "<p><b>Mountable by User:</b>\n"
 "The file system may be mounted by an ordinary user. Default is false.</p>\n"
@@ -1442,11 +1831,11 @@ msgstr ""
 "Filsystemet kan monteras av vanliga användare. Standard är falskt.</p>\n"
 
 #. CheckBox to enable the use of user quotas
-#: src/lib/y2partitioner/widgets/fstab_options.rb:392
+#: src/lib/y2partitioner/widgets/fstab_options.rb:495
 msgid "Enable &Quota Support"
 msgstr "Aktivera &kvotastöd"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:396
+#: src/lib/y2partitioner/widgets/fstab_options.rb:499
 #, fuzzy
 #| msgid ""
 #| "<p><b>Enable Quota Support:</b>\n"
@@ -1462,11 +1851,11 @@ msgstr ""
 "Standard är falskt.</p>\n"
 
 #. CheckBox to enable access control lists (acl)
-#: src/lib/y2partitioner/widgets/fstab_options.rb:436
+#: src/lib/y2partitioner/widgets/fstab_options.rb:539
 msgid "&Access Control Lists (ACL)"
 msgstr "&Åtkomstkontrollistor (ACL)"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:440
+#: src/lib/y2partitioner/widgets/fstab_options.rb:543
 #, fuzzy
 #| msgid ""
 #| "<p><b>Access Control Lists (ACL):</b>\n"
@@ -1480,11 +1869,11 @@ msgstr ""
 "Aktivera åtkomstkontrollistor för filsystemet.</p>\n"
 
 #. CheckBox to enable extended user attributes (user_xattr)
-#: src/lib/y2partitioner/widgets/fstab_options.rb:453
+#: src/lib/y2partitioner/widgets/fstab_options.rb:556
 msgid "&Extended User Attributes"
 msgstr "Utökad&e användarattribut"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:457
+#: src/lib/y2partitioner/widgets/fstab_options.rb:560
 msgid ""
 "<p><b>Extended User Attributes (user_xattr):</b>\n"
 "Enable extended attributes (name:value pairs) on files and directories.\n"
@@ -1492,27 +1881,27 @@ msgid ""
 msgstr ""
 
 #. ComboBox to specify the journal mode to use by the filesystem
-#: src/lib/y2partitioner/widgets/fstab_options.rb:553
+#: src/lib/y2partitioner/widgets/fstab_options.rb:656
 msgid "Data &Journaling Mode"
 msgstr "Läge för data&journal"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:562
+#: src/lib/y2partitioner/widgets/fstab_options.rb:665
 #, fuzzy
 #| msgid "&No Journal"
 msgid "journal"
 msgstr "&Ingen journal"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:563
+#: src/lib/y2partitioner/widgets/fstab_options.rb:666
 msgid "ordered"
 msgstr ""
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:564
+#: src/lib/y2partitioner/widgets/fstab_options.rb:667
 msgid "writeback"
 msgstr ""
 
 #. journal options tend to break remounting root rw (bsc#1077859).
 #. See also root_fstab_options() in lib/y2storage/filesystems/type.rb
-#: src/lib/y2partitioner/widgets/fstab_options.rb:575
+#: src/lib/y2partitioner/widgets/fstab_options.rb:678
 msgid ""
 "<p><b>Data Journaling Mode:</b>\n"
 "Specifies the journaling mode for file data.\n"
@@ -1535,7 +1924,7 @@ msgstr ""
 
 #. An input field that allows to set other options that are not handled by
 #. specific widgets.
-#: src/lib/y2partitioner/widgets/fstab_options.rb:603
+#: src/lib/y2partitioner/widgets/fstab_options.rb:706
 msgid "Arbitrary Option &Value"
 msgstr "Godtyckligt alternativ&värde"
 
@@ -1548,7 +1937,7 @@ msgstr "Godtyckligt alternativ&värde"
 #. So, when a user insists in adding "noauto,user" here, it is applied
 #. correctly, but when entering the dialog again, the checkboxes pick up
 #. those values and they won't show up in this field anymore.
-#: src/lib/y2partitioner/widgets/fstab_options.rb:627
+#: src/lib/y2partitioner/widgets/fstab_options.rb:730
 msgid ""
 "<p><b>Arbitrary Option Value:</b> Enter any other mount options here, "
 "separated with commas. Notice that this does not do any checking, so be "
@@ -1556,11 +1945,11 @@ msgid ""
 msgstr ""
 
 #. Swap priority
-#: src/lib/y2partitioner/widgets/fstab_options.rb:703
+#: src/lib/y2partitioner/widgets/fstab_options.rb:806
 msgid "Swap &Priority"
 msgstr "Växlingsutrymmes&prioritet"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:712
+#: src/lib/y2partitioner/widgets/fstab_options.rb:815
 msgid ""
 "<p><b>Swap Priority:</b>\n"
 "Enter the swap priority. Higher numbers mean higher priority.</p>\n"
@@ -1570,13 +1959,13 @@ msgstr ""
 
 #. "iocharset=utf8" breaks VFAT case insensitivity (bsc#1080731).
 #. See also boot_fstab_options() in lib/y2storage/filesystems/type.rb
-#: src/lib/y2partitioner/widgets/fstab_options.rb:745
+#: src/lib/y2partitioner/widgets/fstab_options.rb:848
 #, fuzzy
 #| msgid "Char&set for file names"
 msgid "Char&set for File Names"
 msgstr "Teckenupp&sättning för filnamn"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:749
+#: src/lib/y2partitioner/widgets/fstab_options.rb:852
 msgid ""
 "<p><b>Charset for File Names:</b>\n"
 "Set the charset used for display of file names in Windows partitions.</p>\n"
@@ -1586,13 +1975,13 @@ msgstr ""
 "partitioner.</p>\n"
 
 #. VFAT Codepage
-#: src/lib/y2partitioner/widgets/fstab_options.rb:765
+#: src/lib/y2partitioner/widgets/fstab_options.rb:868
 #, fuzzy
 #| msgid "Code&page for short FAT names"
 msgid "Code&page for Short FAT Names"
 msgstr "Te&ckenuppsättning för korta FAT-namn"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:769
+#: src/lib/y2partitioner/widgets/fstab_options.rb:872
 msgid ""
 "<p><b>Codepage for Short FAT Names:</b>\n"
 "This codepage is used for converting to shortname characters on FAT file "
@@ -1957,10 +2346,116 @@ msgstr "Stripes: %1"
 msgid "%s (%s)"
 msgstr ""
 
+#. Richtext description of a logical volume
+#.
+#. A logical volume description is composed by the header "LVM" and a list of attributes.
+#.
+#. @return [String]
+#. TRANSLATORS: heading for the section about a volume group
+#: src/lib/y2partitioner/widgets/lvm_lv_description.rb:66
+#: src/lib/y2partitioner/widgets/lvm_vg_description.rb:64
+msgid "LVM:"
+msgstr ""
+
+#. TRANSLATORS: Volume group extent size information, where %s is replaced by
+#. a size (e.g., 8 KiB)
+#: src/lib/y2partitioner/widgets/lvm_vg_description.rb:83
+#, fuzzy
+#| msgid "PE Size: %1"
+msgid "PE Size: %s"
+msgstr "PE-storlek: %1"
+
+#. TRANSLATORS: Error message when no device is selected
+#: src/lib/y2partitioner/widgets/lvm_vg_devices_selector.rb:103
+msgid "Select at least one device."
+msgstr "Välj åtminstone en enhet."
+
+#. TRANSLATORS: Error message when the resulting volume group size is not
+#. enough. %s is replaced by a size (e.g., 4 GiB).
+#: src/lib/y2partitioner/widgets/lvm_vg_devices_selector.rb:119
+#, fuzzy
+#| msgid "The volume group \"%1\" already exists."
+msgid "The volume group size cannot be less than %s."
+msgstr "Volymgruppen %1 finns redan."
+
+#. TRANSLATORS: Error message when several physical volumes cannot be removed, where
+#. %{pvs} is replaced by device names (e.g., /dev/sda1, /dev/sda2) and %{vg} is
+#. replaced by the volume group name (e.g., system)
+#: src/lib/y2partitioner/widgets/lvm_vg_devices_selector.rb:140
+msgid ""
+"Removing physical volumes %{pvs} from the volume group %{vg}\n"
+"is not supported because the physical volumes may be already in use"
+msgstr ""
+
+#. TRANSLATORS: Error message when a physical volume cannot be removed, where
+#. %{pvs} is replaced by device name (e.g., /dev/sda1) and %{vg} is replaced
+#. by the volume group name (e.g., system)
+#: src/lib/y2partitioner/widgets/lvm_vg_devices_selector.rb:146
+msgid ""
+"Removing the physical volume %{pvs} from the volume group %{vg}\n"
+"is not supported because the physical volume may be already in use"
+msgstr ""
+
 #. TRANSLATORS: button label to add a MD Raid
 #: src/lib/y2partitioner/widgets/md_add_button.rb:38
 msgid "Add RAID..."
 msgstr "Lägg till RAID..."
+
+#. TRANSLATORS: heading for section about RAID details
+#: src/lib/y2partitioner/widgets/md_description.rb:51
+msgid "RAID:"
+msgstr "RAID:"
+
+#. TRANSLATORS: RAID type information, where %s is replaced by a
+#. raid type (e.g., RAID0)
+#: src/lib/y2partitioner/widgets/md_description.rb:72
+#, fuzzy
+#| msgid "RAID Type: %1"
+msgid "RAID Type: %s"
+msgstr "RAID-typ: %1"
+
+#. TRANSLATORS: chunk size information of the MD RAID, where %s is replaced by
+#. a size (e.g., 8 KiB)
+#: src/lib/y2partitioner/widgets/md_description.rb:83
+#, fuzzy
+#| msgid "Chunk Size: %1"
+msgid "Chunk Size: %s"
+msgstr "Blockstorlek: %1"
+
+#. TRANSLATORS: parity algorithm information of a MD RAID, where %s is replaced by
+#. the name of the parity strategy
+#: src/lib/y2partitioner/widgets/md_description.rb:92
+#, fuzzy
+#| msgid "Parity Algorithm: %1"
+msgid "Partity algorithm: %s"
+msgstr "Paritetsalgoritm: %1"
+
+#. TRANSLATORS: raid_level is a RAID level (e.g. RAID10); min is a number
+#: src/lib/y2partitioner/widgets/md_devices_selector.rb:81
+#, fuzzy
+#| msgid "For %1, select at least %2 device."
+msgid "For %{raid_level}, select at least %{min} devices."
+msgstr "Välj minst %2 enheter för %1."
+
+#. TRANSLATORS: button to move an item to the first position of a sorted list
+#: src/lib/y2partitioner/widgets/md_devices_selector.rb:138
+msgid "Top"
+msgstr "Överst"
+
+#. TRANSLATORS: button to move an item one position up in a sorted list
+#: src/lib/y2partitioner/widgets/md_devices_selector.rb:141
+msgid "Up"
+msgstr "Upp"
+
+#. TRANSLATORS: button to move an item one position down in a sorted list
+#: src/lib/y2partitioner/widgets/md_devices_selector.rb:144
+msgid "Down"
+msgstr "Inte tillgänglig"
+
+#. TRANSLATORS: button to move an item to the last position of a sorted list
+#: src/lib/y2partitioner/widgets/md_devices_selector.rb:147
+msgid "Bottom"
+msgstr "Nederst"
 
 #. help text, richtext format
 #: src/lib/y2partitioner/widgets/mkfs_optiondata.rb:57
@@ -2229,7 +2724,7 @@ msgstr "Systemvy"
 
 #. so only warnings there
 #. FIXME: improve Yast2::Popup to allow some text before the buttons
-#: src/lib/y2partitioner/widgets/overview.rb:129
+#: src/lib/y2partitioner/widgets/overview.rb:130
 #, fuzzy
 #| msgid "Do you want to provide encryption passwords?"
 msgid "Do you want to continue?"
@@ -2398,6 +2893,18 @@ msgstr "Partition: %1"
 
 #. @macro seeAbstractWidget
 #. TRANSLATORS: Heading for the expert partitioner page
+#: src/lib/y2partitioner/widgets/pages/settings.rb:42
+#: src/lib/y2partitioner/widgets/pages/settings.rb:55
+msgid "Settings"
+msgstr "Inställningar"
+
+#. @macro seeAbstractWidget
+#: src/lib/y2partitioner/widgets/pages/settings.rb:75
+msgid "Default Mount by"
+msgstr "Standardmontering med"
+
+#. @macro seeAbstractWidget
+#. TRANSLATORS: Heading for the expert partitioner page
 #: src/lib/y2partitioner/widgets/pages/summary.rb:40
 #: src/lib/y2partitioner/widgets/pages/summary.rb:53
 msgid "Installation Summary"
@@ -2409,6 +2916,18 @@ msgstr "Installationssammanfattning"
 #| msgid "Available Storage on %1"
 msgid "Available Storage on %s"
 msgstr "Tillgängligt utrymme på %1"
+
+#. TRANSLATORS: label for button to add a partition
+#: src/lib/y2partitioner/widgets/partition_add_button.rb:39
+msgid "Add Partition..."
+msgstr "Lägg till partition..."
+
+#. TRANSLATORS: Partition Identifier, where %s is replaced by the partition id (e.g., SWAP)
+#: src/lib/y2partitioner/widgets/partition_description.rb:50
+#, fuzzy
+#| msgid "&Partitions"
+msgid "Partition ID: %s"
+msgstr "&Partitioner"
 
 #. TRANSLATORS: button label to rescan devices
 #: src/lib/y2partitioner/widgets/rescan_devices_button.rb:41
@@ -2465,6 +2984,119 @@ msgstr "<p>Paket att installera:</p>"
 msgid "&Used Devices"
 msgstr "&Använda enheter"
 
+#. TRANSLATORS: pop-up message. %s is replaced for something like 'server:/path'
+#: src/lib/y2partitioner/yast_nfs_client.rb:223
+#, fuzzy
+#| msgid ""
+#| "Test mount of NFS share '%1' failed.\n"
+#| "Save it anyway?"
+msgid ""
+"Test mount of NFS share '%s' failed.\n"
+"Save it anyway?"
+msgstr ""
+"Testmonteringen av NFS-resursen %1 misslyckades.\n"
+"Vill du spara den ändå?"
+
+#. Return the error message to be displayed
+#.
+#. @return [String] Error message
+#. @see Issue#message
+#: src/lib/y2storage/autoinst_issues/exception.rb:63
+msgid "A problem ocurred while creating the partitioning plan: %s"
+msgstr ""
+
+#. TRANSLATORS: 'value' is a generic value (number or string) 'attr' is an AutoYaST element
+#. name; 'new_value_message' is a short explanation about what should be done with the value.
+#: src/lib/y2storage/autoinst_issues/invalid_value.rb:71
+msgid ""
+"Invalid value '%{value}' for attribute '%{attr}' (%{new_value_message})."
+msgstr ""
+
+#. TRANSLATORS: it refers to an AutoYaST profile section
+#: src/lib/y2storage/autoinst_issues/invalid_value.rb:81
+msgid "the section will be skipped"
+msgstr ""
+
+#. TRANSLATORS: 'value' is the value for an AutoYaST element (a number or a string)
+#: src/lib/y2storage/autoinst_issues/invalid_value.rb:84
+msgid "replaced by '%{value}'"
+msgstr ""
+
+#. Return the error message to be displayed
+#.
+#. @return [String] Error message
+#. @see Issue#message
+#: src/lib/y2storage/autoinst_issues/missing_reusable_device.rb:52
+msgid "Reusable device not found"
+msgstr ""
+
+#. Return the error message to be displayed
+#.
+#. @return [String] Error message
+#. @see Issue#message
+#: src/lib/y2storage/autoinst_issues/missing_reuse_info.rb:53
+msgid "Not enough information to locate a device to reuse"
+msgstr ""
+
+#. Return the error message to be displayed
+#.
+#. @return [String] Error message
+#. @see Issue#message
+#: src/lib/y2storage/autoinst_issues/missing_root.rb:48
+msgid "No root partition (/) was found."
+msgstr ""
+
+#. TRANSLATORS: AutoYaST element
+#: src/lib/y2storage/autoinst_issues/missing_value.rb:59
+msgid "Missing element '%{attr}'"
+msgstr ""
+
+#. TRANSLATORS: kernel device name (eg. '/dev/sda1')
+#: src/lib/y2storage/autoinst_issues/no_disk.rb:52
+msgid "Disk '%s' was not found"
+msgstr ""
+
+#: src/lib/y2storage/autoinst_issues/no_disk.rb:54
+msgid "Not suitable disk was found"
+msgstr ""
+
+#. Return the error message to be displayed
+#.
+#. @return [String] Error message
+#. @see Issue#message
+#: src/lib/y2storage/autoinst_issues/no_disk_space.rb:46
+#, fuzzy
+#| msgid "No hard disk selected."
+msgid "Not enough disk space"
+msgstr "Ingen hårddisk har valts."
+
+#. TRANSLATORS: %{diff} will be replaced by a size (eg. '4 GiB');
+#. %{device_type} is a device type ('partitions' or 'logical volumes').
+#: src/lib/y2storage/autoinst_issues/shrinked_planned_devices.rb:67
+msgid ""
+"Some additional space (%{diff}) was required for new %{device_type}. As a "
+"consequence, the size of some devices will be adjusted as follows: "
+msgstr ""
+
+#. TRANSLATORS: identifier: partition/logical volume (eg. /dev/sda1, /dev/system/root);
+#. size and diff: disk space (eg. 5.00 GiB)
+#: src/lib/y2storage/autoinst_issues/shrinked_planned_devices.rb:84
+msgid "%{identifier} to %{size} (-%{diff})"
+msgstr ""
+
+#. @return [Hash<String, String>] Device types translations
+#: src/lib/y2storage/autoinst_issues/shrinked_planned_devices.rb:108
+#, fuzzy
+#| msgid "Partition"
+msgid "partitions"
+msgstr "Partition"
+
+#: src/lib/y2storage/autoinst_issues/shrinked_planned_devices.rb:109
+#, fuzzy
+#| msgid "logical volume"
+msgid "logical volumes"
+msgstr "logisk volym"
+
 #. All fatal boot errors detected in the setup, for example, when a / partition
 #. is missing
 #.
@@ -2481,6 +3113,25 @@ msgstr ""
 #: src/lib/y2storage/boot_requirements_strategies/base.rb:169
 msgid ""
 "Boot requirements cannot be determined because there is no '/' mount point"
+msgstr ""
+
+#. TRANSLATORS: error message
+#: src/lib/y2storage/boot_requirements_strategies/legacy.rb:187
+msgid ""
+"Boot disk has no partition table and it is not possible to boot from it.You "
+"can fix it by creating a partition table on the boot disk."
+msgstr ""
+
+#. TRANSLATORS: error message
+#: src/lib/y2storage/boot_requirements_strategies/legacy.rb:199
+msgid "MBR gap size is not enough to correctly install bootloader"
+msgstr ""
+
+#. TRANSLATORS: error message
+#: src/lib/y2storage/boot_requirements_strategies/zipl.rb:87
+msgid ""
+"Looks like the system is going to be installed on a FBA or LDL device. "
+"Booting from such device is not supported."
 msgstr ""
 
 #. class to implement callbacks used during activate
@@ -2614,6 +3265,153 @@ msgstr "Ingen hårddisk har valts."
 #| msgid "File system options:"
 msgid "Filesystem Options"
 msgstr "Filsystemalternativ:"
+
+#. Dialog to select filesystems.
+#. This is the simpler version for the legacy-style proposal settings that
+#. support only a separate home volume.
+#. See also SelectFilesystem::Ng.
+#: src/lib/y2storage/dialogs/guided_setup/select_filesystem/legacy.rb:66
+msgid "File System for Root Partition"
+msgstr "Filsystem för rotpartition"
+
+#. @see #proposed_term
+#: src/lib/y2storage/dialogs/guided_setup/select_filesystem/legacy.rb:82
+#: src/lib/y2storage/dialogs/guided_setup/select_filesystem/volume_widget.rb:200
+#, fuzzy
+#| msgid "Propose Separate &Home Partition"
+msgid "Propose Separate Home Partition"
+msgstr "Föreslå separat &hempartition"
+
+#: src/lib/y2storage/dialogs/guided_setup/select_filesystem/legacy.rb:88
+msgid "File System for Home Partition"
+msgstr "Filsystem för hempartition"
+
+#. TRANSLATORS: "Volume" refers to an LVM logical volume.
+#: src/lib/y2storage/dialogs/guided_setup/select_filesystem/volume_widget.rb:133
+msgid "Settings for the Root Volume"
+msgstr ""
+
+#. TRANSLATORS: "Volume" refers to an LVM logical volume.
+#: src/lib/y2storage/dialogs/guided_setup/select_filesystem/volume_widget.rb:136
+msgid "Settings for the Home Volume"
+msgstr ""
+
+#. TRANSLATORS: "Volume" refers to an LVM logical volume.
+#: src/lib/y2storage/dialogs/guided_setup/select_filesystem/volume_widget.rb:139
+msgid "Settings for Swap Volume"
+msgstr ""
+
+#. TRANSLATORS: "Volume" refers to an LVM logical volume and
+#. "Additional" implies it will be created but not mounted
+#: src/lib/y2storage/dialogs/guided_setup/select_filesystem/volume_widget.rb:143
+msgid "Settings for Additional Volume"
+msgstr ""
+
+#. TRANSLATORS: "Volume" refers to a LVM logical volume. %s is a mount point.
+#: src/lib/y2storage/dialogs/guided_setup/select_filesystem/volume_widget.rb:146
+msgid "Settings for the %s Volume"
+msgstr ""
+
+#. @see #header_term
+#: src/lib/y2storage/dialogs/guided_setup/select_filesystem/volume_widget.rb:154
+#, fuzzy
+#| msgid "File System for Root Partition"
+msgid "Settings for the Root Partition"
+msgstr "Filsystem för rotpartition"
+
+#: src/lib/y2storage/dialogs/guided_setup/select_filesystem/volume_widget.rb:156
+#, fuzzy
+#| msgid "File System for Home Partition"
+msgid "Settings for the Home Partition"
+msgstr "Filsystem för hempartition"
+
+#: src/lib/y2storage/dialogs/guided_setup/select_filesystem/volume_widget.rb:158
+#, fuzzy
+#| msgid "Deleting raid partition %1$s"
+msgid "Settings for Swap Partition"
+msgstr "Tar bort RAID-partition %1$s"
+
+#. TRANSLATORS: "Additional" because it will be created but not mounted
+#: src/lib/y2storage/dialogs/guided_setup/select_filesystem/volume_widget.rb:161
+msgid "Settings for Additional Partition"
+msgstr ""
+
+#. TRANSLATORS: %s is a mount point (e.g. /var/lib)
+#: src/lib/y2storage/dialogs/guided_setup/select_filesystem/volume_widget.rb:164
+#, fuzzy
+msgid "Settings for the %s Partition"
+msgstr "Expertpartitionering"
+
+#. TRANSLATORS: "Volume" refers to a LVM logical volume.
+#: src/lib/y2storage/dialogs/guided_setup/select_filesystem/volume_widget.rb:182
+#, fuzzy
+#| msgid "Propose Separate &Home Partition"
+msgid "Propose Separate Home Volume"
+msgstr "Föreslå separat &hempartition"
+
+#. TRANSLATORS: "Volume" refers to a LVM logical volume.
+#: src/lib/y2storage/dialogs/guided_setup/select_filesystem/volume_widget.rb:185
+#, fuzzy
+#| msgid "Propose Separate &Home Partition"
+msgid "Propose Separate Swap Volume"
+msgstr "Föreslå separat &hempartition"
+
+#. TRANSLATORS: "Volume" refers to an LVM logical volume and
+#. "Additional" implies it will be created but not mounted
+#: src/lib/y2storage/dialogs/guided_setup/select_filesystem/volume_widget.rb:189
+#, fuzzy
+#| msgid "Add Logical Volume"
+msgid "Propose Additional Volume"
+msgstr "Lägg till logisk volym"
+
+#. TRANSLATORS: "Volume" refers to a LVM logical volume. %s is a mount point.
+#: src/lib/y2storage/dialogs/guided_setup/select_filesystem/volume_widget.rb:192
+#, fuzzy
+#| msgid "Propose Separate &Home Partition"
+msgid "Propose Separate %s Volume"
+msgstr "Föreslå separat &hempartition"
+
+#: src/lib/y2storage/dialogs/guided_setup/select_filesystem/volume_widget.rb:202
+#, fuzzy
+#| msgid "Propose Separate &Home Partition"
+msgid "Propose Separate Swap Partition"
+msgstr "Föreslå separat &hempartition"
+
+#. TRANSLATORS: "Additional" because it will be created but not mounted
+#: src/lib/y2storage/dialogs/guided_setup/select_filesystem/volume_widget.rb:205
+#, fuzzy
+#| msgid "Propose Separate &Home Partition"
+msgid "Propose Additional Partition"
+msgstr "Föreslå separat &hempartition"
+
+#. TRANSLATORS: %s is a mount point (e.g. /var/lib)
+#: src/lib/y2storage/dialogs/guided_setup/select_filesystem/volume_widget.rb:208
+#, fuzzy
+#| msgid "Propose Separate &Home Partition"
+msgid "Propose Separate %s Partition"
+msgstr "Föreslå separat &hempartition"
+
+#. Return a widget term for the volume's filesystem type.
+#.
+#. @return [WidgetTerm]
+#: src/lib/y2storage/dialogs/guided_setup/select_filesystem/volume_widget.rb:220
+#, fuzzy
+#| msgid "File System:"
+msgid "File System Type"
+msgstr "Filsystem:"
+
+#. Check box for enlarging to RAM size
+#.
+#. @return [WidgetTerm]
+#: src/lib/y2storage/dialogs/guided_setup/select_filesystem/volume_widget.rb:234
+#, fuzzy
+#| msgid "Enlarge &Swap for Suspend"
+msgid "Enlarge to RAM Size for Suspend"
+msgstr "Utöka &växlingsutrymme för spara"
+
+#: src/lib/y2storage/dialogs/guided_setup/select_filesystem/volume_widget.rb:234
+msgid "Enlarge to RAM size"
+msgstr ""
 
 #: src/lib/y2storage/dialogs/guided_setup/select_root_disk.rb:69
 msgid "Please select a disk to use as the \"root\" partition (/)"
@@ -2810,6 +3608,31 @@ msgstr ""
 "<p>\n"
 "Hårddiskarna har kontrollerats. Partitionsinställningen\n"
 " som visas föreslås för hårddisken.</p>"
+
+#. Hash with the properties for each mount by type.
+#.
+#. Keys are the symbols representing the types and values are hashes that
+#. can contain:
+#. - `:name` for human string
+#: src/lib/y2storage/filesystems/mount_by_type.rb:44
+msgid "Device Name"
+msgstr "Enhetsnamn"
+
+#: src/lib/y2storage/filesystems/mount_by_type.rb:47
+msgid "Device ID"
+msgstr "Enhets-ID"
+
+#: src/lib/y2storage/filesystems/mount_by_type.rb:50
+msgid "Volume Label"
+msgstr "Volymetikett"
+
+#: src/lib/y2storage/filesystems/mount_by_type.rb:53
+msgid "Device Path"
+msgstr "Enhetssökväg"
+
+#: src/lib/y2storage/filesystems/mount_by_type.rb:56
+msgid "UUID"
+msgstr "UUID"
 
 #. Class to represent all the possible MD levels
 #.
@@ -3051,12 +3874,6 @@ msgstr "Disk som ska partitioneras"
 #~ msgid "Mount Graph"
 #~ msgstr "Monteringsgraf"
 
-#~ msgid "Settings"
-#~ msgstr "Inställningar"
-
-#~ msgid "Select at least one device."
-#~ msgstr "Välj åtminstone en enhet."
-
 #, fuzzy
 #~| msgid "Fs&tab Options..."
 #~ msgid "Fstab options..."
@@ -3070,9 +3887,6 @@ msgstr "Disk som ska partitioneras"
 #~ msgid "tmpfs"
 #~ msgstr "TMPFS"
 
-#~ msgid "File System:"
-#~ msgstr "Filsystem:"
-
 #, fuzzy
 #~| msgid ""
 #~| "<p>This view shows detailed information about the\n"
@@ -3083,12 +3897,6 @@ msgstr "Disk som ska partitioneras"
 #~ msgstr ""
 #~ "<p>I den här vyn visas detaljerad information om den \n"
 #~ "valda hårddisken.</p>"
-
-#~ msgid "Device:"
-#~ msgstr "Enhet:"
-
-#~ msgid "Hard Disk:"
-#~ msgstr "Hårddisk:"
 
 #~ msgid "File system &ID:"
 #~ msgstr "Filsystem-&ID:"
@@ -3116,29 +3924,6 @@ msgstr "Disk som ska partitioneras"
 #~ "valda volymgruppen.</p>"
 
 #, fuzzy
-#~| msgid "PE Size: %1"
-#~ msgid "PE Size: %s"
-#~ msgstr "PE-storlek: %1"
-
-#~ msgid "RAID:"
-#~ msgstr "RAID:"
-
-#, fuzzy
-#~| msgid "RAID Type: %1"
-#~ msgid "RAID Type: %s"
-#~ msgstr "RAID-typ: %1"
-
-#, fuzzy
-#~| msgid "Chunk Size: %1"
-#~ msgid "Chunk Size: %s"
-#~ msgstr "Blockstorlek: %1"
-
-#, fuzzy
-#~| msgid "Parity Algorithm: %1"
-#~ msgid "Partity algorithm: %s"
-#~ msgstr "Paritetsalgoritm: %1"
-
-#, fuzzy
 #~| msgid ""
 #~| "<p>This view shows detailed information about the\n"
 #~| "selected partition.</p>"
@@ -3153,22 +3938,6 @@ msgstr "Disk som ska partitioneras"
 #~| msgid "FS ID: %1"
 #~ msgid "FS ID: %s"
 #~ msgstr "FS-ID: %1"
-
-#, fuzzy
-#~| msgid "For %1, select at least %2 device."
-#~ msgid "For %{raid_level}, select at least %{min} devices."
-#~ msgstr "Välj minst %2 enheter för %1."
-
-#~ msgid "File System for Root Partition"
-#~ msgstr "Filsystem för rotpartition"
-
-#, fuzzy
-#~| msgid "Propose Separate &Home Partition"
-#~ msgid "Propose Separate Home Partition"
-#~ msgstr "Föreslå separat &hempartition"
-
-#~ msgid "File System for Home Partition"
-#~ msgstr "Filsystem för hempartition"
 
 #~ msgid ""
 #~ "Only use this program if you are familiar with partitioning hard disks.\n"
@@ -4358,13 +5127,6 @@ msgstr "Disk som ska partitioneras"
 #~ "Maximal volymetikettlängd för det valda filsystemet \n"
 #~ "är %1. Volymetiketten har kortats av till den storleken.\n"
 
-#~ msgid "Provide a volume label to mount by label."
-#~ msgstr ""
-#~ "Du måste tillhandahålla en volymetikett om du vill montera via etikett."
-
-#~ msgid "This volume label is already in use. Select a different one."
-#~ msgstr "Volymetiketten används redan. Välj en annan."
-
 #~ msgid "File &System"
 #~ msgstr "Fil&system"
 
@@ -5228,22 +5990,6 @@ msgstr "Disk som ska partitioneras"
 #~ msgid "Backward"
 #~ msgstr "Bakåt"
 
-#~ msgid "Confirm Deleting of All Partitions"
-#~ msgstr "Bekräfta borttagning av alla partitioner"
-
-#~ msgid ""
-#~ "The disk \"%1\" contains at least one partition.\n"
-#~ "If you proceed, the following partitions will be deleted:"
-#~ msgstr ""
-#~ "Disken %1 innehåller minst en partition.\n"
-#~ "Om du fortsätter kommer följande partitioner att tas bort:"
-
-#~ msgid "Really delete all partitions on \"%1\"?"
-#~ msgstr "Vill du ta bort alla partitioner på %1?"
-
-#~ msgid "No hard disk selected."
-#~ msgstr "Ingen hårddisk har valts."
-
 #~ msgid "Cannot create partition table on LDL formatted DASD."
 #~ msgstr "Det går inte att skapa partitionstabell på LDL-formaterad DASD."
 
@@ -5266,9 +6012,6 @@ msgstr "Disk som ska partitioneras"
 
 #~ msgid "Really delete Partitioned RAID %1?"
 #~ msgstr "Vill du verkligen ta bort den partitionerade RAID:en %1?"
-
-#~ msgid "There are no partitions to delete on this disk."
-#~ msgstr "Det finns inga partitioner att ta bort på den här disken."
 
 #~ msgid "It is not possible to create a partition on %1."
 #~ msgstr "Partition kan inte skapas på %1."
@@ -5384,25 +6127,12 @@ msgstr "Disk som ska partitioneras"
 #~ msgid "Move..."
 #~ msgstr "Flytta..."
 
-#~ msgid "Resize..."
-#~ msgstr "Ändra storlek..."
-
 #~ msgid ""
 #~ "Hard disks, BIOS RAIDs and multipath\n"
 #~ "devices cannot be moved."
 #~ msgstr ""
 #~ "Hårddiskar, BIOS-RAID-enheter och multipath-\n"
 #~ "enheter kan inte flyttas."
-
-#~ msgid ""
-#~ "Hard disks, BIOS RAIDs and multipath\n"
-#~ "devices cannot be resized."
-#~ msgstr ""
-#~ "Hårddiskar, BIOS-RAID-enheter och multipath-\n"
-#~ "enheter kan inte storleksändras."
-
-#~ msgid "Add Partition..."
-#~ msgstr "Lägg till partition..."
 
 #~ msgid ""
 #~ "<p>This view shows all hard disks including\n"
@@ -5436,9 +6166,6 @@ msgstr "Disk som ska partitioneras"
 
 #~ msgid "Execute dasd&fmt on the DASD Device"
 #~ msgstr "Kör dasd&fmt på DASD-enheten"
-
-#~ msgid "Expert..."
-#~ msgstr "Expert..."
 
 #~ msgid ""
 #~ "<p>This view shows all partitions of the selected\n"
@@ -5517,38 +6244,6 @@ msgstr "Disk som ska partitioneras"
 
 #~ msgid "Wrong Password Provided."
 #~ msgstr "Lösenordet är felaktigt."
-
-#~ msgid "Confirm Deleting Partition Used by LVM"
-#~ msgstr "Bekräfta borttagning av partition använd av LVM"
-
-#~ msgid ""
-#~ "The selected partition is used by volume group \"%1\".\n"
-#~ "To keep the system in a consistent state, the following volume group\n"
-#~ "and its logical volumes will be deleted:\n"
-#~ msgstr ""
-#~ "Den valda partitionen används av volymgruppen %1.\n"
-#~ "För att systemet ska behållas i ett konsekvent tillstånd kommer följande "
-#~ "volymgrupp \n"
-#~ "och dess logiska volymer att tas bort:\n"
-
-#~ msgid "Delete partition \"%1\" and volume group \"%2\" now?"
-#~ msgstr "Vill du ta bort partitionen %1 och volymgruppen %2 nu?"
-
-#~ msgid "Confirm Deleting Partition Used by RAID"
-#~ msgstr "Bekräfta borttagning av partition som används av RAID"
-
-#~ msgid ""
-#~ "The selected partition belongs to RAID  \"%1\".\n"
-#~ "To keep the system in a consistent state, the following\n"
-#~ "RAID device will be deleted:\n"
-#~ msgstr ""
-#~ "Den valda partitionen tillhör RAID %1.\n"
-#~ "För att systemet ska behållas i ett konsekvent tillstånd kommer "
-#~ "följande \n"
-#~ "RAID-enhet att tas bort:\n"
-
-#~ msgid "Delete partition \"%1\" and RAID \"%2\" now?"
-#~ msgstr "Vill du ta bort partitionen %1 och RAID-enheten %2?"
 
 #~ msgid "Really delete %1?"
 #~ msgstr "Verkligen ta bort %1?"
@@ -5685,26 +6380,6 @@ msgstr "Disk som ska partitioneras"
 #~ msgid "The name for the volume group must not start with a \"-\"."
 #~ msgstr "Namnet för volymgruppen får inte börja med \"-\"."
 
-#~ msgid "The volume group \"%1\" already exists."
-#~ msgstr "Volymgruppen %1 finns redan."
-
-#~ msgid "Confirm Deleting of Volume Group"
-#~ msgstr "Bekräfta borttagning av volymgrupp"
-
-#~ msgid ""
-#~ "The volume group \"%1\" contains at least one logical volume.\n"
-#~ "If you proceed, the following volumes will be unmounted (if mounted)\n"
-#~ "and deleted:"
-#~ msgstr ""
-#~ "Volymgruppen %1 innehåller minst en logisk volym.\n"
-#~ "Om du fortsätter kommer följande volymer att avmonteras (om de är "
-#~ "monterade)\n"
-#~ "och tas bort:"
-
-#~ msgid "Really delete volume group \"%1\" and all related logical volumes?"
-#~ msgstr ""
-#~ "Vill du ta bort volymgruppen %1 och alla relaterade logiska volymer?"
-
 #~ msgid ""
 #~ "The name for the logical volume contains illegal characters. Allowed\n"
 #~ "are alphanumeric characters, \".\", \"_\", \"-\" and \"+\"."
@@ -5809,20 +6484,6 @@ msgstr "Disk som ska partitioneras"
 #~ msgid "Edit Logical Volume %1 on %2"
 #~ msgstr "Redigera den logiska volymen %1 på %2"
 
-#~ msgid ""
-#~ "There are not enough suitable unused devices to create a volume group.\n"
-#~ "\n"
-#~ "To use LVM, at least one unused partition of type 0x8e (or 0x83) or one "
-#~ "unused\n"
-#~ "RAID device is required. Change your partition table accordingly."
-#~ msgstr ""
-#~ "Det finns inte tillräckligt med lämpliga och oanvända enheter för att "
-#~ "skapa en volymgrupp. \n"
-#~ "\n"
-#~ "Om du vill använda LVM krävs det minst en oanvänd partition av typen 0x8e "
-#~ "(eller 0x83) eller en oanvänd\n"
-#~ "RAID-enhet. Ändra partitionstabellen så att den passar."
-
 #~ msgid "No volume group selected."
 #~ msgstr "Ingen volymgrupp har valts."
 
@@ -5835,18 +6496,12 @@ msgstr "Disk som ska partitioneras"
 #~ msgid "No logical volume selected."
 #~ msgstr "Inga logiska volymer har valts."
 
-#~ msgid "No free space left in the volume group \"%1\"."
-#~ msgstr "Det finns inget tillgängligt utrymme i volymgruppen %1."
-
 #~ msgid ""
 #~ "The volume %1 is in use. It cannot be\n"
 #~ "edited. To edit %1, make sure it is not used."
 #~ msgstr ""
 #~ "Volymen %1 används. Den går inte att\n"
 #~ "redigera. Om du vill redigera %1 måste du se till att den inte används."
-
-#~ msgid "Add Logical Volume"
-#~ msgstr "Lägg till logisk volym"
 
 #~ msgid ""
 #~ "<p>This view shows all LVM volume groups and\n"
@@ -5907,13 +6562,6 @@ msgstr "Disk som ska partitioneras"
 
 #~ msgid ": Summary"
 #~ msgstr ": Sammanfattning"
-
-#~ msgid ""
-#~ "Test mount of NFS share '%1' failed.\n"
-#~ "Save it anyway?"
-#~ msgstr ""
-#~ "Testmonteringen av NFS-resursen %1 misslyckades.\n"
-#~ "Vill du spara den ändå?"
 
 #~ msgid "For %1, select at least %2 device."
 #~ msgstr "Välj minst %2 enheter för %1."
@@ -6045,11 +6693,6 @@ msgstr "Disk som ska partitioneras"
 #~ "Det betyder normalt sett att deluppsättningen av raid-enheter\n"
 #~ "är för liten för att raid-enheten ska gå att använda.\n"
 
-#~ msgid "There are not enough suitable unused devices to create a RAID."
-#~ msgstr ""
-#~ "Det finns inte tillräckligt med oanvända enheter för att skapa en RAID-"
-#~ "enhet."
-
 #~ msgid "No RAID selected."
 #~ msgstr "Ingen RAID är vald."
 
@@ -6059,22 +6702,6 @@ msgstr "Disk som ska partitioneras"
 #~ msgstr ""
 #~ "RAID-enheten %1 används. Den kan inte \n"
 #~ "ändras. Om du vill ändra %1 måste du se till att den inte används."
-
-#~ msgid ""
-#~ "The RAID %1 is already created on disk. It cannot be\n"
-#~ "resized. To resize %1, remove it and create it again."
-#~ msgstr ""
-#~ "RAID %1 som ska ändras har redan skapats på disk.\n"
-#~ "Du kan inte ändra storlek på den. Om du vill ändra storlek på %1 tar du "
-#~ "bort den och skapar den igen."
-
-#~ msgid ""
-#~ "The RAID %1 is in use. It cannot be\n"
-#~ "resized. To resize %1, make sure it is not used."
-#~ msgstr ""
-#~ "RAID-enheten %1 används. Du kan inte ändra \n"
-#~ "storlek på den. Om du vill ändra storlek på %1 måste du se till att den "
-#~ "inte används."
 
 #~ msgid "<p>This view shows all RAIDs except BIOS RAIDs.</p>"
 #~ msgstr ""
@@ -6097,9 +6724,6 @@ msgstr "Disk som ska partitioneras"
 #~ msgid "RAID: %1"
 #~ msgstr "RAID: %1"
 
-#~ msgid "UUID"
-#~ msgstr "UUID"
-
 #~ msgid "Mount by"
 #~ msgstr "Montera genom"
 
@@ -6118,26 +6742,11 @@ msgstr "Disk som ska partitioneras"
 #~ msgid "Encryption"
 #~ msgstr "Kryptering"
 
-#~ msgid "Device Name"
-#~ msgstr "Enhetsnamn"
-
-#~ msgid "Volume Label"
-#~ msgstr "Volymetikett"
-
-#~ msgid "Device ID"
-#~ msgstr "Enhets-ID"
-
-#~ msgid "Device Path"
-#~ msgstr "Enhetssökväg"
-
 #~ msgid "Optimal"
 #~ msgstr "Optimal"
 
 #~ msgid "Cylinder"
 #~ msgstr "Cylinder"
-
-#~ msgid "Default Mount by"
-#~ msgstr "Standardmontering med"
 
 #~ msgid "Default File System"
 #~ msgstr "Standardfilsystem"
@@ -6298,9 +6907,6 @@ msgstr "Disk som ska partitioneras"
 #~ "Minst en tunn volym använder den här poolen.\n"
 #~ "Ta bort den tunna volymen först."
 
-#~ msgid "Remove the logical volume %1?"
-#~ msgstr "Ta bort den logiska volymen %1?"
-
 #~ msgid "Total size: %1"
 #~ msgstr "Total storlek: %1"
 
@@ -6309,18 +6915,6 @@ msgstr "Disk som ska partitioneras"
 
 #~ msgid "Class"
 #~ msgstr "Klass"
-
-#~ msgid "Top"
-#~ msgstr "Överst"
-
-#~ msgid "Up"
-#~ msgstr "Upp"
-
-#~ msgid "Down"
-#~ msgstr "Inte tillgänglig"
-
-#~ msgid "Bottom"
-#~ msgstr "Nederst"
 
 #~ msgid "Classify"
 #~ msgstr "Klassificera"
@@ -7118,9 +7712,6 @@ msgstr "Disk som ska partitioneras"
 #~ "Storleksändring kan inte genomföras på grund av att filsystemet är "
 #~ "inkonsekvent. Försök att kontrollera filsystemet i Windows."
 
-#~ msgid "Enlarge &Swap for Suspend"
-#~ msgstr "Utöka &växlingsutrymme för spara"
-
 #~ msgid "Proposal Settings"
 #~ msgstr "Förslagsinställningar"
 
@@ -7219,11 +7810,6 @@ msgstr "Disk som ska partitioneras"
 #~ msgstr "Ta bort..."
 
 #, fuzzy
-#~| msgid "&Partitions"
-#~ msgid "Partition: %s"
-#~ msgstr "&Partitioner"
-
-#, fuzzy
 #~| msgid "Name"
 #~ msgid "VG Name"
 #~ msgstr "Namn"
@@ -7273,11 +7859,6 @@ msgstr "Disk som ska partitioneras"
 #~ msgstr ""
 #~ "Disken %1 innehåller minst en partition.\n"
 #~ "Om du fortsätter kommer följande partitioner att tas bort:"
-
-#, fuzzy
-#~| msgid "Partition"
-#~ msgid "partition"
-#~ msgstr "Partition"
 
 #, fuzzy
 #~| msgid "Really delete all partitions on \"%1\"?"
@@ -8087,9 +8668,6 @@ msgstr "Disk som ska partitioneras"
 #, fuzzy
 #~ msgid "Set disk label of multipath disk %1$s to %2$s"
 #~ msgstr "Ange disketiketten för disken %1$s som %2$s"
-
-#~ msgid "Deleting raid partition %1$s"
-#~ msgstr "Tar bort RAID-partition %1$s"
 
 #~ msgid "Delete raid partition %1$s (%2$s)"
 #~ msgstr "Ta bort RAID-partition %1$s (%2$s)"
@@ -9443,10 +10021,6 @@ msgstr "Disk som ska partitioneras"
 #, fuzzy
 #~ msgid "Space on Logical Volume "
 #~ msgstr "Skapa logisk volym"
-
-#, fuzzy
-#~ msgid "Space on the Partition"
-#~ msgstr "Expertpartitionering"
 
 #, fuzzy
 #~ msgid "LV Size Restrictions"
@@ -10923,9 +11497,6 @@ msgstr "Disk som ska partitioneras"
 
 #~ msgid "Use &Old LVM1 Compatible Metadata Format"
 #~ msgstr "Använd &gammalt LVM1-kompatibelt metadataformat"
-
-#~ msgid "logical volume"
-#~ msgstr "logisk volym"
 
 #~ msgid "No changes made so far could be performed."
 #~ msgstr "Inga ändringar som gjorts hittills kunde utföras."
