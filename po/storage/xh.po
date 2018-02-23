@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: storage\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-22 02:29+0000\n"
+"POT-Creation-Date: 2018-02-23 02:29+0000\n"
 "PO-Revision-Date: 2006-11-03 14:26\n"
 "Last-Translator: Novell Language <language@novell.com>\n"
 "Language-Team: Novell Language <language@novell.com>\n"
@@ -13,6 +13,34 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+
+#. TRANSLATORS: %s is a volume group name (e.g. "system")
+#: src/lib/y2partitioner/actions/add_lvm_lv.rb:112
+#, fuzzy
+msgid "No free space left in the volume group \"%s\"."
+msgstr "Akho sithuba sikhoyo kwiqela lesandi elikhoyo ngoku esingu %1."
+
+#. @see TransactionWizard
+#. @note The action is only run when there are available devices to create a new
+#. volume group (see {Controllers::LvmVg#available_devices}).
+#.
+#. @return [Boolean] true whether there are available devices; false otherwise.
+#: src/lib/y2partitioner/actions/add_lvm_vg.rb:79
+msgid ""
+"There are not enough suitable unused devices to create a volume group.\n"
+msgstr ""
+
+#: src/lib/y2partitioner/actions/add_lvm_vg.rb:80
+msgid ""
+"To use LVM, at least one unused partition of type 0x8e (or 0x83) or one "
+"disk\n"
+"or one RAID device is required. Change your partition table accordingly."
+msgstr ""
+
+#. @see TransactionWizard
+#: src/lib/y2partitioner/actions/add_md.rb:80
+msgid "There are not enough suitable unused devices to create a RAID."
+msgstr ""
 
 #. Checks whether the device is not used
 #.
@@ -190,7 +218,7 @@ msgid "Invalid region entered, increase the size or align the start."
 msgstr ""
 
 #. TRANSLATORS: dialog title. %s is a device name like /dev/sda
-#: src/lib/y2partitioner/actions/controllers/partition_table.rb:96
+#: src/lib/y2partitioner/actions/controllers/partition_table.rb:102
 #, fuzzy
 msgid "Create New Partition Table on %s"
 msgstr "Dala Isahlulelo Esitsha"
@@ -222,6 +250,187 @@ msgstr "Akwenzeki ukudala isahlulelo ku %1."
 #| msgid "Really delete %1?"
 msgid "Really delete %s?"
 msgstr "Uyayicima ngenene i-`%1`?"
+
+#. Checks whether there is any partition for deleting
+#.
+#. @note An error popup is shown when there is no partition.
+#.
+#. @return [Boolean]
+#: src/lib/y2partitioner/actions/delete_disk.rb:45
+#, fuzzy
+msgid "There are no partitions to delete on this disk"
+msgstr "Akukho zikhethwa zale modyuli"
+
+#. Confirmation message before performing the delete action
+#.
+#. It shows all partitions (and dependent devices) that will be deleted.
+#.
+#. @see DeleteDevice#dependent_devices
+#. @see DeleteDevice#confirm_recursive_delete
+#: src/lib/y2partitioner/actions/delete_disk.rb:61
+#, fuzzy
+msgid "Confirm Deleting of All Partitions"
+msgstr "Ukugxumeka zonke izahlulelo..."
+
+#. TRANSLATORS: name is the name of the disk to be deleted (e.g., /dev/sda)
+#: src/lib/y2partitioner/actions/delete_disk.rb:63
+#, fuzzy
+msgid ""
+"The disk \"%{name}\" contains at least one partition.\n"
+"If you proceed, the following devices will be deleted:"
+msgstr ""
+"Iqela lesixa \"%1\" liqulethe noko isixa esinye esinengqiqo \n"
+"elindelekileyo.  Ayinako ukushenxiswa. Shenxisa zonke izixa ezinengqiqo "
+"elindelekileyo\n"
+" wandule ukushenxisa iqela lesixa.\n"
+
+#. TRANSLATORS: name is the name of the disk to be deleted (e.g., /dev/sda)
+#: src/lib/y2partitioner/actions/delete_disk.rb:66
+#, fuzzy
+msgid "Really delete all partitions on \"%{name}\"?"
+msgstr "Ngenene uyazicima zonke izahlulelo ku %1?"
+
+#. TRANSLATORS: Confirmation message when a LVM logical volume is going to be deleted,
+#. where %{name} is replaced by the name of the logical volume (e.g., /dev/system/lv1)
+#: src/lib/y2partitioner/actions/delete_lvm_lv.rb:65
+#, fuzzy
+#| msgid "Remove the logical volume %1?"
+msgid "Remove the logical volume %{name}?"
+msgstr "Shenxisa isixa esinengqiqo elindelekileyo%1?"
+
+#. Confirmation when the device is a LVM thin pool and there is any thin volume over it
+#.
+#. @see DeleteDevice#dependent_devices
+#. @see DeleteDevice#confirm_recursive_delete
+#: src/lib/y2partitioner/actions/delete_lvm_lv.rb:76
+#, fuzzy
+msgid "Confirm Deleting of LVM Thin Pool"
+msgstr "Yenza Amaqela Esixa"
+
+#. TRANSLATORS: Confirmation message when a LVM thin pool is going to be deleted,
+#. where %{name} is replaced by the name of the thin pool (e.g., /dev/system/pool)
+#: src/lib/y2partitioner/actions/delete_lvm_lv.rb:80
+#, fuzzy
+msgid ""
+"The thin pool %{name} is used by at least one thin volume.\n"
+"If you proceed, the following thin volumes will be unmounted (if mounted)\n"
+"and deleted:"
+msgstr ""
+"Iqela lesixa \"%1\" liqulethe noko isixa esinye esinengqiqo \n"
+"elindelekileyo.  Ayinako ukushenxiswa. Shenxisa zonke izixa ezinengqiqo "
+"elindelekileyo\n"
+" wandule ukushenxisa iqela lesixa.\n"
+
+#. TRANSLATORS: %{name} is replaced by the name of the thin pool (e.g., /dev/system/pool)
+#: src/lib/y2partitioner/actions/delete_lvm_lv.rb:87
+#, fuzzy
+msgid "Really delete the thin pool \"%{name}\" and all related thin volumes?"
+msgstr "Shenxisa ngenene iqela lesixa \"%1\"?"
+
+#. Confirmation when the device contains logical volumes
+#.
+#. @see DeleteDevice#dependent_devices
+#. @see DeleteDevice#confirm_recursive_delete
+#: src/lib/y2partitioner/actions/delete_lvm_vg.rb:60
+#, fuzzy
+msgid "Confirm Deleting of Volume Group"
+msgstr "Yenza Amaqela Esixa"
+
+#. TRANSLATORS: %s is the name of the volume group (e.g. "system")
+#: src/lib/y2partitioner/actions/delete_lvm_vg.rb:62
+#, fuzzy
+msgid ""
+"The volume group \"%s\" contains at least one logical volume.\n"
+"If you proceed, the following volumes will be unmounted (if mounted)\n"
+"and deleted:"
+msgstr ""
+"Iqela lesixa \"%1\" liqulethe noko isixa esinye esinengqiqo \n"
+"elindelekileyo.  Ayinako ukushenxiswa. Shenxisa zonke izixa ezinengqiqo "
+"elindelekileyo\n"
+" wandule ukushenxisa iqela lesixa.\n"
+
+#. TRANSLATORS: %s is the name of the volume group (e.g. "system")
+#: src/lib/y2partitioner/actions/delete_lvm_vg.rb:67
+#, fuzzy
+msgid "Really delete volume group \"%s\" and all related logical volumes?"
+msgstr "Shenxisa ngenene iqela lesixa \"%1\"?"
+
+#. Confirmation when the device belongs to a volume group
+#.
+#. @see DeleteDevice#dependent_devices
+#. @see DeleteDevice#confirm_recursive_delete
+#. @see DeleteDevice#lvm_vg
+#: src/lib/y2partitioner/actions/delete_md.rb:61
+#, fuzzy
+msgid "Confirm Deleting RAID Used by LVM"
+msgstr "Kucinywa isahlulelo %1$s"
+
+#. TRANSLATORS: name is the name of the volume group that the md raid
+#. belongs to (e.g., /dev/system)
+#: src/lib/y2partitioner/actions/delete_md.rb:64
+msgid ""
+"The selected RAID is used by volume group \"%{name}\".\n"
+"To keep the system in a consistent state, the following volume group\n"
+"and its logical volumes will be deleted:"
+msgstr ""
+
+#. TRANSLATORS: md is the name of the md raid to be deleted (e.g., /dev/md/md1),
+#. and vg is the name of the volume group to be deleted (e.g., /dev/system)
+#: src/lib/y2partitioner/actions/delete_md.rb:69
+#, fuzzy
+msgid "Delete RAID \"%{md}\" and volume group \"%{lvm_vg}\"?"
+msgstr "Indawo ekusingiswa kuyo %1 sele ikhona."
+
+#. Confirmation when the partition belongs to a volume group
+#.
+#. @see DeleteDevice#dependent_devices
+#. @see DeleteDevice#confirm_recursive_delete
+#. @see DeleteDevice#lvm_vg
+#: src/lib/y2partitioner/actions/delete_partition.rb:66
+#, fuzzy
+msgid "Confirm Deleting Partition Used by LVM"
+msgstr "Kucinywa isahlulelo %1$s"
+
+#. TRANSLATORS: name is the name of the volume group that the partition
+#. belongs to (e.g., /dev/system)
+#: src/lib/y2partitioner/actions/delete_partition.rb:69
+msgid ""
+"The selected partition is used by volume group \"%{name}\".\n"
+"To keep the system in a consistent state, the following volume group\n"
+"and its logical volumes will be deleted:"
+msgstr ""
+
+#. TRANSLATORS: partition is the name of the partition to be deleted (e.g., /dev/sda1),
+#. and vg is the name of the volume group to be deleted (e.g., /dev/system)
+#: src/lib/y2partitioner/actions/delete_partition.rb:74
+#, fuzzy
+msgid "Delete partition \"%{partition}\" and volume group \"%{lvm_vg}\"?"
+msgstr "Indawo ekusingiswa kuyo %1 sele ikhona."
+
+#. Confirmation when the partition belongs to a md raid
+#.
+#. @see DeleteDevice#dependent_devices
+#. @see DeleteDevice#confirm_recursive_delete
+#. @see DeleteDevice#md
+#: src/lib/y2partitioner/actions/delete_partition.rb:87
+#, fuzzy
+msgid "Confirm Deleting Partition Used by RAID"
+msgstr "Kucinywa isahlulelo %1$s"
+
+#. TRANSLATORS: name is the name of the partition to be deleted (e.g., /dev/sda1)
+#: src/lib/y2partitioner/actions/delete_partition.rb:89
+msgid ""
+"The selected partition belongs to RAID \"%{name}\".\n"
+"To keep the system in a consistent state, the following\n"
+"RAID device will be deleted:"
+msgstr ""
+
+#. TRANSLATORS: partition is the name of the partition to be deleted (e.g., /dev/sda1),
+#. and md_raid is the name of the raid to be deleted (e.g., /dev/md/md1)
+#: src/lib/y2partitioner/actions/delete_partition.rb:94
+#, fuzzy
+msgid "Delete partition \"%{partition}\" and RAID \"%{md}\"?"
+msgstr "Cima isahlulelo engu %1$s (%2$s)"
 
 #. TRANSLATORS: dialog title. %s is a device name like /dev/md0
 #: src/lib/y2partitioner/actions/edit_blk_device.rb:78
@@ -270,6 +479,28 @@ msgstr ""
 #, fuzzy
 msgid "This device cannot be resized."
 msgstr "Isahlulelo esandisiweyo asinakudalwa."
+
+#. TRANSLATORS: error popup, %{name} is replaced by device name (e.g., /dev/md1)
+#: src/lib/y2partitioner/actions/resize_md.rb:87
+#, fuzzy
+msgid ""
+"The RAID %{name} is already created on disk. It cannot be\n"
+"resized. To resize %{name}, remove it and create it again."
+msgstr ""
+"I-RAID yokutshintsha (%1) sele idalwe kwidiski.\n"
+"Ayisenako ukutshintshwa. Ukutshintsha oku %1, \n"
+" kushenxise ukudale kwakhona.\n"
+
+#. TRANSLATORS: error popup, %{name} is replaced by device name (e.g., /dev/md1)
+#: src/lib/y2partitioner/actions/resize_md.rb:108
+#, fuzzy
+msgid ""
+"The RAID %{name} is in use. It cannot be\n"
+"resized. To resize %{name}, make sure it is not used."
+msgstr ""
+"I-RAID yokutshintsha (%1) sele idalwe kwidiski.\n"
+"Ayisenako ukutshintshwa. Ukutshintsha oku %1, \n"
+" kushenxise ukudale kwakhona.\n"
 
 #. TRANSLATORS: dialog title, where %{name} is the name of a partition
 #. (e.g. /dev/sda1) or LVM logical volume (e.g. /dev/system/home)
@@ -734,13 +965,18 @@ msgstr ""
 
 #. TRANSLATORS: Device name information, where %s is replaced by the
 #. kernel path to device
+#. Attributes for describing a device when it is a volume group
+#.
+#. @return [Array<String>]
 #: src/lib/y2partitioner/widgets/blk_device_attributes.rb:46
+#: src/lib/y2partitioner/widgets/lvm_vg_description.rb:52
 #, fuzzy
 msgid "Device: %s"
 msgstr "Isixhobo se-URI: %1"
 
 #. TRANSLATORS: size information, where %s is replaced by a size (e.g., 10 GiB)
 #: src/lib/y2partitioner/widgets/blk_device_attributes.rb:54
+#: src/lib/y2partitioner/widgets/lvm_vg_description.rb:53
 #, fuzzy
 msgid "Size: %s"
 msgstr "Isayizi%1"
@@ -851,6 +1087,35 @@ msgstr "Indawo &Yokugxumeka:"
 msgid "Label: %s"
 msgstr "Ilebhile"
 
+#. TRANSLATORS: heading for the section about a block device
+#. A volume group description is composed by the header "Device" and a list
+#. of attributes
+#.
+#. @see #lvm_vg_description
+#.
+#. @return [String]
+#: src/lib/y2partitioner/widgets/blk_device_description.rb:56
+#: src/lib/y2partitioner/widgets/lvm_vg_description.rb:42
+#, fuzzy
+msgid "Device:"
+msgstr "Isixhobo"
+
+#. TRANSLATORS: heading for the section about a filesystem on a block device
+#: src/lib/y2partitioner/widgets/blk_device_description.rb:81
+#, fuzzy
+msgid "File System:"
+msgstr "Isixokelelwano Seefayili"
+
+#. TRANSLATORS: button label for editing a block device
+#. @see CWM::PushButton#Label
+#. @macro seeAbstractWidget
+#: src/lib/y2partitioner/widgets/blk_device_edit_button.rb:41
+#: src/lib/y2partitioner/widgets/btrfs_edit_button.rb:21
+#: src/lib/y2partitioner/widgets/lvm_edit_button.rb:39
+#, fuzzy
+msgid "Edit..."
+msgstr "&Hlela..."
+
 #. TRANSLATORS: "F" stands for Format flag. Keep it short, ideally a single letter.
 #: src/lib/y2partitioner/widgets/blk_devices_table.rb:72
 msgid "F"
@@ -882,7 +1147,7 @@ msgstr "Ilebhile"
 #. TRANSLATORS: table header, where is device mounted. Can be empty. E.g. "/" or "/home"
 #. Synchronize the widget with the information from the controller
 #: src/lib/y2partitioner/widgets/blk_devices_table.rb:136
-#: src/lib/y2partitioner/widgets/format_and_mount.rb:468
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:515
 msgid "Mount Point"
 msgstr "Indawo Yokugxumeka"
 
@@ -950,12 +1215,6 @@ msgstr ""
 msgid "Thin LV"
 msgstr "&Amandla"
 
-#. @see CWM::PushButton#Label
-#: src/lib/y2partitioner/widgets/btrfs_edit_button.rb:21
-#, fuzzy
-msgid "Edit..."
-msgstr "&Hlela..."
-
 #. Opens a dialog to manage the list of subvolumes of the selected device
 #.
 #. @note In case of there is no selected table row, it shows an error.
@@ -982,8 +1241,11 @@ msgstr ""
 
 #. TRANSLATORS: button label to add a btrfs subvolume
 #. TRANSLATORS: button label to add a volume group or logical volume
+#. TRANSLATORS: button label to add a logical volume
 #: src/lib/y2partitioner/widgets/btrfs_subvolumes_add_button.rb:44
 #: src/lib/y2partitioner/widgets/lvm_add_button.rb:44
+#: src/lib/y2partitioner/widgets/lvm_lv_add_button.rb:38
+#: src/lib/y2partitioner/widgets/partition_add_button.rb:39
 #, fuzzy
 msgid "Add..."
 msgstr "Fa&kela..."
@@ -997,7 +1259,9 @@ msgid "Mount point %s is shadowed."
 msgstr "Indawo &Yokugxumeka:"
 
 #. TRANSLATORS: button label to delete a btrfs subvolume
+#. TRANSLATORS: label for button to delete a device
 #: src/lib/y2partitioner/widgets/btrfs_subvolumes_delete_button.rb:46
+#: src/lib/y2partitioner/widgets/device_delete_button.rb:42
 #, fuzzy
 msgid "Delete..."
 msgstr "Cima "
@@ -1099,6 +1363,24 @@ msgstr "&Thumela ngaphandle..."
 msgid "Saving graph file failed."
 msgstr "Ukugcina isiveliso kwifayili '%1' kusilele."
 
+#. TRANSLATORS: label for button for resizing a device
+#: src/lib/y2partitioner/widgets/device_resize_button.rb:42
+#, fuzzy
+msgid "Resize..."
+msgstr "Nci&phisa"
+
+#. Checks whether the device supports resizing
+#.
+#. @note An error popup is shown when the device does not support resizing.
+#.
+#. @return [Boolean] true if the device supports resizing; false otherwise.
+#: src/lib/y2partitioner/widgets/device_resize_button.rb:62
+#, fuzzy
+msgid ""
+"Hard disks, BIOS RAIDs and multipath\n"
+"devices cannot be resized."
+msgstr "Isahlulelo esandisiweyo asinakudalwa."
+
 #. TRANSLATORS: %s is a disk size. E.g. "10.5 GiB"
 #: src/lib/y2partitioner/widgets/devices_selection.rb:124
 #, fuzzy
@@ -1149,6 +1431,26 @@ msgstr "Shenxisa"
 #, fuzzy
 msgid "Unpartitioned"
 msgstr "Izicwangciso Zezahlulelo"
+
+#. TRANSLATORS: heading for section about a disk device
+#: src/lib/y2partitioner/widgets/disk_device_description.rb:51
+#, fuzzy
+msgid "Hard Disk:"
+msgstr "Okuseqokobheni leKhompyutha:"
+
+#. Translators: Expert menu for disks in the partitioner.
+#: src/lib/y2partitioner/widgets/disk_expert_menu_button.rb:39
+#, fuzzy
+msgid "&Expert..."
+msgstr "Ubu&ngcaphephe..."
+
+#. Menu items
+#.
+#. @return [Array<[Symbol, String]>]
+#: src/lib/y2partitioner/widgets/disk_expert_menu_button.rb:46
+#, fuzzy
+msgid "Create New Partition &Table..."
+msgstr "Dala Isahlulelo Esitsha"
 
 #. help text for cryptofs
 #: src/lib/y2partitioner/widgets/encrypt_password.rb:17
@@ -1264,21 +1566,34 @@ msgstr "Isixhobo se-URI: %1"
 msgid "Do not mount device"
 msgstr "Isahlulelo kwi-Diski"
 
+#. TRANSLATORS: Error message when a device should be mounted by label but no label
+#. is given.
+#. TRANSLATORS: Error messagge when the label is not given.
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:286
+#: src/lib/y2partitioner/widgets/fstab_options.rb:280
+msgid "Provide a volume label to mount by label."
+msgstr "Nikezela ilebhile yesandi ukugxumeka ngelebhile."
+
 #. Synchronize the widget with the information from the controller
-#: src/lib/y2partitioner/widgets/format_and_mount.rb:335
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:382
 #, fuzzy
 #| msgid "File &system"
 msgid "Filesystem"
 msgstr "Isixokelelwano &sefayili"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/format_and_mount.rb:403
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:450
 #, fuzzy
 msgid "Options..."
 msgstr "&Izikhethwa..."
 
 #. @param controller [Actions::Controllers::Filesystem]
-#: src/lib/y2partitioner/widgets/format_and_mount.rb:429
+#. Check box for enabling snapshots
+#.
+#. @return [WidgetTerm]
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:476
+#: src/lib/y2storage/dialogs/guided_setup/select_filesystem/legacy.rb:73
+#: src/lib/y2storage/dialogs/guided_setup/select_filesystem/volume_widget.rb:227
 msgid "Enable Snapshots"
 msgstr ""
 
@@ -1286,7 +1601,7 @@ msgstr ""
 #. An error popup is shown when an empty mount point is entered.
 #.
 #. @return [Boolean] true if mount point is not empty
-#: src/lib/y2partitioner/widgets/format_and_mount.rb:502
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:549
 #, fuzzy
 #| msgid "Empty option strings are not allowed."
 msgid "Empty mount point not allowed."
@@ -1298,7 +1613,7 @@ msgstr "Uluhlu lwamagama esikhethwa esingenanto aluvumelekanga."
 #. @see #duplicated_mount_point?
 #.
 #. @return [Boolean] true if mount point is unique
-#: src/lib/y2partitioner/widgets/format_and_mount.rb:515
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:562
 msgid "This mount point is already in use. Select a different one."
 msgstr "Le ndawo yokugxumeka sele isetyenziswa. Khetha eyohlukileyo."
 
@@ -1306,26 +1621,26 @@ msgstr "Le ndawo yokugxumeka sele isetyenziswa. Khetha eyohlukileyo."
 #. An error popup is shown when a subvolume is shadowed by the mount point.
 #.
 #. @return [Boolean] true if mount point does not shadow a subvolume
-#: src/lib/y2partitioner/widgets/format_and_mount.rb:527
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:574
 #, fuzzy
 msgid "The Btrfs subvolume mounted at %s is shadowed."
 msgstr "Indawo &Yokugxumeka:"
 
 #. @param controller [Actions::Controllers::Filesystem]
-#: src/lib/y2partitioner/widgets/format_and_mount.rb:579
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:626
 #, fuzzy
 #| msgid "Signature Handling"
 msgid "Subvolume Handling"
 msgstr "Ukuphatha Umtyibelo"
 
 #. @param controller [Actions::Controllers::Filesystem]
-#: src/lib/y2partitioner/widgets/format_and_mount.rb:597
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:644
 #, fuzzy
 msgid "Encrypt Device"
 msgstr "&Uguqulelo oluntsonkothileyo"
 
 #. Inode Size format option
-#: src/lib/y2partitioner/widgets/format_and_mount.rb:631
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:678
 msgid "&Inode Size"
 msgstr "&Isayizi ye-Inode"
 
@@ -1340,7 +1655,7 @@ msgstr "&Isayizi ye-Inode"
 #. - :help texts automatically get the :label text prepended as a title
 #. - options will only appear in the final command line if the selected value
 #. is different from the default value
-#: src/lib/y2partitioner/widgets/format_and_mount.rb:648
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:695
 #: src/lib/y2partitioner/widgets/mkfs_optiondata.rb:52
 #: src/lib/y2partitioner/widgets/mkfs_optiondata.rb:182
 #, fuzzy
@@ -1349,62 +1664,72 @@ msgid "Block &Size in Bytes"
 msgstr "Ibhloko &isayizi kwi-bytes"
 
 #. Synchronize the widget with the information from the controller
-#: src/lib/y2partitioner/widgets/format_and_mount.rb:731
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:778
 #, fuzzy
 #| msgid "Partition 2"
 msgid "Partition &ID:"
 msgstr "Isahlulelo 2"
 
 #. Push button that launch a dialog to set the fstab options
-#: src/lib/y2partitioner/widgets/fstab_options.rb:133
+#: src/lib/y2partitioner/widgets/fstab_options.rb:143
 #, fuzzy
 msgid "Fstab Options..."
 msgstr "Izikhethwa ze-Fs&tab"
 
-#. Input field to set the partition Label
-#: src/lib/y2partitioner/widgets/fstab_options.rb:225
-#: src/lib/y2partitioner/widgets/fstab_options.rb:263
+#. Constructor
+#.
+#. @param controller [Actions::Controllers:Filesystem]
+#. @param parent_widget [Widgets::FstabOptions]
+#: src/lib/y2partitioner/widgets/fstab_options.rb:243
+#: src/lib/y2partitioner/widgets/fstab_options.rb:355
 msgid "Volume &Label"
 msgstr "Isandi &iLebhile"
 
+#. TRANSLATORS: Error message when the given label is already in use.
+#: src/lib/y2partitioner/widgets/fstab_options.rb:295
+#, fuzzy
+#| msgid "This volume label is already in use. Select a different one."
+msgid "This volumem label is already in use. Select a different one."
+msgstr "Le lebhile yesandi sele isetyenziswa. Khetha eyohlukileyo."
+
 #. Group of radio buttons to select the type of identifier to be used for
 #. mouth the specific device (UUID, Label, Path...)
-#: src/lib/y2partitioner/widgets/fstab_options.rb:243
+#: src/lib/y2partitioner/widgets/fstab_options.rb:335
 #, fuzzy
 #| msgid "Mount in /etc/fstab by"
 msgid "Mount in /etc/fstab By"
 msgstr "Gxumeka kwi /etc/fstab ngoku"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:262
+#: src/lib/y2partitioner/widgets/fstab_options.rb:354
 msgid "&Device Name"
 msgstr "&Igama Lesixhobo"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:264
+#: src/lib/y2partitioner/widgets/fstab_options.rb:356
 #, fuzzy
 msgid "&UUID"
 msgstr "i-ID"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:268
+#: src/lib/y2partitioner/widgets/fstab_options.rb:360
 msgid "Device &ID"
 msgstr "Isixhobo &i-ID"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:269
+#: src/lib/y2partitioner/widgets/fstab_options.rb:361
 msgid "Device &Path"
 msgstr "Isixhobo &Indlela"
 
 #. CheckBox to disable the automount option when starting up
-#: src/lib/y2partitioner/widgets/fstab_options.rb:337
+#: src/lib/y2partitioner/widgets/fstab_options.rb:440
 msgid "Do Not Mount at System &Start-up"
 msgstr "Qalisa&Musa ukuGxumeka kwisiXokelelwano"
 
 #. CheckBox to enable the read only option ("ro")
-#: src/lib/y2partitioner/widgets/fstab_options.rb:347
+#: src/lib/y2partitioner/widgets/fstab_options.rb:450
 #, fuzzy
 #| msgid "Mount &read-only"
 msgid "Mount &Read-Only"
 msgstr "Gxumeka &u-funda kuphela"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:351
+#: src/lib/y2partitioner/widgets/fstab_options.rb:454
 #, fuzzy
 msgid ""
 "<p><b>Mount Read-Only:</b>\n"
@@ -1417,13 +1742,13 @@ msgstr ""
 "ayiyonyaniso.</p>\n"
 
 #. CheckBox to enable the noatime option
-#: src/lib/y2partitioner/widgets/fstab_options.rb:362
+#: src/lib/y2partitioner/widgets/fstab_options.rb:465
 #, fuzzy
 #| msgid "No &access time"
 msgid "No &Access Time"
 msgstr "Akho &xesha lofikelelo"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:366
+#: src/lib/y2partitioner/widgets/fstab_options.rb:469
 #, fuzzy
 #| msgid ""
 #| "<p><b>No access time:</b>\n"
@@ -1438,13 +1763,13 @@ msgstr ""
 
 #. CheckBox to enable the user option which means allow to mount the
 #. filesystem by an ordinary user
-#: src/lib/y2partitioner/widgets/fstab_options.rb:377
+#: src/lib/y2partitioner/widgets/fstab_options.rb:480
 #, fuzzy
 #| msgid "Mountable by &user"
 msgid "Mountable by User"
 msgstr "Singagxunyekwa ngum&sebenzisi"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:381
+#: src/lib/y2partitioner/widgets/fstab_options.rb:484
 msgid ""
 "<p><b>Mountable by User:</b>\n"
 "The file system may be mounted by an ordinary user. Default is false.</p>\n"
@@ -1454,12 +1779,12 @@ msgstr ""
 "ehlala ikhona ayiyonyaniso.</p>\n"
 
 #. CheckBox to enable the use of user quotas
-#: src/lib/y2partitioner/widgets/fstab_options.rb:392
+#: src/lib/y2partitioner/widgets/fstab_options.rb:495
 #, fuzzy
 msgid "Enable &Quota Support"
 msgstr "Nika Isakhono &Kwinkxaso Yomaleko 2"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:396
+#: src/lib/y2partitioner/widgets/fstab_options.rb:499
 #, fuzzy
 msgid ""
 "<p><b>Enable Quota Support:</b>\n"
@@ -1471,11 +1796,11 @@ msgstr ""
 "ehlala ikhona ayiyonyaniso.</p>\n"
 
 #. CheckBox to enable access control lists (acl)
-#: src/lib/y2partitioner/widgets/fstab_options.rb:436
+#: src/lib/y2partitioner/widgets/fstab_options.rb:539
 msgid "&Access Control Lists (ACL)"
 msgstr "&Izintlu zokuLawula uFikelwlo (ILF)"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:440
+#: src/lib/y2partitioner/widgets/fstab_options.rb:543
 #, fuzzy
 #| msgid ""
 #| "<p><b>Access Control Lists (ACL):</b>\n"
@@ -1489,11 +1814,11 @@ msgstr ""
 "Yenza ube nako ukulawula ufikelelo kwisixokelelwano sefayili.</p>\n"
 
 #. CheckBox to enable extended user attributes (user_xattr)
-#: src/lib/y2partitioner/widgets/fstab_options.rb:453
+#: src/lib/y2partitioner/widgets/fstab_options.rb:556
 msgid "&Extended User Attributes"
 msgstr "&Kwandiswe Iimpawu zoMsebenzisi"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:457
+#: src/lib/y2partitioner/widgets/fstab_options.rb:560
 msgid ""
 "<p><b>Extended User Attributes (user_xattr):</b>\n"
 "Enable extended attributes (name:value pairs) on files and directories.\n"
@@ -1501,27 +1826,27 @@ msgid ""
 msgstr ""
 
 #. ComboBox to specify the journal mode to use by the filesystem
-#: src/lib/y2partitioner/widgets/fstab_options.rb:553
+#: src/lib/y2partitioner/widgets/fstab_options.rb:656
 msgid "Data &Journaling Mode"
 msgstr "Imo yokusebenza yobuntatheli &Inkcukacha"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:562
+#: src/lib/y2partitioner/widgets/fstab_options.rb:665
 #, fuzzy
 #| msgid "Disk Journal"
 msgid "journal"
 msgstr "Ijenali yeDiski"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:563
+#: src/lib/y2partitioner/widgets/fstab_options.rb:666
 msgid "ordered"
 msgstr ""
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:564
+#: src/lib/y2partitioner/widgets/fstab_options.rb:667
 msgid "writeback"
 msgstr ""
 
 #. journal options tend to break remounting root rw (bsc#1077859).
 #. See also root_fstab_options() in lib/y2storage/filesystems/type.rb
-#: src/lib/y2partitioner/widgets/fstab_options.rb:575
+#: src/lib/y2partitioner/widgets/fstab_options.rb:678
 #, fuzzy
 msgid ""
 "<p><b>Data Journaling Mode:</b>\n"
@@ -1547,7 +1872,7 @@ msgstr ""
 
 #. An input field that allows to set other options that are not handled by
 #. specific widgets.
-#: src/lib/y2partitioner/widgets/fstab_options.rb:603
+#: src/lib/y2partitioner/widgets/fstab_options.rb:706
 #, fuzzy
 #| msgid "Arbitrary option &value"
 msgid "Arbitrary Option &Value"
@@ -1562,7 +1887,7 @@ msgstr "Isikhethwa seXabiso &lokuzithandela"
 #. So, when a user insists in adding "noauto,user" here, it is applied
 #. correctly, but when entering the dialog again, the checkboxes pick up
 #. those values and they won't show up in this field anymore.
-#: src/lib/y2partitioner/widgets/fstab_options.rb:627
+#: src/lib/y2partitioner/widgets/fstab_options.rb:730
 msgid ""
 "<p><b>Arbitrary Option Value:</b> Enter any other mount options here, "
 "separated with commas. Notice that this does not do any checking, so be "
@@ -1570,11 +1895,11 @@ msgid ""
 msgstr ""
 
 #. Swap priority
-#: src/lib/y2partitioner/widgets/fstab_options.rb:703
+#: src/lib/y2partitioner/widgets/fstab_options.rb:806
 msgid "Swap &Priority"
 msgstr "Tshintsha &Umba obekwe phambili"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:712
+#: src/lib/y2partitioner/widgets/fstab_options.rb:815
 msgid ""
 "<p><b>Swap Priority:</b>\n"
 "Enter the swap priority. Higher numbers mean higher priority.</p>\n"
@@ -1585,13 +1910,13 @@ msgstr ""
 
 #. "iocharset=utf8" breaks VFAT case insensitivity (bsc#1080731).
 #. See also boot_fstab_options() in lib/y2storage/filesystems/type.rb
-#: src/lib/y2partitioner/widgets/fstab_options.rb:745
+#: src/lib/y2partitioner/widgets/fstab_options.rb:848
 #, fuzzy
 #| msgid "Char&set for file names"
 msgid "Char&set for File Names"
 msgstr "I-Char&set yamagama efayili"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:749
+#: src/lib/y2partitioner/widgets/fstab_options.rb:852
 msgid ""
 "<p><b>Charset for File Names:</b>\n"
 "Set the charset used for display of file names in Windows partitions.</p>\n"
@@ -1600,13 +1925,13 @@ msgstr ""
 "Misela i-charset esetyenziselwa ukubonisa amagama efayili kwisahlulelo.</p>\n"
 
 #. VFAT Codepage
-#: src/lib/y2partitioner/widgets/fstab_options.rb:765
+#: src/lib/y2partitioner/widgets/fstab_options.rb:868
 #, fuzzy
 #| msgid "Code&page for short FAT names"
 msgid "Code&page for Short FAT Names"
 msgstr "Ikhowudi&yekhasi yamagama amafutshane e-FAT"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:769
+#: src/lib/y2partitioner/widgets/fstab_options.rb:872
 msgid ""
 "<p><b>Codepage for Short FAT Names:</b>\n"
 "This codepage is used for converting to shortname characters on FAT file "
@@ -1920,11 +2245,119 @@ msgstr "Imi&gca"
 msgid "%s (%s)"
 msgstr ""
 
+#. Richtext description of a logical volume
+#.
+#. A logical volume description is composed by the header "LVM" and a list of attributes.
+#.
+#. @return [String]
+#. TRANSLATORS: heading for the section about a volume group
+#: src/lib/y2partitioner/widgets/lvm_lv_description.rb:66
+#: src/lib/y2partitioner/widgets/lvm_vg_description.rb:64
+msgid "LVM:"
+msgstr ""
+
+#. TRANSLATORS: Volume group extent size information, where %s is replaced by
+#. a size (e.g., 8 KiB)
+#: src/lib/y2partitioner/widgets/lvm_vg_description.rb:83
+#, fuzzy
+msgid "PE Size: %s"
+msgstr "Isayizi%1"
+
+#. TRANSLATORS: Error message when no device is selected
+#: src/lib/y2partitioner/widgets/lvm_vg_devices_selector.rb:103
+#, fuzzy
+msgid "Select at least one device."
+msgstr "Khetha nje into ibe nye."
+
+#. TRANSLATORS: Error message when the resulting volume group size is not
+#. enough. %s is replaced by a size (e.g., 4 GiB).
+#: src/lib/y2partitioner/widgets/lvm_vg_devices_selector.rb:119
+#, fuzzy
+msgid "The volume group size cannot be less than %s."
+msgstr "Indawo ekusingiswa kuyo %1 sele ikhona."
+
+#. TRANSLATORS: Error message when several physical volumes cannot be removed, where
+#. %{pvs} is replaced by device names (e.g., /dev/sda1, /dev/sda2) and %{vg} is
+#. replaced by the volume group name (e.g., system)
+#: src/lib/y2partitioner/widgets/lvm_vg_devices_selector.rb:140
+msgid ""
+"Removing physical volumes %{pvs} from the volume group %{vg}\n"
+"is not supported because the physical volumes may be already in use"
+msgstr ""
+
+#. TRANSLATORS: Error message when a physical volume cannot be removed, where
+#. %{pvs} is replaced by device name (e.g., /dev/sda1) and %{vg} is replaced
+#. by the volume group name (e.g., system)
+#: src/lib/y2partitioner/widgets/lvm_vg_devices_selector.rb:146
+msgid ""
+"Removing the physical volume %{pvs} from the volume group %{vg}\n"
+"is not supported because the physical volume may be already in use"
+msgstr ""
+
 #. TRANSLATORS: button label to add a MD Raid
 #: src/lib/y2partitioner/widgets/md_add_button.rb:38
 #, fuzzy
 msgid "Add RAID..."
 msgstr "Faka i-RAI&D"
+
+#. TRANSLATORS: heading for section about RAID details
+#: src/lib/y2partitioner/widgets/md_description.rb:51
+#, fuzzy
+msgid "RAID:"
+msgstr "I-R&AID:"
+
+#. TRANSLATORS: RAID type information, where %s is replaced by a
+#. raid type (e.g., RAID0)
+#: src/lib/y2partitioner/widgets/md_description.rb:72
+#, fuzzy
+msgid "RAID Type: %s"
+msgstr "U&hlobo lwe-RAID"
+
+#. TRANSLATORS: chunk size information of the MD RAID, where %s is replaced by
+#. a size (e.g., 8 KiB)
+#: src/lib/y2partitioner/widgets/md_description.rb:83
+#, fuzzy
+msgid "Chunk Size: %s"
+msgstr "Isayizi%1"
+
+#. TRANSLATORS: parity algorithm information of a MD RAID, where %s is replaced by
+#. the name of the parity strategy
+#: src/lib/y2partitioner/widgets/md_description.rb:92
+#, fuzzy
+msgid "Partity algorithm: %s"
+msgstr "Iindlela Zokusombulula Uguqulelo Oluntsonkothileyo:"
+
+#. TRANSLATORS: raid_level is a RAID level (e.g. RAID10); min is a number
+#: src/lib/y2partitioner/widgets/md_devices_selector.rb:81
+#, fuzzy
+msgid "For %{raid_level}, select at least %{min} devices."
+msgstr "Khetha nje into ibe nye."
+
+#. TRANSLATORS: button to move an item to the first position of a sorted list
+#: src/lib/y2partitioner/widgets/md_devices_selector.rb:138
+#, fuzzy
+#| msgid "To"
+msgid "Top"
+msgstr "Ukuya"
+
+#. TRANSLATORS: button to move an item one position up in a sorted list
+#: src/lib/y2partitioner/widgets/md_devices_selector.rb:141
+#, fuzzy
+#| msgid "&Up"
+msgid "Up"
+msgstr "&Phezulu"
+
+#. TRANSLATORS: button to move an item one position down in a sorted list
+#: src/lib/y2partitioner/widgets/md_devices_selector.rb:144
+#, fuzzy
+#| msgid "&Down"
+msgid "Down"
+msgstr "&Phantsi"
+
+#. TRANSLATORS: button to move an item to the last position of a sorted list
+#: src/lib/y2partitioner/widgets/md_devices_selector.rb:147
+msgid "Bottom"
+msgstr ""
 
 #. help text, richtext format
 #: src/lib/y2partitioner/widgets/mkfs_optiondata.rb:57
@@ -2186,7 +2619,7 @@ msgstr "Uqwalaselo lweSixokelelwano"
 
 #. so only warnings there
 #. FIXME: improve Yast2::Popup to allow some text before the buttons
-#: src/lib/y2partitioner/widgets/overview.rb:129
+#: src/lib/y2partitioner/widgets/overview.rb:130
 #, fuzzy
 #| msgid "Do you want to retry?"
 msgid "Do you want to continue?"
@@ -2350,6 +2783,19 @@ msgstr "Isahlulelo 1"
 
 #. @macro seeAbstractWidget
 #. TRANSLATORS: Heading for the expert partitioner page
+#: src/lib/y2partitioner/widgets/pages/settings.rb:42
+#: src/lib/y2partitioner/widgets/pages/settings.rb:55
+msgid "Settings"
+msgstr "Imimiselo"
+
+#. @macro seeAbstractWidget
+#: src/lib/y2partitioner/widgets/pages/settings.rb:75
+#, fuzzy
+msgid "Default Mount by"
+msgstr "Ummandla Wolawulo Ohlala Ukhona"
+
+#. @macro seeAbstractWidget
+#. TRANSLATORS: Heading for the expert partitioner page
 #: src/lib/y2partitioner/widgets/pages/summary.rb:40
 #: src/lib/y2partitioner/widgets/pages/summary.rb:53
 msgid "Installation Summary"
@@ -2360,6 +2806,18 @@ msgstr "Isishwankathelo Sokuhlohla"
 #, fuzzy
 msgid "Available Storage on %s"
 msgstr "Izicwangciso Ezikhoyo: %1"
+
+#. TRANSLATORS: label for button to add a partition
+#: src/lib/y2partitioner/widgets/partition_add_button.rb:39
+#, fuzzy
+msgid "Add Partition..."
+msgstr "Fakela &Isahlulelo"
+
+#. TRANSLATORS: Partition Identifier, where %s is replaced by the partition id (e.g., SWAP)
+#: src/lib/y2partitioner/widgets/partition_description.rb:50
+#, fuzzy
+msgid "Partition ID: %s"
+msgstr "Isahlulelo"
 
 #. TRANSLATORS: button label to rescan devices
 #: src/lib/y2partitioner/widgets/rescan_devices_button.rb:41
@@ -2423,6 +2881,115 @@ msgstr "Isixhobo sokugcina"
 msgid "&Used Devices"
 msgstr "Izixhobo eziWeliweyo"
 
+#. TRANSLATORS: pop-up message. %s is replaced for something like 'server:/path'
+#: src/lib/y2partitioner/yast_nfs_client.rb:223
+#, fuzzy
+msgid ""
+"Test mount of NFS share '%s' failed.\n"
+"Save it anyway?"
+msgstr ""
+"Ukungagxumekwa kuka %1 kusilele.\n"
+"Nakanjani sishenxise isiqhobo?\n"
+
+#. Return the error message to be displayed
+#.
+#. @return [String] Error message
+#. @see Issue#message
+#: src/lib/y2storage/autoinst_issues/exception.rb:63
+msgid "A problem ocurred while creating the partitioning plan: %s"
+msgstr ""
+
+#. TRANSLATORS: 'value' is a generic value (number or string) 'attr' is an AutoYaST element
+#. name; 'new_value_message' is a short explanation about what should be done with the value.
+#: src/lib/y2storage/autoinst_issues/invalid_value.rb:71
+msgid ""
+"Invalid value '%{value}' for attribute '%{attr}' (%{new_value_message})."
+msgstr ""
+
+#. TRANSLATORS: it refers to an AutoYaST profile section
+#: src/lib/y2storage/autoinst_issues/invalid_value.rb:81
+msgid "the section will be skipped"
+msgstr ""
+
+#. TRANSLATORS: 'value' is the value for an AutoYaST element (a number or a string)
+#: src/lib/y2storage/autoinst_issues/invalid_value.rb:84
+msgid "replaced by '%{value}'"
+msgstr ""
+
+#. Return the error message to be displayed
+#.
+#. @return [String] Error message
+#. @see Issue#message
+#: src/lib/y2storage/autoinst_issues/missing_reusable_device.rb:52
+msgid "Reusable device not found"
+msgstr ""
+
+#. Return the error message to be displayed
+#.
+#. @return [String] Error message
+#. @see Issue#message
+#: src/lib/y2storage/autoinst_issues/missing_reuse_info.rb:53
+msgid "Not enough information to locate a device to reuse"
+msgstr ""
+
+#. Return the error message to be displayed
+#.
+#. @return [String] Error message
+#. @see Issue#message
+#: src/lib/y2storage/autoinst_issues/missing_root.rb:48
+msgid "No root partition (/) was found."
+msgstr ""
+
+#. TRANSLATORS: AutoYaST element
+#: src/lib/y2storage/autoinst_issues/missing_value.rb:59
+msgid "Missing element '%{attr}'"
+msgstr ""
+
+#. TRANSLATORS: kernel device name (eg. '/dev/sda1')
+#: src/lib/y2storage/autoinst_issues/no_disk.rb:52
+msgid "Disk '%s' was not found"
+msgstr ""
+
+#: src/lib/y2storage/autoinst_issues/no_disk.rb:54
+msgid "Not suitable disk was found"
+msgstr ""
+
+#. Return the error message to be displayed
+#.
+#. @return [String] Error message
+#. @see Issue#message
+#: src/lib/y2storage/autoinst_issues/no_disk_space.rb:46
+#, fuzzy
+msgid "Not enough disk space"
+msgstr "Akukho okuseqokobheni lekhompyutha kufunyenweyo"
+
+#. TRANSLATORS: %{diff} will be replaced by a size (eg. '4 GiB');
+#. %{device_type} is a device type ('partitions' or 'logical volumes').
+#: src/lib/y2storage/autoinst_issues/shrinked_planned_devices.rb:67
+msgid ""
+"Some additional space (%{diff}) was required for new %{device_type}. As a "
+"consequence, the size of some devices will be adjusted as follows: "
+msgstr ""
+
+#. TRANSLATORS: identifier: partition/logical volume (eg. /dev/sda1, /dev/system/root);
+#. size and diff: disk space (eg. 5.00 GiB)
+#: src/lib/y2storage/autoinst_issues/shrinked_planned_devices.rb:84
+msgid "%{identifier} to %{size} (-%{diff})"
+msgstr ""
+
+#. @return [Hash<String, String>] Device types translations
+#: src/lib/y2storage/autoinst_issues/shrinked_planned_devices.rb:108
+#, fuzzy
+#| msgid "Partition"
+msgid "partitions"
+msgstr "Isahlulelo"
+
+#: src/lib/y2storage/autoinst_issues/shrinked_planned_devices.rb:109
+#, fuzzy
+#| msgid "logical volume"
+msgid "logical volumes"
+msgstr "Isandi ngokwengqiqo elindelekileyo"
+
 #. All fatal boot errors detected in the setup, for example, when a / partition
 #. is missing
 #.
@@ -2439,6 +3006,25 @@ msgstr ""
 #: src/lib/y2storage/boot_requirements_strategies/base.rb:169
 msgid ""
 "Boot requirements cannot be determined because there is no '/' mount point"
+msgstr ""
+
+#. TRANSLATORS: error message
+#: src/lib/y2storage/boot_requirements_strategies/legacy.rb:187
+msgid ""
+"Boot disk has no partition table and it is not possible to boot from it.You "
+"can fix it by creating a partition table on the boot disk."
+msgstr ""
+
+#. TRANSLATORS: error message
+#: src/lib/y2storage/boot_requirements_strategies/legacy.rb:199
+msgid "MBR gap size is not enough to correctly install bootloader"
+msgstr ""
+
+#. TRANSLATORS: error message
+#: src/lib/y2storage/boot_requirements_strategies/zipl.rb:87
+msgid ""
+"Looks like the system is going to be installed on a FBA or LDL device. "
+"Booting from such device is not supported."
 msgstr ""
 
 #. class to implement callbacks used during activate
@@ -2573,6 +3159,152 @@ msgstr "Akukho okuseqokobheni lekhompyutha kufunyenweyo"
 #| msgid "File system options:"
 msgid "Filesystem Options"
 msgstr "Izikhethwa zesixokelelwano sefayili:"
+
+#. Dialog to select filesystems.
+#. This is the simpler version for the legacy-style proposal settings that
+#. support only a separate home volume.
+#. See also SelectFilesystem::Ng.
+#: src/lib/y2storage/dialogs/guided_setup/select_filesystem/legacy.rb:66
+#, fuzzy
+#| msgid "File system options:"
+msgid "File System for Root Partition"
+msgstr "Izikhethwa zesixokelelwano sefayili:"
+
+#. @see #proposed_term
+#: src/lib/y2storage/dialogs/guided_setup/select_filesystem/legacy.rb:82
+#: src/lib/y2storage/dialogs/guided_setup/select_filesystem/volume_widget.rb:200
+#, fuzzy
+#| msgid "Propose Separate &Home Partition"
+msgid "Propose Separate Home Partition"
+msgstr "Ndulula isaHlulelo &eSihlukileyo seKhaya"
+
+#: src/lib/y2storage/dialogs/guided_setup/select_filesystem/legacy.rb:88
+#, fuzzy
+#| msgid "Propose Separate &Home Partition"
+msgid "File System for Home Partition"
+msgstr "Ndulula isaHlulelo &eSihlukileyo seKhaya"
+
+#. TRANSLATORS: "Volume" refers to an LVM logical volume.
+#: src/lib/y2storage/dialogs/guided_setup/select_filesystem/volume_widget.rb:133
+msgid "Settings for the Root Volume"
+msgstr ""
+
+#. TRANSLATORS: "Volume" refers to an LVM logical volume.
+#: src/lib/y2storage/dialogs/guided_setup/select_filesystem/volume_widget.rb:136
+msgid "Settings for the Home Volume"
+msgstr ""
+
+#. TRANSLATORS: "Volume" refers to an LVM logical volume.
+#: src/lib/y2storage/dialogs/guided_setup/select_filesystem/volume_widget.rb:139
+msgid "Settings for Swap Volume"
+msgstr ""
+
+#. TRANSLATORS: "Volume" refers to an LVM logical volume and
+#. "Additional" implies it will be created but not mounted
+#: src/lib/y2storage/dialogs/guided_setup/select_filesystem/volume_widget.rb:143
+msgid "Settings for Additional Volume"
+msgstr ""
+
+#. TRANSLATORS: "Volume" refers to a LVM logical volume. %s is a mount point.
+#: src/lib/y2storage/dialogs/guided_setup/select_filesystem/volume_widget.rb:146
+msgid "Settings for the %s Volume"
+msgstr ""
+
+#. @see #header_term
+#: src/lib/y2storage/dialogs/guided_setup/select_filesystem/volume_widget.rb:154
+#, fuzzy
+#| msgid "File system options:"
+msgid "Settings for the Root Partition"
+msgstr "Izikhethwa zesixokelelwano sefayili:"
+
+#: src/lib/y2storage/dialogs/guided_setup/select_filesystem/volume_widget.rb:156
+#, fuzzy
+#| msgid "Propose Separate &Home Partition"
+msgid "Settings for the Home Partition"
+msgstr "Ndulula isaHlulelo &eSihlukileyo seKhaya"
+
+#: src/lib/y2storage/dialogs/guided_setup/select_filesystem/volume_widget.rb:158
+#, fuzzy
+msgid "Settings for Swap Partition"
+msgstr "Kucinywa isahlulelo %1$s"
+
+#. TRANSLATORS: "Additional" because it will be created but not mounted
+#: src/lib/y2storage/dialogs/guided_setup/select_filesystem/volume_widget.rb:161
+msgid "Settings for Additional Partition"
+msgstr ""
+
+#. TRANSLATORS: %s is a mount point (e.g. /var/lib)
+#: src/lib/y2storage/dialogs/guided_setup/select_filesystem/volume_widget.rb:164
+#, fuzzy
+msgid "Settings for the %s Partition"
+msgstr "Isahlulelo seNgcaphephe"
+
+#. TRANSLATORS: "Volume" refers to a LVM logical volume.
+#: src/lib/y2storage/dialogs/guided_setup/select_filesystem/volume_widget.rb:182
+#, fuzzy
+#| msgid "Propose Separate &Home Partition"
+msgid "Propose Separate Home Volume"
+msgstr "Ndulula isaHlulelo &eSihlukileyo seKhaya"
+
+#. TRANSLATORS: "Volume" refers to a LVM logical volume.
+#: src/lib/y2storage/dialogs/guided_setup/select_filesystem/volume_widget.rb:185
+#, fuzzy
+#| msgid "Propose Separate &Home Partition"
+msgid "Propose Separate Swap Volume"
+msgstr "Ndulula isaHlulelo &eSihlukileyo seKhaya"
+
+#. TRANSLATORS: "Volume" refers to an LVM logical volume and
+#. "Additional" implies it will be created but not mounted
+#: src/lib/y2storage/dialogs/guided_setup/select_filesystem/volume_widget.rb:189
+#, fuzzy
+msgid "Propose Additional Volume"
+msgstr "Izixa ngokwengqiqo elindelekileyo:"
+
+#. TRANSLATORS: "Volume" refers to a LVM logical volume. %s is a mount point.
+#: src/lib/y2storage/dialogs/guided_setup/select_filesystem/volume_widget.rb:192
+#, fuzzy
+#| msgid "Propose Separate &Home Partition"
+msgid "Propose Separate %s Volume"
+msgstr "Ndulula isaHlulelo &eSihlukileyo seKhaya"
+
+#: src/lib/y2storage/dialogs/guided_setup/select_filesystem/volume_widget.rb:202
+#, fuzzy
+#| msgid "Propose Separate &Home Partition"
+msgid "Propose Separate Swap Partition"
+msgstr "Ndulula isaHlulelo &eSihlukileyo seKhaya"
+
+#. TRANSLATORS: "Additional" because it will be created but not mounted
+#: src/lib/y2storage/dialogs/guided_setup/select_filesystem/volume_widget.rb:205
+#, fuzzy
+#| msgid "Propose Separate &Home Partition"
+msgid "Propose Additional Partition"
+msgstr "Ndulula isaHlulelo &eSihlukileyo seKhaya"
+
+#. TRANSLATORS: %s is a mount point (e.g. /var/lib)
+#: src/lib/y2storage/dialogs/guided_setup/select_filesystem/volume_widget.rb:208
+#, fuzzy
+#| msgid "Propose Separate &Home Partition"
+msgid "Propose Separate %s Partition"
+msgstr "Ndulula isaHlulelo &eSihlukileyo seKhaya"
+
+#. Return a widget term for the volume's filesystem type.
+#.
+#. @return [WidgetTerm]
+#: src/lib/y2storage/dialogs/guided_setup/select_filesystem/volume_widget.rb:220
+#, fuzzy
+msgid "File System Type"
+msgstr "Isixokelelwano Seefayili"
+
+#. Check box for enlarging to RAM size
+#.
+#. @return [WidgetTerm]
+#: src/lib/y2storage/dialogs/guided_setup/select_filesystem/volume_widget.rb:234
+msgid "Enlarge to RAM Size for Suspend"
+msgstr ""
+
+#: src/lib/y2storage/dialogs/guided_setup/select_filesystem/volume_widget.rb:234
+msgid "Enlarge to RAM size"
+msgstr ""
 
 #: src/lib/y2storage/dialogs/guided_setup/select_root_disk.rb:69
 msgid "Please select a disk to use as the \"root\" partition (/)"
@@ -2760,6 +3492,33 @@ msgstr ""
 "Okuseqokobheni lakho lekhompyutha kuqwalaselwe. Ukumisela inkqubo "
 "yesahlulelo\n"
 " okubonisiweyo kucetyiselwe okungaphakathi kwiqokobhe lakho lekhompyutha.</p>"
+
+#. Hash with the properties for each mount by type.
+#.
+#. Keys are the symbols representing the types and values are hashes that
+#. can contain:
+#. - `:name` for human string
+#: src/lib/y2storage/filesystems/mount_by_type.rb:44
+msgid "Device Name"
+msgstr "Igama Lesixhobo"
+
+#: src/lib/y2storage/filesystems/mount_by_type.rb:47
+msgid "Device ID"
+msgstr "I-ID Yesixhobo"
+
+#: src/lib/y2storage/filesystems/mount_by_type.rb:50
+#, fuzzy
+msgid "Volume Label"
+msgstr "Isandi &iLebhile"
+
+#: src/lib/y2storage/filesystems/mount_by_type.rb:53
+msgid "Device Path"
+msgstr "Indlela yeSixhob"
+
+#: src/lib/y2storage/filesystems/mount_by_type.rb:56
+#, fuzzy
+msgid "UUID"
+msgstr "i-ID"
 
 #. Class to represent all the possible MD levels
 #.
@@ -2992,13 +3751,6 @@ msgstr "Isahlulelo kwi-Diski"
 #~ msgid "Mount Graph"
 #~ msgstr "&Thumela ngaphandle..."
 
-#~ msgid "Settings"
-#~ msgstr "Imimiselo"
-
-#, fuzzy
-#~ msgid "Select at least one device."
-#~ msgstr "Khetha nje into ibe nye."
-
 #, fuzzy
 #~ msgid "Fstab options..."
 #~ msgstr "Izikhethwa ze-Fs&tab"
@@ -3009,24 +3761,12 @@ msgstr "Isahlulelo kwi-Diski"
 #~ msgstr "Singagxunyekwa ngum&sebenzisi"
 
 #, fuzzy
-#~ msgid "File System:"
-#~ msgstr "Isixokelelwano Seefayili"
-
-#, fuzzy
 #~ msgid ""
 #~ "<p>This view shows detailed information about the\n"
 #~ "selected hard disk.</p><p>The overview contains:</p>"
 #~ msgstr ""
 #~ "<p><b>Yongeza izahlulelo</b> (ezibizwa izixa ezibambekayo) kwiqela lakho "
 #~ "lesixa.</p>"
-
-#, fuzzy
-#~ msgid "Device:"
-#~ msgstr "Isixhobo"
-
-#, fuzzy
-#~ msgid "Hard Disk:"
-#~ msgstr "Okuseqokobheni leKhompyutha:"
 
 #~ msgid "File system &ID:"
 #~ msgstr "Isixokelelwano sefayili & i-ID:"
@@ -3048,26 +3788,6 @@ msgstr "Isahlulelo kwi-Diski"
 #~ "lesixa.</p>"
 
 #, fuzzy
-#~ msgid "PE Size: %s"
-#~ msgstr "Isayizi%1"
-
-#, fuzzy
-#~ msgid "RAID:"
-#~ msgstr "I-R&AID:"
-
-#, fuzzy
-#~ msgid "RAID Type: %s"
-#~ msgstr "U&hlobo lwe-RAID"
-
-#, fuzzy
-#~ msgid "Chunk Size: %s"
-#~ msgstr "Isayizi%1"
-
-#, fuzzy
-#~ msgid "Partity algorithm: %s"
-#~ msgstr "Iindlela Zokusombulula Uguqulelo Oluntsonkothileyo:"
-
-#, fuzzy
 #~ msgid ""
 #~ "<p>This view shows detailed information about the\n"
 #~ "selected partition.</p><p>The overview contains:</p>"
@@ -3078,25 +3798,6 @@ msgstr "Isahlulelo kwi-Diski"
 #, fuzzy
 #~ msgid "FS ID: %s"
 #~ msgstr "i-ID: %1"
-
-#, fuzzy
-#~ msgid "For %{raid_level}, select at least %{min} devices."
-#~ msgstr "Khetha nje into ibe nye."
-
-#, fuzzy
-#~| msgid "File system options:"
-#~ msgid "File System for Root Partition"
-#~ msgstr "Izikhethwa zesixokelelwano sefayili:"
-
-#, fuzzy
-#~| msgid "Propose Separate &Home Partition"
-#~ msgid "Propose Separate Home Partition"
-#~ msgstr "Ndulula isaHlulelo &eSihlukileyo seKhaya"
-
-#, fuzzy
-#~| msgid "Propose Separate &Home Partition"
-#~ msgid "File System for Home Partition"
-#~ msgstr "Ndulula isaHlulelo &eSihlukileyo seKhaya"
 
 #, fuzzy
 #~| msgid ""
@@ -4381,12 +5082,6 @@ msgstr "Isahlulelo kwi-Diski"
 #~ "Ubude belebhile yesandi esincinci yesixokelelwano sefayili esikhethiweyo\n"
 #~ " singu%1. Ilebhile yakho yesandi inqunyulwe yaba yile sayizi.\n"
 
-#~ msgid "Provide a volume label to mount by label."
-#~ msgstr "Nikezela ilebhile yesandi ukugxumeka ngelebhile."
-
-#~ msgid "This volume label is already in use. Select a different one."
-#~ msgstr "Le lebhile yesandi sele isetyenziswa. Khetha eyohlukileyo."
-
 #, fuzzy
 #~| msgid "File System"
 #~ msgid "File &System"
@@ -5305,28 +6000,6 @@ msgstr "Isahlulelo kwi-Diski"
 #~ msgstr "Okungasemva"
 
 #, fuzzy
-#~ msgid "Confirm Deleting of All Partitions"
-#~ msgstr "Ukugxumeka zonke izahlulelo..."
-
-#, fuzzy
-#~ msgid ""
-#~ "The disk \"%1\" contains at least one partition.\n"
-#~ "If you proceed, the following partitions will be deleted:"
-#~ msgstr ""
-#~ "Iqela lesixa \"%1\" liqulethe noko isixa esinye esinengqiqo \n"
-#~ "elindelekileyo.  Ayinako ukushenxiswa. Shenxisa zonke izixa ezinengqiqo "
-#~ "elindelekileyo\n"
-#~ " wandule ukushenxisa iqela lesixa.\n"
-
-#, fuzzy
-#~ msgid "Really delete all partitions on \"%1\"?"
-#~ msgstr "Ngenene uyazicima zonke izahlulelo ku %1?"
-
-#, fuzzy
-#~ msgid "No hard disk selected."
-#~ msgstr "Akukho okuseqokobheni lekhompyutha kufunyenweyo"
-
-#, fuzzy
 #~ msgid "Select new partition table type for %1."
 #~ msgstr "Ukugcina itheybhile yesahlulelo sedisk%1..."
 
@@ -5342,10 +6015,6 @@ msgstr "Isahlulelo kwi-Diski"
 #~| msgid "Really delete all partitions on %1?"
 #~ msgid "Really delete Partitioned RAID %1?"
 #~ msgstr "Ngenene uyazicima zonke izahlulelo ku %1?"
-
-#, fuzzy
-#~ msgid "There are no partitions to delete on this disk."
-#~ msgstr "Akukho zikhethwa zale modyuli"
 
 #~ msgid "It is not possible to create a partition on %1."
 #~ msgstr "Akwenzeki ukudala isahlulelo ku %1."
@@ -5439,14 +6108,6 @@ msgstr "Isahlulelo kwi-Diski"
 #~ msgstr "okuninzi..."
 
 #, fuzzy
-#~ msgid "Resize..."
-#~ msgstr "Nci&phisa"
-
-#, fuzzy
-#~ msgid "Add Partition..."
-#~ msgstr "Fakela &Isahlulelo"
-
-#, fuzzy
 #~ msgid ""
 #~ "<p>This view shows detailed information about the\n"
 #~ "selected hard disk.</p>"
@@ -5471,10 +6132,6 @@ msgstr "Isahlulelo kwi-Diski"
 
 #~ msgid "Execute dasd&fmt on the DASD Device"
 #~ msgstr "Yenza i-dasd&fmt kwisiXhobo se-DASD"
-
-#, fuzzy
-#~ msgid "Expert..."
-#~ msgstr "Ubu&ngcaphephe..."
 
 #, fuzzy
 #~ msgid "Hard Disk: %1"
@@ -5538,22 +6195,6 @@ msgstr "Isahlulelo kwi-Diski"
 #~| msgid "Wrong password."
 #~ msgid "Wrong Password Provided."
 #~ msgstr "Ipaswedi engalunganga!"
-
-#, fuzzy
-#~ msgid "Confirm Deleting Partition Used by LVM"
-#~ msgstr "Kucinywa isahlulelo %1$s"
-
-#, fuzzy
-#~ msgid "Delete partition \"%1\" and volume group \"%2\" now?"
-#~ msgstr "Indawo ekusingiswa kuyo %1 sele ikhona."
-
-#, fuzzy
-#~ msgid "Confirm Deleting Partition Used by RAID"
-#~ msgstr "Kucinywa isahlulelo %1$s"
-
-#, fuzzy
-#~ msgid "Delete partition \"%1\" and RAID \"%2\" now?"
-#~ msgstr "Cima isahlulelo engu %1$s (%2$s)"
 
 #~ msgid "Really delete %1?"
 #~ msgstr "Uyayicima ngenene i-`%1`?"
@@ -5718,29 +6359,6 @@ msgstr "Isahlulelo kwi-Diski"
 #~ msgstr "Igama lomthi alinakuba lide kuneempawu ezingama-32"
 
 #, fuzzy
-#~ msgid "The volume group \"%1\" already exists."
-#~ msgstr "Indawo ekusingiswa kuyo %1 sele ikhona."
-
-#, fuzzy
-#~ msgid "Confirm Deleting of Volume Group"
-#~ msgstr "Yenza Amaqela Esixa"
-
-#, fuzzy
-#~ msgid ""
-#~ "The volume group \"%1\" contains at least one logical volume.\n"
-#~ "If you proceed, the following volumes will be unmounted (if mounted)\n"
-#~ "and deleted:"
-#~ msgstr ""
-#~ "Iqela lesixa \"%1\" liqulethe noko isixa esinye esinengqiqo \n"
-#~ "elindelekileyo.  Ayinako ukushenxiswa. Shenxisa zonke izixa ezinengqiqo "
-#~ "elindelekileyo\n"
-#~ " wandule ukushenxisa iqela lesixa.\n"
-
-#, fuzzy
-#~ msgid "Really delete volume group \"%1\" and all related logical volumes?"
-#~ msgstr "Shenxisa ngenene iqela lesixa \"%1\"?"
-
-#, fuzzy
 #~ msgid ""
 #~ "The name for the logical volume contains illegal characters. Allowed\n"
 #~ "are alphanumeric characters, \".\", \"_\", \"-\" and \"+\"."
@@ -5814,10 +6432,6 @@ msgstr "Isahlulelo kwi-Diski"
 #~ msgstr "Akukho sicwangciso sikhethiweyo."
 
 #, fuzzy
-#~ msgid "No free space left in the volume group \"%1\"."
-#~ msgstr "Akho sithuba sikhoyo kwiqela lesandi elikhoyo ngoku esingu %1."
-
-#, fuzzy
 #~ msgid ""
 #~ "The volume %1 is in use. It cannot be\n"
 #~ "edited. To edit %1, make sure it is not used."
@@ -5825,10 +6439,6 @@ msgstr "Isahlulelo kwi-Diski"
 #~ "I-RAID yokutshintsha (%1) sele idalwe kwidiski.\n"
 #~ "Ayisenako ukutshintshwa. Ukutshintsha oku %1, \n"
 #~ " kushenxise ukudale kwakhona.\n"
-
-#, fuzzy
-#~ msgid "Add Logical Volume"
-#~ msgstr "Izixa ngokwengqiqo elindelekileyo:"
 
 #, fuzzy
 #~ msgid ""
@@ -5901,14 +6511,6 @@ msgstr "Isahlulelo kwi-Diski"
 #, fuzzy
 #~ msgid ": Summary"
 #~ msgstr "Isishwankathelo"
-
-#, fuzzy
-#~ msgid ""
-#~ "Test mount of NFS share '%1' failed.\n"
-#~ "Save it anyway?"
-#~ msgstr ""
-#~ "Ukungagxumekwa kuka %1 kusilele.\n"
-#~ "Nakanjani sishenxise isiqhobo?\n"
 
 #, fuzzy
 #~ msgid "For %1, select at least %2 device."
@@ -6048,24 +6650,6 @@ msgstr "Isahlulelo kwi-Diski"
 #~ " kushenxise ukudale kwakhona.\n"
 
 #, fuzzy
-#~ msgid ""
-#~ "The RAID %1 is already created on disk. It cannot be\n"
-#~ "resized. To resize %1, remove it and create it again."
-#~ msgstr ""
-#~ "I-RAID yokutshintsha (%1) sele idalwe kwidiski.\n"
-#~ "Ayisenako ukutshintshwa. Ukutshintsha oku %1, \n"
-#~ " kushenxise ukudale kwakhona.\n"
-
-#, fuzzy
-#~ msgid ""
-#~ "The RAID %1 is in use. It cannot be\n"
-#~ "resized. To resize %1, make sure it is not used."
-#~ msgstr ""
-#~ "I-RAID yokutshintsha (%1) sele idalwe kwidiski.\n"
-#~ "Ayisenako ukutshintshwa. Ukutshintsha oku %1, \n"
-#~ " kushenxise ukudale kwakhona.\n"
-
-#, fuzzy
 #~ msgid "<p>This view shows all RAIDs except BIOS RAIDs.</p>"
 #~ msgstr ""
 #~ "<p>\n"
@@ -6093,10 +6677,6 @@ msgstr "Isahlulelo kwi-Diski"
 #~ msgstr "i-ID: %1"
 
 #, fuzzy
-#~ msgid "UUID"
-#~ msgstr "i-ID"
-
-#, fuzzy
 #~ msgid "Mount by"
 #~ msgstr "Gxukema Ngo"
 
@@ -6120,19 +6700,6 @@ msgstr "Isahlulelo kwi-Diski"
 #~ msgid "Encryption"
 #~ msgstr "&Uguqulelo oluntsonkothileyo"
 
-#~ msgid "Device Name"
-#~ msgstr "Igama Lesixhobo"
-
-#, fuzzy
-#~ msgid "Volume Label"
-#~ msgstr "Isandi &iLebhile"
-
-#~ msgid "Device ID"
-#~ msgstr "I-ID Yesixhobo"
-
-#~ msgid "Device Path"
-#~ msgstr "Indlela yeSixhob"
-
 #, fuzzy
 #~| msgid "Optional"
 #~ msgid "Optimal"
@@ -6143,10 +6710,6 @@ msgstr "Isahlulelo kwi-Diski"
 #~ msgstr ""
 #~ "\n"
 #~ "Phelisa isilinda:  "
-
-#, fuzzy
-#~ msgid "Default Mount by"
-#~ msgstr "Ummandla Wolawulo Ohlala Ukhona"
 
 #, fuzzy
 #~ msgid "Default File System"
@@ -6240,9 +6803,6 @@ msgstr "Isahlulelo kwi-Diski"
 #~ msgid "You can only remove logical volumes."
 #~ msgstr "Ungashenxisa kuphela izixa ezinengqiqo elindelekileyo."
 
-#~ msgid "Remove the logical volume %1?"
-#~ msgstr "Shenxisa isixa esinengqiqo elindelekileyo%1?"
-
 #, fuzzy
 #~ msgid "Total size: %1"
 #~ msgstr "Ubukhulu Besixa Esipheleleyo:"
@@ -6253,21 +6813,6 @@ msgstr "Isahlulelo kwi-Diski"
 
 #~ msgid "Class"
 #~ msgstr "Udidi"
-
-#, fuzzy
-#~| msgid "To"
-#~ msgid "Top"
-#~ msgstr "Ukuya"
-
-#, fuzzy
-#~| msgid "&Up"
-#~ msgid "Up"
-#~ msgstr "&Phezulu"
-
-#, fuzzy
-#~| msgid "&Down"
-#~ msgid "Down"
-#~ msgstr "&Phantsi"
 
 #, fuzzy
 #~| msgid "Class"
@@ -7074,10 +7619,6 @@ msgstr "Isahlulelo kwi-Diski"
 #~ msgstr "Cima "
 
 #, fuzzy
-#~ msgid "Partition: %s"
-#~ msgstr "Isahlulelo"
-
-#, fuzzy
 #~| msgid "Name"
 #~ msgid "VG Name"
 #~ msgstr "Igama"
@@ -7125,11 +7666,6 @@ msgstr "Isahlulelo kwi-Diski"
 #~ "elindelekileyo.  Ayinako ukushenxiswa. Shenxisa zonke izixa ezinengqiqo "
 #~ "elindelekileyo\n"
 #~ " wandule ukushenxisa iqela lesixa.\n"
-
-#, fuzzy
-#~| msgid "Partition"
-#~ msgid "partition"
-#~ msgstr "Isahlulelo"
 
 #, fuzzy
 #~ msgid "Really delete all devices on \"%s\"?"
@@ -7832,10 +8368,6 @@ msgstr "Isahlulelo kwi-Diski"
 #, fuzzy
 #~ msgid "Set disk label of multipath disk %1$s to %2$s"
 #~ msgstr "Misela ilebhile ye-disk %1$s ku %2$s"
-
-#, fuzzy
-#~ msgid "Deleting raid partition %1$s"
-#~ msgstr "Kucinywa isahlulelo %1$s"
 
 #, fuzzy
 #~ msgid "Delete raid partition %1$s (%2$s)"
@@ -9259,10 +9791,6 @@ msgstr "Isahlulelo kwi-Diski"
 #, fuzzy
 #~ msgid "Space on Logical Volume "
 #~ msgstr "Dala iSixa esineNgqiqo elindelekileyo"
-
-#, fuzzy
-#~ msgid "Space on the Partition"
-#~ msgstr "Isahlulelo seNgcaphephe"
 
 #, fuzzy
 #~ msgid "LV Size Restrictions"
@@ -10744,9 +11272,6 @@ msgstr "Isahlulelo kwi-Diski"
 #~ msgstr ""
 #~ "Sebenzisa&isiCwangciso seNkcukacha ngokuphathelene nokubhaliweyo "
 #~ "okudibana ne-LVM1 eNdala "
-
-#~ msgid "logical volume"
-#~ msgstr "Isandi ngokwengqiqo elindelekileyo"
 
 #~ msgid "No changes made so far could be performed."
 #~ msgstr "Akho tshintsho lwenziweyo kude kube ngoku obelunokwenziwa."
