@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: storage\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-23 02:29+0000\n"
+"POT-Creation-Date: 2018-02-24 02:29+0000\n"
 "PO-Revision-Date: 2018-02-22 11:04+0000\n"
 "Last-Translator: Michael Hogan <mhogan@novell.com>\n"
 "Language-Team: Polish <https://l10n.opensuse.org/projects/yast-storage/"
@@ -500,14 +500,28 @@ msgstr "Edycja woluminu logicznego %(lv_name) na urządzeniu %2"
 msgid "Edit Partition %s"
 msgstr "Edycja partycji %s"
 
+#. TRANSLATORS: %{name} is replaced by a device name (e.g., /dev/sda1).
+#: src/lib/y2partitioner/actions/edit_blk_device.rb:121
+#, fuzzy
+#| msgid ""
+#| "The RAID %1 is in use. It cannot be\n"
+#| "resized. To resize %1, make sure it is not used."
+msgid ""
+"The device %{name} is in use. It cannot be\n"
+"edited. To edit %{name}, make sure it is not used."
+msgstr ""
+"Macierz RAID %1 jest w użyciu. \n"
+"Nie można zmienić jej rozmiaru. Aby dokonać zmiany rozmiaru macierzy %1,\n"
+"należy upewnić się, że nie jest ona używana."
+
 #. TRANSLATORS: Error message when trying to edit an extented partition
-#: src/lib/y2partitioner/actions/edit_blk_device.rb:110
+#: src/lib/y2partitioner/actions/edit_blk_device.rb:134
 msgid "An extended partition cannot be edited"
 msgstr "Partycji rozszerzonej nie można edytować"
 
 #. TRANSLATORS: Error message when trying to edit an LVM thin pool. %{name} is
 #. replaced by a logical volume name (e.g., /dev/system/lv1)
-#: src/lib/y2partitioner/actions/edit_blk_device.rb:121
+#: src/lib/y2partitioner/actions/edit_blk_device.rb:145
 #, fuzzy
 #| msgid ""
 #| "The volume %1 is a thin pool.\n"
@@ -519,8 +533,27 @@ msgstr ""
 "Wolumin %1 jest w puli cienkiej.\n"
 "Nie można go edytować."
 
-#. TRANSLATORS: an error popup message
-#: src/lib/y2partitioner/actions/resize_blk_device.rb:91
+#. TRANSLATORS: %{name} is replaced by a device name (e.g., /dev/sda1).
+#: src/lib/y2partitioner/actions/resize_blk_device.rb:101
+#, fuzzy
+#| msgid ""
+#| "The RAID %1 is in use. It cannot be\n"
+#| "resized. To resize %1, make sure it is not used."
+msgid ""
+"The device %{name} is in use. It cannot be\n"
+"resized. To resize %{name}, make sure it is not used."
+msgstr ""
+"Macierz RAID %1 jest w użyciu. \n"
+"Nie można zmienić jej rozmiaru. Aby dokonać zmiany rozmiaru macierzy %1,\n"
+"należy upewnić się, że nie jest ona używana."
+
+#. Error when the device cannot be resized
+#.
+#. TODO: Distinguish the reason why it is not possible to resize, for example:
+#. * extended partition with committed logical partitions
+#.
+#. @return [String, nil] nil if the device can be resized.
+#: src/lib/y2partitioner/actions/resize_blk_device.rb:116
 #, fuzzy
 #| msgid "This partition cannot be resized."
 msgid "This device cannot be resized."
@@ -2965,7 +2998,7 @@ msgid ""
 "Booting from such device is not supported."
 msgstr ""
 
-#. class to implement callbacks used during activate
+#. Class to implement callbacks used during libstorage-ng activation
 #: src/lib/y2storage/callbacks/activate.rb:43
 msgid ""
 "The system seems to have multipath hardware.\n"
@@ -2983,13 +3016,13 @@ msgstr ""
 #. which implies libstorage-ng will raise the corresponding exception for
 #. the error.
 #.
-#. See Storage::CommitCallbacks#error in libstorage-ng
+#. See Storage::Callbacks#error in libstorage-ng
 #.
 #. @param message [String] error title coming from libstorage-ng
 #. @param what [String] details coming from libstorage-ng
 #. @return [Boolean] true will make libstorage-ng ignore the error, false
 #. will result in a libstorage-ng exception
-#: src/lib/y2storage/callbacks/commit.rb:71
+#: src/lib/y2storage/callbacks/libstorage_callback.rb:66
 msgid "Continue despite the error?"
 msgstr "Czy kontynuować pomimo błędu?"
 
