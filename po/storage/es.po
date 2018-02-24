@@ -23,7 +23,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: storage\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-23 02:29+0000\n"
+"POT-Creation-Date: 2018-02-24 02:29+0000\n"
 "PO-Revision-Date: 2018-02-22 21:20+0000\n"
 "Last-Translator: Juan Sarria <juansarriam@gmail.com>\n"
 "Language-Team: Spanish <https://l10n.opensuse.org/projects/yast-storage/"
@@ -587,18 +587,31 @@ msgstr "Editar volumen lógico %{lv_name} en %{vg}"
 msgid "Edit Partition %s"
 msgstr "Editar partición %s"
 
+#. TRANSLATORS: %{name} is replaced by a device name (e.g., /dev/sda1).
+#: src/lib/y2partitioner/actions/edit_blk_device.rb:121
+#, fuzzy
+#| msgid ""
+#| "The RAID %1 is in use. It cannot be\n"
+#| "resized. To resize %1, make sure it is not used."
+msgid ""
+"The device %{name} is in use. It cannot be\n"
+"edited. To edit %{name}, make sure it is not used."
+msgstr ""
+"El RAID %1 está en uso y no puede ser redimensionado.\n"
+"Para cambiar el tamaño de %1, asegúrese de que no se usa."
+
 #
 # clients/inst_custom_part.ycp:2233
 # clients/inst_custom_part.ycp:2232
 # clients/inst_custom_part.ycp:2244
 #. TRANSLATORS: Error message when trying to edit an extented partition
-#: src/lib/y2partitioner/actions/edit_blk_device.rb:110
+#: src/lib/y2partitioner/actions/edit_blk_device.rb:134
 msgid "An extended partition cannot be edited"
 msgstr "Las particiones extendidas no se pueden editar"
 
 #. TRANSLATORS: Error message when trying to edit an LVM thin pool. %{name} is
 #. replaced by a logical volume name (e.g., /dev/system/lv1)
-#: src/lib/y2partitioner/actions/edit_blk_device.rb:121
+#: src/lib/y2partitioner/actions/edit_blk_device.rb:145
 msgid ""
 "The volume %{name} is a thin pool.\n"
 "It cannot be edited."
@@ -606,12 +619,30 @@ msgstr ""
 "El volumen %{name} está en un depósito flexible.\n"
 "No puede editarse."
 
+#. TRANSLATORS: %{name} is replaced by a device name (e.g., /dev/sda1).
+#: src/lib/y2partitioner/actions/resize_blk_device.rb:101
+#, fuzzy
+#| msgid ""
+#| "The RAID %1 is in use. It cannot be\n"
+#| "resized. To resize %1, make sure it is not used."
+msgid ""
+"The device %{name} is in use. It cannot be\n"
+"resized. To resize %{name}, make sure it is not used."
+msgstr ""
+"El RAID %1 está en uso y no puede ser redimensionado.\n"
+"Para cambiar el tamaño de %1, asegúrese de que no se usa."
+
 #
 # clients/inst_custom_part.ycp:2233
 # clients/inst_custom_part.ycp:2232
 # clients/inst_custom_part.ycp:2244
-#. TRANSLATORS: an error popup message
-#: src/lib/y2partitioner/actions/resize_blk_device.rb:91
+#. Error when the device cannot be resized
+#.
+#. TODO: Distinguish the reason why it is not possible to resize, for example:
+#. * extended partition with committed logical partitions
+#.
+#. @return [String, nil] nil if the device can be resized.
+#: src/lib/y2partitioner/actions/resize_blk_device.rb:116
 msgid "This device cannot be resized."
 msgstr "No es posible cambiar el tamaño de este dispositivo."
 
@@ -3297,7 +3328,7 @@ msgid ""
 "Booting from such device is not supported."
 msgstr ""
 
-#. class to implement callbacks used during activate
+#. Class to implement callbacks used during libstorage-ng activation
 #: src/lib/y2storage/callbacks/activate.rb:43
 msgid ""
 "The system seems to have multipath hardware.\n"
@@ -3315,13 +3346,13 @@ msgstr ""
 #. which implies libstorage-ng will raise the corresponding exception for
 #. the error.
 #.
-#. See Storage::CommitCallbacks#error in libstorage-ng
+#. See Storage::Callbacks#error in libstorage-ng
 #.
 #. @param message [String] error title coming from libstorage-ng
 #. @param what [String] details coming from libstorage-ng
 #. @return [Boolean] true will make libstorage-ng ignore the error, false
 #. will result in a libstorage-ng exception
-#: src/lib/y2storage/callbacks/commit.rb:71
+#: src/lib/y2storage/callbacks/libstorage_callback.rb:66
 msgid "Continue despite the error?"
 msgstr "¿Desea continuar a pesar del error?"
 

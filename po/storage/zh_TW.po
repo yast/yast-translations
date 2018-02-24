@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: storage\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-23 02:29+0000\n"
+"POT-Creation-Date: 2018-02-24 02:29+0000\n"
 "PO-Revision-Date: 2018-02-14 09:01+0000\n"
 "Last-Translator: Emily Dong <Emily.Dong@excel-gits.com>\n"
 "Language-Team: Chinese (Taiwan) <https://l10n.opensuse.org/projects/yast-"
@@ -484,14 +484,27 @@ msgstr "編輯 %{vg} 上的邏輯磁碟區 %{lv_name}"
 msgid "Edit Partition %s"
 msgstr "編輯分割區 %s"
 
+#. TRANSLATORS: %{name} is replaced by a device name (e.g., /dev/sda1).
+#: src/lib/y2partitioner/actions/edit_blk_device.rb:121
+#, fuzzy
+#| msgid ""
+#| "The RAID %1 is in use. It cannot be\n"
+#| "resized. To resize %1, make sure it is not used."
+msgid ""
+"The device %{name} is in use. It cannot be\n"
+"edited. To edit %{name}, make sure it is not used."
+msgstr ""
+"RAID %1 正在使用中，無法調整其大小。\n"
+"若要調整 %1 的大小，請確定它未在使用中。"
+
 #. TRANSLATORS: Error message when trying to edit an extented partition
-#: src/lib/y2partitioner/actions/edit_blk_device.rb:110
+#: src/lib/y2partitioner/actions/edit_blk_device.rb:134
 msgid "An extended partition cannot be edited"
 msgstr "無法編輯延伸分割區"
 
 #. TRANSLATORS: Error message when trying to edit an LVM thin pool. %{name} is
 #. replaced by a logical volume name (e.g., /dev/system/lv1)
-#: src/lib/y2partitioner/actions/edit_blk_device.rb:121
+#: src/lib/y2partitioner/actions/edit_blk_device.rb:145
 msgid ""
 "The volume %{name} is a thin pool.\n"
 "It cannot be edited."
@@ -499,8 +512,26 @@ msgstr ""
 "磁碟區 %{name} 是一個簡易池，\n"
 "無法編輯。"
 
-#. TRANSLATORS: an error popup message
-#: src/lib/y2partitioner/actions/resize_blk_device.rb:91
+#. TRANSLATORS: %{name} is replaced by a device name (e.g., /dev/sda1).
+#: src/lib/y2partitioner/actions/resize_blk_device.rb:101
+#, fuzzy
+#| msgid ""
+#| "The RAID %1 is in use. It cannot be\n"
+#| "resized. To resize %1, make sure it is not used."
+msgid ""
+"The device %{name} is in use. It cannot be\n"
+"resized. To resize %{name}, make sure it is not used."
+msgstr ""
+"RAID %1 正在使用中，無法調整其大小。\n"
+"若要調整 %1 的大小，請確定它未在使用中。"
+
+#. Error when the device cannot be resized
+#.
+#. TODO: Distinguish the reason why it is not possible to resize, for example:
+#. * extended partition with committed logical partitions
+#.
+#. @return [String, nil] nil if the device can be resized.
+#: src/lib/y2partitioner/actions/resize_blk_device.rb:116
 msgid "This device cannot be resized."
 msgstr "無法調整此裝置大小。"
 
@@ -2818,7 +2849,7 @@ msgid ""
 "Booting from such device is not supported."
 msgstr ""
 
-#. class to implement callbacks used during activate
+#. Class to implement callbacks used during libstorage-ng activation
 #: src/lib/y2storage/callbacks/activate.rb:43
 msgid ""
 "The system seems to have multipath hardware.\n"
@@ -2836,13 +2867,13 @@ msgstr ""
 #. which implies libstorage-ng will raise the corresponding exception for
 #. the error.
 #.
-#. See Storage::CommitCallbacks#error in libstorage-ng
+#. See Storage::Callbacks#error in libstorage-ng
 #.
 #. @param message [String] error title coming from libstorage-ng
 #. @param what [String] details coming from libstorage-ng
 #. @return [Boolean] true will make libstorage-ng ignore the error, false
 #. will result in a libstorage-ng exception
-#: src/lib/y2storage/callbacks/commit.rb:71
+#: src/lib/y2storage/callbacks/libstorage_callback.rb:66
 msgid "Continue despite the error?"
 msgstr "忽略此錯誤並繼續？"
 
