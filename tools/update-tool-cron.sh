@@ -28,7 +28,8 @@ function make_pot {
     pushd $MODULE_DIR
 
     rm -f *.pot
-    $Y2MAKEPOT
+    # ignore errors, stopping here would skip the other packages
+    $Y2MAKEPOT || true
 
     for POT in *.pot ; do
 	local DOMAIN=${POT%.pot}
