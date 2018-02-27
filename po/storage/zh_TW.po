@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: storage\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-24 02:29+0000\n"
+"POT-Creation-Date: 2018-02-27 02:29+0000\n"
 "PO-Revision-Date: 2018-02-14 09:01+0000\n"
 "Last-Translator: Emily Dong <Emily.Dong@excel-gits.com>\n"
 "Language-Team: Chinese (Taiwan) <https://l10n.opensuse.org/projects/yast-"
@@ -1398,7 +1398,7 @@ msgid "Create New Partition &Table..."
 msgstr "在 %s 上建立新分割區表"
 
 #. help text for cryptofs
-#: src/lib/y2partitioner/widgets/encrypt_password.rb:17
+#: src/lib/y2partitioner/widgets/encrypt_password.rb:20
 msgid ""
 "<p>\n"
 "You will need to enter your encryption password.\n"
@@ -1419,27 +1419,20 @@ msgstr ""
 "進行更新時便不會存取該檔案系統。\n"
 "</p>\n"
 
-#: src/lib/y2partitioner/widgets/encrypt_password.rb:35
-msgid ""
-"'Password' and 'Retype password'\n"
-"do not match. Retype the password."
-msgstr ""
-"「密碼」和「重新輸入密碼」\n"
-"不符。請重新輸入密碼。"
-
-#: src/lib/y2partitioner/widgets/encrypt_password.rb:49
+#. @macro seeCustomWidget
+#: src/lib/y2partitioner/widgets/encrypt_password.rb:55
 msgid "Encryption Password"
 msgstr "加密密碼"
 
 #. Label: get password for user root
 #. Please use newline if label is longer than 40 characters
-#: src/lib/y2partitioner/widgets/encrypt_password.rb:59
+#: src/lib/y2partitioner/widgets/encrypt_password.rb:65
 msgid "&Enter a Password for your File System:"
 msgstr "為您的檔案系統輸入密碼(&E)："
 
 #. Label: get same password again for verification
 #. Please use newline if label is longer than 40 characters
-#: src/lib/y2partitioner/widgets/encrypt_password.rb:67
+#: src/lib/y2partitioner/widgets/encrypt_password.rb:73
 msgid "Reenter the Password for &Verification:"
 msgstr "重新輸入密碼以進行確認(&V)："
 
@@ -1560,8 +1553,15 @@ msgstr "子磁碟區處理"
 msgid "Encrypt Device"
 msgstr "加密裝置"
 
+#. FIXME: have generic check when new partition is created if it is valid
+#. like e.g. if fs fits to partition, and others
+#. size number is from bsc1065071#c5
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:671
+msgid "Only devices bigger than 2 MiB can be encrypted."
+msgstr ""
+
 #. Inode Size format option
-#: src/lib/y2partitioner/widgets/format_and_mount.rb:678
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:691
 msgid "&Inode Size"
 msgstr "Inode 大小(&I)"
 
@@ -1576,14 +1576,14 @@ msgstr "Inode 大小(&I)"
 #. - :help texts automatically get the :label text prepended as a title
 #. - options will only appear in the final command line if the selected value
 #. is different from the default value
-#: src/lib/y2partitioner/widgets/format_and_mount.rb:695
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:708
 #: src/lib/y2partitioner/widgets/mkfs_optiondata.rb:52
 #: src/lib/y2partitioner/widgets/mkfs_optiondata.rb:182
 msgid "Block &Size in Bytes"
 msgstr "區塊大小 (以位元組為單位)(&S)"
 
 #. Synchronize the widget with the information from the controller
-#: src/lib/y2partitioner/widgets/format_and_mount.rb:778
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:791
 msgid "Partition &ID:"
 msgstr "分割區 ID(&I)："
 
@@ -2712,6 +2712,16 @@ msgstr ""
 "NFS 共用「%1」的測試掛接失敗。\n"
 "仍要儲存嗎？"
 
+#. TRANSLATORS: %d is the amount of actions, %s an URL
+#: src/lib/y2storage/actions_presenter.rb:107
+msgid "%d subvolume actions (<a href=\"%s\">see details</a>)"
+msgstr ""
+
+#. TRANSLATORS: %d is the amount of actions, %s an URL
+#: src/lib/y2storage/actions_presenter.rb:110
+msgid "%d subvolume actions (<a href=\"%s\">hide details</a>)"
+msgstr ""
+
 #. Return the error message to be displayed
 #.
 #. @return [String] Error message
@@ -2824,21 +2834,26 @@ msgstr "邏輯磁碟區(&L)"
 msgid "There is no device mounted at '/'"
 msgstr ""
 
+#: src/lib/y2storage/boot_requirements_strategies/base.rb:100
+msgid ""
+"The device mounted at '/boot' does not have enough space to contain a kernel."
+msgstr ""
+
 #. TRANSLATORS: error message
-#: src/lib/y2storage/boot_requirements_strategies/base.rb:169
+#: src/lib/y2storage/boot_requirements_strategies/base.rb:185
 msgid ""
 "Boot requirements cannot be determined because there is no '/' mount point"
 msgstr "無法確定開機要求，因為不存在「/」掛接點"
 
 #. TRANSLATORS: error message
-#: src/lib/y2storage/boot_requirements_strategies/legacy.rb:187
+#: src/lib/y2storage/boot_requirements_strategies/legacy.rb:164
 msgid ""
 "Boot disk has no partition table and it is not possible to boot from it.You "
 "can fix it by creating a partition table on the boot disk."
 msgstr ""
 
 #. TRANSLATORS: error message
-#: src/lib/y2storage/boot_requirements_strategies/legacy.rb:199
+#: src/lib/y2storage/boot_requirements_strategies/legacy.rb:176
 msgid "MBR gap size is not enough to correctly install bootloader"
 msgstr ""
 
@@ -3161,55 +3176,29 @@ msgstr "選擇要對其他分割區執行的操作"
 msgid "Any disk"
 msgstr "任何磁碟"
 
-#. Handler for :encryption check box.
-#. @param focus [Boolean] whether password field should be focused
-#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:56
+#. @return [EncryptPasswordChecker]
+#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:59
 msgid "Partitioning Scheme"
 msgstr "磁碟分割配置"
 
-#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:62
+#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:65
 msgid "Enable Logical Volume Management (LVM)"
 msgstr "啟用邏輯磁碟區管理 (LVM)"
 
-#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:64
+#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:67
 msgid "Enable Disk Encryption"
 msgstr "啟用磁碟加密"
 
-#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:69
+#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:72
 msgid "Password"
 msgstr "密碼"
 
-#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:75
+#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:78
 msgid "Verify Password"
 msgstr "驗證密碼"
 
-#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:128
-msgid "A password is needed"
-msgstr "需要提供密碼"
-
-#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:134
-msgid "Password does not match"
-msgstr "密碼不符"
-
-#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:143
-msgid "The password must have at least %d characters."
-msgstr "密碼至少必須有 %d 個字元。"
-
-#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:144
-msgid ""
-"The password may only contain the following characters:\n"
-"0..9, a..z, A..Z, and any of \"@#* ,.;:._-+=!$%&/|?{[()]}^\\<>\"."
-msgstr ""
-"密碼只能包含下列字元：\n"
-"0..9、a..z、A..Z 以及「@#* ,.;:._-+=!$%&/|?{[()]}^\\<>」中的任意字元。"
-
-#. Password is considered strong when cracklib returns an empty message.
 #. User has the last word to decide whether to use a weak password.
-#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:160
-msgid "The password is too simple:"
-msgstr "密碼太簡單："
-
-#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:163
+#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:128
 msgid "Really use this password?"
 msgstr "確定要使用此密碼嗎？"
 
@@ -3254,6 +3243,34 @@ msgstr ""
 "<p>\n"
 "已檢查您的硬碟。建議設定硬碟為\n"
 "顯示的分割區設定。</p>"
+
+#. Password is considered strong when cracklib returns an empty message.
+#: src/lib/y2storage/encrypt_password_checker.rb:85
+msgid "The password is too simple:"
+msgstr "密碼太簡單："
+
+#. @return [String, nil]
+#: src/lib/y2storage/encrypt_password_checker.rb:96
+msgid "A password is needed"
+msgstr "需要提供密碼"
+
+#. @return [String, nil]
+#: src/lib/y2storage/encrypt_password_checker.rb:101
+msgid "Password does not match"
+msgstr "密碼不符"
+
+#. @return [String, nil]
+#: src/lib/y2storage/encrypt_password_checker.rb:110
+msgid "The password must have at least %d characters."
+msgstr "密碼至少必須有 %d 個字元。"
+
+#: src/lib/y2storage/encrypt_password_checker.rb:111
+msgid ""
+"The password may only contain the following characters:\n"
+"0..9, a..z, A..Z, and any of \"@#* ,.;:._-+=!$%&/|?{[()]}^\\<>\"."
+msgstr ""
+"密碼只能包含下列字元：\n"
+"0..9、a..z、A..Z 以及「@#* ,.;:._-+=!$%&/|?{[()]}^\\<>」中的任意字元。"
 
 #. Hash with the properties for each mount by type.
 #.
@@ -3463,6 +3480,13 @@ msgstr "Microsoft 保留的分割區"
 #: src/lib/y2storage/partition_id.rb:54
 msgid "Diagnostics Partition"
 msgstr "診斷分割區"
+
+#~ msgid ""
+#~ "'Password' and 'Retype password'\n"
+#~ "do not match. Retype the password."
+#~ msgstr ""
+#~ "「密碼」和「重新輸入密碼」\n"
+#~ "不符。請重新輸入密碼。"
 
 #~ msgid "Crypt Files"
 #~ msgstr "加密檔案"

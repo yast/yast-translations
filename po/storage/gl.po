@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: YaST2 (partitioning)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-24 02:29+0000\n"
+"POT-Creation-Date: 2018-02-27 02:29+0000\n"
 "PO-Revision-Date: 2011-10-31 17:55+0100\n"
 "Last-Translator: Manuel A. Vazquez <xixirei@yahoo.es>\n"
 "Language-Team: Galego <kde-i18n-doc@kde.org>\n"
@@ -1577,7 +1577,7 @@ msgid "Create New Partition &Table..."
 msgstr "Crear nova táboa de particións"
 
 #. help text for cryptofs
-#: src/lib/y2partitioner/widgets/encrypt_password.rb:17
+#: src/lib/y2partitioner/widgets/encrypt_password.rb:20
 #, fuzzy
 #| msgid ""
 #| "<p>\n"
@@ -1605,13 +1605,8 @@ msgstr ""
 "Neste caso, non se accede ao sistema de ficheiros durante a actualización.\n"
 "</p>\n"
 
-#: src/lib/y2partitioner/widgets/encrypt_password.rb:35
-msgid ""
-"'Password' and 'Retype password'\n"
-"do not match. Retype the password."
-msgstr ""
-
-#: src/lib/y2partitioner/widgets/encrypt_password.rb:49
+#. @macro seeCustomWidget
+#: src/lib/y2partitioner/widgets/encrypt_password.rb:55
 #, fuzzy
 #| msgid "Enter Encryption Password"
 msgid "Encryption Password"
@@ -1619,7 +1614,7 @@ msgstr "Introduza o contrasinal de cifrado"
 
 #. Label: get password for user root
 #. Please use newline if label is longer than 40 characters
-#: src/lib/y2partitioner/widgets/encrypt_password.rb:59
+#: src/lib/y2partitioner/widgets/encrypt_password.rb:65
 #, fuzzy
 #| msgid "&Enter a password for your file system:"
 msgid "&Enter a Password for your File System:"
@@ -1627,7 +1622,7 @@ msgstr "&Introduza un contrasinal para o seu sistema de ficheiros:"
 
 #. Label: get same password again for verification
 #. Please use newline if label is longer than 40 characters
-#: src/lib/y2partitioner/widgets/encrypt_password.rb:67
+#: src/lib/y2partitioner/widgets/encrypt_password.rb:73
 #, fuzzy
 #| msgid "Reenter the password for &verification:"
 msgid "Reenter the Password for &Verification:"
@@ -1778,8 +1773,15 @@ msgstr "Xestión de subvolumes"
 msgid "Encrypt Device"
 msgstr "&Cifrar dispositivo"
 
+#. FIXME: have generic check when new partition is created if it is valid
+#. like e.g. if fs fits to partition, and others
+#. size number is from bsc1065071#c5
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:671
+msgid "Only devices bigger than 2 MiB can be encrypted."
+msgstr ""
+
 #. Inode Size format option
-#: src/lib/y2partitioner/widgets/format_and_mount.rb:678
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:691
 msgid "&Inode Size"
 msgstr "Tamaño do &inodo"
 
@@ -1794,7 +1796,7 @@ msgstr "Tamaño do &inodo"
 #. - :help texts automatically get the :label text prepended as a title
 #. - options will only appear in the final command line if the selected value
 #. is different from the default value
-#: src/lib/y2partitioner/widgets/format_and_mount.rb:695
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:708
 #: src/lib/y2partitioner/widgets/mkfs_optiondata.rb:52
 #: src/lib/y2partitioner/widgets/mkfs_optiondata.rb:182
 #, fuzzy
@@ -1803,7 +1805,7 @@ msgid "Block &Size in Bytes"
 msgstr "&Tamaño do bloque en bytes"
 
 #. Synchronize the widget with the information from the controller
-#: src/lib/y2partitioner/widgets/format_and_mount.rb:778
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:791
 #, fuzzy
 msgid "Partition &ID:"
 msgstr "Particionador Experto"
@@ -3153,6 +3155,16 @@ msgstr ""
 "A proba de montaxe do recurso compartido NFS \"%1\" fallou.\n"
 "Gardar a pesares do erro?"
 
+#. TRANSLATORS: %d is the amount of actions, %s an URL
+#: src/lib/y2storage/actions_presenter.rb:107
+msgid "%d subvolume actions (<a href=\"%s\">see details</a>)"
+msgstr ""
+
+#. TRANSLATORS: %d is the amount of actions, %s an URL
+#: src/lib/y2storage/actions_presenter.rb:110
+msgid "%d subvolume actions (<a href=\"%s\">hide details</a>)"
+msgstr ""
+
 #. Return the error message to be displayed
 #.
 #. @return [String] Error message
@@ -3265,21 +3277,26 @@ msgstr "Volumes &lóxicos"
 msgid "There is no device mounted at '/'"
 msgstr ""
 
+#: src/lib/y2storage/boot_requirements_strategies/base.rb:100
+msgid ""
+"The device mounted at '/boot' does not have enough space to contain a kernel."
+msgstr ""
+
 #. TRANSLATORS: error message
-#: src/lib/y2storage/boot_requirements_strategies/base.rb:169
+#: src/lib/y2storage/boot_requirements_strategies/base.rb:185
 msgid ""
 "Boot requirements cannot be determined because there is no '/' mount point"
 msgstr ""
 
 #. TRANSLATORS: error message
-#: src/lib/y2storage/boot_requirements_strategies/legacy.rb:187
+#: src/lib/y2storage/boot_requirements_strategies/legacy.rb:164
 msgid ""
 "Boot disk has no partition table and it is not possible to boot from it.You "
 "can fix it by creating a partition table on the boot disk."
 msgstr ""
 
 #. TRANSLATORS: error message
-#: src/lib/y2storage/boot_requirements_strategies/legacy.rb:199
+#: src/lib/y2storage/boot_requirements_strategies/legacy.rb:176
 msgid "MBR gap size is not enough to correctly install bootloader"
 msgstr ""
 
@@ -3627,72 +3644,38 @@ msgstr "<p>Escolla o tamaño para a súa nova partición</p>"
 msgid "Any disk"
 msgstr ""
 
-#. Handler for :encryption check box.
-#. @param focus [Boolean] whether password field should be focused
-#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:56
+#. @return [EncryptPasswordChecker]
+#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:59
 #, fuzzy
 #| msgid "Partitioning"
 msgid "Partitioning Scheme"
 msgstr "Particionando"
 
-#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:62
+#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:65
 #, fuzzy
 msgid "Enable Logical Volume Management (LVM)"
 msgstr ""
 "¿Realmente desexa reler a táboa de particións?\n"
 "¡Tódolos cambios feitos perderanse!"
 
-#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:64
+#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:67
 #, fuzzy
 #| msgid "Encryption"
 msgid "Enable Disk Encryption"
 msgstr "Cifrado"
 
-#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:69
+#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:72
 msgid "Password"
 msgstr "Contrasinal"
 
-#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:75
+#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:78
 #, fuzzy
 #| msgid "Provide Password"
 msgid "Verify Password"
 msgstr "Proporcionar contrasinal"
 
-#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:128
-msgid "A password is needed"
-msgstr ""
-
-#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:134
-msgid "Password does not match"
-msgstr ""
-
-#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:143
-#, fuzzy
-#| msgid ""
-#| "The password must have at least %1 characters.\n"
-#| "Try again.\n"
-msgid "The password must have at least %d characters."
-msgstr ""
-"O contrasinal debe ter polo menos %1 caracteres.\n"
-"Ténteo outra vez.\n"
-
-#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:144
-#, fuzzy
-msgid ""
-"The password may only contain the following characters:\n"
-"0..9, a..z, A..Z, and any of \"@#* ,.;:._-+=!$%&/|?{[()]}^\\<>\"."
-msgstr ""
-"O contrasinal só pode conter os seguintes caracteres:\n"
-" 0..9, a..z, A..Z, e calquera de \"#* ,.;:._-+!$%&/|?{[()]}\".\n"
-"Tente de novo."
-
-#. Password is considered strong when cracklib returns an empty message.
 #. User has the last word to decide whether to use a weak password.
-#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:160
-msgid "The password is too simple:"
-msgstr ""
-
-#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:163
+#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:128
 #, fuzzy
 #| msgid "Really use this setup?"
 msgid "Really use this password?"
@@ -3748,6 +3731,42 @@ msgstr ""
 "<p>\n"
 "Comprobáronse os discos duros. A configuración de particións\n"
 "que se amosa é a que se propón para o disco duro.</p>"
+
+#. Password is considered strong when cracklib returns an empty message.
+#: src/lib/y2storage/encrypt_password_checker.rb:85
+msgid "The password is too simple:"
+msgstr ""
+
+#. @return [String, nil]
+#: src/lib/y2storage/encrypt_password_checker.rb:96
+msgid "A password is needed"
+msgstr ""
+
+#. @return [String, nil]
+#: src/lib/y2storage/encrypt_password_checker.rb:101
+msgid "Password does not match"
+msgstr ""
+
+#. @return [String, nil]
+#: src/lib/y2storage/encrypt_password_checker.rb:110
+#, fuzzy
+#| msgid ""
+#| "The password must have at least %1 characters.\n"
+#| "Try again.\n"
+msgid "The password must have at least %d characters."
+msgstr ""
+"O contrasinal debe ter polo menos %1 caracteres.\n"
+"Ténteo outra vez.\n"
+
+#: src/lib/y2storage/encrypt_password_checker.rb:111
+#, fuzzy
+msgid ""
+"The password may only contain the following characters:\n"
+"0..9, a..z, A..Z, and any of \"@#* ,.;:._-+=!$%&/|?{[()]}^\\<>\"."
+msgstr ""
+"O contrasinal só pode conter os seguintes caracteres:\n"
+" 0..9, a..z, A..Z, e calquera de \"#* ,.;:._-+!$%&/|?{[()]}\".\n"
+"Tente de novo."
 
 #. Hash with the properties for each mount by type.
 #.

@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: storage\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-24 02:29+0000\n"
+"POT-Creation-Date: 2018-02-27 02:29+0000\n"
 "PO-Revision-Date: 2017-08-20 07:17+0000\n"
 "Last-Translator: Mindaugas Baranauskas <opensuse.lietuviu.kalba@gmail.com>\n"
 "Language-Team: Lithuanian <https://l10n.opensuse.org/projects/yast-storage/"
@@ -1527,7 +1527,7 @@ msgid "Create New Partition &Table..."
 msgstr "Sukurti naują skaidinių lentelę"
 
 #. help text for cryptofs
-#: src/lib/y2partitioner/widgets/encrypt_password.rb:17
+#: src/lib/y2partitioner/widgets/encrypt_password.rb:20
 #, fuzzy
 #| msgid ""
 #| "<p>\n"
@@ -1554,13 +1554,8 @@ msgstr ""
 "atnaujinimo metu nepaliečiama.\n"
 "</p>\n"
 
-#: src/lib/y2partitioner/widgets/encrypt_password.rb:35
-msgid ""
-"'Password' and 'Retype password'\n"
-"do not match. Retype the password."
-msgstr ""
-
-#: src/lib/y2partitioner/widgets/encrypt_password.rb:49
+#. @macro seeCustomWidget
+#: src/lib/y2partitioner/widgets/encrypt_password.rb:55
 #, fuzzy
 #| msgid "Enter Encryption Password"
 msgid "Encryption Password"
@@ -1568,13 +1563,13 @@ msgstr "Įveskite šifravimo slaptažodį"
 
 #. Label: get password for user root
 #. Please use newline if label is longer than 40 characters
-#: src/lib/y2partitioner/widgets/encrypt_password.rb:59
+#: src/lib/y2partitioner/widgets/encrypt_password.rb:65
 msgid "&Enter a Password for your File System:"
 msgstr "Įv&eskite slaptažodį rinkmenų sistemai:"
 
 #. Label: get same password again for verification
 #. Please use newline if label is longer than 40 characters
-#: src/lib/y2partitioner/widgets/encrypt_password.rb:67
+#: src/lib/y2partitioner/widgets/encrypt_password.rb:73
 msgid "Reenter the Password for &Verification:"
 msgstr "Patikrinimui į&veskite slaptažodį dar kartą:"
 
@@ -1713,8 +1708,15 @@ msgstr "Potomių tvarkymas"
 msgid "Encrypt Device"
 msgstr "&Užšifruoti įrenginį"
 
+#. FIXME: have generic check when new partition is created if it is valid
+#. like e.g. if fs fits to partition, and others
+#. size number is from bsc1065071#c5
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:671
+msgid "Only devices bigger than 2 MiB can be encrypted."
+msgstr ""
+
 #. Inode Size format option
-#: src/lib/y2partitioner/widgets/format_and_mount.rb:678
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:691
 msgid "&Inode Size"
 msgstr "&Inodo dydis"
 
@@ -1729,14 +1731,14 @@ msgstr "&Inodo dydis"
 #. - :help texts automatically get the :label text prepended as a title
 #. - options will only appear in the final command line if the selected value
 #. is different from the default value
-#: src/lib/y2partitioner/widgets/format_and_mount.rb:695
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:708
 #: src/lib/y2partitioner/widgets/mkfs_optiondata.rb:52
 #: src/lib/y2partitioner/widgets/mkfs_optiondata.rb:182
 msgid "Block &Size in Bytes"
 msgstr "Bloko dydi&s baitais"
 
 #. Synchronize the widget with the information from the controller
-#: src/lib/y2partitioner/widgets/format_and_mount.rb:778
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:791
 #, fuzzy
 #| msgid "Partition: %1"
 msgid "Partition &ID:"
@@ -2997,6 +2999,16 @@ msgstr ""
 "Nepavyko pabandyti prijungti NFS bendrinamų duomenų „%1“.\n"
 "Vis tiek išsaugoti?"
 
+#. TRANSLATORS: %d is the amount of actions, %s an URL
+#: src/lib/y2storage/actions_presenter.rb:107
+msgid "%d subvolume actions (<a href=\"%s\">see details</a>)"
+msgstr ""
+
+#. TRANSLATORS: %d is the amount of actions, %s an URL
+#: src/lib/y2storage/actions_presenter.rb:110
+msgid "%d subvolume actions (<a href=\"%s\">hide details</a>)"
+msgstr ""
+
 #. Return the error message to be displayed
 #.
 #. @return [String] Error message
@@ -3109,21 +3121,26 @@ msgstr "&Loginiai tomai"
 msgid "There is no device mounted at '/'"
 msgstr ""
 
+#: src/lib/y2storage/boot_requirements_strategies/base.rb:100
+msgid ""
+"The device mounted at '/boot' does not have enough space to contain a kernel."
+msgstr ""
+
 #. TRANSLATORS: error message
-#: src/lib/y2storage/boot_requirements_strategies/base.rb:169
+#: src/lib/y2storage/boot_requirements_strategies/base.rb:185
 msgid ""
 "Boot requirements cannot be determined because there is no '/' mount point"
 msgstr ""
 
 #. TRANSLATORS: error message
-#: src/lib/y2storage/boot_requirements_strategies/legacy.rb:187
+#: src/lib/y2storage/boot_requirements_strategies/legacy.rb:164
 msgid ""
 "Boot disk has no partition table and it is not possible to boot from it.You "
 "can fix it by creating a partition table on the boot disk."
 msgstr ""
 
 #. TRANSLATORS: error message
-#: src/lib/y2storage/boot_requirements_strategies/legacy.rb:199
+#: src/lib/y2storage/boot_requirements_strategies/legacy.rb:176
 msgid "MBR gap size is not enough to correctly install bootloader"
 msgstr ""
 
@@ -3467,75 +3484,37 @@ msgstr "<p>Pasirinkite naujo skaidinio dydį.</p>"
 msgid "Any disk"
 msgstr ""
 
-#. Handler for :encryption check box.
-#. @param focus [Boolean] whether password field should be focused
-#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:56
+#. @return [EncryptPasswordChecker]
+#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:59
 #, fuzzy
 #| msgid "Partitioning"
 msgid "Partitioning Scheme"
 msgstr "Skaidinių tvarkymas"
 
-#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:62
+#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:65
 #, fuzzy
 #| msgid "Volume Management"
 msgid "Enable Logical Volume Management (LVM)"
 msgstr "Tomų tvarkytuvė"
 
-#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:64
+#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:67
 #, fuzzy
 #| msgid "Encryption"
 msgid "Enable Disk Encryption"
 msgstr "Šifravimas"
 
-#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:69
+#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:72
 msgid "Password"
 msgstr "Slaptažodis"
 
-#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:75
+#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:78
 #, fuzzy
 #| msgid "Provide Password"
 msgid "Verify Password"
 msgstr "Pateikti slaptažodį"
 
-#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:128
-msgid "A password is needed"
-msgstr ""
-
-#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:134
-msgid "Password does not match"
-msgstr ""
-
-#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:143
-#, fuzzy
-#| msgid ""
-#| "The password must have at least %1 characters.\n"
-#| "Try again.\n"
-msgid "The password must have at least %d characters."
-msgstr ""
-"Slaptažodis turi būti sudarytas mažiausiai iš %1 simbolių.\n"
-"Bandykite dar.\n"
-
-#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:144
-#, fuzzy
-#| msgid ""
-#| "The password may only contain the following characters:\n"
-#| "0..9, a..z, A..Z, and any of \"@#* ,.;:._-+=!$%&/|?{[()]}^\\<>\".\n"
-#| "Try again."
-msgid ""
-"The password may only contain the following characters:\n"
-"0..9, a..z, A..Z, and any of \"@#* ,.;:._-+=!$%&/|?{[()]}^\\<>\"."
-msgstr ""
-"Slaptažodis gali būti sudarytas tik iš tokių simbolių:\n"
-"0..9, a..z, A..Z, ir bet kokių iš „@#* ,.;:._-+=!$%&/|?{[()]}^\\<>“.\n"
-"Bandykite dar kartą."
-
-#. Password is considered strong when cracklib returns an empty message.
 #. User has the last word to decide whether to use a weak password.
-#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:160
-msgid "The password is too simple:"
-msgstr ""
-
-#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:163
+#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:128
 #, fuzzy
 #| msgid "Really use this setup?"
 msgid "Really use this password?"
@@ -3590,6 +3569,46 @@ msgstr ""
 "<p>\n"
 "Patikrinome jūsų standžiuosius diskus. Jūsų standžiajam\n"
 "diskui siūloma rodoma konfigūracija.</p>"
+
+#. Password is considered strong when cracklib returns an empty message.
+#: src/lib/y2storage/encrypt_password_checker.rb:85
+msgid "The password is too simple:"
+msgstr ""
+
+#. @return [String, nil]
+#: src/lib/y2storage/encrypt_password_checker.rb:96
+msgid "A password is needed"
+msgstr ""
+
+#. @return [String, nil]
+#: src/lib/y2storage/encrypt_password_checker.rb:101
+msgid "Password does not match"
+msgstr ""
+
+#. @return [String, nil]
+#: src/lib/y2storage/encrypt_password_checker.rb:110
+#, fuzzy
+#| msgid ""
+#| "The password must have at least %1 characters.\n"
+#| "Try again.\n"
+msgid "The password must have at least %d characters."
+msgstr ""
+"Slaptažodis turi būti sudarytas mažiausiai iš %1 simbolių.\n"
+"Bandykite dar.\n"
+
+#: src/lib/y2storage/encrypt_password_checker.rb:111
+#, fuzzy
+#| msgid ""
+#| "The password may only contain the following characters:\n"
+#| "0..9, a..z, A..Z, and any of \"@#* ,.;:._-+=!$%&/|?{[()]}^\\<>\".\n"
+#| "Try again."
+msgid ""
+"The password may only contain the following characters:\n"
+"0..9, a..z, A..Z, and any of \"@#* ,.;:._-+=!$%&/|?{[()]}^\\<>\"."
+msgstr ""
+"Slaptažodis gali būti sudarytas tik iš tokių simbolių:\n"
+"0..9, a..z, A..Z, ir bet kokių iš „@#* ,.;:._-+=!$%&/|?{[()]}^\\<>“.\n"
+"Bandykite dar kartą."
 
 #. Hash with the properties for each mount by type.
 #.

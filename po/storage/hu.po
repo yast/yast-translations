@@ -18,11 +18,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: storage\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-24 02:29+0000\n"
+"POT-Creation-Date: 2018-02-27 02:29+0000\n"
 "PO-Revision-Date: 2018-02-26 10:42+0000\n"
 "Last-Translator: Robert Taisz <robert.taisz@emerald.hu>\n"
-"Language-Team: Hungarian <https://l10n.opensuse.org/projects/yast-"
-"storage/master/hu/>\n"
+"Language-Team: Hungarian <https://l10n.opensuse.org/projects/yast-storage/"
+"master/hu/>\n"
 "Language: hu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1391,7 +1391,7 @@ msgid "Create New Partition &Table..."
 msgstr "Új partíciós &tábla létrehozása..."
 
 #. help text for cryptofs
-#: src/lib/y2partitioner/widgets/encrypt_password.rb:17
+#: src/lib/y2partitioner/widgets/encrypt_password.rb:20
 msgid ""
 "<p>\n"
 "You will need to enter your encryption password.\n"
@@ -1412,27 +1412,20 @@ msgstr ""
 "esetben a frissítés nem érinti a titkosított fájlrendszert.\n"
 "</p>\n"
 
-#: src/lib/y2partitioner/widgets/encrypt_password.rb:35
-msgid ""
-"'Password' and 'Retype password'\n"
-"do not match. Retype the password."
-msgstr ""
-"A jelszó és az újból megadott jelszó nem \n"
-"egyezik. Írja be újból a jelszót."
-
-#: src/lib/y2partitioner/widgets/encrypt_password.rb:49
+#. @macro seeCustomWidget
+#: src/lib/y2partitioner/widgets/encrypt_password.rb:55
 msgid "Encryption Password"
 msgstr "Titkosítási jelszó"
 
 #. Label: get password for user root
 #. Please use newline if label is longer than 40 characters
-#: src/lib/y2partitioner/widgets/encrypt_password.rb:59
+#: src/lib/y2partitioner/widgets/encrypt_password.rb:65
 msgid "&Enter a Password for your File System:"
 msgstr "&Adjon meg egy jelszót a fájlrendszerhez:"
 
 #. Label: get same password again for verification
 #. Please use newline if label is longer than 40 characters
-#: src/lib/y2partitioner/widgets/encrypt_password.rb:67
+#: src/lib/y2partitioner/widgets/encrypt_password.rb:73
 msgid "Reenter the Password for &Verification:"
 msgstr "Az ellenőrzéshez adja meg a &jelszót újból:"
 
@@ -1565,8 +1558,15 @@ msgstr "Alkötetkezelő"
 msgid "Encrypt Device"
 msgstr "Eszköz titkosítása"
 
+#. FIXME: have generic check when new partition is created if it is valid
+#. like e.g. if fs fits to partition, and others
+#. size number is from bsc1065071#c5
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:671
+msgid "Only devices bigger than 2 MiB can be encrypted."
+msgstr ""
+
 #. Inode Size format option
-#: src/lib/y2partitioner/widgets/format_and_mount.rb:678
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:691
 msgid "&Inode Size"
 msgstr "&Információs csomópontok (i-node) mérete"
 
@@ -1581,7 +1581,7 @@ msgstr "&Információs csomópontok (i-node) mérete"
 #. - :help texts automatically get the :label text prepended as a title
 #. - options will only appear in the final command line if the selected value
 #. is different from the default value
-#: src/lib/y2partitioner/widgets/format_and_mount.rb:695
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:708
 #: src/lib/y2partitioner/widgets/mkfs_optiondata.rb:52
 #: src/lib/y2partitioner/widgets/mkfs_optiondata.rb:182
 msgid "Block &Size in Bytes"
@@ -1589,7 +1589,7 @@ msgstr "Blokk&méret byte-ban"
 
 # modules/inst_custom_part.ycp:608
 #. Synchronize the widget with the information from the controller
-#: src/lib/y2partitioner/widgets/format_and_mount.rb:778
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:791
 msgid "Partition &ID:"
 msgstr "Partíció &azonosítója:"
 
@@ -2335,8 +2335,8 @@ msgid ""
 "the chunk size). Valid values are numbers greater than 0, or 'none'."
 msgstr ""
 "Adja meg a RAID-sávban található blokkok számát. Ezt a mennyiségű blokkot "
-"kell olvasni vagy írni a lemezen a következő lemezre történő lépés előtt ("
-"más néven: adatrészlet mérete). Érvényes értékek: 0-nál számok vagy 'nincs'."
+"kell olvasni vagy írni a lemezen a következő lemezre történő lépés előtt "
+"(más néven: adatrészlet mérete). Érvényes értékek: 0-nál számok vagy 'nincs'."
 
 #: src/lib/y2partitioner/widgets/mkfs_optiondata.rb:140
 msgid "Enable Regular &Checks"
@@ -2632,8 +2632,8 @@ msgstr "NFS (Network File System)"
 #: src/lib/y2partitioner/widgets/pages/nfs_mounts.rb:102
 msgid "NFS configuration is not available. Check %s package installation."
 msgstr ""
-"Az NFS-beállítások nem érhetők el. Ellenőrizze a(z) %s csomag telepítve "
-"van-e."
+"Az NFS-beállítások nem érhetők el. Ellenőrizze a(z) %s csomag telepítve van-"
+"e."
 
 # modules/inst_custom_part.ycp:608
 #. TRANSLATORS: Heading. String followed by name of partition
@@ -2749,6 +2749,16 @@ msgstr ""
 "A(z) '%s' NFS-megosztás tesztelése sikertelen.\n"
 "Biztos, hogy menti?"
 
+#. TRANSLATORS: %d is the amount of actions, %s an URL
+#: src/lib/y2storage/actions_presenter.rb:107
+msgid "%d subvolume actions (<a href=\"%s\">see details</a>)"
+msgstr ""
+
+#. TRANSLATORS: %d is the amount of actions, %s an URL
+#: src/lib/y2storage/actions_presenter.rb:110
+msgid "%d subvolume actions (<a href=\"%s\">hide details</a>)"
+msgstr ""
+
 #. Return the error message to be displayed
 #.
 #. @return [String] Error message
@@ -2860,8 +2870,13 @@ msgstr "logikai kötetek"
 msgid "There is no device mounted at '/'"
 msgstr "Nincs eszköz csatlakoztatva a gyökérnél ('/')"
 
+#: src/lib/y2storage/boot_requirements_strategies/base.rb:100
+msgid ""
+"The device mounted at '/boot' does not have enough space to contain a kernel."
+msgstr ""
+
 #. TRANSLATORS: error message
-#: src/lib/y2storage/boot_requirements_strategies/base.rb:169
+#: src/lib/y2storage/boot_requirements_strategies/base.rb:185
 msgid ""
 "Boot requirements cannot be determined because there is no '/' mount point"
 msgstr ""
@@ -2869,7 +2884,7 @@ msgstr ""
 "csatlakoztatási pont"
 
 #. TRANSLATORS: error message
-#: src/lib/y2storage/boot_requirements_strategies/legacy.rb:187
+#: src/lib/y2storage/boot_requirements_strategies/legacy.rb:164
 msgid ""
 "Boot disk has no partition table and it is not possible to boot from it.You "
 "can fix it by creating a partition table on the boot disk."
@@ -2879,7 +2894,7 @@ msgstr ""
 "rendszerindító lemezen."
 
 #. TRANSLATORS: error message
-#: src/lib/y2storage/boot_requirements_strategies/legacy.rb:199
+#: src/lib/y2storage/boot_requirements_strategies/legacy.rb:176
 msgid "MBR gap size is not enough to correctly install bootloader"
 msgstr "Az MBR-résméret nem elegendő a rendszerbetöltő megfelelő telepítéséhez"
 
@@ -3200,58 +3215,29 @@ msgid "Any disk"
 msgstr "Bármelyik lemez"
 
 # modules/inst_custom_part.ycp:608
-#. Handler for :encryption check box.
-#. @param focus [Boolean] whether password field should be focused
-#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:56
+#. @return [EncryptPasswordChecker]
+#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:59
 msgid "Partitioning Scheme"
 msgstr "Particionálási séma"
 
-#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:62
+#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:65
 msgid "Enable Logical Volume Management (LVM)"
 msgstr "Logikaikötet-kezelés (LVM) engedélyezése"
 
-#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:64
+#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:67
 msgid "Enable Disk Encryption"
 msgstr "Lemeztitkosítás engedélyezése"
 
-#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:69
+#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:72
 msgid "Password"
 msgstr "Jelszó"
 
-#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:75
+#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:78
 msgid "Verify Password"
 msgstr "Jelszó ellenőrzése"
 
-#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:128
-msgid "A password is needed"
-msgstr "Jelszó szükséges"
-
-#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:134
-msgid "Password does not match"
-msgstr "A jelszó nem egyezik"
-
-#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:143
-msgid "The password must have at least %d characters."
-msgstr "A jelszónak legalább %d karakter hosszúságúnak kell lennie."
-
-# modules/inst_user.ycp:259
-# modules/inst_user.ycp:306
-#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:144
-msgid ""
-"The password may only contain the following characters:\n"
-"0..9, a..z, A..Z, and any of \"@#* ,.;:._-+=!$%&/|?{[()]}^\\<>\"."
-msgstr ""
-"A jelszó csak a következő karakterekből állhat:\n"
-" 0..9, a..z, A..Z és a következők bármelyike: \"@#* ,.;:._-+=!$%&/|?{[()]}^"
-"\\<>\"."
-
-#. Password is considered strong when cracklib returns an empty message.
 #. User has the last word to decide whether to use a weak password.
-#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:160
-msgid "The password is too simple:"
-msgstr "A jelszó túl egyszerű:"
-
-#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:163
+#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:128
 msgid "Really use this password?"
 msgstr "Biztos, hogy ezt a jelszót kívánja használni?"
 
@@ -3303,6 +3289,37 @@ msgstr ""
 "<p>\n"
 "A merevlemez(ek) ellenőrzése befejeződött.\n"
 "A begyűjtött információk alapján a következő particionálás javasolt.</p>"
+
+#. Password is considered strong when cracklib returns an empty message.
+#: src/lib/y2storage/encrypt_password_checker.rb:85
+msgid "The password is too simple:"
+msgstr "A jelszó túl egyszerű:"
+
+#. @return [String, nil]
+#: src/lib/y2storage/encrypt_password_checker.rb:96
+msgid "A password is needed"
+msgstr "Jelszó szükséges"
+
+#. @return [String, nil]
+#: src/lib/y2storage/encrypt_password_checker.rb:101
+msgid "Password does not match"
+msgstr "A jelszó nem egyezik"
+
+#. @return [String, nil]
+#: src/lib/y2storage/encrypt_password_checker.rb:110
+msgid "The password must have at least %d characters."
+msgstr "A jelszónak legalább %d karakter hosszúságúnak kell lennie."
+
+# modules/inst_user.ycp:259
+# modules/inst_user.ycp:306
+#: src/lib/y2storage/encrypt_password_checker.rb:111
+msgid ""
+"The password may only contain the following characters:\n"
+"0..9, a..z, A..Z, and any of \"@#* ,.;:._-+=!$%&/|?{[()]}^\\<>\"."
+msgstr ""
+"A jelszó csak a következő karakterekből állhat:\n"
+" 0..9, a..z, A..Z és a következők bármelyike: \"@#* ,.;:._-+=!$%&/|?{[()]}^"
+"\\<>\"."
 
 #. Hash with the properties for each mount by type.
 #.
@@ -3520,6 +3537,13 @@ msgstr "Foglalt Microsoft-partíció"
 #: src/lib/y2storage/partition_id.rb:54
 msgid "Diagnostics Partition"
 msgstr "Diagnosztikai partíció"
+
+#~ msgid ""
+#~ "'Password' and 'Retype password'\n"
+#~ "do not match. Retype the password."
+#~ msgstr ""
+#~ "A jelszó és az újból megadott jelszó nem \n"
+#~ "egyezik. Írja be újból a jelszót."
 
 #~ msgid "Crypt Files"
 #~ msgstr "Titkosított fájlok"
