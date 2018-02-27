@@ -11,6 +11,8 @@ fi
 WORKDIR=$PWD
 TRANDIR=$WORKDIR/translations/po
 TRANPARTS=$WORKDIR/translations/po-parts
+# remember failed packages and report them at the end
+FAILED_PACKAGES=""
 
 # Check for y2makepot:
 if ! Y2MAKEPOT=`command -v y2makepot`; then
@@ -29,7 +31,7 @@ function make_pot {
 
     rm -f *.pot
     # ignore errors, stopping here would skip the other packages
-    $Y2MAKEPOT || true
+    $Y2MAKEPOT || FAILED_PACKAGES="$FAILED_PACKAGES $MODULE_DIR"
 
     for POT in *.pot ; do
 	local DOMAIN=${POT%.pot}
@@ -138,6 +140,10 @@ for DOMAIN in * ; do
     git commit -m "New POT for text domain '$DOMAIN'."
     popd
 done
+
+if [ "$FAILED_PACKAGES" != "" ]; then
+  echo "WARNING: y2makepot failed for these packages: $FAILED_PACKAGES"
+fi
 
 if [ "$ERR" != "" ]; then
     echo "$ERR errors occurred. Check *.err files in the ./po/ subdirectory"
