@@ -141,11 +141,12 @@ for DOMAIN in * ; do
     popd
 done
 
-if [ "$FAILED_PACKAGES" != "" ]; then
-  echo "WARNING: y2makepot failed for these packages: $FAILED_PACKAGES"
+if [ -n "$FAILED_PACKAGES" ]; then
+  echo "ERROR: y2makepot failed for these packages: $FAILED_PACKAGES"
+  exit 1
 fi
 
-if [ "$ERR" != "" ]; then
+if [ -n "$ERR" ]; then
     echo "$ERR errors occurred. Check *.err files in the ./po/ subdirectory"
     exit $ERR
 else
