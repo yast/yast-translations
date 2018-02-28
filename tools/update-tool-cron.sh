@@ -11,6 +11,8 @@ fi
 WORKDIR=$PWD
 TRANDIR=$WORKDIR/translations/po
 TRANPARTS=$WORKDIR/translations/po-parts
+# remember failed packages and report them at the end
+FAILED_PACKAGES=""
 
 # Check for y2makepot:
 if ! Y2MAKEPOT=`command -v y2makepot`; then
@@ -28,7 +30,8 @@ function make_pot {
     pushd $MODULE_DIR
 
     rm -f *.pot
-    $Y2MAKEPOT
+    # ignore errors, stopping here would skip the other packages
+    $Y2MAKEPOT || FAILED_PACKAGES="$FAILED_PACKAGES $MODULE_DIR"
 
     for POT in *.pot ; do
 	local DOMAIN=${POT%.pot}
@@ -138,7 +141,12 @@ for DOMAIN in * ; do
     popd
 done
 
-if [ "$ERR" != "" ]; then
+if [ -n "$FAILED_PACKAGES" ]; then
+  echo "ERROR: y2makepot failed for these packages: $FAILED_PACKAGES"
+  exit 1
+fi
+
+if [ -n "$ERR" ]; then
     echo "$ERR errors occurred. Check *.err files in the ./po/ subdirectory"
     exit $ERR
 else
