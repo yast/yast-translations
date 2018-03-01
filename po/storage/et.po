@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: storage-ng.et\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-03-01 06:35+0000\n"
+"POT-Creation-Date: 2018-03-01 15:17+0100\n"
 "PO-Revision-Date: 2014-04-24 15:47+0300\n"
 "Last-Translator: Jaan Vajakas <jaanvajakas@hot.ee>\n"
 "Language-Team: Estonian <>\n"
@@ -70,6 +70,36 @@ msgstr ""
 #| msgid "It is not possible to create a partition on %1."
 msgid "It is not possible to create a partition on %{name}."
 msgstr "Kettale %1 ei saa partitsiooni luua."
+
+#. Error message when the disk has no partition table
+#.
+#. @return [String, nil] nil if the disk has partition table.
+#: src/lib/y2partitioner/actions/clone_disk.rb:91
+#, fuzzy
+#| msgid ""
+#| "There are no partitions on this disk, but a clonable\n"
+#| "disk must have at least one partition.\n"
+#| "Create partitions before cloning the disk.\n"
+msgid ""
+"There are no partitions on this disk, but a clonable\n"
+"disk must have at least one partition.\n"
+"Create partitions before cloning the disk."
+msgstr ""
+"Antud kettal ei ole partitsioone, aga kloonitaval kettal\n"
+"peab olema vähemalt üks partitsioon.\n"
+"Loo partitsioonid enne ketta kloonimist.\n"
+
+#. Error message when there are no suitable devices where to clone the disk
+#.
+#. @return [String, nil] nil if there are suitable devices.
+#: src/lib/y2partitioner/actions/clone_disk.rb:102
+#, fuzzy
+msgid ""
+"This disk cannot be cloned. There are no suitable\n"
+"disks that could have the same partitioning layout."
+msgstr ""
+"Seda ketast ei saa kloonida. Ei ole sobivaid kettaid,\n"
+"mille saaks samamoodi partitsioneerida."
 
 #. TRANSLATORS: dialog title. %s is a device name like /dev/vg0
 #: src/lib/y2partitioner/actions/controllers/lvm_lv.rb:245
@@ -245,7 +275,7 @@ msgid "It is not possible to create a new partition table on %s."
 msgstr "Kettale %1 ei saa partitsiooni luua."
 
 #. TRANSLATORS %s is the name of the device to be deleted (e.g., /dev/sda1)
-#: src/lib/y2partitioner/actions/delete_device.rb:92
+#: src/lib/y2partitioner/actions/delete_device.rb:94
 #, fuzzy
 #| msgid "Really delete %1?"
 msgid "Really delete %s?"
@@ -266,14 +296,13 @@ msgstr "Sellel kettal ei ole partitsioone, mida kustutada."
 #.
 #. It shows all partitions (and dependent devices) that will be deleted.
 #.
-#. @see DeleteDevice#dependent_devices
 #. @see DeleteDevice#confirm_recursive_delete
-#: src/lib/y2partitioner/actions/delete_disk.rb:61
+#: src/lib/y2partitioner/actions/delete_disk.rb:60
 msgid "Confirm Deleting of All Partitions"
 msgstr "Kinnita kõigi partitsioonide kustutamine"
 
 #. TRANSLATORS: name is the name of the disk to be deleted (e.g., /dev/sda)
-#: src/lib/y2partitioner/actions/delete_disk.rb:63
+#: src/lib/y2partitioner/actions/delete_disk.rb:62
 #, fuzzy
 #| msgid ""
 #| "The disk \"%1\" contains at least one partition.\n"
@@ -286,7 +315,7 @@ msgstr ""
 "Kui jätkad, siis järgmised partitsioonid kustutatakse:"
 
 #. TRANSLATORS: name is the name of the disk to be deleted (e.g., /dev/sda)
-#: src/lib/y2partitioner/actions/delete_disk.rb:66
+#: src/lib/y2partitioner/actions/delete_disk.rb:65
 #, fuzzy
 msgid "Really delete all partitions on \"%{name}\"?"
 msgstr "Kas tõesti kustutada kõik partitsioonid kettalt „%1“?"
@@ -301,9 +330,8 @@ msgstr "Kas eemaldada loogiline andmeruum %1?"
 
 #. Confirmation when the device is a LVM thin pool and there is any thin volume over it
 #.
-#. @see DeleteDevice#dependent_devices
 #. @see DeleteDevice#confirm_recursive_delete
-#: src/lib/y2partitioner/actions/delete_lvm_lv.rb:76
+#: src/lib/y2partitioner/actions/delete_lvm_lv.rb:75
 #, fuzzy
 #| msgid "Confirm Deleting of Volume Group"
 msgid "Confirm Deleting of LVM Thin Pool"
@@ -311,7 +339,7 @@ msgstr "Kinnita andmeruumirühma kustutamine"
 
 #. TRANSLATORS: Confirmation message when a LVM thin pool is going to be deleted,
 #. where %{name} is replaced by the name of the thin pool (e.g., /dev/system/pool)
-#: src/lib/y2partitioner/actions/delete_lvm_lv.rb:80
+#: src/lib/y2partitioner/actions/delete_lvm_lv.rb:79
 #, fuzzy
 #| msgid ""
 #| "The disk \"%1\" contains at least one partition.\n"
@@ -325,21 +353,20 @@ msgstr ""
 "Kui jätkad, siis järgmised partitsioonid kustutatakse:"
 
 #. TRANSLATORS: %{name} is replaced by the name of the thin pool (e.g., /dev/system/pool)
-#: src/lib/y2partitioner/actions/delete_lvm_lv.rb:87
+#: src/lib/y2partitioner/actions/delete_lvm_lv.rb:86
 #, fuzzy
 msgid "Really delete the thin pool \"%{name}\" and all related thin volumes?"
 msgstr "Kas tõesti eemaldada andmeruumirühm \"%1\"?"
 
 #. Confirmation when the device contains logical volumes
 #.
-#. @see DeleteDevice#dependent_devices
 #. @see DeleteDevice#confirm_recursive_delete
-#: src/lib/y2partitioner/actions/delete_lvm_vg.rb:60
+#: src/lib/y2partitioner/actions/delete_lvm_vg.rb:59
 msgid "Confirm Deleting of Volume Group"
 msgstr "Kinnita andmeruumirühma kustutamine"
 
 #. TRANSLATORS: %s is the name of the volume group (e.g. "system")
-#: src/lib/y2partitioner/actions/delete_lvm_vg.rb:62
+#: src/lib/y2partitioner/actions/delete_lvm_vg.rb:61
 #, fuzzy
 #| msgid ""
 #| "The disk \"%1\" contains at least one partition.\n"
@@ -353,17 +380,16 @@ msgstr ""
 "Kui jätkad, siis järgmised partitsioonid kustutatakse:"
 
 #. TRANSLATORS: %s is the name of the volume group (e.g. "system")
-#: src/lib/y2partitioner/actions/delete_lvm_vg.rb:67
+#: src/lib/y2partitioner/actions/delete_lvm_vg.rb:66
 #, fuzzy
 msgid "Really delete volume group \"%s\" and all related logical volumes?"
 msgstr "Kas tõesti eemaldada andmeruumirühm \"%1\"?"
 
 #. Confirmation when the device belongs to a volume group
 #.
-#. @see DeleteDevice#dependent_devices
 #. @see DeleteDevice#confirm_recursive_delete
 #. @see DeleteDevice#lvm_vg
-#: src/lib/y2partitioner/actions/delete_md.rb:61
+#: src/lib/y2partitioner/actions/delete_md.rb:60
 #, fuzzy
 #| msgid "Confirm Deleting Partition Used by LVM"
 msgid "Confirm Deleting RAID Used by LVM"
@@ -371,7 +397,7 @@ msgstr "Kinnita LVM-i poolt kasutatava partitsiooni kustutamine"
 
 #. TRANSLATORS: name is the name of the volume group that the md raid
 #. belongs to (e.g., /dev/system)
-#: src/lib/y2partitioner/actions/delete_md.rb:64
+#: src/lib/y2partitioner/actions/delete_md.rb:63
 #, fuzzy
 #| msgid ""
 #| "The selected partition is used by volume group \"%1\".\n"
@@ -388,23 +414,22 @@ msgstr ""
 
 #. TRANSLATORS: md is the name of the md raid to be deleted (e.g., /dev/md/md1),
 #. and vg is the name of the volume group to be deleted (e.g., /dev/system)
-#: src/lib/y2partitioner/actions/delete_md.rb:69
+#: src/lib/y2partitioner/actions/delete_md.rb:68
 #, fuzzy
 msgid "Delete RAID \"%{md}\" and volume group \"%{lvm_vg}\"?"
 msgstr "Kas kustutada kohe partitsioon „%1“ ja andmeruumirühm „%2“?"
 
 #. Confirmation when the partition belongs to a volume group
 #.
-#. @see DeleteDevice#dependent_devices
 #. @see DeleteDevice#confirm_recursive_delete
 #. @see DeleteDevice#lvm_vg
-#: src/lib/y2partitioner/actions/delete_partition.rb:66
+#: src/lib/y2partitioner/actions/delete_partition.rb:65
 msgid "Confirm Deleting Partition Used by LVM"
 msgstr "Kinnita LVM-i poolt kasutatava partitsiooni kustutamine"
 
 #. TRANSLATORS: name is the name of the volume group that the partition
 #. belongs to (e.g., /dev/system)
-#: src/lib/y2partitioner/actions/delete_partition.rb:69
+#: src/lib/y2partitioner/actions/delete_partition.rb:68
 #, fuzzy
 #| msgid ""
 #| "The selected partition is used by volume group \"%1\".\n"
@@ -421,22 +446,21 @@ msgstr ""
 
 #. TRANSLATORS: partition is the name of the partition to be deleted (e.g., /dev/sda1),
 #. and vg is the name of the volume group to be deleted (e.g., /dev/system)
-#: src/lib/y2partitioner/actions/delete_partition.rb:74
+#: src/lib/y2partitioner/actions/delete_partition.rb:73
 #, fuzzy
 msgid "Delete partition \"%{partition}\" and volume group \"%{lvm_vg}\"?"
 msgstr "Kas kustutada kohe partitsioon „%1“ ja andmeruumirühm „%2“?"
 
 #. Confirmation when the partition belongs to a md raid
 #.
-#. @see DeleteDevice#dependent_devices
 #. @see DeleteDevice#confirm_recursive_delete
 #. @see DeleteDevice#md
-#: src/lib/y2partitioner/actions/delete_partition.rb:87
+#: src/lib/y2partitioner/actions/delete_partition.rb:85
 msgid "Confirm Deleting Partition Used by RAID"
 msgstr "Kinnita RAID-i poolt kasutatava partitsiooni kustutamine"
 
 #. TRANSLATORS: name is the name of the partition to be deleted (e.g., /dev/sda1)
-#: src/lib/y2partitioner/actions/delete_partition.rb:89
+#: src/lib/y2partitioner/actions/delete_partition.rb:87
 #, fuzzy
 #| msgid ""
 #| "The selected partition belongs to RAID  \"%1\".\n"
@@ -453,7 +477,7 @@ msgstr ""
 
 #. TRANSLATORS: partition is the name of the partition to be deleted (e.g., /dev/sda1),
 #. and md_raid is the name of the raid to be deleted (e.g., /dev/md/md1)
-#: src/lib/y2partitioner/actions/delete_partition.rb:94
+#: src/lib/y2partitioner/actions/delete_partition.rb:92
 #, fuzzy
 msgid "Delete partition \"%{partition}\" and RAID \"%{md}\"?"
 msgstr "Kas kustutada kohe partitsioon „%1“ ja RAID „%2“?"
@@ -696,6 +720,89 @@ msgstr ""
 #| msgid "Btrfs Volumes"
 msgid "Edit Btrfs subvolumes"
 msgstr "Btrfs-andmeruumid"
+
+#. TRANSLATORS: %{name} is replaced by a disk device name (e.g., /dev/sda)
+#: src/lib/y2partitioner/dialogs/disk_clone.rb:48
+#, fuzzy
+#| msgid "Root partition is already mounted to %1"
+msgid "Clone partition layout of %{name}"
+msgstr "Ketta %1 partitsioonijaotuse kloonimine"
+
+#. @return [String]
+#: src/lib/y2partitioner/dialogs/disk_clone.rb:73
+msgid "Available target disks:"
+msgstr "Saadavalolevad sihtkettad:"
+
+#. Checks whether any device was selected
+#.
+#. @note A confirmation popup is shown when deleting devices is needed
+#. for cloning into the selected devices.
+#.
+#. @return [Boolean]
+#: src/lib/y2partitioner/dialogs/disk_clone.rb:90
+msgid "Select a target disk for creating a clone"
+msgstr "Vali sihtketas kloonimiseks"
+
+#. Help text
+#.
+#. @return [String]
+#: src/lib/y2partitioner/dialogs/disk_clone.rb:113
+#, fuzzy
+msgid ""
+"Select one or more (if available) hard disks that will have the same "
+"partition layout as this disk"
+msgstr ""
+"Seda ketast ei saa kloonida. Ei ole sobivaid kettaid,\n"
+"mille saaks samamoodi partitsioneerida."
+
+#: src/lib/y2partitioner/dialogs/disk_clone.rb:115
+#, fuzzy
+#| msgid ""
+#| "<p>Select one or more (if available) hard disks\n"
+#| "that will have the same partition layout as\n"
+#| "this disk.</p>\n"
+#| "<p>Disks marked with the sign '*' contain one or\n"
+#| "more partitions. After cloning, these\n"
+#| "partitions will be deleted.</p>\n"
+msgid ""
+"Disks marked with the sign '*' contain one or more partitions. After "
+"cloning, these partitions will be deleted"
+msgstr ""
+"<p>Vali üks või mitu kõvaketast, millele\n"
+"luuakse samasugune partitsioonitabel nagu\n"
+"sellele kettale.</p>\n"
+"<p>Tärniga „*“ märgitud ketastel on juba\n"
+"partitsioone. Kloonimisega need\n"
+"partitsioonid kustutatakse.</p>\n"
+
+#. Asks whether to remove devices holded by the selected devices
+#.
+#. @see ConfirmRecursiveDelete
+#.
+#. @return [Boolean]
+#: src/lib/y2partitioner/dialogs/disk_clone.rb:184
+#, fuzzy
+#| msgid "Confirm Deleting of Volume Group"
+msgid "Confirm deleting"
+msgstr "Kinnita andmeruumirühma kustutamine"
+
+#: src/lib/y2partitioner/dialogs/disk_clone.rb:185
+#, fuzzy
+#| msgid ""
+#| "The following partitions will be deleted\n"
+#| "and all data on them will be lost:"
+msgid ""
+"The following devices will be deleted\n"
+"and all data on them will be lost:"
+msgstr ""
+"Järgmised partitsioonid kustutatakse\n"
+"ning kõik nendel nendel hävivad:"
+
+#: src/lib/y2partitioner/dialogs/disk_clone.rb:186
+#, fuzzy
+#| msgid "Really delete these partitions?"
+msgid "Really delete these devices?"
+msgstr "Kas kustutada need partitsioonid?"
 
 #. @param controller [Actions::Controllers::Filesystem]
 #: src/lib/y2partitioner/dialogs/encrypt_password.rb:19
@@ -1490,7 +1597,7 @@ msgid "Hard Disk:"
 msgstr "Kõvaketas:"
 
 #. Translators: Expert menu for disks in the partitioner.
-#: src/lib/y2partitioner/widgets/disk_expert_menu_button.rb:39
+#: src/lib/y2partitioner/widgets/disk_expert_menu_button.rb:44
 #, fuzzy
 #| msgid "Expert..."
 msgid "&Expert..."
@@ -1499,11 +1606,15 @@ msgstr "Asjatundja..."
 #. Menu items
 #.
 #. @return [Array<[Symbol, String]>]
-#: src/lib/y2partitioner/widgets/disk_expert_menu_button.rb:46
+#: src/lib/y2partitioner/widgets/disk_expert_menu_button.rb:52
 #, fuzzy
 #| msgid "Create New Partition Table"
-msgid "Create New Partition &Table..."
+msgid "Create New Partition &Table"
 msgstr "Loo uus partitsioonitabel"
+
+#: src/lib/y2partitioner/widgets/disk_expert_menu_button.rb:53
+msgid "Clone this Disk"
+msgstr "Klooni see ketas"
 
 #. help text for cryptofs
 #: src/lib/y2partitioner/widgets/encrypt_password.rb:20
@@ -5609,59 +5720,6 @@ msgstr "Partitsioneeritav ketas"
 #~ "Et suurust muuta, vaata, et ta ei oleks kasutusel."
 
 #~ msgid ""
-#~ "<p>Select one or more (if available) hard disks\n"
-#~ "that will have the same partition layout as\n"
-#~ "this disk.</p>\n"
-#~ "<p>Disks marked with the sign '*' contain one or\n"
-#~ "more partitions. After cloning, these\n"
-#~ "partitions will be deleted.</p>\n"
-#~ msgstr ""
-#~ "<p>Vali üks või mitu kõvaketast, millele\n"
-#~ "luuakse samasugune partitsioonitabel nagu\n"
-#~ "sellele kettale.</p>\n"
-#~ "<p>Tärniga „*“ märgitud ketastel on juba\n"
-#~ "partitsioone. Kloonimisega need\n"
-#~ "partitsioonid kustutatakse.</p>\n"
-
-#~ msgid ""
-#~ "The following partitions will be deleted\n"
-#~ "and all data on them will be lost:"
-#~ msgstr ""
-#~ "Järgmised partitsioonid kustutatakse\n"
-#~ "ning kõik nendel nendel hävivad:"
-
-#~ msgid "Really delete these partitions?"
-#~ msgstr "Kas kustutada need partitsioonid?"
-
-#~ msgid ""
-#~ "There are no partitions on this disk, but a clonable\n"
-#~ "disk must have at least one partition.\n"
-#~ "Create partitions before cloning the disk.\n"
-#~ msgstr ""
-#~ "Antud kettal ei ole partitsioone, aga kloonitaval kettal\n"
-#~ "peab olema vähemalt üks partitsioon.\n"
-#~ "Loo partitsioonid enne ketta kloonimist.\n"
-
-#, fuzzy
-#~ msgid ""
-#~ "This disk cannot be cloned. There are no suitable\n"
-#~ "disks that could have the same partitioning layout."
-#~ msgstr ""
-#~ "Seda ketast ei saa kloonida. Ei ole sobivaid kettaid,\n"
-#~ "mille saaks samamoodi partitsioneerida."
-
-#, fuzzy
-#~| msgid "Root partition is already mounted to %1"
-#~ msgid "Clone partition layout of %1"
-#~ msgstr "Ketta %1 partitsioonijaotuse kloonimine"
-
-#~ msgid "Available target disks:"
-#~ msgstr "Saadavalolevad sihtkettad:"
-
-#~ msgid "Select a target disk for creating a clone"
-#~ msgstr "Vali sihtketas kloonimiseks"
-
-#~ msgid ""
 #~ "Running dasdfmt deletes all data on the disk.\n"
 #~ "Really execute dasdfmt on disk %1?\n"
 #~ msgstr ""
@@ -5724,9 +5782,6 @@ msgstr "Partitsioneeritav ketas"
 
 #~ msgid "hdparm is not available for this disk."
 #~ msgstr "hdparm-i ei ole antud ketta jaoks saadaval."
-
-#~ msgid "Clone this Disk"
-#~ msgstr "Klooni see ketas"
 
 #~ msgid "Execute dasd&fmt on the DASD Device"
 #~ msgstr "Käivita dasd&fmt sellel DASD-seadmel"

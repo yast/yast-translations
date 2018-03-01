@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: YaST (@memory@)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-03-01 06:35+0000\n"
+"POT-Creation-Date: 2018-03-01 15:17+0100\n"
 "PO-Revision-Date: 2010-07-02 22:16+0700\n"
 "Last-Translator: Thanomsub Noppaburana <donga.nb@gmail.com>\n"
 "Language-Team: Thai <thai-l10n@googlegroups.com>\n"
@@ -81,6 +81,35 @@ msgstr ""
 #| msgid "It is not possible to create a partition on %1."
 msgid "It is not possible to create a partition on %{name}."
 msgstr "ไม่สามารถที่จะทำการสร้างพาร์ทิชันบน %1 ได้"
+
+#. Error message when the disk has no partition table
+#.
+#. @return [String, nil] nil if the disk has partition table.
+#: src/lib/y2partitioner/actions/clone_disk.rb:91
+#, fuzzy
+#| msgid ""
+#| "There are no partitions on this disk (a clonable\n"
+#| "disk must have at least one partition).\n"
+#| "Create some partitions before cloning the disk."
+msgid ""
+"There are no partitions on this disk, but a clonable\n"
+"disk must have at least one partition.\n"
+"Create partitions before cloning the disk."
+msgstr ""
+"ไม่พบว่ามีพาร์ทิชันใด ๆ อยู่บนดิสก์นี้ (ดิสก์ที่สามารถใช้โคลนได้\n"
+"จะต้องมีพาร์ทิชันอยู่อย่างน้อยหนึ่งพาร์ทิชัน)\n"
+"โปรดสร้างพาร์ทิชันบางพาร์ทิชันก่อนจะทำการโคลนดิสก์"
+
+#. Error message when there are no suitable devices where to clone the disk
+#.
+#. @return [String, nil] nil if there are suitable devices.
+#: src/lib/y2partitioner/actions/clone_disk.rb:102
+msgid ""
+"This disk cannot be cloned. There are no suitable\n"
+"disks that could have the same partitioning layout."
+msgstr ""
+"ดิสก์นี้ไม่สามารถจะถูกโคลนได้ เนื่องจากไม่มีดิสก์ที่เหมาะสม\n"
+"ที่สามารถจะมีรูปแบบพาร์ทิชันแบบเดียวกันกับดิสก์นี้ได้"
 
 #. TRANSLATORS: dialog title. %s is a device name like /dev/vg0
 #: src/lib/y2partitioner/actions/controllers/lvm_lv.rb:245
@@ -281,7 +310,7 @@ msgid "It is not possible to create a new partition table on %s."
 msgstr "ไม่สามารถที่จะทำการสร้างพาร์ทิชันบน %1 ได้"
 
 #. TRANSLATORS %s is the name of the device to be deleted (e.g., /dev/sda1)
-#: src/lib/y2partitioner/actions/delete_device.rb:92
+#: src/lib/y2partitioner/actions/delete_device.rb:94
 #, fuzzy
 #| msgid "Really delete %1?"
 msgid "Really delete %s?"
@@ -302,14 +331,13 @@ msgstr "ไม่มีพาร์ทิชันใด ๆ ที่จะถ�
 #.
 #. It shows all partitions (and dependent devices) that will be deleted.
 #.
-#. @see DeleteDevice#dependent_devices
 #. @see DeleteDevice#confirm_recursive_delete
-#: src/lib/y2partitioner/actions/delete_disk.rb:61
+#: src/lib/y2partitioner/actions/delete_disk.rb:60
 msgid "Confirm Deleting of All Partitions"
 msgstr "ยืนยันการทำการลบพาร์ทิชันทั้งหมด"
 
 #. TRANSLATORS: name is the name of the disk to be deleted (e.g., /dev/sda)
-#: src/lib/y2partitioner/actions/delete_disk.rb:63
+#: src/lib/y2partitioner/actions/delete_disk.rb:62
 #, fuzzy
 #| msgid ""
 #| "The disk \"%1\" contains at least one partition.\n"
@@ -322,7 +350,7 @@ msgstr ""
 "หากคุณดำเนินการต่อไป จะมีการลบพาร์ทิชันต่อไปนี้ออกไป:"
 
 #. TRANSLATORS: name is the name of the disk to be deleted (e.g., /dev/sda)
-#: src/lib/y2partitioner/actions/delete_disk.rb:66
+#: src/lib/y2partitioner/actions/delete_disk.rb:65
 #, fuzzy
 #| msgid "Really delete all partitions on \"%1\"?"
 msgid "Really delete all partitions on \"%{name}\"?"
@@ -338,9 +366,8 @@ msgstr "ลบโวลุมลอจิคัล \"%1\" จริงหรื�
 
 #. Confirmation when the device is a LVM thin pool and there is any thin volume over it
 #.
-#. @see DeleteDevice#dependent_devices
 #. @see DeleteDevice#confirm_recursive_delete
-#: src/lib/y2partitioner/actions/delete_lvm_lv.rb:76
+#: src/lib/y2partitioner/actions/delete_lvm_lv.rb:75
 #, fuzzy
 #| msgid "Confirm Deleting of Volume Group"
 msgid "Confirm Deleting of LVM Thin Pool"
@@ -348,7 +375,7 @@ msgstr "ยืนยันการลบกลุ่มโวลุม"
 
 #. TRANSLATORS: Confirmation message when a LVM thin pool is going to be deleted,
 #. where %{name} is replaced by the name of the thin pool (e.g., /dev/system/pool)
-#: src/lib/y2partitioner/actions/delete_lvm_lv.rb:80
+#: src/lib/y2partitioner/actions/delete_lvm_lv.rb:79
 #, fuzzy
 #| msgid ""
 #| "The volume group \"%1\" contains at least one logical volume.\n"
@@ -364,7 +391,7 @@ msgstr ""
 "(หากมันถูกเมานท์อยู่) ลบจากนั้นให้ทำการลบพวกมัน โวลุมต่าง ๆ คือรายการต่อไปนี้:"
 
 #. TRANSLATORS: %{name} is replaced by the name of the thin pool (e.g., /dev/system/pool)
-#: src/lib/y2partitioner/actions/delete_lvm_lv.rb:87
+#: src/lib/y2partitioner/actions/delete_lvm_lv.rb:86
 #, fuzzy
 #| msgid "Really delete volume group \"%1\" and all related logical volumes?"
 msgid "Really delete the thin pool \"%{name}\" and all related thin volumes?"
@@ -372,14 +399,13 @@ msgstr "ต้องการจะลบกลุ่มโวลุม \"%1\" �
 
 #. Confirmation when the device contains logical volumes
 #.
-#. @see DeleteDevice#dependent_devices
 #. @see DeleteDevice#confirm_recursive_delete
-#: src/lib/y2partitioner/actions/delete_lvm_vg.rb:60
+#: src/lib/y2partitioner/actions/delete_lvm_vg.rb:59
 msgid "Confirm Deleting of Volume Group"
 msgstr "ยืนยันการลบกลุ่มโวลุม"
 
 #. TRANSLATORS: %s is the name of the volume group (e.g. "system")
-#: src/lib/y2partitioner/actions/delete_lvm_vg.rb:62
+#: src/lib/y2partitioner/actions/delete_lvm_vg.rb:61
 #, fuzzy
 #| msgid ""
 #| "The volume group \"%1\" contains at least one logical volume.\n"
@@ -395,7 +421,7 @@ msgstr ""
 "(หากมันถูกเมานท์อยู่) ลบจากนั้นให้ทำการลบพวกมัน โวลุมต่าง ๆ คือรายการต่อไปนี้:"
 
 #. TRANSLATORS: %s is the name of the volume group (e.g. "system")
-#: src/lib/y2partitioner/actions/delete_lvm_vg.rb:67
+#: src/lib/y2partitioner/actions/delete_lvm_vg.rb:66
 #, fuzzy
 #| msgid "Really delete volume group \"%1\" and all related logical volumes?"
 msgid "Really delete volume group \"%s\" and all related logical volumes?"
@@ -403,10 +429,9 @@ msgstr "ต้องการจะลบกลุ่มโวลุม \"%1\" �
 
 #. Confirmation when the device belongs to a volume group
 #.
-#. @see DeleteDevice#dependent_devices
 #. @see DeleteDevice#confirm_recursive_delete
 #. @see DeleteDevice#lvm_vg
-#: src/lib/y2partitioner/actions/delete_md.rb:61
+#: src/lib/y2partitioner/actions/delete_md.rb:60
 #, fuzzy
 #| msgid "Confirm Deleting Partition Used by LVM"
 msgid "Confirm Deleting RAID Used by LVM"
@@ -414,7 +439,7 @@ msgstr "ยืนยันการลบพาร์ทิชันที่ถ
 
 #. TRANSLATORS: name is the name of the volume group that the md raid
 #. belongs to (e.g., /dev/system)
-#: src/lib/y2partitioner/actions/delete_md.rb:64
+#: src/lib/y2partitioner/actions/delete_md.rb:63
 #, fuzzy
 #| msgid ""
 #| "The selected partition is used by volume group \"%1\"\n"
@@ -431,7 +456,7 @@ msgstr ""
 
 #. TRANSLATORS: md is the name of the md raid to be deleted (e.g., /dev/md/md1),
 #. and vg is the name of the volume group to be deleted (e.g., /dev/system)
-#: src/lib/y2partitioner/actions/delete_md.rb:69
+#: src/lib/y2partitioner/actions/delete_md.rb:68
 #, fuzzy
 #| msgid "Delete partition \"%1\" and volume group \"%2\" now?"
 msgid "Delete RAID \"%{md}\" and volume group \"%{lvm_vg}\"?"
@@ -439,16 +464,15 @@ msgstr "ต้องการจะลบพาร์ทิชัน \"%1\" แ�
 
 #. Confirmation when the partition belongs to a volume group
 #.
-#. @see DeleteDevice#dependent_devices
 #. @see DeleteDevice#confirm_recursive_delete
 #. @see DeleteDevice#lvm_vg
-#: src/lib/y2partitioner/actions/delete_partition.rb:66
+#: src/lib/y2partitioner/actions/delete_partition.rb:65
 msgid "Confirm Deleting Partition Used by LVM"
 msgstr "ยืนยันการลบพาร์ทิชันที่ถูกใช้งานกับ LVM"
 
 #. TRANSLATORS: name is the name of the volume group that the partition
 #. belongs to (e.g., /dev/system)
-#: src/lib/y2partitioner/actions/delete_partition.rb:69
+#: src/lib/y2partitioner/actions/delete_partition.rb:68
 #, fuzzy
 #| msgid ""
 #| "The selected partition is used by volume group \"%1\"\n"
@@ -465,7 +489,7 @@ msgstr ""
 
 #. TRANSLATORS: partition is the name of the partition to be deleted (e.g., /dev/sda1),
 #. and vg is the name of the volume group to be deleted (e.g., /dev/system)
-#: src/lib/y2partitioner/actions/delete_partition.rb:74
+#: src/lib/y2partitioner/actions/delete_partition.rb:73
 #, fuzzy
 #| msgid "Delete partition \"%1\" and volume group \"%2\" now?"
 msgid "Delete partition \"%{partition}\" and volume group \"%{lvm_vg}\"?"
@@ -473,15 +497,14 @@ msgstr "ต้องการจะลบพาร์ทิชัน \"%1\" แ�
 
 #. Confirmation when the partition belongs to a md raid
 #.
-#. @see DeleteDevice#dependent_devices
 #. @see DeleteDevice#confirm_recursive_delete
 #. @see DeleteDevice#md
-#: src/lib/y2partitioner/actions/delete_partition.rb:87
+#: src/lib/y2partitioner/actions/delete_partition.rb:85
 msgid "Confirm Deleting Partition Used by RAID"
 msgstr "ยืนยันการลบพาร์ทิชันที่ถูกใช้งานโดย RAID"
 
 #. TRANSLATORS: name is the name of the partition to be deleted (e.g., /dev/sda1)
-#: src/lib/y2partitioner/actions/delete_partition.rb:89
+#: src/lib/y2partitioner/actions/delete_partition.rb:87
 #, fuzzy
 #| msgid ""
 #| "The selected partition belongs to RAID  \"%1\"\n"
@@ -498,7 +521,7 @@ msgstr ""
 
 #. TRANSLATORS: partition is the name of the partition to be deleted (e.g., /dev/sda1),
 #. and md_raid is the name of the raid to be deleted (e.g., /dev/md/md1)
-#: src/lib/y2partitioner/actions/delete_partition.rb:94
+#: src/lib/y2partitioner/actions/delete_partition.rb:92
 #, fuzzy
 #| msgid "Delete partition \"%1\" and RAID \"%2\" now?"
 msgid "Delete partition \"%{partition}\" and RAID \"%{md}\"?"
@@ -742,6 +765,93 @@ msgstr ""
 #| msgid "Resize Logical Volume %1"
 msgid "Edit Btrfs subvolumes"
 msgstr "ปรับขนาดโวลุมลอจิคัล %1"
+
+#. TRANSLATORS: %{name} is replaced by a disk device name (e.g., /dev/sda)
+#: src/lib/y2partitioner/dialogs/disk_clone.rb:48
+#, fuzzy
+#| msgid "Clone partition layout of %1"
+msgid "Clone partition layout of %{name}"
+msgstr "โคลนรูปแบบพาร์ทิชันของ %1"
+
+#. @return [String]
+#: src/lib/y2partitioner/dialogs/disk_clone.rb:73
+msgid "Available target disks:"
+msgstr "ดิสก์เป้าหมายที่มีให้เลือก:"
+
+#. Checks whether any device was selected
+#.
+#. @note A confirmation popup is shown when deleting devices is needed
+#. for cloning into the selected devices.
+#.
+#. @return [Boolean]
+#: src/lib/y2partitioner/dialogs/disk_clone.rb:90
+#, fuzzy
+#| msgid "Select some target disk for creating a clone"
+msgid "Select a target disk for creating a clone"
+msgstr "เลือกดิสก์เป้าหมายบางดิสก์สำหรับทำการโคลนดิสก์"
+
+#. Help text
+#.
+#. @return [String]
+#: src/lib/y2partitioner/dialogs/disk_clone.rb:113
+#, fuzzy
+#| msgid ""
+#| "This disk cannot be cloned. There are no suitable\n"
+#| "disks that could have the same partitioning layout."
+msgid ""
+"Select one or more (if available) hard disks that will have the same "
+"partition layout as this disk"
+msgstr ""
+"ดิสก์นี้ไม่สามารถจะถูกโคลนได้ เนื่องจากไม่มีดิสก์ที่เหมาะสม\n"
+"ที่สามารถจะมีรูปแบบพาร์ทิชันแบบเดียวกันกับดิสก์นี้ได้"
+
+#: src/lib/y2partitioner/dialogs/disk_clone.rb:115
+#, fuzzy
+#| msgid ""
+#| "<p>Select one or more (if available) hard disks\n"
+#| "that will have the same partition layout as\n"
+#| "this disk.</p>\n"
+#| "<p>Disks marked with '*' sign contain one or\n"
+#| "more partitions. After cloning, these\n"
+#| "partitions will be deleted.</p>"
+msgid ""
+"Disks marked with the sign '*' contain one or more partitions. After "
+"cloning, these partitions will be deleted"
+msgstr ""
+"<p>เลือกฮาร์ดดิสก์ก่อนอย่างน้อยหนึ่งตัว\n"
+"ที่จะให้มีการจัดพาร์ทิชันแบบเดียวกันกับดิสก์นี้</p>\n"
+"<p>ดิสก์ที่ถูกทำเครื่องหมาย '*' หมายถึงเป็นดิสก์ที่มี\n"
+"พาร์ทิชันอยู่อย่างน้อยหนึ่งพาร์ทิชัน หลังจากการโคลนดิสก์แล้ว\n"
+"พาร์ทิชันเหล่านี้จะถูกลบออกไป</p>"
+
+#. Asks whether to remove devices holded by the selected devices
+#.
+#. @see ConfirmRecursiveDelete
+#.
+#. @return [Boolean]
+#: src/lib/y2partitioner/dialogs/disk_clone.rb:184
+#, fuzzy
+#| msgid "Confirm Deleting of Volume Group"
+msgid "Confirm deleting"
+msgstr "ยืนยันการลบกลุ่มโวลุม"
+
+#: src/lib/y2partitioner/dialogs/disk_clone.rb:185
+#, fuzzy
+#| msgid ""
+#| "The following partitions will be deleted\n"
+#| "and all data on them will be lost:"
+msgid ""
+"The following devices will be deleted\n"
+"and all data on them will be lost:"
+msgstr ""
+"พาร์ทิชันต่อไปนี้จะถูกลบออกไป\n"
+"และจะสูญเสียข้อมูลทั้งหมดที่อยู่ภายในพวกมัน:"
+
+#: src/lib/y2partitioner/dialogs/disk_clone.rb:186
+#, fuzzy
+#| msgid "Really delete these partitions?"
+msgid "Really delete these devices?"
+msgstr "ต้องการจะลบพาร์ทิชันเหล่านี้จริงหรือไม่ ?"
 
 #. @param controller [Actions::Controllers::Filesystem]
 #: src/lib/y2partitioner/dialogs/encrypt_password.rb:19
@@ -1541,7 +1651,7 @@ msgid "Hard Disk:"
 msgstr "ฮาร์ดดิสก์:"
 
 #. Translators: Expert menu for disks in the partitioner.
-#: src/lib/y2partitioner/widgets/disk_expert_menu_button.rb:39
+#: src/lib/y2partitioner/widgets/disk_expert_menu_button.rb:44
 #, fuzzy
 #| msgid "Expert..."
 msgid "&Expert..."
@@ -1550,11 +1660,17 @@ msgstr "ขั้นสูง..."
 #. Menu items
 #.
 #. @return [Array<[Symbol, String]>]
-#: src/lib/y2partitioner/widgets/disk_expert_menu_button.rb:46
+#: src/lib/y2partitioner/widgets/disk_expert_menu_button.rb:52
 #, fuzzy
 #| msgid "Create New Partition Table"
-msgid "Create New Partition &Table..."
+msgid "Create New Partition &Table"
 msgstr "สร้างตารางพาร์ทิชันใหม่"
+
+#: src/lib/y2partitioner/widgets/disk_expert_menu_button.rb:53
+#, fuzzy
+#| msgid "Clone This Disk"
+msgid "Clone this Disk"
+msgstr "โคลนดิสก์นี้"
 
 #. help text for cryptofs
 #: src/lib/y2partitioner/widgets/encrypt_password.rb:20
@@ -6309,70 +6425,6 @@ msgstr "ดิสก์ที่จะจัดพาร์ทิชัน"
 #~ "พาร์ทิชัน %1 ถูกใช้งานอยู่ มันจึงไม่สามารถปรับขนาดได้\n"
 #~ "หากต้องการปรับขนาด %1 โปรดตรวจสอบว่ามันไม่ได้ถูกใช้งานแล้ว"
 
-#, fuzzy
-#~| msgid ""
-#~| "<p>Select one or more (if available) hard disks\n"
-#~| "that will have the same partition layout as\n"
-#~| "this disk.</p>\n"
-#~| "<p>Disks marked with '*' sign contain one or\n"
-#~| "more partitions. After cloning, these\n"
-#~| "partitions will be deleted.</p>"
-#~ msgid ""
-#~ "<p>Select one or more (if available) hard disks\n"
-#~ "that will have the same partition layout as\n"
-#~ "this disk.</p>\n"
-#~ "<p>Disks marked with the sign '*' contain one or\n"
-#~ "more partitions. After cloning, these\n"
-#~ "partitions will be deleted.</p>\n"
-#~ msgstr ""
-#~ "<p>เลือกฮาร์ดดิสก์ก่อนอย่างน้อยหนึ่งตัว\n"
-#~ "ที่จะให้มีการจัดพาร์ทิชันแบบเดียวกันกับดิสก์นี้</p>\n"
-#~ "<p>ดิสก์ที่ถูกทำเครื่องหมาย '*' หมายถึงเป็นดิสก์ที่มี\n"
-#~ "พาร์ทิชันอยู่อย่างน้อยหนึ่งพาร์ทิชัน หลังจากการโคลนดิสก์แล้ว\n"
-#~ "พาร์ทิชันเหล่านี้จะถูกลบออกไป</p>"
-
-#~ msgid ""
-#~ "The following partitions will be deleted\n"
-#~ "and all data on them will be lost:"
-#~ msgstr ""
-#~ "พาร์ทิชันต่อไปนี้จะถูกลบออกไป\n"
-#~ "และจะสูญเสียข้อมูลทั้งหมดที่อยู่ภายในพวกมัน:"
-
-#~ msgid "Really delete these partitions?"
-#~ msgstr "ต้องการจะลบพาร์ทิชันเหล่านี้จริงหรือไม่ ?"
-
-#, fuzzy
-#~| msgid ""
-#~| "There are no partitions on this disk (a clonable\n"
-#~| "disk must have at least one partition).\n"
-#~| "Create some partitions before cloning the disk."
-#~ msgid ""
-#~ "There are no partitions on this disk, but a clonable\n"
-#~ "disk must have at least one partition.\n"
-#~ "Create partitions before cloning the disk.\n"
-#~ msgstr ""
-#~ "ไม่พบว่ามีพาร์ทิชันใด ๆ อยู่บนดิสก์นี้ (ดิสก์ที่สามารถใช้โคลนได้\n"
-#~ "จะต้องมีพาร์ทิชันอยู่อย่างน้อยหนึ่งพาร์ทิชัน)\n"
-#~ "โปรดสร้างพาร์ทิชันบางพาร์ทิชันก่อนจะทำการโคลนดิสก์"
-
-#~ msgid ""
-#~ "This disk cannot be cloned. There are no suitable\n"
-#~ "disks that could have the same partitioning layout."
-#~ msgstr ""
-#~ "ดิสก์นี้ไม่สามารถจะถูกโคลนได้ เนื่องจากไม่มีดิสก์ที่เหมาะสม\n"
-#~ "ที่สามารถจะมีรูปแบบพาร์ทิชันแบบเดียวกันกับดิสก์นี้ได้"
-
-#~ msgid "Clone partition layout of %1"
-#~ msgstr "โคลนรูปแบบพาร์ทิชันของ %1"
-
-#~ msgid "Available target disks:"
-#~ msgstr "ดิสก์เป้าหมายที่มีให้เลือก:"
-
-#, fuzzy
-#~| msgid "Select some target disk for creating a clone"
-#~ msgid "Select a target disk for creating a clone"
-#~ msgstr "เลือกดิสก์เป้าหมายบางดิสก์สำหรับทำการโคลนดิสก์"
-
 #~ msgid ""
 #~ "Running dasdfmt deletes all data on the disk.\n"
 #~ "Really execute dasdfmt on disk %1?\n"
@@ -6436,11 +6488,6 @@ msgstr "ดิสก์ที่จะจัดพาร์ทิชัน"
 
 #~ msgid "hdparm is not available for this disk."
 #~ msgstr "ไม่สามารถใช้ hdparm กับดิสก์นี้ได้"
-
-#, fuzzy
-#~| msgid "Clone This Disk"
-#~ msgid "Clone this Disk"
-#~ msgstr "โคลนดิสก์นี้"
 
 #~ msgid "Execute dasd&fmt on the DASD Device"
 #~ msgstr "ประมวลผล dasd&fmt บนอุปกรณ์ DASD"

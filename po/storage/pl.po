@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: storage\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-03-01 06:35+0000\n"
+"POT-Creation-Date: 2018-03-01 15:17+0100\n"
 "PO-Revision-Date: 2018-02-22 11:04+0000\n"
 "Last-Translator: Michael Hogan <mhogan@novell.com>\n"
 "Language-Team: Polish <https://l10n.opensuse.org/projects/yast-storage/"
@@ -89,6 +89,35 @@ msgstr ""
 #: src/lib/y2partitioner/actions/add_partition.rb:152
 msgid "It is not possible to create a partition on %{name}."
 msgstr "Nie można utworzyć partycji na urządzeniu %{name}."
+
+#. Error message when the disk has no partition table
+#.
+#. @return [String, nil] nil if the disk has partition table.
+#: src/lib/y2partitioner/actions/clone_disk.rb:91
+#, fuzzy
+#| msgid ""
+#| "There are no partitions on this disk, but a clonable\n"
+#| "disk must have at least one partition.\n"
+#| "Create partitions before cloning the disk.\n"
+msgid ""
+"There are no partitions on this disk, but a clonable\n"
+"disk must have at least one partition.\n"
+"Create partitions before cloning the disk."
+msgstr ""
+"Na tym dysku nie ma partycji (na dysku przeznaczonym\n"
+"do sklonowania musi być co najmniej jedna partycja).\n"
+"Utwórz kilka partycji przed procesem klonowania dysku.\n"
+
+#. Error message when there are no suitable devices where to clone the disk
+#.
+#. @return [String, nil] nil if there are suitable devices.
+#: src/lib/y2partitioner/actions/clone_disk.rb:102
+msgid ""
+"This disk cannot be cloned. There are no suitable\n"
+"disks that could have the same partitioning layout."
+msgstr ""
+"Nie można sklonować tego dysku. Brak odpowiednich\n"
+"dysków które mogłyby mieć ten sam układ partycji."
 
 #. TRANSLATORS: dialog title. %s is a device name like /dev/vg0
 #: src/lib/y2partitioner/actions/controllers/lvm_lv.rb:245
@@ -259,7 +288,7 @@ msgid "It is not possible to create a new partition table on %s."
 msgstr "Nie można utworzyć nowej tablicy partycji na urządzeniu %s."
 
 #. TRANSLATORS %s is the name of the device to be deleted (e.g., /dev/sda1)
-#: src/lib/y2partitioner/actions/delete_device.rb:92
+#: src/lib/y2partitioner/actions/delete_device.rb:94
 msgid "Really delete %s?"
 msgstr "Czy na pewno usunąć %s?"
 
@@ -278,14 +307,13 @@ msgstr "Na tym dysku nie ma partycji do usunięcia."
 #.
 #. It shows all partitions (and dependent devices) that will be deleted.
 #.
-#. @see DeleteDevice#dependent_devices
 #. @see DeleteDevice#confirm_recursive_delete
-#: src/lib/y2partitioner/actions/delete_disk.rb:61
+#: src/lib/y2partitioner/actions/delete_disk.rb:60
 msgid "Confirm Deleting of All Partitions"
 msgstr "Potwierdź usunięcie wszystkich partycji"
 
 #. TRANSLATORS: name is the name of the disk to be deleted (e.g., /dev/sda)
-#: src/lib/y2partitioner/actions/delete_disk.rb:63
+#: src/lib/y2partitioner/actions/delete_disk.rb:62
 #, fuzzy
 #| msgid ""
 #| "The disk \"%1\" contains at least one partition.\n"
@@ -298,7 +326,7 @@ msgstr ""
 "W przypadku kontynuowania następujące partycje zostaną usunięte:"
 
 #. TRANSLATORS: name is the name of the disk to be deleted (e.g., /dev/sda)
-#: src/lib/y2partitioner/actions/delete_disk.rb:66
+#: src/lib/y2partitioner/actions/delete_disk.rb:65
 #, fuzzy
 #| msgid "Really delete all partitions on \"%1\"?"
 msgid "Really delete all partitions on \"%{name}\"?"
@@ -314,9 +342,8 @@ msgstr "Czy usunąć wolumin logiczny %1?"
 
 #. Confirmation when the device is a LVM thin pool and there is any thin volume over it
 #.
-#. @see DeleteDevice#dependent_devices
 #. @see DeleteDevice#confirm_recursive_delete
-#: src/lib/y2partitioner/actions/delete_lvm_lv.rb:76
+#: src/lib/y2partitioner/actions/delete_lvm_lv.rb:75
 #, fuzzy
 #| msgid "Confirm Deleting of Volume Group"
 msgid "Confirm Deleting of LVM Thin Pool"
@@ -324,7 +351,7 @@ msgstr "Potwierdź usunięcie grupy woluminu"
 
 #. TRANSLATORS: Confirmation message when a LVM thin pool is going to be deleted,
 #. where %{name} is replaced by the name of the thin pool (e.g., /dev/system/pool)
-#: src/lib/y2partitioner/actions/delete_lvm_lv.rb:80
+#: src/lib/y2partitioner/actions/delete_lvm_lv.rb:79
 #, fuzzy
 #| msgid ""
 #| "The volume group \"%1\" contains at least one logical volume.\n"
@@ -340,7 +367,7 @@ msgstr ""
 "odmontowane a następnie usunięte:"
 
 #. TRANSLATORS: %{name} is replaced by the name of the thin pool (e.g., /dev/system/pool)
-#: src/lib/y2partitioner/actions/delete_lvm_lv.rb:87
+#: src/lib/y2partitioner/actions/delete_lvm_lv.rb:86
 #, fuzzy
 #| msgid "Really delete volume group \"%1\" and all related logical volumes?"
 msgid "Really delete the thin pool \"%{name}\" and all related thin volumes?"
@@ -350,14 +377,13 @@ msgstr ""
 
 #. Confirmation when the device contains logical volumes
 #.
-#. @see DeleteDevice#dependent_devices
 #. @see DeleteDevice#confirm_recursive_delete
-#: src/lib/y2partitioner/actions/delete_lvm_vg.rb:60
+#: src/lib/y2partitioner/actions/delete_lvm_vg.rb:59
 msgid "Confirm Deleting of Volume Group"
 msgstr "Potwierdź usunięcie grupy woluminu"
 
 #. TRANSLATORS: %s is the name of the volume group (e.g. "system")
-#: src/lib/y2partitioner/actions/delete_lvm_vg.rb:62
+#: src/lib/y2partitioner/actions/delete_lvm_vg.rb:61
 #, fuzzy
 #| msgid ""
 #| "The volume group \"%1\" contains at least one logical volume.\n"
@@ -373,7 +399,7 @@ msgstr ""
 "odmontowane a następnie usunięte:"
 
 #. TRANSLATORS: %s is the name of the volume group (e.g. "system")
-#: src/lib/y2partitioner/actions/delete_lvm_vg.rb:67
+#: src/lib/y2partitioner/actions/delete_lvm_vg.rb:66
 #, fuzzy
 #| msgid "Really delete volume group \"%1\" and all related logical volumes?"
 msgid "Really delete volume group \"%s\" and all related logical volumes?"
@@ -383,10 +409,9 @@ msgstr ""
 
 #. Confirmation when the device belongs to a volume group
 #.
-#. @see DeleteDevice#dependent_devices
 #. @see DeleteDevice#confirm_recursive_delete
 #. @see DeleteDevice#lvm_vg
-#: src/lib/y2partitioner/actions/delete_md.rb:61
+#: src/lib/y2partitioner/actions/delete_md.rb:60
 #, fuzzy
 #| msgid "Confirm Deleting Partition Used by LVM"
 msgid "Confirm Deleting RAID Used by LVM"
@@ -394,7 +419,7 @@ msgstr "Potwierdź usunięcie partycji używanych przez LVM"
 
 #. TRANSLATORS: name is the name of the volume group that the md raid
 #. belongs to (e.g., /dev/system)
-#: src/lib/y2partitioner/actions/delete_md.rb:64
+#: src/lib/y2partitioner/actions/delete_md.rb:63
 #, fuzzy
 #| msgid ""
 #| "The selected partition is used by volume group \"%1\".\n"
@@ -411,7 +436,7 @@ msgstr ""
 
 #. TRANSLATORS: md is the name of the md raid to be deleted (e.g., /dev/md/md1),
 #. and vg is the name of the volume group to be deleted (e.g., /dev/system)
-#: src/lib/y2partitioner/actions/delete_md.rb:69
+#: src/lib/y2partitioner/actions/delete_md.rb:68
 #, fuzzy
 #| msgid "Delete partition \"%1\" and volume group \"%2\" now?"
 msgid "Delete RAID \"%{md}\" and volume group \"%{lvm_vg}\"?"
@@ -419,16 +444,15 @@ msgstr "Czy usunąć partycję \"%1\" i grupę woluminów \"%2\"?"
 
 #. Confirmation when the partition belongs to a volume group
 #.
-#. @see DeleteDevice#dependent_devices
 #. @see DeleteDevice#confirm_recursive_delete
 #. @see DeleteDevice#lvm_vg
-#: src/lib/y2partitioner/actions/delete_partition.rb:66
+#: src/lib/y2partitioner/actions/delete_partition.rb:65
 msgid "Confirm Deleting Partition Used by LVM"
 msgstr "Potwierdź usunięcie partycji używanych przez LVM"
 
 #. TRANSLATORS: name is the name of the volume group that the partition
 #. belongs to (e.g., /dev/system)
-#: src/lib/y2partitioner/actions/delete_partition.rb:69
+#: src/lib/y2partitioner/actions/delete_partition.rb:68
 #, fuzzy
 #| msgid ""
 #| "The selected partition is used by volume group \"%1\".\n"
@@ -445,7 +469,7 @@ msgstr ""
 
 #. TRANSLATORS: partition is the name of the partition to be deleted (e.g., /dev/sda1),
 #. and vg is the name of the volume group to be deleted (e.g., /dev/system)
-#: src/lib/y2partitioner/actions/delete_partition.rb:74
+#: src/lib/y2partitioner/actions/delete_partition.rb:73
 #, fuzzy
 #| msgid "Delete partition \"%1\" and volume group \"%2\" now?"
 msgid "Delete partition \"%{partition}\" and volume group \"%{lvm_vg}\"?"
@@ -453,15 +477,14 @@ msgstr "Czy usunąć partycję \"%1\" i grupę woluminów \"%2\"?"
 
 #. Confirmation when the partition belongs to a md raid
 #.
-#. @see DeleteDevice#dependent_devices
 #. @see DeleteDevice#confirm_recursive_delete
 #. @see DeleteDevice#md
-#: src/lib/y2partitioner/actions/delete_partition.rb:87
+#: src/lib/y2partitioner/actions/delete_partition.rb:85
 msgid "Confirm Deleting Partition Used by RAID"
 msgstr "Potwierdź usunięcie partycji używanych przez RAID"
 
 #. TRANSLATORS: name is the name of the partition to be deleted (e.g., /dev/sda1)
-#: src/lib/y2partitioner/actions/delete_partition.rb:89
+#: src/lib/y2partitioner/actions/delete_partition.rb:87
 #, fuzzy
 #| msgid ""
 #| "The selected partition belongs to RAID  \"%1\".\n"
@@ -478,7 +501,7 @@ msgstr ""
 
 #. TRANSLATORS: partition is the name of the partition to be deleted (e.g., /dev/sda1),
 #. and md_raid is the name of the raid to be deleted (e.g., /dev/md/md1)
-#: src/lib/y2partitioner/actions/delete_partition.rb:94
+#: src/lib/y2partitioner/actions/delete_partition.rb:92
 #, fuzzy
 #| msgid "Delete partition \"%1\" and RAID \"%2\" now?"
 msgid "Delete partition \"%{partition}\" and RAID \"%{md}\"?"
@@ -705,6 +728,90 @@ msgstr "noCoW"
 #: src/lib/y2partitioner/dialogs/btrfs_subvolumes.rb:39
 msgid "Edit Btrfs subvolumes"
 msgstr "Edytuj podwoluminy btrfs"
+
+#. TRANSLATORS: %{name} is replaced by a disk device name (e.g., /dev/sda)
+#: src/lib/y2partitioner/dialogs/disk_clone.rb:48
+#, fuzzy
+#| msgid "Clone partition layout of %1"
+msgid "Clone partition layout of %{name}"
+msgstr "Klonuj układ partycji dysku %1"
+
+#. @return [String]
+#: src/lib/y2partitioner/dialogs/disk_clone.rb:73
+msgid "Available target disks:"
+msgstr "Dostępne dyski docelowe:"
+
+#. Checks whether any device was selected
+#.
+#. @note A confirmation popup is shown when deleting devices is needed
+#. for cloning into the selected devices.
+#.
+#. @return [Boolean]
+#: src/lib/y2partitioner/dialogs/disk_clone.rb:90
+msgid "Select a target disk for creating a clone"
+msgstr "Wybierz dysk docelowy, na którym zostanie utworzony klon dysku"
+
+#. Help text
+#.
+#. @return [String]
+#: src/lib/y2partitioner/dialogs/disk_clone.rb:113
+#, fuzzy
+#| msgid ""
+#| "This disk cannot be cloned. There are no suitable\n"
+#| "disks that could have the same partitioning layout."
+msgid ""
+"Select one or more (if available) hard disks that will have the same "
+"partition layout as this disk"
+msgstr ""
+"Nie można sklonować tego dysku. Brak odpowiednich\n"
+"dysków które mogłyby mieć ten sam układ partycji."
+
+#: src/lib/y2partitioner/dialogs/disk_clone.rb:115
+#, fuzzy
+#| msgid ""
+#| "<p>Select one or more (if available) hard disks\n"
+#| "that will have the same partition layout as\n"
+#| "this disk.</p>\n"
+#| "<p>Disks marked with the sign '*' contain one or\n"
+#| "more partitions. After cloning, these\n"
+#| "partitions will be deleted.</p>\n"
+msgid ""
+"Disks marked with the sign '*' contain one or more partitions. After "
+"cloning, these partitions will be deleted"
+msgstr ""
+"<p>Proszę zaznaczyć jeden lub więcej (jeśli są dostępne) twardych dysków,\n"
+" które mają mieć rozkład partycji taki sam jak ten dysk.</p> \n"
+"<p>Dyski zaznaczone znakiem '*'  zawierają jedną lub więcej partycji.\n"
+"Partycje te zostaną usunięte podczas klonowania.</p>\n"
+
+#. Asks whether to remove devices holded by the selected devices
+#.
+#. @see ConfirmRecursiveDelete
+#.
+#. @return [Boolean]
+#: src/lib/y2partitioner/dialogs/disk_clone.rb:184
+#, fuzzy
+#| msgid "Confirm Deleting of Volume Group"
+msgid "Confirm deleting"
+msgstr "Potwierdź usunięcie grupy woluminu"
+
+#: src/lib/y2partitioner/dialogs/disk_clone.rb:185
+#, fuzzy
+#| msgid ""
+#| "The following partitions will be deleted\n"
+#| "and all data on them will be lost:"
+msgid ""
+"The following devices will be deleted\n"
+"and all data on them will be lost:"
+msgstr ""
+"Następujące partycje zostaną usunięte,\n"
+"a wszystkie ich dane zostaną utracone:"
+
+#: src/lib/y2partitioner/dialogs/disk_clone.rb:186
+#, fuzzy
+#| msgid "Really delete these partitions?"
+msgid "Really delete these devices?"
+msgstr "Czy na pewno usunąć te partycje?"
 
 #. @param controller [Actions::Controllers::Filesystem]
 #: src/lib/y2partitioner/dialogs/encrypt_password.rb:19
@@ -1430,7 +1537,7 @@ msgid "Hard Disk:"
 msgstr "Dysk twardy:"
 
 #. Translators: Expert menu for disks in the partitioner.
-#: src/lib/y2partitioner/widgets/disk_expert_menu_button.rb:39
+#: src/lib/y2partitioner/widgets/disk_expert_menu_button.rb:44
 #, fuzzy
 #| msgid "Expert..."
 msgid "&Expert..."
@@ -1439,11 +1546,15 @@ msgstr "Zaawansowane..."
 #. Menu items
 #.
 #. @return [Array<[Symbol, String]>]
-#: src/lib/y2partitioner/widgets/disk_expert_menu_button.rb:46
+#: src/lib/y2partitioner/widgets/disk_expert_menu_button.rb:52
 #, fuzzy
 #| msgid "Create New Partition Table on %s"
-msgid "Create New Partition &Table..."
+msgid "Create New Partition &Table"
 msgstr "Utwórz nową tablicę partycji na urządzeniu %s"
+
+#: src/lib/y2partitioner/widgets/disk_expert_menu_button.rb:53
+msgid "Clone this Disk"
+msgstr "Sklonuj ten dysk"
 
 #. help text for cryptofs
 #: src/lib/y2partitioner/widgets/encrypt_password.rb:20
@@ -5872,55 +5983,6 @@ msgstr "Partycja diagnostyczna"
 #~ "upewnić się, że nie jest ona używana."
 
 #~ msgid ""
-#~ "<p>Select one or more (if available) hard disks\n"
-#~ "that will have the same partition layout as\n"
-#~ "this disk.</p>\n"
-#~ "<p>Disks marked with the sign '*' contain one or\n"
-#~ "more partitions. After cloning, these\n"
-#~ "partitions will be deleted.</p>\n"
-#~ msgstr ""
-#~ "<p>Proszę zaznaczyć jeden lub więcej (jeśli są dostępne) twardych "
-#~ "dysków,\n"
-#~ " które mają mieć rozkład partycji taki sam jak ten dysk.</p> \n"
-#~ "<p>Dyski zaznaczone znakiem '*'  zawierają jedną lub więcej partycji.\n"
-#~ "Partycje te zostaną usunięte podczas klonowania.</p>\n"
-
-#~ msgid ""
-#~ "The following partitions will be deleted\n"
-#~ "and all data on them will be lost:"
-#~ msgstr ""
-#~ "Następujące partycje zostaną usunięte,\n"
-#~ "a wszystkie ich dane zostaną utracone:"
-
-#~ msgid "Really delete these partitions?"
-#~ msgstr "Czy na pewno usunąć te partycje?"
-
-#~ msgid ""
-#~ "There are no partitions on this disk, but a clonable\n"
-#~ "disk must have at least one partition.\n"
-#~ "Create partitions before cloning the disk.\n"
-#~ msgstr ""
-#~ "Na tym dysku nie ma partycji (na dysku przeznaczonym\n"
-#~ "do sklonowania musi być co najmniej jedna partycja).\n"
-#~ "Utwórz kilka partycji przed procesem klonowania dysku.\n"
-
-#~ msgid ""
-#~ "This disk cannot be cloned. There are no suitable\n"
-#~ "disks that could have the same partitioning layout."
-#~ msgstr ""
-#~ "Nie można sklonować tego dysku. Brak odpowiednich\n"
-#~ "dysków które mogłyby mieć ten sam układ partycji."
-
-#~ msgid "Clone partition layout of %1"
-#~ msgstr "Klonuj układ partycji dysku %1"
-
-#~ msgid "Available target disks:"
-#~ msgstr "Dostępne dyski docelowe:"
-
-#~ msgid "Select a target disk for creating a clone"
-#~ msgstr "Wybierz dysk docelowy, na którym zostanie utworzony klon dysku"
-
-#~ msgid ""
 #~ "Running dasdfmt deletes all data on the disk.\n"
 #~ "Really execute dasdfmt on disk %1?\n"
 #~ msgstr ""
@@ -5983,9 +6045,6 @@ msgstr "Partycja diagnostyczna"
 
 #~ msgid "hdparm is not available for this disk."
 #~ msgstr "Opcje hdparm nie są dostępne dla tego dysku."
-
-#~ msgid "Clone this Disk"
-#~ msgstr "Sklonuj ten dysk"
 
 #~ msgid "Execute dasd&fmt on the DASD Device"
 #~ msgstr "Wywołaj dasd&fmt na urządzeniu DASD"
