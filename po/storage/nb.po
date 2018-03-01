@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: storage\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-03-01 06:35+0000\n"
+"POT-Creation-Date: 2018-03-01 15:17+0100\n"
 "PO-Revision-Date: 2009-10-08 13:00+0200\n"
 "Last-Translator: Olav Pettershagen <olav.pet@gmail.com>\n"
 "Language-Team: Norwegian Bokmål <opensuse-translation@opensuse.org>\n"
@@ -90,6 +90,35 @@ msgstr ""
 #| msgid "It is not possible to create a partition on %1."
 msgid "It is not possible to create a partition on %{name}."
 msgstr "Det er ikke mulig å opprette en partisjon på %1."
+
+#. Error message when the disk has no partition table
+#.
+#. @return [String, nil] nil if the disk has partition table.
+#: src/lib/y2partitioner/actions/clone_disk.rb:91
+#, fuzzy
+#| msgid ""
+#| "There are no partitions on this disk, but a clonable\n"
+#| "disk must have at least one partition.\n"
+#| "Create partitions before cloning the disk.\n"
+msgid ""
+"There are no partitions on this disk, but a clonable\n"
+"disk must have at least one partition.\n"
+"Create partitions before cloning the disk."
+msgstr ""
+"Det er ingen partisjoner på denne disken (en klonbar\n"
+"disk må ha minst én partisjon).\n"
+"Opprett noen partisjoner før du kloner disken.\n"
+
+#. Error message when there are no suitable devices where to clone the disk
+#.
+#. @return [String, nil] nil if there are suitable devices.
+#: src/lib/y2partitioner/actions/clone_disk.rb:102
+msgid ""
+"This disk cannot be cloned. There are no suitable\n"
+"disks that could have the same partitioning layout."
+msgstr ""
+"Denne disken kan ikke klones. Det finnes ingen egnede\n"
+"disker som kan ha samme partisjonsoppsett."
 
 #. TRANSLATORS: dialog title. %s is a device name like /dev/vg0
 #: src/lib/y2partitioner/actions/controllers/lvm_lv.rb:245
@@ -290,7 +319,7 @@ msgid "It is not possible to create a new partition table on %s."
 msgstr "Det er ikke mulig å opprette en partisjon på %1."
 
 #. TRANSLATORS %s is the name of the device to be deleted (e.g., /dev/sda1)
-#: src/lib/y2partitioner/actions/delete_device.rb:92
+#: src/lib/y2partitioner/actions/delete_device.rb:94
 #, fuzzy
 #| msgid "Really delete %1?"
 msgid "Really delete %s?"
@@ -311,14 +340,13 @@ msgstr "Denne disken inneholder ingen partisjoner som kan slettes."
 #.
 #. It shows all partitions (and dependent devices) that will be deleted.
 #.
-#. @see DeleteDevice#dependent_devices
 #. @see DeleteDevice#confirm_recursive_delete
-#: src/lib/y2partitioner/actions/delete_disk.rb:61
+#: src/lib/y2partitioner/actions/delete_disk.rb:60
 msgid "Confirm Deleting of All Partitions"
 msgstr "Bekreft sletting av alle partisjoner"
 
 #. TRANSLATORS: name is the name of the disk to be deleted (e.g., /dev/sda)
-#: src/lib/y2partitioner/actions/delete_disk.rb:63
+#: src/lib/y2partitioner/actions/delete_disk.rb:62
 #, fuzzy
 #| msgid ""
 #| "The disk \"%1\" contains at least one partition.\n"
@@ -331,7 +359,7 @@ msgstr ""
 "Hvis du fortsetter, vil følgende partisjoner bli slettet:"
 
 #. TRANSLATORS: name is the name of the disk to be deleted (e.g., /dev/sda)
-#: src/lib/y2partitioner/actions/delete_disk.rb:66
+#: src/lib/y2partitioner/actions/delete_disk.rb:65
 #, fuzzy
 #| msgid "Really delete all partitions on \"%1\"?"
 msgid "Really delete all partitions on \"%{name}\"?"
@@ -347,9 +375,8 @@ msgstr "Vil du fjerne det logiske volumet %1?"
 
 #. Confirmation when the device is a LVM thin pool and there is any thin volume over it
 #.
-#. @see DeleteDevice#dependent_devices
 #. @see DeleteDevice#confirm_recursive_delete
-#: src/lib/y2partitioner/actions/delete_lvm_lv.rb:76
+#: src/lib/y2partitioner/actions/delete_lvm_lv.rb:75
 #, fuzzy
 #| msgid "Confirm Deleting of Volume Group"
 msgid "Confirm Deleting of LVM Thin Pool"
@@ -357,7 +384,7 @@ msgstr "Bekreft sletting av volumgruppe"
 
 #. TRANSLATORS: Confirmation message when a LVM thin pool is going to be deleted,
 #. where %{name} is replaced by the name of the thin pool (e.g., /dev/system/pool)
-#: src/lib/y2partitioner/actions/delete_lvm_lv.rb:80
+#: src/lib/y2partitioner/actions/delete_lvm_lv.rb:79
 #, fuzzy
 #| msgid ""
 #| "The volume group \"%1\" contains at least one logical volume.\n"
@@ -373,7 +400,7 @@ msgstr ""
 "og slettet:"
 
 #. TRANSLATORS: %{name} is replaced by the name of the thin pool (e.g., /dev/system/pool)
-#: src/lib/y2partitioner/actions/delete_lvm_lv.rb:87
+#: src/lib/y2partitioner/actions/delete_lvm_lv.rb:86
 #, fuzzy
 #| msgid "Really delete volume group \"%1\" and all related logical volumes?"
 msgid "Really delete the thin pool \"%{name}\" and all related thin volumes?"
@@ -382,14 +409,13 @@ msgstr ""
 
 #. Confirmation when the device contains logical volumes
 #.
-#. @see DeleteDevice#dependent_devices
 #. @see DeleteDevice#confirm_recursive_delete
-#: src/lib/y2partitioner/actions/delete_lvm_vg.rb:60
+#: src/lib/y2partitioner/actions/delete_lvm_vg.rb:59
 msgid "Confirm Deleting of Volume Group"
 msgstr "Bekreft sletting av volumgruppe"
 
 #. TRANSLATORS: %s is the name of the volume group (e.g. "system")
-#: src/lib/y2partitioner/actions/delete_lvm_vg.rb:62
+#: src/lib/y2partitioner/actions/delete_lvm_vg.rb:61
 #, fuzzy
 #| msgid ""
 #| "The volume group \"%1\" contains at least one logical volume.\n"
@@ -405,7 +431,7 @@ msgstr ""
 "og slettet:"
 
 #. TRANSLATORS: %s is the name of the volume group (e.g. "system")
-#: src/lib/y2partitioner/actions/delete_lvm_vg.rb:67
+#: src/lib/y2partitioner/actions/delete_lvm_vg.rb:66
 #, fuzzy
 #| msgid "Really delete volume group \"%1\" and all related logical volumes?"
 msgid "Really delete volume group \"%s\" and all related logical volumes?"
@@ -414,10 +440,9 @@ msgstr ""
 
 #. Confirmation when the device belongs to a volume group
 #.
-#. @see DeleteDevice#dependent_devices
 #. @see DeleteDevice#confirm_recursive_delete
 #. @see DeleteDevice#lvm_vg
-#: src/lib/y2partitioner/actions/delete_md.rb:61
+#: src/lib/y2partitioner/actions/delete_md.rb:60
 #, fuzzy
 #| msgid "Confirm Deleting Partition Used by LVM"
 msgid "Confirm Deleting RAID Used by LVM"
@@ -425,7 +450,7 @@ msgstr "Bekreft sletting av partisjon som brukes av LVM"
 
 #. TRANSLATORS: name is the name of the volume group that the md raid
 #. belongs to (e.g., /dev/system)
-#: src/lib/y2partitioner/actions/delete_md.rb:64
+#: src/lib/y2partitioner/actions/delete_md.rb:63
 #, fuzzy
 #| msgid ""
 #| "The selected partition is used by volume group \"%1\".\n"
@@ -442,7 +467,7 @@ msgstr ""
 
 #. TRANSLATORS: md is the name of the md raid to be deleted (e.g., /dev/md/md1),
 #. and vg is the name of the volume group to be deleted (e.g., /dev/system)
-#: src/lib/y2partitioner/actions/delete_md.rb:69
+#: src/lib/y2partitioner/actions/delete_md.rb:68
 #, fuzzy
 #| msgid "Delete partition \"%1\" and volume group \"%2\" now?"
 msgid "Delete RAID \"%{md}\" and volume group \"%{lvm_vg}\"?"
@@ -450,16 +475,15 @@ msgstr "Vil du slette partisjonen «%1» og volumgruppen «%2» nå?"
 
 #. Confirmation when the partition belongs to a volume group
 #.
-#. @see DeleteDevice#dependent_devices
 #. @see DeleteDevice#confirm_recursive_delete
 #. @see DeleteDevice#lvm_vg
-#: src/lib/y2partitioner/actions/delete_partition.rb:66
+#: src/lib/y2partitioner/actions/delete_partition.rb:65
 msgid "Confirm Deleting Partition Used by LVM"
 msgstr "Bekreft sletting av partisjon som brukes av LVM"
 
 #. TRANSLATORS: name is the name of the volume group that the partition
 #. belongs to (e.g., /dev/system)
-#: src/lib/y2partitioner/actions/delete_partition.rb:69
+#: src/lib/y2partitioner/actions/delete_partition.rb:68
 #, fuzzy
 #| msgid ""
 #| "The selected partition is used by volume group \"%1\".\n"
@@ -476,7 +500,7 @@ msgstr ""
 
 #. TRANSLATORS: partition is the name of the partition to be deleted (e.g., /dev/sda1),
 #. and vg is the name of the volume group to be deleted (e.g., /dev/system)
-#: src/lib/y2partitioner/actions/delete_partition.rb:74
+#: src/lib/y2partitioner/actions/delete_partition.rb:73
 #, fuzzy
 #| msgid "Delete partition \"%1\" and volume group \"%2\" now?"
 msgid "Delete partition \"%{partition}\" and volume group \"%{lvm_vg}\"?"
@@ -484,15 +508,14 @@ msgstr "Vil du slette partisjonen «%1» og volumgruppen «%2» nå?"
 
 #. Confirmation when the partition belongs to a md raid
 #.
-#. @see DeleteDevice#dependent_devices
 #. @see DeleteDevice#confirm_recursive_delete
 #. @see DeleteDevice#md
-#: src/lib/y2partitioner/actions/delete_partition.rb:87
+#: src/lib/y2partitioner/actions/delete_partition.rb:85
 msgid "Confirm Deleting Partition Used by RAID"
 msgstr "Bekreft sletting av partisjonen som brukes av RAID"
 
 #. TRANSLATORS: name is the name of the partition to be deleted (e.g., /dev/sda1)
-#: src/lib/y2partitioner/actions/delete_partition.rb:89
+#: src/lib/y2partitioner/actions/delete_partition.rb:87
 #, fuzzy
 #| msgid ""
 #| "The selected partition belongs to RAID  \"%1\".\n"
@@ -509,7 +532,7 @@ msgstr ""
 
 #. TRANSLATORS: partition is the name of the partition to be deleted (e.g., /dev/sda1),
 #. and md_raid is the name of the raid to be deleted (e.g., /dev/md/md1)
-#: src/lib/y2partitioner/actions/delete_partition.rb:94
+#: src/lib/y2partitioner/actions/delete_partition.rb:92
 #, fuzzy
 #| msgid "Delete partition \"%1\" and RAID \"%2\" now?"
 msgid "Delete partition \"%{partition}\" and RAID \"%{md}\"?"
@@ -757,6 +780,92 @@ msgstr ""
 #| msgid "Btrfs Volumes"
 msgid "Edit Btrfs subvolumes"
 msgstr "Btrfs-volumer"
+
+#. TRANSLATORS: %{name} is replaced by a disk device name (e.g., /dev/sda)
+#: src/lib/y2partitioner/dialogs/disk_clone.rb:48
+#, fuzzy
+#| msgid "Clone partition layout of %1"
+msgid "Clone partition layout of %{name}"
+msgstr "Klon partisjonsoppsettet for %1"
+
+#. @return [String]
+#: src/lib/y2partitioner/dialogs/disk_clone.rb:73
+msgid "Available target disks:"
+msgstr "Tilgjengelige måldisker:"
+
+#. Checks whether any device was selected
+#.
+#. @note A confirmation popup is shown when deleting devices is needed
+#. for cloning into the selected devices.
+#.
+#. @return [Boolean]
+#: src/lib/y2partitioner/dialogs/disk_clone.rb:90
+msgid "Select a target disk for creating a clone"
+msgstr "Velg en måldisk for å opprette en klone."
+
+#. Help text
+#.
+#. @return [String]
+#: src/lib/y2partitioner/dialogs/disk_clone.rb:113
+#, fuzzy
+#| msgid ""
+#| "This disk cannot be cloned. There are no suitable\n"
+#| "disks that could have the same partitioning layout."
+msgid ""
+"Select one or more (if available) hard disks that will have the same "
+"partition layout as this disk"
+msgstr ""
+"Denne disken kan ikke klones. Det finnes ingen egnede\n"
+"disker som kan ha samme partisjonsoppsett."
+
+#: src/lib/y2partitioner/dialogs/disk_clone.rb:115
+#, fuzzy
+#| msgid ""
+#| "<p>Select one or more (if available) hard disks\n"
+#| "that will have the same partition layout as\n"
+#| "this disk.</p>\n"
+#| "<p>Disks marked with the sign '*' contain one or\n"
+#| "more partitions. After cloning, these\n"
+#| "partitions will be deleted.</p>\n"
+msgid ""
+"Disks marked with the sign '*' contain one or more partitions. After "
+"cloning, these partitions will be deleted"
+msgstr ""
+"<p>Velg én eller flere (hvis tilgjengelige) harddisker\n"
+"som skal ha samme partisjonsoppsett som\n"
+"denne disken.</p>\n"
+"<p>Disker merket med '*' inneholder én eller\n"
+"flere partisjoner. Etter kloning vil disse\n"
+"partisjonene bli slettet.</p>\n"
+
+#. Asks whether to remove devices holded by the selected devices
+#.
+#. @see ConfirmRecursiveDelete
+#.
+#. @return [Boolean]
+#: src/lib/y2partitioner/dialogs/disk_clone.rb:184
+#, fuzzy
+#| msgid "Confirm Deleting of Volume Group"
+msgid "Confirm deleting"
+msgstr "Bekreft sletting av volumgruppe"
+
+#: src/lib/y2partitioner/dialogs/disk_clone.rb:185
+#, fuzzy
+#| msgid ""
+#| "The following partitions will be deleted\n"
+#| "and all data on them will be lost:"
+msgid ""
+"The following devices will be deleted\n"
+"and all data on them will be lost:"
+msgstr ""
+"Følgende partisjoner vil bli slettet\n"
+"og alle data på dem vil gå tapt:"
+
+#: src/lib/y2partitioner/dialogs/disk_clone.rb:186
+#, fuzzy
+#| msgid "Really delete these partitions?"
+msgid "Really delete these devices?"
+msgstr "Er du sikker på at du vil slette disse partisjonene?"
 
 #. @param controller [Actions::Controllers::Filesystem]
 #: src/lib/y2partitioner/dialogs/encrypt_password.rb:19
@@ -1540,7 +1649,7 @@ msgid "Hard Disk:"
 msgstr "Harddisk: "
 
 #. Translators: Expert menu for disks in the partitioner.
-#: src/lib/y2partitioner/widgets/disk_expert_menu_button.rb:39
+#: src/lib/y2partitioner/widgets/disk_expert_menu_button.rb:44
 #, fuzzy
 #| msgid "Expert..."
 msgid "&Expert..."
@@ -1549,11 +1658,15 @@ msgstr "Avansert..."
 #. Menu items
 #.
 #. @return [Array<[Symbol, String]>]
-#: src/lib/y2partitioner/widgets/disk_expert_menu_button.rb:46
+#: src/lib/y2partitioner/widgets/disk_expert_menu_button.rb:52
 #, fuzzy
 #| msgid "Create New Partition Table"
-msgid "Create New Partition &Table..."
+msgid "Create New Partition &Table"
 msgstr "Opprett ny partisjonstabell"
+
+#: src/lib/y2partitioner/widgets/disk_expert_menu_button.rb:53
+msgid "Clone this Disk"
+msgstr "Klon denne disken"
 
 #. help text for cryptofs
 #: src/lib/y2partitioner/widgets/encrypt_password.rb:20
@@ -6085,56 +6198,6 @@ msgstr "&Logisk partisjon"
 #~ "endres. For å endre størrelse på %1, sørg for at den ikke er i bruk."
 
 #~ msgid ""
-#~ "<p>Select one or more (if available) hard disks\n"
-#~ "that will have the same partition layout as\n"
-#~ "this disk.</p>\n"
-#~ "<p>Disks marked with the sign '*' contain one or\n"
-#~ "more partitions. After cloning, these\n"
-#~ "partitions will be deleted.</p>\n"
-#~ msgstr ""
-#~ "<p>Velg én eller flere (hvis tilgjengelige) harddisker\n"
-#~ "som skal ha samme partisjonsoppsett som\n"
-#~ "denne disken.</p>\n"
-#~ "<p>Disker merket med '*' inneholder én eller\n"
-#~ "flere partisjoner. Etter kloning vil disse\n"
-#~ "partisjonene bli slettet.</p>\n"
-
-#~ msgid ""
-#~ "The following partitions will be deleted\n"
-#~ "and all data on them will be lost:"
-#~ msgstr ""
-#~ "Følgende partisjoner vil bli slettet\n"
-#~ "og alle data på dem vil gå tapt:"
-
-#~ msgid "Really delete these partitions?"
-#~ msgstr "Er du sikker på at du vil slette disse partisjonene?"
-
-#~ msgid ""
-#~ "There are no partitions on this disk, but a clonable\n"
-#~ "disk must have at least one partition.\n"
-#~ "Create partitions before cloning the disk.\n"
-#~ msgstr ""
-#~ "Det er ingen partisjoner på denne disken (en klonbar\n"
-#~ "disk må ha minst én partisjon).\n"
-#~ "Opprett noen partisjoner før du kloner disken.\n"
-
-#~ msgid ""
-#~ "This disk cannot be cloned. There are no suitable\n"
-#~ "disks that could have the same partitioning layout."
-#~ msgstr ""
-#~ "Denne disken kan ikke klones. Det finnes ingen egnede\n"
-#~ "disker som kan ha samme partisjonsoppsett."
-
-#~ msgid "Clone partition layout of %1"
-#~ msgstr "Klon partisjonsoppsettet for %1"
-
-#~ msgid "Available target disks:"
-#~ msgstr "Tilgjengelige måldisker:"
-
-#~ msgid "Select a target disk for creating a clone"
-#~ msgstr "Velg en måldisk for å opprette en klone."
-
-#~ msgid ""
 #~ "Running dasdfmt deletes all data on the disk.\n"
 #~ "Really execute dasdfmt on disk %1?\n"
 #~ msgstr ""
@@ -6197,9 +6260,6 @@ msgstr "&Logisk partisjon"
 
 #~ msgid "hdparm is not available for this disk."
 #~ msgstr "hdoarm er ikke tilgjengelig for denne disken."
-
-#~ msgid "Clone this Disk"
-#~ msgstr "Klon denne disken"
 
 #~ msgid "Execute dasd&fmt on the DASD Device"
 #~ msgstr "Kjør dasd&fmt for DASD-enheten"

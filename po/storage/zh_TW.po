@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: storage\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-03-01 06:35+0000\n"
+"POT-Creation-Date: 2018-03-01 15:17+0100\n"
 "PO-Revision-Date: 2018-02-14 09:01+0000\n"
 "Last-Translator: Emily Dong <Emily.Dong@excel-gits.com>\n"
 "Language-Team: Chinese (Taiwan) <https://l10n.opensuse.org/projects/yast-"
@@ -84,6 +84,35 @@ msgstr ""
 #: src/lib/y2partitioner/actions/add_partition.rb:152
 msgid "It is not possible to create a partition on %{name}."
 msgstr "無法在 %{name} 上建立分割區。"
+
+#. Error message when the disk has no partition table
+#.
+#. @return [String, nil] nil if the disk has partition table.
+#: src/lib/y2partitioner/actions/clone_disk.rb:91
+#, fuzzy
+#| msgid ""
+#| "There are no partitions on this disk, but a clonable\n"
+#| "disk must have at least one partition.\n"
+#| "Create partitions before cloning the disk.\n"
+msgid ""
+"There are no partitions on this disk, but a clonable\n"
+"disk must have at least one partition.\n"
+"Create partitions before cloning the disk."
+msgstr ""
+"此磁碟上沒有分割區，但可複製磁碟\n"
+"必須至少包含一個分割區。\n"
+"複製磁碟前請先建立一些分割區。\n"
+
+#. Error message when there are no suitable devices where to clone the disk
+#.
+#. @return [String, nil] nil if there are suitable devices.
+#: src/lib/y2partitioner/actions/clone_disk.rb:102
+msgid ""
+"This disk cannot be cloned. There are no suitable\n"
+"disks that could have the same partitioning layout."
+msgstr ""
+"此磁碟無法複製。沒有\n"
+"具有相同分割配置的合適磁碟。"
 
 #. TRANSLATORS: dialog title. %s is a device name like /dev/vg0
 #: src/lib/y2partitioner/actions/controllers/lvm_lv.rb:245
@@ -247,7 +276,7 @@ msgid "It is not possible to create a new partition table on %s."
 msgstr "無法在 %s 上建立新分割區表。"
 
 #. TRANSLATORS %s is the name of the device to be deleted (e.g., /dev/sda1)
-#: src/lib/y2partitioner/actions/delete_device.rb:92
+#: src/lib/y2partitioner/actions/delete_device.rb:94
 msgid "Really delete %s?"
 msgstr "確定要刪除 %s 嗎？"
 
@@ -266,14 +295,13 @@ msgstr "此磁碟上沒有要刪除的分割區。"
 #.
 #. It shows all partitions (and dependent devices) that will be deleted.
 #.
-#. @see DeleteDevice#dependent_devices
 #. @see DeleteDevice#confirm_recursive_delete
-#: src/lib/y2partitioner/actions/delete_disk.rb:61
+#: src/lib/y2partitioner/actions/delete_disk.rb:60
 msgid "Confirm Deleting of All Partitions"
 msgstr "確認刪除所有分割區"
 
 #. TRANSLATORS: name is the name of the disk to be deleted (e.g., /dev/sda)
-#: src/lib/y2partitioner/actions/delete_disk.rb:63
+#: src/lib/y2partitioner/actions/delete_disk.rb:62
 #, fuzzy
 #| msgid ""
 #| "The disk \"%1\" contains at least one partition.\n"
@@ -286,7 +314,7 @@ msgstr ""
 "若要繼續，以下分割區將會被刪除︰"
 
 #. TRANSLATORS: name is the name of the disk to be deleted (e.g., /dev/sda)
-#: src/lib/y2partitioner/actions/delete_disk.rb:66
+#: src/lib/y2partitioner/actions/delete_disk.rb:65
 #, fuzzy
 #| msgid "Really delete all partitions on \"%1\"?"
 msgid "Really delete all partitions on \"%{name}\"?"
@@ -302,9 +330,8 @@ msgstr "要移除邏輯卷冊 %1 嗎？"
 
 #. Confirmation when the device is a LVM thin pool and there is any thin volume over it
 #.
-#. @see DeleteDevice#dependent_devices
 #. @see DeleteDevice#confirm_recursive_delete
-#: src/lib/y2partitioner/actions/delete_lvm_lv.rb:76
+#: src/lib/y2partitioner/actions/delete_lvm_lv.rb:75
 #, fuzzy
 #| msgid "Confirm Deleting of Volume Group"
 msgid "Confirm Deleting of LVM Thin Pool"
@@ -312,7 +339,7 @@ msgstr "確認刪除磁碟區群組"
 
 #. TRANSLATORS: Confirmation message when a LVM thin pool is going to be deleted,
 #. where %{name} is replaced by the name of the thin pool (e.g., /dev/system/pool)
-#: src/lib/y2partitioner/actions/delete_lvm_lv.rb:80
+#: src/lib/y2partitioner/actions/delete_lvm_lv.rb:79
 #, fuzzy
 #| msgid ""
 #| "The volume group \"%1\" contains at least one logical volume.\n"
@@ -328,7 +355,7 @@ msgstr ""
 "並刪除以下磁碟區︰"
 
 #. TRANSLATORS: %{name} is replaced by the name of the thin pool (e.g., /dev/system/pool)
-#: src/lib/y2partitioner/actions/delete_lvm_lv.rb:87
+#: src/lib/y2partitioner/actions/delete_lvm_lv.rb:86
 #, fuzzy
 #| msgid "Really delete volume group \"%1\" and all related logical volumes?"
 msgid "Really delete the thin pool \"%{name}\" and all related thin volumes?"
@@ -336,14 +363,13 @@ msgstr "確定要刪除磁碟區群組「%1」和所有相關的邏輯磁碟區�
 
 #. Confirmation when the device contains logical volumes
 #.
-#. @see DeleteDevice#dependent_devices
 #. @see DeleteDevice#confirm_recursive_delete
-#: src/lib/y2partitioner/actions/delete_lvm_vg.rb:60
+#: src/lib/y2partitioner/actions/delete_lvm_vg.rb:59
 msgid "Confirm Deleting of Volume Group"
 msgstr "確認刪除磁碟區群組"
 
 #. TRANSLATORS: %s is the name of the volume group (e.g. "system")
-#: src/lib/y2partitioner/actions/delete_lvm_vg.rb:62
+#: src/lib/y2partitioner/actions/delete_lvm_vg.rb:61
 #, fuzzy
 #| msgid ""
 #| "The volume group \"%1\" contains at least one logical volume.\n"
@@ -359,7 +385,7 @@ msgstr ""
 "並刪除以下磁碟區︰"
 
 #. TRANSLATORS: %s is the name of the volume group (e.g. "system")
-#: src/lib/y2partitioner/actions/delete_lvm_vg.rb:67
+#: src/lib/y2partitioner/actions/delete_lvm_vg.rb:66
 #, fuzzy
 #| msgid "Really delete volume group \"%1\" and all related logical volumes?"
 msgid "Really delete volume group \"%s\" and all related logical volumes?"
@@ -367,10 +393,9 @@ msgstr "確定要刪除磁碟區群組「%1」和所有相關的邏輯磁碟區�
 
 #. Confirmation when the device belongs to a volume group
 #.
-#. @see DeleteDevice#dependent_devices
 #. @see DeleteDevice#confirm_recursive_delete
 #. @see DeleteDevice#lvm_vg
-#: src/lib/y2partitioner/actions/delete_md.rb:61
+#: src/lib/y2partitioner/actions/delete_md.rb:60
 #, fuzzy
 #| msgid "Confirm Deleting Partition Used by LVM"
 msgid "Confirm Deleting RAID Used by LVM"
@@ -378,7 +403,7 @@ msgstr "確認刪除 LVM 使用的分割區"
 
 #. TRANSLATORS: name is the name of the volume group that the md raid
 #. belongs to (e.g., /dev/system)
-#: src/lib/y2partitioner/actions/delete_md.rb:64
+#: src/lib/y2partitioner/actions/delete_md.rb:63
 #, fuzzy
 #| msgid ""
 #| "The selected partition is used by volume group \"%1\".\n"
@@ -395,7 +420,7 @@ msgstr ""
 
 #. TRANSLATORS: md is the name of the md raid to be deleted (e.g., /dev/md/md1),
 #. and vg is the name of the volume group to be deleted (e.g., /dev/system)
-#: src/lib/y2partitioner/actions/delete_md.rb:69
+#: src/lib/y2partitioner/actions/delete_md.rb:68
 #, fuzzy
 #| msgid "Delete partition \"%1\" and volume group \"%2\" now?"
 msgid "Delete RAID \"%{md}\" and volume group \"%{lvm_vg}\"?"
@@ -403,16 +428,15 @@ msgstr "立即刪除分割區「%1」和磁碟區群組「%2」？"
 
 #. Confirmation when the partition belongs to a volume group
 #.
-#. @see DeleteDevice#dependent_devices
 #. @see DeleteDevice#confirm_recursive_delete
 #. @see DeleteDevice#lvm_vg
-#: src/lib/y2partitioner/actions/delete_partition.rb:66
+#: src/lib/y2partitioner/actions/delete_partition.rb:65
 msgid "Confirm Deleting Partition Used by LVM"
 msgstr "確認刪除 LVM 使用的分割區"
 
 #. TRANSLATORS: name is the name of the volume group that the partition
 #. belongs to (e.g., /dev/system)
-#: src/lib/y2partitioner/actions/delete_partition.rb:69
+#: src/lib/y2partitioner/actions/delete_partition.rb:68
 #, fuzzy
 #| msgid ""
 #| "The selected partition is used by volume group \"%1\".\n"
@@ -429,7 +453,7 @@ msgstr ""
 
 #. TRANSLATORS: partition is the name of the partition to be deleted (e.g., /dev/sda1),
 #. and vg is the name of the volume group to be deleted (e.g., /dev/system)
-#: src/lib/y2partitioner/actions/delete_partition.rb:74
+#: src/lib/y2partitioner/actions/delete_partition.rb:73
 #, fuzzy
 #| msgid "Delete partition \"%1\" and volume group \"%2\" now?"
 msgid "Delete partition \"%{partition}\" and volume group \"%{lvm_vg}\"?"
@@ -437,15 +461,14 @@ msgstr "立即刪除分割區「%1」和磁碟區群組「%2」？"
 
 #. Confirmation when the partition belongs to a md raid
 #.
-#. @see DeleteDevice#dependent_devices
 #. @see DeleteDevice#confirm_recursive_delete
 #. @see DeleteDevice#md
-#: src/lib/y2partitioner/actions/delete_partition.rb:87
+#: src/lib/y2partitioner/actions/delete_partition.rb:85
 msgid "Confirm Deleting Partition Used by RAID"
 msgstr "確認刪除 RAID 使用的分割區"
 
 #. TRANSLATORS: name is the name of the partition to be deleted (e.g., /dev/sda1)
-#: src/lib/y2partitioner/actions/delete_partition.rb:89
+#: src/lib/y2partitioner/actions/delete_partition.rb:87
 #, fuzzy
 #| msgid ""
 #| "The selected partition belongs to RAID  \"%1\".\n"
@@ -462,7 +485,7 @@ msgstr ""
 
 #. TRANSLATORS: partition is the name of the partition to be deleted (e.g., /dev/sda1),
 #. and md_raid is the name of the raid to be deleted (e.g., /dev/md/md1)
-#: src/lib/y2partitioner/actions/delete_partition.rb:94
+#: src/lib/y2partitioner/actions/delete_partition.rb:92
 #, fuzzy
 #| msgid "Delete partition \"%1\" and RAID \"%2\" now?"
 msgid "Delete partition \"%{partition}\" and RAID \"%{md}\"?"
@@ -678,6 +701,92 @@ msgstr "noCoW"
 #: src/lib/y2partitioner/dialogs/btrfs_subvolumes.rb:39
 msgid "Edit Btrfs subvolumes"
 msgstr "編輯 Btrfs 子磁碟區"
+
+#. TRANSLATORS: %{name} is replaced by a disk device name (e.g., /dev/sda)
+#: src/lib/y2partitioner/dialogs/disk_clone.rb:48
+#, fuzzy
+#| msgid "Clone partition layout of %1"
+msgid "Clone partition layout of %{name}"
+msgstr "複製 %1 的分割區配置"
+
+#. @return [String]
+#: src/lib/y2partitioner/dialogs/disk_clone.rb:73
+msgid "Available target disks:"
+msgstr "可用的目標磁碟︰"
+
+#. Checks whether any device was selected
+#.
+#. @note A confirmation popup is shown when deleting devices is needed
+#. for cloning into the selected devices.
+#.
+#. @return [Boolean]
+#: src/lib/y2partitioner/dialogs/disk_clone.rb:90
+msgid "Select a target disk for creating a clone"
+msgstr "選取一個目標磁碟以建立複製品"
+
+#. Help text
+#.
+#. @return [String]
+#: src/lib/y2partitioner/dialogs/disk_clone.rb:113
+#, fuzzy
+#| msgid ""
+#| "This disk cannot be cloned. There are no suitable\n"
+#| "disks that could have the same partitioning layout."
+msgid ""
+"Select one or more (if available) hard disks that will have the same "
+"partition layout as this disk"
+msgstr ""
+"此磁碟無法複製。沒有\n"
+"具有相同分割配置的合適磁碟。"
+
+#: src/lib/y2partitioner/dialogs/disk_clone.rb:115
+#, fuzzy
+#| msgid ""
+#| "<p>Select one or more (if available) hard disks\n"
+#| "that will have the same partition layout as\n"
+#| "this disk.</p>\n"
+#| "<p>Disks marked with the sign '*' contain one or\n"
+#| "more partitions. After cloning, these\n"
+#| "partitions will be deleted.</p>\n"
+msgid ""
+"Disks marked with the sign '*' contain one or more partitions. After "
+"cloning, these partitions will be deleted"
+msgstr ""
+"<p>選取一或多個 (若有) 與此磁碟\n"
+"具有相同分割區配置\n"
+"的硬碟。</p>\n"
+"<p>標有「*」號的磁碟包含一或\n"
+"多個分割區。複製後，將會刪除\n"
+"這些分割區。</p>\n"
+
+#. Asks whether to remove devices holded by the selected devices
+#.
+#. @see ConfirmRecursiveDelete
+#.
+#. @return [Boolean]
+#: src/lib/y2partitioner/dialogs/disk_clone.rb:184
+#, fuzzy
+#| msgid "Confirm Deleting of Volume Group"
+msgid "Confirm deleting"
+msgstr "確認刪除磁碟區群組"
+
+#: src/lib/y2partitioner/dialogs/disk_clone.rb:185
+#, fuzzy
+#| msgid ""
+#| "The following partitions will be deleted\n"
+#| "and all data on them will be lost:"
+msgid ""
+"The following devices will be deleted\n"
+"and all data on them will be lost:"
+msgstr ""
+"將刪除以下分割區\n"
+"及所有資料都將會遺失︰"
+
+#: src/lib/y2partitioner/dialogs/disk_clone.rb:186
+#, fuzzy
+#| msgid "Really delete these partitions?"
+msgid "Really delete these devices?"
+msgstr "確定要刪除這些分割區嗎？"
 
 #. @param controller [Actions::Controllers::Filesystem]
 #: src/lib/y2partitioner/dialogs/encrypt_password.rb:19
@@ -1382,7 +1491,7 @@ msgid "Hard Disk:"
 msgstr "硬碟："
 
 #. Translators: Expert menu for disks in the partitioner.
-#: src/lib/y2partitioner/widgets/disk_expert_menu_button.rb:39
+#: src/lib/y2partitioner/widgets/disk_expert_menu_button.rb:44
 #, fuzzy
 #| msgid "Expert..."
 msgid "&Expert..."
@@ -1391,11 +1500,15 @@ msgstr "進階..."
 #. Menu items
 #.
 #. @return [Array<[Symbol, String]>]
-#: src/lib/y2partitioner/widgets/disk_expert_menu_button.rb:46
+#: src/lib/y2partitioner/widgets/disk_expert_menu_button.rb:52
 #, fuzzy
 #| msgid "Create New Partition Table on %s"
-msgid "Create New Partition &Table..."
+msgid "Create New Partition &Table"
 msgstr "在 %s 上建立新分割區表"
+
+#: src/lib/y2partitioner/widgets/disk_expert_menu_button.rb:53
+msgid "Clone this Disk"
+msgstr "複製此磁碟"
 
 #. help text for cryptofs
 #: src/lib/y2partitioner/widgets/encrypt_password.rb:20
@@ -5635,56 +5748,6 @@ msgstr "診斷分割區"
 #~ "若要調整 %1 的大小，請確定它未在使用中。"
 
 #~ msgid ""
-#~ "<p>Select one or more (if available) hard disks\n"
-#~ "that will have the same partition layout as\n"
-#~ "this disk.</p>\n"
-#~ "<p>Disks marked with the sign '*' contain one or\n"
-#~ "more partitions. After cloning, these\n"
-#~ "partitions will be deleted.</p>\n"
-#~ msgstr ""
-#~ "<p>選取一或多個 (若有) 與此磁碟\n"
-#~ "具有相同分割區配置\n"
-#~ "的硬碟。</p>\n"
-#~ "<p>標有「*」號的磁碟包含一或\n"
-#~ "多個分割區。複製後，將會刪除\n"
-#~ "這些分割區。</p>\n"
-
-#~ msgid ""
-#~ "The following partitions will be deleted\n"
-#~ "and all data on them will be lost:"
-#~ msgstr ""
-#~ "將刪除以下分割區\n"
-#~ "及所有資料都將會遺失︰"
-
-#~ msgid "Really delete these partitions?"
-#~ msgstr "確定要刪除這些分割區嗎？"
-
-#~ msgid ""
-#~ "There are no partitions on this disk, but a clonable\n"
-#~ "disk must have at least one partition.\n"
-#~ "Create partitions before cloning the disk.\n"
-#~ msgstr ""
-#~ "此磁碟上沒有分割區，但可複製磁碟\n"
-#~ "必須至少包含一個分割區。\n"
-#~ "複製磁碟前請先建立一些分割區。\n"
-
-#~ msgid ""
-#~ "This disk cannot be cloned. There are no suitable\n"
-#~ "disks that could have the same partitioning layout."
-#~ msgstr ""
-#~ "此磁碟無法複製。沒有\n"
-#~ "具有相同分割配置的合適磁碟。"
-
-#~ msgid "Clone partition layout of %1"
-#~ msgstr "複製 %1 的分割區配置"
-
-#~ msgid "Available target disks:"
-#~ msgstr "可用的目標磁碟︰"
-
-#~ msgid "Select a target disk for creating a clone"
-#~ msgstr "選取一個目標磁碟以建立複製品"
-
-#~ msgid ""
 #~ "Running dasdfmt deletes all data on the disk.\n"
 #~ "Really execute dasdfmt on disk %1?\n"
 #~ msgstr ""
@@ -5746,9 +5809,6 @@ msgstr "診斷分割區"
 
 #~ msgid "hdparm is not available for this disk."
 #~ msgstr "hdparm 不適用於該磁碟。"
-
-#~ msgid "Clone this Disk"
-#~ msgstr "複製此磁碟"
 
 #~ msgid "Execute dasd&fmt on the DASD Device"
 #~ msgstr "在 DASD 裝置執行 dasdfmt(&F)"
