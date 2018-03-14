@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: storage\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-03-13 02:31+0000\n"
+"POT-Creation-Date: 2018-03-14 02:30+0000\n"
 "PO-Revision-Date: 2018-03-05 10:01+0000\n"
 "Last-Translator: Grace Yu <grace.yu@excel-gits.com>\n"
 "Language-Team: Chinese (Taiwan) <https://l10n.opensuse.org/projects/yast-"
@@ -1143,7 +1143,7 @@ msgstr "標籤"
 #. TRANSLATORS: table header, where is device mounted. Can be empty. E.g. "/" or "/home"
 #. Synchronize the widget with the information from the controller
 #: src/lib/y2partitioner/widgets/blk_devices_table.rb:136
-#: src/lib/y2partitioner/widgets/format_and_mount.rb:515
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:572
 msgid "Mount Point"
 msgstr "裝載點"
 
@@ -1506,18 +1506,78 @@ msgstr "不掛接裝置"
 #. TRANSLATORS: Error message when a device should be mounted by label but no label
 #. is given.
 #. TRANSLATORS: Error messagge when the label is not given.
-#: src/lib/y2partitioner/widgets/format_and_mount.rb:286
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:292
 #: src/lib/y2partitioner/widgets/fstab_options.rb:287
 msgid "Provide a volume label to mount by label."
 msgstr "請根據標籤，提供要裝載的卷冊標籤。"
 
+#. Translators: popup text
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:314
+msgid ""
+"\n"
+"You chose to install onto an existing partition that will not be\n"
+"formatted. YaST cannot guarantee your installation will succeed,\n"
+"particularly in any of the following cases:\n"
+msgstr ""
+"\n"
+"您選擇在不會進行格式化的現有分割區上\n"
+"執行安裝作業。YaST 無法保證您的安裝作業會成功，\n"
+"尤其遇到下列情況之一時：\n"
+
+#. continued popup text
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:321
+#, fuzzy
+#| msgid ""
+#| "- if this is an existing ReiserFS partition\n"
+#| "- if this partition already contains a Linux distribution that will be\n"
+#| "overwritten\n"
+#| "- if this partition does not yet contain a file system\n"
+msgid ""
+"- if this is an existing Btrfs partition\n"
+"- if this partition already contains a Linux distribution that will be\n"
+"overwritten\n"
+"- if this partition does not yet contain a file system\n"
+msgstr ""
+"- 若此為現有的 ReiserFS 分割區\n"
+"- 若此分割區已有將會被覆寫的\n"
+"Linux 配送\n"
+"- 若此分割區尚未包含檔案系統\n"
+
+#. continued popup text
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:328
+msgid ""
+"If in doubt, better go back and mark this partition for\n"
+"formatting, especially if it is assigned to one of the standard mount "
+"points\n"
+"like /, /boot, /opt or /var.\n"
+msgstr ""
+"若有疑問，最好回到之前的步驟，並將此分割區標示為進行\n"
+"格式化，特別是當其已指定給標準掛接點之一時，\n"
+"例如 /、/boot、/opt 或 /var。\n"
+
+#. continued popup text
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:334
+#, fuzzy
+#| msgid ""
+#| "If you decide to format the partition, all data on it will be lost.\n"
+#| "\n"
+#| "Really keep the partition unformatted?\n"
+msgid ""
+"If you decide to format the partition, all data on it will be lost.\n"
+"\n"
+"Really skip formatting the partition?\n"
+msgstr ""
+"若您決定格式化分割區，其中的所有資料都將遺失。\n"
+"\n"
+"確定要保留分割區不格式化？\n"
+
 #. Synchronize the widget with the information from the controller
-#: src/lib/y2partitioner/widgets/format_and_mount.rb:382
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:439
 msgid "Filesystem"
 msgstr "文件系統"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/format_and_mount.rb:450
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:507
 msgid "Options..."
 msgstr "選項..."
 
@@ -1525,7 +1585,7 @@ msgstr "選項..."
 #. Check box for enabling snapshots
 #.
 #. @return [WidgetTerm]
-#: src/lib/y2partitioner/widgets/format_and_mount.rb:476
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:533
 #: src/lib/y2storage/dialogs/guided_setup/select_filesystem/legacy.rb:73
 #: src/lib/y2storage/dialogs/guided_setup/select_filesystem/volume_widget.rb:227
 msgid "Enable Snapshots"
@@ -1535,7 +1595,7 @@ msgstr "啟用快照"
 #. An error popup is shown when an empty mount point is entered.
 #.
 #. @return [Boolean] true if mount point is not empty
-#: src/lib/y2partitioner/widgets/format_and_mount.rb:549
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:606
 msgid "Empty mount point not allowed."
 msgstr "不允許掛接點為空。"
 
@@ -1545,7 +1605,7 @@ msgstr "不允許掛接點為空。"
 #. @see #duplicated_mount_point?
 #.
 #. @return [Boolean] true if mount point is unique
-#: src/lib/y2partitioner/widgets/format_and_mount.rb:562
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:619
 msgid "This mount point is already in use. Select a different one."
 msgstr "此裝載點已使用。請選取其他名稱。"
 
@@ -1553,29 +1613,29 @@ msgstr "此裝載點已使用。請選取其他名稱。"
 #. An error popup is shown when a subvolume is shadowed by the mount point.
 #.
 #. @return [Boolean] true if mount point does not shadow a subvolume
-#: src/lib/y2partitioner/widgets/format_and_mount.rb:574
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:631
 msgid "The Btrfs subvolume mounted at %s is shadowed."
 msgstr "於 %s 掛接的 Btrfs 子磁碟區已加上陰影。"
 
 #. @param controller [Actions::Controllers::Filesystem]
-#: src/lib/y2partitioner/widgets/format_and_mount.rb:626
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:683
 msgid "Subvolume Handling"
 msgstr "子磁碟區處理"
 
 #. @param controller [Actions::Controllers::Filesystem]
-#: src/lib/y2partitioner/widgets/format_and_mount.rb:644
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:701
 msgid "Encrypt Device"
 msgstr "加密裝置"
 
 #. FIXME: have generic check when new partition is created if it is valid
 #. like e.g. if fs fits to partition, and others
 #. size number is from bsc1065071#c5
-#: src/lib/y2partitioner/widgets/format_and_mount.rb:671
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:728
 msgid "Only devices bigger than 2 MiB can be encrypted."
 msgstr "只能加密大於 2 MiB 的裝置。"
 
 #. Inode Size format option
-#: src/lib/y2partitioner/widgets/format_and_mount.rb:691
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:748
 msgid "&Inode Size"
 msgstr "Inode 大小(&I)"
 
@@ -1590,14 +1650,14 @@ msgstr "Inode 大小(&I)"
 #. - :help texts automatically get the :label text prepended as a title
 #. - options will only appear in the final command line if the selected value
 #. is different from the default value
-#: src/lib/y2partitioner/widgets/format_and_mount.rb:708
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:765
 #: src/lib/y2partitioner/widgets/mkfs_optiondata.rb:52
 #: src/lib/y2partitioner/widgets/mkfs_optiondata.rb:182
 msgid "Block &Size in Bytes"
 msgstr "區塊大小 (以位元組為單位)(&S)"
 
 #. Synchronize the widget with the information from the controller
-#: src/lib/y2partitioner/widgets/format_and_mount.rb:791
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:848
 msgid "Partition &ID:"
 msgstr "分割區 ID(&I)："
 
@@ -4468,47 +4528,6 @@ msgstr "診斷分割區"
 #~ "您可以視需要指定數個交換分割區。\n"
 #~ "\n"
 #~ "確定要使用不帶交換分割區的設定嗎？\n"
-
-#~ msgid ""
-#~ "\n"
-#~ "You chose to install onto an existing partition that will not be\n"
-#~ "formatted. YaST cannot guarantee your installation will succeed,\n"
-#~ "particularly in any of the following cases:\n"
-#~ msgstr ""
-#~ "\n"
-#~ "您選擇在不會進行格式化的現有分割區上\n"
-#~ "執行安裝作業。YaST 無法保證您的安裝作業會成功，\n"
-#~ "尤其遇到下列情況之一時：\n"
-
-#~ msgid ""
-#~ "- if this is an existing ReiserFS partition\n"
-#~ "- if this partition already contains a Linux distribution that will be\n"
-#~ "overwritten\n"
-#~ "- if this partition does not yet contain a file system\n"
-#~ msgstr ""
-#~ "- 若此為現有的 ReiserFS 分割區\n"
-#~ "- 若此分割區已有將會被覆寫的\n"
-#~ "Linux 配送\n"
-#~ "- 若此分割區尚未包含檔案系統\n"
-
-#~ msgid ""
-#~ "If in doubt, better go back and mark this partition for\n"
-#~ "formatting, especially if it is assigned to one of the standard mount "
-#~ "points\n"
-#~ "like /, /boot, /opt or /var.\n"
-#~ msgstr ""
-#~ "若有疑問，最好回到之前的步驟，並將此分割區標示為進行\n"
-#~ "格式化，特別是當其已指定給標準掛接點之一時，\n"
-#~ "例如 /、/boot、/opt 或 /var。\n"
-
-#~ msgid ""
-#~ "If you decide to format the partition, all data on it will be lost.\n"
-#~ "\n"
-#~ "Really keep the partition unformatted?\n"
-#~ msgstr ""
-#~ "若您決定格式化分割區，其中的所有資料都將遺失。\n"
-#~ "\n"
-#~ "確定要保留分割區不格式化？\n"
 
 #~ msgid ""
 #~ "The selected device belongs to the RAID (%1).\n"

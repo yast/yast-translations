@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: storage-ng.et\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-03-13 02:31+0000\n"
+"POT-Creation-Date: 2018-03-14 02:30+0000\n"
 "PO-Revision-Date: 2014-04-24 15:47+0300\n"
 "Last-Translator: Jaan Vajakas <jaanvajakas@hot.ee>\n"
 "Language-Team: Estonian <>\n"
@@ -1345,7 +1345,7 @@ msgstr "Nimi"
 #. TRANSLATORS: table header, where is device mounted. Can be empty. E.g. "/" or "/home"
 #. Synchronize the widget with the information from the controller
 #: src/lib/y2partitioner/widgets/blk_devices_table.rb:136
-#: src/lib/y2partitioner/widgets/format_and_mount.rb:515
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:572
 msgid "Mount Point"
 msgstr "Haakekoht"
 
@@ -1759,20 +1759,77 @@ msgstr "Kettajagu ärgu haagitagu"
 #. TRANSLATORS: Error message when a device should be mounted by label but no label
 #. is given.
 #. TRANSLATORS: Error messagge when the label is not given.
-#: src/lib/y2partitioner/widgets/format_and_mount.rb:286
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:292
 #: src/lib/y2partitioner/widgets/fstab_options.rb:287
 msgid "Provide a volume label to mount by label."
 msgstr "Andmeruumi nime järgi haakimiseks sisesta andmeruumi nimi."
 
+#. Translators: popup text
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:314
+msgid ""
+"\n"
+"You chose to install onto an existing partition that will not be\n"
+"formatted. YaST cannot guarantee your installation will succeed,\n"
+"particularly in any of the following cases:\n"
+msgstr ""
+"\n"
+"Valisid, et paigaldatakse olemasolevale partitsioonile, mida ümber ei\n"
+"vormindata. YaST ei saa kindlalt tagada, et paigaldamine õnnestub,\n"
+"iseäranis ühelgi järgmistest juhtudest:\n"
+
+#. continued popup text
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:321
+#, fuzzy
+#| msgid ""
+#| "- if this is an existing ReiserFS partition\n"
+#| "- if this partition already contains a Linux distribution that will be\n"
+#| "overwritten\n"
+#| "- if this partition does not yet contain a file system\n"
+msgid ""
+"- if this is an existing Btrfs partition\n"
+"- if this partition already contains a Linux distribution that will be\n"
+"overwritten\n"
+"- if this partition does not yet contain a file system\n"
+msgstr ""
+"– kui see on olemasolev ReiserFS-kettajagu,\n"
+"– kui sellel partitsioonil juba asub mingi Linuxi distributsioon, mis\n"
+"kirjutatakse üle,\n"
+"– kui sellel partitsioonil ei ole veel failisüsteemi.\n"
+
+#. continued popup text
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:328
+msgid ""
+"If in doubt, better go back and mark this partition for\n"
+"formatting, especially if it is assigned to one of the standard mount "
+"points\n"
+"like /, /boot, /opt or /var.\n"
+msgstr ""
+
+#. continued popup text
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:334
+#, fuzzy
+#| msgid ""
+#| "If you decide to format the partition, all data on it will be lost.\n"
+#| "\n"
+#| "Really keep the partition unformatted?\n"
+msgid ""
+"If you decide to format the partition, all data on it will be lost.\n"
+"\n"
+"Really skip formatting the partition?\n"
+msgstr ""
+"Kui otsustad partitsiooni vormindada, kustutatakse sellelt kõik andmed.\n"
+"\n"
+"Kas tõesti jätta see kettajagu vormindamata?\n"
+
 #. Synchronize the widget with the information from the controller
-#: src/lib/y2partitioner/widgets/format_and_mount.rb:382
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:439
 #, fuzzy
 #| msgid "File &system"
 msgid "Filesystem"
 msgstr "&Failisüsteem"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/format_and_mount.rb:450
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:507
 #, fuzzy
 #| msgid "O&ptions..."
 msgid "Options..."
@@ -1782,7 +1839,7 @@ msgstr "&Sätted..."
 #. Check box for enabling snapshots
 #.
 #. @return [WidgetTerm]
-#: src/lib/y2partitioner/widgets/format_and_mount.rb:476
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:533
 #: src/lib/y2storage/dialogs/guided_setup/select_filesystem/legacy.rb:73
 #: src/lib/y2storage/dialogs/guided_setup/select_filesystem/volume_widget.rb:227
 msgid "Enable Snapshots"
@@ -1792,7 +1849,7 @@ msgstr ""
 #. An error popup is shown when an empty mount point is entered.
 #.
 #. @return [Boolean] true if mount point is not empty
-#: src/lib/y2partitioner/widgets/format_and_mount.rb:549
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:606
 #, fuzzy
 #| msgid "Empty subvolume name not allowed."
 msgid "Empty mount point not allowed."
@@ -1804,7 +1861,7 @@ msgstr "Tühi alamruumi nimi pole lubatud."
 #. @see #duplicated_mount_point?
 #.
 #. @return [Boolean] true if mount point is unique
-#: src/lib/y2partitioner/widgets/format_and_mount.rb:562
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:619
 msgid "This mount point is already in use. Select a different one."
 msgstr "See haakekoht on juba kasutusel. Vali teine haakekoht."
 
@@ -1812,19 +1869,19 @@ msgstr "See haakekoht on juba kasutusel. Vali teine haakekoht."
 #. An error popup is shown when a subvolume is shadowed by the mount point.
 #.
 #. @return [Boolean] true if mount point does not shadow a subvolume
-#: src/lib/y2partitioner/widgets/format_and_mount.rb:574
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:631
 #, fuzzy
 #| msgid "Mount Point: %1"
 msgid "The Btrfs subvolume mounted at %s is shadowed."
 msgstr "Haakekoht: %1"
 
 #. @param controller [Actions::Controllers::Filesystem]
-#: src/lib/y2partitioner/widgets/format_and_mount.rb:626
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:683
 msgid "Subvolume Handling"
 msgstr "Alamruumide käsitlemine"
 
 #. @param controller [Actions::Controllers::Filesystem]
-#: src/lib/y2partitioner/widgets/format_and_mount.rb:644
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:701
 #, fuzzy
 #| msgid "&Encrypt Device"
 msgid "Encrypt Device"
@@ -1833,12 +1890,12 @@ msgstr "&Krüptimine"
 #. FIXME: have generic check when new partition is created if it is valid
 #. like e.g. if fs fits to partition, and others
 #. size number is from bsc1065071#c5
-#: src/lib/y2partitioner/widgets/format_and_mount.rb:671
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:728
 msgid "Only devices bigger than 2 MiB can be encrypted."
 msgstr ""
 
 #. Inode Size format option
-#: src/lib/y2partitioner/widgets/format_and_mount.rb:691
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:748
 msgid "&Inode Size"
 msgstr "&Infosõlme suurus"
 
@@ -1853,7 +1910,7 @@ msgstr "&Infosõlme suurus"
 #. - :help texts automatically get the :label text prepended as a title
 #. - options will only appear in the final command line if the selected value
 #. is different from the default value
-#: src/lib/y2partitioner/widgets/format_and_mount.rb:708
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:765
 #: src/lib/y2partitioner/widgets/mkfs_optiondata.rb:52
 #: src/lib/y2partitioner/widgets/mkfs_optiondata.rb:182
 #, fuzzy
@@ -1862,7 +1919,7 @@ msgid "Block &Size in Bytes"
 msgstr "&Logi suurus megabaitides"
 
 #. Synchronize the widget with the information from the controller
-#: src/lib/y2partitioner/widgets/format_and_mount.rb:791
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:848
 #, fuzzy
 #| msgid "Partition 2"
 msgid "Partition &ID:"
@@ -4598,37 +4655,6 @@ msgstr "Partitsioneeritav ketas"
 
 #~ msgid "Really use this setup?"
 #~ msgstr "Kas tõesti kasutada neid seadistusi?"
-
-#~ msgid ""
-#~ "\n"
-#~ "You chose to install onto an existing partition that will not be\n"
-#~ "formatted. YaST cannot guarantee your installation will succeed,\n"
-#~ "particularly in any of the following cases:\n"
-#~ msgstr ""
-#~ "\n"
-#~ "Valisid, et paigaldatakse olemasolevale partitsioonile, mida ümber ei\n"
-#~ "vormindata. YaST ei saa kindlalt tagada, et paigaldamine õnnestub,\n"
-#~ "iseäranis ühelgi järgmistest juhtudest:\n"
-
-#~ msgid ""
-#~ "- if this is an existing ReiserFS partition\n"
-#~ "- if this partition already contains a Linux distribution that will be\n"
-#~ "overwritten\n"
-#~ "- if this partition does not yet contain a file system\n"
-#~ msgstr ""
-#~ "– kui see on olemasolev ReiserFS-kettajagu,\n"
-#~ "– kui sellel partitsioonil juba asub mingi Linuxi distributsioon, mis\n"
-#~ "kirjutatakse üle,\n"
-#~ "– kui sellel partitsioonil ei ole veel failisüsteemi.\n"
-
-#~ msgid ""
-#~ "If you decide to format the partition, all data on it will be lost.\n"
-#~ "\n"
-#~ "Really keep the partition unformatted?\n"
-#~ msgstr ""
-#~ "Kui otsustad partitsiooni vormindada, kustutatakse sellelt kõik andmed.\n"
-#~ "\n"
-#~ "Kas tõesti jätta see kettajagu vormindamata?\n"
 
 #~ msgid ""
 #~ "The selected device belongs to the RAID (%1).\n"
