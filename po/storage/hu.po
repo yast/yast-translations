@@ -18,7 +18,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: storage\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-03-14 02:30+0000\n"
+"POT-Creation-Date: 2018-03-16 02:29+0000\n"
 "PO-Revision-Date: 2018-03-13 10:33+0000\n"
 "Last-Translator: Robert Taisz <robert.taisz@emerald.hu>\n"
 "Language-Team: Hungarian <https://l10n.opensuse.org/projects/yast-storage/"
@@ -279,31 +279,38 @@ msgid "It is not possible to create a new partition table on %s."
 msgstr "Nem lehet új partíciós táblát létrehozni a(z) %s eszközön."
 
 #. TRANSLATORS %s is the name of the device to be deleted (e.g., /dev/sda1)
-#: src/lib/y2partitioner/actions/delete_device.rb:94
+#: src/lib/y2partitioner/actions/delete_device.rb:109
 msgid "Really delete %s?"
 msgstr "Biztos, hogy törli a(z) %s eszközt?"
 
 # modules/sound/sound.ycp:171
-#. Checks whether there is any partition for deleting
+#. Error when there is no partition for deleting
 #.
-#. @note An error popup is shown when there is no partition.
-#.
-#. @return [Boolean]
-#: src/lib/y2partitioner/actions/delete_disk.rb:45
+#. @return [String, nil] nil if the partition table is not empty
+#: src/lib/y2partitioner/actions/delete_disk_device.rb:62
 msgid "There are no partitions to delete on this disk"
 msgstr "A lemezen nem található törlendő partíció"
 
-#. Confirmation message before performing the delete action
+#. Error when the device contains an implicit partitition table
 #.
-#. It shows all partitions (and dependent devices) that will be deleted.
+#. @return [String, nil] nil if the device has no implicit partition table
+#: src/lib/y2partitioner/actions/delete_disk_device.rb:71
+msgid "This device only contains an implicit partition that cannot be deleted."
+msgstr ""
+
+#. Confirmation before performing the delete action
 #.
-#. @see DeleteDevice#confirm_recursive_delete
-#: src/lib/y2partitioner/actions/delete_disk.rb:60
+#. @note It shows all partitions (and dependent devices) that will be deleted.
+#.
+#. @see ConfirmRecursiveDelete#confirm_recursive_delete
+#.
+#. @return [Boolean]
+#: src/lib/y2partitioner/actions/delete_disk_device.rb:84
 msgid "Confirm Deleting of All Partitions"
 msgstr "Összes partíció törlésének jóváhagyása"
 
 #. TRANSLATORS: name is the name of the disk to be deleted (e.g., /dev/sda)
-#: src/lib/y2partitioner/actions/delete_disk.rb:62
+#: src/lib/y2partitioner/actions/delete_disk_device.rb:86
 msgid ""
 "The disk \"%{name}\" contains at least one partition.\n"
 "If you proceed, the following devices will be deleted:"
@@ -312,26 +319,28 @@ msgstr ""
 "Ha folytatja, a következő eszközök törölve lesznek:"
 
 #. TRANSLATORS: name is the name of the disk to be deleted (e.g., /dev/sda)
-#: src/lib/y2partitioner/actions/delete_disk.rb:65
+#: src/lib/y2partitioner/actions/delete_disk_device.rb:89
 msgid "Really delete all partitions on \"%{name}\"?"
 msgstr "Valójában töröli a(z) \"%{name}\" összes partícióját?"
 
 #. TRANSLATORS: Confirmation message when a LVM logical volume is going to be deleted,
 #. where %{name} is replaced by the name of the logical volume (e.g., /dev/system/lv1)
-#: src/lib/y2partitioner/actions/delete_lvm_lv.rb:65
+#: src/lib/y2partitioner/actions/delete_lvm_lv.rb:68
 msgid "Remove the logical volume %{name}?"
 msgstr "Eltávolítja a(z) %{name} logikai kötetet?"
 
 #. Confirmation when the device is a LVM thin pool and there is any thin volume over it
 #.
-#. @see DeleteDevice#confirm_recursive_delete
-#: src/lib/y2partitioner/actions/delete_lvm_lv.rb:75
+#. @see ConfirmRecursiveDelete#confirm_recursive_delete
+#.
+#. @return [Boolean]
+#: src/lib/y2partitioner/actions/delete_lvm_lv.rb:82
 msgid "Confirm Deleting of LVM Thin Pool"
 msgstr "LVM vékony készlete törlésének jóváhagyása"
 
 #. TRANSLATORS: Confirmation message when a LVM thin pool is going to be deleted,
 #. where %{name} is replaced by the name of the thin pool (e.g., /dev/system/pool)
-#: src/lib/y2partitioner/actions/delete_lvm_lv.rb:79
+#: src/lib/y2partitioner/actions/delete_lvm_lv.rb:86
 msgid ""
 "The thin pool %{name} is used by at least one thin volume.\n"
 "If you proceed, the following thin volumes will be unmounted (if mounted)\n"
@@ -342,7 +351,7 @@ msgstr ""
 "(ha csatlakoztatva vannak) és törölve:"
 
 #. TRANSLATORS: %{name} is replaced by the name of the thin pool (e.g., /dev/system/pool)
-#: src/lib/y2partitioner/actions/delete_lvm_lv.rb:86
+#: src/lib/y2partitioner/actions/delete_lvm_lv.rb:93
 msgid "Really delete the thin pool \"%{name}\" and all related thin volumes?"
 msgstr ""
 "Biztos, hogy törli a(z) \"%{name}\" vékony készletet és az összes hozzá "
@@ -350,13 +359,15 @@ msgstr ""
 
 #. Confirmation when the device contains logical volumes
 #.
-#. @see DeleteDevice#confirm_recursive_delete
-#: src/lib/y2partitioner/actions/delete_lvm_vg.rb:59
+#. @see ConfirmRecursiveDelete#confirm_recursive_delete
+#.
+#. @return [Boolean]
+#: src/lib/y2partitioner/actions/delete_lvm_vg.rb:63
 msgid "Confirm Deleting of Volume Group"
 msgstr "Kötetcsoport törlésének jóváhagyása"
 
 #. TRANSLATORS: %s is the name of the volume group (e.g. "system")
-#: src/lib/y2partitioner/actions/delete_lvm_vg.rb:61
+#: src/lib/y2partitioner/actions/delete_lvm_vg.rb:65
 msgid ""
 "The volume group \"%s\" contains at least one logical volume.\n"
 "If you proceed, the following volumes will be unmounted (if mounted)\n"
@@ -367,7 +378,7 @@ msgstr ""
 "lecsatolásra (amennyiben jelenleg felcsatoltak) és törlésre:"
 
 #. TRANSLATORS: %s is the name of the volume group (e.g. "system")
-#: src/lib/y2partitioner/actions/delete_lvm_vg.rb:66
+#: src/lib/y2partitioner/actions/delete_lvm_vg.rb:70
 msgid "Really delete volume group \"%s\" and all related logical volumes?"
 msgstr ""
 "Biztos, hogy törli a(z) \"%s\" kötetcsoportot és az összes hozzá tartozó "
@@ -375,15 +386,17 @@ msgstr ""
 
 #. Confirmation when the device belongs to a volume group
 #.
-#. @see DeleteDevice#confirm_recursive_delete
+#. @see ConfirmRecursiveDelete#confirm_recursive_delete
 #. @see DeleteDevice#lvm_vg
-#: src/lib/y2partitioner/actions/delete_md.rb:60
+#.
+#. @return [Boolean]
+#: src/lib/y2partitioner/actions/delete_md.rb:64
 msgid "Confirm Deleting RAID Used by LVM"
 msgstr "LVM által használt RAID törlésének jóváhagyása"
 
 #. TRANSLATORS: name is the name of the volume group that the md raid
 #. belongs to (e.g., /dev/system)
-#: src/lib/y2partitioner/actions/delete_md.rb:63
+#: src/lib/y2partitioner/actions/delete_md.rb:67
 msgid ""
 "The selected RAID is used by volume group \"%{name}\".\n"
 "To keep the system in a consistent state, the following volume group\n"
@@ -395,21 +408,32 @@ msgstr ""
 
 #. TRANSLATORS: md is the name of the md raid to be deleted (e.g., /dev/md/md1),
 #. and vg is the name of the volume group to be deleted (e.g., /dev/system)
-#: src/lib/y2partitioner/actions/delete_md.rb:68
+#: src/lib/y2partitioner/actions/delete_md.rb:72
 msgid "Delete RAID \"%{md}\" and volume group \"%{lvm_vg}\"?"
 msgstr "Törli a(z) \"%{md}\" RAID-et és a(z) \"%{lvm_vg}\" kötetcsoportot?"
 
+#. Error when the partition is implicit
+#.
+#. @return [String, nil] nil if the partition is not implicit
+#: src/lib/y2partitioner/actions/delete_partition.rb:59
+#, fuzzy
+#| msgid "An extended partition cannot be edited."
+msgid "This is an implicit partition and cannot be deleted."
+msgstr "Kiterjesztett partíció nem szerkeszthető."
+
 #. Confirmation when the partition belongs to a volume group
 #.
-#. @see DeleteDevice#confirm_recursive_delete
+#. @see ConfirmRecursiveDelete#confirm_recursive_delete
 #. @see DeleteDevice#lvm_vg
-#: src/lib/y2partitioner/actions/delete_partition.rb:65
+#.
+#. @return [Boolean]
+#: src/lib/y2partitioner/actions/delete_partition.rb:84
 msgid "Confirm Deleting Partition Used by LVM"
 msgstr "LVM által használt partíció törlésének jóváhagyása"
 
 #. TRANSLATORS: name is the name of the volume group that the partition
 #. belongs to (e.g., /dev/system)
-#: src/lib/y2partitioner/actions/delete_partition.rb:68
+#: src/lib/y2partitioner/actions/delete_partition.rb:87
 msgid ""
 "The selected partition is used by volume group \"%{name}\".\n"
 "To keep the system in a consistent state, the following volume group\n"
@@ -421,20 +445,22 @@ msgstr ""
 
 #. TRANSLATORS: partition is the name of the partition to be deleted (e.g., /dev/sda1),
 #. and vg is the name of the volume group to be deleted (e.g., /dev/system)
-#: src/lib/y2partitioner/actions/delete_partition.rb:73
+#: src/lib/y2partitioner/actions/delete_partition.rb:92
 msgid "Delete partition \"%{partition}\" and volume group \"%{lvm_vg}\"?"
 msgstr "Törli a(z) \"%{partition}\" partíciót és \"%{lvm_vg}\" kötetcsoportot?"
 
 #. Confirmation when the partition belongs to a md raid
 #.
-#. @see DeleteDevice#confirm_recursive_delete
+#. @see ConfirmRecursiveDelete#confirm_recursive_delete
 #. @see DeleteDevice#md
-#: src/lib/y2partitioner/actions/delete_partition.rb:85
+#.
+#. @return [Boolean]
+#: src/lib/y2partitioner/actions/delete_partition.rb:106
 msgid "Confirm Deleting Partition Used by RAID"
 msgstr "RAID által használt partíció törlésének jóváhagyása"
 
 #. TRANSLATORS: name is the name of the partition to be deleted (e.g., /dev/sda1)
-#: src/lib/y2partitioner/actions/delete_partition.rb:87
+#: src/lib/y2partitioner/actions/delete_partition.rb:108
 msgid ""
 "The selected partition belongs to RAID \"%{name}\".\n"
 "To keep the system in a consistent state, the following\n"
@@ -447,7 +473,7 @@ msgstr ""
 # modules/inst_custom_part.ycp:623
 #. TRANSLATORS: partition is the name of the partition to be deleted (e.g., /dev/sda1),
 #. and md_raid is the name of the raid to be deleted (e.g., /dev/md/md1)
-#: src/lib/y2partitioner/actions/delete_partition.rb:92
+#: src/lib/y2partitioner/actions/delete_partition.rb:113
 msgid "Delete partition \"%{partition}\" and RAID \"%{md}\"?"
 msgstr "Törli a(z) \"%{partition}\" partíciót és a \"%{md}\" RAID-et?"
 
@@ -494,7 +520,7 @@ msgstr ""
 "Nem szerkeszthető."
 
 #. TRANSLATORS: %{name} is replaced by a device name (e.g., /dev/sda1).
-#: src/lib/y2partitioner/actions/resize_blk_device.rb:101
+#: src/lib/y2partitioner/actions/resize_blk_device.rb:103
 msgid ""
 "The device %{name} is in use. It cannot be\n"
 "resized. To resize %{name}, make sure it is not used."
@@ -503,13 +529,22 @@ msgstr ""
 "A(z) %{name} átméretezése előtt győződjön meg arról, hogy nem használja "
 "semmi."
 
+#. Error when the filesystem type cannot be resized
+#.
+#. @return [String, nil] nil if the filesystem can be resized.
+#: src/lib/y2partitioner/actions/resize_blk_device.rb:116
+#, fuzzy
+#| msgid "This device cannot be resized."
+msgid "This filesystem type cannot be resized."
+msgstr "Ez az eszköz nem méretezhető át."
+
 #. Error when the device cannot be resized
 #.
 #. TODO: Distinguish the reason why it is not possible to resize, for example:
 #. * extended partition with committed logical partitions
 #.
 #. @return [String, nil] nil if the device can be resized.
-#: src/lib/y2partitioner/actions/resize_blk_device.rb:116
+#: src/lib/y2partitioner/actions/resize_blk_device.rb:128
 msgid "This device cannot be resized."
 msgstr "Ez az eszköz nem méretezhető át."
 
@@ -5967,9 +6002,6 @@ msgstr "Diagnosztikai partíció"
 #~ "ezért nem szerkeszthető. A(z) %1 partíció\n"
 #~ "szerkesztéshez győződjön meg róla,\n"
 #~ "hogy nincs használatban."
-
-#~ msgid "An extended partition cannot be edited."
-#~ msgstr "Kiterjesztett partíció nem szerkeszthető."
 
 #~ msgid ""
 #~ "The partition %1 is already created on disk\n"

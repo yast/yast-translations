@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: YaST (@memory@)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-03-14 02:30+0000\n"
+"POT-Creation-Date: 2018-03-16 02:29+0000\n"
 "PO-Revision-Date: 2003-02-12 09:27+0100\n"
 "Last-Translator: nds <i18n@suse.de>\n"
 "Language-Team: Low German <i18n@suse.de>\n"
@@ -240,37 +240,44 @@ msgid "It is not possible to create a new partition table on %s."
 msgstr ""
 
 #. TRANSLATORS %s is the name of the device to be deleted (e.g., /dev/sda1)
-#: src/lib/y2partitioner/actions/delete_device.rb:94
+#: src/lib/y2partitioner/actions/delete_device.rb:109
 msgid "Really delete %s?"
 msgstr ""
 
-#. Checks whether there is any partition for deleting
+#. Error when there is no partition for deleting
 #.
-#. @note An error popup is shown when there is no partition.
-#.
-#. @return [Boolean]
-#: src/lib/y2partitioner/actions/delete_disk.rb:45
+#. @return [String, nil] nil if the partition table is not empty
+#: src/lib/y2partitioner/actions/delete_disk_device.rb:62
 msgid "There are no partitions to delete on this disk"
 msgstr ""
 
-#. Confirmation message before performing the delete action
+#. Error when the device contains an implicit partitition table
 #.
-#. It shows all partitions (and dependent devices) that will be deleted.
+#. @return [String, nil] nil if the device has no implicit partition table
+#: src/lib/y2partitioner/actions/delete_disk_device.rb:71
+msgid "This device only contains an implicit partition that cannot be deleted."
+msgstr ""
+
+#. Confirmation before performing the delete action
 #.
-#. @see DeleteDevice#confirm_recursive_delete
-#: src/lib/y2partitioner/actions/delete_disk.rb:60
+#. @note It shows all partitions (and dependent devices) that will be deleted.
+#.
+#. @see ConfirmRecursiveDelete#confirm_recursive_delete
+#.
+#. @return [Boolean]
+#: src/lib/y2partitioner/actions/delete_disk_device.rb:84
 msgid "Confirm Deleting of All Partitions"
 msgstr ""
 
 #. TRANSLATORS: name is the name of the disk to be deleted (e.g., /dev/sda)
-#: src/lib/y2partitioner/actions/delete_disk.rb:62
+#: src/lib/y2partitioner/actions/delete_disk_device.rb:86
 msgid ""
 "The disk \"%{name}\" contains at least one partition.\n"
 "If you proceed, the following devices will be deleted:"
 msgstr ""
 
 #. TRANSLATORS: name is the name of the disk to be deleted (e.g., /dev/sda)
-#: src/lib/y2partitioner/actions/delete_disk.rb:65
+#: src/lib/y2partitioner/actions/delete_disk_device.rb:89
 #, fuzzy
 #| msgid "Disk Activation"
 msgid "Really delete all partitions on \"%{name}\"?"
@@ -278,20 +285,22 @@ msgstr "Diskaktiveren"
 
 #. TRANSLATORS: Confirmation message when a LVM logical volume is going to be deleted,
 #. where %{name} is replaced by the name of the logical volume (e.g., /dev/system/lv1)
-#: src/lib/y2partitioner/actions/delete_lvm_lv.rb:65
+#: src/lib/y2partitioner/actions/delete_lvm_lv.rb:68
 msgid "Remove the logical volume %{name}?"
 msgstr ""
 
 #. Confirmation when the device is a LVM thin pool and there is any thin volume over it
 #.
-#. @see DeleteDevice#confirm_recursive_delete
-#: src/lib/y2partitioner/actions/delete_lvm_lv.rb:75
+#. @see ConfirmRecursiveDelete#confirm_recursive_delete
+#.
+#. @return [Boolean]
+#: src/lib/y2partitioner/actions/delete_lvm_lv.rb:82
 msgid "Confirm Deleting of LVM Thin Pool"
 msgstr ""
 
 #. TRANSLATORS: Confirmation message when a LVM thin pool is going to be deleted,
 #. where %{name} is replaced by the name of the thin pool (e.g., /dev/system/pool)
-#: src/lib/y2partitioner/actions/delete_lvm_lv.rb:79
+#: src/lib/y2partitioner/actions/delete_lvm_lv.rb:86
 msgid ""
 "The thin pool %{name} is used by at least one thin volume.\n"
 "If you proceed, the following thin volumes will be unmounted (if mounted)\n"
@@ -299,19 +308,21 @@ msgid ""
 msgstr ""
 
 #. TRANSLATORS: %{name} is replaced by the name of the thin pool (e.g., /dev/system/pool)
-#: src/lib/y2partitioner/actions/delete_lvm_lv.rb:86
+#: src/lib/y2partitioner/actions/delete_lvm_lv.rb:93
 msgid "Really delete the thin pool \"%{name}\" and all related thin volumes?"
 msgstr ""
 
 #. Confirmation when the device contains logical volumes
 #.
-#. @see DeleteDevice#confirm_recursive_delete
-#: src/lib/y2partitioner/actions/delete_lvm_vg.rb:59
+#. @see ConfirmRecursiveDelete#confirm_recursive_delete
+#.
+#. @return [Boolean]
+#: src/lib/y2partitioner/actions/delete_lvm_vg.rb:63
 msgid "Confirm Deleting of Volume Group"
 msgstr ""
 
 #. TRANSLATORS: %s is the name of the volume group (e.g. "system")
-#: src/lib/y2partitioner/actions/delete_lvm_vg.rb:61
+#: src/lib/y2partitioner/actions/delete_lvm_vg.rb:65
 msgid ""
 "The volume group \"%s\" contains at least one logical volume.\n"
 "If you proceed, the following volumes will be unmounted (if mounted)\n"
@@ -319,21 +330,23 @@ msgid ""
 msgstr ""
 
 #. TRANSLATORS: %s is the name of the volume group (e.g. "system")
-#: src/lib/y2partitioner/actions/delete_lvm_vg.rb:66
+#: src/lib/y2partitioner/actions/delete_lvm_vg.rb:70
 msgid "Really delete volume group \"%s\" and all related logical volumes?"
 msgstr ""
 
 #. Confirmation when the device belongs to a volume group
 #.
-#. @see DeleteDevice#confirm_recursive_delete
+#. @see ConfirmRecursiveDelete#confirm_recursive_delete
 #. @see DeleteDevice#lvm_vg
-#: src/lib/y2partitioner/actions/delete_md.rb:60
+#.
+#. @return [Boolean]
+#: src/lib/y2partitioner/actions/delete_md.rb:64
 msgid "Confirm Deleting RAID Used by LVM"
 msgstr ""
 
 #. TRANSLATORS: name is the name of the volume group that the md raid
 #. belongs to (e.g., /dev/system)
-#: src/lib/y2partitioner/actions/delete_md.rb:63
+#: src/lib/y2partitioner/actions/delete_md.rb:67
 msgid ""
 "The selected RAID is used by volume group \"%{name}\".\n"
 "To keep the system in a consistent state, the following volume group\n"
@@ -342,21 +355,30 @@ msgstr ""
 
 #. TRANSLATORS: md is the name of the md raid to be deleted (e.g., /dev/md/md1),
 #. and vg is the name of the volume group to be deleted (e.g., /dev/system)
-#: src/lib/y2partitioner/actions/delete_md.rb:68
+#: src/lib/y2partitioner/actions/delete_md.rb:72
 msgid "Delete RAID \"%{md}\" and volume group \"%{lvm_vg}\"?"
+msgstr ""
+
+#. Error when the partition is implicit
+#.
+#. @return [String, nil] nil if the partition is not implicit
+#: src/lib/y2partitioner/actions/delete_partition.rb:59
+msgid "This is an implicit partition and cannot be deleted."
 msgstr ""
 
 #. Confirmation when the partition belongs to a volume group
 #.
-#. @see DeleteDevice#confirm_recursive_delete
+#. @see ConfirmRecursiveDelete#confirm_recursive_delete
 #. @see DeleteDevice#lvm_vg
-#: src/lib/y2partitioner/actions/delete_partition.rb:65
+#.
+#. @return [Boolean]
+#: src/lib/y2partitioner/actions/delete_partition.rb:84
 msgid "Confirm Deleting Partition Used by LVM"
 msgstr ""
 
 #. TRANSLATORS: name is the name of the volume group that the partition
 #. belongs to (e.g., /dev/system)
-#: src/lib/y2partitioner/actions/delete_partition.rb:68
+#: src/lib/y2partitioner/actions/delete_partition.rb:87
 msgid ""
 "The selected partition is used by volume group \"%{name}\".\n"
 "To keep the system in a consistent state, the following volume group\n"
@@ -365,22 +387,24 @@ msgstr ""
 
 #. TRANSLATORS: partition is the name of the partition to be deleted (e.g., /dev/sda1),
 #. and vg is the name of the volume group to be deleted (e.g., /dev/system)
-#: src/lib/y2partitioner/actions/delete_partition.rb:73
+#: src/lib/y2partitioner/actions/delete_partition.rb:92
 msgid "Delete partition \"%{partition}\" and volume group \"%{lvm_vg}\"?"
 msgstr ""
 
 #. Confirmation when the partition belongs to a md raid
 #.
-#. @see DeleteDevice#confirm_recursive_delete
+#. @see ConfirmRecursiveDelete#confirm_recursive_delete
 #. @see DeleteDevice#md
-#: src/lib/y2partitioner/actions/delete_partition.rb:85
+#.
+#. @return [Boolean]
+#: src/lib/y2partitioner/actions/delete_partition.rb:106
 #, fuzzy
 #| msgid "Disk Activation"
 msgid "Confirm Deleting Partition Used by RAID"
 msgstr "Diskaktiveren"
 
 #. TRANSLATORS: name is the name of the partition to be deleted (e.g., /dev/sda1)
-#: src/lib/y2partitioner/actions/delete_partition.rb:87
+#: src/lib/y2partitioner/actions/delete_partition.rb:108
 msgid ""
 "The selected partition belongs to RAID \"%{name}\".\n"
 "To keep the system in a consistent state, the following\n"
@@ -389,7 +413,7 @@ msgstr ""
 
 #. TRANSLATORS: partition is the name of the partition to be deleted (e.g., /dev/sda1),
 #. and md_raid is the name of the raid to be deleted (e.g., /dev/md/md1)
-#: src/lib/y2partitioner/actions/delete_partition.rb:92
+#: src/lib/y2partitioner/actions/delete_partition.rb:113
 msgid "Delete partition \"%{partition}\" and RAID \"%{md}\"?"
 msgstr ""
 
@@ -432,10 +456,17 @@ msgid ""
 msgstr ""
 
 #. TRANSLATORS: %{name} is replaced by a device name (e.g., /dev/sda1).
-#: src/lib/y2partitioner/actions/resize_blk_device.rb:101
+#: src/lib/y2partitioner/actions/resize_blk_device.rb:103
 msgid ""
 "The device %{name} is in use. It cannot be\n"
 "resized. To resize %{name}, make sure it is not used."
+msgstr ""
+
+#. Error when the filesystem type cannot be resized
+#.
+#. @return [String, nil] nil if the filesystem can be resized.
+#: src/lib/y2partitioner/actions/resize_blk_device.rb:116
+msgid "This filesystem type cannot be resized."
 msgstr ""
 
 #. Error when the device cannot be resized
@@ -444,7 +475,7 @@ msgstr ""
 #. * extended partition with committed logical partitions
 #.
 #. @return [String, nil] nil if the device can be resized.
-#: src/lib/y2partitioner/actions/resize_blk_device.rb:116
+#: src/lib/y2partitioner/actions/resize_blk_device.rb:128
 msgid "This device cannot be resized."
 msgstr ""
 

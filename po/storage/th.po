@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: YaST (@memory@)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-03-14 02:30+0000\n"
+"POT-Creation-Date: 2018-03-16 02:29+0000\n"
 "PO-Revision-Date: 2010-07-02 22:16+0700\n"
 "Last-Translator: Thanomsub Noppaburana <donga.nb@gmail.com>\n"
 "Language-Team: Thai <thai-l10n@googlegroups.com>\n"
@@ -310,34 +310,41 @@ msgid "It is not possible to create a new partition table on %s."
 msgstr "ไม่สามารถที่จะทำการสร้างพาร์ทิชันบน %1 ได้"
 
 #. TRANSLATORS %s is the name of the device to be deleted (e.g., /dev/sda1)
-#: src/lib/y2partitioner/actions/delete_device.rb:94
+#: src/lib/y2partitioner/actions/delete_device.rb:109
 #, fuzzy
 #| msgid "Really delete %1?"
 msgid "Really delete %s?"
 msgstr "คุณต้องการจะลบ '%1' จริงหรือไม่ ?"
 
-#. Checks whether there is any partition for deleting
+#. Error when there is no partition for deleting
 #.
-#. @note An error popup is shown when there is no partition.
-#.
-#. @return [Boolean]
-#: src/lib/y2partitioner/actions/delete_disk.rb:45
+#. @return [String, nil] nil if the partition table is not empty
+#: src/lib/y2partitioner/actions/delete_disk_device.rb:62
 #, fuzzy
 #| msgid "There are no partitions to delete on this disk."
 msgid "There are no partitions to delete on this disk"
 msgstr "ไม่มีพาร์ทิชันใด ๆ ที่จะถูกลบบนดิสก์นี้"
 
-#. Confirmation message before performing the delete action
+#. Error when the device contains an implicit partitition table
 #.
-#. It shows all partitions (and dependent devices) that will be deleted.
+#. @return [String, nil] nil if the device has no implicit partition table
+#: src/lib/y2partitioner/actions/delete_disk_device.rb:71
+msgid "This device only contains an implicit partition that cannot be deleted."
+msgstr ""
+
+#. Confirmation before performing the delete action
 #.
-#. @see DeleteDevice#confirm_recursive_delete
-#: src/lib/y2partitioner/actions/delete_disk.rb:60
+#. @note It shows all partitions (and dependent devices) that will be deleted.
+#.
+#. @see ConfirmRecursiveDelete#confirm_recursive_delete
+#.
+#. @return [Boolean]
+#: src/lib/y2partitioner/actions/delete_disk_device.rb:84
 msgid "Confirm Deleting of All Partitions"
 msgstr "ยืนยันการทำการลบพาร์ทิชันทั้งหมด"
 
 #. TRANSLATORS: name is the name of the disk to be deleted (e.g., /dev/sda)
-#: src/lib/y2partitioner/actions/delete_disk.rb:62
+#: src/lib/y2partitioner/actions/delete_disk_device.rb:86
 #, fuzzy
 #| msgid ""
 #| "The disk \"%1\" contains at least one partition.\n"
@@ -350,7 +357,7 @@ msgstr ""
 "หากคุณดำเนินการต่อไป จะมีการลบพาร์ทิชันต่อไปนี้ออกไป:"
 
 #. TRANSLATORS: name is the name of the disk to be deleted (e.g., /dev/sda)
-#: src/lib/y2partitioner/actions/delete_disk.rb:65
+#: src/lib/y2partitioner/actions/delete_disk_device.rb:89
 #, fuzzy
 #| msgid "Really delete all partitions on \"%1\"?"
 msgid "Really delete all partitions on \"%{name}\"?"
@@ -358,7 +365,7 @@ msgstr "ต้องการจะลบพาร์ทิชันทั้ง
 
 #. TRANSLATORS: Confirmation message when a LVM logical volume is going to be deleted,
 #. where %{name} is replaced by the name of the logical volume (e.g., /dev/system/lv1)
-#: src/lib/y2partitioner/actions/delete_lvm_lv.rb:65
+#: src/lib/y2partitioner/actions/delete_lvm_lv.rb:68
 #, fuzzy
 #| msgid "Remove the logical volume %1?"
 msgid "Remove the logical volume %{name}?"
@@ -366,8 +373,10 @@ msgstr "ลบโวลุมลอจิคัล \"%1\" จริงหรื�
 
 #. Confirmation when the device is a LVM thin pool and there is any thin volume over it
 #.
-#. @see DeleteDevice#confirm_recursive_delete
-#: src/lib/y2partitioner/actions/delete_lvm_lv.rb:75
+#. @see ConfirmRecursiveDelete#confirm_recursive_delete
+#.
+#. @return [Boolean]
+#: src/lib/y2partitioner/actions/delete_lvm_lv.rb:82
 #, fuzzy
 #| msgid "Confirm Deleting of Volume Group"
 msgid "Confirm Deleting of LVM Thin Pool"
@@ -375,7 +384,7 @@ msgstr "ยืนยันการลบกลุ่มโวลุม"
 
 #. TRANSLATORS: Confirmation message when a LVM thin pool is going to be deleted,
 #. where %{name} is replaced by the name of the thin pool (e.g., /dev/system/pool)
-#: src/lib/y2partitioner/actions/delete_lvm_lv.rb:79
+#: src/lib/y2partitioner/actions/delete_lvm_lv.rb:86
 #, fuzzy
 #| msgid ""
 #| "The volume group \"%1\" contains at least one logical volume.\n"
@@ -391,7 +400,7 @@ msgstr ""
 "(หากมันถูกเมานท์อยู่) ลบจากนั้นให้ทำการลบพวกมัน โวลุมต่าง ๆ คือรายการต่อไปนี้:"
 
 #. TRANSLATORS: %{name} is replaced by the name of the thin pool (e.g., /dev/system/pool)
-#: src/lib/y2partitioner/actions/delete_lvm_lv.rb:86
+#: src/lib/y2partitioner/actions/delete_lvm_lv.rb:93
 #, fuzzy
 #| msgid "Really delete volume group \"%1\" and all related logical volumes?"
 msgid "Really delete the thin pool \"%{name}\" and all related thin volumes?"
@@ -399,13 +408,15 @@ msgstr "ต้องการจะลบกลุ่มโวลุม \"%1\" �
 
 #. Confirmation when the device contains logical volumes
 #.
-#. @see DeleteDevice#confirm_recursive_delete
-#: src/lib/y2partitioner/actions/delete_lvm_vg.rb:59
+#. @see ConfirmRecursiveDelete#confirm_recursive_delete
+#.
+#. @return [Boolean]
+#: src/lib/y2partitioner/actions/delete_lvm_vg.rb:63
 msgid "Confirm Deleting of Volume Group"
 msgstr "ยืนยันการลบกลุ่มโวลุม"
 
 #. TRANSLATORS: %s is the name of the volume group (e.g. "system")
-#: src/lib/y2partitioner/actions/delete_lvm_vg.rb:61
+#: src/lib/y2partitioner/actions/delete_lvm_vg.rb:65
 #, fuzzy
 #| msgid ""
 #| "The volume group \"%1\" contains at least one logical volume.\n"
@@ -421,7 +432,7 @@ msgstr ""
 "(หากมันถูกเมานท์อยู่) ลบจากนั้นให้ทำการลบพวกมัน โวลุมต่าง ๆ คือรายการต่อไปนี้:"
 
 #. TRANSLATORS: %s is the name of the volume group (e.g. "system")
-#: src/lib/y2partitioner/actions/delete_lvm_vg.rb:66
+#: src/lib/y2partitioner/actions/delete_lvm_vg.rb:70
 #, fuzzy
 #| msgid "Really delete volume group \"%1\" and all related logical volumes?"
 msgid "Really delete volume group \"%s\" and all related logical volumes?"
@@ -429,9 +440,11 @@ msgstr "ต้องการจะลบกลุ่มโวลุม \"%1\" �
 
 #. Confirmation when the device belongs to a volume group
 #.
-#. @see DeleteDevice#confirm_recursive_delete
+#. @see ConfirmRecursiveDelete#confirm_recursive_delete
 #. @see DeleteDevice#lvm_vg
-#: src/lib/y2partitioner/actions/delete_md.rb:60
+#.
+#. @return [Boolean]
+#: src/lib/y2partitioner/actions/delete_md.rb:64
 #, fuzzy
 #| msgid "Confirm Deleting Partition Used by LVM"
 msgid "Confirm Deleting RAID Used by LVM"
@@ -439,7 +452,7 @@ msgstr "ยืนยันการลบพาร์ทิชันที่ถ
 
 #. TRANSLATORS: name is the name of the volume group that the md raid
 #. belongs to (e.g., /dev/system)
-#: src/lib/y2partitioner/actions/delete_md.rb:63
+#: src/lib/y2partitioner/actions/delete_md.rb:67
 #, fuzzy
 #| msgid ""
 #| "The selected partition is used by volume group \"%1\"\n"
@@ -456,23 +469,34 @@ msgstr ""
 
 #. TRANSLATORS: md is the name of the md raid to be deleted (e.g., /dev/md/md1),
 #. and vg is the name of the volume group to be deleted (e.g., /dev/system)
-#: src/lib/y2partitioner/actions/delete_md.rb:68
+#: src/lib/y2partitioner/actions/delete_md.rb:72
 #, fuzzy
 #| msgid "Delete partition \"%1\" and volume group \"%2\" now?"
 msgid "Delete RAID \"%{md}\" and volume group \"%{lvm_vg}\"?"
 msgstr "ต้องการจะลบพาร์ทิชัน \"%1\" และกลุ่มโวลุม \"%2\" เดี๋ยวนี้หรือไม่ ?"
 
+#. Error when the partition is implicit
+#.
+#. @return [String, nil] nil if the partition is not implicit
+#: src/lib/y2partitioner/actions/delete_partition.rb:59
+#, fuzzy
+#| msgid "A logical partition cannot be created."
+msgid "This is an implicit partition and cannot be deleted."
+msgstr "พาร์ทิชันลอจิคัลไม่สามารถถูกสร้างได้"
+
 #. Confirmation when the partition belongs to a volume group
 #.
-#. @see DeleteDevice#confirm_recursive_delete
+#. @see ConfirmRecursiveDelete#confirm_recursive_delete
 #. @see DeleteDevice#lvm_vg
-#: src/lib/y2partitioner/actions/delete_partition.rb:65
+#.
+#. @return [Boolean]
+#: src/lib/y2partitioner/actions/delete_partition.rb:84
 msgid "Confirm Deleting Partition Used by LVM"
 msgstr "ยืนยันการลบพาร์ทิชันที่ถูกใช้งานกับ LVM"
 
 #. TRANSLATORS: name is the name of the volume group that the partition
 #. belongs to (e.g., /dev/system)
-#: src/lib/y2partitioner/actions/delete_partition.rb:68
+#: src/lib/y2partitioner/actions/delete_partition.rb:87
 #, fuzzy
 #| msgid ""
 #| "The selected partition is used by volume group \"%1\"\n"
@@ -489,7 +513,7 @@ msgstr ""
 
 #. TRANSLATORS: partition is the name of the partition to be deleted (e.g., /dev/sda1),
 #. and vg is the name of the volume group to be deleted (e.g., /dev/system)
-#: src/lib/y2partitioner/actions/delete_partition.rb:73
+#: src/lib/y2partitioner/actions/delete_partition.rb:92
 #, fuzzy
 #| msgid "Delete partition \"%1\" and volume group \"%2\" now?"
 msgid "Delete partition \"%{partition}\" and volume group \"%{lvm_vg}\"?"
@@ -497,14 +521,16 @@ msgstr "ต้องการจะลบพาร์ทิชัน \"%1\" แ�
 
 #. Confirmation when the partition belongs to a md raid
 #.
-#. @see DeleteDevice#confirm_recursive_delete
+#. @see ConfirmRecursiveDelete#confirm_recursive_delete
 #. @see DeleteDevice#md
-#: src/lib/y2partitioner/actions/delete_partition.rb:85
+#.
+#. @return [Boolean]
+#: src/lib/y2partitioner/actions/delete_partition.rb:106
 msgid "Confirm Deleting Partition Used by RAID"
 msgstr "ยืนยันการลบพาร์ทิชันที่ถูกใช้งานโดย RAID"
 
 #. TRANSLATORS: name is the name of the partition to be deleted (e.g., /dev/sda1)
-#: src/lib/y2partitioner/actions/delete_partition.rb:87
+#: src/lib/y2partitioner/actions/delete_partition.rb:108
 #, fuzzy
 #| msgid ""
 #| "The selected partition belongs to RAID  \"%1\"\n"
@@ -521,7 +547,7 @@ msgstr ""
 
 #. TRANSLATORS: partition is the name of the partition to be deleted (e.g., /dev/sda1),
 #. and md_raid is the name of the raid to be deleted (e.g., /dev/md/md1)
-#: src/lib/y2partitioner/actions/delete_partition.rb:92
+#: src/lib/y2partitioner/actions/delete_partition.rb:113
 #, fuzzy
 #| msgid "Delete partition \"%1\" and RAID \"%2\" now?"
 msgid "Delete partition \"%{partition}\" and RAID \"%{md}\"?"
@@ -586,7 +612,7 @@ msgstr ""
 "มันไม่สามารถถูกกู้คืนได้\n"
 
 #. TRANSLATORS: %{name} is replaced by a device name (e.g., /dev/sda1).
-#: src/lib/y2partitioner/actions/resize_blk_device.rb:101
+#: src/lib/y2partitioner/actions/resize_blk_device.rb:103
 #, fuzzy
 #| msgid ""
 #| "The RAID %1 is in use. It cannot be\n"
@@ -598,13 +624,22 @@ msgstr ""
 "RAID %1 มีการใช้งานอยู่ มันจึงไม่สามารถปรับขนาดได้\n"
 "หากต้องการปรับขนาด %1 โปรดตรวจสอบว่ามันไม่ถูกใช้งานแล้ว"
 
+#. Error when the filesystem type cannot be resized
+#.
+#. @return [String, nil] nil if the filesystem can be resized.
+#: src/lib/y2partitioner/actions/resize_blk_device.rb:116
+#, fuzzy
+#| msgid "An extended partition cannot be resized."
+msgid "This filesystem type cannot be resized."
+msgstr "ไม่สามารถปรับขนาดพาร์ทิชันส่วนขยายได้"
+
 #. Error when the device cannot be resized
 #.
 #. TODO: Distinguish the reason why it is not possible to resize, for example:
 #. * extended partition with committed logical partitions
 #.
 #. @return [String, nil] nil if the device can be resized.
-#: src/lib/y2partitioner/actions/resize_blk_device.rb:116
+#: src/lib/y2partitioner/actions/resize_blk_device.rb:128
 #, fuzzy
 #| msgid "An extended partition cannot be resized."
 msgid "This device cannot be resized."
@@ -9485,9 +9520,6 @@ msgstr "ดิสก์ที่จะจัดพาร์ทิชัน"
 
 #~ msgid "A logical partition can be created.\n"
 #~ msgstr "พาร์ทิชันลอจิคัลสามารถถูกสร้างได้\n"
-
-#~ msgid "A logical partition cannot be created."
-#~ msgstr "พาร์ทิชันลอจิคัลไม่สามารถถูกสร้างได้"
 
 #~ msgid "An extended partition can be created.\n"
 #~ msgstr "พาร์ทิชันส่วนขยายสามารถถูกสร้างได้\n"
