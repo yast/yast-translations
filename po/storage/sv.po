@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: storage\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-03-24 02:30+0000\n"
+"POT-Creation-Date: 2018-03-26 14:17+0000\n"
 "PO-Revision-Date: 2018-03-14 06:57+0000\n"
 "Last-Translator: Martin Devenney <devenneymartin@gmail.com>\n"
 "Language-Team: Swedish <https://l10n.opensuse.org/projects/yast-storage/"
@@ -140,20 +140,20 @@ msgstr ""
 "i volymgruppen %{lv_name}."
 
 #. TRANSLATORS: dialog title when creating an LVM volume group
-#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:78
+#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:79
 msgid "Add Volume Group"
 msgstr "Lägg till volymgrupp"
 
 #. TRANSLATORS: dialog title when resizing an LVM volume group, where %s is replaced
 #. by a device name (e.g., /dev/vg0)
-#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:82
+#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:83
 msgid "Resize Volume Group %s"
 msgstr "Ändra storlek på volymgruppen %s"
 
 #. Error message to show when the given volume group name is empty
 #.
 #. @return [String]
-#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:299
+#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:297
 msgid "Enter a name for the volume group."
 msgstr "Ange ett namn för volymgruppen."
 
@@ -161,7 +161,7 @@ msgstr "Ange ett namn för volymgruppen."
 #. characters
 #.
 #. @return [String]
-#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:317
+#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:315
 msgid ""
 "The name for the volume group contains illegal characters. Allowed\n"
 "are alphanumeric characters, \".\", \"_\", \"-\" and \"+\""
@@ -170,7 +170,7 @@ msgstr ""
 "tecken är alfanumeriska tecken, \".\", \"_\", \"-\" och \"+\""
 
 #. TRANSLATORS: %{vg_name} is replaced by the name of the volume group
-#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:340
+#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:338
 msgid ""
 "The volume group name \"%{vg_name}\" conflicts\n"
 "with another entry in the /dev directory."
@@ -183,7 +183,7 @@ msgstr ""
 #. @see #invalid_extent_size?
 #.
 #. @return [String]
-#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:365
+#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:363
 msgid ""
 "The data entered is invalid. Insert a physical extent size larger than 1 "
 "KiB\n"
@@ -195,13 +195,13 @@ msgstr ""
 
 #. TRANSLATORS: dialog title when creating a MD RAID.
 #. %s is a device name like /dev/md0
-#: src/lib/y2partitioner/actions/controllers/md.rb:180
+#: src/lib/y2partitioner/actions/controllers/md.rb:178
 msgid "Add RAID %s"
 msgstr "Lägg till RAID %s"
 
 #. TRANSLATORS: dialog title when resizing a MD RAID.
 #. %s is a device name like /dev/md0
-#: src/lib/y2partitioner/actions/controllers/md.rb:184
+#: src/lib/y2partitioner/actions/controllers/md.rb:182
 msgid "Resize RAID %s"
 msgstr "Ändra storlek på RAID %s"
 
@@ -528,13 +528,13 @@ msgid "This filesystem type cannot be resized."
 msgstr "Det går inte att ändra storlek på enheten."
 
 #. Error when the device cannot be resized
-#.
-#. TODO: Distinguish the reason why it is not possible to resize, for example:
-#. * extended partition with committed logical partitions
+#. This might be a multi-line message reporting more than one reason.
 #.
 #. @return [String, nil] nil if the device can be resized.
-#: src/lib/y2partitioner/actions/resize_blk_device.rb:128
-msgid "This device cannot be resized."
+#: src/lib/y2partitioner/actions/resize_blk_device.rb:127
+#, fuzzy
+#| msgid "This device cannot be resized."
+msgid "This device cannot be resized:"
 msgstr "Det går inte att ändra storlek på enheten."
 
 #. TRANSLATORS: error popup, %{name} is replaced by device name (e.g., /dev/md1)
@@ -3675,6 +3675,106 @@ msgstr "Microsoft-reserverad partition"
 msgid "Diagnostics Partition"
 msgstr "Diagnostisk partition"
 
+#. rubocop:disable Metrics/LineLength
+#: src/lib/y2storage/resize_info.rb:43
+#, fuzzy
+#| msgid "Resize not supported by underlying device."
+msgid "Resizing is not supported by this device."
+msgstr "Det går inte att ändra storlek på den underliggande enheten."
+
+#: src/lib/y2storage/resize_info.rb:44
+msgid "Combined limitations of partition and filesystem prevent resizing."
+msgstr ""
+
+#: src/lib/y2storage/resize_info.rb:45
+#, fuzzy
+#| msgid "This device cannot be resized."
+msgid "This filesystem does not support shrinking."
+msgstr "Det går inte att ändra storlek på enheten."
+
+#: src/lib/y2storage/resize_info.rb:46
+#, fuzzy
+#| msgid "This device cannot be resized."
+msgid "This filesystem does not support growing."
+msgstr "Det går inte att ändra storlek på enheten."
+
+#: src/lib/y2storage/resize_info.rb:47
+msgid "Filesystem consistency check failed."
+msgstr ""
+
+#: src/lib/y2storage/resize_info.rb:48
+#, fuzzy
+#| msgid "This device cannot be resized."
+msgid "This filesystem already has the minimum possible size."
+msgstr "Det går inte att ändra storlek på enheten."
+
+#: src/lib/y2storage/resize_info.rb:49
+#, fuzzy
+#| msgid "This device cannot be resized."
+msgid "This filesystem already has the maximum possible size."
+msgstr "Det går inte att ändra storlek på enheten."
+
+#: src/lib/y2storage/resize_info.rb:50
+#, fuzzy
+#| msgid "The file system is currently mounted on %1."
+msgid "The filesystem is full."
+msgstr "Filsystemet är monterat på %1."
+
+#: src/lib/y2storage/resize_info.rb:51
+#, fuzzy
+#| msgid "There is no available space in the current container %1."
+msgid "There is no space behind this partition."
+msgstr "Det finns inget tillgängligt utrymme i den aktuella behållaren %1."
+
+#: src/lib/y2storage/resize_info.rb:52
+msgid "This partition already has the minimum possible size."
+msgstr ""
+
+#: src/lib/y2storage/resize_info.rb:53
+#, fuzzy
+#| msgid "An extended partition cannot be edited."
+msgid "Extended partitions cannot be resized."
+msgstr "Det går inte att redigera en utökad partition."
+
+#: src/lib/y2storage/resize_info.rb:54
+#, fuzzy
+#| msgid "A logical partition cannot be created."
+msgid "The partition on an implicit partition table cannot be resized."
+msgstr "En logisk partition kan inte skapas."
+
+#: src/lib/y2storage/resize_info.rb:55
+#, fuzzy
+#| msgid "Shrinking logical volume %1$s to %2$s"
+msgid "Shrinking of this type of LVM logical volumes is not supported."
+msgstr "Krymper den logiska volymen %1$s till %2$s"
+
+#: src/lib/y2storage/resize_info.rb:56
+msgid "Resizing of this type of LVM logical volumes is not supported."
+msgstr ""
+
+#: src/lib/y2storage/resize_info.rb:57
+#, fuzzy
+#| msgid "No free space left in the volume group \"%s\"."
+msgid "No space left in the LVM volume group."
+msgstr "Det finns inget tillgängligt utrymme i volymgruppen \"%s\"."
+
+#: src/lib/y2storage/resize_info.rb:58
+msgid "The LVM logical volume already has the minimum possible size."
+msgstr ""
+
+#: src/lib/y2storage/resize_info.rb:59
+msgid "The LVM thin logical volume already has the maximum size."
+msgstr ""
+
+#. One reason blocking a resize in (translated) text form.
+#.
+#. @return [String]
+#: src/lib/y2storage/resize_info.rb:109
+#, fuzzy
+#| msgid "Unknown"
+msgid "Unknown reason"
+msgstr "Okänd"
+
 #~ msgid ""
 #~ "'Password' and 'Retype password'\n"
 #~ "do not match. Retype the password."
@@ -5378,9 +5478,6 @@ msgstr "Diagnostisk partition"
 #~ "\n"
 #~ "Vill du använda det här filsystemet?\n"
 
-#~ msgid "The file system is currently mounted on %1."
-#~ msgstr "Filsystemet är monterat på %1."
-
 #~ msgid ""
 #~ "You can try to unmount it now, continue without unmounting or cancel.\n"
 #~ "Click Cancel unless you know exactly what you are doing."
@@ -5625,9 +5722,6 @@ msgstr "Diagnostisk partition"
 #~ msgid "All data stored on the volume will be lost!"
 #~ msgstr "Alla data på volymen kommer att försvinna!"
 
-#~ msgid "Resize not supported by underlying device."
-#~ msgstr "Det går inte att ändra storlek på den underliggande enheten."
-
 #~ msgid ""
 #~ "\n"
 #~ "You cannot resize the selected partition because the file system\n"
@@ -5795,9 +5889,6 @@ msgstr "Diagnostisk partition"
 #~ msgstr ""
 #~ "Partitionen %1 används. Den kan inte \n"
 #~ "ändras. Om du vill ändra %1 måste du se till att den inte används."
-
-#~ msgid "An extended partition cannot be edited."
-#~ msgstr "Det går inte att redigera en utökad partition."
 
 #~ msgid ""
 #~ "The partition %1 is already created on disk\n"
@@ -8596,9 +8687,6 @@ msgstr "Diagnostisk partition"
 #~ msgid "Format logical volume %1$s (%2$s) with %3$s"
 #~ msgstr "Formatera den logiska volymen %1$s (%2$s) med %3$s"
 
-#~ msgid "Shrinking logical volume %1$s to %2$s"
-#~ msgstr "Krymper den logiska volymen %1$s till %2$s"
-
 #~ msgid "Extending logical volume %1$s to %2$s"
 #~ msgstr "Utökar den logiska volymen %1$s till %2$s"
 
@@ -11107,9 +11195,6 @@ msgstr "Diagnostisk partition"
 #~ msgstr ""
 #~ "En volym med begärd storlek \n"
 #~ "kan inte skapas. \n"
-
-#~ msgid "There is no available space in the current container %1."
-#~ msgstr "Det finns inget tillgängligt utrymme i den aktuella behållaren %1."
 
 #~ msgid ""
 #~ "You can only delete logical volumes in a container.\n"

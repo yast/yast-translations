@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: storage-ng.tr\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-03-24 02:30+0000\n"
+"POT-Creation-Date: 2018-03-26 14:17+0000\n"
 "PO-Revision-Date: 2004-09-21 02:03+0200\n"
 "Last-Translator: Arda Saltoglu <ardasaltoglu@gmx.net>\n"
 "Language-Team: Turkish <yast-int@suse.de>\n"
@@ -139,14 +139,14 @@ msgstr ""
 
 # include/partitioning/lvm_ui_lib.ycp:271
 #. TRANSLATORS: dialog title when creating an LVM volume group
-#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:78
+#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:79
 msgid "Add Volume Group"
 msgstr " Yığın grubu ekle"
 
 # include/partitioning/lvm_ui_lib.ycp:271
 #. TRANSLATORS: dialog title when resizing an LVM volume group, where %s is replaced
 #. by a device name (e.g., /dev/vg0)
-#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:82
+#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:83
 #, fuzzy
 msgid "Resize Volume Group %s"
 msgstr " Yığın grubu "
@@ -155,7 +155,7 @@ msgstr " Yığın grubu "
 #. Error message to show when the given volume group name is empty
 #.
 #. @return [String]
-#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:299
+#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:297
 #, fuzzy
 msgid "Enter a name for the volume group."
 msgstr "Yeni profilin adını girin."
@@ -164,7 +164,7 @@ msgstr "Yeni profilin adını girin."
 #. characters
 #.
 #. @return [String]
-#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:317
+#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:315
 #, fuzzy
 msgid ""
 "The name for the volume group contains illegal characters. Allowed\n"
@@ -172,7 +172,7 @@ msgid ""
 msgstr "Şema adının uzunluğu 32 karakterden fazla olamaz."
 
 #. TRANSLATORS: %{vg_name} is replaced by the name of the volume group
-#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:340
+#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:338
 msgid ""
 "The volume group name \"%{vg_name}\" conflicts\n"
 "with another entry in the /dev directory."
@@ -183,7 +183,7 @@ msgstr ""
 #. @see #invalid_extent_size?
 #.
 #. @return [String]
-#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:365
+#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:363
 #, fuzzy
 msgid ""
 "The data entered is invalid. Insert a physical extent size larger than 1 "
@@ -196,7 +196,7 @@ msgstr ""
 
 #. TRANSLATORS: dialog title when creating a MD RAID.
 #. %s is a device name like /dev/md0
-#: src/lib/y2partitioner/actions/controllers/md.rb:180
+#: src/lib/y2partitioner/actions/controllers/md.rb:178
 #, fuzzy
 msgid "Add RAID %s"
 msgstr "RAID &ekle"
@@ -204,7 +204,7 @@ msgstr "RAID &ekle"
 # include/cups/ui.ycp:2589
 #. TRANSLATORS: dialog title when resizing a MD RAID.
 #. %s is a device name like /dev/md0
-#: src/lib/y2partitioner/actions/controllers/md.rb:184
+#: src/lib/y2partitioner/actions/controllers/md.rb:182
 #, fuzzy
 msgid "Resize RAID %s"
 msgstr "boyut %1"
@@ -576,14 +576,12 @@ msgstr "Genişletilmiş bir bölüm zaten var."
 
 # clients/inst_custom_part.ycp:2587
 #. Error when the device cannot be resized
-#.
-#. TODO: Distinguish the reason why it is not possible to resize, for example:
-#. * extended partition with committed logical partitions
+#. This might be a multi-line message reporting more than one reason.
 #.
 #. @return [String, nil] nil if the device can be resized.
-#: src/lib/y2partitioner/actions/resize_blk_device.rb:128
+#: src/lib/y2partitioner/actions/resize_blk_device.rb:127
 #, fuzzy
-msgid "This device cannot be resized."
+msgid "This device cannot be resized:"
 msgstr "Genişletilmiş bir bölüm zaten var."
 
 #. TRANSLATORS: error popup, %{name} is replaced by device name (e.g., /dev/md1)
@@ -4227,6 +4225,107 @@ msgstr "bölüm"
 msgid "Diagnostics Partition"
 msgstr "bölüm"
 
+#. rubocop:disable Metrics/LineLength
+#: src/lib/y2storage/resize_info.rb:43
+msgid "Resizing is not supported by this device."
+msgstr ""
+
+#: src/lib/y2storage/resize_info.rb:44
+msgid "Combined limitations of partition and filesystem prevent resizing."
+msgstr ""
+
+# clients/inst_custom_part.ycp:2587
+#: src/lib/y2storage/resize_info.rb:45
+#, fuzzy
+msgid "This filesystem does not support shrinking."
+msgstr "Genişletilmiş bir bölüm zaten var."
+
+# clients/inst_custom_part.ycp:2587
+#: src/lib/y2storage/resize_info.rb:46
+#, fuzzy
+msgid "This filesystem does not support growing."
+msgstr "Genişletilmiş bir bölüm zaten var."
+
+#: src/lib/y2storage/resize_info.rb:47
+msgid "Filesystem consistency check failed."
+msgstr ""
+
+# clients/inst_custom_part.ycp:2587
+#: src/lib/y2storage/resize_info.rb:48
+#, fuzzy
+msgid "This filesystem already has the minimum possible size."
+msgstr "Genişletilmiş bir bölüm zaten var."
+
+# clients/inst_custom_part.ycp:2587
+#: src/lib/y2storage/resize_info.rb:49
+#, fuzzy
+msgid "This filesystem already has the maximum possible size."
+msgstr "Genişletilmiş bir bölüm zaten var."
+
+# clients/sound_options.ycp:183
+#: src/lib/y2storage/resize_info.rb:50
+#, fuzzy
+msgid "The filesystem is full."
+msgstr "Bu modül için seçenek yok."
+
+# clients/inst_lvm_pv.ycp:240 clients/lvm_config_ui.ycp:284
+#: src/lib/y2storage/resize_info.rb:51
+#, fuzzy
+#| msgid "There is no available space in the current container %1."
+msgid "There is no space behind this partition."
+msgstr "%1 kabında boş yer yok."
+
+# clients/inst_custom_part.ycp:2609
+#: src/lib/y2storage/resize_info.rb:52
+#, fuzzy
+#| msgid "Primary partition creation is possible\n"
+msgid "This partition already has the minimum possible size."
+msgstr "Birincil bölüm yaratmak: mümkün\n"
+
+# clients/inst_custom_part.ycp:2587
+#: src/lib/y2storage/resize_info.rb:53
+#, fuzzy
+msgid "Extended partitions cannot be resized."
+msgstr "Genişletilmiş bir bölüm zaten var."
+
+# include/nis_server/io.ycp:319
+#: src/lib/y2storage/resize_info.rb:54
+#, fuzzy
+msgid "The partition on an implicit partition table cannot be resized."
+msgstr "%1 dizini oluşturulamadı.\n"
+
+#: src/lib/y2storage/resize_info.rb:55
+msgid "Shrinking of this type of LVM logical volumes is not supported."
+msgstr ""
+
+#: src/lib/y2storage/resize_info.rb:56
+msgid "Resizing of this type of LVM logical volumes is not supported."
+msgstr ""
+
+# clients/inst_lvm_pv.ycp:240 clients/lvm_config_ui.ycp:284
+#: src/lib/y2storage/resize_info.rb:57
+#, fuzzy
+msgid "No space left in the LVM volume group."
+msgstr "%1 yığın grubunda boş yer yok"
+
+#: src/lib/y2storage/resize_info.rb:58
+msgid "The LVM logical volume already has the minimum possible size."
+msgstr ""
+
+#: src/lib/y2storage/resize_info.rb:59
+msgid "The LVM thin logical volume already has the maximum size."
+msgstr ""
+
+# include/partitioning/partition_defines.ycp:382 include/partitioning/partition_defines.ycp:403
+#. One reason blocking a resize in (translated) text form.
+#.
+#. @return [String]
+#: src/lib/y2storage/resize_info.rb:109
+#, fuzzy
+#| msgid "unknown"
+msgid "Unknown reason"
+msgstr "bilinmiyor"
+
 # include/partitioning/custom_part_dialogs.ycp:292
 #, fuzzy
 #~ msgid "Crypt Files"
@@ -5982,11 +6081,6 @@ msgstr "bölüm"
 #~ msgid "Your mount point must start with a \"/\" "
 #~ msgstr "Bağlama noktası \"/\" ile başlamalıdır."
 
-# clients/sound_options.ycp:183
-#, fuzzy
-#~ msgid "The file system is currently mounted on %1."
-#~ msgstr "Bu modül için seçenek yok."
-
 #, fuzzy
 #~| msgid "Mount"
 #~ msgid "Unmount"
@@ -6413,11 +6507,6 @@ msgstr "bölüm"
 #~ "Değiştirilecek RAID (%1) diskte zaten oluşturulmuş durumda.\n"
 #~ "Bu şekilde değişiklik yapılamaz. %1 RAID'ini değiştirebilmeniz\n"
 #~ "için silip yeniden oluşturmalısınız.\n"
-
-# clients/inst_custom_part.ycp:2587
-#, fuzzy
-#~ msgid "An extended partition cannot be edited."
-#~ msgstr "Genişletilmiş bir bölüm zaten var."
 
 #, fuzzy
 #~| msgid "The /var partition %1 could not be mounted.\n"
@@ -11805,10 +11894,6 @@ msgstr "bölüm"
 #~ "\"%2\" kabında mevcut. Başka bir isim seçin,\n"
 #~ "ya da bu işlemi iptal edin.\n"
 
-# clients/inst_lvm_pv.ycp:240 clients/lvm_config_ui.ycp:284
-#~ msgid "There is no available space in the current container %1."
-#~ msgstr "%1 kabında boş yer yok."
-
 #~ msgid ""
 #~ "You can only delete logical volumes in a container.\n"
 #~ "%1 is not a logical volume produced by a container.\n"
@@ -12880,10 +12965,6 @@ msgstr "bölüm"
 # clients/inst_custom_part.ycp:2507
 #~ msgid "Which type of partition do you want to create?"
 #~ msgstr "Ne tür bir disk bölümü oluşturmak istiyorsunuz?"
-
-# clients/inst_custom_part.ycp:2609
-#~ msgid "Primary partition creation is possible\n"
-#~ msgstr "Birincil bölüm yaratmak: mümkün\n"
 
 # clients/inst_custom_part.ycp:2611
 #~ msgid "No primary partition:  "

@@ -23,7 +23,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: storage\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-03-24 02:30+0000\n"
+"POT-Creation-Date: 2018-03-26 14:17+0000\n"
 "PO-Revision-Date: 2018-03-19 12:10+0000\n"
 "Last-Translator: Juan Sarria <juansarriam@gmail.com>\n"
 "Language-Team: Spanish <https://l10n.opensuse.org/projects/yast-storage/"
@@ -165,7 +165,7 @@ msgstr ""
 "en el grupo de volúmenes %{vg_name}."
 
 #. TRANSLATORS: dialog title when creating an LVM volume group
-#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:78
+#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:79
 msgid "Add Volume Group"
 msgstr "Añadir grupo de volúmenes"
 
@@ -174,14 +174,14 @@ msgstr "Añadir grupo de volúmenes"
 # include/partitioning/lvm_ui_lib.ycp:297
 #. TRANSLATORS: dialog title when resizing an LVM volume group, where %s is replaced
 #. by a device name (e.g., /dev/vg0)
-#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:82
+#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:83
 msgid "Resize Volume Group %s"
 msgstr "Cambiar el tamaño del grupo de volúmenes %s"
 
 #. Error message to show when the given volume group name is empty
 #.
 #. @return [String]
-#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:299
+#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:297
 msgid "Enter a name for the volume group."
 msgstr "Introduzca un nombre para el grupo de volúmenes."
 
@@ -189,7 +189,7 @@ msgstr "Introduzca un nombre para el grupo de volúmenes."
 #. characters
 #.
 #. @return [String]
-#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:317
+#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:315
 msgid ""
 "The name for the volume group contains illegal characters. Allowed\n"
 "are alphanumeric characters, \".\", \"_\", \"-\" and \"+\""
@@ -198,7 +198,7 @@ msgstr ""
 "los caracteres alfanuméricos, \".\", \"_\", \"-\" y \"+\""
 
 #. TRANSLATORS: %{vg_name} is replaced by the name of the volume group
-#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:340
+#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:338
 msgid ""
 "The volume group name \"%{vg_name}\" conflicts\n"
 "with another entry in the /dev directory."
@@ -214,7 +214,7 @@ msgstr ""
 #. @see #invalid_extent_size?
 #.
 #. @return [String]
-#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:365
+#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:363
 msgid ""
 "The data entered is invalid. Insert a physical extent size larger than 1 "
 "KiB\n"
@@ -230,7 +230,7 @@ msgstr ""
 # include/partitioning/raid_ui.ycp:327
 #. TRANSLATORS: dialog title when creating a MD RAID.
 #. %s is a device name like /dev/md0
-#: src/lib/y2partitioner/actions/controllers/md.rb:180
+#: src/lib/y2partitioner/actions/controllers/md.rb:178
 msgid "Add RAID %s"
 msgstr "Añadir RAID %s"
 
@@ -239,7 +239,7 @@ msgstr "Añadir RAID %s"
 # include/partitioning/raid_ui.ycp:326
 #. TRANSLATORS: dialog title when resizing a MD RAID.
 #. %s is a device name like /dev/md0
-#: src/lib/y2partitioner/actions/controllers/md.rb:184
+#: src/lib/y2partitioner/actions/controllers/md.rb:182
 msgid "Resize RAID %s"
 msgstr "Redimensionar RAID %s"
 
@@ -629,13 +629,13 @@ msgstr "No es posible cambiar el tamaño de este dispositivo."
 # clients/inst_custom_part.ycp:2232
 # clients/inst_custom_part.ycp:2244
 #. Error when the device cannot be resized
-#.
-#. TODO: Distinguish the reason why it is not possible to resize, for example:
-#. * extended partition with committed logical partitions
+#. This might be a multi-line message reporting more than one reason.
 #.
 #. @return [String, nil] nil if the device can be resized.
-#: src/lib/y2partitioner/actions/resize_blk_device.rb:128
-msgid "This device cannot be resized."
+#: src/lib/y2partitioner/actions/resize_blk_device.rb:127
+#, fuzzy
+#| msgid "This device cannot be resized."
+msgid "This device cannot be resized:"
 msgstr "No es posible cambiar el tamaño de este dispositivo."
 
 #. TRANSLATORS: error popup, %{name} is replaced by device name (e.g., /dev/md1)
@@ -4231,6 +4231,137 @@ msgstr "Partición reservada para Microsoft"
 msgid "Diagnostics Partition"
 msgstr "Partición de diagnósticos"
 
+#. rubocop:disable Metrics/LineLength
+#: src/lib/y2storage/resize_info.rb:43
+#, fuzzy
+#| msgid "Resize not supported by underlying device."
+msgid "Resizing is not supported by this device."
+msgstr "El dispositivo no soporta cambio de tamaño."
+
+#: src/lib/y2storage/resize_info.rb:44
+msgid "Combined limitations of partition and filesystem prevent resizing."
+msgstr ""
+
+#
+# clients/inst_custom_part.ycp:2233
+# clients/inst_custom_part.ycp:2232
+# clients/inst_custom_part.ycp:2244
+#: src/lib/y2storage/resize_info.rb:45
+#, fuzzy
+#| msgid "This device cannot be resized."
+msgid "This filesystem does not support shrinking."
+msgstr "No es posible cambiar el tamaño de este dispositivo."
+
+#
+# clients/inst_custom_part.ycp:2233
+# clients/inst_custom_part.ycp:2232
+# clients/inst_custom_part.ycp:2244
+#: src/lib/y2storage/resize_info.rb:46
+#, fuzzy
+#| msgid "This device cannot be resized."
+msgid "This filesystem does not support growing."
+msgstr "No es posible cambiar el tamaño de este dispositivo."
+
+#: src/lib/y2storage/resize_info.rb:47
+msgid "Filesystem consistency check failed."
+msgstr ""
+
+#
+# clients/inst_custom_part.ycp:2233
+# clients/inst_custom_part.ycp:2232
+# clients/inst_custom_part.ycp:2244
+#: src/lib/y2storage/resize_info.rb:48
+#, fuzzy
+#| msgid "This device cannot be resized."
+msgid "This filesystem already has the minimum possible size."
+msgstr "No es posible cambiar el tamaño de este dispositivo."
+
+#
+# clients/inst_custom_part.ycp:2233
+# clients/inst_custom_part.ycp:2232
+# clients/inst_custom_part.ycp:2244
+#: src/lib/y2storage/resize_info.rb:49
+#, fuzzy
+#| msgid "This device cannot be resized."
+msgid "This filesystem already has the maximum possible size."
+msgstr "No es posible cambiar el tamaño de este dispositivo."
+
+#: src/lib/y2storage/resize_info.rb:50
+#, fuzzy
+#| msgid "The file system is currently mounted on %1."
+msgid "The filesystem is full."
+msgstr "El sistema de archivos actualmente esta montado en %1."
+
+#: src/lib/y2storage/resize_info.rb:51
+#, fuzzy
+#| msgid "You risk losing data if you shrink this partition."
+msgid "There is no space behind this partition."
+msgstr "Si reduce esta partición puede producirse una pérdida de datos."
+
+#
+# clients/inst_custom_part.ycp:2233
+# clients/inst_custom_part.ycp:2232
+# clients/inst_custom_part.ycp:2244
+#: src/lib/y2storage/resize_info.rb:52
+#, fuzzy
+#| msgid "This partition cannot be resized."
+msgid "This partition already has the minimum possible size."
+msgstr "No es posible redimensionar esta partición."
+
+#
+# clients/inst_custom_part.ycp:2233
+# clients/inst_custom_part.ycp:2232
+# clients/inst_custom_part.ycp:2244
+#: src/lib/y2storage/resize_info.rb:53
+#, fuzzy
+#| msgid "An extended partition cannot be edited."
+msgid "Extended partitions cannot be resized."
+msgstr "No se puede editar una partición extendida."
+
+#
+# clients/inst_custom_part.ycp:2233
+# clients/inst_custom_part.ycp:2232
+# clients/inst_custom_part.ycp:2244
+#: src/lib/y2storage/resize_info.rb:54
+#, fuzzy
+#| msgid "This partition cannot be resized."
+msgid "The partition on an implicit partition table cannot be resized."
+msgstr "No es posible redimensionar esta partición."
+
+#: src/lib/y2storage/resize_info.rb:55
+msgid "Shrinking of this type of LVM logical volumes is not supported."
+msgstr ""
+
+#: src/lib/y2storage/resize_info.rb:56
+msgid "Resizing of this type of LVM logical volumes is not supported."
+msgstr ""
+
+# clients/inst_lvm_pv.ycp:261 clients/lvm_config_ui.ycp:284
+# clients/inst_lvm_pv.ycp:261 clients/lvm_config_ui.ycp:287
+# clients/inst_lvm_pv.ycp:261 clients/lvm_config_ui.ycp:292
+#: src/lib/y2storage/resize_info.rb:57
+#, fuzzy
+#| msgid "No free space left in the volume group \"%s\"."
+msgid "No space left in the LVM volume group."
+msgstr "No hay espacio disponible en el grupo de volúmenes %s."
+
+#: src/lib/y2storage/resize_info.rb:58
+msgid "The LVM logical volume already has the minimum possible size."
+msgstr ""
+
+#: src/lib/y2storage/resize_info.rb:59
+msgid "The LVM thin logical volume already has the maximum size."
+msgstr ""
+
+#. One reason blocking a resize in (translated) text form.
+#.
+#. @return [String]
+#: src/lib/y2storage/resize_info.rb:109
+#, fuzzy
+#| msgid "Unknown"
+msgid "Unknown reason"
+msgstr "Desconocido"
+
 #~ msgid ""
 #~ "'Password' and 'Retype password'\n"
 #~ "do not match. Retype the password."
@@ -4252,13 +4383,6 @@ msgstr "Partición de diagnósticos"
 # clients/inst_custom_part.ycp:2333
 #~ msgid "Mount Graph"
 #~ msgstr "Gráfico de montaje"
-
-#
-# clients/inst_custom_part.ycp:2233
-# clients/inst_custom_part.ycp:2232
-# clients/inst_custom_part.ycp:2244
-#~ msgid "This partition cannot be resized."
-#~ msgstr "No es posible redimensionar esta partición."
 
 #~ msgid "Resize Partition %{name}"
 #~ msgstr "Cambiar tamaño de partición %{name}"
@@ -5841,9 +5965,6 @@ msgstr "Partición de diagnósticos"
 #~ "Sólo fat, ext2, ext3, ext4 y reiser permiten reducir un sistema de "
 #~ "archivos."
 
-#~ msgid "You risk losing data if you shrink this partition."
-#~ msgstr "Si reduce esta partición puede producirse una pérdida de datos."
-
 #~ msgid "You risk losing data if you shrink this logical volume."
 #~ msgstr ""
 #~ "Si reduce este volumen lógico puede producirse una pérdida de datos."
@@ -6320,9 +6441,6 @@ msgstr "Partición de diagnósticos"
 #~ "\n"
 #~ "¿Realmente desea utilizar este sistema de archivos?\n"
 
-#~ msgid "The file system is currently mounted on %1."
-#~ msgstr "El sistema de archivos actualmente esta montado en %1."
-
 #~ msgid ""
 #~ "You can try to unmount it now, continue without unmounting or cancel.\n"
 #~ "Click Cancel unless you know exactly what you are doing."
@@ -6617,9 +6735,6 @@ msgstr "Partición de diagnósticos"
 #~ msgid "All data stored on the volume will be lost!"
 #~ msgstr "¡Se perderán todos los datos que actualmente contiene el volumen!"
 
-#~ msgid "Resize not supported by underlying device."
-#~ msgstr "El dispositivo no soporta cambio de tamaño."
-
 #~ msgid ""
 #~ "\n"
 #~ "You cannot resize the selected partition because the file system\n"
@@ -6831,13 +6946,6 @@ msgstr "Partición de diagnósticos"
 #~ msgstr ""
 #~ "La partición %1 se encuentra actualmente en uso.\n"
 #~ "No puede editarse. Para editar %1, asegúrese de que no se está utilizando."
-
-#
-# clients/inst_custom_part.ycp:2233
-# clients/inst_custom_part.ycp:2232
-# clients/inst_custom_part.ycp:2244
-#~ msgid "An extended partition cannot be edited."
-#~ msgstr "No se puede editar una partición extendida."
 
 # modules/MediaUI.ycp:201
 #~ msgid ""

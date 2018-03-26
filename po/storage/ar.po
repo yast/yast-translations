@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: YaST2 (partitioning)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-03-24 02:30+0000\n"
+"POT-Creation-Date: 2018-03-26 14:17+0000\n"
 "PO-Revision-Date: 2018-03-20 18:00+0000\n"
 "Last-Translator: George Yacoub <george.yacoub@arabize.com>\n"
 "Language-Team: Arabic <https://l10n.opensuse.org/projects/yast-storage/"
@@ -137,20 +137,20 @@ msgstr ""
 "في مجموعة التخزين \"%{vg_name}\"."
 
 #. TRANSLATORS: dialog title when creating an LVM volume group
-#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:78
+#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:79
 msgid "Add Volume Group"
 msgstr "إضافة مجموعة وحدة التخزين"
 
 #. TRANSLATORS: dialog title when resizing an LVM volume group, where %s is replaced
 #. by a device name (e.g., /dev/vg0)
-#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:82
+#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:83
 msgid "Resize Volume Group %s"
 msgstr "تغيير حجم مجموعة وحدة التخزين %s"
 
 #. Error message to show when the given volume group name is empty
 #.
 #. @return [String]
-#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:299
+#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:297
 msgid "Enter a name for the volume group."
 msgstr "أدخل اسماً للمجموعة التخزين."
 
@@ -158,7 +158,7 @@ msgstr "أدخل اسماً للمجموعة التخزين."
 #. characters
 #.
 #. @return [String]
-#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:317
+#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:315
 msgid ""
 "The name for the volume group contains illegal characters. Allowed\n"
 "are alphanumeric characters, \".\", \"_\", \"-\" and \"+\""
@@ -167,7 +167,7 @@ msgstr ""
 "يسمح بالأحرف الهجائية والأرقام، \"-\"، \"_\"، \"-\" و \"+\""
 
 #. TRANSLATORS: %{vg_name} is replaced by the name of the volume group
-#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:340
+#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:338
 msgid ""
 "The volume group name \"%{vg_name}\" conflicts\n"
 "with another entry in the /dev directory."
@@ -180,7 +180,7 @@ msgstr ""
 #. @see #invalid_extent_size?
 #.
 #. @return [String]
-#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:365
+#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:363
 msgid ""
 "The data entered is invalid. Insert a physical extent size larger than 1 "
 "KiB\n"
@@ -191,13 +191,13 @@ msgstr ""
 
 #. TRANSLATORS: dialog title when creating a MD RAID.
 #. %s is a device name like /dev/md0
-#: src/lib/y2partitioner/actions/controllers/md.rb:180
+#: src/lib/y2partitioner/actions/controllers/md.rb:178
 msgid "Add RAID %s"
 msgstr "إضافة RAID %s"
 
 #. TRANSLATORS: dialog title when resizing a MD RAID.
 #. %s is a device name like /dev/md0
-#: src/lib/y2partitioner/actions/controllers/md.rb:184
+#: src/lib/y2partitioner/actions/controllers/md.rb:182
 msgid "Resize RAID %s"
 msgstr "تغيير حجم RAID %s"
 
@@ -518,13 +518,13 @@ msgid "This filesystem type cannot be resized."
 msgstr "لا يمكن تغيير حجم هذا الجهاز."
 
 #. Error when the device cannot be resized
-#.
-#. TODO: Distinguish the reason why it is not possible to resize, for example:
-#. * extended partition with committed logical partitions
+#. This might be a multi-line message reporting more than one reason.
 #.
 #. @return [String, nil] nil if the device can be resized.
-#: src/lib/y2partitioner/actions/resize_blk_device.rb:128
-msgid "This device cannot be resized."
+#: src/lib/y2partitioner/actions/resize_blk_device.rb:127
+#, fuzzy
+#| msgid "This device cannot be resized."
+msgid "This device cannot be resized:"
 msgstr "لا يمكن تغيير حجم هذا الجهاز."
 
 #. TRANSLATORS: error popup, %{name} is replaced by device name (e.g., /dev/md1)
@@ -3637,6 +3637,106 @@ msgstr "قسم Microsoft Reserved"
 msgid "Diagnostics Partition"
 msgstr "قسم التشخيص"
 
+#. rubocop:disable Metrics/LineLength
+#: src/lib/y2storage/resize_info.rb:43
+#, fuzzy
+#| msgid "Resize not supported by underlying device."
+msgid "Resizing is not supported by this device."
+msgstr "تغيير الحجم غير معتمد من قبل الجهاز الأساسي."
+
+#: src/lib/y2storage/resize_info.rb:44
+msgid "Combined limitations of partition and filesystem prevent resizing."
+msgstr ""
+
+#: src/lib/y2storage/resize_info.rb:45
+#, fuzzy
+#| msgid "This device cannot be resized."
+msgid "This filesystem does not support shrinking."
+msgstr "لا يمكن تغيير حجم هذا الجهاز."
+
+#: src/lib/y2storage/resize_info.rb:46
+#, fuzzy
+#| msgid "This device cannot be resized."
+msgid "This filesystem does not support growing."
+msgstr "لا يمكن تغيير حجم هذا الجهاز."
+
+#: src/lib/y2storage/resize_info.rb:47
+msgid "Filesystem consistency check failed."
+msgstr ""
+
+#: src/lib/y2storage/resize_info.rb:48
+#, fuzzy
+#| msgid "This device cannot be resized."
+msgid "This filesystem already has the minimum possible size."
+msgstr "لا يمكن تغيير حجم هذا الجهاز."
+
+#: src/lib/y2storage/resize_info.rb:49
+#, fuzzy
+#| msgid "This device cannot be resized."
+msgid "This filesystem already has the maximum possible size."
+msgstr "لا يمكن تغيير حجم هذا الجهاز."
+
+#: src/lib/y2storage/resize_info.rb:50
+#, fuzzy
+#| msgid "The file system is currently mounted on %1."
+msgid "The filesystem is full."
+msgstr "تم توصيل نظام الملفات حالياً على %1."
+
+#: src/lib/y2storage/resize_info.rb:51
+#, fuzzy
+#| msgid "There is no available space in the current container %1."
+msgid "There is no space behind this partition."
+msgstr "لا توجد مساحة متاحة في مجموعة الحاوية الحالية %1."
+
+#: src/lib/y2storage/resize_info.rb:52
+msgid "This partition already has the minimum possible size."
+msgstr ""
+
+#: src/lib/y2storage/resize_info.rb:53
+#, fuzzy
+#| msgid "An extended partition cannot be edited."
+msgid "Extended partitions cannot be resized."
+msgstr "لا يمكن تحرير قسم موسع."
+
+#: src/lib/y2storage/resize_info.rb:54
+#, fuzzy
+#| msgid "A logical partition cannot be created."
+msgid "The partition on an implicit partition table cannot be resized."
+msgstr "لا يمكن إنشاء قسم منطقي."
+
+#: src/lib/y2storage/resize_info.rb:55
+#, fuzzy
+#| msgid "Shrinking logical volume %1$s to %2$s"
+msgid "Shrinking of this type of LVM logical volumes is not supported."
+msgstr "تقليص وحدة التخزين المنطقية %1$s إلى %2$s"
+
+#: src/lib/y2storage/resize_info.rb:56
+msgid "Resizing of this type of LVM logical volumes is not supported."
+msgstr ""
+
+#: src/lib/y2storage/resize_info.rb:57
+#, fuzzy
+#| msgid "No free space left in the volume group \"%s\"."
+msgid "No space left in the LVM volume group."
+msgstr "لا توجد مساحة فارغة متبقية في مجموعة وحدات التخزين\"%s\"."
+
+#: src/lib/y2storage/resize_info.rb:58
+msgid "The LVM logical volume already has the minimum possible size."
+msgstr ""
+
+#: src/lib/y2storage/resize_info.rb:59
+msgid "The LVM thin logical volume already has the maximum size."
+msgstr ""
+
+#. One reason blocking a resize in (translated) text form.
+#.
+#. @return [String]
+#: src/lib/y2storage/resize_info.rb:109
+#, fuzzy
+#| msgid "Unknown"
+msgid "Unknown reason"
+msgstr "غير معروف"
+
 #~ msgid ""
 #~ "'Password' and 'Retype password'\n"
 #~ "do not match. Retype the password."
@@ -5324,9 +5424,6 @@ msgstr "قسم التشخيص"
 #~ "\n"
 #~ " هل ترغب في استخدام نظام الملفات هذا؟\n"
 
-#~ msgid "The file system is currently mounted on %1."
-#~ msgstr "تم توصيل نظام الملفات حالياً على %1."
-
 #~ msgid ""
 #~ "You can try to unmount it now, continue without unmounting or cancel.\n"
 #~ "Click Cancel unless you know exactly what you are doing."
@@ -5569,9 +5666,6 @@ msgstr "قسم التشخيص"
 #~ msgid "All data stored on the volume will be lost!"
 #~ msgstr "سيتم فقدان كافة البيانات الموجودة مسبقاً على وحدة التخزين!"
 
-#~ msgid "Resize not supported by underlying device."
-#~ msgstr "تغيير الحجم غير معتمد من قبل الجهاز الأساسي."
-
 #~ msgid ""
 #~ "\n"
 #~ "You cannot resize the selected partition because the file system\n"
@@ -5734,9 +5828,6 @@ msgstr "قسم التشخيص"
 #~ msgstr ""
 #~ "القسم %1 قيد الاستخدام. يمكن \n"
 #~ "تحريره. لتحرير %1، تأكد من عدم استخدامها."
-
-#~ msgid "An extended partition cannot be edited."
-#~ msgstr "لا يمكن تحرير قسم موسع."
 
 #~ msgid ""
 #~ "The partition %1 is already created on disk\n"
@@ -8464,9 +8555,6 @@ msgstr "قسم التشخيص"
 #~ msgid "Format logical volume %1$s (%2$s) with %3$s"
 #~ msgstr "تنسيق وحدة التخزين المنطقية %1$s (%2$s) بـ %3$s"
 
-#~ msgid "Shrinking logical volume %1$s to %2$s"
-#~ msgstr "تقليص وحدة التخزين المنطقية %1$s إلى %2$s"
-
 #~ msgid "Extending logical volume %1$s to %2$s"
 #~ msgstr "توسيع وحدة التخزين المنطقية %1$s إلى %2$s"
 
@@ -10909,9 +10997,6 @@ msgstr "قسم التشخيص"
 #~ msgstr ""
 #~ " لا يمكن إنشاء وحدة تخزين \n"
 #~ "بالحجم المطلوب. \n"
-
-#~ msgid "There is no available space in the current container %1."
-#~ msgstr "لا توجد مساحة متاحة في مجموعة الحاوية الحالية %1."
 
 #~ msgid ""
 #~ "You can only delete logical volumes in a container.\n"

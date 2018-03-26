@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: storage.ru\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-03-24 02:30+0000\n"
+"POT-Creation-Date: 2018-03-26 14:17+0000\n"
 "PO-Revision-Date: 2018-03-14 11:44+0000\n"
 "Last-Translator: Nikita Maynagashev <maynagashev@palex.ru>\n"
 "Language-Team: Russian <https://l10n.opensuse.org/projects/yast-storage/"
@@ -140,20 +140,20 @@ msgstr ""
 "в группе томов \"%{vg_name}\"."
 
 #. TRANSLATORS: dialog title when creating an LVM volume group
-#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:78
+#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:79
 msgid "Add Volume Group"
 msgstr "Добавить группу томов"
 
 #. TRANSLATORS: dialog title when resizing an LVM volume group, where %s is replaced
 #. by a device name (e.g., /dev/vg0)
-#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:82
+#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:83
 msgid "Resize Volume Group %s"
 msgstr "Изменить размер группы томов %s"
 
 #. Error message to show when the given volume group name is empty
 #.
 #. @return [String]
-#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:299
+#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:297
 msgid "Enter a name for the volume group."
 msgstr "Введите имя группы томов."
 
@@ -161,7 +161,7 @@ msgstr "Введите имя группы томов."
 #. characters
 #.
 #. @return [String]
-#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:317
+#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:315
 msgid ""
 "The name for the volume group contains illegal characters. Allowed\n"
 "are alphanumeric characters, \".\", \"_\", \"-\" and \"+\""
@@ -170,7 +170,7 @@ msgstr ""
 "буквы, цифры, \".\", \"_\", \"-\" и \"+\""
 
 #. TRANSLATORS: %{vg_name} is replaced by the name of the volume group
-#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:340
+#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:338
 msgid ""
 "The volume group name \"%{vg_name}\" conflicts\n"
 "with another entry in the /dev directory."
@@ -183,7 +183,7 @@ msgstr ""
 #. @see #invalid_extent_size?
 #.
 #. @return [String]
-#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:365
+#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:363
 msgid ""
 "The data entered is invalid. Insert a physical extent size larger than 1 "
 "KiB\n"
@@ -195,13 +195,13 @@ msgstr ""
 
 #. TRANSLATORS: dialog title when creating a MD RAID.
 #. %s is a device name like /dev/md0
-#: src/lib/y2partitioner/actions/controllers/md.rb:180
+#: src/lib/y2partitioner/actions/controllers/md.rb:178
 msgid "Add RAID %s"
 msgstr "Добавить RAID %s"
 
 #. TRANSLATORS: dialog title when resizing a MD RAID.
 #. %s is a device name like /dev/md0
-#: src/lib/y2partitioner/actions/controllers/md.rb:184
+#: src/lib/y2partitioner/actions/controllers/md.rb:182
 msgid "Resize RAID %s"
 msgstr "Изменить размер RAID %s"
 
@@ -525,13 +525,13 @@ msgid "This filesystem type cannot be resized."
 msgstr "Невозможно изменить размер этого устройства."
 
 #. Error when the device cannot be resized
-#.
-#. TODO: Distinguish the reason why it is not possible to resize, for example:
-#. * extended partition with committed logical partitions
+#. This might be a multi-line message reporting more than one reason.
 #.
 #. @return [String, nil] nil if the device can be resized.
-#: src/lib/y2partitioner/actions/resize_blk_device.rb:128
-msgid "This device cannot be resized."
+#: src/lib/y2partitioner/actions/resize_blk_device.rb:127
+#, fuzzy
+#| msgid "This device cannot be resized."
+msgid "This device cannot be resized:"
 msgstr "Невозможно изменить размер этого устройства."
 
 #. TRANSLATORS: error popup, %{name} is replaced by device name (e.g., /dev/md1)
@@ -3657,6 +3657,104 @@ msgstr "Зарезервированный раздел Microsoft"
 msgid "Diagnostics Partition"
 msgstr "Диагностический раздел"
 
+#. rubocop:disable Metrics/LineLength
+#: src/lib/y2storage/resize_info.rb:43
+#, fuzzy
+#| msgid "Resize not supported by underlying device."
+msgid "Resizing is not supported by this device."
+msgstr "Изменение размера не поддерживается устройством."
+
+#: src/lib/y2storage/resize_info.rb:44
+msgid "Combined limitations of partition and filesystem prevent resizing."
+msgstr ""
+
+#: src/lib/y2storage/resize_info.rb:45
+#, fuzzy
+#| msgid "This device cannot be resized."
+msgid "This filesystem does not support shrinking."
+msgstr "Невозможно изменить размер этого устройства."
+
+#: src/lib/y2storage/resize_info.rb:46
+#, fuzzy
+#| msgid "This device cannot be resized."
+msgid "This filesystem does not support growing."
+msgstr "Невозможно изменить размер этого устройства."
+
+#: src/lib/y2storage/resize_info.rb:47
+msgid "Filesystem consistency check failed."
+msgstr ""
+
+#: src/lib/y2storage/resize_info.rb:48
+#, fuzzy
+#| msgid "This device cannot be resized."
+msgid "This filesystem already has the minimum possible size."
+msgstr "Невозможно изменить размер этого устройства."
+
+#: src/lib/y2storage/resize_info.rb:49
+#, fuzzy
+#| msgid "This device cannot be resized."
+msgid "This filesystem already has the maximum possible size."
+msgstr "Невозможно изменить размер этого устройства."
+
+#: src/lib/y2storage/resize_info.rb:50
+#, fuzzy
+#| msgid "The file system is currently mounted on %1."
+msgid "The filesystem is full."
+msgstr "Файловая система смонтирована в %1."
+
+#: src/lib/y2storage/resize_info.rb:51
+#, fuzzy
+#| msgid "You risk losing data if you shrink this partition."
+msgid "There is no space behind this partition."
+msgstr "Вы рискуете потерять данные, если уменьшите этот раздел."
+
+#: src/lib/y2storage/resize_info.rb:52
+msgid "This partition already has the minimum possible size."
+msgstr ""
+
+#: src/lib/y2storage/resize_info.rb:53
+#, fuzzy
+#| msgid "An extended partition cannot be edited"
+msgid "Extended partitions cannot be resized."
+msgstr "Дополнительный раздел не может быть отредактирован"
+
+#: src/lib/y2storage/resize_info.rb:54
+#, fuzzy
+#| msgid "An extended partition cannot be edited."
+msgid "The partition on an implicit partition table cannot be resized."
+msgstr "Дополнительный раздел не может быть отредактирован."
+
+#: src/lib/y2storage/resize_info.rb:55
+msgid "Shrinking of this type of LVM logical volumes is not supported."
+msgstr ""
+
+#: src/lib/y2storage/resize_info.rb:56
+msgid "Resizing of this type of LVM logical volumes is not supported."
+msgstr ""
+
+#: src/lib/y2storage/resize_info.rb:57
+#, fuzzy
+#| msgid "No free space left in the volume group \"%s\"."
+msgid "No space left in the LVM volume group."
+msgstr "Нет свободного места в группе томов %s."
+
+#: src/lib/y2storage/resize_info.rb:58
+msgid "The LVM logical volume already has the minimum possible size."
+msgstr ""
+
+#: src/lib/y2storage/resize_info.rb:59
+msgid "The LVM thin logical volume already has the maximum size."
+msgstr ""
+
+#. One reason blocking a resize in (translated) text form.
+#.
+#. @return [String]
+#: src/lib/y2storage/resize_info.rb:109
+#, fuzzy
+#| msgid "Unknown"
+msgid "Unknown reason"
+msgstr "Неизвестно"
+
 #~ msgid ""
 #~ "'Password' and 'Retype password'\n"
 #~ "do not match. Retype the password."
@@ -4932,9 +5030,6 @@ msgstr "Диагностический раздел"
 #~ "Уменьшение возможно только для файловых систем fat, ext2, ext3, ext4 и "
 #~ "reiser."
 
-#~ msgid "You risk losing data if you shrink this partition."
-#~ msgstr "Вы рискуете потерять данные, если уменьшите этот раздел."
-
 #~ msgid "You risk losing data if you shrink this logical volume."
 #~ msgstr "Вы рискуете потерять данные, если уменьшите этот логический том."
 
@@ -5343,9 +5438,6 @@ msgstr "Диагностический раздел"
 #~ "\n"
 #~ "Действительно использовать эту файловую систему?\n"
 
-#~ msgid "The file system is currently mounted on %1."
-#~ msgstr "Файловая система смонтирована в %1."
-
 #~ msgid ""
 #~ "You can try to unmount it now, continue without unmounting or cancel.\n"
 #~ "Click Cancel unless you know exactly what you are doing."
@@ -5588,9 +5680,6 @@ msgstr "Диагностический раздел"
 
 #~ msgid "All data stored on the volume will be lost!"
 #~ msgstr "Все данные, хранящиеся на этом томе, будут потеряны!"
-
-#~ msgid "Resize not supported by underlying device."
-#~ msgstr "Изменение размера не поддерживается устройством."
 
 #~ msgid ""
 #~ "\n"

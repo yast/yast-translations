@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: storage-ng.el\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-03-24 02:30+0000\n"
+"POT-Creation-Date: 2018-03-26 14:17+0000\n"
 "PO-Revision-Date: 2016-11-09 17:20+0000\n"
 "Last-Translator: alexandros Vennos <alexandros.venn@gmail.com>\n"
 "Language-Team: Greek <https://l10n.opensuse.org/projects/yast-storage/ng-"
@@ -174,13 +174,13 @@ msgstr ""
 "στην ομάδα τόμου \"%2\"."
 
 #. TRANSLATORS: dialog title when creating an LVM volume group
-#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:78
+#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:79
 msgid "Add Volume Group"
 msgstr "Προσθήκη Ομάδας Τόμων"
 
 #. TRANSLATORS: dialog title when resizing an LVM volume group, where %s is replaced
 #. by a device name (e.g., /dev/vg0)
-#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:82
+#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:83
 #, fuzzy
 #| msgid "Resize Volume Group %1"
 msgid "Resize Volume Group %s"
@@ -189,7 +189,7 @@ msgstr "Αλλαγή Μεγέθους Ομάδας Τομέα %1"
 #. Error message to show when the given volume group name is empty
 #.
 #. @return [String]
-#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:299
+#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:297
 msgid "Enter a name for the volume group."
 msgstr "Εισάγετε όνομα για την ομάδα τόμου."
 
@@ -197,7 +197,7 @@ msgstr "Εισάγετε όνομα για την ομάδα τόμου."
 #. characters
 #.
 #. @return [String]
-#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:317
+#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:315
 #, fuzzy
 #| msgid ""
 #| "The name for the volume group contains illegal characters. Allowed\n"
@@ -210,7 +210,7 @@ msgstr ""
 "αλφαριθμητικοί χαρακτήρες, \".\", \"_\", \"-\" και \"+\"."
 
 #. TRANSLATORS: %{vg_name} is replaced by the name of the volume group
-#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:340
+#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:338
 #, fuzzy
 #| msgid ""
 #| "The volume group name \"%1\" conflicts\n"
@@ -227,7 +227,7 @@ msgstr ""
 #. @see #invalid_extent_size?
 #.
 #. @return [String]
-#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:365
+#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:363
 #, fuzzy
 #| msgid ""
 #| "The data entered is invalid. Insert a physical extent size larger than "
@@ -243,7 +243,7 @@ msgstr ""
 
 #. TRANSLATORS: dialog title when creating a MD RAID.
 #. %s is a device name like /dev/md0
-#: src/lib/y2partitioner/actions/controllers/md.rb:180
+#: src/lib/y2partitioner/actions/controllers/md.rb:178
 #, fuzzy
 #| msgid "Add RAID %1"
 msgid "Add RAID %s"
@@ -251,7 +251,7 @@ msgstr "Προσθήκη RAID %1"
 
 #. TRANSLATORS: dialog title when resizing a MD RAID.
 #. %s is a device name like /dev/md0
-#: src/lib/y2partitioner/actions/controllers/md.rb:184
+#: src/lib/y2partitioner/actions/controllers/md.rb:182
 #, fuzzy
 #| msgid "Resize RAID %1"
 msgid "Resize RAID %s"
@@ -660,15 +660,13 @@ msgid "This filesystem type cannot be resized."
 msgstr "Στην εκτεταμένη κατάτμηση δεν μπορεί να γίνει αλλαγή μεγέθους."
 
 #. Error when the device cannot be resized
-#.
-#. TODO: Distinguish the reason why it is not possible to resize, for example:
-#. * extended partition with committed logical partitions
+#. This might be a multi-line message reporting more than one reason.
 #.
 #. @return [String, nil] nil if the device can be resized.
-#: src/lib/y2partitioner/actions/resize_blk_device.rb:128
+#: src/lib/y2partitioner/actions/resize_blk_device.rb:127
 #, fuzzy
 #| msgid "An extended partition cannot be resized."
-msgid "This device cannot be resized."
+msgid "This device cannot be resized:"
 msgstr "Στην εκτεταμένη κατάτμηση δεν μπορεί να γίνει αλλαγή μεγέθους."
 
 #. TRANSLATORS: error popup, %{name} is replaced by device name (e.g., /dev/md1)
@@ -4270,6 +4268,106 @@ msgstr "Δίσκος για Κατάτμηση"
 msgid "Diagnostics Partition"
 msgstr "Δίσκος για Κατάτμηση"
 
+#. rubocop:disable Metrics/LineLength
+#: src/lib/y2storage/resize_info.rb:43
+#, fuzzy
+#| msgid "Resize not supported by underlying device."
+msgid "Resizing is not supported by this device."
+msgstr "Δεν υποστηρίζεται η αλλαγή μεγέθους από την υποκείμενη συσκευή."
+
+#: src/lib/y2storage/resize_info.rb:44
+msgid "Combined limitations of partition and filesystem prevent resizing."
+msgstr ""
+
+#: src/lib/y2storage/resize_info.rb:45
+#, fuzzy
+#| msgid "An extended partition cannot be resized."
+msgid "This filesystem does not support shrinking."
+msgstr "Στην εκτεταμένη κατάτμηση δεν μπορεί να γίνει αλλαγή μεγέθους."
+
+#: src/lib/y2storage/resize_info.rb:46
+#, fuzzy
+#| msgid "An extended partition cannot be resized."
+msgid "This filesystem does not support growing."
+msgstr "Στην εκτεταμένη κατάτμηση δεν μπορεί να γίνει αλλαγή μεγέθους."
+
+#: src/lib/y2storage/resize_info.rb:47
+msgid "Filesystem consistency check failed."
+msgstr ""
+
+#: src/lib/y2storage/resize_info.rb:48
+#, fuzzy
+#| msgid "An extended partition cannot be resized."
+msgid "This filesystem already has the minimum possible size."
+msgstr "Στην εκτεταμένη κατάτμηση δεν μπορεί να γίνει αλλαγή μεγέθους."
+
+#: src/lib/y2storage/resize_info.rb:49
+#, fuzzy
+#| msgid "An extended partition cannot be resized."
+msgid "This filesystem already has the maximum possible size."
+msgstr "Στην εκτεταμένη κατάτμηση δεν μπορεί να γίνει αλλαγή μεγέθους."
+
+#: src/lib/y2storage/resize_info.rb:50
+#, fuzzy
+#| msgid "The file system is currently mounted on %1."
+msgid "The filesystem is full."
+msgstr "Η τρέχουσα προσάρτηση του συστήματος αρχείων είναι στο %1."
+
+#: src/lib/y2storage/resize_info.rb:51
+#, fuzzy
+#| msgid "There is no available space in the current container %1."
+msgid "There is no space behind this partition."
+msgstr "Δεν υπάρχει διαθέσιμος χώρος στον τρέχων container %1."
+
+#: src/lib/y2storage/resize_info.rb:52
+msgid "This partition already has the minimum possible size."
+msgstr ""
+
+#: src/lib/y2storage/resize_info.rb:53
+#, fuzzy
+#| msgid "An extended partition cannot be edited."
+msgid "Extended partitions cannot be resized."
+msgstr "Μιά εκτεταμένη κατάτμηση δεν μπορεί να επεξεργαστεί."
+
+#: src/lib/y2storage/resize_info.rb:54
+#, fuzzy
+#| msgid "A logical partition cannot be created."
+msgid "The partition on an implicit partition table cannot be resized."
+msgstr "Καμία λογική κατάτμηση δεν μπορεί να δημιουργηθεί."
+
+#: src/lib/y2storage/resize_info.rb:55
+#, fuzzy
+#| msgid "Shrinking logical volume %1$s to %2$s"
+msgid "Shrinking of this type of LVM logical volumes is not supported."
+msgstr "Σύμπτυξη λογικού τόμου %1$s σε %2$s"
+
+#: src/lib/y2storage/resize_info.rb:56
+msgid "Resizing of this type of LVM logical volumes is not supported."
+msgstr ""
+
+#: src/lib/y2storage/resize_info.rb:57
+#, fuzzy
+#| msgid "No free space left in the volume group \"%1\"."
+msgid "No space left in the LVM volume group."
+msgstr "Δεν υπάρχει διαθέσιμος χώρος στην ομάδα τόμου \"%1\"."
+
+#: src/lib/y2storage/resize_info.rb:58
+msgid "The LVM logical volume already has the minimum possible size."
+msgstr ""
+
+#: src/lib/y2storage/resize_info.rb:59
+msgid "The LVM thin logical volume already has the maximum size."
+msgstr ""
+
+#. One reason blocking a resize in (translated) text form.
+#.
+#. @return [String]
+#: src/lib/y2storage/resize_info.rb:109
+#, fuzzy
+#| msgid "unknown"
+msgid "Unknown reason"
+msgstr "άγνωστο"
+
 #~ msgid "Crypt Files"
 #~ msgstr "Αρχεία Κρυπτογράφησης"
 
@@ -6016,9 +6114,6 @@ msgstr "Δίσκος για Κατάτμηση"
 #~ "\n"
 #~ "Θέλετε να χρησιμοποιήσετε αυτό το σύστημα αρχείων;\n"
 
-#~ msgid "The file system is currently mounted on %1."
-#~ msgstr "Η τρέχουσα προσάρτηση του συστήματος αρχείων είναι στο %1."
-
 #~ msgid ""
 #~ "You can try to unmount it now, continue without unmounting or cancel.\n"
 #~ "Click Cancel unless you know exactly what you are doing."
@@ -6283,9 +6378,6 @@ msgstr "Δίσκος για Κατάτμηση"
 #~ msgid "All data stored on the volume will be lost!"
 #~ msgstr "Όλα τα αποθηκευμένα δεδομένα στον τόμο θα χαθούν!"
 
-#~ msgid "Resize not supported by underlying device."
-#~ msgstr "Δεν υποστηρίζεται η αλλαγή μεγέθους από την υποκείμενη συσκευή."
-
 #~ msgid ""
 #~ "\n"
 #~ "You cannot resize the selected partition because the file system\n"
@@ -6453,9 +6545,6 @@ msgstr "Δίσκος για Κατάτμηση"
 #~ "Η κατάτμηση %1 είναι σε χρήση. Δεν μπορεί να\n"
 #~ "επεξεργαστεί. Για επεξεργασία της %1, σιγουρευτείτε ότι δεν είναι σε "
 #~ "χρήση."
-
-#~ msgid "An extended partition cannot be edited."
-#~ msgstr "Μιά εκτεταμένη κατάτμηση δεν μπορεί να επεξεργαστεί."
 
 #~ msgid ""
 #~ "The partition %1 is already created on disk\n"
@@ -9280,9 +9369,6 @@ msgstr "Δίσκος για Κατάτμηση"
 #~ msgid "Format logical volume %1$s (%2$s) with %3$s"
 #~ msgstr "Διαμόρφωση λογικού τόμου %1$s (%2$s) με %3$s"
 
-#~ msgid "Shrinking logical volume %1$s to %2$s"
-#~ msgstr "Σύμπτυξη λογικού τόμου %1$s σε %2$s"
-
 #~ msgid "Extending logical volume %1$s to %2$s"
 #~ msgstr "Επέκταση του λογικού τόμου %1$s σε %2$s"
 
@@ -11872,9 +11958,6 @@ msgstr "Δίσκος για Κατάτμηση"
 #~ msgstr ""
 #~ "Ένας τόμος με το απαιτούμενο μέγεθος\n"
 #~ "δεν μπορεί να δημιουργηθεί.\n"
-
-#~ msgid "There is no available space in the current container %1."
-#~ msgstr "Δεν υπάρχει διαθέσιμος χώρος στον τρέχων container %1."
 
 #~ msgid ""
 #~ "You can only delete logical volumes in a container.\n"

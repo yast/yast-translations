@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: storage-ng.ko\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-03-24 02:30+0000\n"
+"POT-Creation-Date: 2018-03-26 14:17+0000\n"
 "PO-Revision-Date: 2018-03-19 02:38+0000\n"
 "Last-Translator: Hwajin Kim <hwajin.kim@e4net.net>\n"
 "Language-Team: Korean <https://l10n.opensuse.org/projects/yast-storage/"
@@ -141,20 +141,20 @@ msgstr ""
 "이미 사용 중입니다."
 
 #. TRANSLATORS: dialog title when creating an LVM volume group
-#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:78
+#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:79
 msgid "Add Volume Group"
 msgstr "볼륨 그룹 추가"
 
 #. TRANSLATORS: dialog title when resizing an LVM volume group, where %s is replaced
 #. by a device name (e.g., /dev/vg0)
-#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:82
+#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:83
 msgid "Resize Volume Group %s"
 msgstr "볼륨 그룹 %s 크기 조정"
 
 #. Error message to show when the given volume group name is empty
 #.
 #. @return [String]
-#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:299
+#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:297
 msgid "Enter a name for the volume group."
 msgstr "볼륨 그룹의 이름을 입력하세요."
 
@@ -162,7 +162,7 @@ msgstr "볼륨 그룹의 이름을 입력하세요."
 #. characters
 #.
 #. @return [String]
-#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:317
+#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:315
 msgid ""
 "The name for the volume group contains illegal characters. Allowed\n"
 "are alphanumeric characters, \".\", \"_\", \"-\" and \"+\""
@@ -171,7 +171,7 @@ msgstr ""
 "문자는 영숫자 및 \".\", \"_\", \"-\" 와 \"+\"입니다."
 
 #. TRANSLATORS: %{vg_name} is replaced by the name of the volume group
-#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:340
+#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:338
 msgid ""
 "The volume group name \"%{vg_name}\" conflicts\n"
 "with another entry in the /dev directory."
@@ -184,7 +184,7 @@ msgstr ""
 #. @see #invalid_extent_size?
 #.
 #. @return [String]
-#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:365
+#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:363
 msgid ""
 "The data entered is invalid. Insert a physical extent size larger than 1 "
 "KiB\n"
@@ -195,13 +195,13 @@ msgstr ""
 
 #. TRANSLATORS: dialog title when creating a MD RAID.
 #. %s is a device name like /dev/md0
-#: src/lib/y2partitioner/actions/controllers/md.rb:180
+#: src/lib/y2partitioner/actions/controllers/md.rb:178
 msgid "Add RAID %s"
 msgstr "RAID 추가 %s"
 
 #. TRANSLATORS: dialog title when resizing a MD RAID.
 #. %s is a device name like /dev/md0
-#: src/lib/y2partitioner/actions/controllers/md.rb:184
+#: src/lib/y2partitioner/actions/controllers/md.rb:182
 msgid "Resize RAID %s"
 msgstr "RAID %s 크기 변경"
 
@@ -530,13 +530,13 @@ msgid "This filesystem type cannot be resized."
 msgstr "이 장치의 크기를 조정할 수 없습니다."
 
 #. Error when the device cannot be resized
-#.
-#. TODO: Distinguish the reason why it is not possible to resize, for example:
-#. * extended partition with committed logical partitions
+#. This might be a multi-line message reporting more than one reason.
 #.
 #. @return [String, nil] nil if the device can be resized.
-#: src/lib/y2partitioner/actions/resize_blk_device.rb:128
-msgid "This device cannot be resized."
+#: src/lib/y2partitioner/actions/resize_blk_device.rb:127
+#, fuzzy
+#| msgid "This device cannot be resized."
+msgid "This device cannot be resized:"
 msgstr "이 장치의 크기를 조정할 수 없습니다."
 
 #  Error popup text
@@ -3784,6 +3784,108 @@ msgstr "Microsoft 예약 파티션"
 msgid "Diagnostics Partition"
 msgstr "진단 파티션"
 
+#. rubocop:disable Metrics/LineLength
+#: src/lib/y2storage/resize_info.rb:43
+#, fuzzy
+#| msgid "Resize not supported by underlying device."
+msgid "Resizing is not supported by this device."
+msgstr "기본 장치에서 크기 조정이 지원되지 않습니다."
+
+#: src/lib/y2storage/resize_info.rb:44
+msgid "Combined limitations of partition and filesystem prevent resizing."
+msgstr ""
+
+#: src/lib/y2storage/resize_info.rb:45
+#, fuzzy
+#| msgid "This device cannot be resized."
+msgid "This filesystem does not support shrinking."
+msgstr "이 장치의 크기를 조정할 수 없습니다."
+
+#: src/lib/y2storage/resize_info.rb:46
+#, fuzzy
+#| msgid "This device cannot be resized."
+msgid "This filesystem does not support growing."
+msgstr "이 장치의 크기를 조정할 수 없습니다."
+
+#: src/lib/y2storage/resize_info.rb:47
+msgid "Filesystem consistency check failed."
+msgstr ""
+
+#: src/lib/y2storage/resize_info.rb:48
+#, fuzzy
+#| msgid "This device cannot be resized."
+msgid "This filesystem already has the minimum possible size."
+msgstr "이 장치의 크기를 조정할 수 없습니다."
+
+#: src/lib/y2storage/resize_info.rb:49
+#, fuzzy
+#| msgid "This device cannot be resized."
+msgid "This filesystem already has the maximum possible size."
+msgstr "이 장치의 크기를 조정할 수 없습니다."
+
+#: src/lib/y2storage/resize_info.rb:50
+#, fuzzy
+#| msgid "The file system is currently mounted on %1."
+msgid "The filesystem is full."
+msgstr "현재 파일 시스템이 %1에 마운트되어 있습니다."
+
+#  Popup text
+#  %1 is either replaced by "logical volume" or by "partition"
+#: src/lib/y2storage/resize_info.rb:51
+#, fuzzy
+#| msgid "You risk losing data if you shrink this partition."
+msgid "There is no space behind this partition."
+msgstr "이 파티션을 축소하면 데이터가 손실될 수 있습니다."
+
+#: src/lib/y2storage/resize_info.rb:52
+msgid "This partition already has the minimum possible size."
+msgstr ""
+
+#: src/lib/y2storage/resize_info.rb:53
+#, fuzzy
+#| msgid "An extended partition cannot be edited."
+msgid "Extended partitions cannot be resized."
+msgstr "확장 파티션을 편집할 수 없습니다."
+
+#: src/lib/y2storage/resize_info.rb:54
+#, fuzzy
+#| msgid "An extended partition cannot be edited."
+msgid "The partition on an implicit partition table cannot be resized."
+msgstr "확장 파티션을 편집할 수 없습니다."
+
+#: src/lib/y2storage/resize_info.rb:55
+msgid "Shrinking of this type of LVM logical volumes is not supported."
+msgstr ""
+
+#: src/lib/y2storage/resize_info.rb:56
+msgid "Resizing of this type of LVM logical volumes is not supported."
+msgstr ""
+
+#  popup text
+#  popup text %1 is replaced by a volume group name
+#: src/lib/y2storage/resize_info.rb:57
+#, fuzzy
+#| msgid "No free space left in the volume group \"%s\"."
+msgid "No space left in the LVM volume group."
+msgstr "볼륨 그룹 \"%1\" 남은 공간이 없습니다."
+
+#: src/lib/y2storage/resize_info.rb:58
+msgid "The LVM logical volume already has the minimum possible size."
+msgstr ""
+
+#: src/lib/y2storage/resize_info.rb:59
+msgid "The LVM thin logical volume already has the maximum size."
+msgstr ""
+
+#. One reason blocking a resize in (translated) text form.
+#.
+#. @return [String]
+#: src/lib/y2storage/resize_info.rb:109
+#, fuzzy
+#| msgid "Unknown"
+msgid "Unknown reason"
+msgstr "알 수 없음"
+
 #~ msgid ""
 #~ "'Password' and 'Retype password'\n"
 #~ "do not match. Retype the password."
@@ -5149,11 +5251,6 @@ msgstr "진단 파티션"
 
 #  Popup text
 #  %1 is either replaced by "logical volume" or by "partition"
-#~ msgid "You risk losing data if you shrink this partition."
-#~ msgstr "이 파티션을 축소하면 데이터가 손실될 수 있습니다."
-
-#  Popup text
-#  %1 is either replaced by "logical volume" or by "partition"
 #~ msgid "You risk losing data if you shrink this logical volume."
 #~ msgstr "이 논리 볼륨을 축소하면 데이터가 손실될 수 있습니다."
 
@@ -5570,9 +5667,6 @@ msgstr "진단 파티션"
 #~ "\n"
 #~ "이 파일 시스템을 사용하시겠습니까?\n"
 
-#~ msgid "The file system is currently mounted on %1."
-#~ msgstr "현재 파일 시스템이 %1에 마운트되어 있습니다."
-
 #~ msgid ""
 #~ "You can try to unmount it now, continue without unmounting or cancel.\n"
 #~ "Click Cancel unless you know exactly what you are doing."
@@ -5823,9 +5917,6 @@ msgstr "진단 파티션"
 #~ msgid "All data stored on the volume will be lost!"
 #~ msgstr "볼륨에 저장된 모든 데이터가 유실됩니다!"
 
-#~ msgid "Resize not supported by underlying device."
-#~ msgstr "기본 장치에서 크기 조정이 지원되지 않습니다."
-
 #~ msgid ""
 #~ "\n"
 #~ "You cannot resize the selected partition because the file system\n"
@@ -5997,9 +6088,6 @@ msgstr "진단 파티션"
 #~ msgstr ""
 #~ "%1 파티션은 사용 중입니다. 편집 할 수\n"
 #~ "없습니다. %1 을 편집하려면 사용을 해제시켜야 합니다."
-
-#~ msgid "An extended partition cannot be edited."
-#~ msgstr "확장 파티션을 편집할 수 없습니다."
 
 #~ msgid ""
 #~ "The partition %1 is already created on disk\n"
