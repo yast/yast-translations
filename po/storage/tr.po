@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: storage-ng.tr\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-03-26 14:17+0000\n"
+"POT-Creation-Date: 2018-03-27 02:29+0000\n"
 "PO-Revision-Date: 2004-09-21 02:03+0200\n"
 "Last-Translator: Arda Saltoglu <ardasaltoglu@gmx.net>\n"
 "Language-Team: Turkish <yast-int@suse.de>\n"
@@ -943,7 +943,7 @@ msgstr "&Fiziksel boyut"
 
 # clients/inst_custom_part.ycp:3012
 #. @return [Y2Storage::DeviceGraph] device graph with all changes done in dialog
-#: src/lib/y2partitioner/dialogs/main.rb:24
+#: src/lib/y2partitioner/dialogs/main.rb:46
 msgid "Expert Partitioner"
 msgstr "Uzman bölümlendirme aracı"
 
@@ -2985,6 +2985,7 @@ msgstr "Sistem"
 #. so only warnings there
 #. FIXME: improve Yast2::Popup to allow some text before the buttons
 #: src/lib/y2partitioner/widgets/overview.rb:130
+#: src/lib/y2storage/callbacks/sanitize.rb:54
 #, fuzzy
 #| msgid "Enter Key Password"
 msgid "Do you want to continue?"
@@ -3198,13 +3199,13 @@ msgstr "Bölüm"
 
 # clients/inst_custom_part.ycp:2918
 #. TRANSLATORS: button label to rescan devices
-#: src/lib/y2partitioner/widgets/rescan_devices_button.rb:41
+#: src/lib/y2partitioner/widgets/rescan_devices_button.rb:42
 #, fuzzy
 msgid "Rescan Devices"
 msgstr "Raid aygıtı"
 
 #. Shows a confirm message before reprobing
-#: src/lib/y2partitioner/widgets/rescan_devices_button.rb:60
+#: src/lib/y2partitioner/widgets/rescan_devices_button.rb:61
 msgid ""
 "Re-scanning the storage devices will invalidate all the configuration\n"
 "options set in the installer regarding storage, with no possibility\n"
@@ -3213,16 +3214,20 @@ msgid ""
 "the manual changes performed in the expert partitioner."
 msgstr ""
 
-#: src/lib/y2partitioner/widgets/rescan_devices_button.rb:66
+#: src/lib/y2partitioner/widgets/rescan_devices_button.rb:67
 msgid ""
 "Re-scanning the storage devices will invalidate all the previous\n"
 "changes with no possibility to withdraw."
 msgstr ""
 
-#. Reprobes and updates devicegraphs for the partitioner
+#. Reprobes and updates devicegraphs for the partitioner.
 #.
-#. @note A message is shown during the reprobing action
-#: src/lib/y2partitioner/widgets/rescan_devices_button.rb:75
+#. @note A message is shown during the reprobing action.
+#.
+#. @raise [Y2Partitioner::ForcedAbortError] When there is an error during probing
+#. and the user decides to abort, or probed devicegraph contains errors and the
+#. user decides to not sanitize.
+#: src/lib/y2partitioner/widgets/rescan_devices_button.rb:80
 #, fuzzy
 msgid "Rescanning disks..."
 msgstr "Komut dosyaları çalıştırılıyor..."
@@ -3231,13 +3236,13 @@ msgstr "Komut dosyaları çalıştırılıyor..."
 #. Section of {#summary_text} about actions
 #.
 #. @return [String]
-#: src/lib/y2partitioner/widgets/summary_text.rb:124
+#: src/lib/y2partitioner/widgets/summary_text.rb:127
 #, fuzzy
 msgid "<p>No changes to partitioning.</p>"
 msgstr "<p>Şimdi yeni bölümün sabit diskteki yerini belirtiniz.</p>"
 
 # include/partitioning/custom_part_helptexts.ycp:102
-#: src/lib/y2partitioner/widgets/summary_text.rb:126
+#: src/lib/y2partitioner/widgets/summary_text.rb:129
 #, fuzzy
 msgid "<p>Changes to partitioning:</p>"
 msgstr "<p>Şimdi yeni bölümün sabit diskteki yerini belirtiniz.</p>"
@@ -3246,14 +3251,14 @@ msgstr "<p>Şimdi yeni bölümün sabit diskteki yerini belirtiniz.</p>"
 #. Section of {#summary_text} about packages to install
 #.
 #. @return [String]
-#: src/lib/y2partitioner/widgets/summary_text.rb:135
+#: src/lib/y2partitioner/widgets/summary_text.rb:138
 #, fuzzy
 msgid "<p>No packages need to be installed.</p>"
 msgstr ""
 "<p>Bu pencerede, kullanıcı ekleme ile ilgili ayarları yapabilirsiniz.</p>"
 
 # clients/ui_helps.ycp:130
-#: src/lib/y2partitioner/widgets/summary_text.rb:137
+#: src/lib/y2partitioner/widgets/summary_text.rb:140
 #, fuzzy
 msgid "<p>Packages to install:</p>"
 msgstr ""
@@ -3478,7 +3483,7 @@ msgstr ""
 #. @param looks_like_real_multipath [Boolean] true if the system seems to
 #. contain a Multipath
 #. @return [Boolean]
-#: src/lib/y2storage/callbacks/activate.rb:53
+#: src/lib/y2storage/callbacks/activate.rb:54
 msgid ""
 "The system seems to have multipath hardware.\n"
 "Do you want to activate multipath?"
@@ -3504,6 +3509,16 @@ msgstr ""
 #| msgid "Continue resizing the %1?"
 msgid "Continue despite the error?"
 msgstr "%1 boyutu değiştirme işlemine devam edilsin mi?"
+
+#. Callback to report probed devicegraph errors to the user.
+#.
+#. It offers the user the possibility to sanitize the devicegraph.
+#.
+#. @param errors [Array<String>] Errors detected in probed devicegraph.
+#. @return [Boolean] true if the user decides to sanitize the devicegraph.
+#: src/lib/y2storage/callbacks/sanitize.rb:52
+msgid "The following errors were detected in the system:"
+msgstr ""
 
 #. progress step title
 #: src/lib/y2storage/clients/finish.rb:41
@@ -3551,6 +3566,28 @@ msgstr " -- Özelleştir"
 #, fuzzy
 msgid "Default"
 msgstr "Varsayılan &rota"
+
+#. TRANSLATORS: %{name} is the name of an LVM Volume Group (e.g., /dev/vg1)
+#: src/lib/y2storage/devicegraph_sanitizer.rb:140
+msgid ""
+"The volume group %{name} is incomplete because some physical volumes are "
+"missing.\n"
+"If you continue, the volume group will be deleted later as part of the "
+"installation\n"
+"process. Moreover, incomplete volume groups are ignored by the partitioning "
+"proposal\n"
+"and are not visible in the Expert Partitioner."
+msgstr ""
+
+#. TRANSLATORS: %{name} is the name of an LVM Volume Group (e.g., /dev/vg1)
+#: src/lib/y2storage/devicegraph_sanitizer.rb:149
+msgid ""
+"The volume group %{name} is incomplete because some physical volumes are "
+"missing.\n"
+"Incomplete volume groups are not visible in the Partitioner and will be "
+"deleted at the\n"
+"final step, when all the changes are performed in the system."
+msgstr ""
 
 # include/partitioning/lvm_ui_lib.ycp:271
 #. Dialog to manage luks activation callbacks
