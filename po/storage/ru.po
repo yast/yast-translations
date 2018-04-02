@@ -13,8 +13,8 @@ msgstr ""
 "Project-Id-Version: storage.ru\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-03-27 02:29+0000\n"
-"PO-Revision-Date: 2018-03-30 12:06+0000\n"
-"Last-Translator: Michael Hogan <mhogan@novell.com>\n"
+"PO-Revision-Date: 2018-04-02 22:48+0000\n"
+"Last-Translator: Nikita Maynagashev <maynagashev@palex.ru>\n"
 "Language-Team: Russian <https://l10n.opensuse.org/projects/yast-"
 "storage/master/ru/>\n"
 "Language: ru\n"
@@ -286,6 +286,7 @@ msgstr "На этом диске нет разделов для удаления
 #: src/lib/y2partitioner/actions/delete_disk_device.rb:71
 msgid "This device only contains an implicit partition that cannot be deleted."
 msgstr ""
+"Это устройство содержит только неявный раздел, который невозможно удалить."
 
 #. Confirmation before performing the delete action
 #.
@@ -406,10 +407,8 @@ msgstr "Удалить RAID-массив %{md} и группу томов %{lvm_
 #.
 #. @return [String, nil] nil if the partition is not implicit
 #: src/lib/y2partitioner/actions/delete_partition.rb:59
-#, fuzzy
-#| msgid "An extended partition cannot be edited."
 msgid "This is an implicit partition and cannot be deleted."
-msgstr "Дополнительный раздел не может быть отредактирован."
+msgstr "Это неявный раздел, и его нельзя удалить."
 
 #. Confirmation when the partition belongs to a volume group
 #.
@@ -519,20 +518,16 @@ msgstr ""
 #.
 #. @return [String, nil] nil if the filesystem can be resized.
 #: src/lib/y2partitioner/actions/resize_blk_device.rb:116
-#, fuzzy
-#| msgid "This device cannot be resized."
 msgid "This filesystem type cannot be resized."
-msgstr "Невозможно изменить размер этого устройства."
+msgstr "Невозможно изменить размер файловой системы этого типа."
 
 #. Error when the device cannot be resized
 #. This might be a multi-line message reporting more than one reason.
 #.
 #. @return [String, nil] nil if the device can be resized.
 #: src/lib/y2partitioner/actions/resize_blk_device.rb:127
-#, fuzzy
-#| msgid "This device cannot be resized."
 msgid "This device cannot be resized:"
-msgstr "Невозможно изменить размер этого устройства."
+msgstr "Невозможно изменить размер этого устройства:"
 
 #. TRANSLATORS: error popup, %{name} is replaced by device name (e.g., /dev/md1)
 #: src/lib/y2partitioner/actions/resize_md.rb:87
@@ -2978,10 +2973,8 @@ msgstr "логические тома"
 
 #. TRANSLATORS: LVM thin pool name (eg. 'pool0')
 #: src/lib/y2storage/autoinst_issues/thin_pool_not_found.rb:50
-#, fuzzy
-#| msgid "Disk '%s' was not found"
 msgid "Thin pool '%s' was not found"
-msgstr "Диск %s не найден"
+msgstr "\"Тонкий\" пул \"%s\" не найден"
 
 #. All fatal boot errors detected in the setup, for example, when a / partition
 #. is missing
@@ -3027,9 +3020,9 @@ msgstr "Размер зазора MBR недостаточен для корре
 #: src/lib/y2storage/boot_requirements_strategies/prep.rb:83
 msgid "The following PReP partition is too big: %s. "
 msgid_plural "The following PReP partitions are too big: %s."
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Следующий раздел PReP слишком большой: %s. "
+msgstr[1] "Следующие разделы PReP слишком большие: %s. "
+msgstr[2] "Следующие разделы PReP слишком большие: %s. "
 
 #. TRANSLATORS: %s is human readable partition size like 8 MiB.
 #: src/lib/y2storage/boot_requirements_strategies/prep.rb:91
@@ -3037,6 +3030,8 @@ msgid ""
 "Some firmwares can fail to load PReP partitions bigger than %s and thus "
 "prevent booting."
 msgstr ""
+"Некоторые микропрограммы иногда не загружают разделы PReP размером более %s, "
+"что препятствует загрузке."
 
 #. EFI in RAID can work, but it is not much reliable.
 #. See bsc#1081578#c9, FATE#322485, FATE#314829
@@ -3105,7 +3100,7 @@ msgstr "Продолжить, несмотря на ошибку?"
 #. @return [Boolean] true if the user decides to sanitize the devicegraph.
 #: src/lib/y2storage/callbacks/sanitize.rb:52
 msgid "The following errors were detected in the system:"
-msgstr ""
+msgstr "В системе обнаружены следующие ошибки:"
 
 #. progress step title
 #: src/lib/y2storage/clients/finish.rb:41
@@ -3159,6 +3154,11 @@ msgid ""
 "proposal\n"
 "and are not visible in the Expert Partitioner."
 msgstr ""
+"Группа томов %{name} неполная, так как отсутствуют некоторые физические тома."
+"\n"
+"Если продолжить, группа томов будет удалена в процессе установки.\n"
+"Кроме того, неполные группы томов игнорируются при предложении разметки\n"
+"и не видны в мастере экспертной разметки."
 
 #. TRANSLATORS: %{name} is the name of an LVM Volume Group (e.g., /dev/vg1)
 #: src/lib/y2storage/devicegraph_sanitizer.rb:149
@@ -3169,6 +3169,10 @@ msgid ""
 "deleted at the\n"
 "final step, when all the changes are performed in the system."
 msgstr ""
+"Группа томов %{name} неполная, так как отсутствуют некоторые физические тома."
+"\n"
+"Неполные группы томов не отображаются в мастере разметки и удаляются на\n"
+"завершающем этапе, когда изменения вносятся в систему."
 
 #. Dialog to manage luks activation callbacks
 #: src/lib/y2storage/dialogs/callbacks/activate_luks.rb:64
@@ -3696,101 +3700,86 @@ msgstr "Диагностический раздел"
 
 #. rubocop:disable Metrics/LineLength
 #: src/lib/y2storage/resize_info.rb:43
-#, fuzzy
-#| msgid "Resize not supported by underlying device."
 msgid "Resizing is not supported by this device."
-msgstr "Изменение размера не поддерживается устройством."
+msgstr "Изменение размера не поддерживается на этом устройстве."
 
 #: src/lib/y2storage/resize_info.rb:44
 msgid "Combined limitations of partition and filesystem prevent resizing."
 msgstr ""
+"Невозможно изменить размер из-за сочетания ограничений раздела и файловой "
+"системы."
 
 #: src/lib/y2storage/resize_info.rb:45
-#, fuzzy
-#| msgid "This device cannot be resized."
 msgid "This filesystem does not support shrinking."
-msgstr "Невозможно изменить размер этого устройства."
+msgstr "Эта файловая система не поддерживает возможность уменьшения."
 
 #: src/lib/y2storage/resize_info.rb:46
-#, fuzzy
-#| msgid "This device cannot be resized."
 msgid "This filesystem does not support growing."
-msgstr "Невозможно изменить размер этого устройства."
+msgstr "Эта файловая система не поддерживает возможность увеличения."
 
 #: src/lib/y2storage/resize_info.rb:47
 msgid "Filesystem consistency check failed."
-msgstr ""
+msgstr "Ошибка проверки файловой системы на согласованность."
 
 #: src/lib/y2storage/resize_info.rb:48
-#, fuzzy
-#| msgid "This device cannot be resized."
 msgid "This filesystem already has the minimum possible size."
-msgstr "Невозможно изменить размер этого устройства."
+msgstr "Размер этой файловой системы уже является минимальным возможным."
 
 #: src/lib/y2storage/resize_info.rb:49
-#, fuzzy
-#| msgid "This device cannot be resized."
 msgid "This filesystem already has the maximum possible size."
-msgstr "Невозможно изменить размер этого устройства."
+msgstr "Размер этой файловой системы уже является максимальным возможным."
 
 #: src/lib/y2storage/resize_info.rb:50
-#, fuzzy
-#| msgid "The file system is currently mounted on %1."
 msgid "The filesystem is full."
-msgstr "Файловая система смонтирована в %1."
+msgstr "Файловая система заполнена."
 
 #: src/lib/y2storage/resize_info.rb:51
-#, fuzzy
-#| msgid "You risk losing data if you shrink this partition."
 msgid "There is no space behind this partition."
-msgstr "Вы рискуете потерять данные, если уменьшите этот раздел."
+msgstr "За этим разделом больше нет свободного места."
 
 #: src/lib/y2storage/resize_info.rb:52
 msgid "This partition already has the minimum possible size."
-msgstr ""
+msgstr "Размер этого раздела уже является минимальным возможным."
 
 #: src/lib/y2storage/resize_info.rb:53
-#, fuzzy
-#| msgid "An extended partition cannot be edited"
 msgid "Extended partitions cannot be resized."
-msgstr "Дополнительный раздел не может быть отредактирован"
+msgstr "Невозможно изменить размер дополнительного раздела."
 
 #: src/lib/y2storage/resize_info.rb:54
-#, fuzzy
-#| msgid "An extended partition cannot be edited."
 msgid "The partition on an implicit partition table cannot be resized."
-msgstr "Дополнительный раздел не может быть отредактирован."
+msgstr ""
+"Раздел находится в таблице неявных разделов, и изменить его размер нельзя."
 
 #: src/lib/y2storage/resize_info.rb:55
 msgid "Shrinking of this type of LVM logical volumes is not supported."
 msgstr ""
+"Возможность уменьшения логических томов LVM этого типа не поддерживается."
 
 #: src/lib/y2storage/resize_info.rb:56
 msgid "Resizing of this type of LVM logical volumes is not supported."
 msgstr ""
+"Возможность изменения размера логических томов LVM этого типа не "
+"поддерживается."
 
 #: src/lib/y2storage/resize_info.rb:57
-#, fuzzy
-#| msgid "No free space left in the volume group \"%s\"."
 msgid "No space left in the LVM volume group."
-msgstr "Нет свободного места в группе томов %s."
+msgstr "Нет свободного места в группе томов LVM."
 
 #: src/lib/y2storage/resize_info.rb:58
 msgid "The LVM logical volume already has the minimum possible size."
-msgstr ""
+msgstr "Размер логического тома LVM уже является минимальным возможным."
 
 #: src/lib/y2storage/resize_info.rb:59
 msgid "The LVM thin logical volume already has the maximum size."
 msgstr ""
+"Размер \"тонкого\" логического тома LVM уже является минимальным возможным."
 
 #. One reason blocking a resize in (translated) text form.
 #.
 #. @return [String]
 #: src/lib/y2storage/resize_info.rb:109
-#, fuzzy
-#| msgid "Unknown"
 msgid "Unknown reason"
-msgstr "Неизвестно"
+msgstr "Неизвестная причина"
 
 #~ msgid ""
 #~ "'Password' and 'Retype password'\n"
