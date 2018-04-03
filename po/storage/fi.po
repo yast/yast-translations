@@ -23,7 +23,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: storage-ng.fi\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-03-27 02:29+0000\n"
+"POT-Creation-Date: 2018-04-03 02:29+0000\n"
 "PO-Revision-Date: 2018-02-22 22:02+0000\n"
 "Last-Translator: Tommi Nieminen <software@legisign.org>\n"
 "Language-Team: Finnish <https://l10n.opensuse.org/projects/yast-storage/"
@@ -75,7 +75,7 @@ msgstr ""
 "tai käyttämättömän RAID-laitteen. Muuta osiotaulua vastaavasti."
 
 #. @see TransactionWizard
-#: src/lib/y2partitioner/actions/add_md.rb:80
+#: src/lib/y2partitioner/actions/add_md.rb:82
 msgid "There are not enough suitable unused devices to create a RAID."
 msgstr "Ei ole riittävästi sopivia käyttämättömiä laitteita RAIDin luomiseksi."
 
@@ -249,7 +249,7 @@ msgstr ""
 
 #. TRANSLATORS: dialog title when creating a MD RAID.
 #. %s is a device name like /dev/md0
-#: src/lib/y2partitioner/actions/controllers/md.rb:178
+#: src/lib/y2partitioner/actions/controllers/md.rb:183
 #, fuzzy
 #| msgid "Add RAID %1"
 msgid "Add RAID %s"
@@ -257,7 +257,7 @@ msgstr "Lisää RAID %1"
 
 #. TRANSLATORS: dialog title when resizing a MD RAID.
 #. %s is a device name like /dev/md0
-#: src/lib/y2partitioner/actions/controllers/md.rb:182
+#: src/lib/y2partitioner/actions/controllers/md.rb:187
 #, fuzzy
 #| msgid "Resize RAID %1"
 msgid "Resize RAID %s"
@@ -696,7 +696,7 @@ msgstr ""
 
 #. TRANSLATORS: dialog title, where %{name} is the name of a partition
 #. (e.g. /dev/sda1) or LVM logical volume (e.g. /dev/system/home)
-#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:30
+#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:51
 #, fuzzy
 #| msgid "Resize Partition %1"
 msgid "Resize %{name}"
@@ -704,7 +704,7 @@ msgstr "Muuta osion %1 kokoa"
 
 #. TRANSLATORS: label for current size of the partition or LVM logical volume,
 #. where %{size} is replaced by a size (e.g., 5.5 GiB)
-#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:120
+#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:141
 #, fuzzy
 #| msgid "Current size: %1"
 msgid "Current size: %{size}"
@@ -712,7 +712,7 @@ msgstr "Nykyinen koko: %1"
 
 #. TRANSLATORS: label for currently used size of the partition or LVM volume,
 #. where %{size} is replaced by a size (e.g., 5.5 GiB)
-#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:128
+#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:149
 #, fuzzy
 #| msgid "Currently used: %1"
 msgid "Currently used: %{size}"
@@ -725,8 +725,8 @@ msgstr "Tällä hetkellä käytössä: %1"
 #. @macro seeAbstractWidget
 #. @macro seeAbstractWidget
 #. TRANSLATORS: table header, size of block device e.g. "8.00 GiB"
-#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:148
-#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:338
+#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:171
+#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:424
 #: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:70
 #: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:148
 #: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:281
@@ -736,32 +736,73 @@ msgid "Size"
 msgstr "Koko"
 
 #. @see Widgets::ControllerRadioButtons
-#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:153
+#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:176
 #, fuzzy
 #| msgid "Maximum Size (%1)"
 msgid "Maximum Size (%{size})"
 msgstr "Enimmäiskoko (%1)"
 
-#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:154
+#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:177
 #, fuzzy
 #| msgid "Minimum Size (%1)"
 msgid "Minimum Size (%{size})"
 msgstr "Vähimmäiskoko (%1)"
 
-#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:158
+#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:181
 #: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:79
 #: src/lib/y2partitioner/dialogs/partition_size.rb:76
 msgid "Custom Size"
 msgstr "Mukautettu koko"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:187
+#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:210
 msgid "<p>Choose new size.</p>"
 msgstr "<p>Valitse uusi koko.</p>"
 
+#. @macro seeAbstractWidget
+#. Whether the given size is valid. It must be a size between the
+#. min and max possible sizes.
+#.
+#. @note An error popup is shown when the given size is not valid.
+#. A warning popup is shown if there are some warnings.
+#.
+#. @see #errors
+#. @see #validation_warnings
+#.
+#. @return [Boolean] true if there are no errors in the given size and
+#. the user decides to continue despite of the warnings (if any);
+#. false otherwise.
+#. @macro seeAbstractWidget
+#. Whether the indicated values are valid
+#.
+#. @note A warning popup is shown if there are some warnings.
+#.
+#. @see #warnings
+#.
+#. @return [Boolean] true if the user decides to continue despite of the
+#. warnings; false otherwise.
+#. @macro seeAbstractWidget
+#. Whether the MD RAID is valid
+#.
+#. @note An error popup is shown when there are some errors in the
+#. MD RAID. A warning popup is shown if there are some warnings.
+#.
+#. @see #errors
+#. @see #warnings
+#.
+#. @return [Boolean] true if there are no errors or the user
+#. decides to continue despite of the warnings; false otherwise.
+#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:240
+#: src/lib/y2partitioner/dialogs/format_and_mount.rb:90
+#: src/lib/y2partitioner/widgets/md_devices_selector.rb:95
+#, fuzzy
+#| msgid "Do you want to provide encryption passwords?"
+msgid "Do you want to continue with the current setup?"
+msgstr "Haluatko antaa salauksen salasanat?"
+
 #. TRANSLATORS: error popup message, where %{min} and %{max} are replaced by sizes.
 #. error popup, :min and :max are replaced by sizes
-#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:206
+#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:306
 #: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:164
 #, fuzzy
 #| msgid "The size entered is invalid. Enter a size between %1 and %2."
@@ -769,7 +810,12 @@ msgid "The size entered is invalid. Enter a size between %{min} and %{max}."
 msgstr "Annettu koko on virheellinen. Anna koko väliltä %1–%2."
 
 #. Warning when the resizing device is an LVM thin pool and it is overcommitted
-#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:269
+#.
+#. @see #overcommitted_thin_pool?
+#.
+#. @return [String, nil] nil if the device is not a thin pool or it is not
+#. overcommitted.
+#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:356
 msgid ""
 "The LVM thin pool %{name} is overcomitted (needs %{total_thin_size} and only "
 "has %{size}).\n"
@@ -1220,6 +1266,39 @@ msgstr "&Jatkettu osio"
 #: src/lib/y2partitioner/dialogs/partition_type.rb:43
 msgid "&Logical Partition"
 msgstr "&Looginen osio"
+
+#. Error when the size of the filesystem is too small for snapshots
+#.
+#. This check is only performed during installation.
+#.
+#. @see #small_size_for_snapshots?
+#.
+#. @param filesystem [Y2Storage::Filesystems::Base, nil]
+#. @param new_size [Y2Storage::DiskSize, nil]
+#.
+#. @return [String, nil] nil if size is ok or no check is performed.
+#: src/lib/y2partitioner/filesystem_errors.rb:67
+#, fuzzy
+#| msgid ""
+#| "Warning:\n"
+#| "Your boot partition is smaller than %1.\n"
+#| "We recommend to increase the size of /boot.\n"
+#| "\n"
+#| "Really keep this size of boot partition?\n"
+msgid ""
+"Your %{name} device is very small for snapshots.\n"
+"We recommend to increase the size of the %{name} device\n"
+"to at least %{min_size} or to disable snapshots."
+msgstr ""
+"Varoitus:\n"
+"Käynnistysosiosi (boot) on pienempi kuin %1.\n"
+"On suositeltavaa kasvattaa osion /boot kokoa.\n"
+"\n"
+"Haluatko säilyttää määrittämäsi /boot-osion koon?\n"
+
+#: src/lib/y2partitioner/filesystem_errors.rb:70
+msgid "root"
+msgstr ""
 
 #. TRANSLATORS
 #: src/lib/y2partitioner/setup_errors_presenter.rb:71
@@ -2728,30 +2807,30 @@ msgstr "Osan koko: %1"
 msgid "Partity algorithm: %s"
 msgstr "Pariteettialgoritmit: %1"
 
-#. TRANSLATORS: raid_level is a RAID level (e.g. RAID10); min is a number
-#: src/lib/y2partitioner/widgets/md_devices_selector.rb:81
+#. TRANSLATORS: %{raid_level} is a RAID level (e.g., RAID10) and %{min} is a number
+#: src/lib/y2partitioner/widgets/md_devices_selector.rb:150
 #, fuzzy
 #| msgid "For %1, select at least %2 device."
 msgid "For %{raid_level}, select at least %{min} devices."
 msgstr "Valintaa %1 varten valitse ainakin %2 laite."
 
 #. TRANSLATORS: button to move an item to the first position of a sorted list
-#: src/lib/y2partitioner/widgets/md_devices_selector.rb:138
+#: src/lib/y2partitioner/widgets/md_devices_selector.rb:188
 msgid "Top"
 msgstr "Ylin"
 
 #. TRANSLATORS: button to move an item one position up in a sorted list
-#: src/lib/y2partitioner/widgets/md_devices_selector.rb:141
+#: src/lib/y2partitioner/widgets/md_devices_selector.rb:191
 msgid "Up"
 msgstr "Ylös"
 
 #. TRANSLATORS: button to move an item one position down in a sorted list
-#: src/lib/y2partitioner/widgets/md_devices_selector.rb:144
+#: src/lib/y2partitioner/widgets/md_devices_selector.rb:194
 msgid "Down"
 msgstr "Alas"
 
 #. TRANSLATORS: button to move an item to the last position of a sorted list
-#: src/lib/y2partitioner/widgets/md_devices_selector.rb:147
+#: src/lib/y2partitioner/widgets/md_devices_selector.rb:197
 msgid "Bottom"
 msgstr "Alin"
 
@@ -3552,9 +3631,57 @@ msgstr ""
 #. @param what [String] details coming from libstorage-ng
 #. @return [Boolean] true will make libstorage-ng ignore the error, false
 #. will result in a libstorage-ng exception
-#: src/lib/y2storage/callbacks/libstorage_callback.rb:67
+#: src/lib/y2storage/callbacks/libstorage_callback.rb:68
+msgid "Click below to see more details (English only)."
+msgstr ""
+
+#: src/lib/y2storage/callbacks/libstorage_callback.rb:69
 msgid "Continue despite the error?"
 msgstr "Jatketaanko virheestä huolimatta?"
+
+#. Human-readable description of the problem reported by libstorage-ng,
+#. hopefully with some hint on how to resolve it or continue.
+#.
+#. A generic message is returned if no concrete problem can be identified.
+#.
+#. @see #error
+#.
+#. @param what [String] details coming from libstorage-ng
+#. @return [String]
+#: src/lib/y2storage/callbacks/libstorage_callback.rb:113
+msgid "Unexpected situation found in the system."
+msgstr ""
+
+#. Human-readable description to use if the LVM tools report that the same
+#. PV is found more than once.
+#.
+#. @see #error_description
+#.
+#. @return [String]
+#: src/lib/y2storage/callbacks/libstorage_callback.rb:124
+msgid "The same LVM physical volume was found in several devices.\n"
+msgstr ""
+
+#. The user already tried LIBSTORAGE_MULTIPATH_AUTOSTART (and is not
+#. using AutoYaST), there is nothing else we can advise.
+#: src/lib/y2storage/callbacks/libstorage_callback.rb:129
+msgid ""
+"Maybe there are multipath devices in the system but multipath support\n"
+"was not enabled.\n"
+"\n"
+msgstr ""
+
+#: src/lib/y2storage/callbacks/libstorage_callback.rb:135
+msgid "Use 'start_multipath' in the AutoYaST profile to enable multipath."
+msgstr ""
+
+#: src/lib/y2storage/callbacks/libstorage_callback.rb:139
+msgid ""
+"If YaST didn't offer the opportunity to enable multipath in a previous "
+"step,\n"
+"try the 'LIBSTORAGE_MULTIPATH_AUTOSTART=ON' boot parameter.\n"
+"More information at https://en.opensuse.org/SDB:Linuxrc"
+msgstr ""
 
 #. Callback to report probed devicegraph errors to the user.
 #.
@@ -5467,28 +5594,6 @@ msgstr "Tuntematon"
 #~ "\n"
 #~ "Valittu jatkettu osio sisältää vähintään yhden käytössä olevan osion.\n"
 #~ "Poista käytetty taltio ennen kuin poistat jatketun osion.\n"
-
-#, fuzzy
-#~| msgid ""
-#~| "Warning:\n"
-#~| "Your boot partition is smaller than %1.\n"
-#~| "We recommend to increase the size of /boot.\n"
-#~| "\n"
-#~| "Really keep this size of boot partition?\n"
-#~ msgid ""
-#~ "Warning:\n"
-#~ "\n"
-#~ "Your root partition is very small for snapshots.\n"
-#~ "We recommend to increase the size of the root partition\n"
-#~ "to %1 or more or to disable snapshots.\n"
-#~ "\n"
-#~ "Really keep the current setup?\n"
-#~ msgstr ""
-#~ "Varoitus:\n"
-#~ "Käynnistysosiosi (boot) on pienempi kuin %1.\n"
-#~ "On suositeltavaa kasvattaa osion /boot kokoa.\n"
-#~ "\n"
-#~ "Haluatko säilyttää määrittämäsi /boot-osion koon?\n"
 
 #~ msgid "Enter your Password for the Encrypted File System."
 #~ msgstr "Anna salatun tiedostojärjestelmän salasana."

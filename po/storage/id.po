@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: YaST2 (@memory@)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-03-27 02:29+0000\n"
+"POT-Creation-Date: 2018-04-03 02:29+0000\n"
 "PO-Revision-Date: 2018-03-07 14:40+0000\n"
 "Last-Translator: Arif Budiman <arifpedia@gmail.com>\n"
 "Language-Team: Indonesian <https://l10n.opensuse.org/projects/yast-storage/"
@@ -47,7 +47,7 @@ msgstr ""
 "yang tidak digunakan. Ubah tabel partisi Anda yang sesuai."
 
 #. @see TransactionWizard
-#: src/lib/y2partitioner/actions/add_md.rb:80
+#: src/lib/y2partitioner/actions/add_md.rb:82
 msgid "There are not enough suitable unused devices to create a RAID."
 msgstr "Tidak ada perangkat yang tidak digunakan yang cocok untuk dibuat RAID."
 
@@ -190,13 +190,13 @@ msgstr ""
 
 #. TRANSLATORS: dialog title when creating a MD RAID.
 #. %s is a device name like /dev/md0
-#: src/lib/y2partitioner/actions/controllers/md.rb:178
+#: src/lib/y2partitioner/actions/controllers/md.rb:183
 msgid "Add RAID %s"
 msgstr "Tambah RAID %s"
 
 #. TRANSLATORS: dialog title when resizing a MD RAID.
 #. %s is a device name like /dev/md0
-#: src/lib/y2partitioner/actions/controllers/md.rb:182
+#: src/lib/y2partitioner/actions/controllers/md.rb:187
 msgid "Resize RAID %s"
 msgstr "Ubah Ukuran RAID %s"
 
@@ -550,13 +550,13 @@ msgstr ""
 
 #. TRANSLATORS: dialog title, where %{name} is the name of a partition
 #. (e.g. /dev/sda1) or LVM logical volume (e.g. /dev/system/home)
-#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:30
+#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:51
 msgid "Resize %{name}"
 msgstr "Ubah Ukuran %{name}"
 
 #. TRANSLATORS: label for current size of the partition or LVM logical volume,
 #. where %{size} is replaced by a size (e.g., 5.5 GiB)
-#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:120
+#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:141
 #, fuzzy
 #| msgid "Current size: %1"
 msgid "Current size: %{size}"
@@ -564,7 +564,7 @@ msgstr "Ukuran saat ini: %1"
 
 #. TRANSLATORS: label for currently used size of the partition or LVM volume,
 #. where %{size} is replaced by a size (e.g., 5.5 GiB)
-#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:128
+#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:149
 #, fuzzy
 #| msgid "Currently used: %1"
 msgid "Currently used: %{size}"
@@ -577,8 +577,8 @@ msgstr "Dipakai saat ini: %1"
 #. @macro seeAbstractWidget
 #. @macro seeAbstractWidget
 #. TRANSLATORS: table header, size of block device e.g. "8.00 GiB"
-#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:148
-#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:338
+#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:171
+#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:424
 #: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:70
 #: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:148
 #: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:281
@@ -588,36 +588,82 @@ msgid "Size"
 msgstr "Ukuran"
 
 #. @see Widgets::ControllerRadioButtons
-#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:153
+#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:176
 msgid "Maximum Size (%{size})"
 msgstr "Ukuran Maksimal (%{size})"
 
-#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:154
+#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:177
 msgid "Minimum Size (%{size})"
 msgstr "Ukuran Minimal (%{size})"
 
-#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:158
+#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:181
 #: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:79
 #: src/lib/y2partitioner/dialogs/partition_size.rb:76
 msgid "Custom Size"
 msgstr "Ukuran Khusus"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:187
+#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:210
 msgid "<p>Choose new size.</p>"
 msgstr "<p>Pilih ukuran baru.</p>"
+
+#. @macro seeAbstractWidget
+#. Whether the given size is valid. It must be a size between the
+#. min and max possible sizes.
+#.
+#. @note An error popup is shown when the given size is not valid.
+#. A warning popup is shown if there are some warnings.
+#.
+#. @see #errors
+#. @see #validation_warnings
+#.
+#. @return [Boolean] true if there are no errors in the given size and
+#. the user decides to continue despite of the warnings (if any);
+#. false otherwise.
+#. @macro seeAbstractWidget
+#. Whether the indicated values are valid
+#.
+#. @note A warning popup is shown if there are some warnings.
+#.
+#. @see #warnings
+#.
+#. @return [Boolean] true if the user decides to continue despite of the
+#. warnings; false otherwise.
+#. @macro seeAbstractWidget
+#. Whether the MD RAID is valid
+#.
+#. @note An error popup is shown when there are some errors in the
+#. MD RAID. A warning popup is shown if there are some warnings.
+#.
+#. @see #errors
+#. @see #warnings
+#.
+#. @return [Boolean] true if there are no errors or the user
+#. decides to continue despite of the warnings; false otherwise.
+#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:240
+#: src/lib/y2partitioner/dialogs/format_and_mount.rb:90
+#: src/lib/y2partitioner/widgets/md_devices_selector.rb:95
+#, fuzzy
+#| msgid "Do you want to continue?"
+msgid "Do you want to continue with the current setup?"
+msgstr "Apakah Anda ingin melanjutkan?"
 
 # loginname -> "Benutzername".
 #. TRANSLATORS: error popup message, where %{min} and %{max} are replaced by sizes.
 #. error popup, :min and :max are replaced by sizes
-#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:206
+#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:306
 #: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:164
 msgid "The size entered is invalid. Enter a size between %{min} and %{max}."
 msgstr ""
 "Ukuran yang dimasukkan tidak valid. Masukkan ukuran antara %{min} dan %{max}."
 
 #. Warning when the resizing device is an LVM thin pool and it is overcommitted
-#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:269
+#.
+#. @see #overcommitted_thin_pool?
+#.
+#. @return [String, nil] nil if the device is not a thin pool or it is not
+#. overcommitted.
+#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:356
 msgid ""
 "The LVM thin pool %{name} is overcomitted (needs %{total_thin_size} and only "
 "has %{size}).\n"
@@ -1022,6 +1068,39 @@ msgstr "Partisi &Extended"
 #: src/lib/y2partitioner/dialogs/partition_type.rb:43
 msgid "&Logical Partition"
 msgstr "Partisi &Logical"
+
+#. Error when the size of the filesystem is too small for snapshots
+#.
+#. This check is only performed during installation.
+#.
+#. @see #small_size_for_snapshots?
+#.
+#. @param filesystem [Y2Storage::Filesystems::Base, nil]
+#. @param new_size [Y2Storage::DiskSize, nil]
+#.
+#. @return [String, nil] nil if size is ok or no check is performed.
+#: src/lib/y2partitioner/filesystem_errors.rb:67
+#, fuzzy
+#| msgid ""
+#| "Warning:\n"
+#| "Your boot partition is smaller than %1.\n"
+#| "We recommend to increase the size of /boot.\n"
+#| "\n"
+#| "Really keep this size of boot partition?\n"
+msgid ""
+"Your %{name} device is very small for snapshots.\n"
+"We recommend to increase the size of the %{name} device\n"
+"to at least %{min_size} or to disable snapshots."
+msgstr ""
+"Peringatan:\n"
+"Partisi boot Anda lebih kecil dari %1.\n"
+"Kami merekomendasikan untuk menambah ukuran /boot.\n"
+"\n"
+"Yakin ingin mempertahankan ukuran partisi boot ini?\n"
+
+#: src/lib/y2partitioner/filesystem_errors.rb:70
+msgid "root"
+msgstr ""
 
 #. TRANSLATORS
 #: src/lib/y2partitioner/setup_errors_presenter.rb:71
@@ -2379,28 +2458,28 @@ msgstr "Ukuran Chunk: %s"
 msgid "Partity algorithm: %s"
 msgstr "Algoritma Paritas: %s"
 
-#. TRANSLATORS: raid_level is a RAID level (e.g. RAID10); min is a number
-#: src/lib/y2partitioner/widgets/md_devices_selector.rb:81
+#. TRANSLATORS: %{raid_level} is a RAID level (e.g., RAID10) and %{min} is a number
+#: src/lib/y2partitioner/widgets/md_devices_selector.rb:150
 msgid "For %{raid_level}, select at least %{min} devices."
 msgstr "Untuk %{raid_level}, pilih setidaknya %{min} perangkat."
 
 #. TRANSLATORS: button to move an item to the first position of a sorted list
-#: src/lib/y2partitioner/widgets/md_devices_selector.rb:138
+#: src/lib/y2partitioner/widgets/md_devices_selector.rb:188
 msgid "Top"
 msgstr "Paling Atas"
 
 #. TRANSLATORS: button to move an item one position up in a sorted list
-#: src/lib/y2partitioner/widgets/md_devices_selector.rb:141
+#: src/lib/y2partitioner/widgets/md_devices_selector.rb:191
 msgid "Up"
 msgstr "Naik"
 
 #. TRANSLATORS: button to move an item one position down in a sorted list
-#: src/lib/y2partitioner/widgets/md_devices_selector.rb:144
+#: src/lib/y2partitioner/widgets/md_devices_selector.rb:194
 msgid "Down"
 msgstr "Turun"
 
 #. TRANSLATORS: button to move an item to the last position of a sorted list
-#: src/lib/y2partitioner/widgets/md_devices_selector.rb:147
+#: src/lib/y2partitioner/widgets/md_devices_selector.rb:197
 msgid "Bottom"
 msgstr "Paling Bawah"
 
@@ -3124,9 +3203,57 @@ msgstr ""
 #. @param what [String] details coming from libstorage-ng
 #. @return [Boolean] true will make libstorage-ng ignore the error, false
 #. will result in a libstorage-ng exception
-#: src/lib/y2storage/callbacks/libstorage_callback.rb:67
+#: src/lib/y2storage/callbacks/libstorage_callback.rb:68
+msgid "Click below to see more details (English only)."
+msgstr ""
+
+#: src/lib/y2storage/callbacks/libstorage_callback.rb:69
 msgid "Continue despite the error?"
 msgstr "Lanjutkan meskipun ada kesalahan?"
+
+#. Human-readable description of the problem reported by libstorage-ng,
+#. hopefully with some hint on how to resolve it or continue.
+#.
+#. A generic message is returned if no concrete problem can be identified.
+#.
+#. @see #error
+#.
+#. @param what [String] details coming from libstorage-ng
+#. @return [String]
+#: src/lib/y2storage/callbacks/libstorage_callback.rb:113
+msgid "Unexpected situation found in the system."
+msgstr ""
+
+#. Human-readable description to use if the LVM tools report that the same
+#. PV is found more than once.
+#.
+#. @see #error_description
+#.
+#. @return [String]
+#: src/lib/y2storage/callbacks/libstorage_callback.rb:124
+msgid "The same LVM physical volume was found in several devices.\n"
+msgstr ""
+
+#. The user already tried LIBSTORAGE_MULTIPATH_AUTOSTART (and is not
+#. using AutoYaST), there is nothing else we can advise.
+#: src/lib/y2storage/callbacks/libstorage_callback.rb:129
+msgid ""
+"Maybe there are multipath devices in the system but multipath support\n"
+"was not enabled.\n"
+"\n"
+msgstr ""
+
+#: src/lib/y2storage/callbacks/libstorage_callback.rb:135
+msgid "Use 'start_multipath' in the AutoYaST profile to enable multipath."
+msgstr ""
+
+#: src/lib/y2storage/callbacks/libstorage_callback.rb:139
+msgid ""
+"If YaST didn't offer the opportunity to enable multipath in a previous "
+"step,\n"
+"try the 'LIBSTORAGE_MULTIPATH_AUTOSTART=ON' boot parameter.\n"
+"More information at https://en.opensuse.org/SDB:Linuxrc"
+msgstr ""
 
 #. Callback to report probed devicegraph errors to the user.
 #.
@@ -4899,28 +5026,6 @@ msgstr "Tidak Diketahui"
 #~ "Partisi extended yang dipilih berisi setidaknya satu partisi\n"
 #~ "yang sedang digunakan. Hapus volume yang digunakan\n"
 #~ "sebelum menghapus partisi extended.\n"
-
-#, fuzzy
-#~| msgid ""
-#~| "Warning:\n"
-#~| "Your boot partition is smaller than %1.\n"
-#~| "We recommend to increase the size of /boot.\n"
-#~| "\n"
-#~| "Really keep this size of boot partition?\n"
-#~ msgid ""
-#~ "Warning:\n"
-#~ "\n"
-#~ "Your root partition is very small for snapshots.\n"
-#~ "We recommend to increase the size of the root partition\n"
-#~ "to %1 or more or to disable snapshots.\n"
-#~ "\n"
-#~ "Really keep the current setup?\n"
-#~ msgstr ""
-#~ "Peringatan:\n"
-#~ "Partisi boot Anda lebih kecil dari %1.\n"
-#~ "Kami merekomendasikan untuk menambah ukuran /boot.\n"
-#~ "\n"
-#~ "Yakin ingin mempertahankan ukuran partisi boot ini?\n"
 
 #~ msgid "Enter your Password for the Encrypted File System."
 #~ msgstr "Masukkan Kata Sandi untuk Sistem Berkas Terenkripsi Anda."

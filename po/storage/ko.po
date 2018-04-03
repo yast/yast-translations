@@ -4,11 +4,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: storage-ng.ko\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-03-27 02:29+0000\n"
+"POT-Creation-Date: 2018-04-03 02:29+0000\n"
 "PO-Revision-Date: 2018-03-29 05:29+0000\n"
 "Last-Translator: Hwajin Kim <hwajin.kim@e4net.net>\n"
-"Language-Team: Korean <https://l10n.opensuse.org/projects/yast-"
-"storage/master/ko/>\n"
+"Language-Team: Korean <https://l10n.opensuse.org/projects/yast-storage/"
+"master/ko/>\n"
 "Language: ko\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -48,7 +48,7 @@ msgstr ""
 "하세요."
 
 #. @see TransactionWizard
-#: src/lib/y2partitioner/actions/add_md.rb:80
+#: src/lib/y2partitioner/actions/add_md.rb:82
 msgid "There are not enough suitable unused devices to create a RAID."
 msgstr "RAID 를 만들기에 적당한 사용하지 않는 장치가 없습니다."
 
@@ -195,13 +195,13 @@ msgstr ""
 
 #. TRANSLATORS: dialog title when creating a MD RAID.
 #. %s is a device name like /dev/md0
-#: src/lib/y2partitioner/actions/controllers/md.rb:178
+#: src/lib/y2partitioner/actions/controllers/md.rb:183
 msgid "Add RAID %s"
 msgstr "RAID 추가 %s"
 
 #. TRANSLATORS: dialog title when resizing a MD RAID.
 #. %s is a device name like /dev/md0
-#: src/lib/y2partitioner/actions/controllers/md.rb:182
+#: src/lib/y2partitioner/actions/controllers/md.rb:187
 msgid "Resize RAID %s"
 msgstr "RAID %s 크기 변경"
 
@@ -555,21 +555,21 @@ msgstr ""
 
 #. TRANSLATORS: dialog title, where %{name} is the name of a partition
 #. (e.g. /dev/sda1) or LVM logical volume (e.g. /dev/system/home)
-#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:30
+#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:51
 msgid "Resize %{name}"
 msgstr "%{name} 크기 조정"
 
 #  heading / label
 #. TRANSLATORS: label for current size of the partition or LVM logical volume,
 #. where %{size} is replaced by a size (e.g., 5.5 GiB)
-#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:120
+#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:141
 msgid "Current size: %{size}"
 msgstr "현재 크기: %{size}"
 
 #  table header
 #. TRANSLATORS: label for currently used size of the partition or LVM volume,
 #. where %{size} is replaced by a size (e.g., 5.5 GiB)
-#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:128
+#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:149
 msgid "Currently used: %{size}"
 msgstr "현재 사용량: %{size}"
 
@@ -582,8 +582,8 @@ msgstr "현재 사용량: %{size}"
 #. @macro seeAbstractWidget
 #. @macro seeAbstractWidget
 #. TRANSLATORS: table header, size of block device e.g. "8.00 GiB"
-#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:148
-#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:338
+#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:171
+#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:424
 #: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:70
 #: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:148
 #: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:281
@@ -594,36 +594,82 @@ msgstr "크기"
 
 #  IntField - max. log size
 #. @see Widgets::ControllerRadioButtons
-#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:153
+#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:176
 msgid "Maximum Size (%{size})"
 msgstr "최대 크기(%{size})"
 
 #  IntField - max. log size
-#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:154
+#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:177
 msgid "Minimum Size (%{size})"
 msgstr "최소 크기(%{size})"
 
-#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:158
+#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:181
 #: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:79
 #: src/lib/y2partitioner/dialogs/partition_size.rb:76
 msgid "Custom Size"
 msgstr "사용자 정의 크기"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:187
+#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:210
 msgid "<p>Choose new size.</p>"
 msgstr "<p>새 크기를 선택하세요.</p>"
 
+#. @macro seeAbstractWidget
+#. Whether the given size is valid. It must be a size between the
+#. min and max possible sizes.
+#.
+#. @note An error popup is shown when the given size is not valid.
+#. A warning popup is shown if there are some warnings.
+#.
+#. @see #errors
+#. @see #validation_warnings
+#.
+#. @return [Boolean] true if there are no errors in the given size and
+#. the user decides to continue despite of the warnings (if any);
+#. false otherwise.
+#. @macro seeAbstractWidget
+#. Whether the indicated values are valid
+#.
+#. @note A warning popup is shown if there are some warnings.
+#.
+#. @see #warnings
+#.
+#. @return [Boolean] true if the user decides to continue despite of the
+#. warnings; false otherwise.
+#. @macro seeAbstractWidget
+#. Whether the MD RAID is valid
+#.
+#. @note An error popup is shown when there are some errors in the
+#. MD RAID. A warning popup is shown if there are some warnings.
+#.
+#. @see #errors
+#. @see #warnings
+#.
+#. @return [Boolean] true if there are no errors or the user
+#. decides to continue despite of the warnings; false otherwise.
+#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:240
+#: src/lib/y2partitioner/dialogs/format_and_mount.rb:90
+#: src/lib/y2partitioner/widgets/md_devices_selector.rb:95
+#, fuzzy
+#| msgid "Do you want to continue?"
+msgid "Do you want to continue with the current setup?"
+msgstr "계속하시겠습니까?"
+
 #. TRANSLATORS: error popup message, where %{min} and %{max} are replaced by sizes.
 #. error popup, :min and :max are replaced by sizes
-#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:206
+#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:306
 #: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:164
 msgid "The size entered is invalid. Enter a size between %{min} and %{max}."
 msgstr ""
 "입력한 크기가 잘못되었습니다. 크기를 %{min}과(와) %{max} 사이로 입력하십시오."
 
 #. Warning when the resizing device is an LVM thin pool and it is overcommitted
-#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:269
+#.
+#. @see #overcommitted_thin_pool?
+#.
+#. @return [String, nil] nil if the device is not a thin pool or it is not
+#. overcommitted.
+#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:356
 msgid ""
 "The LVM thin pool %{name} is overcomitted (needs %{total_thin_size} and only "
 "has %{size}).\n"
@@ -1045,6 +1091,39 @@ msgstr "확장 파티션(&E)"
 #: src/lib/y2partitioner/dialogs/partition_type.rb:43
 msgid "&Logical Partition"
 msgstr "논리적 파티션(&L)"
+
+#. Error when the size of the filesystem is too small for snapshots
+#.
+#. This check is only performed during installation.
+#.
+#. @see #small_size_for_snapshots?
+#.
+#. @param filesystem [Y2Storage::Filesystems::Base, nil]
+#. @param new_size [Y2Storage::DiskSize, nil]
+#.
+#. @return [String, nil] nil if size is ok or no check is performed.
+#: src/lib/y2partitioner/filesystem_errors.rb:67
+#, fuzzy
+#| msgid ""
+#| "Warning:\n"
+#| "Your boot partition is smaller than %1.\n"
+#| "We recommend to increase the size of /boot.\n"
+#| "\n"
+#| "Really keep this size of boot partition?\n"
+msgid ""
+"Your %{name} device is very small for snapshots.\n"
+"We recommend to increase the size of the %{name} device\n"
+"to at least %{min_size} or to disable snapshots."
+msgstr ""
+"경고:\n"
+"부팅 파티션이 %1보다 작습니다.\n"
+"/boot 크기를 늘리는 것이 좋습니다.\n"
+"\n"
+"이 크기를 부팅 파티션으로 사용하시겠습니까?\n"
+
+#: src/lib/y2partitioner/filesystem_errors.rb:70
+msgid "root"
+msgstr ""
 
 #. TRANSLATORS
 #: src/lib/y2partitioner/setup_errors_presenter.rb:71
@@ -2431,31 +2510,31 @@ msgstr "Chunk 크기: %s"
 msgid "Partity algorithm: %s"
 msgstr "Parity 알고리즘: %s"
 
-#. TRANSLATORS: raid_level is a RAID level (e.g. RAID10); min is a number
-#: src/lib/y2partitioner/widgets/md_devices_selector.rb:81
+#. TRANSLATORS: %{raid_level} is a RAID level (e.g., RAID10) and %{min} is a number
+#: src/lib/y2partitioner/widgets/md_devices_selector.rb:150
 msgid "For %{raid_level}, select at least %{min} devices."
 msgstr "%{raid_level}의 경우 %{min} 이상의 장치를 선택합니다."
 
 #. TRANSLATORS: button to move an item to the first position of a sorted list
-#: src/lib/y2partitioner/widgets/md_devices_selector.rb:138
+#: src/lib/y2partitioner/widgets/md_devices_selector.rb:188
 msgid "Top"
 msgstr "상단"
 
 #  push button
 #  Button label
 #. TRANSLATORS: button to move an item one position up in a sorted list
-#: src/lib/y2partitioner/widgets/md_devices_selector.rb:141
+#: src/lib/y2partitioner/widgets/md_devices_selector.rb:191
 msgid "Up"
 msgstr "위"
 
 #  push button
 #. TRANSLATORS: button to move an item one position down in a sorted list
-#: src/lib/y2partitioner/widgets/md_devices_selector.rb:144
+#: src/lib/y2partitioner/widgets/md_devices_selector.rb:194
 msgid "Down"
 msgstr "아래"
 
 #. TRANSLATORS: button to move an item to the last position of a sorted list
-#: src/lib/y2partitioner/widgets/md_devices_selector.rb:147
+#: src/lib/y2partitioner/widgets/md_devices_selector.rb:197
 msgid "Bottom"
 msgstr "하단"
 
@@ -3124,7 +3203,8 @@ msgstr[0] "다음 PReP 파티션이 너무 큽니다. %s. "
 msgid ""
 "Some firmwares can fail to load PReP partitions bigger than %s and thus "
 "prevent booting."
-msgstr "일부 펌웨어는 %s보다 큰 PReP 파티션을 로드하지 못해 부팅을 막을 수 있습니다."
+msgstr ""
+"일부 펌웨어는 %s보다 큰 PReP 파티션을 로드하지 못해 부팅을 막을 수 있습니다."
 
 #. EFI in RAID can work, but it is not much reliable.
 #. See bsc#1081578#c9, FATE#322485, FATE#314829
@@ -3180,9 +3260,57 @@ msgstr ""
 #. @param what [String] details coming from libstorage-ng
 #. @return [Boolean] true will make libstorage-ng ignore the error, false
 #. will result in a libstorage-ng exception
-#: src/lib/y2storage/callbacks/libstorage_callback.rb:67
+#: src/lib/y2storage/callbacks/libstorage_callback.rb:68
+msgid "Click below to see more details (English only)."
+msgstr ""
+
+#: src/lib/y2storage/callbacks/libstorage_callback.rb:69
 msgid "Continue despite the error?"
 msgstr "오류를 무시하고 계속하시겠습니까?"
+
+#. Human-readable description of the problem reported by libstorage-ng,
+#. hopefully with some hint on how to resolve it or continue.
+#.
+#. A generic message is returned if no concrete problem can be identified.
+#.
+#. @see #error
+#.
+#. @param what [String] details coming from libstorage-ng
+#. @return [String]
+#: src/lib/y2storage/callbacks/libstorage_callback.rb:113
+msgid "Unexpected situation found in the system."
+msgstr ""
+
+#. Human-readable description to use if the LVM tools report that the same
+#. PV is found more than once.
+#.
+#. @see #error_description
+#.
+#. @return [String]
+#: src/lib/y2storage/callbacks/libstorage_callback.rb:124
+msgid "The same LVM physical volume was found in several devices.\n"
+msgstr ""
+
+#. The user already tried LIBSTORAGE_MULTIPATH_AUTOSTART (and is not
+#. using AutoYaST), there is nothing else we can advise.
+#: src/lib/y2storage/callbacks/libstorage_callback.rb:129
+msgid ""
+"Maybe there are multipath devices in the system but multipath support\n"
+"was not enabled.\n"
+"\n"
+msgstr ""
+
+#: src/lib/y2storage/callbacks/libstorage_callback.rb:135
+msgid "Use 'start_multipath' in the AutoYaST profile to enable multipath."
+msgstr ""
+
+#: src/lib/y2storage/callbacks/libstorage_callback.rb:139
+msgid ""
+"If YaST didn't offer the opportunity to enable multipath in a previous "
+"step,\n"
+"try the 'LIBSTORAGE_MULTIPATH_AUTOSTART=ON' boot parameter.\n"
+"More information at https://en.opensuse.org/SDB:Linuxrc"
+msgstr ""
 
 #. Callback to report probed devicegraph errors to the user.
 #.
@@ -3250,7 +3378,8 @@ msgid ""
 msgstr ""
 "일부 물리적 볼륨이 누락되었기 때문에 %{name} 볼륨 그룹이 불완전합니다.\n"
 "계속 진행하면 볼륨 그룹은 설치 프로세스의 일부로 이후에 삭제됩니다.\n"
-"또한, 불완전한 볼륨 그룹은 파티셔닝 제안에 의해 무시되며 고급 파티션 도구에서 표시되지 않습니다."
+"또한, 불완전한 볼륨 그룹은 파티셔닝 제안에 의해 무시되며 고급 파티션 도구에"
+"서 표시되지 않습니다."
 
 #. TRANSLATORS: %{name} is the name of an LVM Volume Group (e.g., /dev/vg1)
 #: src/lib/y2storage/devicegraph_sanitizer.rb:149
@@ -3262,7 +3391,8 @@ msgid ""
 "final step, when all the changes are performed in the system."
 msgstr ""
 "일부 물리적 볼륨이 누락되었기 때문에 %{name} 볼륨 그룹이 불완전합니다.\n"
-"불완전한 볼륨 그룹은 파티션 도구에서 표시되지 않으며 이 시스템에서 모든 변경사항이 적용되는 마지막 단계에서 삭제됩니다."
+"불완전한 볼륨 그룹은 파티션 도구에서 표시되지 않으며 이 시스템에서 모든 변경"
+"사항이 적용되는 마지막 단계에서 삭제됩니다."
 
 #. Dialog to manage luks activation callbacks
 #: src/lib/y2storage/dialogs/callbacks/activate_luks.rb:64
@@ -3825,7 +3955,8 @@ msgstr "이 장치에서 크기 조정이 지원되지 않습니다."
 
 #: src/lib/y2storage/resize_info.rb:44
 msgid "Combined limitations of partition and filesystem prevent resizing."
-msgstr "파티션 및 파일 시스템의 결합된 제한은 크기 조정을 하지 못하도록 합니다."
+msgstr ""
+"파티션 및 파일 시스템의 결합된 제한은 크기 조정을 하지 못하도록 합니다."
 
 #: src/lib/y2storage/resize_info.rb:45
 msgid "This filesystem does not support shrinking."
@@ -5055,28 +5186,6 @@ msgstr "알 수 없는 이유"
 #~ "선택한 확장 파티션에 사용 중인 파티션이 적어도 하나 이상\n"
 #~ " 있습니다. 확장 파티션을 삭제하기 전에\n"
 #~ " 먼저 사용된 볼륨을 제거하십시오.\n"
-
-#, fuzzy
-#~| msgid ""
-#~| "Warning:\n"
-#~| "Your boot partition is smaller than %1.\n"
-#~| "We recommend to increase the size of /boot.\n"
-#~| "\n"
-#~| "Really keep this size of boot partition?\n"
-#~ msgid ""
-#~ "Warning:\n"
-#~ "\n"
-#~ "Your root partition is very small for snapshots.\n"
-#~ "We recommend to increase the size of the root partition\n"
-#~ "to %1 or more or to disable snapshots.\n"
-#~ "\n"
-#~ "Really keep the current setup?\n"
-#~ msgstr ""
-#~ "경고:\n"
-#~ "부팅 파티션이 %1보다 작습니다.\n"
-#~ "/boot 크기를 늘리는 것이 좋습니다.\n"
-#~ "\n"
-#~ "이 크기를 부팅 파티션으로 사용하시겠습니까?\n"
 
 #~ msgid "Enter your Password for the Encrypted File System."
 #~ msgstr "암호화된 파일 시스템의 비밀번호를 입력하십시오."
