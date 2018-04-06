@@ -113,7 +113,7 @@ def ask(po, item)
   when "s"
     return false
   when "d"
-    po.entries(true).delete(item)
+    item.msgstr = ""
   when "e"
     edit(item)
   end
