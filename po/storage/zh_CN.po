@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: storage\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-04-20 02:29+0000\n"
+"POT-Creation-Date: 2018-04-21 02:29+0000\n"
 "PO-Revision-Date: 2018-04-20 23:01+0000\n"
 "Last-Translator: H. Zeng <zhx@cnzhx.net>\n"
 "Language-Team: Chinese (China) <https://l10n.opensuse.org/projects/yast-"
@@ -519,6 +519,43 @@ msgstr ""
 "RAID %{name} 正在使用中，不能调整大小。要调整 %{name} 的容量，请确保它未在使"
 "用。"
 
+#. Popup to alert the user about using the Partitioner
+#.
+#. @return [Symbol] user's answer (:yes, :no)
+#: src/lib/y2partitioner/clients/main.rb:96
+#, fuzzy
+#| msgid ""
+#| "Only use this program if you are familiar with partitioning hard disks.\n"
+#| "\n"
+#| "Never partition disks that may, in any way, be in use\n"
+#| "(mounted, swap, etc.) unless you know exactly what you are\n"
+#| "doing. Otherwise, the partitioning table will not be forwarded to the\n"
+#| "kernel, which will most likely lead to data loss.\n"
+#| "\n"
+#| "To continue despite this warning, click Yes.\n"
+msgid ""
+"Only use this program if you are familiar with partitioning hard disks.\n"
+"\n"
+"Never partition disks that may, in any way, be in use\n"
+"(mounted, swap, etc.) unless you know exactly what you are\n"
+"doing. Otherwise, the partitioning table will not be forwarded to the\n"
+"kernel, which will most likely lead to data loss.\n"
+"\n"
+"To continue despite this warning, click Yes."
+msgstr ""
+"只有当您熟悉如何进行硬盘分区时才可以使用此程序。\n"
+"\n"
+"切勿对可能正在使用 (诸如处于挂载、交换等不管什么状态) 的磁盘进行分区，\n"
+"除非您完全明白您正在做什么。\n"
+"否则，分区表将无法转发到内核，这很可能导致数据丢失。\n"
+"\n"
+"要忽略此警告并继续，请点击\"是\"。\n"
+
+#. TRANSLATORS: this comment is only for testing purposes. Do not care too much.
+#: src/lib/y2partitioner/clients/main.rb:111
+msgid "Nothing gets written because commit is not allowed."
+msgstr ""
+
 #. TRANSLATORS: dialog title, where %{name} is the name of a partition
 #. (e.g. /dev/sda1) or LVM logical volume (e.g. /dev/system/home)
 #: src/lib/y2partitioner/dialogs/blk_device_resize.rb:51
@@ -878,20 +915,10 @@ msgid ""
 "logical volume only in multiples of this size.</p>"
 msgstr ""
 
-#. @return [Y2Storage::Devicegraph] device graph with all changes done in dialog
-#: src/lib/y2partitioner/dialogs/main.rb:50
+#. Initial graph is saved to know if something has changed at the end.
+#: src/lib/y2partitioner/dialogs/main.rb:58
 msgid "Expert Partitioner"
 msgstr "专家分区程序"
-
-#. Warning popup about using the expert partitioner
-#: src/lib/y2partitioner/dialogs/main.rb:151
-msgid ""
-"This is for experts only.\n"
-"You might lose support if you use this!\n"
-"\n"
-"Please refer to the manual to make sure your custom\n"
-"partitioning meets the requirements of this product."
-msgstr ""
 
 #. TRANSLATORS: 'Striping' is a technical term here. Translate only
 #. if you are sure!! If in doubt, leave it in English.
@@ -965,7 +992,8 @@ msgid ""
 msgstr ""
 "<b>RAID 5：</b>这种方式既能管理数量更多的磁盘，\n"
 "还能保持一定的冗余程度。这种方式适用于三个或更多磁盘的情况。\n"
-"如果一个磁盘出故障，所有数据仍能完好无损。如果两个磁盘同时出故障，则所有数据都会丢失。"
+"如果一个磁盘出故障，所有数据仍能完好无损。如果两个磁盘同时出故障，则所有数据"
+"都会丢失。"
 
 #: src/lib/y2partitioner/dialogs/md.rb:198
 msgid ""
@@ -1155,6 +1183,13 @@ msgstr "扩展分区(&E)"
 #: src/lib/y2partitioner/dialogs/partition_type.rb:43
 msgid "&Logical Partition"
 msgstr "逻辑分区(&L)"
+
+#. Dialog to show the summary of changes performed by the user
+#: src/lib/y2partitioner/dialogs/summary.rb:40
+#, fuzzy
+#| msgid "Expert Partitioner"
+msgid "Expert Partitioner: Summary"
+msgstr "专家分区程序"
 
 #. Error when the size of the filesystem is too small for snapshots
 #.
@@ -2890,24 +2925,9 @@ msgstr "<p><b>默认挂载方式：</b>新创建的文件系统的挂载方式�
 #. @macro seeAbstractWidget
 #. TRANSLATORS: Heading for the expert partitioner page
 #: src/lib/y2partitioner/widgets/pages/summary.rb:42
-#: src/lib/y2partitioner/widgets/pages/summary.rb:76
+#: src/lib/y2partitioner/widgets/pages/summary.rb:55
 msgid "Installation Summary"
 msgstr "安装摘要"
-
-#. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/pages/summary.rb:51
-msgid ""
-"<p><b>Installation Summary:</b> This shows the actions that will be "
-"performed when you confirm the installation. Until then, nothing is changed "
-"on your system.</p>"
-msgstr ""
-
-#: src/lib/y2partitioner/widgets/pages/summary.rb:59
-msgid ""
-"<p><b>Installation Summary:</b> This shows the actions that will be "
-"performed when you finish the partitioner. So far, nothing has been changed "
-"yet on your system.</p>"
-msgstr ""
 
 #. TRANSLATORS: Heading. String followed by the hostname
 #: src/lib/y2partitioner/widgets/pages/system.rb:40
@@ -2930,7 +2950,9 @@ msgid "Rescan Devices"
 msgstr "重新扫描设备"
 
 #. Shows a confirm message before reprobing
-#: src/lib/y2partitioner/widgets/rescan_devices_button.rb:61
+#.
+#. @return [Symbol, nil] :reprobe, to indicate that the system was reprobed
+#: src/lib/y2partitioner/widgets/rescan_devices_button.rb:63
 msgid ""
 "Re-scanning the storage devices will invalidate all the configuration\n"
 "options set in the installer regarding storage, with no possibility\n"
@@ -2941,7 +2963,7 @@ msgstr ""
 "重新扫描存储设备将导致安装器里关于存储的所有配置选项失效，且无法恢复。\n"
 "这包括指导设置里的结果和设置，以及专家分区程序里执行的手动更改。"
 
-#: src/lib/y2partitioner/widgets/rescan_devices_button.rb:67
+#: src/lib/y2partitioner/widgets/rescan_devices_button.rb:69
 msgid ""
 "Re-scanning the storage devices will invalidate all the previous\n"
 "changes with no possibility to withdraw."
@@ -2954,31 +2976,51 @@ msgstr "重新扫描存储设备将使之前的更改全部失效且无法恢复
 #. @raise [Y2Partitioner::ForcedAbortError] When there is an error during probing
 #. and the user decides to abort, or probed devicegraph contains errors and the
 #. user decides to not sanitize.
-#: src/lib/y2partitioner/widgets/rescan_devices_button.rb:80
+#: src/lib/y2partitioner/widgets/rescan_devices_button.rb:82
 msgid "Rescanning disks..."
 msgstr "正在重新扫描磁盘..."
 
 #. Section of {#summary_text} about actions
 #.
 #. @return [String]
-#: src/lib/y2partitioner/widgets/summary_text.rb:127
+#: src/lib/y2partitioner/widgets/summary_text.rb:132
 msgid "<p>No changes to partitioning.</p>"
 msgstr "<p>没有分区的变更。</p>"
 
-#: src/lib/y2partitioner/widgets/summary_text.rb:129
+#: src/lib/y2partitioner/widgets/summary_text.rb:134
 msgid "<p>Changes to partitioning:</p>"
 msgstr "<p>分区的变更：</p>"
 
 #. Section of {#summary_text} about packages to install
 #.
 #. @return [String]
-#: src/lib/y2partitioner/widgets/summary_text.rb:138
+#: src/lib/y2partitioner/widgets/summary_text.rb:143
 msgid "<p>No packages need to be installed.</p>"
 msgstr "<p>没有需要安装的软件包。</p>"
 
-#: src/lib/y2partitioner/widgets/summary_text.rb:140
+#: src/lib/y2partitioner/widgets/summary_text.rb:145
 msgid "<p>Packages to install:</p>"
 msgstr "<p>待安装软件包：</p>"
+
+#. Help during installation
+#.
+#. @return [String]
+#: src/lib/y2partitioner/widgets/summary_text.rb:153
+msgid ""
+"<p><b>Installation Summary:</b> This shows the actions that will be "
+"performed when you confirm the installation. Until then, nothing is changed "
+"on your system.</p>"
+msgstr ""
+
+#. Help in an installed system
+#.
+#. @return [String]
+#: src/lib/y2partitioner/widgets/summary_text.rb:164
+msgid ""
+"<p><b>Installation Summary:</b> This shows the actions that will be "
+"performed when you finish the partitioner. So far, nothing has been changed "
+"yet on your system.</p>"
+msgstr ""
 
 #. @macro seeAbstractWidget
 #: src/lib/y2partitioner/widgets/used_devices_tab.rb:42
@@ -3325,6 +3367,18 @@ msgstr "系统中检测到以下错误："
 #: src/lib/y2storage/clients/finish.rb:41
 msgid "Saving file system configuration..."
 msgstr "正在保存文件系统配置..."
+
+#. Popup to alert the user about using the Partitioner
+#.
+#. @return [Symbol] user's answer (:continue, :cancel)
+#: src/lib/y2storage/clients/inst_disk_proposal.rb:226
+msgid ""
+"This is for experts only.\n"
+"You might lose support if you use this!\n"
+"\n"
+"Please refer to the manual to make sure your custom\n"
+"partitioning meets the requirements of this product."
+msgstr ""
 
 #. Also run the expert partitioner as default option if no id was
 #. specified by the caller (bsc#1076732)
@@ -4096,24 +4150,6 @@ msgstr "未知原因"
 #~ msgstr ""
 #~ "输入的数据无效。输入一个大于 1 KiB 的物理区域尺寸，且\n"
 #~ "必须是 2 的幂和 128 KiB 的倍数，如“512 KiB”或“4 MiB”"
-
-#~ msgid ""
-#~ "Only use this program if you are familiar with partitioning hard disks.\n"
-#~ "\n"
-#~ "Never partition disks that may, in any way, be in use\n"
-#~ "(mounted, swap, etc.) unless you know exactly what you are\n"
-#~ "doing. Otherwise, the partitioning table will not be forwarded to the\n"
-#~ "kernel, which will most likely lead to data loss.\n"
-#~ "\n"
-#~ "To continue despite this warning, click Yes.\n"
-#~ msgstr ""
-#~ "只有当您熟悉如何进行硬盘分区时才可以使用此程序。\n"
-#~ "\n"
-#~ "切勿对可能正在使用 (诸如处于挂载、交换等不管什么状态) 的磁盘进行分区，\n"
-#~ "除非您完全明白您正在做什么。\n"
-#~ "否则，分区表将无法转发到内核，这很可能导致数据丢失。\n"
-#~ "\n"
-#~ "要忽略此警告并继续，请点击\"是\"。\n"
 
 #~ msgid "Initializing..."
 #~ msgstr "正在初始化..."

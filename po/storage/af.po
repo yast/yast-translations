@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: storage\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-04-20 02:29+0000\n"
+"POT-Creation-Date: 2018-04-21 02:29+0000\n"
 "PO-Revision-Date: 2006-11-03 14:26\n"
 "Last-Translator: Novell Language <language@novell.com>\n"
 "Language-Team: Novell Language <language@novell.com>\n"
@@ -572,6 +572,45 @@ msgstr ""
 "Dit kan nie meer gewysig word nie. Om %1 te wysig, \n"
 " verwyder dit en skep dit weer.\n"
 
+#. Popup to alert the user about using the Partitioner
+#.
+#. @return [Symbol] user's answer (:yes, :no)
+#: src/lib/y2partitioner/clients/main.rb:96
+#, fuzzy
+#| msgid ""
+#| "Only use this program if you are familiar with partitioning hard disks.\n"
+#| "\n"
+#| "Never partition disks that may, in any way, be in use\n"
+#| "(mounted, swap, etc.) unless you know exactly what you are\n"
+#| "doing. Otherwise, the partitioning table will not be forwarded to the\n"
+#| "kernel, which would most likely lead to data loss.\n"
+#| "\n"
+#| "To continue despite this warning, click Yes.\n"
+msgid ""
+"Only use this program if you are familiar with partitioning hard disks.\n"
+"\n"
+"Never partition disks that may, in any way, be in use\n"
+"(mounted, swap, etc.) unless you know exactly what you are\n"
+"doing. Otherwise, the partitioning table will not be forwarded to the\n"
+"kernel, which will most likely lead to data loss.\n"
+"\n"
+"To continue despite this warning, click Yes."
+msgstr ""
+"Gebruik slegs hierdie program as u vertroud is met die partisionering van "
+"harde skywe.\n"
+"\n"
+" Moet nooit skywe wat op welke wyse ook al in gebruik is\n"
+" (geheg, omruil, ens.), partisioneer nie, tensy u presies weet wat u\n"
+" doen. Anders sal die partisioneringstabel nie deurgestuur word na die\n"
+" kern nie, wat heel waarskynlik tot dataverlies sal lei.\n"
+" \n"
+" Om voort te gaan ten spyte van hierdie waarskuwing, klik Ja.\n"
+
+#. TRANSLATORS: this comment is only for testing purposes. Do not care too much.
+#: src/lib/y2partitioner/clients/main.rb:111
+msgid "Nothing gets written because commit is not allowed."
+msgstr ""
+
 #. TRANSLATORS: dialog title, where %{name} is the name of a partition
 #. (e.g. /dev/sda1) or LVM logical volume (e.g. /dev/system/home)
 #: src/lib/y2partitioner/dialogs/blk_device_resize.rb:51
@@ -974,20 +1013,10 @@ msgid ""
 "logical volume only in multiples of this size.</p>"
 msgstr ""
 
-#. @return [Y2Storage::Devicegraph] device graph with all changes done in dialog
-#: src/lib/y2partitioner/dialogs/main.rb:50
+#. Initial graph is saved to know if something has changed at the end.
+#: src/lib/y2partitioner/dialogs/main.rb:58
 msgid "Expert Partitioner"
 msgstr "Kundige partisioneerder"
-
-#. Warning popup about using the expert partitioner
-#: src/lib/y2partitioner/dialogs/main.rb:151
-msgid ""
-"This is for experts only.\n"
-"You might lose support if you use this!\n"
-"\n"
-"Please refer to the manual to make sure your custom\n"
-"partitioning meets the requirements of this product."
-msgstr ""
 
 #. TRANSLATORS: 'Striping' is a technical term here. Translate only
 #. if you are sure!! If in doubt, leave it in English.
@@ -1316,6 +1345,13 @@ msgstr "&Uitgebreide partisie"
 #: src/lib/y2partitioner/dialogs/partition_type.rb:43
 msgid "&Logical Partition"
 msgstr "&Logiese partisie"
+
+#. Dialog to show the summary of changes performed by the user
+#: src/lib/y2partitioner/dialogs/summary.rb:40
+#, fuzzy
+#| msgid "Expert Partitioner"
+msgid "Expert Partitioner: Summary"
+msgstr "Kundige partisioneerder"
 
 #. Error when the size of the filesystem is too small for snapshots
 #.
@@ -3316,24 +3352,9 @@ msgstr ""
 #. @macro seeAbstractWidget
 #. TRANSLATORS: Heading for the expert partitioner page
 #: src/lib/y2partitioner/widgets/pages/summary.rb:42
-#: src/lib/y2partitioner/widgets/pages/summary.rb:76
+#: src/lib/y2partitioner/widgets/pages/summary.rb:55
 msgid "Installation Summary"
 msgstr "Installasie-opsomming"
-
-#. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/pages/summary.rb:51
-msgid ""
-"<p><b>Installation Summary:</b> This shows the actions that will be "
-"performed when you confirm the installation. Until then, nothing is changed "
-"on your system.</p>"
-msgstr ""
-
-#: src/lib/y2partitioner/widgets/pages/summary.rb:59
-msgid ""
-"<p><b>Installation Summary:</b> This shows the actions that will be "
-"performed when you finish the partitioner. So far, nothing has been changed "
-"yet on your system.</p>"
-msgstr ""
 
 #. TRANSLATORS: Heading. String followed by the hostname
 #: src/lib/y2partitioner/widgets/pages/system.rb:40
@@ -3360,7 +3381,9 @@ msgid "Rescan Devices"
 msgstr "&Ram-skyf"
 
 #. Shows a confirm message before reprobing
-#: src/lib/y2partitioner/widgets/rescan_devices_button.rb:61
+#.
+#. @return [Symbol, nil] :reprobe, to indicate that the system was reprobed
+#: src/lib/y2partitioner/widgets/rescan_devices_button.rb:63
 msgid ""
 "Re-scanning the storage devices will invalidate all the configuration\n"
 "options set in the installer regarding storage, with no possibility\n"
@@ -3369,7 +3392,7 @@ msgid ""
 "the manual changes performed in the expert partitioner."
 msgstr ""
 
-#: src/lib/y2partitioner/widgets/rescan_devices_button.rb:67
+#: src/lib/y2partitioner/widgets/rescan_devices_button.rb:69
 msgid ""
 "Re-scanning the storage devices will invalidate all the previous\n"
 "changes with no possibility to withdraw."
@@ -3382,7 +3405,7 @@ msgstr ""
 #. @raise [Y2Partitioner::ForcedAbortError] When there is an error during probing
 #. and the user decides to abort, or probed devicegraph contains errors and the
 #. user decides to not sanitize.
-#: src/lib/y2partitioner/widgets/rescan_devices_button.rb:80
+#: src/lib/y2partitioner/widgets/rescan_devices_button.rb:82
 #, fuzzy
 msgid "Rescanning disks..."
 msgstr "Lees van skyfpartisies..."
@@ -3390,12 +3413,12 @@ msgstr "Lees van skyfpartisies..."
 #. Section of {#summary_text} about actions
 #.
 #. @return [String]
-#: src/lib/y2partitioner/widgets/summary_text.rb:127
+#: src/lib/y2partitioner/widgets/summary_text.rb:132
 #, fuzzy
 msgid "<p>No changes to partitioning.</p>"
 msgstr "<h1>Waarskuwing</h1>"
 
-#: src/lib/y2partitioner/widgets/summary_text.rb:129
+#: src/lib/y2partitioner/widgets/summary_text.rb:134
 #, fuzzy
 msgid "<p>Changes to partitioning:</p>"
 msgstr "<h1>Waarskuwing</h1>"
@@ -3403,15 +3426,35 @@ msgstr "<h1>Waarskuwing</h1>"
 #. Section of {#summary_text} about packages to install
 #.
 #. @return [String]
-#: src/lib/y2partitioner/widgets/summary_text.rb:138
+#: src/lib/y2partitioner/widgets/summary_text.rb:143
 #, fuzzy
 msgid "<p>No packages need to be installed.</p>"
 msgstr "Bergingstoestel"
 
-#: src/lib/y2partitioner/widgets/summary_text.rb:140
+#: src/lib/y2partitioner/widgets/summary_text.rb:145
 #, fuzzy
 msgid "<p>Packages to install:</p>"
 msgstr "Bergingstoestel"
+
+#. Help during installation
+#.
+#. @return [String]
+#: src/lib/y2partitioner/widgets/summary_text.rb:153
+msgid ""
+"<p><b>Installation Summary:</b> This shows the actions that will be "
+"performed when you confirm the installation. Until then, nothing is changed "
+"on your system.</p>"
+msgstr ""
+
+#. Help in an installed system
+#.
+#. @return [String]
+#: src/lib/y2partitioner/widgets/summary_text.rb:164
+msgid ""
+"<p><b>Installation Summary:</b> This shows the actions that will be "
+"performed when you finish the partitioner. So far, nothing has been changed "
+"yet on your system.</p>"
+msgstr ""
 
 #. @macro seeAbstractWidget
 #: src/lib/y2partitioner/widgets/used_devices_tab.rb:42
@@ -3745,6 +3788,18 @@ msgstr ""
 #: src/lib/y2storage/clients/finish.rb:41
 msgid "Saving file system configuration..."
 msgstr "Berg van lêerstelselkonfigurasie ..."
+
+#. Popup to alert the user about using the Partitioner
+#.
+#. @return [Symbol] user's answer (:continue, :cancel)
+#: src/lib/y2storage/clients/inst_disk_proposal.rb:226
+msgid ""
+"This is for experts only.\n"
+"You might lose support if you use this!\n"
+"\n"
+"Please refer to the manual to make sure your custom\n"
+"partitioning meets the requirements of this product."
+msgstr ""
 
 #. Also run the expert partitioner as default option if no id was
 #. specified by the caller (bsc#1076732)
@@ -4635,36 +4690,6 @@ msgstr "onbekend"
 #, fuzzy
 #~ msgid "FS ID: %s"
 #~ msgstr "ID: %1"
-
-#, fuzzy
-#~| msgid ""
-#~| "Only use this program if you are familiar with partitioning hard disks.\n"
-#~| "\n"
-#~| "Never partition disks that may, in any way, be in use\n"
-#~| "(mounted, swap, etc.) unless you know exactly what you are\n"
-#~| "doing. Otherwise, the partitioning table will not be forwarded to the\n"
-#~| "kernel, which would most likely lead to data loss.\n"
-#~| "\n"
-#~| "To continue despite this warning, click Yes.\n"
-#~ msgid ""
-#~ "Only use this program if you are familiar with partitioning hard disks.\n"
-#~ "\n"
-#~ "Never partition disks that may, in any way, be in use\n"
-#~ "(mounted, swap, etc.) unless you know exactly what you are\n"
-#~ "doing. Otherwise, the partitioning table will not be forwarded to the\n"
-#~ "kernel, which will most likely lead to data loss.\n"
-#~ "\n"
-#~ "To continue despite this warning, click Yes.\n"
-#~ msgstr ""
-#~ "Gebruik slegs hierdie program as u vertroud is met die partisionering van "
-#~ "harde skywe.\n"
-#~ "\n"
-#~ " Moet nooit skywe wat op welke wyse ook al in gebruik is\n"
-#~ " (geheg, omruil, ens.), partisioneer nie, tensy u presies weet wat u\n"
-#~ " doen. Anders sal die partisioneringstabel nie deurgestuur word na die\n"
-#~ " kern nie, wat heel waarskynlik tot dataverlies sal lei.\n"
-#~ " \n"
-#~ " Om voort te gaan ten spyte van hierdie waarskuwing, klik Ja.\n"
 
 #~ msgid "Initializing..."
 #~ msgstr "Inisialiseer van ..."

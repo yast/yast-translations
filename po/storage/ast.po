@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: YaST (@memory@)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-04-20 02:29+0000\n"
+"POT-Creation-Date: 2018-04-21 02:29+0000\n"
 "PO-Revision-Date: 2016-09-23 23:46+0000\n"
 "Last-Translator: Enol P <enolp@softastur.org>\n"
 "Language-Team: Asturian <https://l10n.opensuse.org/projects/yast-storage/"
@@ -543,6 +543,26 @@ msgid ""
 "resized. To resize %{name}, make sure it is not used."
 msgstr ""
 
+#. Popup to alert the user about using the Partitioner
+#.
+#. @return [Symbol] user's answer (:yes, :no)
+#: src/lib/y2partitioner/clients/main.rb:96
+msgid ""
+"Only use this program if you are familiar with partitioning hard disks.\n"
+"\n"
+"Never partition disks that may, in any way, be in use\n"
+"(mounted, swap, etc.) unless you know exactly what you are\n"
+"doing. Otherwise, the partitioning table will not be forwarded to the\n"
+"kernel, which will most likely lead to data loss.\n"
+"\n"
+"To continue despite this warning, click Yes."
+msgstr ""
+
+#. TRANSLATORS: this comment is only for testing purposes. Do not care too much.
+#: src/lib/y2partitioner/clients/main.rb:111
+msgid "Nothing gets written because commit is not allowed."
+msgstr ""
+
 # clients/inst_sw_single.ycp:1431
 # clients/inst_sw_single.ycp:1546
 #. TRANSLATORS: dialog title, where %{name} is the name of a partition
@@ -953,20 +973,10 @@ msgid ""
 "logical volume only in multiples of this size.</p>"
 msgstr ""
 
-#. @return [Y2Storage::Devicegraph] device graph with all changes done in dialog
-#: src/lib/y2partitioner/dialogs/main.rb:50
+#. Initial graph is saved to know if something has changed at the end.
+#: src/lib/y2partitioner/dialogs/main.rb:58
 msgid "Expert Partitioner"
 msgstr "Particionáu espertu"
-
-#. Warning popup about using the expert partitioner
-#: src/lib/y2partitioner/dialogs/main.rb:151
-msgid ""
-"This is for experts only.\n"
-"You might lose support if you use this!\n"
-"\n"
-"Please refer to the manual to make sure your custom\n"
-"partitioning meets the requirements of this product."
-msgstr ""
 
 #. TRANSLATORS: 'Striping' is a technical term here. Translate only
 #. if you are sure!! If in doubt, leave it in English.
@@ -1260,6 +1270,13 @@ msgstr "Partición"
 #| msgid "Partition"
 msgid "&Logical Partition"
 msgstr "Partición"
+
+#. Dialog to show the summary of changes performed by the user
+#: src/lib/y2partitioner/dialogs/summary.rb:40
+#, fuzzy
+#| msgid "Expert Partitioner"
+msgid "Expert Partitioner: Summary"
+msgstr "Particionáu espertu"
 
 #. Error when the size of the filesystem is too small for snapshots
 #.
@@ -3159,24 +3176,9 @@ msgstr ""
 #. @macro seeAbstractWidget
 #. TRANSLATORS: Heading for the expert partitioner page
 #: src/lib/y2partitioner/widgets/pages/summary.rb:42
-#: src/lib/y2partitioner/widgets/pages/summary.rb:76
+#: src/lib/y2partitioner/widgets/pages/summary.rb:55
 msgid "Installation Summary"
 msgstr "Resume de la instalación"
-
-#. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/pages/summary.rb:51
-msgid ""
-"<p><b>Installation Summary:</b> This shows the actions that will be "
-"performed when you confirm the installation. Until then, nothing is changed "
-"on your system.</p>"
-msgstr ""
-
-#: src/lib/y2partitioner/widgets/pages/summary.rb:59
-msgid ""
-"<p><b>Installation Summary:</b> This shows the actions that will be "
-"performed when you finish the partitioner. So far, nothing has been changed "
-"yet on your system.</p>"
-msgstr ""
 
 #. TRANSLATORS: Heading. String followed by the hostname
 #: src/lib/y2partitioner/widgets/pages/system.rb:40
@@ -3212,7 +3214,9 @@ msgid "Rescan Devices"
 msgstr "Preséu infrabermeyu"
 
 #. Shows a confirm message before reprobing
-#: src/lib/y2partitioner/widgets/rescan_devices_button.rb:61
+#.
+#. @return [Symbol, nil] :reprobe, to indicate that the system was reprobed
+#: src/lib/y2partitioner/widgets/rescan_devices_button.rb:63
 msgid ""
 "Re-scanning the storage devices will invalidate all the configuration\n"
 "options set in the installer regarding storage, with no possibility\n"
@@ -3221,7 +3225,7 @@ msgid ""
 "the manual changes performed in the expert partitioner."
 msgstr ""
 
-#: src/lib/y2partitioner/widgets/rescan_devices_button.rb:67
+#: src/lib/y2partitioner/widgets/rescan_devices_button.rb:69
 msgid ""
 "Re-scanning the storage devices will invalidate all the previous\n"
 "changes with no possibility to withdraw."
@@ -3234,7 +3238,7 @@ msgstr ""
 #. @raise [Y2Partitioner::ForcedAbortError] When there is an error during probing
 #. and the user decides to abort, or probed devicegraph contains errors and the
 #. user decides to not sanitize.
-#: src/lib/y2partitioner/widgets/rescan_devices_button.rb:80
+#: src/lib/y2partitioner/widgets/rescan_devices_button.rb:82
 #, fuzzy
 #| msgid "Preparing disks..."
 msgid "Rescanning disks..."
@@ -3243,13 +3247,13 @@ msgstr "Tresnando discos..."
 #. Section of {#summary_text} about actions
 #.
 #. @return [String]
-#: src/lib/y2partitioner/widgets/summary_text.rb:127
+#: src/lib/y2partitioner/widgets/summary_text.rb:132
 #, fuzzy
 #| msgid "<p>Initializing the installation...</p>"
 msgid "<p>No changes to partitioning.</p>"
 msgstr "<p>Inicializando la instalación...</p>"
 
-#: src/lib/y2partitioner/widgets/summary_text.rb:129
+#: src/lib/y2partitioner/widgets/summary_text.rb:134
 #, fuzzy
 #| msgid "<p>Initializing the installation...</p>"
 msgid "<p>Changes to partitioning:</p>"
@@ -3258,17 +3262,37 @@ msgstr "<p>Inicializando la instalación...</p>"
 #. Section of {#summary_text} about packages to install
 #.
 #. @return [String]
-#: src/lib/y2partitioner/widgets/summary_text.rb:138
+#: src/lib/y2partitioner/widgets/summary_text.rb:143
 #, fuzzy
 #| msgid "<p>Initializing the installation...</p>"
 msgid "<p>No packages need to be installed.</p>"
 msgstr "<p>Inicializando la instalación...</p>"
 
-#: src/lib/y2partitioner/widgets/summary_text.rb:140
+#: src/lib/y2partitioner/widgets/summary_text.rb:145
 #, fuzzy
 #| msgid "<p>Initializing the installation...</p>"
 msgid "<p>Packages to install:</p>"
 msgstr "<p>Inicializando la instalación...</p>"
+
+#. Help during installation
+#.
+#. @return [String]
+#: src/lib/y2partitioner/widgets/summary_text.rb:153
+msgid ""
+"<p><b>Installation Summary:</b> This shows the actions that will be "
+"performed when you confirm the installation. Until then, nothing is changed "
+"on your system.</p>"
+msgstr ""
+
+#. Help in an installed system
+#.
+#. @return [String]
+#: src/lib/y2partitioner/widgets/summary_text.rb:164
+msgid ""
+"<p><b>Installation Summary:</b> This shows the actions that will be "
+"performed when you finish the partitioner. So far, nothing has been changed "
+"yet on your system.</p>"
+msgstr ""
 
 # clients/inst_custom_part.ycp:2310
 # clients/inst_custom_part.ycp:2309
@@ -3604,6 +3628,18 @@ msgstr ""
 #| msgid "Save configuration"
 msgid "Saving file system configuration..."
 msgstr "Guardar configuración"
+
+#. Popup to alert the user about using the Partitioner
+#.
+#. @return [Symbol] user's answer (:continue, :cancel)
+#: src/lib/y2storage/clients/inst_disk_proposal.rb:226
+msgid ""
+"This is for experts only.\n"
+"You might lose support if you use this!\n"
+"\n"
+"Please refer to the manual to make sure your custom\n"
+"partitioning meets the requirements of this product."
+msgstr ""
 
 #. Also run the expert partitioner as default option if no id was
 #. specified by the caller (bsc#1076732)

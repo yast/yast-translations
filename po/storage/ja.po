@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: storage\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-04-20 02:29+0000\n"
+"POT-Creation-Date: 2018-04-21 02:29+0000\n"
 "PO-Revision-Date: 2018-04-18 00:55+0000\n"
 "Last-Translator: Yasuhiko Kamata <belphegor@belbel.or.jp>\n"
 "Language-Team: Japanese <https://l10n.opensuse.org/projects/yast-storage/"
@@ -555,6 +555,48 @@ msgstr ""
 "RAID %{name} は使用中であるため、サイズを変更することができません。\n"
 "%{name} のサイズを変更するには、使用していない状態にする必要があります。"
 
+#. Popup to alert the user about using the Partitioner
+#.
+#. @return [Symbol] user's answer (:yes, :no)
+#: src/lib/y2partitioner/clients/main.rb:96
+#, fuzzy
+#| msgid ""
+#| "Only use this program if you are familiar with partitioning hard disks.\n"
+#| "\n"
+#| "Never partition disks that may, in any way, be in use\n"
+#| "(mounted, swap, etc.) unless you know exactly what you are\n"
+#| "doing. Otherwise, the partitioning table will not be forwarded to the\n"
+#| "kernel, which will most likely lead to data loss.\n"
+#| "\n"
+#| "To continue despite this warning, click Yes.\n"
+msgid ""
+"Only use this program if you are familiar with partitioning hard disks.\n"
+"\n"
+"Never partition disks that may, in any way, be in use\n"
+"(mounted, swap, etc.) unless you know exactly what you are\n"
+"doing. Otherwise, the partitioning table will not be forwarded to the\n"
+"kernel, which will most likely lead to data loss.\n"
+"\n"
+"To continue despite this warning, click Yes."
+msgstr ""
+"このプログラムを利用するにはハードディスクのパーティション操作に関する知識が"
+"必要です。\n"
+"\n"
+"何らかの特別な事情がない限りは、どのような形であれ、マウントしていたりスワッ"
+"プとして\n"
+"使用していたりする可能性のあるディスクに対して、パーティション操作を行なわな"
+"いでください。\n"
+"もしも使用中のディスクに対してパーティション操作を行なうと、それらの変更は"
+"カーネル側で\n"
+"検知されず、ほとんどの場合データ破壊を引き起こします。\n"
+"\n"
+"この警告を理解した上で続行するには、 'はい' を押してください。\n"
+
+#. TRANSLATORS: this comment is only for testing purposes. Do not care too much.
+#: src/lib/y2partitioner/clients/main.rb:111
+msgid "Nothing gets written because commit is not allowed."
+msgstr ""
+
 #. TRANSLATORS: dialog title, where %{name} is the name of a partition
 #. (e.g. /dev/sda1) or LVM logical volume (e.g. /dev/system/home)
 #: src/lib/y2partitioner/dialogs/blk_device_resize.rb:51
@@ -936,25 +978,10 @@ msgstr ""
 "ます。この設定は、ボリュームグループ作成後には変更できません。論理ボリューム"
 "をサイズ変更するにあたっては、ここで設定した値を単位にして行ないます。</p>"
 
-#. @return [Y2Storage::Devicegraph] device graph with all changes done in dialog
-#: src/lib/y2partitioner/dialogs/main.rb:50
+#. Initial graph is saved to know if something has changed at the end.
+#: src/lib/y2partitioner/dialogs/main.rb:58
 msgid "Expert Partitioner"
 msgstr "熟練者向けパーティション設定"
-
-#. Warning popup about using the expert partitioner
-#: src/lib/y2partitioner/dialogs/main.rb:151
-msgid ""
-"This is for experts only.\n"
-"You might lose support if you use this!\n"
-"\n"
-"Please refer to the manual to make sure your custom\n"
-"partitioning meets the requirements of this product."
-msgstr ""
-"これは熟練者向けの仕組みです。\n"
-"これを使用した場合、サポート対象外となりますのでご注意ください！\n"
-"\n"
-"なお、独自にパーティションを設定した場合は、この製品の要件に\n"
-"合致するかどうかをマニュアルでご確認ください。"
 
 #. TRANSLATORS: 'Striping' is a technical term here. Translate only
 #. if you are sure!! If in doubt, leave it in English.
@@ -1237,6 +1264,13 @@ msgstr "拡張パーティション (&E)"
 #: src/lib/y2partitioner/dialogs/partition_type.rb:43
 msgid "&Logical Partition"
 msgstr "論理パーティション (&L)"
+
+#. Dialog to show the summary of changes performed by the user
+#: src/lib/y2partitioner/dialogs/summary.rb:40
+#, fuzzy
+#| msgid "Expert Partitioner"
+msgid "Expert Partitioner: Summary"
+msgstr "熟練者向けパーティション設定"
 
 #. Error when the size of the filesystem is too small for snapshots
 #.
@@ -3115,30 +3149,9 @@ msgstr ""
 #. @macro seeAbstractWidget
 #. TRANSLATORS: Heading for the expert partitioner page
 #: src/lib/y2partitioner/widgets/pages/summary.rb:42
-#: src/lib/y2partitioner/widgets/pages/summary.rb:76
+#: src/lib/y2partitioner/widgets/pages/summary.rb:55
 msgid "Installation Summary"
 msgstr "インストールの概要"
-
-#. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/pages/summary.rb:51
-msgid ""
-"<p><b>Installation Summary:</b> This shows the actions that will be "
-"performed when you confirm the installation. Until then, nothing is changed "
-"on your system.</p>"
-msgstr ""
-"<p><b>インストールの概要:</b> ここには、インストールを実施した場合に行なわれ"
-"る処理が表示されます。インストールを実施するまでは、お使いのファイルシステム"
-"は何も変更されません。</p>"
-
-#: src/lib/y2partitioner/widgets/pages/summary.rb:59
-msgid ""
-"<p><b>Installation Summary:</b> This shows the actions that will be "
-"performed when you finish the partitioner. So far, nothing has been changed "
-"yet on your system.</p>"
-msgstr ""
-"<p><b>インストールの概要:</b> ここには、パーティション設定の完了を選択した場"
-"合に行なわれる処理が表示されます。パーティション設定の完了を選択するまでは、"
-"お使いのディスクは何も変更されません。</p>"
 
 #. TRANSLATORS: Heading. String followed by the hostname
 #: src/lib/y2partitioner/widgets/pages/system.rb:40
@@ -3161,7 +3174,9 @@ msgid "Rescan Devices"
 msgstr "デバイスの再検出"
 
 #. Shows a confirm message before reprobing
-#: src/lib/y2partitioner/widgets/rescan_devices_button.rb:61
+#.
+#. @return [Symbol, nil] :reprobe, to indicate that the system was reprobed
+#: src/lib/y2partitioner/widgets/rescan_devices_button.rb:63
 msgid ""
 "Re-scanning the storage devices will invalidate all the configuration\n"
 "options set in the installer regarding storage, with no possibility\n"
@@ -3174,7 +3189,7 @@ msgstr ""
 "なお、ガイド付き設定の内容のほか、熟練者向けパーティション\n"
 "設定の変更内容もリセットされます。"
 
-#: src/lib/y2partitioner/widgets/rescan_devices_button.rb:67
+#: src/lib/y2partitioner/widgets/rescan_devices_button.rb:69
 msgid ""
 "Re-scanning the storage devices will invalidate all the previous\n"
 "changes with no possibility to withdraw."
@@ -3189,31 +3204,57 @@ msgstr ""
 #. @raise [Y2Partitioner::ForcedAbortError] When there is an error during probing
 #. and the user decides to abort, or probed devicegraph contains errors and the
 #. user decides to not sanitize.
-#: src/lib/y2partitioner/widgets/rescan_devices_button.rb:80
+#: src/lib/y2partitioner/widgets/rescan_devices_button.rb:82
 msgid "Rescanning disks..."
 msgstr "ディスクを再検出しています..."
 
 #. Section of {#summary_text} about actions
 #.
 #. @return [String]
-#: src/lib/y2partitioner/widgets/summary_text.rb:127
+#: src/lib/y2partitioner/widgets/summary_text.rb:132
 msgid "<p>No changes to partitioning.</p>"
 msgstr "<p>パーティションは何も変更していません。</p>"
 
-#: src/lib/y2partitioner/widgets/summary_text.rb:129
+#: src/lib/y2partitioner/widgets/summary_text.rb:134
 msgid "<p>Changes to partitioning:</p>"
 msgstr "<p>パーティション設定の変更:</p>"
 
 #. Section of {#summary_text} about packages to install
 #.
 #. @return [String]
-#: src/lib/y2partitioner/widgets/summary_text.rb:138
+#: src/lib/y2partitioner/widgets/summary_text.rb:143
 msgid "<p>No packages need to be installed.</p>"
 msgstr "<p>インストールすべきパッケージはありません。</p>"
 
-#: src/lib/y2partitioner/widgets/summary_text.rb:140
+#: src/lib/y2partitioner/widgets/summary_text.rb:145
 msgid "<p>Packages to install:</p>"
 msgstr "<p>インストールすべきパッケージ:</p>"
+
+#. Help during installation
+#.
+#. @return [String]
+#: src/lib/y2partitioner/widgets/summary_text.rb:153
+msgid ""
+"<p><b>Installation Summary:</b> This shows the actions that will be "
+"performed when you confirm the installation. Until then, nothing is changed "
+"on your system.</p>"
+msgstr ""
+"<p><b>インストールの概要:</b> ここには、インストールを実施した場合に行なわれ"
+"る処理が表示されます。インストールを実施するまでは、お使いのファイルシステム"
+"は何も変更されません。</p>"
+
+#. Help in an installed system
+#.
+#. @return [String]
+#: src/lib/y2partitioner/widgets/summary_text.rb:164
+msgid ""
+"<p><b>Installation Summary:</b> This shows the actions that will be "
+"performed when you finish the partitioner. So far, nothing has been changed "
+"yet on your system.</p>"
+msgstr ""
+"<p><b>インストールの概要:</b> ここには、パーティション設定の完了を選択した場"
+"合に行なわれる処理が表示されます。パーティション設定の完了を選択するまでは、"
+"お使いのディスクは何も変更されません。</p>"
 
 #. @macro seeAbstractWidget
 #: src/lib/y2partitioner/widgets/used_devices_tab.rb:42
@@ -3579,6 +3620,23 @@ msgstr "システム内で下記のエラーが検出されました:"
 #: src/lib/y2storage/clients/finish.rb:41
 msgid "Saving file system configuration..."
 msgstr "ファイルシステムの設定を保存しています..."
+
+#. Popup to alert the user about using the Partitioner
+#.
+#. @return [Symbol] user's answer (:continue, :cancel)
+#: src/lib/y2storage/clients/inst_disk_proposal.rb:226
+msgid ""
+"This is for experts only.\n"
+"You might lose support if you use this!\n"
+"\n"
+"Please refer to the manual to make sure your custom\n"
+"partitioning meets the requirements of this product."
+msgstr ""
+"これは熟練者向けの仕組みです。\n"
+"これを使用した場合、サポート対象外となりますのでご注意ください！\n"
+"\n"
+"なお、独自にパーティションを設定した場合は、この製品の要件に\n"
+"合致するかどうかをマニュアルでご確認ください。"
 
 #. Also run the expert partitioner as default option if no id was
 #. specified by the caller (bsc#1076732)
@@ -4370,29 +4428,6 @@ msgstr "不明な理由"
 
 #~ msgid "FS ID: %s"
 #~ msgstr "FS ID: %s"
-
-#~ msgid ""
-#~ "Only use this program if you are familiar with partitioning hard disks.\n"
-#~ "\n"
-#~ "Never partition disks that may, in any way, be in use\n"
-#~ "(mounted, swap, etc.) unless you know exactly what you are\n"
-#~ "doing. Otherwise, the partitioning table will not be forwarded to the\n"
-#~ "kernel, which will most likely lead to data loss.\n"
-#~ "\n"
-#~ "To continue despite this warning, click Yes.\n"
-#~ msgstr ""
-#~ "このプログラムを利用するにはハードディスクのパーティション操作に関する知識"
-#~ "が必要です。\n"
-#~ "\n"
-#~ "何らかの特別な事情がない限りは、どのような形であれ、マウントしていたりス"
-#~ "ワップとして\n"
-#~ "使用していたりする可能性のあるディスクに対して、パーティション操作を行なわ"
-#~ "ないでください。\n"
-#~ "もしも使用中のディスクに対してパーティション操作を行なうと、それらの変更は"
-#~ "カーネル側で\n"
-#~ "検知されず、ほとんどの場合データ破壊を引き起こします。\n"
-#~ "\n"
-#~ "この警告を理解した上で続行するには、 'はい' を押してください。\n"
 
 #~ msgid "Initializing..."
 #~ msgstr "しばらくお待ちください..."
