@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: @PACKAGE@\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-04 02:30+0000\n"
+"POT-Creation-Date: 2018-05-05 02:30+0000\n"
 "PO-Revision-Date: 2005-08-11 20:37+0200\n"
 "Last-Translator: nynorsk <i18n@suse.de>\n"
 "Language-Team:  nn <i18n@suse.de>\n"
@@ -103,6 +103,14 @@ msgid ""
 msgstr ""
 "Denne disken kan ikkje klonast. Det finst ingen eigna\n"
 "diskar som kan ha same partisjonsoppsett."
+
+#. TRANSLATORS: %{mount_points} is replaced by a list of mount points, please
+#. do not modify it.
+#: src/lib/y2partitioner/actions/controllers/fstabs.rb:142
+msgid ""
+"The following mount points cannot be imported:\n"
+"%{mount_points}"
+msgstr ""
 
 #. TRANSLATORS: dialog title. %s is a device name like /dev/vg0
 #: src/lib/y2partitioner/actions/controllers/lvm_lv.rb:245
@@ -543,6 +551,13 @@ msgstr ""
 "Volumet %1 er i bruk. Det kan ikkje\n"
 "redigerast. For å redigera %1, sørg for at det ikkje er i bruk."
 
+#. Error message when no fstab file was detected
+#.
+#. @return [String, nil] nil if there is some fstab
+#: src/lib/y2partitioner/actions/import_mount_points.rb:87
+msgid "YaST has scanned your hard disks but no fstab file was found."
+msgstr ""
+
 #. TRANSLATORS: %{name} is replaced by a device name (e.g., /dev/sda1).
 #: src/lib/y2partitioner/actions/resize_blk_device.rb:103
 #, fuzzy
@@ -905,6 +920,20 @@ msgstr "Skriv inn &eit krypteringspassord:"
 #, fuzzy
 msgid "Fstab Options:"
 msgstr "Fs&tab-alternativ"
+
+#. Constructor
+#.
+#. @param controller [Actions::Controllers::Fstabs]
+#: src/lib/y2partitioner/dialogs/import_mount_points.rb:39
+#, fuzzy
+msgid "Import Mount Points from Existing System:"
+msgstr "Imprter monteringspunkter frå eksisterande system:"
+
+#. @see #fstab_selector
+#: src/lib/y2partitioner/dialogs/import_mount_points.rb:48
+#, fuzzy
+msgid "Import"
+msgstr "Importer"
 
 #. @macro seeDialog
 #: src/lib/y2partitioner/dialogs/lvm_lv_info.rb:53
@@ -1525,7 +1554,7 @@ msgstr "Filsystem:"
 #. @see CWM::PushButton#Label
 #. @macro seeAbstractWidget
 #: src/lib/y2partitioner/widgets/blk_device_edit_button.rb:41
-#: src/lib/y2partitioner/widgets/btrfs_edit_button.rb:21
+#: src/lib/y2partitioner/widgets/btrfs_edit_button.rb:42
 #: src/lib/y2partitioner/widgets/lvm_edit_button.rb:39
 #, fuzzy
 msgid "Edit..."
@@ -1637,7 +1666,7 @@ msgstr "&Fysiske volum"
 #. Opens a dialog to manage the list of subvolumes of the selected device
 #.
 #. @note In case of there is no selected table row, it shows an error.
-#: src/lib/y2partitioner/widgets/btrfs_edit_button.rb:31
+#: src/lib/y2partitioner/widgets/btrfs_edit_button.rb:52
 #, fuzzy
 msgid "There is no filesystem selected to edit."
 msgstr "Denne disken inneheld ingen partisjoner som kan slettes."
@@ -2404,6 +2433,56 @@ msgstr ""
 "Dette tegnsettes vert brukt ved konvertering til korte filnavn i FAT-"
 "filsystemer.</p>\n"
 
+#. Checks whether the mount points of the selected fstab can be imported
+#.
+#. It shows a popup with the errors detected in the selected fstab.
+#.
+#. @see Actions::Controllers::Fstabs#selected_fstab_errors
+#.
+#. @return [Boolean]
+#. so only warnings there
+#. FIXME: improve Yast2::Popup to allow some text before the buttons
+#: src/lib/y2partitioner/widgets/fstab_selector.rb:70
+#: src/lib/y2partitioner/widgets/overview.rb:130
+#: src/lib/y2storage/callbacks/sanitize.rb:54
+#, fuzzy
+msgid "Do you want to continue?"
+msgstr "Vil du angje eit krypteringspassord?"
+
+#. @return [String]
+#: src/lib/y2partitioner/widgets/fstab_selector.rb:96
+#, fuzzy
+msgid ""
+"<p>YaST has scanned your hard disks and found one or several existing Linux "
+"systems with mount points. The old mount points are shown in the table.</p>"
+msgstr ""
+"<p>YaST2 har gjennomsøkt harddiskane og funne\n"
+"eit gammalt Linux-system med monteringspunkter. Til høgre ser du ei liste "
+"over monteringspunktene som vart funnen. Dei gamle monteringspunktene\n"
+"er angjevne i tabellen.</p>"
+
+#. Button to go to the previous fstab file
+#.
+#. @return [Yast::UI::Term]
+#: src/lib/y2partitioner/widgets/fstab_selector.rb:125
+#, fuzzy
+msgid "Show &Previous"
+msgstr "Vis &forrige"
+
+#. Button to go to the next fstab file
+#.
+#. @return [Yast::UI::Term]
+#: src/lib/y2partitioner/widgets/fstab_selector.rb:132
+#, fuzzy
+msgid "Show &Next"
+msgstr "Vis &neste"
+
+#. TRANSLATORS: %{device_name} is replaced by the name of a device (e.g., /dev/sda1)
+#: src/lib/y2partitioner/widgets/fstab_selector.rb:220
+#, fuzzy
+msgid "/etc/fstab found on %{device_name} contains:"
+msgstr "/etc/fstab funnet på %1 inneheld:"
+
 #. helptexts for table column and overview entry
 #: src/lib/y2partitioner/widgets/help.rb:17
 #, fuzzy
@@ -2733,6 +2812,12 @@ msgstr ""
 "Ei stjerne (*) etter monteringspunktet\n"
 "viser at filsystemet ikkje er montert (t.d. fordi valet <tt>noauto</tt>\n"
 "er brukt i <tt>/etc/fstab</tt>)."
+
+#. @macro seeAbstractWidget
+#: src/lib/y2partitioner/widgets/import_mount_points_button.rb:36
+#, fuzzy
+msgid "Import Mount Points..."
+msgstr "Importar monteringspunkter …"
 
 #. When there is no vg, only shows an option to add a new vg.
 #. Otherwise, options for adding a vg or lv are shown.
@@ -3132,14 +3217,6 @@ msgstr ""
 msgid "System View"
 msgstr "Systemoversikt"
 
-#. so only warnings there
-#. FIXME: improve Yast2::Popup to allow some text before the buttons
-#: src/lib/y2partitioner/widgets/overview.rb:130
-#: src/lib/y2storage/callbacks/sanitize.rb:54
-#, fuzzy
-msgid "Do you want to continue?"
-msgstr "Vil du angje eit krypteringspassord?"
-
 #. @macro seeAbstractWidget
 #: src/lib/y2partitioner/widgets/pages/btrfs.rb:20
 #, fuzzy
@@ -3336,7 +3413,7 @@ msgid "Installation Summary"
 msgstr "Installasjonssammendrag"
 
 #. TRANSLATORS: Heading. String followed by the hostname
-#: src/lib/y2partitioner/widgets/pages/system.rb:40
+#: src/lib/y2partitioner/widgets/pages/system.rb:92
 #, fuzzy
 msgid "Available Storage on %s"
 msgstr "Tilgjengeleg plass på %1"
@@ -6359,10 +6436,6 @@ msgstr ""
 #~ msgstr "Det er ikkje mogleg å oppretta ein partisjon på %1."
 
 #, fuzzy
-#~ msgid "Import Mount Points..."
-#~ msgstr "Importar monteringspunkter …"
-
-#, fuzzy
 #~ msgid "Provide Crypt &Passwords..."
 #~ msgstr "Angje krypterings&passord …"
 
@@ -6957,17 +7030,6 @@ msgstr ""
 
 #, fuzzy
 #~ msgid ""
-#~ "<p>YaST has scanned your hard disks and found one or several existing \n"
-#~ "Linux systems with mount points. The old mount points are shown in \n"
-#~ "the table.</p>\n"
-#~ msgstr ""
-#~ "<p>YaST2 har gjennomsøkt harddiskane og funne\n"
-#~ "eit gammalt Linux-system med monteringspunkter. Til høgre ser du ei liste "
-#~ "over monteringspunktene som vart funnen. Dei gamle monteringspunktene\n"
-#~ "er angjevne i tabellen.</p>"
-
-#, fuzzy
-#~ msgid ""
 #~ "<p>You can choose whether the existing system\n"
 #~ "volumes, e.g. / and /usr, will be formatted during the\n"
 #~ "installation. Non-system volumes, e.g. /home, will not be formatted.</p>"
@@ -6982,28 +7044,8 @@ msgstr ""
 #~ msgstr "Ingen tidlegare system med monteringspunkter vart funne."
 
 #, fuzzy
-#~ msgid "Show &Previous"
-#~ msgstr "Vis &forrige"
-
-#, fuzzy
-#~ msgid "Show &Next"
-#~ msgstr "Vis &neste"
-
-#, fuzzy
-#~ msgid "Import Mount Points from Existing System:"
-#~ msgstr "Imprter monteringspunkter frå eksisterande system:"
-
-#, fuzzy
 #~ msgid "Format System Volumes"
 #~ msgstr "Formater systemvolumer"
-
-#, fuzzy
-#~ msgid "Import"
-#~ msgstr "Importer"
-
-#, fuzzy
-#~ msgid "/etc/fstab found on %1 contains:"
-#~ msgstr "/etc/fstab funnet på %1 inneheld:"
 
 #, fuzzy
 #~ msgid "Wrong Password Provided."

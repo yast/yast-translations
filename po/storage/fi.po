@@ -23,7 +23,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: storage-ng.fi\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-04 02:30+0000\n"
+"POT-Creation-Date: 2018-05-05 02:30+0000\n"
 "PO-Revision-Date: 2018-05-03 18:02+0000\n"
 "Last-Translator: Tommi Nieminen <software@legisign.org>\n"
 "Language-Team: Finnish <https://l10n.opensuse.org/projects/yast-storage/"
@@ -112,6 +112,14 @@ msgid ""
 msgstr ""
 "Tätä levyä ei voi kloonata. Sopivia levyjä\n"
 "samanlaisella osiointitaululla ei löydy."
+
+#. TRANSLATORS: %{mount_points} is replaced by a list of mount points, please
+#. do not modify it.
+#: src/lib/y2partitioner/actions/controllers/fstabs.rb:142
+msgid ""
+"The following mount points cannot be imported:\n"
+"%{mount_points}"
+msgstr ""
 
 #. TRANSLATORS: dialog title. %s is a device name like /dev/vg0
 #: src/lib/y2partitioner/actions/controllers/lvm_lv.rb:245
@@ -507,6 +515,13 @@ msgstr ""
 "Taltio %{name} on ohut pooli.\n"
 "Sitä ei voi muokata."
 
+#. Error message when no fstab file was detected
+#.
+#. @return [String, nil] nil if there is some fstab
+#: src/lib/y2partitioner/actions/import_mount_points.rb:87
+msgid "YaST has scanned your hard disks but no fstab file was found."
+msgstr ""
+
 #. TRANSLATORS: %{name} is replaced by a device name (e.g., /dev/sda1).
 #: src/lib/y2partitioner/actions/resize_blk_device.rb:103
 msgid ""
@@ -834,6 +849,18 @@ msgstr "Salaussalasana laitteelle %s"
 #: src/lib/y2partitioner/dialogs/fstab_options.rb:40
 msgid "Fstab Options:"
 msgstr "Fstab-valinnat:"
+
+#. Constructor
+#.
+#. @param controller [Actions::Controllers::Fstabs]
+#: src/lib/y2partitioner/dialogs/import_mount_points.rb:39
+msgid "Import Mount Points from Existing System:"
+msgstr "Tuo liitoskohdat olemassa olevasta järjestelmästä:"
+
+#. @see #fstab_selector
+#: src/lib/y2partitioner/dialogs/import_mount_points.rb:48
+msgid "Import"
+msgstr "Tuo"
 
 #. @macro seeDialog
 #: src/lib/y2partitioner/dialogs/lvm_lv_info.rb:53
@@ -1503,7 +1530,7 @@ msgstr "Tiedostojärjestelmä:"
 #. @see CWM::PushButton#Label
 #. @macro seeAbstractWidget
 #: src/lib/y2partitioner/widgets/blk_device_edit_button.rb:41
-#: src/lib/y2partitioner/widgets/btrfs_edit_button.rb:21
+#: src/lib/y2partitioner/widgets/btrfs_edit_button.rb:42
 #: src/lib/y2partitioner/widgets/lvm_edit_button.rb:39
 msgid "Edit..."
 msgstr "Muokkaa..."
@@ -1607,7 +1634,7 @@ msgstr "Virtuaalinen taltio"
 #. Opens a dialog to manage the list of subvolumes of the selected device
 #.
 #. @note In case of there is no selected table row, it shows an error.
-#: src/lib/y2partitioner/widgets/btrfs_edit_button.rb:31
+#: src/lib/y2partitioner/widgets/btrfs_edit_button.rb:52
 #, fuzzy
 #| msgid "There are no partitions to delete on this disk."
 msgid "There is no filesystem selected to edit."
@@ -2396,6 +2423,59 @@ msgstr ""
 "Koodisivua käytetään muunnettaessa tiedoston nimi lyhyeksi FAT-"
 "tiedostojärjestelmässä.</p>\n"
 
+#. Checks whether the mount points of the selected fstab can be imported
+#.
+#. It shows a popup with the errors detected in the selected fstab.
+#.
+#. @see Actions::Controllers::Fstabs#selected_fstab_errors
+#.
+#. @return [Boolean]
+#. so only warnings there
+#. FIXME: improve Yast2::Popup to allow some text before the buttons
+#: src/lib/y2partitioner/widgets/fstab_selector.rb:70
+#: src/lib/y2partitioner/widgets/overview.rb:130
+#: src/lib/y2storage/callbacks/sanitize.rb:54
+#, fuzzy
+#| msgid "Do you want to provide encryption passwords?"
+msgid "Do you want to continue?"
+msgstr "Haluatko antaa salauksen salasanat?"
+
+#. @return [String]
+#: src/lib/y2partitioner/widgets/fstab_selector.rb:96
+#, fuzzy
+#| msgid ""
+#| "<p>YaST has scanned your hard disks and found one or several existing \n"
+#| "Linux systems with mount points. The old mount points are shown in \n"
+#| "the table.</p>\n"
+msgid ""
+"<p>YaST has scanned your hard disks and found one or several existing Linux "
+"systems with mount points. The old mount points are shown in the table.</p>"
+msgstr ""
+"<p>YaST2 on tutkinut kiintolevysi ja löysi yhden tai useampia Linux-"
+"järjestelmiä,\n"
+"jolla on liitoskohtia. Vanhat liitospisteet näytetään taulukossa.</p>\n"
+
+#. Button to go to the previous fstab file
+#.
+#. @return [Yast::UI::Term]
+#: src/lib/y2partitioner/widgets/fstab_selector.rb:125
+msgid "Show &Previous"
+msgstr "Näytä &edellinen"
+
+#. Button to go to the next fstab file
+#.
+#. @return [Yast::UI::Term]
+#: src/lib/y2partitioner/widgets/fstab_selector.rb:132
+msgid "Show &Next"
+msgstr "Näytä &seuraava"
+
+#. TRANSLATORS: %{device_name} is replaced by the name of a device (e.g., /dev/sda1)
+#: src/lib/y2partitioner/widgets/fstab_selector.rb:220
+#, fuzzy
+#| msgid "/etc/fstab found on %1 contains:"
+msgid "/etc/fstab found on %{device_name} contains:"
+msgstr "Laitteella %1 sijaitseva /etc/fstab-tiedosto sisältää:"
+
 #. helptexts for table column and overview entry
 #: src/lib/y2partitioner/widgets/help.rb:17
 msgid ""
@@ -2719,6 +2799,11 @@ msgstr ""
 "että tiedostojärjestelmä ei ole tällä hetkellä liitettynä (esim. koska "
 "osiolla on <tt>noauto</tt> valinta asetettuna <tt>/etc/fstab</tt> "
 "tiedostossa)."
+
+#. @macro seeAbstractWidget
+#: src/lib/y2partitioner/widgets/import_mount_points_button.rb:36
+msgid "Import Mount Points..."
+msgstr "Tuo liitospisteet..."
 
 #. When there is no vg, only shows an option to add a new vg.
 #. Otherwise, options for adding a vg or lv are shown.
@@ -3177,15 +3262,6 @@ msgstr ""
 msgid "System View"
 msgstr "Järjestelmänäkymä"
 
-#. so only warnings there
-#. FIXME: improve Yast2::Popup to allow some text before the buttons
-#: src/lib/y2partitioner/widgets/overview.rb:130
-#: src/lib/y2storage/callbacks/sanitize.rb:54
-#, fuzzy
-#| msgid "Do you want to provide encryption passwords?"
-msgid "Do you want to continue?"
-msgstr "Haluatko antaa salauksen salasanat?"
-
 #. @macro seeAbstractWidget
 #: src/lib/y2partitioner/widgets/pages/btrfs.rb:20
 msgid "Btrfs"
@@ -3390,7 +3466,7 @@ msgid "Installation Summary"
 msgstr "Yhteenveto asennuksesta"
 
 #. TRANSLATORS: Heading. String followed by the hostname
-#: src/lib/y2partitioner/widgets/pages/system.rb:40
+#: src/lib/y2partitioner/widgets/pages/system.rb:92
 #, fuzzy
 #| msgid "Available Storage on %1"
 msgid "Available Storage on %s"
@@ -6394,9 +6470,6 @@ msgstr "Tuntematon"
 #~ msgid "It is not possible to resize the file system while it is mounted."
 #~ msgstr "Liitetyn tiedostojärjestelmän koon muuttaminen ei ole mahdollista."
 
-#~ msgid "Import Mount Points..."
-#~ msgstr "Tuo liitospisteet..."
-
 #~ msgid "Provide Crypt &Passwords..."
 #~ msgstr "Anna salauksen &salasanat..."
 
@@ -6894,15 +6967,6 @@ msgstr "Tuntematon"
 #~ "osiosta.</p>"
 
 #~ msgid ""
-#~ "<p>YaST has scanned your hard disks and found one or several existing \n"
-#~ "Linux systems with mount points. The old mount points are shown in \n"
-#~ "the table.</p>\n"
-#~ msgstr ""
-#~ "<p>YaST2 on tutkinut kiintolevysi ja löysi yhden tai useampia Linux-"
-#~ "järjestelmiä,\n"
-#~ "jolla on liitoskohtia. Vanhat liitospisteet näytetään taulukossa.</p>\n"
-
-#~ msgid ""
 #~ "<p>You can choose whether the existing system\n"
 #~ "volumes, e.g. / and /usr, will be formatted during the\n"
 #~ "installation. Non-system volumes, e.g. /home, will not be formatted.</p>"
@@ -6915,23 +6979,8 @@ msgstr "Tuntematon"
 #~ msgid "No previous system with mount points was detected."
 #~ msgstr "Liitoskohtia aikaisemmista järjestelmistä ei tunnistettu."
 
-#~ msgid "Show &Previous"
-#~ msgstr "Näytä &edellinen"
-
-#~ msgid "Show &Next"
-#~ msgstr "Näytä &seuraava"
-
-#~ msgid "Import Mount Points from Existing System:"
-#~ msgstr "Tuo liitoskohdat olemassa olevasta järjestelmästä:"
-
 #~ msgid "Format System Volumes"
 #~ msgstr "Alusta järjestelmätaltiot"
-
-#~ msgid "Import"
-#~ msgstr "Tuo"
-
-#~ msgid "/etc/fstab found on %1 contains:"
-#~ msgstr "Laitteella %1 sijaitseva /etc/fstab-tiedosto sisältää:"
 
 #~ msgid "Wrong Password Provided."
 #~ msgstr "Väärä salasana."

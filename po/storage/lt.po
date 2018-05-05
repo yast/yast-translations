@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: storage\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-04 02:30+0000\n"
+"POT-Creation-Date: 2018-05-05 02:30+0000\n"
 "PO-Revision-Date: 2017-08-20 07:17+0000\n"
 "Last-Translator: Mindaugas Baranauskas <opensuse.lietuviu.kalba@gmail.com>\n"
 "Language-Team: Lithuanian <https://l10n.opensuse.org/projects/yast-storage/"
@@ -109,6 +109,14 @@ msgid ""
 msgstr ""
 "Šio disko negalima klonuoti. Nėra tinkamų\n"
 "diskų, kurie turėtų tokį patį skaidinių lygiavimą."
+
+#. TRANSLATORS: %{mount_points} is replaced by a list of mount points, please
+#. do not modify it.
+#: src/lib/y2partitioner/actions/controllers/fstabs.rb:142
+msgid ""
+"The following mount points cannot be imported:\n"
+"%{mount_points}"
+msgstr ""
 
 #. TRANSLATORS: dialog title. %s is a device name like /dev/vg0
 #: src/lib/y2partitioner/actions/controllers/lvm_lv.rb:245
@@ -601,6 +609,13 @@ msgstr ""
 "Naudojamas %1 tomas yra mažas telkinys.\n"
 "Jo negalima keisti."
 
+#. Error message when no fstab file was detected
+#.
+#. @return [String, nil] nil if there is some fstab
+#: src/lib/y2partitioner/actions/import_mount_points.rb:87
+msgid "YaST has scanned your hard disks but no fstab file was found."
+msgstr ""
+
 #. TRANSLATORS: %{name} is replaced by a device name (e.g., /dev/sda1).
 #: src/lib/y2partitioner/actions/resize_blk_device.rb:103
 #, fuzzy
@@ -989,6 +1004,18 @@ msgstr "Į&veskite šifravimo slaptažodį:"
 #: src/lib/y2partitioner/dialogs/fstab_options.rb:40
 msgid "Fstab Options:"
 msgstr "Fstab parinktys:"
+
+#. Constructor
+#.
+#. @param controller [Actions::Controllers::Fstabs]
+#: src/lib/y2partitioner/dialogs/import_mount_points.rb:39
+msgid "Import Mount Points from Existing System:"
+msgstr "Importuoti esamos sistemos prijungimo vietas:"
+
+#. @see #fstab_selector
+#: src/lib/y2partitioner/dialogs/import_mount_points.rb:48
+msgid "Import"
+msgstr "Importuoti"
 
 #. @macro seeDialog
 #: src/lib/y2partitioner/dialogs/lvm_lv_info.rb:53
@@ -1634,7 +1661,7 @@ msgstr "Rinkmenų sistema:"
 #. @see CWM::PushButton#Label
 #. @macro seeAbstractWidget
 #: src/lib/y2partitioner/widgets/blk_device_edit_button.rb:41
-#: src/lib/y2partitioner/widgets/btrfs_edit_button.rb:21
+#: src/lib/y2partitioner/widgets/btrfs_edit_button.rb:42
 #: src/lib/y2partitioner/widgets/lvm_edit_button.rb:39
 msgid "Edit..."
 msgstr "Keisti..."
@@ -1738,7 +1765,7 @@ msgstr "Mažas tomas"
 #. Opens a dialog to manage the list of subvolumes of the selected device
 #.
 #. @note In case of there is no selected table row, it shows an error.
-#: src/lib/y2partitioner/widgets/btrfs_edit_button.rb:31
+#: src/lib/y2partitioner/widgets/btrfs_edit_button.rb:52
 #, fuzzy
 #| msgid "There are no partitions to delete on this disk."
 msgid "There is no filesystem selected to edit."
@@ -2515,6 +2542,59 @@ msgstr ""
 "Šis koduotės puslapis naudojamas FAT rinkmenų sistemos pavadinimams "
 "konvertuoti į trumpąjį formatą.</p>\n"
 
+#. Checks whether the mount points of the selected fstab can be imported
+#.
+#. It shows a popup with the errors detected in the selected fstab.
+#.
+#. @see Actions::Controllers::Fstabs#selected_fstab_errors
+#.
+#. @return [Boolean]
+#. so only warnings there
+#. FIXME: improve Yast2::Popup to allow some text before the buttons
+#: src/lib/y2partitioner/widgets/fstab_selector.rb:70
+#: src/lib/y2partitioner/widgets/overview.rb:130
+#: src/lib/y2storage/callbacks/sanitize.rb:54
+#, fuzzy
+#| msgid "Do you want to provide encryption passwords?"
+msgid "Do you want to continue?"
+msgstr "Nurodyti šifravimo slaptažodžius?"
+
+#. @return [String]
+#: src/lib/y2partitioner/widgets/fstab_selector.rb:96
+#, fuzzy
+#| msgid ""
+#| "<p>YaST has scanned your hard disks and found one or several existing \n"
+#| "Linux systems with mount points. The old mount points are shown in \n"
+#| "the table.</p>\n"
+msgid ""
+"<p>YaST has scanned your hard disks and found one or several existing Linux "
+"systems with mount points. The old mount points are shown in the table.</p>"
+msgstr ""
+"<p>YaST peržvelgė jūsų standžiuosius diskus ir rado\n"
+"jau esamas Linux sistemas su jos prijungimo vietomis. \n"
+"Lentelėje matote senas prijungimo vietas. </p>\n"
+
+#. Button to go to the previous fstab file
+#.
+#. @return [Yast::UI::Term]
+#: src/lib/y2partitioner/widgets/fstab_selector.rb:125
+msgid "Show &Previous"
+msgstr "Rodyti &ankstesnį"
+
+#. Button to go to the next fstab file
+#.
+#. @return [Yast::UI::Term]
+#: src/lib/y2partitioner/widgets/fstab_selector.rb:132
+msgid "Show &Next"
+msgstr "Rodyti &kitą"
+
+#. TRANSLATORS: %{device_name} is replaced by the name of a device (e.g., /dev/sda1)
+#: src/lib/y2partitioner/widgets/fstab_selector.rb:220
+#, fuzzy
+#| msgid "/etc/fstab found on %1 contains:"
+msgid "/etc/fstab found on %{device_name} contains:"
+msgstr "/etc/fstab, kuris rastas %1, turi:"
+
 #. helptexts for table column and overview entry
 #: src/lib/y2partitioner/widgets/help.rb:17
 msgid ""
@@ -2844,6 +2924,11 @@ msgstr ""
 "Žvaigždutė (*) už prijungimo vietos\n"
 "nurodo, kad rinkmenų sistema šiuo metu neprijungta (pavyzdžiui, todėl\n"
 "kad turi <tt>noauto</tt> parinktį <tt>/etc/fstab</tt> rinkmenoje)."
+
+#. @macro seeAbstractWidget
+#: src/lib/y2partitioner/widgets/import_mount_points_button.rb:36
+msgid "Import Mount Points..."
+msgstr "Importuoti prijungimo vietas..."
 
 #. When there is no vg, only shows an option to add a new vg.
 #. Otherwise, options for adding a vg or lv are shown.
@@ -3266,15 +3351,6 @@ msgstr ""
 msgid "System View"
 msgstr "Sistemos rodinys"
 
-#. so only warnings there
-#. FIXME: improve Yast2::Popup to allow some text before the buttons
-#: src/lib/y2partitioner/widgets/overview.rb:130
-#: src/lib/y2storage/callbacks/sanitize.rb:54
-#, fuzzy
-#| msgid "Do you want to provide encryption passwords?"
-msgid "Do you want to continue?"
-msgstr "Nurodyti šifravimo slaptažodžius?"
-
 #. @macro seeAbstractWidget
 #: src/lib/y2partitioner/widgets/pages/btrfs.rb:20
 msgid "Btrfs"
@@ -3475,7 +3551,7 @@ msgid "Installation Summary"
 msgstr "Diegimo santrauka"
 
 #. TRANSLATORS: Heading. String followed by the hostname
-#: src/lib/y2partitioner/widgets/pages/system.rb:40
+#: src/lib/y2partitioner/widgets/pages/system.rb:92
 #, fuzzy
 #| msgid "Available Storage on %1"
 msgid "Available Storage on %s"
@@ -6405,9 +6481,6 @@ msgstr ""
 #~ msgid "It is not possible to resize the file system while it is mounted."
 #~ msgstr "Neįmanoma keisti dydžio skaidinio, kuris yra prijungtas."
 
-#~ msgid "Import Mount Points..."
-#~ msgstr "Importuoti prijungimo vietas..."
-
 #~ msgid "Provide Crypt &Passwords..."
 #~ msgstr "Pateikti šifravimo &slaptažodį"
 
@@ -6880,15 +6953,6 @@ msgstr ""
 #~ "pasirinktą skaidinį.</p>"
 
 #~ msgid ""
-#~ "<p>YaST has scanned your hard disks and found one or several existing \n"
-#~ "Linux systems with mount points. The old mount points are shown in \n"
-#~ "the table.</p>\n"
-#~ msgstr ""
-#~ "<p>YaST peržvelgė jūsų standžiuosius diskus ir rado\n"
-#~ "jau esamas Linux sistemas su jos prijungimo vietomis. \n"
-#~ "Lentelėje matote senas prijungimo vietas. </p>\n"
-
-#~ msgid ""
 #~ "<p>You can choose whether the existing system\n"
 #~ "volumes, e.g. / and /usr, will be formatted during the\n"
 #~ "installation. Non-system volumes, e.g. /home, will not be formatted.</p>"
@@ -6900,23 +6964,8 @@ msgstr ""
 #~ msgid "No previous system with mount points was detected."
 #~ msgstr "Ankstesnė sistema su prijungimo vietomis nerasta."
 
-#~ msgid "Show &Previous"
-#~ msgstr "Rodyti &ankstesnį"
-
-#~ msgid "Show &Next"
-#~ msgstr "Rodyti &kitą"
-
-#~ msgid "Import Mount Points from Existing System:"
-#~ msgstr "Importuoti esamos sistemos prijungimo vietas:"
-
 #~ msgid "Format System Volumes"
 #~ msgstr "Suženklinti sistemos tomus"
-
-#~ msgid "Import"
-#~ msgstr "Importuoti"
-
-#~ msgid "/etc/fstab found on %1 contains:"
-#~ msgstr "/etc/fstab, kuris rastas %1, turi:"
 
 #~ msgid "Wrong Password Provided."
 #~ msgstr "Pateiktas neteisingas slaptažodis."

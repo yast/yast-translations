@@ -22,7 +22,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: storage-ng.de\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-04 02:30+0000\n"
+"POT-Creation-Date: 2018-05-05 02:30+0000\n"
 "PO-Revision-Date: 2018-04-26 08:00+0000\n"
 "Last-Translator: Franziska Weinberger <f.weinberger@gemino.de>\n"
 "Language-Team: German <https://l10n.opensuse.org/projects/yast-storage/"
@@ -113,6 +113,14 @@ msgid ""
 msgstr ""
 "Diese Festplatte kann nicht geklont werden. Es gibt keine passenden\n"
 "Festplatten, die dieselbe Partitionierung aufnehmen könnten."
+
+#. TRANSLATORS: %{mount_points} is replaced by a list of mount points, please
+#. do not modify it.
+#: src/lib/y2partitioner/actions/controllers/fstabs.rb:142
+msgid ""
+"The following mount points cannot be imported:\n"
+"%{mount_points}"
+msgstr ""
 
 #. TRANSLATORS: dialog title. %s is a device name like /dev/vg0
 #: src/lib/y2partitioner/actions/controllers/lvm_lv.rb:245
@@ -527,6 +535,13 @@ msgstr ""
 "Das Volume %{name} ist ein Thin Pool.\n"
 "Es kann nicht bearbeitet werden."
 
+#. Error message when no fstab file was detected
+#.
+#. @return [String, nil] nil if there is some fstab
+#: src/lib/y2partitioner/actions/import_mount_points.rb:87
+msgid "YaST has scanned your hard disks but no fstab file was found."
+msgstr ""
+
 #. TRANSLATORS: %{name} is replaced by a device name (e.g., /dev/sda1).
 #: src/lib/y2partitioner/actions/resize_blk_device.rb:103
 msgid ""
@@ -864,6 +879,20 @@ msgstr "Verschlüsselungspasswort für %s eingeben"
 #: src/lib/y2partitioner/dialogs/fstab_options.rb:40
 msgid "Fstab Options:"
 msgstr "Fstab-Optionen:"
+
+# &n is taken
+# 2001-09-13 19:25:46 CEST -ke-
+#. Constructor
+#.
+#. @param controller [Actions::Controllers::Fstabs]
+#: src/lib/y2partitioner/dialogs/import_mount_points.rb:39
+msgid "Import Mount Points from Existing System:"
+msgstr "Einhängepunkte aus vorhandenem System importieren:"
+
+#. @see #fstab_selector
+#: src/lib/y2partitioner/dialogs/import_mount_points.rb:48
+msgid "Import"
+msgstr "Importieren"
 
 #. @macro seeDialog
 #: src/lib/y2partitioner/dialogs/lvm_lv_info.rb:53
@@ -1455,7 +1484,7 @@ msgstr "Dateisystem:"
 #. @see CWM::PushButton#Label
 #. @macro seeAbstractWidget
 #: src/lib/y2partitioner/widgets/blk_device_edit_button.rb:41
-#: src/lib/y2partitioner/widgets/btrfs_edit_button.rb:21
+#: src/lib/y2partitioner/widgets/btrfs_edit_button.rb:42
 #: src/lib/y2partitioner/widgets/lvm_edit_button.rb:39
 msgid "Edit..."
 msgstr "Bearbeiten..."
@@ -1551,7 +1580,7 @@ msgstr "Thin LV"
 #. Opens a dialog to manage the list of subvolumes of the selected device
 #.
 #. @note In case of there is no selected table row, it shows an error.
-#: src/lib/y2partitioner/widgets/btrfs_edit_button.rb:31
+#: src/lib/y2partitioner/widgets/btrfs_edit_button.rb:52
 msgid "There is no filesystem selected to edit."
 msgstr "Es wurde kein Dateisystem zur Bearbeitung ausgewählt."
 
@@ -2267,6 +2296,57 @@ msgstr ""
 "Diese Codeseite wird zur Zeichenkonvertierung von Kurznamen auf FAT-"
 "Dateisystemen verwendet.</p>\n"
 
+#. Checks whether the mount points of the selected fstab can be imported
+#.
+#. It shows a popup with the errors detected in the selected fstab.
+#.
+#. @see Actions::Controllers::Fstabs#selected_fstab_errors
+#.
+#. @return [Boolean]
+#. so only warnings there
+#. FIXME: improve Yast2::Popup to allow some text before the buttons
+#: src/lib/y2partitioner/widgets/fstab_selector.rb:70
+#: src/lib/y2partitioner/widgets/overview.rb:130
+#: src/lib/y2storage/callbacks/sanitize.rb:54
+msgid "Do you want to continue?"
+msgstr "Möchten Sie fortfahren?"
+
+#. @return [String]
+#: src/lib/y2partitioner/widgets/fstab_selector.rb:96
+#, fuzzy
+#| msgid ""
+#| "<p>YaST has scanned your hard disks and found one or several existing \n"
+#| "Linux systems with mount points. The old mount points are shown in \n"
+#| "the table.</p>\n"
+msgid ""
+"<p>YaST has scanned your hard disks and found one or several existing Linux "
+"systems with mount points. The old mount points are shown in the table.</p>"
+msgstr ""
+"<p>YaST hat Ihre Festplatten überprüft und darauf ein oder mehrere\n"
+"vorhandene Linux-Systeme mit Einhängepunkten gefunden. Diese \n"
+"Einhängepunkte werden in der Tabelle angezeigt.</p>\n"
+
+#. Button to go to the previous fstab file
+#.
+#. @return [Yast::UI::Term]
+#: src/lib/y2partitioner/widgets/fstab_selector.rb:125
+msgid "Show &Previous"
+msgstr "&Vorheriges anzeigen"
+
+#. Button to go to the next fstab file
+#.
+#. @return [Yast::UI::Term]
+#: src/lib/y2partitioner/widgets/fstab_selector.rb:132
+msgid "Show &Next"
+msgstr "&Nächstes anzeigen"
+
+#. TRANSLATORS: %{device_name} is replaced by the name of a device (e.g., /dev/sda1)
+#: src/lib/y2partitioner/widgets/fstab_selector.rb:220
+#, fuzzy
+#| msgid "/etc/fstab found on %1 contains:"
+msgid "/etc/fstab found on %{device_name} contains:"
+msgstr "Auf %1 gefundene /etc/fstab enthält:"
+
 #. helptexts for table column and overview entry
 #: src/lib/y2partitioner/widgets/help.rb:17
 msgid ""
@@ -2559,6 +2639,11 @@ msgstr ""
 "Ein Sternchen (*) nach dem Mountpoint\n"
 "weist auf ein Dateisystem hin, das zurzeit nicht gemountet ist (z. B., weil\n"
 "die Option <tt>noauto</tt> in <tt>/etc/fstab</tt> gesetzt wurde)."
+
+#. @macro seeAbstractWidget
+#: src/lib/y2partitioner/widgets/import_mount_points_button.rb:36
+msgid "Import Mount Points..."
+msgstr "Einhängepunkte importieren..."
 
 #. When there is no vg, only shows an option to add a new vg.
 #. Otherwise, options for adding a vg or lv are shown.
@@ -2971,13 +3056,6 @@ msgstr ""
 msgid "System View"
 msgstr "Systemansicht"
 
-#. so only warnings there
-#. FIXME: improve Yast2::Popup to allow some text before the buttons
-#: src/lib/y2partitioner/widgets/overview.rb:130
-#: src/lib/y2storage/callbacks/sanitize.rb:54
-msgid "Do you want to continue?"
-msgstr "Möchten Sie fortfahren?"
-
 #. @macro seeAbstractWidget
 #: src/lib/y2partitioner/widgets/pages/btrfs.rb:20
 msgid "Btrfs"
@@ -3161,7 +3239,7 @@ msgid "Installation Summary"
 msgstr "Zusammenfassung der Installation"
 
 #. TRANSLATORS: Heading. String followed by the hostname
-#: src/lib/y2partitioner/widgets/pages/system.rb:40
+#: src/lib/y2partitioner/widgets/pages/system.rb:92
 msgid "Available Storage on %s"
 msgstr "Verfügbarer Speicher auf %s"
 
@@ -6134,9 +6212,6 @@ msgstr "Unbekannter Grund"
 #~ "Die Größe des Dateisystems kann nicht verändert werden während es "
 #~ "eingehängt ist."
 
-#~ msgid "Import Mount Points..."
-#~ msgstr "Einhängepunkte importieren..."
-
 #~ msgid "Provide Crypt &Passwords..."
 #~ msgstr "Crypt-&Password angeben ..."
 
@@ -6648,15 +6723,6 @@ msgstr "Unbekannter Grund"
 #~ "die ausgewählte Partition an.</p>"
 
 #~ msgid ""
-#~ "<p>YaST has scanned your hard disks and found one or several existing \n"
-#~ "Linux systems with mount points. The old mount points are shown in \n"
-#~ "the table.</p>\n"
-#~ msgstr ""
-#~ "<p>YaST hat Ihre Festplatten überprüft und darauf ein oder mehrere\n"
-#~ "vorhandene Linux-Systeme mit Einhängepunkten gefunden. Diese \n"
-#~ "Einhängepunkte werden in der Tabelle angezeigt.</p>\n"
-
-#~ msgid ""
 #~ "<p>You can choose whether the existing system\n"
 #~ "volumes, e.g. / and /usr, will be formatted during the\n"
 #~ "installation. Non-system volumes, e.g. /home, will not be formatted.</p>"
@@ -6668,25 +6734,8 @@ msgstr "Unbekannter Grund"
 #~ msgid "No previous system with mount points was detected."
 #~ msgstr "Kein Vorgängersystem mit Einhängepunkten erkannt."
 
-#~ msgid "Show &Previous"
-#~ msgstr "&Vorheriges anzeigen"
-
-#~ msgid "Show &Next"
-#~ msgstr "&Nächstes anzeigen"
-
-# &n is taken
-# 2001-09-13 19:25:46 CEST -ke-
-#~ msgid "Import Mount Points from Existing System:"
-#~ msgstr "Einhängepunkte aus vorhandenem System importieren:"
-
 #~ msgid "Format System Volumes"
 #~ msgstr "System-Volumes formatieren"
-
-#~ msgid "Import"
-#~ msgstr "Importieren"
-
-#~ msgid "/etc/fstab found on %1 contains:"
-#~ msgstr "Auf %1 gefundene /etc/fstab enthält:"
 
 #~ msgid "Wrong Password Provided."
 #~ msgstr "Falsches Passwort eingegeben."

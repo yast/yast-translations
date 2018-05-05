@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-04 02:30+0000\n"
+"POT-Creation-Date: 2018-05-05 02:30+0000\n"
 "PO-Revision-Date: 2018-04-30 06:07+0000\n"
 "Last-Translator: Ferdinand Galko <galko.ferdinand@gmail.com>\n"
 "Language-Team: Slovak <https://l10n.opensuse.org/projects/yast-storage/"
@@ -96,6 +96,14 @@ msgid ""
 msgstr ""
 "Tento disk nemôže byť klonovaný. Neexistujú žiadne vhodné\n"
 "disky, ktoré by mohli mať rovnaké rozdelenie disku."
+
+#. TRANSLATORS: %{mount_points} is replaced by a list of mount points, please
+#. do not modify it.
+#: src/lib/y2partitioner/actions/controllers/fstabs.rb:142
+msgid ""
+"The following mount points cannot be imported:\n"
+"%{mount_points}"
+msgstr ""
 
 #. TRANSLATORS: dialog title. %s is a device name like /dev/vg0
 #: src/lib/y2partitioner/actions/controllers/lvm_lv.rb:245
@@ -493,6 +501,13 @@ msgstr ""
 "Zväzok %{name} je tenký fond.\n"
 "Nemôže sa upravovať."
 
+#. Error message when no fstab file was detected
+#.
+#. @return [String, nil] nil if there is some fstab
+#: src/lib/y2partitioner/actions/import_mount_points.rb:87
+msgid "YaST has scanned your hard disks but no fstab file was found."
+msgstr ""
+
 #. TRANSLATORS: %{name} is replaced by a device name (e.g., /dev/sda1).
 #: src/lib/y2partitioner/actions/resize_blk_device.rb:103
 msgid ""
@@ -823,6 +838,18 @@ msgstr "Šifrovacie heslo pre %s"
 #: src/lib/y2partitioner/dialogs/fstab_options.rb:40
 msgid "Fstab Options:"
 msgstr "Možnosti fstab:"
+
+#. Constructor
+#.
+#. @param controller [Actions::Controllers::Fstabs]
+#: src/lib/y2partitioner/dialogs/import_mount_points.rb:39
+msgid "Import Mount Points from Existing System:"
+msgstr "Importovať body pripojenia z existujúceho systému:"
+
+#. @see #fstab_selector
+#: src/lib/y2partitioner/dialogs/import_mount_points.rb:48
+msgid "Import"
+msgstr "Import"
 
 #. @macro seeDialog
 #: src/lib/y2partitioner/dialogs/lvm_lv_info.rb:53
@@ -1399,7 +1426,7 @@ msgstr "Súborový systém:"
 #. @see CWM::PushButton#Label
 #. @macro seeAbstractWidget
 #: src/lib/y2partitioner/widgets/blk_device_edit_button.rb:41
-#: src/lib/y2partitioner/widgets/btrfs_edit_button.rb:21
+#: src/lib/y2partitioner/widgets/btrfs_edit_button.rb:42
 #: src/lib/y2partitioner/widgets/lvm_edit_button.rb:39
 msgid "Edit..."
 msgstr "Upraviť..."
@@ -1495,7 +1522,7 @@ msgstr "Tenký LV"
 #. Opens a dialog to manage the list of subvolumes of the selected device
 #.
 #. @note In case of there is no selected table row, it shows an error.
-#: src/lib/y2partitioner/widgets/btrfs_edit_button.rb:31
+#: src/lib/y2partitioner/widgets/btrfs_edit_button.rb:52
 msgid "There is no filesystem selected to edit."
 msgstr "Neexistujú žiadne súborové systémy na úpravu."
 
@@ -2192,6 +2219,58 @@ msgstr ""
 "Táto kódová stránka sa používa pre prevod krátkych mien na systéme súborov "
 "FAT.</p>\n"
 
+#. Checks whether the mount points of the selected fstab can be imported
+#.
+#. It shows a popup with the errors detected in the selected fstab.
+#.
+#. @see Actions::Controllers::Fstabs#selected_fstab_errors
+#.
+#. @return [Boolean]
+#. so only warnings there
+#. FIXME: improve Yast2::Popup to allow some text before the buttons
+#: src/lib/y2partitioner/widgets/fstab_selector.rb:70
+#: src/lib/y2partitioner/widgets/overview.rb:130
+#: src/lib/y2storage/callbacks/sanitize.rb:54
+msgid "Do you want to continue?"
+msgstr "Chcete pokračovať?"
+
+#. @return [String]
+#: src/lib/y2partitioner/widgets/fstab_selector.rb:96
+#, fuzzy
+#| msgid ""
+#| "<p>YaST has scanned your hard disks and found one or several existing \n"
+#| "Linux systems with mount points. The old mount points are shown in \n"
+#| "the table.</p>\n"
+msgid ""
+"<p>YaST has scanned your hard disks and found one or several existing Linux "
+"systems with mount points. The old mount points are shown in the table.</p>"
+msgstr ""
+"<p>Aplikácia YaST prehľadala vaše pevné disky a našla jeden alebo viacero \n"
+" existujúcich linuxových systémov s bodmi pripojenia. Staré body pripojenia "
+"sú \n"
+" uvedené v tabuľke.</p>\n"
+
+#. Button to go to the previous fstab file
+#.
+#. @return [Yast::UI::Term]
+#: src/lib/y2partitioner/widgets/fstab_selector.rb:125
+msgid "Show &Previous"
+msgstr "Zobraziť &prechádzajúci"
+
+#. Button to go to the next fstab file
+#.
+#. @return [Yast::UI::Term]
+#: src/lib/y2partitioner/widgets/fstab_selector.rb:132
+msgid "Show &Next"
+msgstr "Zobraziť &nasledujúci"
+
+#. TRANSLATORS: %{device_name} is replaced by the name of a device (e.g., /dev/sda1)
+#: src/lib/y2partitioner/widgets/fstab_selector.rb:220
+#, fuzzy
+#| msgid "/etc/fstab found on %1 contains:"
+msgid "/etc/fstab found on %{device_name} contains:"
+msgstr "/etc/fstab nájdené na %1 obsahuje:"
+
 #. helptexts for table column and overview entry
 #: src/lib/y2partitioner/widgets/help.rb:17
 msgid ""
@@ -2481,6 +2560,11 @@ msgstr ""
 "označuje súborový systém, ktorý v súčasnej dobe nie je pripojený "
 "(napríklad,\n"
 "pretože má voľbu <tt>noauto</tt> nastavenú v <tt>/etc/fstab</tt>)."
+
+#. @macro seeAbstractWidget
+#: src/lib/y2partitioner/widgets/import_mount_points_button.rb:36
+msgid "Import Mount Points..."
+msgstr "Importovať body pripojenia..."
 
 #. When there is no vg, only shows an option to add a new vg.
 #. Otherwise, options for adding a vg or lv are shown.
@@ -2882,13 +2966,6 @@ msgstr ""
 msgid "System View"
 msgstr "Systémový pohľad"
 
-#. so only warnings there
-#. FIXME: improve Yast2::Popup to allow some text before the buttons
-#: src/lib/y2partitioner/widgets/overview.rb:130
-#: src/lib/y2storage/callbacks/sanitize.rb:54
-msgid "Do you want to continue?"
-msgstr "Chcete pokračovať?"
-
 #. @macro seeAbstractWidget
 #: src/lib/y2partitioner/widgets/pages/btrfs.rb:20
 msgid "Btrfs"
@@ -3070,7 +3147,7 @@ msgid "Installation Summary"
 msgstr "Súhrn inštalácie"
 
 #. TRANSLATORS: Heading. String followed by the hostname
-#: src/lib/y2partitioner/widgets/pages/system.rb:40
+#: src/lib/y2partitioner/widgets/pages/system.rb:92
 msgid "Available Storage on %s"
 msgstr "Dostupné úložisko na %s"
 
@@ -5932,9 +6009,6 @@ msgstr "Neznámy dôvod"
 #~ msgid "It is not possible to resize the file system while it is mounted."
 #~ msgstr "Nie je možné zmeniť veľkosť súborového systému, keď je pripojený."
 
-#~ msgid "Import Mount Points..."
-#~ msgstr "Importovať body pripojenia..."
-
 #~ msgid "Provide Crypt &Passwords..."
 #~ msgstr "&Zadať šifrovacie heslo..."
 
@@ -6428,17 +6502,6 @@ msgstr "Neznámy dôvod"
 #~ "o vybranom oddiele.</p>"
 
 #~ msgid ""
-#~ "<p>YaST has scanned your hard disks and found one or several existing \n"
-#~ "Linux systems with mount points. The old mount points are shown in \n"
-#~ "the table.</p>\n"
-#~ msgstr ""
-#~ "<p>Aplikácia YaST prehľadala vaše pevné disky a našla jeden alebo "
-#~ "viacero \n"
-#~ " existujúcich linuxových systémov s bodmi pripojenia. Staré body "
-#~ "pripojenia sú \n"
-#~ " uvedené v tabuľke.</p>\n"
-
-#~ msgid ""
 #~ "<p>You can choose whether the existing system\n"
 #~ "volumes, e.g. / and /usr, will be formatted during the\n"
 #~ "installation. Non-system volumes, e.g. /home, will not be formatted.</p>"
@@ -6450,23 +6513,8 @@ msgstr "Neznámy dôvod"
 #~ msgid "No previous system with mount points was detected."
 #~ msgstr "Nenájdený žiadny systém s definovanými bodmi pripojenia."
 
-#~ msgid "Show &Previous"
-#~ msgstr "Zobraziť &prechádzajúci"
-
-#~ msgid "Show &Next"
-#~ msgstr "Zobraziť &nasledujúci"
-
-#~ msgid "Import Mount Points from Existing System:"
-#~ msgstr "Importovať body pripojenia z existujúceho systému:"
-
 #~ msgid "Format System Volumes"
 #~ msgstr "Formátovať systémové zväzky"
-
-#~ msgid "Import"
-#~ msgstr "Import"
-
-#~ msgid "/etc/fstab found on %1 contains:"
-#~ msgstr "/etc/fstab nájdené na %1 obsahuje:"
 
 #~ msgid "Wrong Password Provided."
 #~ msgstr "Zadané nesprávne heslo."

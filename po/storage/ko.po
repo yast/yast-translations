@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: storage-ng.ko\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-04 02:30+0000\n"
+"POT-Creation-Date: 2018-05-05 02:30+0000\n"
 "PO-Revision-Date: 2018-04-26 01:42+0000\n"
 "Last-Translator: Hwajin Kim <hwajin.kim@e4net.net>\n"
 "Language-Team: Korean <https://l10n.opensuse.org/projects/yast-storage/"
@@ -101,6 +101,14 @@ msgid ""
 msgstr ""
 "이 디스크를 복제할 수 없습니다. 동일한 파티션\n"
 "레이아웃을 가질 수 있는 적합한 디스크가 없습니다."
+
+#. TRANSLATORS: %{mount_points} is replaced by a list of mount points, please
+#. do not modify it.
+#: src/lib/y2partitioner/actions/controllers/fstabs.rb:142
+msgid ""
+"The following mount points cannot be imported:\n"
+"%{mount_points}"
+msgstr ""
 
 # popup heading
 #. TRANSLATORS: dialog title. %s is a device name like /dev/vg0
@@ -509,6 +517,13 @@ msgstr ""
 "볼륨 %{name}은(는) 씬 풀입니다.\n"
 "이것은 편집할 수 없습니다."
 
+#. Error message when no fstab file was detected
+#.
+#. @return [String, nil] nil if there is some fstab
+#: src/lib/y2partitioner/actions/import_mount_points.rb:87
+msgid "YaST has scanned your hard disks but no fstab file was found."
+msgstr ""
+
 #. TRANSLATORS: %{name} is replaced by a device name (e.g., /dev/sda1).
 #: src/lib/y2partitioner/actions/resize_blk_device.rb:103
 msgid ""
@@ -846,6 +861,18 @@ msgstr "%s에 대한 암호화 비밀번호"
 #: src/lib/y2partitioner/dialogs/fstab_options.rb:40
 msgid "Fstab Options:"
 msgstr "Fstab 옵션:"
+
+#. Constructor
+#.
+#. @param controller [Actions::Controllers::Fstabs]
+#: src/lib/y2partitioner/dialogs/import_mount_points.rb:39
+msgid "Import Mount Points from Existing System:"
+msgstr "기존 시스템에서 마운트 포인트 임포트:"
+
+#. @see #fstab_selector
+#: src/lib/y2partitioner/dialogs/import_mount_points.rb:48
+msgid "Import"
+msgstr "임포트"
 
 # src/isdn/complex.ycp:266 src/modem/complex.ycp:207
 # src/provider/complex.ycp:186
@@ -1462,7 +1489,7 @@ msgstr "파일 시스템:"
 #. @see CWM::PushButton#Label
 #. @macro seeAbstractWidget
 #: src/lib/y2partitioner/widgets/blk_device_edit_button.rb:41
-#: src/lib/y2partitioner/widgets/btrfs_edit_button.rb:21
+#: src/lib/y2partitioner/widgets/btrfs_edit_button.rb:42
 #: src/lib/y2partitioner/widgets/lvm_edit_button.rb:39
 msgid "Edit..."
 msgstr "편집..."
@@ -1565,7 +1592,7 @@ msgstr "씬 LV"
 #. Opens a dialog to manage the list of subvolumes of the selected device
 #.
 #. @note In case of there is no selected table row, it shows an error.
-#: src/lib/y2partitioner/widgets/btrfs_edit_button.rb:31
+#: src/lib/y2partitioner/widgets/btrfs_edit_button.rb:52
 msgid "There is no filesystem selected to edit."
 msgstr "편집하도록 선택된 파일 시스템이 없습니다."
 
@@ -2285,6 +2312,57 @@ msgstr ""
 "이 코드 페이지는 FAT 파일 시스템의 짧은 이름 문자를 변환하기 위해 쓰입니다.</"
 "p>\n"
 
+#. Checks whether the mount points of the selected fstab can be imported
+#.
+#. It shows a popup with the errors detected in the selected fstab.
+#.
+#. @see Actions::Controllers::Fstabs#selected_fstab_errors
+#.
+#. @return [Boolean]
+#. so only warnings there
+#. FIXME: improve Yast2::Popup to allow some text before the buttons
+#: src/lib/y2partitioner/widgets/fstab_selector.rb:70
+#: src/lib/y2partitioner/widgets/overview.rb:130
+#: src/lib/y2storage/callbacks/sanitize.rb:54
+msgid "Do you want to continue?"
+msgstr "계속하시겠습니까?"
+
+#. @return [String]
+#: src/lib/y2partitioner/widgets/fstab_selector.rb:96
+#, fuzzy
+#| msgid ""
+#| "<p>YaST has scanned your hard disks and found one or several existing \n"
+#| "Linux systems with mount points. The old mount points are shown in \n"
+#| "the table.</p>\n"
+msgid ""
+"<p>YaST has scanned your hard disks and found one or several existing Linux "
+"systems with mount points. The old mount points are shown in the table.</p>"
+msgstr ""
+"<p>YaST에서 하드 디스크를 스캔했으며 마운트 포인트를 포함한 하나 또는\n"
+"여러 개의 Linux 시스템이 발견되었습니다. 이전 마운트 포인트가\n"
+"테이블에 표시되었습니다.</p>\n"
+
+#. Button to go to the previous fstab file
+#.
+#. @return [Yast::UI::Term]
+#: src/lib/y2partitioner/widgets/fstab_selector.rb:125
+msgid "Show &Previous"
+msgstr "이전 보기(&P)"
+
+#. Button to go to the next fstab file
+#.
+#. @return [Yast::UI::Term]
+#: src/lib/y2partitioner/widgets/fstab_selector.rb:132
+msgid "Show &Next"
+msgstr "다음 보기(&N)"
+
+#. TRANSLATORS: %{device_name} is replaced by the name of a device (e.g., /dev/sda1)
+#: src/lib/y2partitioner/widgets/fstab_selector.rb:220
+#, fuzzy
+#| msgid "/etc/fstab found on %1 contains:"
+msgid "/etc/fstab found on %{device_name} contains:"
+msgstr "%1에서 검색된 /etc/fstab의 포함 내용:"
+
 #. helptexts for table column and overview entry
 #: src/lib/y2partitioner/widgets/help.rb:17
 msgid ""
@@ -2569,6 +2647,11 @@ msgstr ""
 "마운트 포인트 뒤에 있는 별표(*)는 현재 마운트되지 않은\n"
 "파일 시스템을 나타냅니다(예: <tt>/etc/fstab</tt>에 <tt>noauto</tt> 옵션이 설"
 "정되었기 때문)."
+
+#. @macro seeAbstractWidget
+#: src/lib/y2partitioner/widgets/import_mount_points_button.rb:36
+msgid "Import Mount Points..."
+msgstr "마운트 포인트 가져오기..."
 
 #. When there is no vg, only shows an option to add a new vg.
 #. Otherwise, options for adding a vg or lv are shown.
@@ -2971,13 +3054,6 @@ msgstr ""
 msgid "System View"
 msgstr "시스템 보기"
 
-#. so only warnings there
-#. FIXME: improve Yast2::Popup to allow some text before the buttons
-#: src/lib/y2partitioner/widgets/overview.rb:130
-#: src/lib/y2storage/callbacks/sanitize.rb:54
-msgid "Do you want to continue?"
-msgstr "계속하시겠습니까?"
-
 #. @macro seeAbstractWidget
 #: src/lib/y2partitioner/widgets/pages/btrfs.rb:20
 msgid "Btrfs"
@@ -3172,7 +3248,7 @@ msgstr "설치 요약"
 
 # table item / label
 #. TRANSLATORS: Heading. String followed by the hostname
-#: src/lib/y2partitioner/widgets/pages/system.rb:40
+#: src/lib/y2partitioner/widgets/pages/system.rb:92
 msgid "Available Storage on %s"
 msgstr "사용할 수 있는 %s의 저장매체"
 
@@ -6163,9 +6239,6 @@ msgstr "알 수 없는 이유"
 #~ msgid "It is not possible to resize the file system while it is mounted."
 #~ msgstr "마운트된 동안에는 파일 시스템의 크기를 조정할 수 없습니다."
 
-#~ msgid "Import Mount Points..."
-#~ msgstr "마운트 포인트 가져오기..."
-
 #~ msgid "Provide Crypt &Passwords..."
 #~ msgstr "암호 비밀번호 제공(&P)..."
 
@@ -6676,15 +6749,6 @@ msgstr "알 수 없는 이유"
 #~ "표시됩니다.</p>"
 
 #~ msgid ""
-#~ "<p>YaST has scanned your hard disks and found one or several existing \n"
-#~ "Linux systems with mount points. The old mount points are shown in \n"
-#~ "the table.</p>\n"
-#~ msgstr ""
-#~ "<p>YaST에서 하드 디스크를 스캔했으며 마운트 포인트를 포함한 하나 또는\n"
-#~ "여러 개의 Linux 시스템이 발견되었습니다. 이전 마운트 포인트가\n"
-#~ "테이블에 표시되었습니다.</p>\n"
-
-#~ msgid ""
 #~ "<p>You can choose whether the existing system\n"
 #~ "volumes, e.g. / and /usr, will be formatted during the\n"
 #~ "installation. Non-system volumes, e.g. /home, will not be formatted.</p>"
@@ -6697,23 +6761,8 @@ msgstr "알 수 없는 이유"
 #~ msgid "No previous system with mount points was detected."
 #~ msgstr "마운트 포인트에 있는 이전 시스템을 찾을 수 없습니다."
 
-#~ msgid "Show &Previous"
-#~ msgstr "이전 보기(&P)"
-
-#~ msgid "Show &Next"
-#~ msgstr "다음 보기(&N)"
-
-#~ msgid "Import Mount Points from Existing System:"
-#~ msgstr "기존 시스템에서 마운트 포인트 임포트:"
-
 #~ msgid "Format System Volumes"
 #~ msgstr "시스템 볼륨 포맷"
-
-#~ msgid "Import"
-#~ msgstr "임포트"
-
-#~ msgid "/etc/fstab found on %1 contains:"
-#~ msgstr "%1에서 검색된 /etc/fstab의 포함 내용:"
 
 #~ msgid "Wrong Password Provided."
 #~ msgstr "잘못된 비밀번호를 제공했습니다."

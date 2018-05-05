@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Catalan (yast-storage)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-04 02:30+0000\n"
+"POT-Creation-Date: 2018-05-05 02:30+0000\n"
 "PO-Revision-Date: 2018-04-24 10:00+0000\n"
 "Last-Translator: David Medina <medipas@gmail.com>\n"
 "Language-Team: Catalan <https://l10n.opensuse.org/projects/yast-storage/"
@@ -93,6 +93,14 @@ msgid ""
 msgstr ""
 "Aquest disc no es pot clonar. No hi ha cap disc que\n"
 "pugui tenir el mateix esquema de particions."
+
+#. TRANSLATORS: %{mount_points} is replaced by a list of mount points, please
+#. do not modify it.
+#: src/lib/y2partitioner/actions/controllers/fstabs.rb:142
+msgid ""
+"The following mount points cannot be imported:\n"
+"%{mount_points}"
+msgstr ""
 
 #. TRANSLATORS: dialog title. %s is a device name like /dev/vg0
 #: src/lib/y2partitioner/actions/controllers/lvm_lv.rb:245
@@ -499,6 +507,13 @@ msgstr ""
 "El volum %{name} és en una agrupació prima.\n"
 "No es pot editar."
 
+#. Error message when no fstab file was detected
+#.
+#. @return [String, nil] nil if there is some fstab
+#: src/lib/y2partitioner/actions/import_mount_points.rb:87
+msgid "YaST has scanned your hard disks but no fstab file was found."
+msgstr ""
+
 #. TRANSLATORS: %{name} is replaced by a device name (e.g., /dev/sda1).
 #: src/lib/y2partitioner/actions/resize_blk_device.rb:103
 msgid ""
@@ -828,6 +843,18 @@ msgstr "Contrasenya d'encriptació per a %s"
 #: src/lib/y2partitioner/dialogs/fstab_options.rb:40
 msgid "Fstab Options:"
 msgstr "Opcions &Fstab:"
+
+#. Constructor
+#.
+#. @param controller [Actions::Controllers::Fstabs]
+#: src/lib/y2partitioner/dialogs/import_mount_points.rb:39
+msgid "Import Mount Points from Existing System:"
+msgstr "Importa els punts de muntatge d'un sistema existent:"
+
+#. @see #fstab_selector
+#: src/lib/y2partitioner/dialogs/import_mount_points.rb:48
+msgid "Import"
+msgstr "Importa"
 
 #. @macro seeDialog
 #: src/lib/y2partitioner/dialogs/lvm_lv_info.rb:53
@@ -1410,7 +1437,7 @@ msgstr "Sistema de fitxers:"
 #. @see CWM::PushButton#Label
 #. @macro seeAbstractWidget
 #: src/lib/y2partitioner/widgets/blk_device_edit_button.rb:41
-#: src/lib/y2partitioner/widgets/btrfs_edit_button.rb:21
+#: src/lib/y2partitioner/widgets/btrfs_edit_button.rb:42
 #: src/lib/y2partitioner/widgets/lvm_edit_button.rb:39
 msgid "Edit..."
 msgstr "Edita..."
@@ -1506,7 +1533,7 @@ msgstr "LV prim"
 #. Opens a dialog to manage the list of subvolumes of the selected device
 #.
 #. @note In case of there is no selected table row, it shows an error.
-#: src/lib/y2partitioner/widgets/btrfs_edit_button.rb:31
+#: src/lib/y2partitioner/widgets/btrfs_edit_button.rb:52
 msgid "There is no filesystem selected to edit."
 msgstr "No hi ha cap sistema de fitxers seleccionat per editar."
 
@@ -2216,6 +2243,57 @@ msgstr ""
 "Aquesta pàgina de codis s'utilitza per a convertir a caràcters de noms curts "
 "en sistemes de fitxers FAT.</p>\n"
 
+#. Checks whether the mount points of the selected fstab can be imported
+#.
+#. It shows a popup with the errors detected in the selected fstab.
+#.
+#. @see Actions::Controllers::Fstabs#selected_fstab_errors
+#.
+#. @return [Boolean]
+#. so only warnings there
+#. FIXME: improve Yast2::Popup to allow some text before the buttons
+#: src/lib/y2partitioner/widgets/fstab_selector.rb:70
+#: src/lib/y2partitioner/widgets/overview.rb:130
+#: src/lib/y2storage/callbacks/sanitize.rb:54
+msgid "Do you want to continue?"
+msgstr "Voleu continuar?"
+
+#. @return [String]
+#: src/lib/y2partitioner/widgets/fstab_selector.rb:96
+#, fuzzy
+#| msgid ""
+#| "<p>YaST has scanned your hard disks and found one or several existing \n"
+#| "Linux systems with mount points. The old mount points are shown in \n"
+#| "the table.</p>\n"
+msgid ""
+"<p>YaST has scanned your hard disks and found one or several existing Linux "
+"systems with mount points. The old mount points are shown in the table.</p>"
+msgstr ""
+"<p>El YaST2 ha escanejat els discs durs i ha trobat un o més sistemes Linux\n"
+"amb punts de muntatge. A la llista es mostren els punts muntatge que s'han "
+"trobat.</p>\n"
+
+#. Button to go to the previous fstab file
+#.
+#. @return [Yast::UI::Term]
+#: src/lib/y2partitioner/widgets/fstab_selector.rb:125
+msgid "Show &Previous"
+msgstr "Mostra l'&anterior"
+
+#. Button to go to the next fstab file
+#.
+#. @return [Yast::UI::Term]
+#: src/lib/y2partitioner/widgets/fstab_selector.rb:132
+msgid "Show &Next"
+msgstr "Mostra el &següent"
+
+#. TRANSLATORS: %{device_name} is replaced by the name of a device (e.g., /dev/sda1)
+#: src/lib/y2partitioner/widgets/fstab_selector.rb:220
+#, fuzzy
+#| msgid "/etc/fstab found on %1 contains:"
+msgid "/etc/fstab found on %{device_name} contains:"
+msgstr "/etc/fstab trobat a %1 conté:"
+
 #. helptexts for table column and overview entry
 #: src/lib/y2partitioner/widgets/help.rb:17
 msgid ""
@@ -2511,6 +2589,11 @@ msgstr ""
 "Un asterisc (*) després del punt de muntatge\n"
 "indica un sistema de fitxers que actualment no està muntat (per exemple,\n"
 "perquè té l'opció <tt>noauto</tt> a <tt>/etc/fstab</tt>)."
+
+#. @macro seeAbstractWidget
+#: src/lib/y2partitioner/widgets/import_mount_points_button.rb:36
+msgid "Import Mount Points..."
+msgstr "Importa els punts de muntatge..."
 
 #. When there is no vg, only shows an option to add a new vg.
 #. Otherwise, options for adding a vg or lv are shown.
@@ -2923,13 +3006,6 @@ msgstr ""
 msgid "System View"
 msgstr "Visualització del sistema"
 
-#. so only warnings there
-#. FIXME: improve Yast2::Popup to allow some text before the buttons
-#: src/lib/y2partitioner/widgets/overview.rb:130
-#: src/lib/y2storage/callbacks/sanitize.rb:54
-msgid "Do you want to continue?"
-msgstr "Voleu continuar?"
-
 #. @macro seeAbstractWidget
 #: src/lib/y2partitioner/widgets/pages/btrfs.rb:20
 msgid "Btrfs"
@@ -3113,7 +3189,7 @@ msgid "Installation Summary"
 msgstr "Resum de la instal·lació"
 
 #. TRANSLATORS: Heading. String followed by the hostname
-#: src/lib/y2partitioner/widgets/pages/system.rb:40
+#: src/lib/y2partitioner/widgets/pages/system.rb:92
 msgid "Available Storage on %s"
 msgstr "Emmagatzematge disponible a %s"
 
@@ -6031,9 +6107,6 @@ msgstr "Raó desconeguda"
 #~ msgstr ""
 #~ "No es pot canviar la mida del sistema de fitxers mentre estigui muntat."
 
-#~ msgid "Import Mount Points..."
-#~ msgstr "Importa els punts de muntatge..."
-
 #~ msgid "Provide Crypt &Passwords..."
 #~ msgstr "Introduïu la contrasenya &Crypt..."
 
@@ -6534,16 +6607,6 @@ msgstr "Raó desconeguda"
 #~ "la partició seleccionada.</p>"
 
 #~ msgid ""
-#~ "<p>YaST has scanned your hard disks and found one or several existing \n"
-#~ "Linux systems with mount points. The old mount points are shown in \n"
-#~ "the table.</p>\n"
-#~ msgstr ""
-#~ "<p>El YaST2 ha escanejat els discs durs i ha trobat un o més sistemes "
-#~ "Linux\n"
-#~ "amb punts de muntatge. A la llista es mostren els punts muntatge que "
-#~ "s'han trobat.</p>\n"
-
-#~ msgid ""
 #~ "<p>You can choose whether the existing system\n"
 #~ "volumes, e.g. / and /usr, will be formatted during the\n"
 #~ "installation. Non-system volumes, e.g. /home, will not be formatted.</p>"
@@ -6555,23 +6618,8 @@ msgstr "Raó desconeguda"
 #~ msgid "No previous system with mount points was detected."
 #~ msgstr "No s'ha detectat cap sistema previ amb punts de muntatge."
 
-#~ msgid "Show &Previous"
-#~ msgstr "Mostra l'&anterior"
-
-#~ msgid "Show &Next"
-#~ msgstr "Mostra el &següent"
-
-#~ msgid "Import Mount Points from Existing System:"
-#~ msgstr "Importa els punts de muntatge d'un sistema existent:"
-
 #~ msgid "Format System Volumes"
 #~ msgstr "Formata els volums de sistema"
-
-#~ msgid "Import"
-#~ msgstr "Importa"
-
-#~ msgid "/etc/fstab found on %1 contains:"
-#~ msgstr "/etc/fstab trobat a %1 conté:"
 
 #~ msgid "Wrong Password Provided."
 #~ msgstr "La contrasenya donada és incorrecta."

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: storage\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-04 02:30+0000\n"
+"POT-Creation-Date: 2018-05-05 02:30+0000\n"
 "PO-Revision-Date: 2018-04-26 01:55+0000\n"
 "Last-Translator: Grace Yu <grace.yu@excel-gits.com>\n"
 "Language-Team: Chinese (Taiwan) <https://l10n.opensuse.org/projects/yast-"
@@ -95,6 +95,14 @@ msgid ""
 msgstr ""
 "此磁碟無法複製。沒有\n"
 "具有相同分割配置的合適磁碟。"
+
+#. TRANSLATORS: %{mount_points} is replaced by a list of mount points, please
+#. do not modify it.
+#: src/lib/y2partitioner/actions/controllers/fstabs.rb:142
+msgid ""
+"The following mount points cannot be imported:\n"
+"%{mount_points}"
+msgstr ""
 
 #. TRANSLATORS: dialog title. %s is a device name like /dev/vg0
 #: src/lib/y2partitioner/actions/controllers/lvm_lv.rb:245
@@ -486,6 +494,13 @@ msgstr ""
 "磁碟區 %{name} 是一個簡易池，\n"
 "無法編輯。"
 
+#. Error message when no fstab file was detected
+#.
+#. @return [String, nil] nil if there is some fstab
+#: src/lib/y2partitioner/actions/import_mount_points.rb:87
+msgid "YaST has scanned your hard disks but no fstab file was found."
+msgstr ""
+
 #. TRANSLATORS: %{name} is replaced by a device name (e.g., /dev/sda1).
 #: src/lib/y2partitioner/actions/resize_blk_device.rb:103
 msgid ""
@@ -807,6 +822,18 @@ msgstr "%s 的加密密碼"
 #: src/lib/y2partitioner/dialogs/fstab_options.rb:40
 msgid "Fstab Options:"
 msgstr "Fstab 選項："
+
+#. Constructor
+#.
+#. @param controller [Actions::Controllers::Fstabs]
+#: src/lib/y2partitioner/dialogs/import_mount_points.rb:39
+msgid "Import Mount Points from Existing System:"
+msgstr "從現有系統導入掛接點︰"
+
+#. @see #fstab_selector
+#: src/lib/y2partitioner/dialogs/import_mount_points.rb:48
+msgid "Import"
+msgstr "輸入"
 
 #. @macro seeDialog
 #: src/lib/y2partitioner/dialogs/lvm_lv_info.rb:53
@@ -1372,7 +1399,7 @@ msgstr "檔案系統："
 #. @see CWM::PushButton#Label
 #. @macro seeAbstractWidget
 #: src/lib/y2partitioner/widgets/blk_device_edit_button.rb:41
-#: src/lib/y2partitioner/widgets/btrfs_edit_button.rb:21
+#: src/lib/y2partitioner/widgets/btrfs_edit_button.rb:42
 #: src/lib/y2partitioner/widgets/lvm_edit_button.rb:39
 msgid "Edit..."
 msgstr "編輯..."
@@ -1468,7 +1495,7 @@ msgstr "簡易 LV"
 #. Opens a dialog to manage the list of subvolumes of the selected device
 #.
 #. @note In case of there is no selected table row, it shows an error.
-#: src/lib/y2partitioner/widgets/btrfs_edit_button.rb:31
+#: src/lib/y2partitioner/widgets/btrfs_edit_button.rb:52
 msgid "There is no filesystem selected to edit."
 msgstr "沒有選取要編輯的檔案系統。"
 
@@ -2154,6 +2181,57 @@ msgstr ""
 "<p><b>短 FAT 名稱的內碼頁：</b>\n"
 "此內碼頁會用於轉換 FAT 檔案系統上的短名稱字元。</p>\n"
 
+#. Checks whether the mount points of the selected fstab can be imported
+#.
+#. It shows a popup with the errors detected in the selected fstab.
+#.
+#. @see Actions::Controllers::Fstabs#selected_fstab_errors
+#.
+#. @return [Boolean]
+#. so only warnings there
+#. FIXME: improve Yast2::Popup to allow some text before the buttons
+#: src/lib/y2partitioner/widgets/fstab_selector.rb:70
+#: src/lib/y2partitioner/widgets/overview.rb:130
+#: src/lib/y2storage/callbacks/sanitize.rb:54
+msgid "Do you want to continue?"
+msgstr "是否要繼續？"
+
+#. @return [String]
+#: src/lib/y2partitioner/widgets/fstab_selector.rb:96
+#, fuzzy
+#| msgid ""
+#| "<p>YaST has scanned your hard disks and found one or several existing \n"
+#| "Linux systems with mount points. The old mount points are shown in \n"
+#| "the table.</p>\n"
+msgid ""
+"<p>YaST has scanned your hard disks and found one or several existing Linux "
+"systems with mount points. The old mount points are shown in the table.</p>"
+msgstr ""
+"<p>YaST 已經掃描了您的硬體並且找到\n"
+"一或多個含掛接點的現有 Linux 系統。舊掛接點\n"
+"顯示在表格中。</p>\n"
+
+#. Button to go to the previous fstab file
+#.
+#. @return [Yast::UI::Term]
+#: src/lib/y2partitioner/widgets/fstab_selector.rb:125
+msgid "Show &Previous"
+msgstr "顯示上一個(&P)"
+
+#. Button to go to the next fstab file
+#.
+#. @return [Yast::UI::Term]
+#: src/lib/y2partitioner/widgets/fstab_selector.rb:132
+msgid "Show &Next"
+msgstr "顯示下一個(&N)"
+
+#. TRANSLATORS: %{device_name} is replaced by the name of a device (e.g., /dev/sda1)
+#: src/lib/y2partitioner/widgets/fstab_selector.rb:220
+#, fuzzy
+#| msgid "/etc/fstab found on %1 contains:"
+msgid "/etc/fstab found on %{device_name} contains:"
+msgstr "%1 上找到的 /etc/fstab 包含︰"
+
 #. helptexts for table column and overview entry
 #: src/lib/y2partitioner/widgets/help.rb:17
 msgid ""
@@ -2438,6 +2516,11 @@ msgstr ""
 "掛接點後面的星號 (*) 指出目前\n"
 "未掛接的檔案系統 (例如，因為它在 <tt>/etc/fstab</tt> 中\n"
 "已設定 <tt>noauto</tt> 選項)。"
+
+#. @macro seeAbstractWidget
+#: src/lib/y2partitioner/widgets/import_mount_points_button.rb:36
+msgid "Import Mount Points..."
+msgstr "輸入掛接點..."
 
 #. When there is no vg, only shows an option to add a new vg.
 #. Otherwise, options for adding a vg or lv are shown.
@@ -2817,13 +2900,6 @@ msgstr ""
 msgid "System View"
 msgstr "系統檢視"
 
-#. so only warnings there
-#. FIXME: improve Yast2::Popup to allow some text before the buttons
-#: src/lib/y2partitioner/widgets/overview.rb:130
-#: src/lib/y2storage/callbacks/sanitize.rb:54
-msgid "Do you want to continue?"
-msgstr "是否要繼續？"
-
 #. @macro seeAbstractWidget
 #: src/lib/y2partitioner/widgets/pages/btrfs.rb:20
 msgid "Btrfs"
@@ -3000,7 +3076,7 @@ msgid "Installation Summary"
 msgstr "安裝摘要"
 
 #. TRANSLATORS: Heading. String followed by the hostname
-#: src/lib/y2partitioner/widgets/pages/system.rb:40
+#: src/lib/y2partitioner/widgets/pages/system.rb:92
 msgid "Available Storage on %s"
 msgstr "%s 上的可用儲存"
 
@@ -5825,9 +5901,6 @@ msgstr "未知原因"
 #~ msgid "It is not possible to resize the file system while it is mounted."
 #~ msgstr "無法調整處於掛接狀態之檔案系統的大小。"
 
-#~ msgid "Import Mount Points..."
-#~ msgstr "輸入掛接點..."
-
 #~ msgid "Provide Crypt &Passwords..."
 #~ msgstr "提供加密密碼(&P)..."
 
@@ -6318,15 +6391,6 @@ msgstr "未知原因"
 #~ "詳細資訊。</p>"
 
 #~ msgid ""
-#~ "<p>YaST has scanned your hard disks and found one or several existing \n"
-#~ "Linux systems with mount points. The old mount points are shown in \n"
-#~ "the table.</p>\n"
-#~ msgstr ""
-#~ "<p>YaST 已經掃描了您的硬體並且找到\n"
-#~ "一或多個含掛接點的現有 Linux 系統。舊掛接點\n"
-#~ "顯示在表格中。</p>\n"
-
-#~ msgid ""
 #~ "<p>You can choose whether the existing system\n"
 #~ "volumes, e.g. / and /usr, will be formatted during the\n"
 #~ "installation. Non-system volumes, e.g. /home, will not be formatted.</p>"
@@ -6338,23 +6402,8 @@ msgstr "未知原因"
 #~ msgid "No previous system with mount points was detected."
 #~ msgstr "未偵測到有裝載點的舊系統。"
 
-#~ msgid "Show &Previous"
-#~ msgstr "顯示上一個(&P)"
-
-#~ msgid "Show &Next"
-#~ msgstr "顯示下一個(&N)"
-
-#~ msgid "Import Mount Points from Existing System:"
-#~ msgstr "從現有系統導入掛接點︰"
-
 #~ msgid "Format System Volumes"
 #~ msgstr "格式化系統磁碟區"
-
-#~ msgid "Import"
-#~ msgstr "輸入"
-
-#~ msgid "/etc/fstab found on %1 contains:"
-#~ msgstr "%1 上找到的 /etc/fstab 包含︰"
 
 #~ msgid "Wrong Password Provided."
 #~ msgstr "提供了錯誤的密碼。"

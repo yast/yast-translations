@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: storage-ng.pt\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-04 02:30+0000\n"
+"POT-Creation-Date: 2018-05-05 02:30+0000\n"
 "PO-Revision-Date: 2018-03-10 17:05+0000\n"
 "Last-Translator: Marcelo Junior <marceloatie@opensuse.org>\n"
 "Language-Team: Portuguese <https://l10n.opensuse.org/projects/yast-storage/"
@@ -100,6 +100,14 @@ msgstr ""
 msgid ""
 "This disk cannot be cloned. There are no suitable\n"
 "disks that could have the same partitioning layout."
+msgstr ""
+
+#. TRANSLATORS: %{mount_points} is replaced by a list of mount points, please
+#. do not modify it.
+#: src/lib/y2partitioner/actions/controllers/fstabs.rb:142
+msgid ""
+"The following mount points cannot be imported:\n"
+"%{mount_points}"
 msgstr ""
 
 #. TRANSLATORS: dialog title. %s is a device name like /dev/vg0
@@ -586,6 +594,13 @@ msgstr ""
 "O ficheiro %1 não foi encontrado.\n"
 "Não pode ser recuperado.\n"
 
+#. Error message when no fstab file was detected
+#.
+#. @return [String, nil] nil if there is some fstab
+#: src/lib/y2partitioner/actions/import_mount_points.rb:87
+msgid "YaST has scanned your hard disks but no fstab file was found."
+msgstr ""
+
 #. TRANSLATORS: %{name} is replaced by a device name (e.g., /dev/sda1).
 #: src/lib/y2partitioner/actions/resize_blk_device.rb:103
 #, fuzzy
@@ -965,6 +980,22 @@ msgstr "Digitar Palavra &Passe:"
 #| msgid "Fs&tab Options"
 msgid "Fstab Options:"
 msgstr "Opções para o fs&tab"
+
+#. Constructor
+#.
+#. @param controller [Actions::Controllers::Fstabs]
+#: src/lib/y2partitioner/dialogs/import_mount_points.rb:39
+#, fuzzy
+#| msgid "&Import Mount Points from Existing /etc/fstab"
+msgid "Import Mount Points from Existing System:"
+msgstr "&Importar Pontos de Montagem do /etc/fstab existente"
+
+#. @see #fstab_selector
+#: src/lib/y2partitioner/dialogs/import_mount_points.rb:48
+#, fuzzy
+#| msgid "&Import"
+msgid "Import"
+msgstr "&Importar"
 
 #. @macro seeDialog
 #: src/lib/y2partitioner/dialogs/lvm_lv_info.rb:53
@@ -1616,7 +1647,7 @@ msgstr "Sistema de Ficheiros:"
 #. @see CWM::PushButton#Label
 #. @macro seeAbstractWidget
 #: src/lib/y2partitioner/widgets/blk_device_edit_button.rb:41
-#: src/lib/y2partitioner/widgets/btrfs_edit_button.rb:21
+#: src/lib/y2partitioner/widgets/btrfs_edit_button.rb:42
 #: src/lib/y2partitioner/widgets/lvm_edit_button.rb:39
 msgid "Edit..."
 msgstr "Editar..."
@@ -1723,7 +1754,7 @@ msgstr "&Volume"
 #. Opens a dialog to manage the list of subvolumes of the selected device
 #.
 #. @note In case of there is no selected table row, it shows an error.
-#: src/lib/y2partitioner/widgets/btrfs_edit_button.rb:31
+#: src/lib/y2partitioner/widgets/btrfs_edit_button.rb:52
 #, fuzzy
 #| msgid "There are no partitions to delete on this disk."
 msgid "There is no filesystem selected to edit."
@@ -2559,6 +2590,60 @@ msgstr ""
 "Esta página de código é utilizada para converter nomes curtos em sistemas de "
 "ficheiros FAT.</p>\n"
 
+#. Checks whether the mount points of the selected fstab can be imported
+#.
+#. It shows a popup with the errors detected in the selected fstab.
+#.
+#. @see Actions::Controllers::Fstabs#selected_fstab_errors
+#.
+#. @return [Boolean]
+#. so only warnings there
+#. FIXME: improve Yast2::Popup to allow some text before the buttons
+#: src/lib/y2partitioner/widgets/fstab_selector.rb:70
+#: src/lib/y2partitioner/widgets/overview.rb:130
+#: src/lib/y2storage/callbacks/sanitize.rb:54
+#, fuzzy
+#| msgid "Do you want to retry?"
+msgid "Do you want to continue?"
+msgstr "Deseja tentar novamente?"
+
+#. @return [String]
+#: src/lib/y2partitioner/widgets/fstab_selector.rb:96
+#, fuzzy
+#| msgid ""
+#| "<P><B><BIG>Attention:</BIG></B><BR>YaST2 has scanned your hard disks and "
+#| "found an old Linux system\n"
+#| "with mount points. On the right, see a list with the mount points found. "
+#| "</P>\n"
+msgid ""
+"<p>YaST has scanned your hard disks and found one or several existing Linux "
+"systems with mount points. The old mount points are shown in the table.</p>"
+msgstr ""
+"<P><B><BIG>Atenção:</BIG></B><BR>\n"
+"O YaST2 analisou o disco rígido e encontrou um sistema Linux\n"
+"com pontos de montagem. À direita, veja a lista\n"
+"com os pontos de montagem encontrados. </P>\n"
+
+#. Button to go to the previous fstab file
+#.
+#. @return [Yast::UI::Term]
+#: src/lib/y2partitioner/widgets/fstab_selector.rb:125
+msgid "Show &Previous"
+msgstr "Mostrar &Anterior"
+
+# /usr/lib/YaST2/clients/logcontrol.ycp:80
+#. Button to go to the next fstab file
+#.
+#. @return [Yast::UI::Term]
+#: src/lib/y2partitioner/widgets/fstab_selector.rb:132
+msgid "Show &Next"
+msgstr "Mostrar &Próximo"
+
+#. TRANSLATORS: %{device_name} is replaced by the name of a device (e.g., /dev/sda1)
+#: src/lib/y2partitioner/widgets/fstab_selector.rb:220
+msgid "/etc/fstab found on %{device_name} contains:"
+msgstr ""
+
 #. helptexts for table column and overview entry
 #: src/lib/y2partitioner/widgets/help.rb:17
 msgid ""
@@ -2892,6 +2977,11 @@ msgstr ""
 "Um asterisco (*) após o ponto de montagem indica um sistema de\n"
 "ficheiros que não se encontra actualmente montado (e.g. porque tem a\n"
 "opção <tt>noauto</tt> definida em <tt>/etc/fstab</tt>)."
+
+#. @macro seeAbstractWidget
+#: src/lib/y2partitioner/widgets/import_mount_points_button.rb:36
+msgid "Import Mount Points..."
+msgstr "Importar Pontos de Montagem..."
 
 #. When there is no vg, only shows an option to add a new vg.
 #. Otherwise, options for adding a vg or lv are shown.
@@ -3333,15 +3423,6 @@ msgstr ""
 msgid "System View"
 msgstr "Vista do Sistema"
 
-#. so only warnings there
-#. FIXME: improve Yast2::Popup to allow some text before the buttons
-#: src/lib/y2partitioner/widgets/overview.rb:130
-#: src/lib/y2storage/callbacks/sanitize.rb:54
-#, fuzzy
-#| msgid "Do you want to retry?"
-msgid "Do you want to continue?"
-msgstr "Deseja tentar novamente?"
-
 #. @macro seeAbstractWidget
 #: src/lib/y2partitioner/widgets/pages/btrfs.rb:20
 msgid "Btrfs"
@@ -3547,7 +3628,7 @@ msgstr "Resumo da Instalação"
 
 # /usr/lib/YaST2/clients/menu.ycp:43
 #. TRANSLATORS: Heading. String followed by the hostname
-#: src/lib/y2partitioner/widgets/pages/system.rb:40
+#: src/lib/y2partitioner/widgets/pages/system.rb:92
 #, fuzzy
 #| msgid "Available Storage on %1"
 msgid "Available Storage on %s"
@@ -6665,9 +6746,6 @@ msgstr ""
 #~ msgid "It is not possible to resize the file system while it is mounted."
 #~ msgstr "Não é possível criar uma partição no disco %1."
 
-#~ msgid "Import Mount Points..."
-#~ msgstr "Importar Pontos de Montagem..."
-
 #, fuzzy
 #~| msgid "Enter Provider Password"
 #~ msgid "Provide Crypt &Passwords..."
@@ -7244,46 +7322,13 @@ msgstr ""
 #~ "<p>Esta cena mostra informação detalhada acerca\n"
 #~ "da partição seleccionada.</p>"
 
-#, fuzzy
-#~| msgid ""
-#~| "<P><B><BIG>Attention:</BIG></B><BR>YaST2 has scanned your hard disks and "
-#~| "found an old Linux system\n"
-#~| "with mount points. On the right, see a list with the mount points found. "
-#~| "</P>\n"
-#~ msgid ""
-#~ "<p>YaST has scanned your hard disks and found one or several existing \n"
-#~ "Linux systems with mount points. The old mount points are shown in \n"
-#~ "the table.</p>\n"
-#~ msgstr ""
-#~ "<P><B><BIG>Atenção:</BIG></B><BR>\n"
-#~ "O YaST2 analisou o disco rígido e encontrou um sistema Linux\n"
-#~ "com pontos de montagem. À direita, veja a lista\n"
-#~ "com os pontos de montagem encontrados. </P>\n"
-
 #~ msgid "No previous system with mount points was detected."
 #~ msgstr "Não foi detectado nenhum sistema anterior com pontos de montagem."
-
-#~ msgid "Show &Previous"
-#~ msgstr "Mostrar &Anterior"
-
-# /usr/lib/YaST2/clients/logcontrol.ycp:80
-#~ msgid "Show &Next"
-#~ msgstr "Mostrar &Próximo"
-
-#, fuzzy
-#~| msgid "&Import Mount Points from Existing /etc/fstab"
-#~ msgid "Import Mount Points from Existing System:"
-#~ msgstr "&Importar Pontos de Montagem do /etc/fstab existente"
 
 #, fuzzy
 #~| msgid "Abort System Repair"
 #~ msgid "Format System Volumes"
 #~ msgstr "Interromper a Reparação do Sistema"
-
-#, fuzzy
-#~| msgid "&Import"
-#~ msgid "Import"
-#~ msgstr "&Importar"
 
 #, fuzzy
 #~| msgid "Password required."

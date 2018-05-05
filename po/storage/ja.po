@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: storage\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-04 02:30+0000\n"
+"POT-Creation-Date: 2018-05-05 02:30+0000\n"
 "PO-Revision-Date: 2018-04-24 22:07+0000\n"
 "Last-Translator: Yasuhiko Kamata <belphegor@belbel.or.jp>\n"
 "Language-Team: Japanese <https://l10n.opensuse.org/projects/yast-storage/"
@@ -102,6 +102,14 @@ msgid ""
 msgstr ""
 "このディスクは複製できません。同じパーティション配置にする\n"
 "ことのできる、適切なディスクがありません。"
+
+#. TRANSLATORS: %{mount_points} is replaced by a list of mount points, please
+#. do not modify it.
+#: src/lib/y2partitioner/actions/controllers/fstabs.rb:142
+msgid ""
+"The following mount points cannot be imported:\n"
+"%{mount_points}"
+msgstr ""
 
 #. TRANSLATORS: dialog title. %s is a device name like /dev/vg0
 #: src/lib/y2partitioner/actions/controllers/lvm_lv.rb:245
@@ -511,6 +519,13 @@ msgstr ""
 "ボリューム %{name} は Thin プールです。\n"
 "編集することができません。"
 
+#. Error message when no fstab file was detected
+#.
+#. @return [String, nil] nil if there is some fstab
+#: src/lib/y2partitioner/actions/import_mount_points.rb:87
+msgid "YaST has scanned your hard disks but no fstab file was found."
+msgstr ""
+
 #. TRANSLATORS: %{name} is replaced by a device name (e.g., /dev/sda1).
 #: src/lib/y2partitioner/actions/resize_blk_device.rb:103
 msgid ""
@@ -847,6 +862,18 @@ msgstr "%s に対する暗号化パスワード"
 #: src/lib/y2partitioner/dialogs/fstab_options.rb:40
 msgid "Fstab Options:"
 msgstr "fstab オプション:"
+
+#. Constructor
+#.
+#. @param controller [Actions::Controllers::Fstabs]
+#: src/lib/y2partitioner/dialogs/import_mount_points.rb:39
+msgid "Import Mount Points from Existing System:"
+msgstr "既存のシステムからマウントポイントを取り込む:"
+
+#. @see #fstab_selector
+#: src/lib/y2partitioner/dialogs/import_mount_points.rb:48
+msgid "Import"
+msgstr "インポート"
 
 #. @macro seeDialog
 #: src/lib/y2partitioner/dialogs/lvm_lv_info.rb:53
@@ -1434,7 +1461,7 @@ msgstr "ファイルシステム:"
 #. @see CWM::PushButton#Label
 #. @macro seeAbstractWidget
 #: src/lib/y2partitioner/widgets/blk_device_edit_button.rb:41
-#: src/lib/y2partitioner/widgets/btrfs_edit_button.rb:21
+#: src/lib/y2partitioner/widgets/btrfs_edit_button.rb:42
 #: src/lib/y2partitioner/widgets/lvm_edit_button.rb:39
 msgid "Edit..."
 msgstr "編集..."
@@ -1530,7 +1557,7 @@ msgstr "Thin LV"
 #. Opens a dialog to manage the list of subvolumes of the selected device
 #.
 #. @note In case of there is no selected table row, it shows an error.
-#: src/lib/y2partitioner/widgets/btrfs_edit_button.rb:31
+#: src/lib/y2partitioner/widgets/btrfs_edit_button.rb:52
 msgid "There is no filesystem selected to edit."
 msgstr "編集すべきファイルシステムがありません。"
 
@@ -2246,6 +2273,58 @@ msgstr ""
 "FAT ファイルシステム内の短縮ファイル名に対して、その文字を変換する際に利用す"
 "るコードページを指定します。</p>\n"
 
+#. Checks whether the mount points of the selected fstab can be imported
+#.
+#. It shows a popup with the errors detected in the selected fstab.
+#.
+#. @see Actions::Controllers::Fstabs#selected_fstab_errors
+#.
+#. @return [Boolean]
+#. so only warnings there
+#. FIXME: improve Yast2::Popup to allow some text before the buttons
+#: src/lib/y2partitioner/widgets/fstab_selector.rb:70
+#: src/lib/y2partitioner/widgets/overview.rb:130
+#: src/lib/y2storage/callbacks/sanitize.rb:54
+msgid "Do you want to continue?"
+msgstr "続行しますか？"
+
+#. @return [String]
+#: src/lib/y2partitioner/widgets/fstab_selector.rb:96
+#, fuzzy
+#| msgid ""
+#| "<p>YaST has scanned your hard disks and found one or several existing \n"
+#| "Linux systems with mount points. The old mount points are shown in \n"
+#| "the table.</p>\n"
+msgid ""
+"<p>YaST has scanned your hard disks and found one or several existing Linux "
+"systems with mount points. The old mount points are shown in the table.</p>"
+msgstr ""
+"<p>YaST はお使いのハードディスクを検索し、 1 つまたは複数の\n"
+"既存の Linux システムとマウントポイントを発見しました。古いマウントポイント"
+"は\n"
+"一覧内に表示されています。</p>\n"
+
+#. Button to go to the previous fstab file
+#.
+#. @return [Yast::UI::Term]
+#: src/lib/y2partitioner/widgets/fstab_selector.rb:125
+msgid "Show &Previous"
+msgstr "前を表示 (&P)"
+
+#. Button to go to the next fstab file
+#.
+#. @return [Yast::UI::Term]
+#: src/lib/y2partitioner/widgets/fstab_selector.rb:132
+msgid "Show &Next"
+msgstr "次を表示 (&N)"
+
+#. TRANSLATORS: %{device_name} is replaced by the name of a device (e.g., /dev/sda1)
+#: src/lib/y2partitioner/widgets/fstab_selector.rb:220
+#, fuzzy
+#| msgid "/etc/fstab found on %1 contains:"
+msgid "/etc/fstab found on %{device_name} contains:"
+msgstr "%1 内の /etc/fstab に含まれるもの:"
+
 #. helptexts for table column and overview entry
 #: src/lib/y2partitioner/widgets/help.rb:17
 msgid ""
@@ -2543,6 +2622,11 @@ msgstr ""
 "マウントポイントの後ろに書かれているアスタリスク (*) の印は、\n"
 "そのファイルシステムが現在マウントされていないことを示しています (たとえば "
 "<tt>noauto</tt> オプションが <tt>/etc/fstab</tt> に設定されている場合など) 。"
+
+#. @macro seeAbstractWidget
+#: src/lib/y2partitioner/widgets/import_mount_points_button.rb:36
+msgid "Import Mount Points..."
+msgstr "マウントポイントのインポート..."
 
 #. When there is no vg, only shows an option to add a new vg.
 #. Otherwise, options for adding a vg or lv are shown.
@@ -2952,13 +3036,6 @@ msgstr ""
 msgid "System View"
 msgstr "システムビュー"
 
-#. so only warnings there
-#. FIXME: improve Yast2::Popup to allow some text before the buttons
-#: src/lib/y2partitioner/widgets/overview.rb:130
-#: src/lib/y2storage/callbacks/sanitize.rb:54
-msgid "Do you want to continue?"
-msgstr "続行しますか？"
-
 #. @macro seeAbstractWidget
 #: src/lib/y2partitioner/widgets/pages/btrfs.rb:20
 msgid "Btrfs"
@@ -3143,7 +3220,7 @@ msgid "Installation Summary"
 msgstr "インストールの概要"
 
 #. TRANSLATORS: Heading. String followed by the hostname
-#: src/lib/y2partitioner/widgets/pages/system.rb:40
+#: src/lib/y2partitioner/widgets/pages/system.rb:92
 msgid "Available Storage on %s"
 msgstr "%s で利用可能なストレージ"
 
@@ -6068,9 +6145,6 @@ msgstr "不明な理由"
 #~ "対象のファイルシステムがマウント中の場合、そのファイルシステムのサイズを変"
 #~ "更することはできません。"
 
-#~ msgid "Import Mount Points..."
-#~ msgstr "マウントポイントのインポート..."
-
 #~ msgid "Provide Crypt &Passwords..."
 #~ msgstr "暗号化パスワードの設定 (&P)..."
 
@@ -6581,16 +6655,6 @@ msgstr "不明な理由"
 #~ "詳細情報が表示されています。</p>"
 
 #~ msgid ""
-#~ "<p>YaST has scanned your hard disks and found one or several existing \n"
-#~ "Linux systems with mount points. The old mount points are shown in \n"
-#~ "the table.</p>\n"
-#~ msgstr ""
-#~ "<p>YaST はお使いのハードディスクを検索し、 1 つまたは複数の\n"
-#~ "既存の Linux システムとマウントポイントを発見しました。古いマウントポイン"
-#~ "トは\n"
-#~ "一覧内に表示されています。</p>\n"
-
-#~ msgid ""
 #~ "<p>You can choose whether the existing system\n"
 #~ "volumes, e.g. / and /usr, will be formatted during the\n"
 #~ "installation. Non-system volumes, e.g. /home, will not be formatted.</p>"
@@ -6604,23 +6668,8 @@ msgstr "不明な理由"
 #~ msgid "No previous system with mount points was detected."
 #~ msgstr "マウントポイントがある既存のシステムは検出されませんでした。"
 
-#~ msgid "Show &Previous"
-#~ msgstr "前を表示 (&P)"
-
-#~ msgid "Show &Next"
-#~ msgstr "次を表示 (&N)"
-
-#~ msgid "Import Mount Points from Existing System:"
-#~ msgstr "既存のシステムからマウントポイントを取り込む:"
-
 #~ msgid "Format System Volumes"
 #~ msgstr "システムボリュームのフォーマット"
-
-#~ msgid "Import"
-#~ msgstr "インポート"
-
-#~ msgid "/etc/fstab found on %1 contains:"
-#~ msgstr "%1 内の /etc/fstab に含まれるもの:"
 
 #~ msgid "Wrong Password Provided."
 #~ msgstr "間違ったパスワードを指定しています。"

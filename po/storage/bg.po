@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: storage-ng.bg\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-04 02:30+0000\n"
+"POT-Creation-Date: 2018-05-05 02:30+0000\n"
 "PO-Revision-Date: 2012-08-08 12:29+0300\n"
 "Last-Translator: Borislav Mitev <morbid_viper@tkzs.org>\n"
 "Language-Team: Bulgarian <kde-i18n-doc@kde.org>\n"
@@ -118,6 +118,14 @@ msgid ""
 msgstr ""
 "Този диск не може да бъде клониран. Няма подходящи\n"
 "дискове, които да имат подобна подредба на дяловете."
+
+#. TRANSLATORS: %{mount_points} is replaced by a list of mount points, please
+#. do not modify it.
+#: src/lib/y2partitioner/actions/controllers/fstabs.rb:142
+msgid ""
+"The following mount points cannot be imported:\n"
+"%{mount_points}"
+msgstr ""
 
 #. TRANSLATORS: dialog title. %s is a device name like /dev/vg0
 #: src/lib/y2partitioner/actions/controllers/lvm_lv.rb:245
@@ -634,6 +642,13 @@ msgstr ""
 "Файлът %1 не бе открит.\n"
 "Поправката е може да се извърши.\n"
 
+#. Error message when no fstab file was detected
+#.
+#. @return [String, nil] nil if there is some fstab
+#: src/lib/y2partitioner/actions/import_mount_points.rb:87
+msgid "YaST has scanned your hard disks but no fstab file was found."
+msgstr ""
+
 #. TRANSLATORS: %{name} is replaced by a device name (e.g., /dev/sda1).
 #: src/lib/y2partitioner/actions/resize_blk_device.rb:103
 #, fuzzy
@@ -1048,6 +1063,18 @@ msgstr "В&ъведете парола за криптирането:"
 #: src/lib/y2partitioner/dialogs/fstab_options.rb:40
 msgid "Fstab Options:"
 msgstr "Пара&метри на fstab:"
+
+#. Constructor
+#.
+#. @param controller [Actions::Controllers::Fstabs]
+#: src/lib/y2partitioner/dialogs/import_mount_points.rb:39
+msgid "Import Mount Points from Existing System:"
+msgstr "Внасяне на пътища за монтиране от съществуваща система:"
+
+#. @see #fstab_selector
+#: src/lib/y2partitioner/dialogs/import_mount_points.rb:48
+msgid "Import"
+msgstr "Внасяне"
 
 #. @macro seeDialog
 #: src/lib/y2partitioner/dialogs/lvm_lv_info.rb:53
@@ -1709,7 +1736,7 @@ msgstr "Файлова система:"
 #. @see CWM::PushButton#Label
 #. @macro seeAbstractWidget
 #: src/lib/y2partitioner/widgets/blk_device_edit_button.rb:41
-#: src/lib/y2partitioner/widgets/btrfs_edit_button.rb:21
+#: src/lib/y2partitioner/widgets/btrfs_edit_button.rb:42
 #: src/lib/y2partitioner/widgets/lvm_edit_button.rb:39
 msgid "Edit..."
 msgstr "Редактиране..."
@@ -1815,7 +1842,7 @@ msgstr "&Сила на звука"
 #. Opens a dialog to manage the list of subvolumes of the selected device
 #.
 #. @note In case of there is no selected table row, it shows an error.
-#: src/lib/y2partitioner/widgets/btrfs_edit_button.rb:31
+#: src/lib/y2partitioner/widgets/btrfs_edit_button.rb:52
 #, fuzzy
 #| msgid "There are no partitions to delete on this disk."
 msgid "There is no filesystem selected to edit."
@@ -2605,6 +2632,59 @@ msgstr ""
 "Тази кодова таблица ще се използва да конвертирането към\n"
 "символи за кратки имена на FAT файлови системи.</p>\n"
 
+#. Checks whether the mount points of the selected fstab can be imported
+#.
+#. It shows a popup with the errors detected in the selected fstab.
+#.
+#. @see Actions::Controllers::Fstabs#selected_fstab_errors
+#.
+#. @return [Boolean]
+#. so only warnings there
+#. FIXME: improve Yast2::Popup to allow some text before the buttons
+#: src/lib/y2partitioner/widgets/fstab_selector.rb:70
+#: src/lib/y2partitioner/widgets/overview.rb:130
+#: src/lib/y2storage/callbacks/sanitize.rb:54
+#, fuzzy
+#| msgid "Do you want to provide encryption passwords?"
+msgid "Do you want to continue?"
+msgstr "Желаете ли да предоставите паролите за криптиране?"
+
+#. @return [String]
+#: src/lib/y2partitioner/widgets/fstab_selector.rb:96
+#, fuzzy
+#| msgid ""
+#| "<p>YaST has scanned your hard disks and found one or several existing \n"
+#| "Linux systems with mount points. The old mount points are shown in \n"
+#| "the table.</p>\n"
+msgid ""
+"<p>YaST has scanned your hard disks and found one or several existing Linux "
+"systems with mount points. The old mount points are shown in the table.</p>"
+msgstr ""
+"<p>YaST сканира твърдите дискове и намери предишна\n"
+"Линукс система с пътища за монтиране. В таблицата можете \n"
+"да видите списъка на откритите пътища.</P>\n"
+
+#. Button to go to the previous fstab file
+#.
+#. @return [Yast::UI::Term]
+#: src/lib/y2partitioner/widgets/fstab_selector.rb:125
+msgid "Show &Previous"
+msgstr "Показване на &предишен"
+
+#. Button to go to the next fstab file
+#.
+#. @return [Yast::UI::Term]
+#: src/lib/y2partitioner/widgets/fstab_selector.rb:132
+msgid "Show &Next"
+msgstr "Показване на &следващ"
+
+#. TRANSLATORS: %{device_name} is replaced by the name of a device (e.g., /dev/sda1)
+#: src/lib/y2partitioner/widgets/fstab_selector.rb:220
+#, fuzzy
+#| msgid "/etc/fstab found on %1 contains:"
+msgid "/etc/fstab found on %{device_name} contains:"
+msgstr "Открития /etc/fstab на %1 съдържа:"
+
 #. helptexts for table column and overview entry
 #: src/lib/y2partitioner/widgets/help.rb:17
 msgid ""
@@ -2940,6 +3020,11 @@ msgstr ""
 "Звездичката „*“ след пътя за монтиране, обозначава, че \n"
 "файловата система в момента не е монтирана. Например,\n"
 "защото е бил зададен параметър <tt>noauto</tt> в <tt>/etc/fstab</tt>."
+
+#. @macro seeAbstractWidget
+#: src/lib/y2partitioner/widgets/import_mount_points_button.rb:36
+msgid "Import Mount Points..."
+msgstr "Внасяне на пътища за монтиране"
 
 #. When there is no vg, only shows an option to add a new vg.
 #. Otherwise, options for adding a vg or lv are shown.
@@ -3377,15 +3462,6 @@ msgstr ""
 msgid "System View"
 msgstr "Преглед на системата"
 
-#. so only warnings there
-#. FIXME: improve Yast2::Popup to allow some text before the buttons
-#: src/lib/y2partitioner/widgets/overview.rb:130
-#: src/lib/y2storage/callbacks/sanitize.rb:54
-#, fuzzy
-#| msgid "Do you want to provide encryption passwords?"
-msgid "Do you want to continue?"
-msgstr "Желаете ли да предоставите паролите за криптиране?"
-
 #. @macro seeAbstractWidget
 #: src/lib/y2partitioner/widgets/pages/btrfs.rb:20
 msgid "Btrfs"
@@ -3586,7 +3662,7 @@ msgid "Installation Summary"
 msgstr "Сводка за инсталацията"
 
 #. TRANSLATORS: Heading. String followed by the hostname
-#: src/lib/y2partitioner/widgets/pages/system.rb:40
+#: src/lib/y2partitioner/widgets/pages/system.rb:92
 #, fuzzy
 #| msgid "Available Storage on %1"
 msgid "Available Storage on %s"
@@ -6580,9 +6656,6 @@ msgstr "неизвестно"
 #~ "Не може да бъде променян размерът на файловата система докато тя е "
 #~ "монтирана."
 
-#~ msgid "Import Mount Points..."
-#~ msgstr "Внасяне на пътища за монтиране"
-
 #~ msgid "Provide Crypt &Passwords..."
 #~ msgstr "Парола за &криптиране"
 
@@ -7082,15 +7155,6 @@ msgstr "неизвестно"
 #~ "относно избрания дял.</p>"
 
 #~ msgid ""
-#~ "<p>YaST has scanned your hard disks and found one or several existing \n"
-#~ "Linux systems with mount points. The old mount points are shown in \n"
-#~ "the table.</p>\n"
-#~ msgstr ""
-#~ "<p>YaST сканира твърдите дискове и намери предишна\n"
-#~ "Линукс система с пътища за монтиране. В таблицата можете \n"
-#~ "да видите списъка на откритите пътища.</P>\n"
-
-#~ msgid ""
 #~ "<p>You can choose whether the existing system\n"
 #~ "volumes, e.g. / and /usr, will be formatted during the\n"
 #~ "installation. Non-system volumes, e.g. /home, will not be formatted.</p>"
@@ -7102,23 +7166,8 @@ msgstr "неизвестно"
 #~ msgid "No previous system with mount points was detected."
 #~ msgstr "Не.е открита предишна система с пътища за монтиране."
 
-#~ msgid "Show &Previous"
-#~ msgstr "Показване на &предишен"
-
-#~ msgid "Show &Next"
-#~ msgstr "Показване на &следващ"
-
-#~ msgid "Import Mount Points from Existing System:"
-#~ msgstr "Внасяне на пътища за монтиране от съществуваща система:"
-
 #~ msgid "Format System Volumes"
 #~ msgstr "Форматиране на системните дялове"
-
-#~ msgid "Import"
-#~ msgstr "Внасяне"
-
-#~ msgid "/etc/fstab found on %1 contains:"
-#~ msgstr "Открития /etc/fstab на %1 съдържа:"
 
 #~ msgid "Wrong Password Provided."
 #~ msgstr "Предоставената парола е невалидна."

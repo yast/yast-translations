@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: @PACKAGE@\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-04 02:30+0000\n"
+"POT-Creation-Date: 2018-05-05 02:30+0000\n"
 "PO-Revision-Date: 2005-07-29 15:37+0530\n"
 "Last-Translator: Priyavert Sharma<priyavert.sharma@agreeya.com>\n"
 "Language-Team: AgreeYa Solutions <linux_team@agreeya.com>\n"
@@ -81,6 +81,14 @@ msgstr ""
 msgid ""
 "This disk cannot be cloned. There are no suitable\n"
 "disks that could have the same partitioning layout."
+msgstr ""
+
+#. TRANSLATORS: %{mount_points} is replaced by a list of mount points, please
+#. do not modify it.
+#: src/lib/y2partitioner/actions/controllers/fstabs.rb:142
+msgid ""
+"The following mount points cannot be imported:\n"
+"%{mount_points}"
 msgstr ""
 
 #. TRANSLATORS: dialog title. %s is a device name like /dev/vg0
@@ -520,6 +528,13 @@ msgstr ""
 "கோப்பு %1 காணப்படவில்லை.\n"
 "அதனை மீட்க முடியாது.\n"
 
+#. Error message when no fstab file was detected
+#.
+#. @return [String, nil] nil if there is some fstab
+#: src/lib/y2partitioner/actions/import_mount_points.rb:87
+msgid "YaST has scanned your hard disks but no fstab file was found."
+msgstr ""
+
 #. TRANSLATORS: %{name} is replaced by a device name (e.g., /dev/sda1).
 #: src/lib/y2partitioner/actions/resize_blk_device.rb:103
 #, fuzzy
@@ -891,6 +906,22 @@ msgstr "கடவுச் சொல்லை உள்ளிடுக"
 #| msgid "Fs&tab Options"
 msgid "Fstab Options:"
 msgstr "Fs&tab விருப்பத்தேர்வுகள்"
+
+#. Constructor
+#.
+#. @param controller [Actions::Controllers::Fstabs]
+#: src/lib/y2partitioner/dialogs/import_mount_points.rb:39
+#, fuzzy
+#| msgid "&Import Mount Points from Existing /etc/fstab"
+msgid "Import Mount Points from Existing System:"
+msgstr "&தற்போதைய /etc/fstab -ல் இருந்து பொருத்தும் இடங்களை எடுத்துக் கொள்"
+
+#. @see #fstab_selector
+#: src/lib/y2partitioner/dialogs/import_mount_points.rb:48
+#, fuzzy
+#| msgid "&Import"
+msgid "Import"
+msgstr "&இறக்குமதி"
 
 #. @macro seeDialog
 #: src/lib/y2partitioner/dialogs/lvm_lv_info.rb:53
@@ -1541,7 +1572,7 @@ msgstr "சிஸ்டம்"
 #. @see CWM::PushButton#Label
 #. @macro seeAbstractWidget
 #: src/lib/y2partitioner/widgets/blk_device_edit_button.rb:41
-#: src/lib/y2partitioner/widgets/btrfs_edit_button.rb:21
+#: src/lib/y2partitioner/widgets/btrfs_edit_button.rb:42
 #: src/lib/y2partitioner/widgets/lvm_edit_button.rb:39
 #, fuzzy
 msgid "Edit..."
@@ -1649,7 +1680,7 @@ msgstr "கனம்"
 #. Opens a dialog to manage the list of subvolumes of the selected device
 #.
 #. @note In case of there is no selected table row, it shows an error.
-#: src/lib/y2partitioner/widgets/btrfs_edit_button.rb:31
+#: src/lib/y2partitioner/widgets/btrfs_edit_button.rb:52
 #, fuzzy
 msgid "There is no filesystem selected to edit."
 msgstr "இந்த கூற்றிற்கான விருப்பத் தேர்வுகள் எதுவம் இல்லை."
@@ -2452,6 +2483,59 @@ msgstr ""
 " FAT கோப்பு அமைப்புமுறையில் குறுகிய பெயர் எழுத்துக்களாக மாற்ற இந்த கோட்பேஜ் "
 "பயன்படுத்தப்படுகிறது.</p>\n"
 
+#. Checks whether the mount points of the selected fstab can be imported
+#.
+#. It shows a popup with the errors detected in the selected fstab.
+#.
+#. @see Actions::Controllers::Fstabs#selected_fstab_errors
+#.
+#. @return [Boolean]
+#. so only warnings there
+#. FIXME: improve Yast2::Popup to allow some text before the buttons
+#: src/lib/y2partitioner/widgets/fstab_selector.rb:70
+#: src/lib/y2partitioner/widgets/overview.rb:130
+#: src/lib/y2storage/callbacks/sanitize.rb:54
+#, fuzzy
+#| msgid "Do you want to retry?"
+msgid "Do you want to continue?"
+msgstr "நீங்கள் மீண்டும் முயற்சிக்க விரும்புகிறீர்களா?"
+
+#. @return [String]
+#: src/lib/y2partitioner/widgets/fstab_selector.rb:96
+#, fuzzy
+#| msgid ""
+#| "<P><B><BIG>Attention:</BIG></B><BR>YaST2 has scanned your hard disks and "
+#| "found an old Linux system\n"
+#| "with mount points. On the right, see a list with the mount points found. "
+#| "</P>\n"
+msgid ""
+"<p>YaST has scanned your hard disks and found one or several existing Linux "
+"systems with mount points. The old mount points are shown in the table.</p>"
+msgstr ""
+"<P><B><BIG>கவனிக்கவும்:</BIG></B><BR>YaST2 உங்கள் நிலை வட்டுக்களை தேடிஏற்ற "
+"நிலைகளுடன்கூடிய ஒரு பழைய லினக்ஸ்\n"
+"அமைப்பை கண்டுபிடித்துள்ளது. வலதுபுறம், கண்டுபிடிக்கப்பட்ட ஏற்ற நிலைகளுடன் ஒரு "
+"பட்டியலைப்பார்க்கவும்.</P>\n"
+
+#. Button to go to the previous fstab file
+#.
+#. @return [Yast::UI::Term]
+#: src/lib/y2partitioner/widgets/fstab_selector.rb:125
+msgid "Show &Previous"
+msgstr "முந்தையதைக் &காட்டவும்"
+
+#. Button to go to the next fstab file
+#.
+#. @return [Yast::UI::Term]
+#: src/lib/y2partitioner/widgets/fstab_selector.rb:132
+msgid "Show &Next"
+msgstr "அடுத்ததைக் &காட்டவும்"
+
+#. TRANSLATORS: %{device_name} is replaced by the name of a device (e.g., /dev/sda1)
+#: src/lib/y2partitioner/widgets/fstab_selector.rb:220
+msgid "/etc/fstab found on %{device_name} contains:"
+msgstr ""
+
 #. helptexts for table column and overview entry
 #: src/lib/y2partitioner/widgets/help.rb:17
 msgid ""
@@ -2727,6 +2811,12 @@ msgstr ""
 "கோப்பு அமைப்பை குறிக்கிறது (உதாரணமாக, அதில் <tt>noauto</tt> விருப்பத்தேர்வு<tt>/etc/"
 "fstab</tt>ல் அமைக்கப்பட்டிருந்தால்).\n"
 "</p>\n"
+
+#. @macro seeAbstractWidget
+#: src/lib/y2partitioner/widgets/import_mount_points_button.rb:36
+#, fuzzy
+msgid "Import Mount Points..."
+msgstr "காலி ஏற்ற நிலை"
 
 #. When there is no vg, only shows an option to add a new vg.
 #. Otherwise, options for adding a vg or lv are shown.
@@ -3160,15 +3250,6 @@ msgstr ""
 msgid "System View"
 msgstr "சாதன சரிபார்ப்பு"
 
-#. so only warnings there
-#. FIXME: improve Yast2::Popup to allow some text before the buttons
-#: src/lib/y2partitioner/widgets/overview.rb:130
-#: src/lib/y2storage/callbacks/sanitize.rb:54
-#, fuzzy
-#| msgid "Do you want to retry?"
-msgid "Do you want to continue?"
-msgstr "நீங்கள் மீண்டும் முயற்சிக்க விரும்புகிறீர்களா?"
-
 #. @macro seeAbstractWidget
 #: src/lib/y2partitioner/widgets/pages/btrfs.rb:20
 msgid "Btrfs"
@@ -3357,7 +3438,7 @@ msgid "Installation Summary"
 msgstr "நிறுவுதல் சுருக்கம்"
 
 #. TRANSLATORS: Heading. String followed by the hostname
-#: src/lib/y2partitioner/widgets/pages/system.rb:40
+#: src/lib/y2partitioner/widgets/pages/system.rb:92
 #, fuzzy
 msgid "Available Storage on %s"
 msgstr "கிடைக்கக்கூடிய திட்டங்கள்: %1"
@@ -6382,10 +6463,6 @@ msgstr " இனம் தெரியாதது"
 #~ msgstr " %1 -ல் ஒரு பகுதி பிரிப்பை உருவாக்க இயலாது."
 
 #, fuzzy
-#~ msgid "Import Mount Points..."
-#~ msgstr "காலி ஏற்ற நிலை"
-
-#, fuzzy
 #~| msgid "Enter Provider Password"
 #~ msgid "Provide Crypt &Passwords..."
 #~ msgstr "தருபவரின் அனுமதிச் சொல்லை தருக"
@@ -6898,45 +6975,13 @@ msgstr " இனம் தெரியாதது"
 #~ "<p><b>பகுதி பிரிப்புகளை உங்கள் அளவு குழுக்களுடன் சேர்க்கவும்</b>(பொருள்சார்ந்த "
 #~ "அளவுகள் என்று அழைக்கப்படுகின்றன).</p>"
 
-#, fuzzy
-#~| msgid ""
-#~| "<P><B><BIG>Attention:</BIG></B><BR>YaST2 has scanned your hard disks and "
-#~| "found an old Linux system\n"
-#~| "with mount points. On the right, see a list with the mount points found. "
-#~| "</P>\n"
-#~ msgid ""
-#~ "<p>YaST has scanned your hard disks and found one or several existing \n"
-#~ "Linux systems with mount points. The old mount points are shown in \n"
-#~ "the table.</p>\n"
-#~ msgstr ""
-#~ "<P><B><BIG>கவனிக்கவும்:</BIG></B><BR>YaST2 உங்கள் நிலை வட்டுக்களை தேடிஏற்ற "
-#~ "நிலைகளுடன்கூடிய ஒரு பழைய லினக்ஸ்\n"
-#~ "அமைப்பை கண்டுபிடித்துள்ளது. வலதுபுறம், கண்டுபிடிக்கப்பட்ட ஏற்ற நிலைகளுடன் ஒரு "
-#~ "பட்டியலைப்பார்க்கவும்.</P>\n"
-
 #~ msgid "No previous system with mount points was detected."
 #~ msgstr "ஏற்ற நிலைகளுடன்கூடிய முந்தைய அமைப்பு எதுவும் கண்டறியப்படவில்லை."
-
-#~ msgid "Show &Previous"
-#~ msgstr "முந்தையதைக் &காட்டவும்"
-
-#~ msgid "Show &Next"
-#~ msgstr "அடுத்ததைக் &காட்டவும்"
-
-#, fuzzy
-#~| msgid "&Import Mount Points from Existing /etc/fstab"
-#~ msgid "Import Mount Points from Existing System:"
-#~ msgstr "&தற்போதைய /etc/fstab -ல் இருந்து பொருத்தும் இடங்களை எடுத்துக் கொள்"
 
 #, fuzzy
 #~| msgid "Collect System Files"
 #~ msgid "Format System Volumes"
 #~ msgstr "ஆமைப்பின் கோப்புகளை சேகரிக்கவும்"
-
-#, fuzzy
-#~| msgid "&Import"
-#~ msgid "Import"
-#~ msgstr "&இறக்குமதி"
 
 #, fuzzy
 #~| msgid "Wrong password."
