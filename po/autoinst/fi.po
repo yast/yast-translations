@@ -20,7 +20,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: autoinst.fi\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-04 02:28+0000\n"
+"POT-Creation-Date: 2018-05-05 02:28+0000\n"
 "PO-Revision-Date: 2018-02-19 00:02+0000\n"
 "Last-Translator: Tommi Nieminen <software@legisign.org>\n"
 "Language-Team: Finnish <https://l10n.opensuse.org/projects/yast-autoinst/"
@@ -505,12 +505,12 @@ msgid "Checking for required packages..."
 msgstr "Tarkistetaan vaadittuja paketteja..."
 
 #. Add all found packages
-#: src/clients/inst_autopost.rb:214
+#: src/clients/inst_autopost.rb:217
 msgid "Adding found packages..."
 msgstr "Lisätään löydetyt paketit..."
 
 #. Finish
-#: src/clients/inst_autopost.rb:230
+#: src/clients/inst_autopost.rb:233
 msgid "Checking for packages required for %1..."
 msgstr "Tarkistetaan %1 vaatimat paketit..."
 
@@ -2246,6 +2246,59 @@ msgstr "Valitse ensin komentojono."
 msgid "Autoinstall Configuration"
 msgstr "Automaattiasennuksen määritys"
 
+#. TRANSLATORS:
+#. 'value' is a generic value (number or string) 'attribute' is an AutoYaST element
+#. 'description' has already been translated in other modules.
+#: src/lib/autoinstall/autoinst_issues/invalid_value.rb:53
+msgid "Invalid value '%{value}' for attribute '%{attribute}': %{description}"
+msgstr ""
+
+#. TRANSLATORS:
+#. 'attr' is an AutoYaST element
+#. 'description' has already been translated in other modules.
+#: src/lib/autoinstall/autoinst_issues/missing_value.rb:57
+msgid "Missing element '%{attr}'. %{description}"
+msgstr ""
+
+#. Return the text to be shown to the user regarding the list of issues
+#.
+#. @return [String] HTML formatted text
+#. Return the text to be shown to the user regarding the list of issues
+#.
+#. @return [String] HTML formatted text
+#: src/lib/autoinstall/autoinst_issues_presenter.rb:67
+#: src/lib/autoinstall/storage_proposal_issues_presenter.rb:64
+msgid "Do you want to continue?"
+msgstr "Haluatko jatkaa?"
+
+#: src/lib/autoinstall/autoinst_issues_presenter.rb:69
+#: src/lib/autoinstall/storage_proposal_issues_presenter.rb:66
+msgid "Please, correct these problems and try again."
+msgstr "Korjaa nämä ongelmat ja yritä uudelleen."
+
+#. Return warning message with a list of issues
+#.
+#. @param issues [Array<Y2Autoinstallation::AutoinstIssues::Issue>] Array containing issues
+#. @return [String] Message
+#: src/lib/autoinstall/autoinst_issues_presenter.rb:81
+#, fuzzy
+#| msgid "Minor issues were detected while creating the partitioning plan:"
+msgid ""
+"Minor issues have been detected while reading AutoYaST configuration file:"
+msgstr "Vähäisiä ongelmia havaittiin luotaessa osiosuunnitelmaa:"
+
+#. Return error message with a list of issues
+#.
+#. @param issues [Array<Y2Autoinstallation::AutoinstIssues::Issue>] Array containing issues
+#. @return [String] Message
+#: src/lib/autoinstall/autoinst_issues_presenter.rb:91
+#, fuzzy
+#| msgid "Important issues were detected while creating the partitioning plan:"
+msgid ""
+"Important issues have been detected while reading AutoYaST configuration "
+"file:"
+msgstr "Vaiketa ongelmia havaittiin luotaessa osiosuunnitelmaa:"
+
 #. Dialog content when some disks are available
 #.
 #. @return [Yast::Term] Dialog content
@@ -2281,17 +2334,6 @@ msgstr ""
 "järjestelmän.\n"
 "</p>"
 
-#. Return the text to be shown to the user regarding the list of issues
-#.
-#. @return [String] HTML formatted text
-#: src/lib/autoinstall/storage_proposal_issues_presenter.rb:64
-msgid "Do you want to continue?"
-msgstr "Haluatko jatkaa?"
-
-#: src/lib/autoinstall/storage_proposal_issues_presenter.rb:66
-msgid "Please, correct these problems and try again."
-msgstr "Korjaa nämä ongelmat ja yritä uudelleen."
-
 #. Return warning message with a list of issues
 #.
 #. @param issues [Array<Y2Storage::AutoinstIssues::Issue>] Array containing issues
@@ -2307,6 +2349,13 @@ msgstr "Vähäisiä ongelmia havaittiin luotaessa osiosuunnitelmaa:"
 #: src/lib/autoinstall/storage_proposal_issues_presenter.rb:88
 msgid "Important issues were detected while creating the partitioning plan:"
 msgstr "Vaiketa ongelmia havaittiin luotaessa osiosuunnitelmaa:"
+
+#. On non-fatal issues, obey report settings for warnings
+#: src/modules/AutoInstall.rb:369
+#, fuzzy
+#| msgid "Autoinstall Configuration"
+msgid "AutoYaST configuration file check"
+msgstr "Automaattiasennuksen määritys"
 
 #. Read rules file
 #. @return [void]
@@ -2809,18 +2858,18 @@ msgstr "Yksityiskohdat löytyvät tiedostosta %s."
 
 #. Handle /etc/fstab usage
 #. @return [Boolean]
-#: src/modules/AutoinstStorage.rb:204
+#: src/modules/AutoinstStorage.rb:198
 msgid "Evaluating root partition. One moment please..."
 msgstr "Tutkitaan juuriosiota. Odota hetki..."
 
 #. a popup
-#: src/modules/AutoinstStorage.rb:212
+#: src/modules/AutoinstStorage.rb:206
 msgid "No Linux root partition found."
 msgstr "Linux-juuriosiota ei löytynyt."
 
 #. We must only change RootPart::selectedRootPartition if booting
 #. is inevitable.
-#: src/modules/AutoinstStorage.rb:225
+#: src/modules/AutoinstStorage.rb:219
 msgid ""
 "Multiple root partitions found, but you did not configure\n"
 "which root partition should be used.  Automatic installation not possible.\n"
@@ -2828,10 +2877,17 @@ msgstr ""
 "Löydettiin monta juuriosiota, mutta et ole määritellyt mitä juuriosiota\n"
 "tulisi käyttää. Automaattiasennus ei ole mahdollinen.\n"
 
+#. On non-fatal issues, obey report settings for warnings
+#: src/modules/AutoinstStorage.rb:301
+#, fuzzy
+#| msgid "Postpartitioning Scripts"
+msgid "Partitioning issues"
+msgstr "Osioinnin jälkeen suoritettavat komentojonot"
+
 #. Determine (and warn the user) no storage is available for installation
 #.
 #. @return [Boolean] true if there are devices for installation; false otherwise.
-#: src/modules/AutoinstStorage.rb:338
+#: src/modules/AutoinstStorage.rb:333
 msgid ""
 "No storage devices were found for the installation.\n"
 "Please, check your hardware or your AutoYaST profile."

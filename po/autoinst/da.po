@@ -17,7 +17,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: autoinst\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-04 02:28+0000\n"
+"POT-Creation-Date: 2018-05-05 02:28+0000\n"
 "PO-Revision-Date: 2018-03-01 19:01+0000\n"
 "Last-Translator: scootergrisen <scootergrisen@gmail.com>\n"
 "Language-Team: Danish <https://l10n.opensuse.org/projects/yast-autoinst/"
@@ -509,12 +509,12 @@ msgstr "Kontrollerer for krævede pakker..."
 
 #
 #. Add all found packages
-#: src/clients/inst_autopost.rb:214
+#: src/clients/inst_autopost.rb:217
 msgid "Adding found packages..."
 msgstr "Tilføjer fundne pakker..."
 
 #. Finish
-#: src/clients/inst_autopost.rb:230
+#: src/clients/inst_autopost.rb:233
 msgid "Checking for packages required for %1..."
 msgstr "Tjekker for pakker krævet for %1..."
 
@@ -2252,6 +2252,61 @@ msgstr "Vælg først et script."
 msgid "Autoinstall Configuration"
 msgstr "Konfiguration af autoinstallation"
 
+#. TRANSLATORS:
+#. 'value' is a generic value (number or string) 'attribute' is an AutoYaST element
+#. 'description' has already been translated in other modules.
+#: src/lib/autoinstall/autoinst_issues/invalid_value.rb:53
+msgid "Invalid value '%{value}' for attribute '%{attribute}': %{description}"
+msgstr ""
+
+#. TRANSLATORS:
+#. 'attr' is an AutoYaST element
+#. 'description' has already been translated in other modules.
+#: src/lib/autoinstall/autoinst_issues/missing_value.rb:57
+msgid "Missing element '%{attr}'. %{description}"
+msgstr ""
+
+#. Return the text to be shown to the user regarding the list of issues
+#.
+#. @return [String] HTML formatted text
+#. Return the text to be shown to the user regarding the list of issues
+#.
+#. @return [String] HTML formatted text
+#: src/lib/autoinstall/autoinst_issues_presenter.rb:67
+#: src/lib/autoinstall/storage_proposal_issues_presenter.rb:64
+msgid "Do you want to continue?"
+msgstr "Vil du fortsætte?"
+
+#: src/lib/autoinstall/autoinst_issues_presenter.rb:69
+#: src/lib/autoinstall/storage_proposal_issues_presenter.rb:66
+msgid "Please, correct these problems and try again."
+msgstr "Ret venligst problemerne og prøv igen."
+
+#. Return warning message with a list of issues
+#.
+#. @param issues [Array<Y2Autoinstallation::AutoinstIssues::Issue>] Array containing issues
+#. @return [String] Message
+#: src/lib/autoinstall/autoinst_issues_presenter.rb:81
+#, fuzzy
+#| msgid "Minor issues were detected while creating the partitioning plan:"
+msgid ""
+"Minor issues have been detected while reading AutoYaST configuration file:"
+msgstr ""
+"Mindre problemer blev registreret under oprettelse af partitioneringsplanen:"
+
+#. Return error message with a list of issues
+#.
+#. @param issues [Array<Y2Autoinstallation::AutoinstIssues::Issue>] Array containing issues
+#. @return [String] Message
+#: src/lib/autoinstall/autoinst_issues_presenter.rb:91
+#, fuzzy
+#| msgid "Important issues were detected while creating the partitioning plan:"
+msgid ""
+"Important issues have been detected while reading AutoYaST configuration "
+"file:"
+msgstr ""
+"Vigtige problemer blev registreret under oprettelse af partitioneringsplanen:"
+
 #. Dialog content when some disks are available
 #.
 #. @return [Yast::Term] Dialog content
@@ -2282,17 +2337,6 @@ msgstr ""
 "Vælg venligst en harddisk, som skal bruges i #%s-drevsektionen i den\n"
 "givne AutoYaST-profil."
 
-#. Return the text to be shown to the user regarding the list of issues
-#.
-#. @return [String] HTML formatted text
-#: src/lib/autoinstall/storage_proposal_issues_presenter.rb:64
-msgid "Do you want to continue?"
-msgstr "Vil du fortsætte?"
-
-#: src/lib/autoinstall/storage_proposal_issues_presenter.rb:66
-msgid "Please, correct these problems and try again."
-msgstr "Ret venligst problemerne og prøv igen."
-
 #. Return warning message with a list of issues
 #.
 #. @param issues [Array<Y2Storage::AutoinstIssues::Issue>] Array containing issues
@@ -2310,6 +2354,13 @@ msgstr ""
 msgid "Important issues were detected while creating the partitioning plan:"
 msgstr ""
 "Vigtige problemer blev registreret under oprettelse af partitioneringsplanen:"
+
+#. On non-fatal issues, obey report settings for warnings
+#: src/modules/AutoInstall.rb:369
+#, fuzzy
+#| msgid "Autoinstall Configuration"
+msgid "AutoYaST configuration file check"
+msgstr "Konfiguration af autoinstallation"
 
 #. Read rules file
 #. @return [void]
@@ -2811,18 +2862,18 @@ msgstr "Detaljer kan findes i %s-filen."
 
 #. Handle /etc/fstab usage
 #. @return [Boolean]
-#: src/modules/AutoinstStorage.rb:204
+#: src/modules/AutoinstStorage.rb:198
 msgid "Evaluating root partition. One moment please..."
 msgstr "Evaluerer rodpartition. Et øjeblik..."
 
 #. a popup
-#: src/modules/AutoinstStorage.rb:212
+#: src/modules/AutoinstStorage.rb:206
 msgid "No Linux root partition found."
 msgstr "Ingen Linux rodpartition fundet."
 
 #. We must only change RootPart::selectedRootPartition if booting
 #. is inevitable.
-#: src/modules/AutoinstStorage.rb:225
+#: src/modules/AutoinstStorage.rb:219
 msgid ""
 "Multiple root partitions found, but you did not configure\n"
 "which root partition should be used.  Automatic installation not possible.\n"
@@ -2831,10 +2882,17 @@ msgstr ""
 "hvilken rodpartition, der skal anvendes. Automatisk installation er ikke "
 "muligt.\n"
 
+#. On non-fatal issues, obey report settings for warnings
+#: src/modules/AutoinstStorage.rb:301
+#, fuzzy
+#| msgid "Postpartitioning Scripts"
+msgid "Partitioning issues"
+msgstr "Efter-partitionerings-scripts"
+
 #. Determine (and warn the user) no storage is available for installation
 #.
 #. @return [Boolean] true if there are devices for installation; false otherwise.
-#: src/modules/AutoinstStorage.rb:338
+#: src/modules/AutoinstStorage.rb:333
 msgid ""
 "No storage devices were found for the installation.\n"
 "Please, check your hardware or your AutoYaST profile."
