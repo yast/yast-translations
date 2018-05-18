@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: storage-ng.ko\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-16 14:04+0000\n"
+"POT-Creation-Date: 2018-05-18 02:30+0000\n"
 "PO-Revision-Date: 2018-05-14 06:27+0000\n"
 "Last-Translator: Hwajin Kim <hwajin.kim@e4net.net>\n"
 "Language-Team: Korean <https://l10n.opensuse.org/projects/yast-storage/"
@@ -3397,7 +3397,9 @@ msgstr ""
 msgid "<p>No changes to partitioning.</p>"
 msgstr "<p>파티션 변경 사항이 없습니다.</p>"
 
+#. Reuse the exact string "Changes to partitioning" from the partitioner
 #: src/lib/y2partitioner/widgets/summary_text.rb:138
+#: src/lib/y2storage/dialogs/proposal.rb:141
 msgid "<p>Changes to partitioning:</p>"
 msgstr "<p>파티션 변경 사항:</p>"
 
@@ -3724,11 +3726,11 @@ msgstr ""
 #. @param what [String] details coming from libstorage-ng
 #. @return [Boolean] true will make libstorage-ng ignore the error, false
 #. will result in a libstorage-ng exception
-#: src/lib/y2storage/callbacks/libstorage_callback.rb:68
+#: src/lib/y2storage/callbacks/libstorage_callback.rb:69
 msgid "Click below to see more details (English only)."
 msgstr "자세한 내용을 보려면 아래를 클릭하십시오(영어만)."
 
-#: src/lib/y2storage/callbacks/libstorage_callback.rb:69
+#: src/lib/y2storage/callbacks/libstorage_callback.rb:70
 msgid "Continue despite the error?"
 msgstr "오류를 무시하고 계속하시겠습니까?"
 
@@ -3741,7 +3743,7 @@ msgstr "오류를 무시하고 계속하시겠습니까?"
 #.
 #. @param what [String] details coming from libstorage-ng
 #. @return [String]
-#: src/lib/y2storage/callbacks/libstorage_callback.rb:113
+#: src/lib/y2storage/callbacks/libstorage_callback.rb:114
 msgid "Unexpected situation found in the system."
 msgstr "예기치 못한 상황이 시스템에서 발견되었습니다."
 
@@ -3751,13 +3753,13 @@ msgstr "예기치 못한 상황이 시스템에서 발견되었습니다."
 #. @see #error_description
 #.
 #. @return [String]
-#: src/lib/y2storage/callbacks/libstorage_callback.rb:124
+#: src/lib/y2storage/callbacks/libstorage_callback.rb:125
 msgid "The same LVM physical volume was found in several devices.\n"
 msgstr "여러 장치에서 동일한 LVM 물리적 볼륨이 발견되었습니다.\n"
 
 #. The user already tried LIBSTORAGE_MULTIPATH_AUTOSTART (and is not
 #. using AutoYaST), there is nothing else we can advise.
-#: src/lib/y2storage/callbacks/libstorage_callback.rb:129
+#: src/lib/y2storage/callbacks/libstorage_callback.rb:130
 msgid ""
 "Maybe there are multipath devices in the system but multipath support\n"
 "was not enabled.\n"
@@ -3767,13 +3769,13 @@ msgstr ""
 "활성화되지 않았습니다.\n"
 "\n"
 
-#: src/lib/y2storage/callbacks/libstorage_callback.rb:135
+#: src/lib/y2storage/callbacks/libstorage_callback.rb:136
 msgid "Use 'start_multipath' in the AutoYaST profile to enable multipath."
 msgstr ""
 "AutoYaST 프로파일에서 'start_multipath'를 사용하여 다중 경로를 활성화하십시"
 "오."
 
-#: src/lib/y2storage/callbacks/libstorage_callback.rb:139
+#: src/lib/y2storage/callbacks/libstorage_callback.rb:140
 msgid ""
 "If YaST didn't offer the opportunity to enable multipath in a previous "
 "step,\n"
@@ -4151,15 +4153,34 @@ msgstr "올바른 저장소 설정 없이 계속할 수 없습니다."
 msgid "Please use \"Guided Setup\" or \"Expert Partitioner\"."
 msgstr "\"가이드 설정\" 또는 \"고급 파티션 도구\"를 사용하십시오."
 
-#. TODO: if there is a proposal, use the meaningful description with
-#. hyperlinks instead of just delegating the summary to libstorage
-#: src/lib/y2storage/dialogs/proposal.rb:132
-msgid ""
-"It was not possible to automatically propose a partitioning layout based on "
-"the current settings."
-msgstr "현재 설정에 따라 파티셔닝 레이아웃을 자동으로 제안할 수 없습니다."
+#. @see #actions_html
+#: src/lib/y2storage/dialogs/proposal.rb:150
+msgid "Initial layout proposed after adjusting the Guided Setup settings:"
+msgstr ""
 
-#: src/lib/y2storage/dialogs/proposal.rb:138
+#. @see #actions_source_html
+#: src/lib/y2storage/dialogs/proposal.rb:156
+msgid "Layout configured manually using the Expert Partitioner."
+msgstr ""
+
+#. @see #actions_source_html
+#: src/lib/y2storage/dialogs/proposal.rb:161
+msgid ""
+"Layout proposed by the Guided Setup with the settings provided by the user."
+msgstr ""
+
+#. @see #actions_source_html
+#: src/lib/y2storage/dialogs/proposal.rb:166
+msgid "Initial layout proposed with the default Guided Setup settings."
+msgstr ""
+
+#. Text for the summary in cases in which it was not possible to propose
+#. a devicegraph
+#.
+#. @see #summary
+#.
+#. @return [String] HTML-formatted text
+#: src/lib/y2storage/dialogs/proposal.rb:177
 msgid ""
 "Please, use \"Guided Setup\" to adjust the proposal settings or \"Expert "
 "Partitioner\" to create a custom layout."
@@ -4167,8 +4188,40 @@ msgstr ""
 "제안 설정을 조정하려면 \"가이드 설정\"을 사용하고 사용자 지정 레이아웃을 생성"
 "하려면 \"고급 파티션 도구\"를 사용하십시오."
 
+#. Just in case the initial proposal is configured to never adjust any
+#. setting automatically
+#: src/lib/y2storage/dialogs/proposal.rb:191
+#, fuzzy
+#| msgid ""
+#| "It was not possible to automatically propose a partitioning layout based "
+#| "on the current settings."
+msgid ""
+"It was not possible to propose an initial partitioning layout based on the "
+"default Guided Setup settings."
+msgstr "현재 설정에 따라 파티셔닝 레이아웃을 자동으로 제안할 수 없습니다."
+
+#: src/lib/y2storage/dialogs/proposal.rb:198
+#, fuzzy
+#| msgid ""
+#| "It was not possible to automatically propose a partitioning layout based "
+#| "on the current settings."
+msgid ""
+"It was not possible to propose an initial partitioning layout even after "
+"adjusting the Guided Setup settings:"
+msgstr "현재 설정에 따라 파티셔닝 레이아웃을 자동으로 제안할 수 없습니다."
+
+#: src/lib/y2storage/dialogs/proposal.rb:206
+#, fuzzy
+#| msgid ""
+#| "It was not possible to automatically propose a partitioning layout based "
+#| "on the current settings."
+msgid ""
+"The Guided Setup was not able to propose a layout using the provided "
+"settings."
+msgstr "현재 설정에 따라 파티셔닝 레이아웃을 자동으로 제안할 수 없습니다."
+
 #  Title for dialogue
-#: src/lib/y2storage/dialogs/proposal.rb:149
+#: src/lib/y2storage/dialogs/proposal.rb:215
 msgid "Suggested Partitioning"
 msgstr "추천하는 파티션 구성"
 
@@ -4178,7 +4231,7 @@ msgstr "추천하는 파티션 구성"
 #. @note This button might not be shown (see {#excluded_buttons}).
 #.
 #. @return [Yast::UI::Term]
-#: src/lib/y2storage/dialogs/proposal.rb:160
+#: src/lib/y2storage/dialogs/proposal.rb:226
 msgid "&Guided Setup"
 msgstr "안내된 설치(&G)"
 
@@ -4187,19 +4240,19 @@ msgstr "안내된 설치(&G)"
 #. @note This button might not be shown (see {#excluded_buttons}).
 #.
 #. @return [Yast::UI::Term]
-#: src/lib/y2storage/dialogs/proposal.rb:172
+#: src/lib/y2storage/dialogs/proposal.rb:238
 msgid "Start with &Current Proposal"
 msgstr "현재 제안으로 시작(&C)"
 
-#: src/lib/y2storage/dialogs/proposal.rb:176
+#: src/lib/y2storage/dialogs/proposal.rb:242
 msgid "Start with Existing &Partitions"
 msgstr "기존 파티션으로 시작(&P)"
 
-#: src/lib/y2storage/dialogs/proposal.rb:181
+#: src/lib/y2storage/dialogs/proposal.rb:247
 msgid "&Expert Partitioner"
 msgstr "고급 파티션 도구(&E)"
 
-#: src/lib/y2storage/dialogs/proposal.rb:196
+#: src/lib/y2storage/dialogs/proposal.rb:262
 msgid ""
 "<p>\n"
 "Your hard disks have been checked. The partition setup\n"
@@ -4463,6 +4516,41 @@ msgstr "Microsoft 예약 파티션"
 #: src/lib/y2storage/partition_id.rb:54
 msgid "Diagnostics Partition"
 msgstr "진단 파티션"
+
+#. TRANSLATORS: %s is a mount point like "/home"
+#: src/lib/y2storage/proposal/settings_adjustment.rb:102
+#, fuzzy
+#| msgid "Propose Separate %s Volume"
+msgid "do not propose a separate %s"
+msgstr "별도의  %s 볼륨 제안"
+
+#. TRANSLATORS: %s is a mount point like "/home"
+#: src/lib/y2storage/proposal/settings_adjustment.rb:105
+msgid "disable snapshots and RAM-based size adjustments for %s"
+msgstr ""
+
+#. TRANSLATORS: %s is a mount point like "/home"
+#: src/lib/y2storage/proposal/settings_adjustment.rb:108
+#, fuzzy
+#| msgid "Enable Snapshots"
+msgid "do not enable snapshots for %s"
+msgstr "스냅샷 활성화"
+
+#. TRANSLATORS: %s is a mount point like "/home"
+#: src/lib/y2storage/proposal/settings_adjustment.rb:111
+msgid "do not adjust size of %s based on RAM size"
+msgstr ""
+
+#. @see #volume_description
+#: src/lib/y2storage/proposal/settings_adjustment.rb:120
+msgid "do not propose swap"
+msgstr ""
+
+#: src/lib/y2storage/proposal/settings_adjustment.rb:122
+#, fuzzy
+#| msgid "Enlarge to RAM size"
+msgid "do not enlarge swap to RAM size"
+msgstr "RAM 크기 확대"
 
 #. rubocop:disable Metrics/LineLength
 #: src/lib/y2storage/resize_info.rb:43

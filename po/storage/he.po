@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: YaST (@memory@)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-16 14:04+0000\n"
+"POT-Creation-Date: 2018-05-18 02:30+0000\n"
 "PO-Revision-Date: 2013-05-29 21:56+0200\n"
 "Last-Translator: Eliran Itzhak <eliran@bigfoot.com>\n"
 "Language-Team: Hebrew <i18n@suse.de>\n"
@@ -3831,7 +3831,9 @@ msgid "<p>No changes to partitioning.</p>"
 msgstr "<p> עכשיו, הקישו את מיקום ההתחלה של המחיצה החדשה בכונן.</p>"
 
 #  helptext for popup create partition line 3 of 6
+#. Reuse the exact string "Changes to partitioning" from the partitioner
 #: src/lib/y2partitioner/widgets/summary_text.rb:138
+#: src/lib/y2storage/dialogs/proposal.rb:141
 #, fuzzy
 msgid "<p>Changes to partitioning:</p>"
 msgstr "<p> עכשיו, הקישו את מיקום ההתחלה של המחיצה החדשה בכונן.</p>"
@@ -4151,13 +4153,13 @@ msgstr ""
 #. @param what [String] details coming from libstorage-ng
 #. @return [Boolean] true will make libstorage-ng ignore the error, false
 #. will result in a libstorage-ng exception
-#: src/lib/y2storage/callbacks/libstorage_callback.rb:68
+#: src/lib/y2storage/callbacks/libstorage_callback.rb:69
 msgid "Click below to see more details (English only)."
 msgstr ""
 
 #  Popup text
 #  %1 is either replaced by "logical volume" or by "partition"
-#: src/lib/y2storage/callbacks/libstorage_callback.rb:69
+#: src/lib/y2storage/callbacks/libstorage_callback.rb:70
 #, fuzzy
 #| msgid "Continue resizing the %1?"
 msgid "Continue despite the error?"
@@ -4172,7 +4174,7 @@ msgstr "להמשיך לשנות גודל של %1 ?"
 #.
 #. @param what [String] details coming from libstorage-ng
 #. @return [String]
-#: src/lib/y2storage/callbacks/libstorage_callback.rb:113
+#: src/lib/y2storage/callbacks/libstorage_callback.rb:114
 msgid "Unexpected situation found in the system."
 msgstr ""
 
@@ -4182,24 +4184,24 @@ msgstr ""
 #. @see #error_description
 #.
 #. @return [String]
-#: src/lib/y2storage/callbacks/libstorage_callback.rb:124
+#: src/lib/y2storage/callbacks/libstorage_callback.rb:125
 msgid "The same LVM physical volume was found in several devices.\n"
 msgstr ""
 
 #. The user already tried LIBSTORAGE_MULTIPATH_AUTOSTART (and is not
 #. using AutoYaST), there is nothing else we can advise.
-#: src/lib/y2storage/callbacks/libstorage_callback.rb:129
+#: src/lib/y2storage/callbacks/libstorage_callback.rb:130
 msgid ""
 "Maybe there are multipath devices in the system but multipath support\n"
 "was not enabled.\n"
 "\n"
 msgstr ""
 
-#: src/lib/y2storage/callbacks/libstorage_callback.rb:135
+#: src/lib/y2storage/callbacks/libstorage_callback.rb:136
 msgid "Use 'start_multipath' in the AutoYaST profile to enable multipath."
 msgstr ""
 
-#: src/lib/y2storage/callbacks/libstorage_callback.rb:139
+#: src/lib/y2storage/callbacks/libstorage_callback.rb:140
 msgid ""
 "If YaST didn't offer the opportunity to enable multipath in a previous "
 "step,\n"
@@ -4655,22 +4657,61 @@ msgstr ""
 msgid "Please use \"Guided Setup\" or \"Expert Partitioner\"."
 msgstr ""
 
-#. TODO: if there is a proposal, use the meaningful description with
-#. hyperlinks instead of just delegating the summary to libstorage
-#: src/lib/y2storage/dialogs/proposal.rb:132
-msgid ""
-"It was not possible to automatically propose a partitioning layout based on "
-"the current settings."
+#. @see #actions_html
+#: src/lib/y2storage/dialogs/proposal.rb:150
+msgid "Initial layout proposed after adjusting the Guided Setup settings:"
 msgstr ""
 
-#: src/lib/y2storage/dialogs/proposal.rb:138
+#. @see #actions_source_html
+#: src/lib/y2storage/dialogs/proposal.rb:156
+msgid "Layout configured manually using the Expert Partitioner."
+msgstr ""
+
+#. @see #actions_source_html
+#: src/lib/y2storage/dialogs/proposal.rb:161
+msgid ""
+"Layout proposed by the Guided Setup with the settings provided by the user."
+msgstr ""
+
+#. @see #actions_source_html
+#: src/lib/y2storage/dialogs/proposal.rb:166
+msgid "Initial layout proposed with the default Guided Setup settings."
+msgstr ""
+
+#. Text for the summary in cases in which it was not possible to propose
+#. a devicegraph
+#.
+#. @see #summary
+#.
+#. @return [String] HTML-formatted text
+#: src/lib/y2storage/dialogs/proposal.rb:177
 msgid ""
 "Please, use \"Guided Setup\" to adjust the proposal settings or \"Expert "
 "Partitioner\" to create a custom layout."
 msgstr ""
 
+#. Just in case the initial proposal is configured to never adjust any
+#. setting automatically
+#: src/lib/y2storage/dialogs/proposal.rb:191
+msgid ""
+"It was not possible to propose an initial partitioning layout based on the "
+"default Guided Setup settings."
+msgstr ""
+
+#: src/lib/y2storage/dialogs/proposal.rb:198
+msgid ""
+"It was not possible to propose an initial partitioning layout even after "
+"adjusting the Guided Setup settings:"
+msgstr ""
+
+#: src/lib/y2storage/dialogs/proposal.rb:206
+msgid ""
+"The Guided Setup was not able to propose a layout using the provided "
+"settings."
+msgstr ""
+
 #  Title for dialogue
-#: src/lib/y2storage/dialogs/proposal.rb:149
+#: src/lib/y2storage/dialogs/proposal.rb:215
 msgid "Suggested Partitioning"
 msgstr "המיחוץ המוצע"
 
@@ -4680,7 +4721,7 @@ msgstr "המיחוץ המוצע"
 #. @note This button might not be shown (see {#excluded_buttons}).
 #.
 #. @return [Yast::UI::Term]
-#: src/lib/y2storage/dialogs/proposal.rb:160
+#: src/lib/y2storage/dialogs/proposal.rb:226
 #, fuzzy
 #| msgid "Suggested Partitioning"
 msgid "&Guided Setup"
@@ -4691,25 +4732,25 @@ msgstr "המיחוץ המוצע"
 #. @note This button might not be shown (see {#excluded_buttons}).
 #.
 #. @return [Yast::UI::Term]
-#: src/lib/y2storage/dialogs/proposal.rb:172
+#: src/lib/y2storage/dialogs/proposal.rb:238
 msgid "Start with &Current Proposal"
 msgstr ""
 
 #  header of the dialog edit a partition
-#: src/lib/y2storage/dialogs/proposal.rb:176
+#: src/lib/y2storage/dialogs/proposal.rb:242
 #, fuzzy
 msgid "Start with Existing &Partitions"
 msgstr "ערוך מחיצה קיימת"
 
 #  heading text
-#: src/lib/y2storage/dialogs/proposal.rb:181
+#: src/lib/y2storage/dialogs/proposal.rb:247
 #, fuzzy
 #| msgid "Expert Partitioner"
 msgid "&Expert Partitioner"
 msgstr "ממחץ מומחה"
 
 #  help on suggested partitioning
-#: src/lib/y2storage/dialogs/proposal.rb:196
+#: src/lib/y2storage/dialogs/proposal.rb:262
 #, fuzzy
 msgid ""
 "<p>\n"
@@ -5021,6 +5062,38 @@ msgstr "מחיצה"
 #, fuzzy
 msgid "Diagnostics Partition"
 msgstr "מחיצה"
+
+#  heading text
+#. TRANSLATORS: %s is a mount point like "/home"
+#: src/lib/y2storage/proposal/settings_adjustment.rb:102
+#, fuzzy
+#| msgid "File system options:"
+msgid "do not propose a separate %s"
+msgstr "אפשרויות מערכת קבצים:"
+
+#. TRANSLATORS: %s is a mount point like "/home"
+#: src/lib/y2storage/proposal/settings_adjustment.rb:105
+msgid "disable snapshots and RAM-based size adjustments for %s"
+msgstr ""
+
+#. TRANSLATORS: %s is a mount point like "/home"
+#: src/lib/y2storage/proposal/settings_adjustment.rb:108
+msgid "do not enable snapshots for %s"
+msgstr ""
+
+#. TRANSLATORS: %s is a mount point like "/home"
+#: src/lib/y2storage/proposal/settings_adjustment.rb:111
+msgid "do not adjust size of %s based on RAM size"
+msgstr ""
+
+#. @see #volume_description
+#: src/lib/y2storage/proposal/settings_adjustment.rb:120
+msgid "do not propose swap"
+msgstr ""
+
+#: src/lib/y2storage/proposal/settings_adjustment.rb:122
+msgid "do not enlarge swap to RAM size"
+msgstr ""
 
 #. rubocop:disable Metrics/LineLength
 #: src/lib/y2storage/resize_info.rb:43
