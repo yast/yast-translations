@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: storage\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-06-13 02:29+0000\n"
+"POT-Creation-Date: 2018-06-15 02:29+0000\n"
 "PO-Revision-Date: 2018-06-12 04:01+0000\n"
 "Last-Translator: Emily Dong <Emily.Dong@excel-gits.com>\n"
 "Language-Team: Chinese (Taiwan) <https://l10n.opensuse.org/projects/yast-"
@@ -1220,12 +1220,12 @@ msgstr ""
 msgid "The size entered is invalid. Enter a size between %1 and %2."
 msgstr "輸入的大小無效。請輸入介於 %1 與 %2 之間的大小。"
 
-#. FIXME: libyui widget overflow :-(
-#: src/lib/y2partitioner/dialogs/partition_size.rb:282
+#. we can't use IntField() since it overflows :-(
+#: src/lib/y2partitioner/dialogs/partition_size.rb:273
 msgid "Start Block"
 msgstr "啟始區塊"
 
-#: src/lib/y2partitioner/dialogs/partition_size.rb:283
+#: src/lib/y2partitioner/dialogs/partition_size.rb:274
 msgid "End Block"
 msgstr "結束區塊"
 
@@ -2263,7 +2263,7 @@ msgstr ""
 
 #. An input field that allows to set other options that are not handled by
 #. specific widgets.
-#: src/lib/y2partitioner/widgets/fstab_options.rb:738
+#: src/lib/y2partitioner/widgets/fstab_options.rb:739
 msgid "Arbitrary Option &Value"
 msgstr "任意的選項值(&V)"
 
@@ -2276,7 +2276,7 @@ msgstr "任意的選項值(&V)"
 #. So, when a user insists in adding "noauto,user" here, it is applied
 #. correctly, but when entering the dialog again, the checkboxes pick up
 #. those values and they won't show up in this field anymore.
-#: src/lib/y2partitioner/widgets/fstab_options.rb:762
+#: src/lib/y2partitioner/widgets/fstab_options.rb:763
 msgid ""
 "<p><b>Arbitrary Option Value:</b> Enter any other mount options here, "
 "separated with commas. Notice that this does not do any checking, so be "
@@ -2286,11 +2286,11 @@ msgstr ""
 "並不會執行任何檢查，因此在此輸入時務必小心！</p>"
 
 #. Swap priority
-#: src/lib/y2partitioner/widgets/fstab_options.rb:838
+#: src/lib/y2partitioner/widgets/fstab_options.rb:839
 msgid "Swap &Priority"
 msgstr "交換優先程度(&P)"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:847
+#: src/lib/y2partitioner/widgets/fstab_options.rb:848
 msgid ""
 "<p><b>Swap Priority:</b>\n"
 "Enter the swap priority. Higher numbers mean higher priority.</p>\n"
@@ -2300,11 +2300,11 @@ msgstr ""
 
 #. "iocharset=utf8" breaks VFAT case insensitivity (bsc#1080731).
 #. See also boot_fstab_options() in lib/y2storage/filesystems/type.rb
-#: src/lib/y2partitioner/widgets/fstab_options.rb:880
+#: src/lib/y2partitioner/widgets/fstab_options.rb:881
 msgid "Char&set for File Names"
 msgstr "檔案名稱的字元集(&S)"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:884
+#: src/lib/y2partitioner/widgets/fstab_options.rb:885
 msgid ""
 "<p><b>Charset for File Names:</b>\n"
 "Set the charset used for display of file names in Windows partitions.</p>\n"
@@ -2313,11 +2313,11 @@ msgstr ""
 "設定在 Windows 分割區顯示檔案名稱時所使用的字元集。</p>\n"
 
 #. VFAT Codepage
-#: src/lib/y2partitioner/widgets/fstab_options.rb:900
+#: src/lib/y2partitioner/widgets/fstab_options.rb:901
 msgid "Code&page for Short FAT Names"
 msgstr "短 FAT 名稱的內碼頁(&P)"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:904
+#: src/lib/y2partitioner/widgets/fstab_options.rb:905
 msgid ""
 "<p><b>Codepage for Short FAT Names:</b>\n"
 "This codepage is used for converting to shortname characters on FAT file "
@@ -3585,26 +3585,12 @@ msgstr ""
 "\n"
 "是否要中止或重試？"
 
-#. Callback for libstorage-ng to report an error to the user.
-#.
-#. In addition to displaying the error, it offers the user the possibility
-#. to ignore it and continue.
-#.
-#. @note If the user rejects to continue, the method will return false
-#. which implies libstorage-ng will raise the corresponding exception for
-#. the error.
-#.
-#. See Storage::Callbacks#error in libstorage-ng
-#.
-#. @param message [String] error title coming from libstorage-ng
-#. @param what [String] details coming from libstorage-ng
-#. @return [Boolean] true will make libstorage-ng ignore the error, false
-#. will result in a libstorage-ng exception
-#: src/lib/y2storage/callbacks/libstorage_callback.rb:69
+#. force the UTF-8 encoding to avoid Encoding::CompatibilityError exception (bsc#1096758)
+#: src/lib/y2storage/callbacks/libstorage_callback.rb:79
 msgid "Click below to see more details (English only)."
 msgstr "按一下下方查看更多詳細資料 (僅提供英語版本)。"
 
-#: src/lib/y2storage/callbacks/libstorage_callback.rb:70
+#: src/lib/y2storage/callbacks/libstorage_callback.rb:80
 msgid "Continue despite the error?"
 msgstr "忽略此錯誤並繼續？"
 
@@ -3617,7 +3603,7 @@ msgstr "忽略此錯誤並繼續？"
 #.
 #. @param what [String] details coming from libstorage-ng
 #. @return [String]
-#: src/lib/y2storage/callbacks/libstorage_callback.rb:114
+#: src/lib/y2storage/callbacks/libstorage_callback.rb:124
 msgid "Unexpected situation found in the system."
 msgstr "系統中發現未預期的情況。"
 
@@ -3627,13 +3613,13 @@ msgstr "系統中發現未預期的情況。"
 #. @see #error_description
 #.
 #. @return [String]
-#: src/lib/y2storage/callbacks/libstorage_callback.rb:125
+#: src/lib/y2storage/callbacks/libstorage_callback.rb:135
 msgid "The same LVM physical volume was found in several devices.\n"
 msgstr "數部裝置中發現相同的 LVM 實體磁碟區。\n"
 
 #. The user already tried LIBSTORAGE_MULTIPATH_AUTOSTART (and is not
 #. using AutoYaST), there is nothing else we can advise.
-#: src/lib/y2storage/callbacks/libstorage_callback.rb:130
+#: src/lib/y2storage/callbacks/libstorage_callback.rb:140
 msgid ""
 "Maybe there are multipath devices in the system but multipath support\n"
 "was not enabled.\n"
@@ -3642,11 +3628,11 @@ msgstr ""
 "可能系統中存在多重路徑裝置，但未啟用多重路徑支援。\n"
 "\n"
 
-#: src/lib/y2storage/callbacks/libstorage_callback.rb:136
+#: src/lib/y2storage/callbacks/libstorage_callback.rb:146
 msgid "Use 'start_multipath' in the AutoYaST profile to enable multipath."
 msgstr "請在 AutoYaST 設定檔中使用「start_multipath」來啟用多重路徑。"
 
-#: src/lib/y2storage/callbacks/libstorage_callback.rb:140
+#: src/lib/y2storage/callbacks/libstorage_callback.rb:150
 msgid ""
 "If YaST didn't offer the opportunity to enable multipath in a previous "
 "step,\n"

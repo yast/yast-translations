@@ -23,7 +23,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: storage\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-06-13 02:29+0000\n"
+"POT-Creation-Date: 2018-06-15 02:29+0000\n"
 "PO-Revision-Date: 2018-06-10 10:06+0000\n"
 "Last-Translator: jc sl <trcs@gmx.com>\n"
 "Language-Team: Spanish <https://l10n.opensuse.org/projects/yast-storage/"
@@ -1486,12 +1486,12 @@ msgstr ""
 # clients/inst_custom_part.ycp:2322
 # clients/inst_custom_part.ycp:2321
 # clients/inst_custom_part.ycp:2335
-#. FIXME: libyui widget overflow :-(
-#: src/lib/y2partitioner/dialogs/partition_size.rb:282
+#. we can't use IntField() since it overflows :-(
+#: src/lib/y2partitioner/dialogs/partition_size.rb:273
 msgid "Start Block"
 msgstr "Bloque de inicio"
 
-#: src/lib/y2partitioner/dialogs/partition_size.rb:283
+#: src/lib/y2partitioner/dialogs/partition_size.rb:274
 msgid "End Block"
 msgstr "Bloque final"
 
@@ -2719,7 +2719,7 @@ msgstr ""
 
 #. An input field that allows to set other options that are not handled by
 #. specific widgets.
-#: src/lib/y2partitioner/widgets/fstab_options.rb:738
+#: src/lib/y2partitioner/widgets/fstab_options.rb:739
 msgid "Arbitrary Option &Value"
 msgstr "&Valor de opción arbitrario"
 
@@ -2732,7 +2732,7 @@ msgstr "&Valor de opción arbitrario"
 #. So, when a user insists in adding "noauto,user" here, it is applied
 #. correctly, but when entering the dialog again, the checkboxes pick up
 #. those values and they won't show up in this field anymore.
-#: src/lib/y2partitioner/widgets/fstab_options.rb:762
+#: src/lib/y2partitioner/widgets/fstab_options.rb:763
 msgid ""
 "<p><b>Arbitrary Option Value:</b> Enter any other mount options here, "
 "separated with commas. Notice that this does not do any checking, so be "
@@ -2743,11 +2743,11 @@ msgstr ""
 "nada, así que debe tener cuidado con lo que introduce.</p>"
 
 #. Swap priority
-#: src/lib/y2partitioner/widgets/fstab_options.rb:838
+#: src/lib/y2partitioner/widgets/fstab_options.rb:839
 msgid "Swap &Priority"
 msgstr "&Prioridad de intercambio"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:847
+#: src/lib/y2partitioner/widgets/fstab_options.rb:848
 msgid ""
 "<p><b>Swap Priority:</b>\n"
 "Enter the swap priority. Higher numbers mean higher priority.</p>\n"
@@ -2758,11 +2758,11 @@ msgstr ""
 
 #. "iocharset=utf8" breaks VFAT case insensitivity (bsc#1080731).
 #. See also boot_fstab_options() in lib/y2storage/filesystems/type.rb
-#: src/lib/y2partitioner/widgets/fstab_options.rb:880
+#: src/lib/y2partitioner/widgets/fstab_options.rb:881
 msgid "Char&set for File Names"
 msgstr "Conjunto de car&acteres para los nombres de archivos"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:884
+#: src/lib/y2partitioner/widgets/fstab_options.rb:885
 msgid ""
 "<p><b>Charset for File Names:</b>\n"
 "Set the charset used for display of file names in Windows partitions.</p>\n"
@@ -2772,11 +2772,11 @@ msgstr ""
 "archivos en las particiones Windows.</p>\n"
 
 #. VFAT Codepage
-#: src/lib/y2partitioner/widgets/fstab_options.rb:900
+#: src/lib/y2partitioner/widgets/fstab_options.rb:901
 msgid "Code&page for Short FAT Names"
 msgstr "Página de có&digo para nombres FAT cortos"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:904
+#: src/lib/y2partitioner/widgets/fstab_options.rb:905
 msgid ""
 "<p><b>Codepage for Short FAT Names:</b>\n"
 "This codepage is used for converting to shortname characters on FAT file "
@@ -4227,26 +4227,12 @@ msgstr ""
 "\n"
 "¿Desea cancelar o volver a intentarlo?"
 
-#. Callback for libstorage-ng to report an error to the user.
-#.
-#. In addition to displaying the error, it offers the user the possibility
-#. to ignore it and continue.
-#.
-#. @note If the user rejects to continue, the method will return false
-#. which implies libstorage-ng will raise the corresponding exception for
-#. the error.
-#.
-#. See Storage::Callbacks#error in libstorage-ng
-#.
-#. @param message [String] error title coming from libstorage-ng
-#. @param what [String] details coming from libstorage-ng
-#. @return [Boolean] true will make libstorage-ng ignore the error, false
-#. will result in a libstorage-ng exception
-#: src/lib/y2storage/callbacks/libstorage_callback.rb:69
+#. force the UTF-8 encoding to avoid Encoding::CompatibilityError exception (bsc#1096758)
+#: src/lib/y2storage/callbacks/libstorage_callback.rb:79
 msgid "Click below to see more details (English only)."
 msgstr "Haga clic abajo para ver más detalles (solo en inglés)."
 
-#: src/lib/y2storage/callbacks/libstorage_callback.rb:70
+#: src/lib/y2storage/callbacks/libstorage_callback.rb:80
 msgid "Continue despite the error?"
 msgstr "¿Desea continuar a pesar del error?"
 
@@ -4259,7 +4245,7 @@ msgstr "¿Desea continuar a pesar del error?"
 #.
 #. @param what [String] details coming from libstorage-ng
 #. @return [String]
-#: src/lib/y2storage/callbacks/libstorage_callback.rb:114
+#: src/lib/y2storage/callbacks/libstorage_callback.rb:124
 msgid "Unexpected situation found in the system."
 msgstr "Situación inesperada en el sistema."
 
@@ -4269,13 +4255,13 @@ msgstr "Situación inesperada en el sistema."
 #. @see #error_description
 #.
 #. @return [String]
-#: src/lib/y2storage/callbacks/libstorage_callback.rb:125
+#: src/lib/y2storage/callbacks/libstorage_callback.rb:135
 msgid "The same LVM physical volume was found in several devices.\n"
 msgstr "Se ha encontrado el mismo volumen físico LVM en varios dispositivos.\n"
 
 #. The user already tried LIBSTORAGE_MULTIPATH_AUTOSTART (and is not
 #. using AutoYaST), there is nothing else we can advise.
-#: src/lib/y2storage/callbacks/libstorage_callback.rb:130
+#: src/lib/y2storage/callbacks/libstorage_callback.rb:140
 msgid ""
 "Maybe there are multipath devices in the system but multipath support\n"
 "was not enabled.\n"
@@ -4285,12 +4271,12 @@ msgstr ""
 "habilitado la compatibilidad multivía.\n"
 "\n"
 
-#: src/lib/y2storage/callbacks/libstorage_callback.rb:136
+#: src/lib/y2storage/callbacks/libstorage_callback.rb:146
 msgid "Use 'start_multipath' in the AutoYaST profile to enable multipath."
 msgstr ""
 "Use start_multipath en el perfil de AutoYaST para habilitar la multivía."
 
-#: src/lib/y2storage/callbacks/libstorage_callback.rb:140
+#: src/lib/y2storage/callbacks/libstorage_callback.rb:150
 msgid ""
 "If YaST didn't offer the opportunity to enable multipath in a previous "
 "step,\n"

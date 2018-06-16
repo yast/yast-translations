@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: storage\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-06-13 02:29+0000\n"
+"POT-Creation-Date: 2018-06-15 02:29+0000\n"
 "PO-Revision-Date: 2006-11-03 14:26\n"
 "Last-Translator: Novell Language <language@novell.com>\n"
 "Language-Team: Novell Language <language@novell.com>\n"
@@ -1368,14 +1368,14 @@ msgstr ""
 "Isayizi efakiweyo ayisebenziseki.\n"
 "Faka isayizi ukusuka ku-1M ukuya ku %1. Umzekelo, 40M okanye 1G."
 
-#. FIXME: libyui widget overflow :-(
-#: src/lib/y2partitioner/dialogs/partition_size.rb:282
+#. we can't use IntField() since it overflows :-(
+#: src/lib/y2partitioner/dialogs/partition_size.rb:273
 #, fuzzy
 #| msgid "Start"
 msgid "Start Block"
 msgstr "Qalisa"
 
-#: src/lib/y2partitioner/dialogs/partition_size.rb:283
+#: src/lib/y2partitioner/dialogs/partition_size.rb:274
 #, fuzzy
 #| msgid "End "
 msgid "End Block"
@@ -2587,7 +2587,7 @@ msgstr ""
 
 #. An input field that allows to set other options that are not handled by
 #. specific widgets.
-#: src/lib/y2partitioner/widgets/fstab_options.rb:738
+#: src/lib/y2partitioner/widgets/fstab_options.rb:739
 #, fuzzy
 #| msgid "Arbitrary option &value"
 msgid "Arbitrary Option &Value"
@@ -2602,7 +2602,7 @@ msgstr "Isikhethwa seXabiso &lokuzithandela"
 #. So, when a user insists in adding "noauto,user" here, it is applied
 #. correctly, but when entering the dialog again, the checkboxes pick up
 #. those values and they won't show up in this field anymore.
-#: src/lib/y2partitioner/widgets/fstab_options.rb:762
+#: src/lib/y2partitioner/widgets/fstab_options.rb:763
 msgid ""
 "<p><b>Arbitrary Option Value:</b> Enter any other mount options here, "
 "separated with commas. Notice that this does not do any checking, so be "
@@ -2610,11 +2610,11 @@ msgid ""
 msgstr ""
 
 #. Swap priority
-#: src/lib/y2partitioner/widgets/fstab_options.rb:838
+#: src/lib/y2partitioner/widgets/fstab_options.rb:839
 msgid "Swap &Priority"
 msgstr "Tshintsha &Umba obekwe phambili"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:847
+#: src/lib/y2partitioner/widgets/fstab_options.rb:848
 msgid ""
 "<p><b>Swap Priority:</b>\n"
 "Enter the swap priority. Higher numbers mean higher priority.</p>\n"
@@ -2625,13 +2625,13 @@ msgstr ""
 
 #. "iocharset=utf8" breaks VFAT case insensitivity (bsc#1080731).
 #. See also boot_fstab_options() in lib/y2storage/filesystems/type.rb
-#: src/lib/y2partitioner/widgets/fstab_options.rb:880
+#: src/lib/y2partitioner/widgets/fstab_options.rb:881
 #, fuzzy
 #| msgid "Char&set for file names"
 msgid "Char&set for File Names"
 msgstr "I-Char&set yamagama efayili"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:884
+#: src/lib/y2partitioner/widgets/fstab_options.rb:885
 msgid ""
 "<p><b>Charset for File Names:</b>\n"
 "Set the charset used for display of file names in Windows partitions.</p>\n"
@@ -2640,13 +2640,13 @@ msgstr ""
 "Misela i-charset esetyenziselwa ukubonisa amagama efayili kwisahlulelo.</p>\n"
 
 #. VFAT Codepage
-#: src/lib/y2partitioner/widgets/fstab_options.rb:900
+#: src/lib/y2partitioner/widgets/fstab_options.rb:901
 #, fuzzy
 #| msgid "Code&page for short FAT names"
 msgid "Code&page for Short FAT Names"
 msgstr "Ikhowudi&yekhasi yamagama amafutshane e-FAT"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:904
+#: src/lib/y2partitioner/widgets/fstab_options.rb:905
 msgid ""
 "<p><b>Codepage for Short FAT Names:</b>\n"
 "This codepage is used for converting to shortname characters on FAT file "
@@ -3979,26 +3979,12 @@ msgid ""
 "Would you like to abort or try again?"
 msgstr ""
 
-#. Callback for libstorage-ng to report an error to the user.
-#.
-#. In addition to displaying the error, it offers the user the possibility
-#. to ignore it and continue.
-#.
-#. @note If the user rejects to continue, the method will return false
-#. which implies libstorage-ng will raise the corresponding exception for
-#. the error.
-#.
-#. See Storage::Callbacks#error in libstorage-ng
-#.
-#. @param message [String] error title coming from libstorage-ng
-#. @param what [String] details coming from libstorage-ng
-#. @return [Boolean] true will make libstorage-ng ignore the error, false
-#. will result in a libstorage-ng exception
-#: src/lib/y2storage/callbacks/libstorage_callback.rb:69
+#. force the UTF-8 encoding to avoid Encoding::CompatibilityError exception (bsc#1096758)
+#: src/lib/y2storage/callbacks/libstorage_callback.rb:79
 msgid "Click below to see more details (English only)."
 msgstr ""
 
-#: src/lib/y2storage/callbacks/libstorage_callback.rb:70
+#: src/lib/y2storage/callbacks/libstorage_callback.rb:80
 #, fuzzy
 #| msgid "Continue resizing the %1?"
 msgid "Continue despite the error?"
@@ -4013,7 +3999,7 @@ msgstr "Qhubeka wandise u %1?"
 #.
 #. @param what [String] details coming from libstorage-ng
 #. @return [String]
-#: src/lib/y2storage/callbacks/libstorage_callback.rb:114
+#: src/lib/y2storage/callbacks/libstorage_callback.rb:124
 msgid "Unexpected situation found in the system."
 msgstr ""
 
@@ -4023,24 +4009,24 @@ msgstr ""
 #. @see #error_description
 #.
 #. @return [String]
-#: src/lib/y2storage/callbacks/libstorage_callback.rb:125
+#: src/lib/y2storage/callbacks/libstorage_callback.rb:135
 msgid "The same LVM physical volume was found in several devices.\n"
 msgstr ""
 
 #. The user already tried LIBSTORAGE_MULTIPATH_AUTOSTART (and is not
 #. using AutoYaST), there is nothing else we can advise.
-#: src/lib/y2storage/callbacks/libstorage_callback.rb:130
+#: src/lib/y2storage/callbacks/libstorage_callback.rb:140
 msgid ""
 "Maybe there are multipath devices in the system but multipath support\n"
 "was not enabled.\n"
 "\n"
 msgstr ""
 
-#: src/lib/y2storage/callbacks/libstorage_callback.rb:136
+#: src/lib/y2storage/callbacks/libstorage_callback.rb:146
 msgid "Use 'start_multipath' in the AutoYaST profile to enable multipath."
 msgstr ""
 
-#: src/lib/y2storage/callbacks/libstorage_callback.rb:140
+#: src/lib/y2storage/callbacks/libstorage_callback.rb:150
 msgid ""
 "If YaST didn't offer the opportunity to enable multipath in a previous "
 "step,\n"

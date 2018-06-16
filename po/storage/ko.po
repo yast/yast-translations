@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: storage-ng.ko\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-06-13 02:29+0000\n"
+"POT-Creation-Date: 2018-06-15 02:29+0000\n"
 "PO-Revision-Date: 2018-06-12 11:03+0000\n"
 "Last-Translator: Hwajin Kim <hwajin.kim@e4net.net>\n"
 "Language-Team: Korean <https://l10n.opensuse.org/projects/yast-storage/"
@@ -1300,12 +1300,12 @@ msgstr ""
 msgid "The size entered is invalid. Enter a size between %1 and %2."
 msgstr "입력한 크기가 잘못되었습니다. 크기를 %1과(와) %2 사이로 입력합니다."
 
-#. FIXME: libyui widget overflow :-(
-#: src/lib/y2partitioner/dialogs/partition_size.rb:282
+#. we can't use IntField() since it overflows :-(
+#: src/lib/y2partitioner/dialogs/partition_size.rb:273
 msgid "Start Block"
 msgstr "차단 시작"
 
-#: src/lib/y2partitioner/dialogs/partition_size.rb:283
+#: src/lib/y2partitioner/dialogs/partition_size.rb:274
 msgid "End Block"
 msgstr "차단 종료"
 
@@ -2407,7 +2407,7 @@ msgstr ""
 
 #. An input field that allows to set other options that are not handled by
 #. specific widgets.
-#: src/lib/y2partitioner/widgets/fstab_options.rb:738
+#: src/lib/y2partitioner/widgets/fstab_options.rb:739
 msgid "Arbitrary Option &Value"
 msgstr "임의 옵션 값(&V)"
 
@@ -2420,7 +2420,7 @@ msgstr "임의 옵션 값(&V)"
 #. So, when a user insists in adding "noauto,user" here, it is applied
 #. correctly, but when entering the dialog again, the checkboxes pick up
 #. those values and they won't show up in this field anymore.
-#: src/lib/y2partitioner/widgets/fstab_options.rb:762
+#: src/lib/y2partitioner/widgets/fstab_options.rb:763
 msgid ""
 "<p><b>Arbitrary Option Value:</b> Enter any other mount options here, "
 "separated with commas. Notice that this does not do any checking, so be "
@@ -2430,11 +2430,11 @@ msgstr ""
 "오. 검사를 수행하지 않으므로 여기 입력하는 내용에 주의하십시오!</p>"
 
 #. Swap priority
-#: src/lib/y2partitioner/widgets/fstab_options.rb:838
+#: src/lib/y2partitioner/widgets/fstab_options.rb:839
 msgid "Swap &Priority"
 msgstr "스왑 우선순위(&p)"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:847
+#: src/lib/y2partitioner/widgets/fstab_options.rb:848
 msgid ""
 "<p><b>Swap Priority:</b>\n"
 "Enter the swap priority. Higher numbers mean higher priority.</p>\n"
@@ -2444,12 +2444,12 @@ msgstr ""
 
 #. "iocharset=utf8" breaks VFAT case insensitivity (bsc#1080731).
 #. See also boot_fstab_options() in lib/y2storage/filesystems/type.rb
-#: src/lib/y2partitioner/widgets/fstab_options.rb:880
+#: src/lib/y2partitioner/widgets/fstab_options.rb:881
 msgid "Char&set for File Names"
 msgstr "파일이름을 위한 문자셋(&S)"
 
 # help text, richtext format
-#: src/lib/y2partitioner/widgets/fstab_options.rb:884
+#: src/lib/y2partitioner/widgets/fstab_options.rb:885
 msgid ""
 "<p><b>Charset for File Names:</b>\n"
 "Set the charset used for display of file names in Windows partitions.</p>\n"
@@ -2458,12 +2458,12 @@ msgstr ""
 "윈도우 파티션의 파일이름을 표시하기 위해 사용될 문자셋을 설정하십시오.</p>\n"
 
 #. VFAT Codepage
-#: src/lib/y2partitioner/widgets/fstab_options.rb:900
+#: src/lib/y2partitioner/widgets/fstab_options.rb:901
 msgid "Code&page for Short FAT Names"
 msgstr "간단한 FAT 이름을 위한 코드페이지(&P)"
 
 # help text, richtext format
-#: src/lib/y2partitioner/widgets/fstab_options.rb:904
+#: src/lib/y2partitioner/widgets/fstab_options.rb:905
 msgid ""
 "<p><b>Codepage for Short FAT Names:</b>\n"
 "This codepage is used for converting to shortname characters on FAT file "
@@ -3784,26 +3784,12 @@ msgstr ""
 "\n"
 "중단하거나 다시 시도하시겠습니까?"
 
-#. Callback for libstorage-ng to report an error to the user.
-#.
-#. In addition to displaying the error, it offers the user the possibility
-#. to ignore it and continue.
-#.
-#. @note If the user rejects to continue, the method will return false
-#. which implies libstorage-ng will raise the corresponding exception for
-#. the error.
-#.
-#. See Storage::Callbacks#error in libstorage-ng
-#.
-#. @param message [String] error title coming from libstorage-ng
-#. @param what [String] details coming from libstorage-ng
-#. @return [Boolean] true will make libstorage-ng ignore the error, false
-#. will result in a libstorage-ng exception
-#: src/lib/y2storage/callbacks/libstorage_callback.rb:69
+#. force the UTF-8 encoding to avoid Encoding::CompatibilityError exception (bsc#1096758)
+#: src/lib/y2storage/callbacks/libstorage_callback.rb:79
 msgid "Click below to see more details (English only)."
 msgstr "자세한 내용을 보려면 아래를 클릭하십시오(영어만)."
 
-#: src/lib/y2storage/callbacks/libstorage_callback.rb:70
+#: src/lib/y2storage/callbacks/libstorage_callback.rb:80
 msgid "Continue despite the error?"
 msgstr "오류를 무시하고 계속하시겠습니까?"
 
@@ -3816,7 +3802,7 @@ msgstr "오류를 무시하고 계속하시겠습니까?"
 #.
 #. @param what [String] details coming from libstorage-ng
 #. @return [String]
-#: src/lib/y2storage/callbacks/libstorage_callback.rb:114
+#: src/lib/y2storage/callbacks/libstorage_callback.rb:124
 msgid "Unexpected situation found in the system."
 msgstr "예기치 못한 상황이 시스템에서 발견되었습니다."
 
@@ -3826,13 +3812,13 @@ msgstr "예기치 못한 상황이 시스템에서 발견되었습니다."
 #. @see #error_description
 #.
 #. @return [String]
-#: src/lib/y2storage/callbacks/libstorage_callback.rb:125
+#: src/lib/y2storage/callbacks/libstorage_callback.rb:135
 msgid "The same LVM physical volume was found in several devices.\n"
 msgstr "여러 장치에서 동일한 LVM 물리적 볼륨이 발견되었습니다.\n"
 
 #. The user already tried LIBSTORAGE_MULTIPATH_AUTOSTART (and is not
 #. using AutoYaST), there is nothing else we can advise.
-#: src/lib/y2storage/callbacks/libstorage_callback.rb:130
+#: src/lib/y2storage/callbacks/libstorage_callback.rb:140
 msgid ""
 "Maybe there are multipath devices in the system but multipath support\n"
 "was not enabled.\n"
@@ -3842,13 +3828,13 @@ msgstr ""
 "활성화되지 않았습니다.\n"
 "\n"
 
-#: src/lib/y2storage/callbacks/libstorage_callback.rb:136
+#: src/lib/y2storage/callbacks/libstorage_callback.rb:146
 msgid "Use 'start_multipath' in the AutoYaST profile to enable multipath."
 msgstr ""
 "AutoYaST 프로파일에서 'start_multipath'를 사용하여 다중 경로를 활성화하십시"
 "오."
 
-#: src/lib/y2storage/callbacks/libstorage_callback.rb:140
+#: src/lib/y2storage/callbacks/libstorage_callback.rb:150
 msgid ""
 "If YaST didn't offer the opportunity to enable multipath in a previous "
 "step,\n"
