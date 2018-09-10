@@ -16,11 +16,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: storage\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-06-22 02:29+0000\n"
+"POT-Creation-Date: 2018-09-10 08:03+0000\n"
 "PO-Revision-Date: 2018-09-07 09:29+0000\n"
 "Last-Translator: scootergrisen <scootergrisen@gmail.com>\n"
-"Language-Team: Danish <https://l10n.opensuse.org/projects/yast-"
-"storage/master/da/>\n"
+"Language-Team: Danish <https://l10n.opensuse.org/projects/yast-storage/"
+"master/da/>\n"
 "Language: da\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -64,12 +64,12 @@ msgstr "Der er ikke nok egnede ubrugte enheder til at oprette et RAID."
 #. @see Controllers::Partition#disk_used?
 #.
 #. @return [Boolean] true if device is not used; false otherwise.
-#: src/lib/y2partitioner/actions/add_partition.rb:109
+#: src/lib/y2partitioner/actions/add_partition.rb:135
 msgid "The disk is in use and cannot be modified."
 msgstr "Disken er i brug og kan ikke ændres."
 
 #. TRANSLATORS: %{name} is a device name (e.g. "/dev/sda")
-#: src/lib/y2partitioner/actions/add_partition.rb:130
+#: src/lib/y2partitioner/actions/add_partition.rb:156
 msgid ""
 "The device %{name} is directly formatted.\n"
 "Remove the filesystem on %{name}?"
@@ -78,7 +78,7 @@ msgstr ""
 "Fjern filsystemet på %{name}?"
 
 #. TRANSLATORS: %{name} is a device name (e.g. "/dev/sda")
-#: src/lib/y2partitioner/actions/add_partition.rb:152
+#: src/lib/y2partitioner/actions/add_partition.rb:185
 msgid "It is not possible to create a partition on %{name}."
 msgstr "Det er ikke muligt at oprette en partition på %{name}."
 
@@ -209,76 +209,90 @@ msgstr ""
 
 #. TRANSLATORS: dialog title when creating a MD RAID.
 #. %s is a device name like /dev/md0
-#: src/lib/y2partitioner/actions/controllers/md.rb:192
+#: src/lib/y2partitioner/actions/controllers/md.rb:199
 msgid "Add RAID %s"
 msgstr "Tilføj RAID %s"
 
 #. TRANSLATORS: dialog title when resizing a MD RAID.
 #. %s is a device name like /dev/md0
-#: src/lib/y2partitioner/actions/controllers/md.rb:196
+#: src/lib/y2partitioner/actions/controllers/md.rb:203
 msgid "Resize RAID %s"
 msgstr "Ændr størrelse på RAID %s"
 
 #. TRANSLATORS: dialog title. %s is a device name like /dev/sda
-#: src/lib/y2partitioner/actions/controllers/partition.rb:165
+#: src/lib/y2partitioner/actions/controllers/partition.rb:185
 msgid "Add Partition on %s"
 msgstr "Tilføj partition på %s"
 
 #. starting block must be in a region,
 #. TRANSLATORS: text for an error popup
-#: src/lib/y2partitioner/actions/controllers/partition.rb:181
+#: src/lib/y2partitioner/actions/controllers/partition.rb:201
 msgid "The block entered as start is not available."
 msgstr "Blokken indtastet som start er ikke tilgængelig."
 
 #. TRANSLATORS: text for an error popup
-#: src/lib/y2partitioner/actions/controllers/partition.rb:184
+#: src/lib/y2partitioner/actions/controllers/partition.rb:204
 msgid "The end block cannot be before the start."
 msgstr "Slutblokken kan ikke være før starten."
 
 #. ending block must be in the same region than the start
 #. TRANSLATORS: text for an error popup
-#: src/lib/y2partitioner/actions/controllers/partition.rb:189
+#: src/lib/y2partitioner/actions/controllers/partition.rb:209
 msgid "The region entered collides with the existing partitions."
 msgstr "Det indtastede område rammer de eksisterende partitioner."
 
 #. It's so small that we already know that we can't align both
 #. start and end
 #. TRANSLATORS: text for an error popup
-#: src/lib/y2partitioner/actions/controllers/partition.rb:195
+#: src/lib/y2partitioner/actions/controllers/partition.rb:215
 msgid "The region entered is too small, not supported by this device."
 msgstr "Det indtastede område er for lille. Understøttes ikke af denne enhed."
 
 #. Almost pathological case, but still can happen if the user tries
 #. to break stuff
 #. TRANSLATORS: text for an error popup
-#: src/lib/y2partitioner/actions/controllers/partition.rb:201
+#: src/lib/y2partitioner/actions/controllers/partition.rb:221
 msgid "Invalid region entered, increase the size or align the start."
 msgstr "Ugyldigt område indtastet, øg størrelsen eller juster starten."
 
-#. TRANSLATORS: dialog title. %s is a device name like /dev/sda
-#: src/lib/y2partitioner/actions/controllers/partition_table.rb:102
-msgid "Create New Partition Table on %s"
-msgstr "Opret ny partitionstabel på %s"
-
-#. TRANSLATORS %s is the disk device name ("/dev/sda" or similar)
-#: src/lib/y2partitioner/actions/create_partition_table.rb:72
-msgid "Really create a new partition table on %s?"
-msgstr "Vil du virkelig oprette en ny partitionstabel på %s?"
-
-#: src/lib/y2partitioner/actions/create_partition_table.rb:74
-msgid ""
-"This will delete all existing partitions on that device\n"
-"and all devices (LVM volume groups, RAIDs etc.)\n"
-"that use any of those partitions!"
-msgstr ""
-"Det vil slette alle eksisterende partitioner på enheden\n"
-"og alle enheder (LVM-diskområdegrupper, RAID'er osv.)\n"
-"som bruger nogen af disse partitioner!"
-
 #. TRANSLATORS: %s is a device name (e.g. "/dev/sda")
-#: src/lib/y2partitioner/actions/create_partition_table.rb:94
+#: src/lib/y2partitioner/actions/create_partition_table.rb:92
 msgid "It is not possible to create a new partition table on %s."
 msgstr "Det er ikke muligt at oprette en ny partitionstabel på %s."
+
+#. @see #confirm
+#: src/lib/y2partitioner/actions/create_partition_table.rb:132
+#, fuzzy
+#| msgid "Confirm Deleting of All Partitions"
+msgid "Confirm Deleting of Current Devices"
+msgstr "Bekræft sletning af alle partitioner"
+
+#: src/lib/y2partitioner/actions/create_partition_table.rb:133
+#, fuzzy
+#| msgid ""
+#| "The disk \"%{name}\" contains at least one partition.\n"
+#| "If you proceed, the following devices will be deleted:"
+msgid "If you proceed, the following devices will be deleted:"
+msgstr ""
+"Disken \"%{name}\" indeholder mindst én partition.\n"
+"Hvis du fortsætter slettes følgende enheder:"
+
+#. TRANSLATORS %s is the disk device name ("/dev/sda" or similar)
+#: src/lib/y2partitioner/actions/create_partition_table.rb:135
+#, fuzzy
+#| msgid "Really create a new partition table on %s?"
+msgid "Really create a new partition table on %s"
+msgstr "Vil du virkelig oprette en ny partitionstabel på %s?"
+
+#. TRANSLATORS: the first %s is replaced by the type of the filesystem
+#. (for example, "Btrfs" or "Ext2"), the second one by the disk device name
+#. ("/dev/sda" or similar).
+#: src/lib/y2partitioner/actions/create_partition_table.rb:156
+msgid ""
+"This will delete all data from the %s file system in the device.\n"
+"\n"
+"Really create a new partition table on %s?"
+msgstr ""
 
 #
 #. TRANSLATORS %s is the name of the device to be deleted (e.g., /dev/sda1)
@@ -495,22 +509,29 @@ msgid "Edit Partition %s"
 msgstr "Redigér partitionen %s"
 
 #. TRANSLATORS: %{name} is replaced by a device name (e.g., /dev/sda1).
-#: src/lib/y2partitioner/actions/edit_blk_device.rb:121
+#. and %{users} is replaced by a comma-separated list of name devices
+#. (devices using the first one).
+#: src/lib/y2partitioner/actions/edit_blk_device.rb:124
+#, fuzzy
+#| msgid ""
+#| "The device %{name} is in use. It cannot be\n"
+#| "edited. To edit %{name}, make sure it is not used."
 msgid ""
-"The device %{name} is in use. It cannot be\n"
-"edited. To edit %{name}, make sure it is not used."
+"The device %{name} is in use (%{users}).\n"
+"It cannot be edited.\n"
+"To edit %{name}, make sure it is not used."
 msgstr ""
 "Enheden %{name} er i brug. Den kan ikke\n"
 "redigere. Sørg for at %{name} ikke bruges, for at redigere den."
 
 #. TRANSLATORS: Error message when trying to edit an extented partition
-#: src/lib/y2partitioner/actions/edit_blk_device.rb:134
+#: src/lib/y2partitioner/actions/edit_blk_device.rb:138
 msgid "An extended partition cannot be edited"
 msgstr "En udvidet partition kan ikke redigeres"
 
 #. TRANSLATORS: Error message when trying to edit an LVM thin pool. %{name} is
 #. replaced by a logical volume name (e.g., /dev/system/lv1)
-#: src/lib/y2partitioner/actions/edit_blk_device.rb:145
+#: src/lib/y2partitioner/actions/edit_blk_device.rb:149
 msgid ""
 "The volume %{name} is a thin pool.\n"
 "It cannot be edited."
@@ -527,7 +548,7 @@ msgstr ""
 "YaST har skannet dine harddiske, men der blev ikke fundet nogen fstab-fil."
 
 #. FIXME: This message is copied from old partitioner, but it could be improved.
-#: src/lib/y2partitioner/actions/move_partition.rb:109
+#: src/lib/y2partitioner/actions/move_partition.rb:110
 msgid ""
 "Hard disks, BIOS RAIDs and multipath\n"
 "devices cannot be moved."
@@ -538,12 +559,12 @@ msgstr ""
 #. Error when a extended partition is tried to be moved
 #.
 #. @return [String, nil] nil when the partition is not extended
-#: src/lib/y2partitioner/actions/move_partition.rb:119
+#: src/lib/y2partitioner/actions/move_partition.rb:120
 msgid "An extended partition cannot be moved."
 msgstr "En udvidet partition kan ikke flyttes."
 
 #. TRANSLATORS: error message where %{name} is replaced by a partition name (e.g. /dev/sda1)
-#: src/lib/y2partitioner/actions/move_partition.rb:131
+#: src/lib/y2partitioner/actions/move_partition.rb:132
 msgid ""
 "The partition %{name} is already created on disk\n"
 "and cannot be moved."
@@ -553,7 +574,7 @@ msgstr ""
 
 #. FIXME: This message is copied from old partitioner, but it could be improved.
 #. TRANSLATORS: error message where %{name} is replaced by a partition name (e.g. /dev/sda1)
-#: src/lib/y2partitioner/actions/move_partition.rb:146
+#: src/lib/y2partitioner/actions/move_partition.rb:147
 msgid "No space to move partition %{name}"
 msgstr "Ingen plads til at flytte partitionen %{name}"
 
@@ -571,10 +592,17 @@ msgstr ""
 "Vil du virkelig afslutte?"
 
 #. TRANSLATORS: %{name} is replaced by a device name (e.g., /dev/sda1).
-#: src/lib/y2partitioner/actions/resize_blk_device.rb:103
+#. and %{users} is replaced by a comma-separated list of name devices
+#. (devices using the first one).
+#: src/lib/y2partitioner/actions/resize_blk_device.rb:106
+#, fuzzy
+#| msgid ""
+#| "The device %{name} is in use. It cannot be\n"
+#| "resized. To resize %{name}, make sure it is not used."
 msgid ""
-"The device %{name} is in use. It cannot be\n"
-"resized. To resize %{name}, make sure it is not used."
+"The device %{name} is in use (%{users}).\n"
+"It cannot be resized.\n"
+"To resize %{name}, make sure it is not used."
 msgstr ""
 "Enheden %{name} er i brug. Der kan ikke ændres\n"
 "størrelse på det. For at ændre størrelse på %{name}, sørg for at det ikke "
@@ -583,7 +611,7 @@ msgstr ""
 #. Error when the filesystem type cannot be resized
 #.
 #. @return [String, nil] nil if the filesystem can be resized.
-#: src/lib/y2partitioner/actions/resize_blk_device.rb:116
+#: src/lib/y2partitioner/actions/resize_blk_device.rb:120
 msgid "This filesystem type cannot be resized."
 msgstr "Denne type filsystem kan ikke ændre størrelse."
 
@@ -591,7 +619,7 @@ msgstr "Denne type filsystem kan ikke ændre størrelse."
 #. This might be a multi-line message reporting more than one reason.
 #.
 #. @return [String, nil] nil if the device can be resized.
-#: src/lib/y2partitioner/actions/resize_blk_device.rb:127
+#: src/lib/y2partitioner/actions/resize_blk_device.rb:131
 msgid "This device cannot be resized:"
 msgstr "Størrelsen på enheden kan ikke ændres:"
 
@@ -959,7 +987,7 @@ msgid "Normal Volume"
 msgstr "Normalt diskområde"
 
 #: src/lib/y2partitioner/dialogs/lvm_lv_info.rb:134
-#: src/lib/y2partitioner/widgets/blk_devices_table.rb:254
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:260
 msgid "Thin Pool"
 msgstr "Tynd pulje"
 
@@ -1182,12 +1210,16 @@ msgstr "Formattilvalg:"
 
 #. TRANSLATORS: %{name} is replaced by a partition name (e.g. /dev/sda1)
 #: src/lib/y2partitioner/dialogs/partition_move.rb:73
-msgid "Move partition %{name} backward?"
-msgstr "Flyt partitionen %{name} tilbage?"
+#, fuzzy
+#| msgid "Move partition %{name} forward?"
+msgid "Move partition %{name} towards the beginning?"
+msgstr "Flyt partitionen %{name} frem?"
 
 #. TRANSLATORS: %{name} is replaced by a partition name (e.g. /dev/sda1)
 #: src/lib/y2partitioner/dialogs/partition_move.rb:76
-msgid "Move partition %{name} forward?"
+#, fuzzy
+#| msgid "Move partition %{name} forward?"
+msgid "Move partition %{name} towards the end?"
 msgstr "Flyt partitionen %{name} frem?"
 
 #. TRANSLATORS: %{name} is replaced by a partition name (e.g. /dev/sda1)
@@ -1196,12 +1228,12 @@ msgid "Move partition %{name}?"
 msgstr "Flyt partitionen %{name}?"
 
 #: src/lib/y2partitioner/dialogs/partition_move.rb:115
-msgid "Forward"
-msgstr "Frem"
+msgid "Towards the beginning"
+msgstr ""
 
 #: src/lib/y2partitioner/dialogs/partition_move.rb:116
-msgid "Backward"
-msgstr "Tilbage"
+msgid "Towards the end"
+msgstr ""
 
 #. @macro seeAbstractWidget
 #: src/lib/y2partitioner/dialogs/partition_role.rb:71
@@ -1262,25 +1294,27 @@ msgid "End Block"
 msgstr "Slutblok"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/dialogs/partition_table_type.rb:44
+#: src/lib/y2partitioner/dialogs/partition_table_type.rb:49
 msgid "New Partition Table Type"
 msgstr "Type af ny partitionstabel"
 
 #. helptext
-#: src/lib/y2partitioner/dialogs/partition_table_type.rb:50
-msgid "<p>Choose the partition table type for the new partition.</p>"
-msgstr "<p>Vælg typen af partitionstabellen for den nye partition.</p>"
+#: src/lib/y2partitioner/dialogs/partition_table_type.rb:55
+#, fuzzy
+#| msgid "<p>Choose the size for the new partition.</p>"
+msgid "<p>Choose the type of the new partition table.</p>"
+msgstr "<p>Vælg størrelsen for den ny partition.</p>"
 
 #. radio button text for a partition table type
-#: src/lib/y2partitioner/dialogs/partition_table_type.rb:56
+#: src/lib/y2partitioner/dialogs/partition_table_type.rb:61
 msgid "&GPT"
 msgstr "&GPT"
 
-#: src/lib/y2partitioner/dialogs/partition_table_type.rb:57
+#: src/lib/y2partitioner/dialogs/partition_table_type.rb:62
 msgid "&MS-DOS (Classic PC Style)"
 msgstr "&MS-DOS (klassisk PC-stil)"
 
-#: src/lib/y2partitioner/dialogs/partition_table_type.rb:58
+#: src/lib/y2partitioner/dialogs/partition_table_type.rb:63
 msgid "&DASD"
 msgstr "&DASD"
 
@@ -1295,17 +1329,17 @@ msgid "<p>Choose the partition type for the new partition.</p>"
 msgstr "<p>Vælg partitionstype for den nye partition.</p>"
 
 #. radio button text
-#: src/lib/y2partitioner/dialogs/partition_type.rb:60
+#: src/lib/y2partitioner/dialogs/partition_type.rb:56
 msgid "&Primary Partition"
 msgstr "&Primær partition"
 
 #. radio button text
-#: src/lib/y2partitioner/dialogs/partition_type.rb:62
+#: src/lib/y2partitioner/dialogs/partition_type.rb:58
 msgid "&Extended Partition"
 msgstr "&Udvidet partition"
 
 #. radio button text
-#: src/lib/y2partitioner/dialogs/partition_type.rb:64
+#: src/lib/y2partitioner/dialogs/partition_type.rb:60
 msgid "&Logical Partition"
 msgstr "&Logisk partition"
 
@@ -1383,8 +1417,11 @@ msgstr "Systemet kan ikke installeres pga. at følgende fejl blev fundet:\n"
 #. Attributes for describing a device when it is a volume group
 #.
 #. @return [Array<String>]
+#. TRANSLATORS: Heading for a generic storage device
+#. TRANSLATORS: String followed by name of the storage device
 #: src/lib/y2partitioner/widgets/blk_device_attributes.rb:46
 #: src/lib/y2partitioner/widgets/lvm_vg_description.rb:52
+#: src/lib/y2partitioner/widgets/pages/stray_blk_device.rb:62
 msgid "Device: %s"
 msgstr "Enhed: %s"
 
@@ -1427,11 +1464,13 @@ msgstr "Krypteret: %s"
 #. Values
 #: src/lib/y2partitioner/widgets/blk_device_attributes.rb:99
 #: src/lib/y2partitioner/widgets/btrfs_subvolumes_table.rb:108
+#: src/lib/y2partitioner/widgets/md_description.rb:73
 msgid "Yes"
 msgstr "Ja"
 
 #: src/lib/y2partitioner/widgets/blk_device_attributes.rb:99
 #: src/lib/y2partitioner/widgets/btrfs_subvolumes_table.rb:108
+#: src/lib/y2partitioner/widgets/md_description.rb:73
 msgid "No"
 msgstr "Nej"
 
@@ -1465,8 +1504,10 @@ msgstr "Sektorstørrelse: %s"
 #. TRANSLATORS: partition table type information, where %s is replaced by
 #. a partition table type (e.g., GPT, MS-DOS)
 #: src/lib/y2partitioner/widgets/blk_device_attributes.rb:153
-msgid "Disk Label: %s"
-msgstr "Diskmærkat: %s"
+#, fuzzy
+#| msgid "Partition Table"
+msgid "Partition Table: %s"
+msgstr "Partitionstabel"
 
 #. TRANSLATORS: Filesystem type information, where %s is replaced by
 #. a filesystem type (e.g., VFAT, BTRFS)
@@ -1479,9 +1520,16 @@ msgstr "Filsystem: %s"
 msgid "Mount Point: %s"
 msgstr "Monteringspunkt: %s"
 
+#. TRANSLATORS: note appended to mount point if mount point is not now mounted
+#: src/lib/y2partitioner/widgets/blk_device_attributes.rb:173
+#, fuzzy
+#| msgid "Do not mount device"
+msgid " (not mounted)"
+msgstr "Montér ikke enhed"
+
 #. TRANSLATORS: Filesystem label information, where %s is replaced by the
 #. label associated to the filesystem
-#: src/lib/y2partitioner/widgets/blk_device_attributes.rb:180
+#: src/lib/y2partitioner/widgets/blk_device_attributes.rb:194
 msgid "Label: %s"
 msgstr "Mærkat: %s"
 
@@ -1560,42 +1608,46 @@ msgstr "Slut"
 #.
 #. @param device [Y2Storage::BlkDevice]
 #. @return [Yast::Term] icon
-#: src/lib/y2partitioner/widgets/blk_devices_table.rb:245
-#: src/lib/y2partitioner/widgets/blk_devices_table.rb:246
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:250
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:251
 msgid "Disk"
 msgstr "Disk"
 
-#: src/lib/y2partitioner/widgets/blk_devices_table.rb:247
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:252
 msgid "Multipath"
 msgstr "Multisti"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/blk_devices_table.rb:248
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:253
 #: src/lib/y2partitioner/widgets/pages/nfs_mounts.rb:47
 msgid "NFS"
 msgstr "NFS"
 
-#: src/lib/y2partitioner/widgets/blk_devices_table.rb:249
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:254
 msgid "BIOS RAID"
 msgstr "BIOS RAID"
 
-#: src/lib/y2partitioner/widgets/blk_devices_table.rb:250
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:255
 msgid "MD RAID"
 msgstr "MD-RAID"
 
-#: src/lib/y2partitioner/widgets/blk_devices_table.rb:251
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:256
 msgid "PV"
 msgstr "PV"
 
-#: src/lib/y2partitioner/widgets/blk_devices_table.rb:252
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:257
 msgid "LVM"
 msgstr "LVM"
 
-#: src/lib/y2partitioner/widgets/blk_devices_table.rb:253
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:258
 msgid "LV"
 msgstr "LV"
 
-#: src/lib/y2partitioner/widgets/blk_devices_table.rb:255
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:259
+msgid "Xen"
+msgstr ""
+
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:261
 msgid "Thin LV"
 msgstr "Tynd LV"
 
@@ -2478,9 +2530,13 @@ msgstr ""
 "kernenavn."
 
 #: src/lib/y2partitioner/widgets/help.rb:34
+#, fuzzy
+#| msgid ""
+#| "<b>Disk Label</b> shows the partition table\n"
+#| "type of the disk, e.g <tt>MSDOS</tt> or <tt>GPT</tt>."
 msgid ""
-"<b>Disk Label</b> shows the partition table\n"
-"type of the disk, e.g <tt>MSDOS</tt> or <tt>GPT</tt>."
+"<b>Partition Table</b> shows the partition table\n"
+"type of the disk, e.g <tt>MS-DOS</tt> or <tt>GPT</tt>."
 msgstr ""
 "<b>Mærkat</b> viser typen af partitionstabel\n"
 "for disken, f.eks. <tt>MSDOS</tt> eller <tt>GPT</tt>."
@@ -2827,21 +2883,29 @@ msgstr "Tilføj RAID..."
 msgid "RAID:"
 msgstr "RAID:"
 
+#. TRANSLATORS: RAID being active (assembled), where %s is replaced by
+#. 'Yes' when the device is active or by 'No' otherwise
+#: src/lib/y2partitioner/widgets/md_description.rb:73
+#, fuzzy
+#| msgid "Size: %s"
+msgid "Active: %s"
+msgstr "Størrelse: %s"
+
 #. TRANSLATORS: RAID type information, where %s is replaced by a
 #. raid type (e.g., RAID0)
-#: src/lib/y2partitioner/widgets/md_description.rb:72
+#: src/lib/y2partitioner/widgets/md_description.rb:82
 msgid "RAID Type: %s"
 msgstr "RAID-type: %s"
 
 #. TRANSLATORS: chunk size information of the MD RAID, where %s is replaced by
 #. a size (e.g., 8 KiB)
-#: src/lib/y2partitioner/widgets/md_description.rb:83
+#: src/lib/y2partitioner/widgets/md_description.rb:93
 msgid "Chunk Size: %s"
 msgstr "Fragmentstørrelse: %s"
 
 #. TRANSLATORS: parity algorithm information of a MD RAID, where %s is replaced by
 #. the name of the parity strategy
-#: src/lib/y2partitioner/widgets/md_description.rb:92
+#: src/lib/y2partitioner/widgets/md_description.rb:102
 msgid "Partity algorithm: %s"
 msgstr "Paritetsalgoritme: %s"
 
@@ -3132,34 +3196,31 @@ msgid ""
 "This graph is created at startup. Updated if devices are rescanned."
 msgstr ""
 
-#. @macro seeCustomWidget
-#: src/lib/y2partitioner/widgets/pages/disk.rb:74
+#. TRANSLATORS: Heading. String followed by device name of hard disk
+#: src/lib/y2partitioner/widgets/pages/disk.rb:75
 msgid "Hard Disk: %s"
 msgstr "Harddisk: %s"
 
 #. @macro seeAbstractWidget
 #. @macro seeAbstractWidget
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/pages/disk.rb:135
+#: src/lib/y2partitioner/widgets/pages/disk.rb:136
 #: src/lib/y2partitioner/widgets/pages/lvm_vg.rb:94
 #: src/lib/y2partitioner/widgets/pages/md_raid.rb:94
 msgid "&Overview"
 msgstr "&Oversigt"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/pages/disk.rb:166
+#: src/lib/y2partitioner/widgets/pages/disk.rb:167
 msgid "&Partitions"
 msgstr "&Partitioner"
 
 #. @macro seeAbstractWidget
+#. TRANSLATORS: Heading
 #: src/lib/y2partitioner/widgets/pages/disks.rb:52
+#: src/lib/y2partitioner/widgets/pages/disks.rb:66
 msgid "Hard Disks"
 msgstr "Harddiske"
-
-#. TRANSLATORS: Heading. String followed by name of partition
-#: src/lib/y2partitioner/widgets/pages/disks.rb:66
-msgid "Hard Disks "
-msgstr "Harddiske "
 
 #. Label for all the instances
 #.
@@ -3230,8 +3291,10 @@ msgstr "NFS-konfiguration er ikke tilgængelig. Tjek installation af pakken %s."
 
 #. TRANSLATORS: Heading. String followed by name of partition
 #: src/lib/y2partitioner/widgets/pages/partition.rb:67
-msgid "Partition: "
-msgstr "Partition: "
+#, fuzzy
+#| msgid "Partition: %1"
+msgid "Partition: %s"
+msgstr "Partition: %1"
 
 #. @macro seeAbstractWidget
 #. TRANSLATORS: Heading for the expert partitioner page
@@ -3356,8 +3419,8 @@ msgid ""
 "on your system.</p>"
 msgstr ""
 "<p><b>Installationsoversigt:</b> Viser handlinger som udføres når du "
-"bekræfter installationen. Indtil da, ændres der ikke på noget i dit "
-"system.</p>"
+"bekræfter installationen. Indtil da, ændres der ikke på noget i dit system.</"
+"p>"
 
 #. Help in an installed system
 #.
@@ -3706,10 +3769,20 @@ msgstr "Følgende fejl blev registreret i systemet:"
 msgid "Saving file system configuration..."
 msgstr "Gemmer konfiguration af filsystem..."
 
+#. The user has changed partition settings using the Expert Partitioner.
+#. Asking if these changes can be overwritten.
+#: src/lib/y2storage/clients/inst_disk_proposal.rb:94
+msgid ""
+"Computing this proposal will overwrite manual changes \n"
+"done so far. Continue with computing proposal?"
+msgstr ""
+"Beregning af dette forslag vil overskrive manuelle ændringer,\n"
+"der er foretaget indtil nu. Vil du fortsætte beregning af forslag?"
+
 #. Popup to alert the user about using the Partitioner
 #.
 #. @return [Symbol] user's answer (:continue, :cancel)
-#: src/lib/y2storage/clients/inst_disk_proposal.rb:242
+#: src/lib/y2storage/clients/inst_disk_proposal.rb:255
 msgid ""
 "This is for experts only.\n"
 "You might lose support if you use this!\n"
@@ -3743,18 +3816,18 @@ msgstr "&Partitionering"
 #. is different to the last saved revision.
 #.
 #. @see ActionsPresenter
-#: src/lib/y2storage/clients/partitions_proposal.rb:140
-#: src/lib/y2storage/clients/partitions_proposal.rb:142
+#: src/lib/y2storage/clients/partitions_proposal.rb:144
+#: src/lib/y2storage/clients/partitions_proposal.rb:146
 msgid "No proposal possible with the current settings"
 msgstr "Ingen forslag mulig med de nuværende indstillinger"
 
 #. Translators: Short description of the partitioning setup
-#: src/lib/y2storage/clients/partitions_proposal.rb:157
+#: src/lib/y2storage/clients/partitions_proposal.rb:161
 msgid "Custom"
 msgstr "Brugerdefineret"
 
 #. TODO: should be tested by some real OPS guy, I (JR) pick human wording from `man mdadm`
-#: src/lib/y2storage/clients/partitions_proposal.rb:157
+#: src/lib/y2storage/clients/partitions_proposal.rb:161
 #: src/lib/y2storage/md_parity.rb:37
 msgid "Default"
 msgstr "Standard"
@@ -3954,49 +4027,49 @@ msgstr "Forstør til RAM-størrelse for suspendering"
 msgid "Enlarge to RAM size"
 msgstr "Forstør til RAM-størrelse"
 
-#: src/lib/y2storage/dialogs/guided_setup/select_root_disk.rb:69
+#: src/lib/y2storage/dialogs/guided_setup/select_root_disk.rb:68
 msgid "Please select a disk to use as the \"root\" partition (/)"
 msgstr "Vælg venligst en disk som skal bruges som \"rod\"-partitionen (/)"
 
-#: src/lib/y2storage/dialogs/guided_setup/select_root_disk.rb:86
+#: src/lib/y2storage/dialogs/guided_setup/select_root_disk.rb:85
 msgid "Choose what to do with existing Windows systems"
 msgstr "Vælg hvad der skal ske med eksisterende Windows-systemer"
 
-#: src/lib/y2storage/dialogs/guided_setup/select_root_disk.rb:91
-#: src/lib/y2storage/dialogs/guided_setup/select_root_disk.rb:108
-#: src/lib/y2storage/dialogs/guided_setup/select_root_disk.rb:124
+#: src/lib/y2storage/dialogs/guided_setup/select_root_disk.rb:90
+#: src/lib/y2storage/dialogs/guided_setup/select_root_disk.rb:107
+#: src/lib/y2storage/dialogs/guided_setup/select_root_disk.rb:123
 msgid "Do not modify"
 msgstr "Tilpas ikke"
 
-#: src/lib/y2storage/dialogs/guided_setup/select_root_disk.rb:92
+#: src/lib/y2storage/dialogs/guided_setup/select_root_disk.rb:91
 msgid "Resize if needed"
 msgstr "Ændr størrelsen hvis det er nødvendigt"
 
-#: src/lib/y2storage/dialogs/guided_setup/select_root_disk.rb:93
+#: src/lib/y2storage/dialogs/guided_setup/select_root_disk.rb:92
 msgid "Resize or remove as needed"
 msgstr "Ændr størrelsen eller fjern hvis det er nødvendigt"
 
-#: src/lib/y2storage/dialogs/guided_setup/select_root_disk.rb:94
-#: src/lib/y2storage/dialogs/guided_setup/select_root_disk.rb:110
-#: src/lib/y2storage/dialogs/guided_setup/select_root_disk.rb:126
+#: src/lib/y2storage/dialogs/guided_setup/select_root_disk.rb:93
+#: src/lib/y2storage/dialogs/guided_setup/select_root_disk.rb:109
+#: src/lib/y2storage/dialogs/guided_setup/select_root_disk.rb:125
 msgid "Remove even if not needed"
 msgstr "Fjern, selv hvis det ikke er nødvendigt"
 
-#: src/lib/y2storage/dialogs/guided_setup/select_root_disk.rb:103
+#: src/lib/y2storage/dialogs/guided_setup/select_root_disk.rb:102
 msgid "Choose what to do with existing Linux partitions"
 msgstr "Vælg hvad der skal ske med eksisterende Linux-partitioner"
 
 #
-#: src/lib/y2storage/dialogs/guided_setup/select_root_disk.rb:109
-#: src/lib/y2storage/dialogs/guided_setup/select_root_disk.rb:125
+#: src/lib/y2storage/dialogs/guided_setup/select_root_disk.rb:108
+#: src/lib/y2storage/dialogs/guided_setup/select_root_disk.rb:124
 msgid "Remove if needed"
 msgstr "Fjern hvis der er behov for det"
 
-#: src/lib/y2storage/dialogs/guided_setup/select_root_disk.rb:119
+#: src/lib/y2storage/dialogs/guided_setup/select_root_disk.rb:118
 msgid "Choose what to do with other partitions"
 msgstr "Vælg hvad der skal ske med de andre partitioner"
 
-#: src/lib/y2storage/dialogs/guided_setup/select_root_disk.rb:134
+#: src/lib/y2storage/dialogs/guided_setup/select_root_disk.rb:133
 msgid "Any disk"
 msgstr "Enhver disk"
 
@@ -4312,66 +4385,70 @@ msgstr "Tilføjelse af følgende pakker mislykkedes: %s"
 #.
 #. This is a wrapper for the Storage::ID enum
 #: src/lib/y2storage/partition_id.rb:40
+msgid "BIOS Boot Partition"
+msgstr "BIOS-bootpartition"
+
+#
+#: src/lib/y2storage/partition_id.rb:41
+msgid "Diagnostics Partition"
+msgstr "Diagnostik partition"
+
+#: src/lib/y2storage/partition_id.rb:42
 msgid "DOS12"
 msgstr "DOS12"
 
-#: src/lib/y2storage/partition_id.rb:41
+#: src/lib/y2storage/partition_id.rb:43
 msgid "DOS16"
 msgstr "DOS16"
 
-#: src/lib/y2storage/partition_id.rb:42
+#: src/lib/y2storage/partition_id.rb:44
 msgid "DOS32"
 msgstr "DOS32"
 
-#: src/lib/y2storage/partition_id.rb:43
-msgid "Linux Swap"
-msgstr "Linux swap"
+#: src/lib/y2storage/partition_id.rb:45
+msgid "EFI System Partition"
+msgstr "EFI-systempartition"
 
-#: src/lib/y2storage/partition_id.rb:44
+#: src/lib/y2storage/partition_id.rb:46
+msgid "Extended"
+msgstr "Udvidet"
+
+#: src/lib/y2storage/partition_id.rb:47
+msgid "Intel Rapid Start"
+msgstr ""
+
+#: src/lib/y2storage/partition_id.rb:48
 msgid "Linux Native"
 msgstr "Linux native"
 
 #
-#: src/lib/y2storage/partition_id.rb:45
+#: src/lib/y2storage/partition_id.rb:49
 msgid "Linux LVM"
 msgstr "Linux LVM"
 
-#: src/lib/y2storage/partition_id.rb:46
-msgid "Linux RAID"
-msgstr "Linux RAID"
-
-#: src/lib/y2storage/partition_id.rb:47
-msgid "EFI System Partition"
-msgstr "EFI-systempartition"
-
-#: src/lib/y2storage/partition_id.rb:48
-msgid "BIOS Boot Partition"
-msgstr "BIOS-bootpartition"
-
-#: src/lib/y2storage/partition_id.rb:49
-msgid "PReP Boot Partition"
-msgstr "PReP-bootpartition"
-
 #: src/lib/y2storage/partition_id.rb:50
-msgid "NTFS"
-msgstr "NTFS"
-
-#: src/lib/y2storage/partition_id.rb:51
-msgid "Extended"
-msgstr "Udvidet"
-
-#: src/lib/y2storage/partition_id.rb:52
-msgid "Windows Data Partition"
-msgstr "Windows-datapartition"
-
-#: src/lib/y2storage/partition_id.rb:53
 msgid "Microsoft Reserved Partition"
 msgstr "Microsoft reserveret partition"
 
-#
+#: src/lib/y2storage/partition_id.rb:51
+msgid "NTFS"
+msgstr "NTFS"
+
+#: src/lib/y2storage/partition_id.rb:52
+msgid "PReP Boot Partition"
+msgstr "PReP-bootpartition"
+
+#: src/lib/y2storage/partition_id.rb:53
+msgid "Linux RAID"
+msgstr "Linux RAID"
+
 #: src/lib/y2storage/partition_id.rb:54
-msgid "Diagnostics Partition"
-msgstr "Diagnostik partition"
+msgid "Linux Swap"
+msgstr "Linux swap"
+
+#: src/lib/y2storage/partition_id.rb:56
+msgid "Windows Data Partition"
+msgstr "Windows-datapartition"
 
 #. TRANSLATORS: %s is a mount point like "/home"
 #: src/lib/y2storage/proposal/settings_adjustment.rb:102
@@ -4478,6 +4555,39 @@ msgstr ""
 #: src/lib/y2storage/resize_info.rb:109
 msgid "Unknown reason"
 msgstr "Ukendt årsag"
+
+#~ msgid "Create New Partition Table on %s"
+#~ msgstr "Opret ny partitionstabel på %s"
+
+#~ msgid ""
+#~ "This will delete all existing partitions on that device\n"
+#~ "and all devices (LVM volume groups, RAIDs etc.)\n"
+#~ "that use any of those partitions!"
+#~ msgstr ""
+#~ "Det vil slette alle eksisterende partitioner på enheden\n"
+#~ "og alle enheder (LVM-diskområdegrupper, RAID'er osv.)\n"
+#~ "som bruger nogen af disse partitioner!"
+
+#~ msgid "Move partition %{name} backward?"
+#~ msgstr "Flyt partitionen %{name} tilbage?"
+
+#~ msgid "Forward"
+#~ msgstr "Frem"
+
+#~ msgid "Backward"
+#~ msgstr "Tilbage"
+
+#~ msgid "<p>Choose the partition table type for the new partition.</p>"
+#~ msgstr "<p>Vælg typen af partitionstabellen for den nye partition.</p>"
+
+#~ msgid "Disk Label: %s"
+#~ msgstr "Diskmærkat: %s"
+
+#~ msgid "Hard Disks "
+#~ msgstr "Harddiske "
+
+#~ msgid "Partition: "
+#~ msgstr "Partition: "
 
 #~ msgid "Device Graph"
 #~ msgstr "Enhedsdiagram"
@@ -4643,13 +4753,6 @@ msgstr "Ukendt årsag"
 
 #~ msgid "Nothing assigned as root filesystem. Cannot continue."
 #~ msgstr "Intet tildelt som rodfilsystem. Kan ikke fortsætte."
-
-#~ msgid ""
-#~ "Computing this proposal will overwrite manual changes \n"
-#~ "done so far. Continue with computing proposal?"
-#~ msgstr ""
-#~ "Beregning af dette forslag vil overskrive manuelle ændringer,\n"
-#~ "der er foretaget indtil nu. Vil du fortsætte beregning af forslag?"
 
 #~ msgid "Preparing disks..."
 #~ msgstr "Forbereder diske..."
@@ -6438,9 +6541,6 @@ msgstr "Ukendt årsag"
 #~ msgid "<p>This view shows a graph of mount points.</p>"
 #~ msgstr "<p>Denne visning viser et diagram over monteringspunkter.</p>"
 
-#~ msgid "<p>Choose the size for the new partition.</p>"
-#~ msgstr "<p>Vælg størrelsen for den ny partition.</p>"
-
 #~ msgid "Start Cylinder"
 #~ msgstr "Startcylinder"
 
@@ -6575,9 +6675,6 @@ msgstr "Ukendt årsag"
 
 #~ msgid "Hard Disk: %1"
 #~ msgstr "Harddisk: %1"
-
-#~ msgid "Partition: %1"
-#~ msgstr "Partition: %1"
 
 #~ msgid ""
 #~ "<p>This view shows detailed information about the\n"
@@ -8082,9 +8179,6 @@ msgstr "Ukendt årsag"
 
 #~ msgid "LV Name"
 #~ msgstr "LV-navn"
-
-#~ msgid "Partition Table"
-#~ msgstr "Partitionstabel"
 
 #~ msgid "Transport"
 #~ msgstr "Transport"
