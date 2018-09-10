@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: base.pt\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-04-14 02:29+0000\n"
+"POT-Creation-Date: 2018-09-10 08:03+0000\n"
 "PO-Revision-Date: 2009-02-07 21:05+0000\n"
 "Last-Translator: Antonio Cardoso Martins <digiplan.pt@gmail.com>\n"
 "Language-Team: Portuguese <opensuse-pt@opensuse.org>\n"
@@ -1166,17 +1166,15 @@ msgstr ""
 "<p>Em alguns ambientes, todas ou parte das teclas F\n"
 "não estão indisponíveis.</p>"
 
-#. @param service [Object] An object providing the following methods:
-#. #name, #start, #stop, #enabled?, #running?
-#. For systemd compliant services, just do
-#. Yast::SystemdService.find("name_of_the_service")
+#. @param service [Yast2::Systemd::Service] systemd service. Usually the easiest way
+#. is just calling `Yast2::Systemd::Service.find("name_of_the_service")`
 #. Note that this widget will #start and #stop the service by itself but
 #. the actions referenced by the flags (reloading and enabling/disabling)
 #. are expected to be done by the caller, when the whole configuration is
 #. written.
 #. @param reload_flag [Boolean] Initial value for the "reload" checkbox.
 #. Keep in mind it will always be displayed as unchecked if the service
-#. is not running, despite the real value.
+#. is not active, despite the real value.
 #. @param reload_flag_label [Symbol] Type of label for the "reload" checkbox.
 #. :reload means the service will be reloaded.
 #. :restart means the service will be restarted.
@@ -1199,8 +1197,8 @@ msgstr "Ler outras definições."
 msgid "Service Status"
 msgstr "Arrancar Serviço"
 
-#. Content for the help
-#: library/general/src/lib/ui/service_status.rb:129
+#. TRANSLATORS: do not modify %{reload_label}
+#: library/general/src/lib/ui/service_status.rb:130
 msgid ""
 "<p><b><big>Current status</big></b><br>\n"
 "Displays the current status of the service. The status will remain the same "
@@ -1217,36 +1215,37 @@ msgid ""
 msgstr ""
 
 #. Widget displaying the status and associated buttons
-#: library/general/src/lib/ui/service_status.rb:155
+#: library/general/src/lib/ui/service_status.rb:156
+#: library/systemd/src/lib/yast2/service_widget.rb:84
 msgid "Current status:"
 msgstr "Estado actual:"
 
 #. Widget to configure the status on boot
-#: library/general/src/lib/ui/service_status.rb:168
+#: library/general/src/lib/ui/service_status.rb:169
 #, fuzzy
 #| msgid "Partition or System to Boot:"
 msgid "Start During System Boot"
 msgstr "Partição ou Sistema para Arranque:"
 
 #. TRANSLATORS: status of a service
-#: library/general/src/lib/ui/service_status.rb:192
+#: library/general/src/lib/ui/service_status.rb:194
 #, fuzzy
 #| msgid "Running"
 msgid "running"
 msgstr "Em execução"
 
-#: library/general/src/lib/ui/service_status.rb:194
+#: library/general/src/lib/ui/service_status.rb:196
 #, fuzzy
 #| msgid "S&top now ..."
 msgid "Stop now"
 msgstr "Pa&rar agora ..."
 
 #. TRANSLATORS: status of a service
-#: library/general/src/lib/ui/service_status.rb:199
+#: library/general/src/lib/ui/service_status.rb:201
 msgid "stopped"
 msgstr ""
 
-#: library/general/src/lib/ui/service_status.rb:201
+#: library/general/src/lib/ui/service_status.rb:203
 #, fuzzy
 #| msgid "Start it now?"
 msgid "Start now"
@@ -1476,7 +1475,7 @@ msgstr "&Criar"
 #. this media (CD) so no packages from this media will be installed
 #. PushButton label
 #: library/general/src/modules/Label.rb:250
-#: library/packages/src/modules/PackageCallbacks.rb:693
+#: library/packages/src/modules/PackageCallbacks.rb:698
 #: library/wizard/src/modules/Confirm.rb:126
 msgid "&Skip"
 msgstr "&Saltar"
@@ -1500,7 +1499,7 @@ msgstr "Nome de &Ficheiro"
 #. TextEntry Label
 #. textentry label
 #: library/general/src/modules/Label.rb:319
-#: library/packages/src/modules/PackageCallbacks.rb:2249
+#: library/packages/src/modules/PackageCallbacks.rb:2254
 msgid "&Password"
 msgstr "&Palavra passe"
 
@@ -3398,14 +3397,14 @@ msgstr "O pacote %1 encontra-se quebrado, falhou a verificação de integridade.
 #. command line mode - ask user whether installation of the failed package should be retried
 #. command line mode - ask user whether installation of the failed package should be retried
 #: library/packages/src/modules/PackageCallbacks.rb:244
-#: library/packages/src/modules/PackageCallbacks.rb:476
+#: library/packages/src/modules/PackageCallbacks.rb:481
 msgid "Retry installation of the package?"
 msgstr "Tentar novamente a instalação do pacote?"
 
 #. command line mode - ask user whether the installation should be aborted
 #. command line mode - ask user whether the installation should be aborted
 #: library/packages/src/modules/PackageCallbacks.rb:252
-#: library/packages/src/modules/PackageCallbacks.rb:484
+#: library/packages/src/modules/PackageCallbacks.rb:489
 msgid "Abort the installation?"
 msgstr "Interromper a instalação?"
 
@@ -3417,7 +3416,7 @@ msgstr "Interromper a instalação?"
 #. detail string is appended to the end
 #: library/packages/src/modules/PackageCallbacks.rb:280
 #: library/packages/src/modules/PackageCallbacks.rb:313
-#: library/packages/src/modules/PackageCallbacks.rb:2164
+#: library/packages/src/modules/PackageCallbacks.rb:2169
 msgid "Error: %1:"
 msgstr "Erro: %1:"
 
@@ -3447,18 +3446,18 @@ msgid "Installing Package"
 msgstr "A Instalar o Pacote"
 
 #. error popup during package installation, %1 is the name of the package
-#: library/packages/src/modules/PackageCallbacks.rb:459
+#: library/packages/src/modules/PackageCallbacks.rb:464
 msgid "Removal of package %1 failed."
 msgstr "Falhou a remoção do pacote %1."
 
 #. error popup during package installation, %1 is the name of the package
-#: library/packages/src/modules/PackageCallbacks.rb:462
+#: library/packages/src/modules/PackageCallbacks.rb:467
 msgid "Installation of package %1 failed."
 msgstr "Falhou a instalação do pacote %1."
 
 #. TODO: add "Don't show again" checkbox
 #. a warning popup displayed after pressing [Ignore] after a package installation error
-#: library/packages/src/modules/PackageCallbacks.rb:535
+#: library/packages/src/modules/PackageCallbacks.rb:540
 msgid ""
 "Ignoring a package failure may result in a broken system.\n"
 "The system should be later verified by running the Software Management "
@@ -3466,7 +3465,7 @@ msgid ""
 msgstr ""
 
 #. error report
-#: library/packages/src/modules/PackageCallbacks.rb:604
+#: library/packages/src/modules/PackageCallbacks.rb:609
 msgid ""
 "<p>The repository at the specified URL now provides a different media ID.\n"
 "If the URL is correct, this indicates that the repository content has "
@@ -3486,27 +3485,27 @@ msgstr ""
 #. media is double sided, we want the user to insert the 'Side A' of the media
 #. the complete string will be "<product> <media> <number>, <side>"
 #. e.g. "'SuSE Linux 9.0' DVD 1, Side A"
-#: library/packages/src/modules/PackageCallbacks.rb:619
+#: library/packages/src/modules/PackageCallbacks.rb:624
 msgid "Side A"
 msgstr "Lado A"
 
 #. media is double sided, we want the user to insert the 'Side B' of the media
-#: library/packages/src/modules/PackageCallbacks.rb:622
+#: library/packages/src/modules/PackageCallbacks.rb:627
 msgid "Side B"
 msgstr "Lado B"
 
 #. label for a repository - %1 product name (e.g. openSUSE 10.2), %2 medium number (e.g. 2)
-#: library/packages/src/modules/PackageCallbacks.rb:637
+#: library/packages/src/modules/PackageCallbacks.rb:642
 msgid "%1 (Disc %2)"
 msgstr "%1 (Disco %2)"
 
 #. label for a repository - %1 product name (e.g. openSUSE 10.2), %2 medium number (e.g. 2)
-#: library/packages/src/modules/PackageCallbacks.rb:640
+#: library/packages/src/modules/PackageCallbacks.rb:645
 msgid "%1 (Medium %2)"
 msgstr "%1 (Suporte %2)"
 
 #. prompt to insert product (%1 == "SuSE Linux version 9.2 CD 2")
-#: library/packages/src/modules/PackageCallbacks.rb:646
+#: library/packages/src/modules/PackageCallbacks.rb:651
 msgid ""
 "Insert\n"
 "'%1'"
@@ -3515,7 +3514,7 @@ msgstr ""
 "'%1'"
 
 #. report error while accessing local directory with product (%1 = URL, %2 = "SuSE Linux ...")
-#: library/packages/src/modules/PackageCallbacks.rb:651
+#: library/packages/src/modules/PackageCallbacks.rb:656
 #, fuzzy
 msgid ""
 "Cannot access installation media\n"
@@ -3528,7 +3527,7 @@ msgstr ""
 "Verifique se o directório está acessível."
 
 #. report error while accessing network media of product (%1 = URL, %2 = "SuSE Linux ...")
-#: library/packages/src/modules/PackageCallbacks.rb:663
+#: library/packages/src/modules/PackageCallbacks.rb:668
 #, fuzzy
 msgid ""
 "Cannot access installation media \n"
@@ -3542,52 +3541,52 @@ msgstr ""
 
 #. wrong media id, offer "Ignore"
 #. push button label
-#: library/packages/src/modules/PackageCallbacks.rb:688
-#: library/packages/src/modules/PackageCallbacks.rb:1863
+#: library/packages/src/modules/PackageCallbacks.rb:693
+#: library/packages/src/modules/PackageCallbacks.rb:1868
 msgid "Skip Autorefresh"
 msgstr "Saltar o Autorefrescamento"
 
 #. menu button label - used for more then one device
 #. push button label - in the media change popup, user can eject the CD/DVD
-#: library/packages/src/modules/PackageCallbacks.rb:707
-#: library/packages/src/modules/PackageCallbacks.rb:710
+#: library/packages/src/modules/PackageCallbacks.rb:712
+#: library/packages/src/modules/PackageCallbacks.rb:715
 msgid "&Eject"
 msgstr "&Ejectar"
 
-#: library/packages/src/modules/PackageCallbacks.rb:717
+#: library/packages/src/modules/PackageCallbacks.rb:722
 #, fuzzy
 msgid "A&utomatically Eject CD or DVD Medium"
 msgstr "Injectar A&utomaticamente o Suporte CD/DVD"
 
 #. command line mode - ask user whether installation of the failed package should be retried
-#: library/packages/src/modules/PackageCallbacks.rb:784
+#: library/packages/src/modules/PackageCallbacks.rb:789
 msgid "Retry the installation?"
 msgstr "Tentar novamente a instalação?"
 
 #. command line mode - ask user whether the installation should be aborted
-#: library/packages/src/modules/PackageCallbacks.rb:792
+#: library/packages/src/modules/PackageCallbacks.rb:797
 msgid "Skip the medium?"
 msgstr "Ignorar o suporte?"
 
 #. otherwise ignore the medium
-#: library/packages/src/modules/PackageCallbacks.rb:799
+#: library/packages/src/modules/PackageCallbacks.rb:804
 msgid "Ignoring the bad medium..."
 msgstr "A Ignorar o suporte danificado..."
 
 #. TextEntry label
 #. TextEntry label
-#: library/packages/src/modules/PackageCallbacks.rb:820
-#: library/packages/src/modules/PackageCallbacks.rb:876
+#: library/packages/src/modules/PackageCallbacks.rb:825
+#: library/packages/src/modules/PackageCallbacks.rb:881
 msgid "&URL"
 msgstr "&URL"
 
 #. popup label (%1 is repository URL)
-#: library/packages/src/modules/PackageCallbacks.rb:1068
+#: library/packages/src/modules/PackageCallbacks.rb:1073
 msgid "Creating Repository %1"
 msgstr "A Criar Repositório %1"
 
 #. error message - a label followed by a richtext with details
-#: library/packages/src/modules/PackageCallbacks.rb:1101
+#: library/packages/src/modules/PackageCallbacks.rb:1106
 #, fuzzy
 #| msgid "Error occurred while creating the repository."
 msgid "An error occurred while creating the repository."
@@ -3596,32 +3595,32 @@ msgstr "Ocorreu um erro durante a criação do repositório."
 #. error message - a label followed by a richtext with details
 #. error message - a label followed by a richtext with details
 #. error message - a label followed by a richtext with details
-#: library/packages/src/modules/PackageCallbacks.rb:1105
-#: library/packages/src/modules/PackageCallbacks.rb:1232
-#: library/packages/src/modules/PackageCallbacks.rb:1342
+#: library/packages/src/modules/PackageCallbacks.rb:1110
+#: library/packages/src/modules/PackageCallbacks.rb:1237
+#: library/packages/src/modules/PackageCallbacks.rb:1347
 msgid "Unable to retrieve the remote repository description."
 msgstr "Não foi possível recuperar a descrição do repositório remoto."
 
 #. error message - a label followed by a richtext with details
 #. error message - a label followed by a richtext with details
 #. error message - a label followed by a richtext with details
-#: library/packages/src/modules/PackageCallbacks.rb:1108
-#: library/packages/src/modules/PackageCallbacks.rb:1235
-#: library/packages/src/modules/PackageCallbacks.rb:1345
+#: library/packages/src/modules/PackageCallbacks.rb:1113
+#: library/packages/src/modules/PackageCallbacks.rb:1240
+#: library/packages/src/modules/PackageCallbacks.rb:1350
 msgid "An error occurred while retrieving the new metadata."
 msgstr "Ocorreu um erro ao recuperar a nova metadata."
 
 #. error message - a label followed by a richtext with details
 #. error message - a label followed by a richtext with details
 #. error message - a label followed by a richtext with details
-#: library/packages/src/modules/PackageCallbacks.rb:1111
-#: library/packages/src/modules/PackageCallbacks.rb:1238
-#: library/packages/src/modules/PackageCallbacks.rb:1348
+#: library/packages/src/modules/PackageCallbacks.rb:1116
+#: library/packages/src/modules/PackageCallbacks.rb:1243
+#: library/packages/src/modules/PackageCallbacks.rb:1353
 msgid "The repository is not valid."
 msgstr "O repositório não é válida."
 
 #. error message - a label followed by a richtext with details
-#: library/packages/src/modules/PackageCallbacks.rb:1114
+#: library/packages/src/modules/PackageCallbacks.rb:1119
 msgid "The repository metadata is invalid."
 msgstr "Os metadados do repositório são inválidos."
 
@@ -3629,93 +3628,93 @@ msgstr "Os metadados do repositório são inválidos."
 #. command line mode - ask user whether the repository refreshment should be retried
 #. command line mode - ask user whether the repository refreshment should be retried
 #. command line mode - ask user whether target initializatin can be restarted
-#: library/packages/src/modules/PackageCallbacks.rb:1127
-#: library/packages/src/modules/PackageCallbacks.rb:1257
-#: library/packages/src/modules/PackageCallbacks.rb:1361
-#: library/packages/src/modules/PackageCallbacks.rb:2118
+#: library/packages/src/modules/PackageCallbacks.rb:1132
+#: library/packages/src/modules/PackageCallbacks.rb:1262
+#: library/packages/src/modules/PackageCallbacks.rb:1366
+#: library/packages/src/modules/PackageCallbacks.rb:2123
 msgid "Retry?"
 msgstr "Tentar novamente?"
 
 #. popup label (%1 is repository URL)
-#: library/packages/src/modules/PackageCallbacks.rb:1173
-#: library/packages/src/modules/PackageCallbacks.rb:1181
+#: library/packages/src/modules/PackageCallbacks.rb:1178
+#: library/packages/src/modules/PackageCallbacks.rb:1186
 msgid "Probing Repository %1"
 msgstr "A sondar o repositório %1"
 
 #. error message - a label followed by a richtext with details
-#: library/packages/src/modules/PackageCallbacks.rb:1228
+#: library/packages/src/modules/PackageCallbacks.rb:1233
 msgid "Error occurred while probing the repository."
 msgstr "Ocorreu um erro durante a sondagem do repositório."
 
 #. error message - a label followed by a richtext with details
-#: library/packages/src/modules/PackageCallbacks.rb:1241
+#: library/packages/src/modules/PackageCallbacks.rb:1246
 msgid "Repository probing details."
 msgstr "Detalhes da sondagem do repositório."
 
 #. error message - a label followed by a richtext with details
-#: library/packages/src/modules/PackageCallbacks.rb:1244
+#: library/packages/src/modules/PackageCallbacks.rb:1249
 msgid "Repository metadata is invalid."
 msgstr "Os metadados do repositório são inválidos."
 
 #. error message - a label followed by a richtext with details
-#: library/packages/src/modules/PackageCallbacks.rb:1338
+#: library/packages/src/modules/PackageCallbacks.rb:1343
 msgid "Repository %1"
 msgstr "Repositório %1"
 
 #. at start of delta providal
-#: library/packages/src/modules/PackageCallbacks.rb:1426
+#: library/packages/src/modules/PackageCallbacks.rb:1431
 msgid "Downloading delta RPM package %1 (%2)..."
 msgstr "A descarregar o pacote delta RPM %1 (%2)..."
 
 #. popup heading
-#: library/packages/src/modules/PackageCallbacks.rb:1434
+#: library/packages/src/modules/PackageCallbacks.rb:1439
 msgid "Downloading Delta RPM package"
 msgstr "A descarregar o pacote delta RPM"
 
 #. at start of delta application
-#: library/packages/src/modules/PackageCallbacks.rb:1447
+#: library/packages/src/modules/PackageCallbacks.rb:1452
 msgid "Applying delta RPM package %1..."
 msgstr "A aplicar o pacote delta RPM %1..."
 
 #. popup heading
-#: library/packages/src/modules/PackageCallbacks.rb:1454
+#: library/packages/src/modules/PackageCallbacks.rb:1459
 msgid "Applying delta RPM package"
 msgstr "A aplicar o pacote delta RPM"
 
 #. popup heading
-#: library/packages/src/modules/PackageCallbacks.rb:1456
-#: library/packages/src/modules/PackageCallbacks.rb:3097
+#: library/packages/src/modules/PackageCallbacks.rb:1461
+#: library/packages/src/modules/PackageCallbacks.rb:3102
 msgid "Package: "
 msgstr "Pacote: "
 
 #. close popup
-#: library/packages/src/modules/PackageCallbacks.rb:1522
+#: library/packages/src/modules/PackageCallbacks.rb:1527
 msgid "Starting script %1 (patch %2)..."
 msgstr "A iniciar o script %1 (correcção %2)..."
 
 #. popup heading
-#: library/packages/src/modules/PackageCallbacks.rb:1531
+#: library/packages/src/modules/PackageCallbacks.rb:1536
 msgid "Running Script"
 msgstr "A executar Script"
 
 #. label, patch name follows
-#: library/packages/src/modules/PackageCallbacks.rb:1536
+#: library/packages/src/modules/PackageCallbacks.rb:1541
 msgid "Patch: "
 msgstr "Correcção: "
 
 #. label, script name follows
-#: library/packages/src/modules/PackageCallbacks.rb:1545
+#: library/packages/src/modules/PackageCallbacks.rb:1550
 msgid "Script: "
 msgstr "Script: "
 
 #. label
-#: library/packages/src/modules/PackageCallbacks.rb:1551
+#: library/packages/src/modules/PackageCallbacks.rb:1556
 msgid "Output of the Script"
 msgstr "Saída do Script"
 
 # /usr/lib/YaST2/clients/remotechooser.ycp:37
 #. label, %1 is patch name with version and architecture
-#: library/packages/src/modules/PackageCallbacks.rb:1639
+#: library/packages/src/modules/PackageCallbacks.rb:1644
 msgid ""
 "Patch: %1\n"
 "\n"
@@ -3724,7 +3723,7 @@ msgstr ""
 "\n"
 
 #. a popup question with "Continue", "Skip" and "Abort" buttons
-#: library/packages/src/modules/PackageCallbacks.rb:1656
+#: library/packages/src/modules/PackageCallbacks.rb:1661
 msgid ""
 "The repositories are being refreshed.\n"
 "Continue with refreshing?\n"
@@ -3739,38 +3738,38 @@ msgstr ""
 "poderão-se perder ou ficar desactualizados."
 
 #. push button label
-#: library/packages/src/modules/PackageCallbacks.rb:1671
+#: library/packages/src/modules/PackageCallbacks.rb:1676
 msgid "&Skip Refresh"
 msgstr "&Saltar o Refrescamento"
 
 #. heading of popup
-#: library/packages/src/modules/PackageCallbacks.rb:1705
+#: library/packages/src/modules/PackageCallbacks.rb:1710
 msgid "Downloading"
 msgstr "A descarregar"
 
 #. message in a progress popup
 #. progress bar label, %1 is URL with optional download rate
-#: library/packages/src/modules/PackageCallbacks.rb:1752
-#: library/packages/src/modules/PackageCallbacks.rb:1798
+#: library/packages/src/modules/PackageCallbacks.rb:1757
+#: library/packages/src/modules/PackageCallbacks.rb:1803
 msgid "Downloading: %1"
 msgstr "A descarregar: %1"
 
 #. heading of popup
 #. heading of popup
-#: library/packages/src/modules/PackageCallbacks.rb:1900
-#: library/packages/src/modules/PackageCallbacks.rb:1966
+#: library/packages/src/modules/PackageCallbacks.rb:1905
+#: library/packages/src/modules/PackageCallbacks.rb:1971
 msgid "Checking Package Database"
 msgstr "A Verificar a Base de Dados de Pacotes"
 
 #. message in a progress popup
-#: library/packages/src/modules/PackageCallbacks.rb:1903
+#: library/packages/src/modules/PackageCallbacks.rb:1908
 msgid "Rebuilding package database. This process can take some time."
 msgstr ""
 "A reconstruir a base de dados de pacotes. Este processo pode demorar algum "
 "tempo."
 
 #. error message, %1 is the cause for the error
-#: library/packages/src/modules/PackageCallbacks.rb:1936
+#: library/packages/src/modules/PackageCallbacks.rb:1941
 msgid ""
 "Rebuilding of package database failed:\n"
 "%1"
@@ -3779,18 +3778,18 @@ msgstr ""
 "%1"
 
 #. message in a progress popup
-#: library/packages/src/modules/PackageCallbacks.rb:1969
+#: library/packages/src/modules/PackageCallbacks.rb:1974
 msgid "Converting package database. This process can take some time."
 msgstr ""
 "A converter a base de dados de pacotes. Este processo pode demorar algum "
 "tempo."
 
-#: library/packages/src/modules/PackageCallbacks.rb:1982
+#: library/packages/src/modules/PackageCallbacks.rb:1987
 msgid "Status"
 msgstr "Estado"
 
 #. error message, %1 is the cause for the error
-#: library/packages/src/modules/PackageCallbacks.rb:2006
+#: library/packages/src/modules/PackageCallbacks.rb:2011
 msgid ""
 "Conversion of package database failed:\n"
 "%1"
@@ -3799,14 +3798,14 @@ msgstr ""
 "%1"
 
 #. progress message (command line mode)
-#: library/packages/src/modules/PackageCallbacks.rb:2042
+#: library/packages/src/modules/PackageCallbacks.rb:2047
 #, fuzzy
 msgid "Reading RPM database..."
 msgstr "A ler a base de dados..."
 
 # /usr/lib/YaST2/clients/sw_single.ycp:12
 #. popup heading
-#: library/packages/src/modules/PackageCallbacks.rb:2051
+#: library/packages/src/modules/PackageCallbacks.rb:2056
 msgid "Reading Installed Packages"
 msgstr "A Ler os Pacotes Instalados"
 
@@ -3817,29 +3816,29 @@ msgstr "A Ler os Pacotes Instalados"
 #. `Label(""),
 #. `PushButton(`id(`abort), Label::AbortButton())
 #. )
-#: library/packages/src/modules/PackageCallbacks.rb:2057
-#: library/packages/src/modules/PackageCallbacks.rb:2073
+#: library/packages/src/modules/PackageCallbacks.rb:2062
+#: library/packages/src/modules/PackageCallbacks.rb:2078
 #, fuzzy
 msgid "Scanning RPM database..."
 msgstr "A Rastrear Base de Dados RPM..."
 
 #. error message, could not read RPM database
-#: library/packages/src/modules/PackageCallbacks.rb:2107
+#: library/packages/src/modules/PackageCallbacks.rb:2112
 msgid "Initialization of the target failed."
 msgstr "Falhou a inicialização do destino."
 
 #. status message (command line mode)
-#: library/packages/src/modules/PackageCallbacks.rb:2199
+#: library/packages/src/modules/PackageCallbacks.rb:2204
 #, fuzzy
 msgid "RPM database read"
 msgstr "Leitura BD RPM"
 
 #. heading in a popup window
-#: library/packages/src/modules/PackageCallbacks.rb:2231
+#: library/packages/src/modules/PackageCallbacks.rb:2236
 msgid "User Authentication"
 msgstr "Autenticação de Utilizadores"
 
-#: library/packages/src/modules/PackageCallbacks.rb:2237
+#: library/packages/src/modules/PackageCallbacks.rb:2242
 msgid ""
 "URL: %1\n"
 "\n"
@@ -3850,20 +3849,20 @@ msgstr ""
 "%2"
 
 #. textentry label
-#: library/packages/src/modules/PackageCallbacks.rb:2246
+#: library/packages/src/modules/PackageCallbacks.rb:2251
 msgid "&User Name"
 msgstr "Nome de &Utilizador"
 
 #. check box
-#: library/packages/src/modules/PackageCallbacks.rb:3032
+#: library/packages/src/modules/PackageCallbacks.rb:3037
 msgid "Show &details"
 msgstr "Mostrar &detalhes"
 
-#: library/packages/src/modules/PackageCallbacks.rb:3098
+#: library/packages/src/modules/PackageCallbacks.rb:3103
 msgid "Size: "
 msgstr "Tamanho: "
 
-#: library/packages/src/modules/PackageCallbacks.rb:3121
+#: library/packages/src/modules/PackageCallbacks.rb:3126
 msgid "Remaining time to automatic retry: %1"
 msgstr ""
 
@@ -5551,6 +5550,87 @@ msgstr "O YaST2 detectou o seguinte dispositivo"
 #: library/system/src/modules/ModuleLoading.rb:193
 msgid "&Driver/Module to load"
 msgstr "&Driver/Módulo a carregar"
+
+#. gets widget term
+#. @return <Yast::Term>
+#: library/systemd/src/lib/yast2/service_widget.rb:80
+#, fuzzy
+#| msgid "Read current configuration"
+msgid "Service Configuration"
+msgstr "Ler configuração actual"
+
+#. TRANSLATORS: Status of service
+#: library/systemd/src/lib/yast2/service_widget.rb:155
+msgid "Active"
+msgstr ""
+
+#. TRANSLATORS: Status of service
+#: library/systemd/src/lib/yast2/service_widget.rb:158
+msgid "Inactive"
+msgstr ""
+
+#. TRANSLATORS: Status of service
+#: library/systemd/src/lib/yast2/service_widget.rb:161
+#, fuzzy
+#| msgid "LDAP Support Active"
+msgid "Partly Active"
+msgstr "Suporte LDAP Activo"
+
+#: library/systemd/src/lib/yast2/service_widget.rb:170
+#, fuzzy
+#| msgid "Read current configuration"
+msgid "After writing configuration:"
+msgstr "Ler configuração actual"
+
+#: library/systemd/src/lib/yast2/service_widget.rb:178
+#, fuzzy
+#| msgid "Start it now?"
+msgid "Start"
+msgstr "Iniciá-lo agora?"
+
+#: library/systemd/src/lib/yast2/service_widget.rb:179
+#, fuzzy
+#| msgid "&Stop"
+msgid "Stop"
+msgstr "&Parar"
+
+#: library/systemd/src/lib/yast2/service_widget.rb:180
+msgid "Restart"
+msgstr ""
+
+#: library/systemd/src/lib/yast2/service_widget.rb:181
+msgid "Reload"
+msgstr ""
+
+#: library/systemd/src/lib/yast2/service_widget.rb:182
+#, fuzzy
+#| msgid "Current status:"
+msgid "Keep current state"
+msgstr "Estado actual:"
+
+#: library/systemd/src/lib/yast2/service_widget.rb:190
+msgid "After reboot:"
+msgstr ""
+
+#: library/systemd/src/lib/yast2/service_widget.rb:200
+#, fuzzy
+#| msgid "Start it now?"
+msgid "Start on boot"
+msgstr "Iniciá-lo agora?"
+
+#: library/systemd/src/lib/yast2/service_widget.rb:201
+msgid "Start on demand"
+msgstr ""
+
+#: library/systemd/src/lib/yast2/service_widget.rb:202
+msgid "Do not start"
+msgstr ""
+
+#: library/systemd/src/lib/yast2/service_widget.rb:203
+#, fuzzy
+#| msgid "Cannot read current settings."
+msgid "Keep current settings"
+msgstr "Não foi possível ler as definições actuais."
 
 #. describe valid MAC address
 #: library/types/src/modules/Address.rb:80
