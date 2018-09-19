@@ -17,11 +17,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: storage\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-09-10 08:03+0000\n"
+"POT-Creation-Date: 2018-09-19 02:45+0000\n"
 "PO-Revision-Date: 2018-09-14 16:43+0000\n"
 "Last-Translator: Antoine Belvire <antoine.belvire@opensuse.org>\n"
-"Language-Team: French <https://l10n.opensuse.org/projects/yast-"
-"storage/master/fr/>\n"
+"Language-Team: French <https://l10n.opensuse.org/projects/yast-storage/"
+"master/fr/>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -32,7 +32,7 @@ msgstr ""
 
 # TLABEL storage_2002_08_07_0216__69
 #. TRANSLATORS: %s is a volume group name (e.g. "system")
-#: src/lib/y2partitioner/actions/add_lvm_lv.rb:112
+#: src/lib/y2partitioner/actions/add_lvm_lv.rb:114
 msgid "No free space left in the volume group \"%s\"."
 msgstr "Pas d'espace disponible dans le groupe de volumes « %s »."
 
@@ -59,7 +59,7 @@ msgstr ""
 "requis. Modifiez la table des partitions en conséquence."
 
 #. @see TransactionWizard
-#: src/lib/y2partitioner/actions/add_md.rb:82
+#: src/lib/y2partitioner/actions/add_md.rb:75
 msgid "There are not enough suitable unused devices to create a RAID."
 msgstr ""
 "Il n'y a pas suffisamment de périphériques pour permettre la création d'un "
@@ -67,15 +67,17 @@ msgstr ""
 
 #. Checks whether the device is not used
 #.
-#. @see Controllers::Partition#disk_used?
+#. @see Controllers::Partition#device_used?
 #.
 #. @return [Boolean] true if device is not used; false otherwise.
-#: src/lib/y2partitioner/actions/add_partition.rb:135
-msgid "The disk is in use and cannot be modified."
+#: src/lib/y2partitioner/actions/add_partition.rb:137
+#, fuzzy
+#| msgid "The disk is in use and cannot be modified."
+msgid "The device is in use and cannot be modified."
 msgstr "Le disque est en cours d'utilisation et ne peut être modifié."
 
 #. TRANSLATORS: %{name} is a device name (e.g. "/dev/sda")
-#: src/lib/y2partitioner/actions/add_partition.rb:156
+#: src/lib/y2partitioner/actions/add_partition.rb:158
 msgid ""
 "The device %{name} is directly formatted.\n"
 "Remove the filesystem on %{name}?"
@@ -85,33 +87,81 @@ msgstr ""
 
 # TLABEL partitioning_2002_01_04_0147__54
 #. TRANSLATORS: %{name} is a device name (e.g. "/dev/sda")
-#: src/lib/y2partitioner/actions/add_partition.rb:185
+#: src/lib/y2partitioner/actions/add_partition.rb:187
 msgid "It is not possible to create a partition on %{name}."
 msgstr "Impossible de créer une partition sur %{name}."
 
-#. Error message when the disk has no partition table
+#. Error message when the device has no partition table
 #.
-#. @return [String, nil] nil if the disk has partition table.
-#: src/lib/y2partitioner/actions/clone_disk.rb:91
+#. @return [String, nil] nil if the device has partition table.
+#: src/lib/y2partitioner/actions/clone_partition_table.rb:91
+#, fuzzy
+#| msgid ""
+#| "There are no partitions on this disk, but a clonable\n"
+#| "disk must have at least one partition.\n"
+#| "Create partitions before cloning the disk."
 msgid ""
-"There are no partitions on this disk, but a clonable\n"
-"disk must have at least one partition.\n"
-"Create partitions before cloning the disk."
+"There are no partitions on this device, but a clonable\n"
+"device must have at least one partition.\n"
+"Create partitions before cloning the device."
 msgstr ""
 "Il n'y a aucune partition sur ce disque mais un disque\n"
 "clonable doit avoir au moins une partition.\n"
 "Créez des partitions avant de cloner ce disque."
 
-#. Error message when there are no suitable devices where to clone the disk
+#. Error message when there are no suitable devices where to clone the device
 #.
 #. @return [String, nil] nil if there are suitable devices.
-#: src/lib/y2partitioner/actions/clone_disk.rb:102
+#: src/lib/y2partitioner/actions/clone_partition_table.rb:102
+#, fuzzy
+#| msgid ""
+#| "This disk cannot be cloned. There are no suitable\n"
+#| "disks that could have the same partitioning layout."
 msgid ""
-"This disk cannot be cloned. There are no suitable\n"
-"disks that could have the same partitioning layout."
+"This device cannot be cloned. There are no suitable\n"
+"devices that could have the same partitioning layout."
 msgstr ""
 "Ce disque ne peut pas être cloné. Il n'y a aucun disque\n"
 "adéquat qui pourrait avoir le même partitionnement."
+
+# TLABEL autoinst_2002_08_07_0216__370
+#. TRANSLATORS: dialog title. %s is a device name like /dev/sda
+#: src/lib/y2partitioner/actions/controllers/add_partition.rb:188
+msgid "Add Partition on %s"
+msgstr "Ajouter la partition sur %s"
+
+#. starting block must be in a region,
+#. TRANSLATORS: text for an error popup
+#: src/lib/y2partitioner/actions/controllers/add_partition.rb:204
+msgid "The block entered as start is not available."
+msgstr "Le bloc saisi en tant que début n'est pas disponible."
+
+#. TRANSLATORS: text for an error popup
+#: src/lib/y2partitioner/actions/controllers/add_partition.rb:207
+msgid "The end block cannot be before the start."
+msgstr "Le bloc de fin ne peut pas être avant le début."
+
+# TLABEL network_2002_03_14_2340__190
+#. ending block must be in the same region than the start
+#. TRANSLATORS: text for an error popup
+#: src/lib/y2partitioner/actions/controllers/add_partition.rb:212
+msgid "The region entered collides with the existing partitions."
+msgstr "La région saisie entre en collision avec d'autres partitions."
+
+#. It's so small that we already know that we can't align both
+#. start and end
+#. TRANSLATORS: text for an error popup
+#: src/lib/y2partitioner/actions/controllers/add_partition.rb:218
+msgid "The region entered is too small, not supported by this device."
+msgstr ""
+"La région saisie est trop petite, non prise en charge par ce périphérique."
+
+#. Almost pathological case, but still can happen if the user tries
+#. to break stuff
+#. TRANSLATORS: text for an error popup
+#: src/lib/y2partitioner/actions/controllers/add_partition.rb:224
+msgid "Invalid region entered, increase the size or align the start."
+msgstr "Région invalide, augmentez la taille ou alignez le début."
 
 #. TRANSLATORS: %{mount_points} is replaced by a list of mount points, please
 #. do not modify it.
@@ -224,55 +274,18 @@ msgstr ""
 # TLABEL partitioning_2002_01_04_0147__485
 #. TRANSLATORS: dialog title when creating a MD RAID.
 #. %s is a device name like /dev/md0
-#: src/lib/y2partitioner/actions/controllers/md.rb:199
+#: src/lib/y2partitioner/actions/controllers/md.rb:194
 msgid "Add RAID %s"
 msgstr "Ajouter RAID %s"
 
-# TLABEL partitioning_2002_01_04_0147__484
-#. TRANSLATORS: dialog title when resizing a MD RAID.
-#. %s is a device name like /dev/md0
-#: src/lib/y2partitioner/actions/controllers/md.rb:203
-msgid "Resize RAID %s"
-msgstr "Redimensionner RAID %s"
-
-# TLABEL autoinst_2002_08_07_0216__370
-#. TRANSLATORS: dialog title. %s is a device name like /dev/sda
-#: src/lib/y2partitioner/actions/controllers/partition.rb:185
-msgid "Add Partition on %s"
-msgstr "Ajouter la partition sur %s"
-
-#. starting block must be in a region,
-#. TRANSLATORS: text for an error popup
-#: src/lib/y2partitioner/actions/controllers/partition.rb:201
-msgid "The block entered as start is not available."
-msgstr "Le bloc saisi en tant que début n'est pas disponible."
-
-#. TRANSLATORS: text for an error popup
-#: src/lib/y2partitioner/actions/controllers/partition.rb:204
-msgid "The end block cannot be before the start."
-msgstr "Le bloc de fin ne peut pas être avant le début."
-
-# TLABEL network_2002_03_14_2340__190
-#. ending block must be in the same region than the start
-#. TRANSLATORS: text for an error popup
-#: src/lib/y2partitioner/actions/controllers/partition.rb:209
-msgid "The region entered collides with the existing partitions."
-msgstr "La région saisie entre en collision avec d'autres partitions."
-
-#. It's so small that we already know that we can't align both
-#. start and end
-#. TRANSLATORS: text for an error popup
-#: src/lib/y2partitioner/actions/controllers/partition.rb:215
-msgid "The region entered is too small, not supported by this device."
-msgstr ""
-"La région saisie est trop petite, non prise en charge par ce périphérique."
-
-#. Almost pathological case, but still can happen if the user tries
-#. to break stuff
-#. TRANSLATORS: text for an error popup
-#: src/lib/y2partitioner/actions/controllers/partition.rb:221
-msgid "Invalid region entered, increase the size or align the start."
-msgstr "Région invalide, augmentez la taille ou alignez le début."
+# TLABEL partitioning_2002_01_04_0147__48
+#. TRANSLATORS: dialog title when editing the devices of a Software RAID.
+#. %s is a device name (e.g., /dev/md0)
+#: src/lib/y2partitioner/actions/controllers/md.rb:198
+#, fuzzy
+#| msgid "Edit RAID %s"
+msgid "Edit devices of RAID %s"
+msgstr "Modifier RAID %s"
 
 # TLABEL partitioning_2002_01_04_0147__54
 #. TRANSLATORS: %s is a device name (e.g. "/dev/sda")
@@ -282,11 +295,16 @@ msgstr "Impossible de créer une nouvelle table de partitions sur %s."
 
 # TLABEL autoinst_2002_08_07_0216__252
 #. @see #confirm
+#. @see DeleteDevices#confirm
+#.
+#. @return [Boolean]
 #: src/lib/y2partitioner/actions/create_partition_table.rb:132
+#: src/lib/y2partitioner/actions/delete_partitions.rb:106
 msgid "Confirm Deleting of Current Devices"
 msgstr "Confirmer la suppression des périphériques actuels"
 
 #: src/lib/y2partitioner/actions/create_partition_table.rb:133
+#: src/lib/y2partitioner/actions/delete_partitions.rb:107
 msgid "If you proceed, the following devices will be deleted:"
 msgstr "Si vous continuez, les périphériques suivants seront supprimés :"
 
@@ -533,29 +551,74 @@ msgstr ""
 msgid "Delete partition \"%{partition}\" and RAID \"%{md}\"?"
 msgstr "Supprimer la partition « %{partition} » et le RAID « %{md} » ?"
 
+#. TRANSLATORS: Error when trying to delete partitions from a directly formatted
+#. device. %{name} is replaced by the name of the device (e.g. "/dev/sda").
+#: src/lib/y2partitioner/actions/delete_partitions.rb:68
+#, fuzzy
+#| msgid ""
+#| "The device %{name} is directly formatted.\n"
+#| "Remove the filesystem on %{name}?"
+msgid ""
+"The device %{name} is directly formatted and\n"
+"and it does not contain any partition."
+msgstr ""
+"Le périphérique %{name} est déjà formaté.\n"
+"Supprimer le système de fichiers sur %{name} ?"
+
+#. TRANSLATORS: Error when trying to delete partitions from a device that does not contain
+#. a partition table. %{name} is replaced by the name of the device (e.g. "/dev/sda").
+#: src/lib/y2partitioner/actions/delete_partitions.rb:83
+#, fuzzy
+#| msgid ""
+#| "This device only contains an implicit partition that cannot be deleted."
+msgid ""
+"The device %{name} does not contain a partition table, so\n"
+"no partition can be deleted"
+msgstr ""
+"Ce périphérique ne contient qu'une partition implicite qui ne peut pas être "
+"supprimée."
+
+# TLABEL partitioning_2002_01_04_0147__122
+#. TRANSLATORS: Error when trying to delete partitions from a device with an empty
+#. partition table.
+#: src/lib/y2partitioner/actions/delete_partitions.rb:97
+#, fuzzy
+#| msgid "<p>Choose the partition table type for the new partition.</p>"
+msgid "The partition table does not contain partitions."
+msgstr ""
+"<p>Choisissez le format de la table de partitions pour la nouvelle partition."
+"</p>"
+
+# TLABEL lilo_2002_01_04_0147__26
+#: src/lib/y2partitioner/actions/delete_partitions.rb:108
+#, fuzzy
+#| msgid "Really delete these devices?"
+msgid "Really delete all these devices?"
+msgstr "Vraiment supprimer ces périphériques ?"
+
 # TLABEL partitioning_2002_01_04_0147__48
 #. TRANSLATORS: dialog title. %s is a device name like /dev/md0
-#: src/lib/y2partitioner/actions/edit_blk_device.rb:78
+#: src/lib/y2partitioner/actions/edit_blk_device.rb:61
 msgid "Edit RAID %s"
 msgstr "Modifier RAID %s"
 
 # TLABEL partitioning_2002_01_04_0147__354
 #. TRANSLATORS: dialog title. %{lv_name} is an LVM LV name (e.g.'root'),
 #. %{vg} is the device name of an LVM VG (e.g. '/dev/system').
-#: src/lib/y2partitioner/actions/edit_blk_device.rb:83
+#: src/lib/y2partitioner/actions/edit_blk_device.rb:66
 msgid "Edit Logical Volume %{lv_name} on %{vg}"
 msgstr "Modifier le volume logique %{lv_name} sur %{vg}"
 
 # TLABEL autoinst_2002_08_07_0216__370
 #. TRANSLATORS: dialog title. %s is a device name like /dev/sda1
-#: src/lib/y2partitioner/actions/edit_blk_device.rb:86
+#: src/lib/y2partitioner/actions/edit_blk_device.rb:69
 msgid "Edit Partition %s"
 msgstr "Modifier la partition %s"
 
 #. TRANSLATORS: %{name} is replaced by a device name (e.g., /dev/sda1).
 #. and %{users} is replaced by a comma-separated list of name devices
 #. (devices using the first one).
-#: src/lib/y2partitioner/actions/edit_blk_device.rb:124
+#: src/lib/y2partitioner/actions/edit_blk_device.rb:107
 msgid ""
 "The device %{name} is in use (%{users}).\n"
 "It cannot be edited.\n"
@@ -567,19 +630,54 @@ msgstr ""
 
 # TLABEL partitioning_2002_01_04_0147__18
 #. TRANSLATORS: Error message when trying to edit an extented partition
-#: src/lib/y2partitioner/actions/edit_blk_device.rb:138
+#: src/lib/y2partitioner/actions/edit_blk_device.rb:121
 msgid "An extended partition cannot be edited"
 msgstr "Une partition étendue ne peut pas être modifiée"
 
 #. TRANSLATORS: Error message when trying to edit an LVM thin pool. %{name} is
 #. replaced by a logical volume name (e.g., /dev/system/lv1)
-#: src/lib/y2partitioner/actions/edit_blk_device.rb:149
+#: src/lib/y2partitioner/actions/edit_blk_device.rb:132
 msgid ""
 "The volume %{name} is a thin pool.\n"
 "It cannot be edited."
 msgstr ""
 "Le volume %{name} est un pool à allocation dynamique.\n"
 "Impossible de le modifier."
+
+#. TRANSLATORS: error message, %{name} is replaced by a device name (e.g., /dev/md1)
+#: src/lib/y2partitioner/actions/edit_md_devices.rb:102
+#, fuzzy
+#| msgid ""
+#| "The RAID %{name} is already created on disk. It cannot be\n"
+#| "resized. To resize %{name}, remove it and create it again."
+msgid ""
+"The RAID %{name} is already created on disk and its used devices\n"
+"cannot be modified. To modify the used devices, remove the RAID\n"
+"and create it again."
+msgstr ""
+"Le RAID %{name} est déjà créé sur le disque. Il ne peut être redimensionné.\n"
+"Pour redimensionner %{name}, le supprimer et le recréer."
+
+#. TRANSLATORS: error message, %{name} is replaced by a device name (e.g., /dev/md1)
+#: src/lib/y2partitioner/actions/edit_md_devices.rb:117
+#, fuzzy
+#| msgid ""
+#| "The RAID %{name} is in use. It cannot be\n"
+#| "resized. To resize %{name}, make sure it is not used."
+msgid ""
+"The RAID %{name} is in use. To modify the used devices,\n"
+"make sure %{name} is not used."
+msgstr ""
+"Le RAID %{name} est en cours d'utilisation. Il ne peut être redimensionné.\n"
+"Pour redimensionner %{name}, assurez-vous qu'il n'est pas en cours "
+"d'utilisation."
+
+#. TRANSLATORS: error message, %{name} is replaced by a device name (e.g., /dev/md1)
+#: src/lib/y2partitioner/actions/edit_md_devices.rb:131
+msgid ""
+"The RAID %{name} is partitioned. To modify the used devices,\n"
+"make sure %{name} has no partitions."
+msgstr ""
 
 #. Error message when no fstab file was detected
 #.
@@ -668,25 +766,6 @@ msgstr "Ce type de système de fichiers ne peut pas être redimensionné."
 msgid "This device cannot be resized:"
 msgstr "Ce périphérique ne peut pas être redimensionné :"
 
-#. TRANSLATORS: error popup, %{name} is replaced by device name (e.g., /dev/md1)
-#: src/lib/y2partitioner/actions/resize_md.rb:87
-msgid ""
-"The RAID %{name} is already created on disk. It cannot be\n"
-"resized. To resize %{name}, remove it and create it again."
-msgstr ""
-"Le RAID %{name} est déjà créé sur le disque. Il ne peut être redimensionné.\n"
-"Pour redimensionner %{name}, le supprimer et le recréer."
-
-#. TRANSLATORS: error popup, %{name} is replaced by device name (e.g., /dev/md1)
-#: src/lib/y2partitioner/actions/resize_md.rb:108
-msgid ""
-"The RAID %{name} is in use. It cannot be\n"
-"resized. To resize %{name}, make sure it is not used."
-msgstr ""
-"Le RAID %{name} est en cours d'utilisation. Il ne peut être redimensionné.\n"
-"Pour redimensionner %{name}, assurez-vous qu'il n'est pas en cours "
-"d'utilisation."
-
 # TLABEL partitioning_2002_03_14_2340__0
 #. Popup to alert the user about using the Partitioner
 #.
@@ -752,7 +831,7 @@ msgstr "Actuellement utilisé : %{size}"
 #: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:71
 #: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:149
 #: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:296
-#: src/lib/y2partitioner/dialogs/partition_size.rb:205
+#: src/lib/y2partitioner/dialogs/partition_size.rb:204
 #: src/lib/y2partitioner/widgets/blk_devices_table.rb:106
 msgid "Size"
 msgstr "Taille"
@@ -768,7 +847,7 @@ msgstr "Taille minimale (%{size})"
 
 #: src/lib/y2partitioner/dialogs/blk_device_resize.rb:181
 #: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:80
-#: src/lib/y2partitioner/dialogs/partition_size.rb:97
+#: src/lib/y2partitioner/dialogs/partition_size.rb:96
 msgid "Custom Size"
 msgstr "Taille personnalisée"
 
@@ -918,70 +997,6 @@ msgstr "noCoW"
 #: src/lib/y2partitioner/dialogs/btrfs_subvolumes.rb:39
 msgid "Edit Btrfs subvolumes"
 msgstr "Modifier les sous-volumes Btrfs"
-
-# TLABEL partitioning_2002_01_04_0147__44
-#. TRANSLATORS: %{name} is replaced by a disk device name (e.g., /dev/sda)
-#: src/lib/y2partitioner/dialogs/disk_clone.rb:48
-msgid "Clone partition layout of %{name}"
-msgstr "Cloner le partitionnement de %{name}"
-
-# TLABEL wizard_2002_03_14_2340__1
-#. @return [String]
-#: src/lib/y2partitioner/dialogs/disk_clone.rb:73
-msgid "Available target disks:"
-msgstr "Disques cibles disponibles :"
-
-#. Checks whether any device was selected
-#.
-#. @note A confirmation popup is shown when deleting devices is needed
-#. for cloning into the selected devices.
-#.
-#. @return [Boolean]
-#: src/lib/y2partitioner/dialogs/disk_clone.rb:90
-msgid "Select a target disk for creating a clone"
-msgstr "Sélectionner un disque cible pour créer un clone"
-
-#. Help text
-#.
-#. @return [String]
-#: src/lib/y2partitioner/dialogs/disk_clone.rb:113
-msgid ""
-"Select one or more (if available) hard disks that will have the same "
-"partition layout as this disk"
-msgstr ""
-"Sélectionnez le ou les disques durs qui auront le même partitionnement que "
-"ce disque"
-
-#: src/lib/y2partitioner/dialogs/disk_clone.rb:115
-msgid ""
-"Disks marked with the sign '*' contain one or more partitions. After "
-"cloning, these partitions will be deleted"
-msgstr ""
-"Les disques marqués avec le signe « * » contiennent une ou plusieurs "
-"partitions. Après clonage, ces partitions seront supprimées"
-
-# TLABEL autoinst_2002_03_14_2340__32
-#. Asks whether to remove devices holded by the selected devices
-#.
-#. @see ConfirmRecursiveDelete
-#.
-#. @return [Boolean]
-#: src/lib/y2partitioner/dialogs/disk_clone.rb:184
-msgid "Confirm deleting"
-msgstr "Confirmer la suppression"
-
-#: src/lib/y2partitioner/dialogs/disk_clone.rb:185
-msgid ""
-"The following devices will be deleted\n"
-"and all data on them will be lost:"
-msgstr ""
-"Les périphériques suivants seront supprimés et\n"
-"toutes les données présentes dessus seront perdues :"
-
-# TLABEL lilo_2002_01_04_0147__26
-#: src/lib/y2partitioner/dialogs/disk_clone.rb:186
-msgid "Really delete these devices?"
-msgstr "Vraiment supprimer ces périphériques ?"
 
 # TLABEL network_2002_08_07_0216__73
 #. @param controller [Actions::Controllers::Filesystem]
@@ -1361,21 +1376,21 @@ msgstr "<p>Choisissez le rôle du périphérique.</p>"
 
 # TLABEL partitioning_2002_01_04_0147__461
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/dialogs/partition_size.rb:89
+#: src/lib/y2partitioner/dialogs/partition_size.rb:88
 msgid "New Partition Size"
 msgstr "Taille de la nouvelle partition"
 
-#: src/lib/y2partitioner/dialogs/partition_size.rb:93
+#: src/lib/y2partitioner/dialogs/partition_size.rb:92
 msgid "Maximum Size (%1)"
 msgstr "Taille maximale (%1)"
 
 # TLABEL security_2002_01_04_0147__80
-#: src/lib/y2partitioner/dialogs/partition_size.rb:98
+#: src/lib/y2partitioner/dialogs/partition_size.rb:97
 msgid "Custom Region"
 msgstr "Région personnalisée"
 
 #. helptext
-#: src/lib/y2partitioner/dialogs/partition_size.rb:128
+#: src/lib/y2partitioner/dialogs/partition_size.rb:127
 msgid ""
 "<p>Choose the size for the new partition.</p>\n"
 "<p>If a size is specified (any of the two first options in the form),\n"
@@ -1397,7 +1412,7 @@ msgstr ""
 
 # TLABEL partitioning_2002_03_14_2340__111
 #. error popup, %1 and %2 are replaced by sizes
-#: src/lib/y2partitioner/dialogs/partition_size.rb:230
+#: src/lib/y2partitioner/dialogs/partition_size.rb:229
 msgid "The size entered is invalid. Enter a size between %1 and %2."
 msgstr ""
 "La taille que vous avez spécifiée n'est pas valable.\n"
@@ -1405,13 +1420,77 @@ msgstr ""
 
 # TLABEL partitioning_2002_01_04_0147__31
 #. we can't use IntField() since it overflows :-(
-#: src/lib/y2partitioner/dialogs/partition_size.rb:273
+#: src/lib/y2partitioner/dialogs/partition_size.rb:272
 msgid "Start Block"
 msgstr "Bloc de début"
 
-#: src/lib/y2partitioner/dialogs/partition_size.rb:274
+#: src/lib/y2partitioner/dialogs/partition_size.rb:273
 msgid "End Block"
 msgstr "Bloc de fin"
+
+# TLABEL partitioning_2002_01_04_0147__44
+#. TRANSLATORS: %{name} is replaced by a disk device name (e.g., /dev/sda)
+#: src/lib/y2partitioner/dialogs/partition_table_clone.rb:48
+msgid "Clone partition layout of %{name}"
+msgstr "Cloner le partitionnement de %{name}"
+
+# TLABEL wizard_2002_03_14_2340__1
+#. @return [String]
+#: src/lib/y2partitioner/dialogs/partition_table_clone.rb:73
+msgid "Available target disks:"
+msgstr "Disques cibles disponibles :"
+
+#. Checks whether any device was selected
+#.
+#. @note A confirmation popup is shown when deleting devices is needed
+#. for cloning into the selected devices.
+#.
+#. @return [Boolean]
+#: src/lib/y2partitioner/dialogs/partition_table_clone.rb:90
+msgid "Select a target disk for creating a clone"
+msgstr "Sélectionner un disque cible pour créer un clone"
+
+#. Help text
+#.
+#. @return [String]
+#: src/lib/y2partitioner/dialogs/partition_table_clone.rb:113
+msgid ""
+"Select one or more (if available) hard disks that will have the same "
+"partition layout as this disk"
+msgstr ""
+"Sélectionnez le ou les disques durs qui auront le même partitionnement que "
+"ce disque"
+
+#: src/lib/y2partitioner/dialogs/partition_table_clone.rb:115
+msgid ""
+"Disks marked with the sign '*' contain one or more partitions. After "
+"cloning, these partitions will be deleted"
+msgstr ""
+"Les disques marqués avec le signe « * » contiennent une ou plusieurs "
+"partitions. Après clonage, ces partitions seront supprimées"
+
+# TLABEL autoinst_2002_03_14_2340__32
+#. Asks whether to remove devices holded by the selected devices
+#.
+#. @see ConfirmRecursiveDelete
+#.
+#. @return [Boolean]
+#: src/lib/y2partitioner/dialogs/partition_table_clone.rb:184
+msgid "Confirm deleting"
+msgstr "Confirmer la suppression"
+
+#: src/lib/y2partitioner/dialogs/partition_table_clone.rb:185
+msgid ""
+"The following devices will be deleted\n"
+"and all data on them will be lost:"
+msgstr ""
+"Les périphériques suivants seront supprimés et\n"
+"toutes les données présentes dessus seront perdues :"
+
+# TLABEL lilo_2002_01_04_0147__26
+#: src/lib/y2partitioner/dialogs/partition_table_clone.rb:186
+msgid "Really delete these devices?"
+msgstr "Vraiment supprimer ces périphériques ?"
 
 # TLABEL partitioning_2002_01_04_0147__461
 #. @macro seeAbstractWidget
@@ -1618,14 +1697,14 @@ msgstr "Chiffrement : %s"
 #. Values
 #: src/lib/y2partitioner/widgets/blk_device_attributes.rb:99
 #: src/lib/y2partitioner/widgets/btrfs_subvolumes_table.rb:108
-#: src/lib/y2partitioner/widgets/md_description.rb:73
+#: src/lib/y2partitioner/widgets/md_description.rb:74
 msgid "Yes"
 msgstr "Oui"
 
 # TLABEL partitioning_2002_01_04_0147__125
 #: src/lib/y2partitioner/widgets/blk_device_attributes.rb:99
 #: src/lib/y2partitioner/widgets/btrfs_subvolumes_table.rb:108
-#: src/lib/y2partitioner/widgets/md_description.rb:73
+#: src/lib/y2partitioner/widgets/md_description.rb:74
 msgid "No"
 msgstr "Non"
 
@@ -1717,7 +1796,7 @@ msgstr "Système de fichiers :"
 #. TRANSLATORS: button label for editing a block device
 #. @see CWM::PushButton#Label
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/blk_device_edit_button.rb:41
+#: src/lib/y2partitioner/widgets/blk_device_edit_button.rb:39
 #: src/lib/y2partitioner/widgets/btrfs_edit_button.rb:42
 #: src/lib/y2partitioner/widgets/lvm_edit_button.rb:39
 msgid "Edit..."
@@ -2051,7 +2130,7 @@ msgstr "Échec de l'enregistrement du fichier de graphe."
 
 # TLABEL partitioning_2002_01_04_0147__67
 #. TRANSLATORS: label for button for resizing a device
-#: src/lib/y2partitioner/widgets/device_resize_button.rb:42
+#: src/lib/y2partitioner/widgets/device_resize_button.rb:41
 msgid "Resize..."
 msgstr "Redimensionner..."
 
@@ -2060,7 +2139,7 @@ msgstr "Redimensionner..."
 #. @note An error popup is shown when the device does not support resizing.
 #.
 #. @return [Boolean] true if the device supports resizing; false otherwise.
-#: src/lib/y2partitioner/widgets/device_resize_button.rb:62
+#: src/lib/y2partitioner/widgets/device_resize_button.rb:61
 msgid ""
 "Hard disks, BIOS RAIDs and multipath\n"
 "devices cannot be resized."
@@ -2123,24 +2202,6 @@ msgstr "Non partitionné"
 #: src/lib/y2partitioner/widgets/disk_device_description.rb:51
 msgid "Hard Disk:"
 msgstr "Disque dur :"
-
-# TLABEL firewall_2002_03_14_2340__49
-#. Translators: Expert menu for disks in the partitioner.
-#: src/lib/y2partitioner/widgets/disk_expert_menu_button.rb:44
-msgid "&Expert..."
-msgstr "&Expert..."
-
-# TLABEL storage_2002_08_07_0216__72
-#. Menu items
-#.
-#. @return [Array<[Symbol, String]>]
-#: src/lib/y2partitioner/widgets/disk_expert_menu_button.rb:52
-msgid "Create New Partition &Table"
-msgstr "Créer une nouvelle &table de partitions"
-
-#: src/lib/y2partitioner/widgets/disk_expert_menu_button.rb:53
-msgid "Clone this Disk"
-msgstr "Cloner ce disque"
 
 # TLABEL partitioning_2002_03_14_2340__86
 #. help text for cryptofs
@@ -3156,28 +3217,28 @@ msgstr "RAID :"
 # TLABEL storage_2002_08_07_0216__50
 #. TRANSLATORS: RAID being active (assembled), where %s is replaced by
 #. 'Yes' when the device is active or by 'No' otherwise
-#: src/lib/y2partitioner/widgets/md_description.rb:73
+#: src/lib/y2partitioner/widgets/md_description.rb:74
 msgid "Active: %s"
 msgstr "Actif : %s"
 
 # TLABEL storage_2002_08_07_0216__15
 #. TRANSLATORS: RAID type information, where %s is replaced by a
 #. raid type (e.g., RAID0)
-#: src/lib/y2partitioner/widgets/md_description.rb:82
+#: src/lib/y2partitioner/widgets/md_description.rb:83
 msgid "RAID Type: %s"
 msgstr "Type de RAID : %s"
 
 # TLABEL storage_2002_08_07_0216__50
 #. TRANSLATORS: chunk size information of the MD RAID, where %s is replaced by
 #. a size (e.g., 8 KiB)
-#: src/lib/y2partitioner/widgets/md_description.rb:93
+#: src/lib/y2partitioner/widgets/md_description.rb:94
 msgid "Chunk Size: %s"
 msgstr "Taille des blocs : %s"
 
 # TLABEL autoinst_2002_08_07_0216__460
 #. TRANSLATORS: parity algorithm information of a MD RAID, where %s is replaced by
 #. the name of the parity strategy
-#: src/lib/y2partitioner/widgets/md_description.rb:102
+#: src/lib/y2partitioner/widgets/md_description.rb:103
 msgid "Partity algorithm: %s"
 msgstr "Algorithme de parité : %s"
 
@@ -3536,7 +3597,7 @@ msgstr ""
 
 # TLABEL packages_2002_01_04_0147__12
 #. TRANSLATORS: Heading. String followed by device name of hard disk
-#: src/lib/y2partitioner/widgets/pages/disk.rb:75
+#: src/lib/y2partitioner/widgets/pages/disk.rb:69
 msgid "Hard Disk: %s"
 msgstr "Disque dur : %s"
 
@@ -3544,17 +3605,11 @@ msgstr "Disque dur : %s"
 #. @macro seeAbstractWidget
 #. @macro seeAbstractWidget
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/pages/disk.rb:136
+#: src/lib/y2partitioner/widgets/pages/disk.rb:131
 #: src/lib/y2partitioner/widgets/pages/lvm_vg.rb:94
-#: src/lib/y2partitioner/widgets/pages/md_raid.rb:94
+#: src/lib/y2partitioner/widgets/pages/md_raid.rb:97
 msgid "&Overview"
 msgstr "&Aperçu"
-
-# TLABEL packages_2002_01_04_0147__160
-#. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/pages/disk.rb:167
-msgid "&Partitions"
-msgstr "Partitions"
 
 # TLABEL packages_2002_01_04_0147__12
 #. @macro seeAbstractWidget
@@ -3602,7 +3657,7 @@ msgstr "Volumes &physiques"
 
 # TLABEL partitioning_2002_01_04_0147__33
 #. @macro seeCustomWidget
-#: src/lib/y2partitioner/widgets/pages/md_raid.rb:67
+#: src/lib/y2partitioner/widgets/pages/md_raid.rb:70
 msgid "RAID: %s"
 msgstr "RAID : %s"
 
@@ -3706,6 +3761,35 @@ msgstr "ID de partition : %s"
 msgid "Move..."
 msgstr "Déplacer..."
 
+# TLABEL partitioning_2002_01_04_0147__461
+#. TRANSLATORS: label for button to add a partition table
+#: src/lib/y2partitioner/widgets/partition_table_add_button.rb:38
+#, fuzzy
+#| msgid "New Partition Table Type"
+msgid "New Partition Table..."
+msgstr "Nouveau type de table de partitions"
+
+# TLABEL autoinst_2002_08_07_0216__476
+#. TRANSLATORS: label for button to clone a partition table
+#: src/lib/y2partitioner/widgets/partition_table_clone_button.rb:38
+#, fuzzy
+#| msgid "Add Partition..."
+msgid "Clone Partitions..."
+msgstr "Ajouter une partition..."
+
+#. TRANSLATORS: label for button to delete all partitions
+#: src/lib/y2partitioner/widgets/partitions_delete_button.rb:38
+#, fuzzy
+#| msgid "Delete..."
+msgid "Delete All..."
+msgstr "Supprimer..."
+
+# TLABEL packages_2002_01_04_0147__160
+#. @macro seeAbstractWidget
+#: src/lib/y2partitioner/widgets/partitions_tab.rb:54
+msgid "&Partitions"
+msgstr "Partitions"
+
 # TLABEL partitioning_2002_01_04_0147__444
 #. Reprobes and updates devicegraphs for the partitioner. During
 #. installation, a reactivation is performed before reprobing.
@@ -3801,6 +3885,14 @@ msgstr ""
 "<p><b>Résumé de l'installation :</b> indique les opérations qui seront "
 "effectuées lorsque vous finaliserez le partitionneur. Jusque là, rien n'a "
 "changé sur votre système.</p>"
+
+# TLABEL general_2002_01_04_0147__27
+#. TRANSLATORS: label for button to edit used devices
+#: src/lib/y2partitioner/widgets/used_devices_edit_button.rb:40
+#, fuzzy
+#| msgid "Configure..."
+msgid "Change..."
+msgstr "Configurer..."
 
 # TLABEL wizard_2002_01_04_0147__19
 #. @macro seeAbstractWidget
@@ -5057,6 +5149,21 @@ msgstr "Le volume LVM à allocation dynamique a déjà la taille maximale."
 msgid "Unknown reason"
 msgstr "Raison inconnue"
 
+# TLABEL partitioning_2002_01_04_0147__484
+#~ msgid "Resize RAID %s"
+#~ msgstr "Redimensionner RAID %s"
+
+# TLABEL firewall_2002_03_14_2340__49
+#~ msgid "&Expert..."
+#~ msgstr "&Expert..."
+
+# TLABEL storage_2002_08_07_0216__72
+#~ msgid "Create New Partition &Table"
+#~ msgstr "Créer une nouvelle &table de partitions"
+
+#~ msgid "Clone this Disk"
+#~ msgstr "Cloner ce disque"
+
 # TLABEL storage_2002_08_07_0216__72
 #~ msgid "Create New Partition Table on %s"
 #~ msgstr "Créer une nouvelle table de partitions sur %s"
@@ -5080,12 +5187,6 @@ msgstr "Raison inconnue"
 # TLABEL rpm-groups_2002_03_14_2340__7
 #~ msgid "Backward"
 #~ msgstr "En arrière"
-
-# TLABEL partitioning_2002_01_04_0147__122
-#~ msgid "<p>Choose the partition table type for the new partition.</p>"
-#~ msgstr ""
-#~ "<p>Choisissez le format de la table de partitions pour la nouvelle "
-#~ "partition.</p>"
 
 # TLABEL lilo_2002_01_04_0147__39
 #~ msgid "Disk Label: %s"

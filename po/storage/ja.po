@@ -13,11 +13,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: storage\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-09-10 08:03+0000\n"
+"POT-Creation-Date: 2018-09-19 02:45+0000\n"
 "PO-Revision-Date: 2018-09-10 14:03+0000\n"
 "Last-Translator: Yasuhiko Kamata <belphegor@belbel.or.jp>\n"
-"Language-Team: Japanese <https://l10n.opensuse.org/projects/yast-"
-"storage/master/ja/>\n"
+"Language-Team: Japanese <https://l10n.opensuse.org/projects/yast-storage/"
+"master/ja/>\n"
 "Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -26,7 +26,7 @@ msgstr ""
 "X-Generator: Weblate 2.18\n"
 
 #. TRANSLATORS: %s is a volume group name (e.g. "system")
-#: src/lib/y2partitioner/actions/add_lvm_lv.rb:112
+#: src/lib/y2partitioner/actions/add_lvm_lv.rb:114
 msgid "No free space left in the volume group \"%s\"."
 msgstr "ボリュームグループ \"%s\" 内に空き領域がありません。"
 
@@ -52,21 +52,23 @@ msgstr ""
 "です。パーティションテーブルを適切に変更してください。"
 
 #. @see TransactionWizard
-#: src/lib/y2partitioner/actions/add_md.rb:82
+#: src/lib/y2partitioner/actions/add_md.rb:75
 msgid "There are not enough suitable unused devices to create a RAID."
 msgstr "RAID を作成するのに十分な未使用デバイスがありません。"
 
 #. Checks whether the device is not used
 #.
-#. @see Controllers::Partition#disk_used?
+#. @see Controllers::Partition#device_used?
 #.
 #. @return [Boolean] true if device is not used; false otherwise.
-#: src/lib/y2partitioner/actions/add_partition.rb:135
-msgid "The disk is in use and cannot be modified."
+#: src/lib/y2partitioner/actions/add_partition.rb:137
+#, fuzzy
+#| msgid "The disk is in use and cannot be modified."
+msgid "The device is in use and cannot be modified."
 msgstr "ディスクは現在使用中であるため、変更できません。"
 
 #. TRANSLATORS: %{name} is a device name (e.g. "/dev/sda")
-#: src/lib/y2partitioner/actions/add_partition.rb:156
+#: src/lib/y2partitioner/actions/add_partition.rb:158
 msgid ""
 "The device %{name} is directly formatted.\n"
 "Remove the filesystem on %{name}?"
@@ -75,33 +77,80 @@ msgstr ""
 "%{name} 内にあるファイルシステムを削除してよろしいですか？"
 
 #. TRANSLATORS: %{name} is a device name (e.g. "/dev/sda")
-#: src/lib/y2partitioner/actions/add_partition.rb:185
+#: src/lib/y2partitioner/actions/add_partition.rb:187
 msgid "It is not possible to create a partition on %{name}."
 msgstr "%{name} にはパーティションを作成できません。"
 
-#. Error message when the disk has no partition table
+#. Error message when the device has no partition table
 #.
-#. @return [String, nil] nil if the disk has partition table.
-#: src/lib/y2partitioner/actions/clone_disk.rb:91
+#. @return [String, nil] nil if the device has partition table.
+#: src/lib/y2partitioner/actions/clone_partition_table.rb:91
+#, fuzzy
+#| msgid ""
+#| "There are no partitions on this disk, but a clonable\n"
+#| "disk must have at least one partition.\n"
+#| "Create partitions before cloning the disk."
 msgid ""
-"There are no partitions on this disk, but a clonable\n"
-"disk must have at least one partition.\n"
-"Create partitions before cloning the disk."
+"There are no partitions on this device, but a clonable\n"
+"device must have at least one partition.\n"
+"Create partitions before cloning the device."
 msgstr ""
 "このディスクにはパーティションがありません。\n"
 "複製するディスクには、少なくとも 1 つのパーティションが必要です。\n"
 "ディスクを複製する前に、いくつかのパーティションを作成してください。"
 
-#. Error message when there are no suitable devices where to clone the disk
+#. Error message when there are no suitable devices where to clone the device
 #.
 #. @return [String, nil] nil if there are suitable devices.
-#: src/lib/y2partitioner/actions/clone_disk.rb:102
+#: src/lib/y2partitioner/actions/clone_partition_table.rb:102
+#, fuzzy
+#| msgid ""
+#| "This disk cannot be cloned. There are no suitable\n"
+#| "disks that could have the same partitioning layout."
 msgid ""
-"This disk cannot be cloned. There are no suitable\n"
-"disks that could have the same partitioning layout."
+"This device cannot be cloned. There are no suitable\n"
+"devices that could have the same partitioning layout."
 msgstr ""
 "このディスクは複製できません。同じパーティション配置にする\n"
 "ことのできる、適切なディスクがありません。"
+
+#. TRANSLATORS: dialog title. %s is a device name like /dev/sda
+#: src/lib/y2partitioner/actions/controllers/add_partition.rb:188
+msgid "Add Partition on %s"
+msgstr "%s にパーティションを追加"
+
+#. starting block must be in a region,
+#. TRANSLATORS: text for an error popup
+#: src/lib/y2partitioner/actions/controllers/add_partition.rb:204
+msgid "The block entered as start is not available."
+msgstr "入力した開始ブロックは正しくありません。"
+
+#. TRANSLATORS: text for an error popup
+#: src/lib/y2partitioner/actions/controllers/add_partition.rb:207
+msgid "The end block cannot be before the start."
+msgstr "終了ブロックを開始ブロックより前にすることはできません。"
+
+#. ending block must be in the same region than the start
+#. TRANSLATORS: text for an error popup
+#: src/lib/y2partitioner/actions/controllers/add_partition.rb:212
+msgid "The region entered collides with the existing partitions."
+msgstr "入力した領域が既存のパーティションと重複しています。"
+
+#. It's so small that we already know that we can't align both
+#. start and end
+#. TRANSLATORS: text for an error popup
+#: src/lib/y2partitioner/actions/controllers/add_partition.rb:218
+msgid "The region entered is too small, not supported by this device."
+msgstr "入力した領域が小さすぎます。このデバイスではサポートされていません。"
+
+#. Almost pathological case, but still can happen if the user tries
+#. to break stuff
+#. TRANSLATORS: text for an error popup
+#: src/lib/y2partitioner/actions/controllers/add_partition.rb:224
+msgid "Invalid region entered, increase the size or align the start."
+msgstr ""
+"入力した領域は正しくありません。サイズを大きくするか、開始位置を調整してくだ"
+"さい。"
 
 #. TRANSLATORS: %{mount_points} is replaced by a list of mount points, please
 #. do not modify it.
@@ -205,53 +254,17 @@ msgstr ""
 
 #. TRANSLATORS: dialog title when creating a MD RAID.
 #. %s is a device name like /dev/md0
-#: src/lib/y2partitioner/actions/controllers/md.rb:199
+#: src/lib/y2partitioner/actions/controllers/md.rb:194
 msgid "Add RAID %s"
 msgstr "RAID %s の追加"
 
-#. TRANSLATORS: dialog title when resizing a MD RAID.
-#. %s is a device name like /dev/md0
-#: src/lib/y2partitioner/actions/controllers/md.rb:203
-msgid "Resize RAID %s"
-msgstr "RAID %s のサイズ変更"
-
-#. TRANSLATORS: dialog title. %s is a device name like /dev/sda
-#: src/lib/y2partitioner/actions/controllers/partition.rb:185
-msgid "Add Partition on %s"
-msgstr "%s にパーティションを追加"
-
-#. starting block must be in a region,
-#. TRANSLATORS: text for an error popup
-#: src/lib/y2partitioner/actions/controllers/partition.rb:201
-msgid "The block entered as start is not available."
-msgstr "入力した開始ブロックは正しくありません。"
-
-#. TRANSLATORS: text for an error popup
-#: src/lib/y2partitioner/actions/controllers/partition.rb:204
-msgid "The end block cannot be before the start."
-msgstr "終了ブロックを開始ブロックより前にすることはできません。"
-
-#. ending block must be in the same region than the start
-#. TRANSLATORS: text for an error popup
-#: src/lib/y2partitioner/actions/controllers/partition.rb:209
-msgid "The region entered collides with the existing partitions."
-msgstr "入力した領域が既存のパーティションと重複しています。"
-
-#. It's so small that we already know that we can't align both
-#. start and end
-#. TRANSLATORS: text for an error popup
-#: src/lib/y2partitioner/actions/controllers/partition.rb:215
-msgid "The region entered is too small, not supported by this device."
-msgstr "入力した領域が小さすぎます。このデバイスではサポートされていません。"
-
-#. Almost pathological case, but still can happen if the user tries
-#. to break stuff
-#. TRANSLATORS: text for an error popup
-#: src/lib/y2partitioner/actions/controllers/partition.rb:221
-msgid "Invalid region entered, increase the size or align the start."
-msgstr ""
-"入力した領域は正しくありません。サイズを大きくするか、開始位置を調整してくだ"
-"さい。"
+#. TRANSLATORS: dialog title when editing the devices of a Software RAID.
+#. %s is a device name (e.g., /dev/md0)
+#: src/lib/y2partitioner/actions/controllers/md.rb:198
+#, fuzzy
+#| msgid "Edit RAID %s"
+msgid "Edit devices of RAID %s"
+msgstr "RAID %s の編集"
 
 #. TRANSLATORS: %s is a device name (e.g. "/dev/sda")
 #: src/lib/y2partitioner/actions/create_partition_table.rb:92
@@ -259,11 +272,16 @@ msgid "It is not possible to create a new partition table on %s."
 msgstr "%s には新しいパーティションテーブルを作成できません。"
 
 #. @see #confirm
+#. @see DeleteDevices#confirm
+#.
+#. @return [Boolean]
 #: src/lib/y2partitioner/actions/create_partition_table.rb:132
+#: src/lib/y2partitioner/actions/delete_partitions.rb:106
 msgid "Confirm Deleting of Current Devices"
 msgstr "現在のデバイスに対する削除の確認"
 
 #: src/lib/y2partitioner/actions/create_partition_table.rb:133
+#: src/lib/y2partitioner/actions/delete_partitions.rb:107
 msgid "If you proceed, the following devices will be deleted:"
 msgstr "続行すると、以下のデバイスは削除されます:"
 
@@ -283,7 +301,8 @@ msgid ""
 "\n"
 "Really create a new partition table on %s?"
 msgstr ""
-"これにより、デバイス内の %s ファイルシステムにある全てのデータが消去されます。\n"
+"これにより、デバイス内の %s ファイルシステムにある全てのデータが消去されま"
+"す。\n"
 "\n"
 "%s に対して新しいパーティションテーブルを作成します。よろしいですか？"
 
@@ -490,26 +509,66 @@ msgid "Delete partition \"%{partition}\" and RAID \"%{md}\"?"
 msgstr ""
 "パーティション \"%{partition}\" と RAID \"%{md}\" を削除してよろしいですか？"
 
+#. TRANSLATORS: Error when trying to delete partitions from a directly formatted
+#. device. %{name} is replaced by the name of the device (e.g. "/dev/sda").
+#: src/lib/y2partitioner/actions/delete_partitions.rb:68
+#, fuzzy
+#| msgid ""
+#| "The device %{name} is directly formatted.\n"
+#| "Remove the filesystem on %{name}?"
+msgid ""
+"The device %{name} is directly formatted and\n"
+"and it does not contain any partition."
+msgstr ""
+"デバイス %{name} は直接フォーマットされています。\n"
+"%{name} 内にあるファイルシステムを削除してよろしいですか？"
+
+#. TRANSLATORS: Error when trying to delete partitions from a device that does not contain
+#. a partition table. %{name} is replaced by the name of the device (e.g. "/dev/sda").
+#: src/lib/y2partitioner/actions/delete_partitions.rb:83
+#, fuzzy
+#| msgid ""
+#| "This device only contains an implicit partition that cannot be deleted."
+msgid ""
+"The device %{name} does not contain a partition table, so\n"
+"no partition can be deleted"
+msgstr ""
+"このデバイスには、削除のできない暗黙のパーティションのみが含まれています。"
+
+#. TRANSLATORS: Error when trying to delete partitions from a device with an empty
+#. partition table.
+#: src/lib/y2partitioner/actions/delete_partitions.rb:97
+#, fuzzy
+#| msgid "<p>Choose the partition table type for the new partition.</p>"
+msgid "The partition table does not contain partitions."
+msgstr "<p>新しいパーティションテーブルの種類を指定してください。</p>"
+
+#: src/lib/y2partitioner/actions/delete_partitions.rb:108
+#, fuzzy
+#| msgid "Really delete these devices?"
+msgid "Really delete all these devices?"
+msgstr "これらのデバイスを削除してよろしいですか？"
+
 #. TRANSLATORS: dialog title. %s is a device name like /dev/md0
-#: src/lib/y2partitioner/actions/edit_blk_device.rb:78
+#: src/lib/y2partitioner/actions/edit_blk_device.rb:61
 msgid "Edit RAID %s"
 msgstr "RAID %s の編集"
 
 #. TRANSLATORS: dialog title. %{lv_name} is an LVM LV name (e.g.'root'),
 #. %{vg} is the device name of an LVM VG (e.g. '/dev/system').
-#: src/lib/y2partitioner/actions/edit_blk_device.rb:83
+#: src/lib/y2partitioner/actions/edit_blk_device.rb:66
 msgid "Edit Logical Volume %{lv_name} on %{vg}"
 msgstr "%{vg} にある論理ボリューム %{lv_name} の編集"
 
 #. TRANSLATORS: dialog title. %s is a device name like /dev/sda1
-#: src/lib/y2partitioner/actions/edit_blk_device.rb:86
+#: src/lib/y2partitioner/actions/edit_blk_device.rb:69
 msgid "Edit Partition %s"
 msgstr "パーティション %s を編集"
 
 #. TRANSLATORS: %{name} is replaced by a device name (e.g., /dev/sda1).
 #. and %{users} is replaced by a comma-separated list of name devices
 #. (devices using the first one).
-#: src/lib/y2partitioner/actions/edit_blk_device.rb:124
+#: src/lib/y2partitioner/actions/edit_blk_device.rb:107
 msgid ""
 "The device %{name} is in use (%{users}).\n"
 "It cannot be edited.\n"
@@ -519,19 +578,55 @@ msgstr ""
 "%{name} を編集するには、使用していない状態にする必要があります。"
 
 #. TRANSLATORS: Error message when trying to edit an extented partition
-#: src/lib/y2partitioner/actions/edit_blk_device.rb:138
+#: src/lib/y2partitioner/actions/edit_blk_device.rb:121
 msgid "An extended partition cannot be edited"
 msgstr "拡張パーティションは編集できません"
 
 #. TRANSLATORS: Error message when trying to edit an LVM thin pool. %{name} is
 #. replaced by a logical volume name (e.g., /dev/system/lv1)
-#: src/lib/y2partitioner/actions/edit_blk_device.rb:149
+#: src/lib/y2partitioner/actions/edit_blk_device.rb:132
 msgid ""
 "The volume %{name} is a thin pool.\n"
 "It cannot be edited."
 msgstr ""
 "ボリューム %{name} は Thin プールです。\n"
 "編集することができません。"
+
+#. TRANSLATORS: error message, %{name} is replaced by a device name (e.g., /dev/md1)
+#: src/lib/y2partitioner/actions/edit_md_devices.rb:102
+#, fuzzy
+#| msgid ""
+#| "The RAID %{name} is already created on disk. It cannot be\n"
+#| "resized. To resize %{name}, remove it and create it again."
+msgid ""
+"The RAID %{name} is already created on disk and its used devices\n"
+"cannot be modified. To modify the used devices, remove the RAID\n"
+"and create it again."
+msgstr ""
+"RAID アレイ %{name} は既にディスク上に作成されています。\n"
+"作成済みの RAID アレイをサイズ変更することはできません。 %{name} のサイズを変"
+"更するには、\n"
+"いったん削除してから作成し直してください。"
+
+#. TRANSLATORS: error message, %{name} is replaced by a device name (e.g., /dev/md1)
+#: src/lib/y2partitioner/actions/edit_md_devices.rb:117
+#, fuzzy
+#| msgid ""
+#| "The RAID %{name} is in use. It cannot be\n"
+#| "resized. To resize %{name}, make sure it is not used."
+msgid ""
+"The RAID %{name} is in use. To modify the used devices,\n"
+"make sure %{name} is not used."
+msgstr ""
+"RAID %{name} は使用中であるため、サイズを変更することができません。\n"
+"%{name} のサイズを変更するには、使用していない状態にする必要があります。"
+
+#. TRANSLATORS: error message, %{name} is replaced by a device name (e.g., /dev/md1)
+#: src/lib/y2partitioner/actions/edit_md_devices.rb:131
+msgid ""
+"The RAID %{name} is partitioned. To modify the used devices,\n"
+"make sure %{name} has no partitions."
+msgstr ""
 
 #. Error message when no fstab file was detected
 #.
@@ -595,7 +690,8 @@ msgid ""
 "It cannot be resized.\n"
 "To resize %{name}, make sure it is not used."
 msgstr ""
-"デバイス %{name} は使用中 (%{users}) であるため、サイズを変更することができません。\n"
+"デバイス %{name} は使用中 (%{users}) であるため、サイズを変更することができま"
+"せん。\n"
 "%{name} のサイズを変更するには、使用していない状態にする必要があります。"
 
 #. Error when the filesystem type cannot be resized
@@ -612,26 +708,6 @@ msgstr "この種類のファイルシステムはサイズ変更できません
 #: src/lib/y2partitioner/actions/resize_blk_device.rb:131
 msgid "This device cannot be resized:"
 msgstr "このデバイスはサイズ変更できません:"
-
-#. TRANSLATORS: error popup, %{name} is replaced by device name (e.g., /dev/md1)
-#: src/lib/y2partitioner/actions/resize_md.rb:87
-msgid ""
-"The RAID %{name} is already created on disk. It cannot be\n"
-"resized. To resize %{name}, remove it and create it again."
-msgstr ""
-"RAID アレイ %{name} は既にディスク上に作成されています。\n"
-"作成済みの RAID アレイをサイズ変更することはできません。 %{name} のサイズを変"
-"更するには、\n"
-"いったん削除してから作成し直してください。"
-
-#. TRANSLATORS: error popup, %{name} is replaced by device name (e.g., /dev/md1)
-#: src/lib/y2partitioner/actions/resize_md.rb:108
-msgid ""
-"The RAID %{name} is in use. It cannot be\n"
-"resized. To resize %{name}, make sure it is not used."
-msgstr ""
-"RAID %{name} は使用中であるため、サイズを変更することができません。\n"
-"%{name} のサイズを変更するには、使用していない状態にする必要があります。"
 
 #. Popup to alert the user about using the Partitioner
 #.
@@ -695,7 +771,7 @@ msgstr "現在使用中のサイズ: %{size}"
 #: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:71
 #: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:149
 #: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:296
-#: src/lib/y2partitioner/dialogs/partition_size.rb:205
+#: src/lib/y2partitioner/dialogs/partition_size.rb:204
 #: src/lib/y2partitioner/widgets/blk_devices_table.rb:106
 msgid "Size"
 msgstr "サイズ"
@@ -711,7 +787,7 @@ msgstr "最小サイズ (%{size})"
 
 #: src/lib/y2partitioner/dialogs/blk_device_resize.rb:181
 #: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:80
-#: src/lib/y2partitioner/dialogs/partition_size.rb:97
+#: src/lib/y2partitioner/dialogs/partition_size.rb:96
 msgid "Custom Size"
 msgstr "カスタムサイズ"
 
@@ -855,67 +931,6 @@ msgstr "noCoW"
 #: src/lib/y2partitioner/dialogs/btrfs_subvolumes.rb:39
 msgid "Edit Btrfs subvolumes"
 msgstr "btrfs ボリュームの編集"
-
-#. TRANSLATORS: %{name} is replaced by a disk device name (e.g., /dev/sda)
-#: src/lib/y2partitioner/dialogs/disk_clone.rb:48
-msgid "Clone partition layout of %{name}"
-msgstr "%{name} のパーティション配置の複製"
-
-#. @return [String]
-#: src/lib/y2partitioner/dialogs/disk_clone.rb:73
-msgid "Available target disks:"
-msgstr "利用可能なターゲットディスク:"
-
-#. Checks whether any device was selected
-#.
-#. @note A confirmation popup is shown when deleting devices is needed
-#. for cloning into the selected devices.
-#.
-#. @return [Boolean]
-#: src/lib/y2partitioner/dialogs/disk_clone.rb:90
-msgid "Select a target disk for creating a clone"
-msgstr "複製先のディスクを選択してください"
-
-#. Help text
-#.
-#. @return [String]
-#: src/lib/y2partitioner/dialogs/disk_clone.rb:113
-msgid ""
-"Select one or more (if available) hard disks that will have the same "
-"partition layout as this disk"
-msgstr ""
-"このディスクと同じパーティション配置にしたい、\n"
-"1 つまたは複数 (もしあれば) のハードディスクを選択してください。"
-
-#: src/lib/y2partitioner/dialogs/disk_clone.rb:115
-msgid ""
-"Disks marked with the sign '*' contain one or more partitions. After "
-"cloning, these partitions will be deleted"
-msgstr ""
-"'*' 印が付けられたディスクには、\n"
-"1 つ以上のパーティションが含まれています。複製を行なうと、\n"
-"これらのパーティションは削除されます。"
-
-#. Asks whether to remove devices holded by the selected devices
-#.
-#. @see ConfirmRecursiveDelete
-#.
-#. @return [Boolean]
-#: src/lib/y2partitioner/dialogs/disk_clone.rb:184
-msgid "Confirm deleting"
-msgstr "削除の確認"
-
-#: src/lib/y2partitioner/dialogs/disk_clone.rb:185
-msgid ""
-"The following devices will be deleted\n"
-"and all data on them will be lost:"
-msgstr ""
-"下記のデバイスが削除され、\n"
-"その中にあるデータは全て失われます:"
-
-#: src/lib/y2partitioner/dialogs/disk_clone.rb:186
-msgid "Really delete these devices?"
-msgstr "これらのデバイスを削除してよろしいですか？"
 
 #. @param controller [Actions::Controllers::Filesystem]
 #: src/lib/y2partitioner/dialogs/encrypt_password.rb:40
@@ -1259,20 +1274,20 @@ msgid "<p>Choose the role of the device.</p>"
 msgstr "<p>デバイスの役割を選択してください。</p>"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/dialogs/partition_size.rb:89
+#: src/lib/y2partitioner/dialogs/partition_size.rb:88
 msgid "New Partition Size"
 msgstr "新しいパーティションのサイズ"
 
-#: src/lib/y2partitioner/dialogs/partition_size.rb:93
+#: src/lib/y2partitioner/dialogs/partition_size.rb:92
 msgid "Maximum Size (%1)"
 msgstr "最大サイズ (%1)"
 
-#: src/lib/y2partitioner/dialogs/partition_size.rb:98
+#: src/lib/y2partitioner/dialogs/partition_size.rb:97
 msgid "Custom Region"
 msgstr "カスタム領域"
 
 #. helptext
-#: src/lib/y2partitioner/dialogs/partition_size.rb:128
+#: src/lib/y2partitioner/dialogs/partition_size.rb:127
 msgid ""
 "<p>Choose the size for the new partition.</p>\n"
 "<p>If a size is specified (any of the two first options in the form),\n"
@@ -1297,20 +1312,81 @@ msgstr ""
 "方式が最適な選択です。</p>"
 
 #. error popup, %1 and %2 are replaced by sizes
-#: src/lib/y2partitioner/dialogs/partition_size.rb:230
+#: src/lib/y2partitioner/dialogs/partition_size.rb:229
 msgid "The size entered is invalid. Enter a size between %1 and %2."
 msgstr ""
 "指定したサイズは正しくありません。サイズは %1 から %2 の間で指定してくださ"
 "い。"
 
 #. we can't use IntField() since it overflows :-(
-#: src/lib/y2partitioner/dialogs/partition_size.rb:273
+#: src/lib/y2partitioner/dialogs/partition_size.rb:272
 msgid "Start Block"
 msgstr "開始ブロック"
 
-#: src/lib/y2partitioner/dialogs/partition_size.rb:274
+#: src/lib/y2partitioner/dialogs/partition_size.rb:273
 msgid "End Block"
 msgstr "終了ブロック"
+
+#. TRANSLATORS: %{name} is replaced by a disk device name (e.g., /dev/sda)
+#: src/lib/y2partitioner/dialogs/partition_table_clone.rb:48
+msgid "Clone partition layout of %{name}"
+msgstr "%{name} のパーティション配置の複製"
+
+#. @return [String]
+#: src/lib/y2partitioner/dialogs/partition_table_clone.rb:73
+msgid "Available target disks:"
+msgstr "利用可能なターゲットディスク:"
+
+#. Checks whether any device was selected
+#.
+#. @note A confirmation popup is shown when deleting devices is needed
+#. for cloning into the selected devices.
+#.
+#. @return [Boolean]
+#: src/lib/y2partitioner/dialogs/partition_table_clone.rb:90
+msgid "Select a target disk for creating a clone"
+msgstr "複製先のディスクを選択してください"
+
+#. Help text
+#.
+#. @return [String]
+#: src/lib/y2partitioner/dialogs/partition_table_clone.rb:113
+msgid ""
+"Select one or more (if available) hard disks that will have the same "
+"partition layout as this disk"
+msgstr ""
+"このディスクと同じパーティション配置にしたい、\n"
+"1 つまたは複数 (もしあれば) のハードディスクを選択してください。"
+
+#: src/lib/y2partitioner/dialogs/partition_table_clone.rb:115
+msgid ""
+"Disks marked with the sign '*' contain one or more partitions. After "
+"cloning, these partitions will be deleted"
+msgstr ""
+"'*' 印が付けられたディスクには、\n"
+"1 つ以上のパーティションが含まれています。複製を行なうと、\n"
+"これらのパーティションは削除されます。"
+
+#. Asks whether to remove devices holded by the selected devices
+#.
+#. @see ConfirmRecursiveDelete
+#.
+#. @return [Boolean]
+#: src/lib/y2partitioner/dialogs/partition_table_clone.rb:184
+msgid "Confirm deleting"
+msgstr "削除の確認"
+
+#: src/lib/y2partitioner/dialogs/partition_table_clone.rb:185
+msgid ""
+"The following devices will be deleted\n"
+"and all data on them will be lost:"
+msgstr ""
+"下記のデバイスが削除され、\n"
+"その中にあるデータは全て失われます:"
+
+#: src/lib/y2partitioner/dialogs/partition_table_clone.rb:186
+msgid "Really delete these devices?"
+msgstr "これらのデバイスを削除してよろしいですか？"
 
 #. @macro seeAbstractWidget
 #: src/lib/y2partitioner/dialogs/partition_table_type.rb:49
@@ -1483,13 +1559,13 @@ msgstr "暗号化:  %s"
 #. Values
 #: src/lib/y2partitioner/widgets/blk_device_attributes.rb:99
 #: src/lib/y2partitioner/widgets/btrfs_subvolumes_table.rb:108
-#: src/lib/y2partitioner/widgets/md_description.rb:73
+#: src/lib/y2partitioner/widgets/md_description.rb:74
 msgid "Yes"
 msgstr "はい"
 
 #: src/lib/y2partitioner/widgets/blk_device_attributes.rb:99
 #: src/lib/y2partitioner/widgets/btrfs_subvolumes_table.rb:108
-#: src/lib/y2partitioner/widgets/md_description.rb:73
+#: src/lib/y2partitioner/widgets/md_description.rb:74
 msgid "No"
 msgstr "いいえ"
 
@@ -1568,7 +1644,7 @@ msgstr "ファイルシステム:"
 #. TRANSLATORS: button label for editing a block device
 #. @see CWM::PushButton#Label
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/blk_device_edit_button.rb:41
+#: src/lib/y2partitioner/widgets/blk_device_edit_button.rb:39
 #: src/lib/y2partitioner/widgets/btrfs_edit_button.rb:42
 #: src/lib/y2partitioner/widgets/lvm_edit_button.rb:39
 msgid "Edit..."
@@ -1873,7 +1949,7 @@ msgid "Saving graph file failed."
 msgstr "グラフファイルの保存に失敗しました。"
 
 #. TRANSLATORS: label for button for resizing a device
-#: src/lib/y2partitioner/widgets/device_resize_button.rb:42
+#: src/lib/y2partitioner/widgets/device_resize_button.rb:41
 msgid "Resize..."
 msgstr "サイズ変更..."
 
@@ -1882,7 +1958,7 @@ msgstr "サイズ変更..."
 #. @note An error popup is shown when the device does not support resizing.
 #.
 #. @return [Boolean] true if the device supports resizing; false otherwise.
-#: src/lib/y2partitioner/widgets/device_resize_button.rb:62
+#: src/lib/y2partitioner/widgets/device_resize_button.rb:61
 msgid ""
 "Hard disks, BIOS RAIDs and multipath\n"
 "devices cannot be resized."
@@ -1938,22 +2014,6 @@ msgstr "パーティション未設定"
 #: src/lib/y2partitioner/widgets/disk_device_description.rb:51
 msgid "Hard Disk:"
 msgstr "ハードディスク:"
-
-#. Translators: Expert menu for disks in the partitioner.
-#: src/lib/y2partitioner/widgets/disk_expert_menu_button.rb:44
-msgid "&Expert..."
-msgstr "熟練者向け機能 (&E)..."
-
-#. Menu items
-#.
-#. @return [Array<[Symbol, String]>]
-#: src/lib/y2partitioner/widgets/disk_expert_menu_button.rb:52
-msgid "Create New Partition &Table"
-msgstr "新しいパーティションテーブルの作成 (&T)"
-
-#: src/lib/y2partitioner/widgets/disk_expert_menu_button.rb:53
-msgid "Clone this Disk"
-msgstr "このディスクを複製する"
 
 #. help text for cryptofs
 #: src/lib/y2partitioner/widgets/encrypt_password.rb:20
@@ -2915,25 +2975,25 @@ msgstr "RAID:"
 
 #. TRANSLATORS: RAID being active (assembled), where %s is replaced by
 #. 'Yes' when the device is active or by 'No' otherwise
-#: src/lib/y2partitioner/widgets/md_description.rb:73
+#: src/lib/y2partitioner/widgets/md_description.rb:74
 msgid "Active: %s"
 msgstr "有効: %s"
 
 #. TRANSLATORS: RAID type information, where %s is replaced by a
 #. raid type (e.g., RAID0)
-#: src/lib/y2partitioner/widgets/md_description.rb:82
+#: src/lib/y2partitioner/widgets/md_description.rb:83
 msgid "RAID Type: %s"
 msgstr "RAID の種類: %s"
 
 #. TRANSLATORS: chunk size information of the MD RAID, where %s is replaced by
 #. a size (e.g., 8 KiB)
-#: src/lib/y2partitioner/widgets/md_description.rb:93
+#: src/lib/y2partitioner/widgets/md_description.rb:94
 msgid "Chunk Size: %s"
 msgstr "チャンクサイズ: %s"
 
 #. TRANSLATORS: parity algorithm information of a MD RAID, where %s is replaced by
 #. the name of the parity strategy
-#: src/lib/y2partitioner/widgets/md_description.rb:102
+#: src/lib/y2partitioner/widgets/md_description.rb:103
 msgid "Partity algorithm: %s"
 msgstr "パリティアルゴリズム: %s"
 
@@ -3266,23 +3326,18 @@ msgstr ""
 "このグラフは、起動時に作成され、デバイスを再スキャンすると更新されます。"
 
 #. TRANSLATORS: Heading. String followed by device name of hard disk
-#: src/lib/y2partitioner/widgets/pages/disk.rb:75
+#: src/lib/y2partitioner/widgets/pages/disk.rb:69
 msgid "Hard Disk: %s"
 msgstr "ハードディスク: %s"
 
 #. @macro seeAbstractWidget
 #. @macro seeAbstractWidget
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/pages/disk.rb:136
+#: src/lib/y2partitioner/widgets/pages/disk.rb:131
 #: src/lib/y2partitioner/widgets/pages/lvm_vg.rb:94
-#: src/lib/y2partitioner/widgets/pages/md_raid.rb:94
+#: src/lib/y2partitioner/widgets/pages/md_raid.rb:97
 msgid "&Overview"
 msgstr "概要 (&O)"
-
-#. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/pages/disk.rb:167
-msgid "&Partitions"
-msgstr "パーティション (&P)"
 
 #. @macro seeAbstractWidget
 #. TRANSLATORS: Heading
@@ -3323,7 +3378,7 @@ msgid "&Physical Volumes"
 msgstr "物理ボリューム (&P)"
 
 #. @macro seeCustomWidget
-#: src/lib/y2partitioner/widgets/pages/md_raid.rb:67
+#: src/lib/y2partitioner/widgets/pages/md_raid.rb:70
 msgid "RAID: %s"
 msgstr "RAID: %s"
 
@@ -3419,6 +3474,32 @@ msgstr "パーティション ID: %s"
 msgid "Move..."
 msgstr "移動..."
 
+#. TRANSLATORS: label for button to add a partition table
+#: src/lib/y2partitioner/widgets/partition_table_add_button.rb:38
+#, fuzzy
+#| msgid "New Partition Table Type"
+msgid "New Partition Table..."
+msgstr "新しいパーティションテーブルの種類"
+
+#. TRANSLATORS: label for button to clone a partition table
+#: src/lib/y2partitioner/widgets/partition_table_clone_button.rb:38
+#, fuzzy
+#| msgid "Add Partition..."
+msgid "Clone Partitions..."
+msgstr "パーティションの追加..."
+
+#. TRANSLATORS: label for button to delete all partitions
+#: src/lib/y2partitioner/widgets/partitions_delete_button.rb:38
+#, fuzzy
+#| msgid "Delete..."
+msgid "Delete All..."
+msgstr "削除..."
+
+#. @macro seeAbstractWidget
+#: src/lib/y2partitioner/widgets/partitions_tab.rb:54
+msgid "&Partitions"
+msgstr "パーティション (&P)"
+
 #. Reprobes and updates devicegraphs for the partitioner. During
 #. installation, a reactivation is performed before reprobing.
 #.
@@ -3509,6 +3590,13 @@ msgstr ""
 "<p><b>インストールの概要:</b> ここには、パーティション設定の完了を選択した場"
 "合に行なわれる処理が表示されます。パーティション設定の完了を選択するまでは、"
 "お使いのディスクは何も変更されません。</p>"
+
+#. TRANSLATORS: label for button to edit used devices
+#: src/lib/y2partitioner/widgets/used_devices_edit_button.rb:40
+#, fuzzy
+#| msgid "Configure..."
+msgid "Change..."
+msgstr "設定..."
 
 #. @macro seeAbstractWidget
 #: src/lib/y2partitioner/widgets/used_devices_tab.rb:42
@@ -4678,6 +4766,18 @@ msgstr "LVM Thin 論理ボリュームは既に設定可能な最大サイズに
 msgid "Unknown reason"
 msgstr "不明な理由"
 
+#~ msgid "Resize RAID %s"
+#~ msgstr "RAID %s のサイズ変更"
+
+#~ msgid "&Expert..."
+#~ msgstr "熟練者向け機能 (&E)..."
+
+#~ msgid "Create New Partition &Table"
+#~ msgstr "新しいパーティションテーブルの作成 (&T)"
+
+#~ msgid "Clone this Disk"
+#~ msgstr "このディスクを複製する"
+
 #~ msgid "Create New Partition Table on %s"
 #~ msgstr "%s に対する新しいパーティションテーブルの作成"
 
@@ -4698,9 +4798,6 @@ msgstr "不明な理由"
 
 #~ msgid "Backward"
 #~ msgstr "後ろ"
-
-#~ msgid "<p>Choose the partition table type for the new partition.</p>"
-#~ msgstr "<p>新しいパーティションテーブルの種類を指定してください。</p>"
 
 #~ msgid "Disk Label: %s"
 #~ msgstr "ディスクラベル: %s"

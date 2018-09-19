@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: YaST2 (@memory@)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-09-10 08:03+0000\n"
+"POT-Creation-Date: 2018-09-19 02:45+0000\n"
 "PO-Revision-Date: 2018-06-16 02:11+0000\n"
 "Last-Translator: Arif Budiman <arifpedia@gmail.com>\n"
 "Language-Team: Indonesian <https://l10n.opensuse.org/projects/yast-storage/"
@@ -19,7 +19,7 @@ msgstr ""
 "X-Generator: Weblate 2.18\n"
 
 #. TRANSLATORS: %s is a volume group name (e.g. "system")
-#: src/lib/y2partitioner/actions/add_lvm_lv.rb:112
+#: src/lib/y2partitioner/actions/add_lvm_lv.rb:114
 msgid "No free space left in the volume group \"%s\"."
 msgstr "Tidak ada ruang bebas yang tersisa dalam grup volume \"%s\"."
 
@@ -47,21 +47,23 @@ msgstr ""
 "yang tidak digunakan. Ubah tabel partisi Anda yang sesuai."
 
 #. @see TransactionWizard
-#: src/lib/y2partitioner/actions/add_md.rb:82
+#: src/lib/y2partitioner/actions/add_md.rb:75
 msgid "There are not enough suitable unused devices to create a RAID."
 msgstr "Tidak ada perangkat yang tidak digunakan yang cocok untuk dibuat RAID."
 
 #. Checks whether the device is not used
 #.
-#. @see Controllers::Partition#disk_used?
+#. @see Controllers::Partition#device_used?
 #.
 #. @return [Boolean] true if device is not used; false otherwise.
-#: src/lib/y2partitioner/actions/add_partition.rb:135
-msgid "The disk is in use and cannot be modified."
+#: src/lib/y2partitioner/actions/add_partition.rb:137
+#, fuzzy
+#| msgid "The disk is in use and cannot be modified."
+msgid "The device is in use and cannot be modified."
 msgstr "Disk sedang digunakan dan tidak dapat dimodifikasi."
 
 #. TRANSLATORS: %{name} is a device name (e.g. "/dev/sda")
-#: src/lib/y2partitioner/actions/add_partition.rb:156
+#: src/lib/y2partitioner/actions/add_partition.rb:158
 msgid ""
 "The device %{name} is directly formatted.\n"
 "Remove the filesystem on %{name}?"
@@ -70,33 +72,80 @@ msgstr ""
 "Hapus sistem berkas di %{name}?"
 
 #. TRANSLATORS: %{name} is a device name (e.g. "/dev/sda")
-#: src/lib/y2partitioner/actions/add_partition.rb:185
+#: src/lib/y2partitioner/actions/add_partition.rb:187
 msgid "It is not possible to create a partition on %{name}."
 msgstr "Mustahil membuat partisi pada %{name}."
 
-#. Error message when the disk has no partition table
+#. Error message when the device has no partition table
 #.
-#. @return [String, nil] nil if the disk has partition table.
-#: src/lib/y2partitioner/actions/clone_disk.rb:91
+#. @return [String, nil] nil if the device has partition table.
+#: src/lib/y2partitioner/actions/clone_partition_table.rb:91
+#, fuzzy
+#| msgid ""
+#| "There are no partitions on this disk, but a clonable\n"
+#| "disk must have at least one partition.\n"
+#| "Create partitions before cloning the disk."
 msgid ""
-"There are no partitions on this disk, but a clonable\n"
-"disk must have at least one partition.\n"
-"Create partitions before cloning the disk."
+"There are no partitions on this device, but a clonable\n"
+"device must have at least one partition.\n"
+"Create partitions before cloning the device."
 msgstr ""
 "Tidak ada partisi pada disk ini, disk yang\n"
 "dapat diklon harus memiliki setidaknya satu partisi.\n"
 "Buat partisi sebelum mengkloning disk."
 
-#. Error message when there are no suitable devices where to clone the disk
+#. Error message when there are no suitable devices where to clone the device
 #.
 #. @return [String, nil] nil if there are suitable devices.
-#: src/lib/y2partitioner/actions/clone_disk.rb:102
+#: src/lib/y2partitioner/actions/clone_partition_table.rb:102
+#, fuzzy
+#| msgid ""
+#| "This disk cannot be cloned. There are no suitable\n"
+#| "disks that could have the same partitioning layout."
 msgid ""
-"This disk cannot be cloned. There are no suitable\n"
-"disks that could have the same partitioning layout."
+"This device cannot be cloned. There are no suitable\n"
+"devices that could have the same partitioning layout."
 msgstr ""
 "Disk ini tidak dapat diklon. Tidak ada disk yang cocok\n"
 "untuk dibuat tata letak partisi yang sama."
+
+#. TRANSLATORS: dialog title. %s is a device name like /dev/sda
+#: src/lib/y2partitioner/actions/controllers/add_partition.rb:188
+msgid "Add Partition on %s"
+msgstr "Tambah Partisi pada %s"
+
+#. starting block must be in a region,
+#. TRANSLATORS: text for an error popup
+#: src/lib/y2partitioner/actions/controllers/add_partition.rb:204
+msgid "The block entered as start is not available."
+msgstr "Blok yang dimasukkan sebagai awal tidak tersedia."
+
+#. TRANSLATORS: text for an error popup
+#: src/lib/y2partitioner/actions/controllers/add_partition.rb:207
+msgid "The end block cannot be before the start."
+msgstr "Blok akhir tidak bisa sebelum blok awal."
+
+# loginname -> "Benutzername".
+#. ending block must be in the same region than the start
+#. TRANSLATORS: text for an error popup
+#: src/lib/y2partitioner/actions/controllers/add_partition.rb:212
+msgid "The region entered collides with the existing partitions."
+msgstr "Area yang dimasukkan bentrok dengan partisi yang ada."
+
+#. It's so small that we already know that we can't align both
+#. start and end
+#. TRANSLATORS: text for an error popup
+#: src/lib/y2partitioner/actions/controllers/add_partition.rb:218
+msgid "The region entered is too small, not supported by this device."
+msgstr "Area yang dimasukkan terlalu kecil, tidak didukung oleh perangkat ini."
+
+#. Almost pathological case, but still can happen if the user tries
+#. to break stuff
+#. TRANSLATORS: text for an error popup
+#: src/lib/y2partitioner/actions/controllers/add_partition.rb:224
+msgid "Invalid region entered, increase the size or align the start."
+msgstr ""
+"Area yang dimasukkan tidak valid, perbesar ukuran atau sesuaikan posisi awal."
 
 #. TRANSLATORS: %{mount_points} is replaced by a list of mount points, please
 #. do not modify it.
@@ -198,53 +247,17 @@ msgstr ""
 
 #. TRANSLATORS: dialog title when creating a MD RAID.
 #. %s is a device name like /dev/md0
-#: src/lib/y2partitioner/actions/controllers/md.rb:199
+#: src/lib/y2partitioner/actions/controllers/md.rb:194
 msgid "Add RAID %s"
 msgstr "Tambah RAID %s"
 
-#. TRANSLATORS: dialog title when resizing a MD RAID.
-#. %s is a device name like /dev/md0
-#: src/lib/y2partitioner/actions/controllers/md.rb:203
-msgid "Resize RAID %s"
-msgstr "Ubah Ukuran RAID %s"
-
-#. TRANSLATORS: dialog title. %s is a device name like /dev/sda
-#: src/lib/y2partitioner/actions/controllers/partition.rb:185
-msgid "Add Partition on %s"
-msgstr "Tambah Partisi pada %s"
-
-#. starting block must be in a region,
-#. TRANSLATORS: text for an error popup
-#: src/lib/y2partitioner/actions/controllers/partition.rb:201
-msgid "The block entered as start is not available."
-msgstr "Blok yang dimasukkan sebagai awal tidak tersedia."
-
-#. TRANSLATORS: text for an error popup
-#: src/lib/y2partitioner/actions/controllers/partition.rb:204
-msgid "The end block cannot be before the start."
-msgstr "Blok akhir tidak bisa sebelum blok awal."
-
-# loginname -> "Benutzername".
-#. ending block must be in the same region than the start
-#. TRANSLATORS: text for an error popup
-#: src/lib/y2partitioner/actions/controllers/partition.rb:209
-msgid "The region entered collides with the existing partitions."
-msgstr "Area yang dimasukkan bentrok dengan partisi yang ada."
-
-#. It's so small that we already know that we can't align both
-#. start and end
-#. TRANSLATORS: text for an error popup
-#: src/lib/y2partitioner/actions/controllers/partition.rb:215
-msgid "The region entered is too small, not supported by this device."
-msgstr "Area yang dimasukkan terlalu kecil, tidak didukung oleh perangkat ini."
-
-#. Almost pathological case, but still can happen if the user tries
-#. to break stuff
-#. TRANSLATORS: text for an error popup
-#: src/lib/y2partitioner/actions/controllers/partition.rb:221
-msgid "Invalid region entered, increase the size or align the start."
-msgstr ""
-"Area yang dimasukkan tidak valid, perbesar ukuran atau sesuaikan posisi awal."
+#. TRANSLATORS: dialog title when editing the devices of a Software RAID.
+#. %s is a device name (e.g., /dev/md0)
+#: src/lib/y2partitioner/actions/controllers/md.rb:198
+#, fuzzy
+#| msgid "Edit RAID %s"
+msgid "Edit devices of RAID %s"
+msgstr "Sunting RAID %s"
 
 #. TRANSLATORS: %s is a device name (e.g. "/dev/sda")
 #: src/lib/y2partitioner/actions/create_partition_table.rb:92
@@ -252,13 +265,18 @@ msgid "It is not possible to create a new partition table on %s."
 msgstr "Mustahil membuat tabel partisi baru pada disk %s."
 
 #. @see #confirm
+#. @see DeleteDevices#confirm
+#.
+#. @return [Boolean]
 #: src/lib/y2partitioner/actions/create_partition_table.rb:132
+#: src/lib/y2partitioner/actions/delete_partitions.rb:106
 #, fuzzy
 #| msgid "Confirm Deleting of All Partitions"
 msgid "Confirm Deleting of Current Devices"
 msgstr "Konfirmasi Penghapusan Semua Partisi"
 
 #: src/lib/y2partitioner/actions/create_partition_table.rb:133
+#: src/lib/y2partitioner/actions/delete_partitions.rb:107
 #, fuzzy
 #| msgid ""
 #| "The disk \"%{name}\" contains at least one partition.\n"
@@ -482,26 +500,62 @@ msgstr ""
 msgid "Delete partition \"%{partition}\" and RAID \"%{md}\"?"
 msgstr "Hapus partisi \"%{partition}\" dan RAID \"%{md}\"?"
 
+#. TRANSLATORS: Error when trying to delete partitions from a directly formatted
+#. device. %{name} is replaced by the name of the device (e.g. "/dev/sda").
+#: src/lib/y2partitioner/actions/delete_partitions.rb:68
+#, fuzzy
+#| msgid ""
+#| "The device %{name} is directly formatted.\n"
+#| "Remove the filesystem on %{name}?"
+msgid ""
+"The device %{name} is directly formatted and\n"
+"and it does not contain any partition."
+msgstr ""
+"Perangkat %{name} akan diformat secara langsung.\n"
+"Hapus sistem berkas di %{name}?"
+
+#. TRANSLATORS: Error when trying to delete partitions from a device that does not contain
+#. a partition table. %{name} is replaced by the name of the device (e.g. "/dev/sda").
+#: src/lib/y2partitioner/actions/delete_partitions.rb:83
+msgid ""
+"The device %{name} does not contain a partition table, so\n"
+"no partition can be deleted"
+msgstr ""
+
+#. TRANSLATORS: Error when trying to delete partitions from a device with an empty
+#. partition table.
+#: src/lib/y2partitioner/actions/delete_partitions.rb:97
+#, fuzzy
+#| msgid "<p>Choose the partition table type for the new partition.</p>"
+msgid "The partition table does not contain partitions."
+msgstr "<p>Pilih tipe tabel partisi untuk partisi baru.</p>"
+
+#: src/lib/y2partitioner/actions/delete_partitions.rb:108
+#, fuzzy
+#| msgid "Really delete these devices?"
+msgid "Really delete all these devices?"
+msgstr "Yakin ingin menghapus perangkat ini?"
+
 #. TRANSLATORS: dialog title. %s is a device name like /dev/md0
-#: src/lib/y2partitioner/actions/edit_blk_device.rb:78
+#: src/lib/y2partitioner/actions/edit_blk_device.rb:61
 msgid "Edit RAID %s"
 msgstr "Sunting RAID %s"
 
 #. TRANSLATORS: dialog title. %{lv_name} is an LVM LV name (e.g.'root'),
 #. %{vg} is the device name of an LVM VG (e.g. '/dev/system').
-#: src/lib/y2partitioner/actions/edit_blk_device.rb:83
+#: src/lib/y2partitioner/actions/edit_blk_device.rb:66
 msgid "Edit Logical Volume %{lv_name} on %{vg}"
 msgstr "Sunting Volume Logical %{lv_name} pada %{vg}"
 
 #. TRANSLATORS: dialog title. %s is a device name like /dev/sda1
-#: src/lib/y2partitioner/actions/edit_blk_device.rb:86
+#: src/lib/y2partitioner/actions/edit_blk_device.rb:69
 msgid "Edit Partition %s"
 msgstr "Sunting Partisi %s"
 
 #. TRANSLATORS: %{name} is replaced by a device name (e.g., /dev/sda1).
 #. and %{users} is replaced by a comma-separated list of name devices
 #. (devices using the first one).
-#: src/lib/y2partitioner/actions/edit_blk_device.rb:124
+#: src/lib/y2partitioner/actions/edit_blk_device.rb:107
 #, fuzzy
 #| msgid ""
 #| "The device %{name} is in use. It cannot be\n"
@@ -515,19 +569,53 @@ msgstr ""
 "Untuk menyunting %{name}, pastikan ia tidak sedang digunakan."
 
 #. TRANSLATORS: Error message when trying to edit an extented partition
-#: src/lib/y2partitioner/actions/edit_blk_device.rb:138
+#: src/lib/y2partitioner/actions/edit_blk_device.rb:121
 msgid "An extended partition cannot be edited"
 msgstr "Partisi extended tidak dapat disunting"
 
 #. TRANSLATORS: Error message when trying to edit an LVM thin pool. %{name} is
 #. replaced by a logical volume name (e.g., /dev/system/lv1)
-#: src/lib/y2partitioner/actions/edit_blk_device.rb:149
+#: src/lib/y2partitioner/actions/edit_blk_device.rb:132
 msgid ""
 "The volume %{name} is a thin pool.\n"
 "It cannot be edited."
 msgstr ""
 "Volume %{name} adalah sebuah thin pool.\n"
 "Ia tidak dapat disunting."
+
+#. TRANSLATORS: error message, %{name} is replaced by a device name (e.g., /dev/md1)
+#: src/lib/y2partitioner/actions/edit_md_devices.rb:102
+#, fuzzy
+#| msgid ""
+#| "The RAID %{name} is already created on disk. It cannot be\n"
+#| "resized. To resize %{name}, remove it and create it again."
+msgid ""
+"The RAID %{name} is already created on disk and its used devices\n"
+"cannot be modified. To modify the used devices, remove the RAID\n"
+"and create it again."
+msgstr ""
+"RAID %{name} sudah dibuat pada disk. Ia tidak dapat diubah ukurannya.\n"
+"Untuk mengubah ukuran %{name}, hapus dan membuatnya kembali."
+
+#. TRANSLATORS: error message, %{name} is replaced by a device name (e.g., /dev/md1)
+#: src/lib/y2partitioner/actions/edit_md_devices.rb:117
+#, fuzzy
+#| msgid ""
+#| "The RAID %{name} is in use. It cannot be\n"
+#| "resized. To resize %{name}, make sure it is not used."
+msgid ""
+"The RAID %{name} is in use. To modify the used devices,\n"
+"make sure %{name} is not used."
+msgstr ""
+"RAID %{name} sedang digunakan. Ia tidak dapat diubah ukurannya.\n"
+"Untuk mengubah ukuran %{name}, pastikan ia tidak sedang digunakan."
+
+#. TRANSLATORS: error message, %{name} is replaced by a device name (e.g., /dev/md1)
+#: src/lib/y2partitioner/actions/edit_md_devices.rb:131
+msgid ""
+"The RAID %{name} is partitioned. To modify the used devices,\n"
+"make sure %{name} has no partitions."
+msgstr ""
 
 #. Error message when no fstab file was detected
 #.
@@ -611,24 +699,6 @@ msgstr "Tipe sistem berkas ini tidak dapat diubah ukurannya."
 msgid "This device cannot be resized:"
 msgstr "Perangkat ini tidak dapat diubah ukuran:"
 
-#. TRANSLATORS: error popup, %{name} is replaced by device name (e.g., /dev/md1)
-#: src/lib/y2partitioner/actions/resize_md.rb:87
-msgid ""
-"The RAID %{name} is already created on disk. It cannot be\n"
-"resized. To resize %{name}, remove it and create it again."
-msgstr ""
-"RAID %{name} sudah dibuat pada disk. Ia tidak dapat diubah ukurannya.\n"
-"Untuk mengubah ukuran %{name}, hapus dan membuatnya kembali."
-
-#. TRANSLATORS: error popup, %{name} is replaced by device name (e.g., /dev/md1)
-#: src/lib/y2partitioner/actions/resize_md.rb:108
-msgid ""
-"The RAID %{name} is in use. It cannot be\n"
-"resized. To resize %{name}, make sure it is not used."
-msgstr ""
-"RAID %{name} sedang digunakan. Ia tidak dapat diubah ukurannya.\n"
-"Untuk mengubah ukuran %{name}, pastikan ia tidak sedang digunakan."
-
 #. Popup to alert the user about using the Partitioner
 #.
 #. @return [Symbol] user's answer (:yes, :no)
@@ -687,7 +757,7 @@ msgstr "Dipakai saat ini: %{size}"
 #: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:71
 #: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:149
 #: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:296
-#: src/lib/y2partitioner/dialogs/partition_size.rb:205
+#: src/lib/y2partitioner/dialogs/partition_size.rb:204
 #: src/lib/y2partitioner/widgets/blk_devices_table.rb:106
 msgid "Size"
 msgstr "Ukuran"
@@ -703,7 +773,7 @@ msgstr "Ukuran Minimal (%{size})"
 
 #: src/lib/y2partitioner/dialogs/blk_device_resize.rb:181
 #: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:80
-#: src/lib/y2partitioner/dialogs/partition_size.rb:97
+#: src/lib/y2partitioner/dialogs/partition_size.rb:96
 msgid "Custom Size"
 msgstr "Ukuran Khusus"
 
@@ -847,66 +917,6 @@ msgstr "noCoW"
 #: src/lib/y2partitioner/dialogs/btrfs_subvolumes.rb:39
 msgid "Edit Btrfs subvolumes"
 msgstr "Sunting subvolume Btrfs"
-
-#. TRANSLATORS: %{name} is replaced by a disk device name (e.g., /dev/sda)
-#: src/lib/y2partitioner/dialogs/disk_clone.rb:48
-msgid "Clone partition layout of %{name}"
-msgstr "Klon tata letak partisi dari %{name}"
-
-#. @return [String]
-#: src/lib/y2partitioner/dialogs/disk_clone.rb:73
-msgid "Available target disks:"
-msgstr "Disk tujuan yang tersedia:"
-
-#. Checks whether any device was selected
-#.
-#. @note A confirmation popup is shown when deleting devices is needed
-#. for cloning into the selected devices.
-#.
-#. @return [Boolean]
-#: src/lib/y2partitioner/dialogs/disk_clone.rb:90
-msgid "Select a target disk for creating a clone"
-msgstr "Pilih disk tujuan untuk pembuatan klon"
-
-#. Help text
-#.
-#. @return [String]
-#: src/lib/y2partitioner/dialogs/disk_clone.rb:113
-msgid ""
-"Select one or more (if available) hard disks that will have the same "
-"partition layout as this disk"
-msgstr ""
-"Pilih satu atau lebih (jika ada) hard disk yang memiliki tata letak partisi "
-"yang sama dengan disk ini"
-
-#: src/lib/y2partitioner/dialogs/disk_clone.rb:115
-msgid ""
-"Disks marked with the sign '*' contain one or more partitions. After "
-"cloning, these partitions will be deleted"
-msgstr ""
-"Disk ditandai dengan tanda '*' berisi satu atau lebih partisi. Setelah "
-"kloning, partisi ini akan dihapus"
-
-#. Asks whether to remove devices holded by the selected devices
-#.
-#. @see ConfirmRecursiveDelete
-#.
-#. @return [Boolean]
-#: src/lib/y2partitioner/dialogs/disk_clone.rb:184
-msgid "Confirm deleting"
-msgstr "Konfirmasi penghapusan"
-
-#: src/lib/y2partitioner/dialogs/disk_clone.rb:185
-msgid ""
-"The following devices will be deleted\n"
-"and all data on them will be lost:"
-msgstr ""
-"Partisi berikut akan dihapus dan\n"
-"semua data padanya akan dihapus:"
-
-#: src/lib/y2partitioner/dialogs/disk_clone.rb:186
-msgid "Really delete these devices?"
-msgstr "Yakin ingin menghapus perangkat ini?"
 
 #. @param controller [Actions::Controllers::Filesystem]
 #: src/lib/y2partitioner/dialogs/encrypt_password.rb:40
@@ -1281,20 +1291,20 @@ msgid "<p>Choose the role of the device.</p>"
 msgstr "<p>Pilih peran dari perangkat.</p>"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/dialogs/partition_size.rb:89
+#: src/lib/y2partitioner/dialogs/partition_size.rb:88
 msgid "New Partition Size"
 msgstr "Ukuran Partisi Baru"
 
-#: src/lib/y2partitioner/dialogs/partition_size.rb:93
+#: src/lib/y2partitioner/dialogs/partition_size.rb:92
 msgid "Maximum Size (%1)"
 msgstr "Ukuran Maksimal (%1)"
 
-#: src/lib/y2partitioner/dialogs/partition_size.rb:98
+#: src/lib/y2partitioner/dialogs/partition_size.rb:97
 msgid "Custom Region"
 msgstr "Area Kustom"
 
 #. helptext
-#: src/lib/y2partitioner/dialogs/partition_size.rb:128
+#: src/lib/y2partitioner/dialogs/partition_size.rb:127
 msgid ""
 "<p>Choose the size for the new partition.</p>\n"
 "<p>If a size is specified (any of the two first options in the form),\n"
@@ -1316,18 +1326,78 @@ msgstr ""
 
 # loginname -> "Benutzername".
 #. error popup, %1 and %2 are replaced by sizes
-#: src/lib/y2partitioner/dialogs/partition_size.rb:230
+#: src/lib/y2partitioner/dialogs/partition_size.rb:229
 msgid "The size entered is invalid. Enter a size between %1 and %2."
 msgstr "Ukuran yang dimasukkan tidak valid. Masukkan ukuran antara %1 dan %2."
 
 #. we can't use IntField() since it overflows :-(
-#: src/lib/y2partitioner/dialogs/partition_size.rb:273
+#: src/lib/y2partitioner/dialogs/partition_size.rb:272
 msgid "Start Block"
 msgstr "Blok Awal"
 
-#: src/lib/y2partitioner/dialogs/partition_size.rb:274
+#: src/lib/y2partitioner/dialogs/partition_size.rb:273
 msgid "End Block"
 msgstr "Blok Akhir"
+
+#. TRANSLATORS: %{name} is replaced by a disk device name (e.g., /dev/sda)
+#: src/lib/y2partitioner/dialogs/partition_table_clone.rb:48
+msgid "Clone partition layout of %{name}"
+msgstr "Klon tata letak partisi dari %{name}"
+
+#. @return [String]
+#: src/lib/y2partitioner/dialogs/partition_table_clone.rb:73
+msgid "Available target disks:"
+msgstr "Disk tujuan yang tersedia:"
+
+#. Checks whether any device was selected
+#.
+#. @note A confirmation popup is shown when deleting devices is needed
+#. for cloning into the selected devices.
+#.
+#. @return [Boolean]
+#: src/lib/y2partitioner/dialogs/partition_table_clone.rb:90
+msgid "Select a target disk for creating a clone"
+msgstr "Pilih disk tujuan untuk pembuatan klon"
+
+#. Help text
+#.
+#. @return [String]
+#: src/lib/y2partitioner/dialogs/partition_table_clone.rb:113
+msgid ""
+"Select one or more (if available) hard disks that will have the same "
+"partition layout as this disk"
+msgstr ""
+"Pilih satu atau lebih (jika ada) hard disk yang memiliki tata letak partisi "
+"yang sama dengan disk ini"
+
+#: src/lib/y2partitioner/dialogs/partition_table_clone.rb:115
+msgid ""
+"Disks marked with the sign '*' contain one or more partitions. After "
+"cloning, these partitions will be deleted"
+msgstr ""
+"Disk ditandai dengan tanda '*' berisi satu atau lebih partisi. Setelah "
+"kloning, partisi ini akan dihapus"
+
+#. Asks whether to remove devices holded by the selected devices
+#.
+#. @see ConfirmRecursiveDelete
+#.
+#. @return [Boolean]
+#: src/lib/y2partitioner/dialogs/partition_table_clone.rb:184
+msgid "Confirm deleting"
+msgstr "Konfirmasi penghapusan"
+
+#: src/lib/y2partitioner/dialogs/partition_table_clone.rb:185
+msgid ""
+"The following devices will be deleted\n"
+"and all data on them will be lost:"
+msgstr ""
+"Partisi berikut akan dihapus dan\n"
+"semua data padanya akan dihapus:"
+
+#: src/lib/y2partitioner/dialogs/partition_table_clone.rb:186
+msgid "Really delete these devices?"
+msgstr "Yakin ingin menghapus perangkat ini?"
 
 #. @macro seeAbstractWidget
 #: src/lib/y2partitioner/dialogs/partition_table_type.rb:49
@@ -1512,13 +1582,13 @@ msgstr "Terenkripsi: %s"
 #. Values
 #: src/lib/y2partitioner/widgets/blk_device_attributes.rb:99
 #: src/lib/y2partitioner/widgets/btrfs_subvolumes_table.rb:108
-#: src/lib/y2partitioner/widgets/md_description.rb:73
+#: src/lib/y2partitioner/widgets/md_description.rb:74
 msgid "Yes"
 msgstr "Ya"
 
 #: src/lib/y2partitioner/widgets/blk_device_attributes.rb:99
 #: src/lib/y2partitioner/widgets/btrfs_subvolumes_table.rb:108
-#: src/lib/y2partitioner/widgets/md_description.rb:73
+#: src/lib/y2partitioner/widgets/md_description.rb:74
 msgid "No"
 msgstr "Tidak"
 
@@ -1603,7 +1673,7 @@ msgstr "Sistem Berkas:"
 #. TRANSLATORS: button label for editing a block device
 #. @see CWM::PushButton#Label
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/blk_device_edit_button.rb:41
+#: src/lib/y2partitioner/widgets/blk_device_edit_button.rb:39
 #: src/lib/y2partitioner/widgets/btrfs_edit_button.rb:42
 #: src/lib/y2partitioner/widgets/lvm_edit_button.rb:39
 msgid "Edit..."
@@ -1904,7 +1974,7 @@ msgid "Saving graph file failed."
 msgstr "Gagal menyimpan berkas grafik."
 
 #. TRANSLATORS: label for button for resizing a device
-#: src/lib/y2partitioner/widgets/device_resize_button.rb:42
+#: src/lib/y2partitioner/widgets/device_resize_button.rb:41
 msgid "Resize..."
 msgstr "Ubah Ukuran..."
 
@@ -1913,7 +1983,7 @@ msgstr "Ubah Ukuran..."
 #. @note An error popup is shown when the device does not support resizing.
 #.
 #. @return [Boolean] true if the device supports resizing; false otherwise.
-#: src/lib/y2partitioner/widgets/device_resize_button.rb:62
+#: src/lib/y2partitioner/widgets/device_resize_button.rb:61
 msgid ""
 "Hard disks, BIOS RAIDs and multipath\n"
 "devices cannot be resized."
@@ -1969,22 +2039,6 @@ msgstr "Tidak terpartisi"
 #: src/lib/y2partitioner/widgets/disk_device_description.rb:51
 msgid "Hard Disk:"
 msgstr "Hard Disk:"
-
-#. Translators: Expert menu for disks in the partitioner.
-#: src/lib/y2partitioner/widgets/disk_expert_menu_button.rb:44
-msgid "&Expert..."
-msgstr "Ahli..."
-
-#. Menu items
-#.
-#. @return [Array<[Symbol, String]>]
-#: src/lib/y2partitioner/widgets/disk_expert_menu_button.rb:52
-msgid "Create New Partition &Table"
-msgstr "Buat &Tabel Partisi Baru"
-
-#: src/lib/y2partitioner/widgets/disk_expert_menu_button.rb:53
-msgid "Clone this Disk"
-msgstr "Klon Disk ini"
 
 #. help text for cryptofs
 #: src/lib/y2partitioner/widgets/encrypt_password.rb:20
@@ -2946,7 +3000,7 @@ msgstr "RAID:"
 
 #. TRANSLATORS: RAID being active (assembled), where %s is replaced by
 #. 'Yes' when the device is active or by 'No' otherwise
-#: src/lib/y2partitioner/widgets/md_description.rb:73
+#: src/lib/y2partitioner/widgets/md_description.rb:74
 #, fuzzy
 #| msgid "Size: %s"
 msgid "Active: %s"
@@ -2954,19 +3008,19 @@ msgstr "Ukuran: %s"
 
 #. TRANSLATORS: RAID type information, where %s is replaced by a
 #. raid type (e.g., RAID0)
-#: src/lib/y2partitioner/widgets/md_description.rb:82
+#: src/lib/y2partitioner/widgets/md_description.rb:83
 msgid "RAID Type: %s"
 msgstr "Tipe RAID: %s"
 
 #. TRANSLATORS: chunk size information of the MD RAID, where %s is replaced by
 #. a size (e.g., 8 KiB)
-#: src/lib/y2partitioner/widgets/md_description.rb:93
+#: src/lib/y2partitioner/widgets/md_description.rb:94
 msgid "Chunk Size: %s"
 msgstr "Ukuran Chunk: %s"
 
 #. TRANSLATORS: parity algorithm information of a MD RAID, where %s is replaced by
 #. the name of the parity strategy
-#: src/lib/y2partitioner/widgets/md_description.rb:102
+#: src/lib/y2partitioner/widgets/md_description.rb:103
 msgid "Partity algorithm: %s"
 msgstr "Algoritma Paritas: %s"
 
@@ -3284,23 +3338,18 @@ msgstr ""
 "Grafik ini dibuat saat memulai. Diperbarui jika perangkat dipindai ulang."
 
 #. TRANSLATORS: Heading. String followed by device name of hard disk
-#: src/lib/y2partitioner/widgets/pages/disk.rb:75
+#: src/lib/y2partitioner/widgets/pages/disk.rb:69
 msgid "Hard Disk: %s"
 msgstr "Hard Disk: %s"
 
 #. @macro seeAbstractWidget
 #. @macro seeAbstractWidget
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/pages/disk.rb:136
+#: src/lib/y2partitioner/widgets/pages/disk.rb:131
 #: src/lib/y2partitioner/widgets/pages/lvm_vg.rb:94
-#: src/lib/y2partitioner/widgets/pages/md_raid.rb:94
+#: src/lib/y2partitioner/widgets/pages/md_raid.rb:97
 msgid "&Overview"
 msgstr "Ringkasan"
-
-#. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/pages/disk.rb:167
-msgid "&Partitions"
-msgstr "&Partisi"
 
 #. @macro seeAbstractWidget
 #. TRANSLATORS: Heading
@@ -3341,7 +3390,7 @@ msgid "&Physical Volumes"
 msgstr "Volume Fisik"
 
 #. @macro seeCustomWidget
-#: src/lib/y2partitioner/widgets/pages/md_raid.rb:67
+#: src/lib/y2partitioner/widgets/pages/md_raid.rb:70
 msgid "RAID: %s"
 msgstr "RAID: %s"
 
@@ -3434,6 +3483,32 @@ msgstr "ID Partisi: %s"
 msgid "Move..."
 msgstr "Pindah..."
 
+#. TRANSLATORS: label for button to add a partition table
+#: src/lib/y2partitioner/widgets/partition_table_add_button.rb:38
+#, fuzzy
+#| msgid "New Partition Table Type"
+msgid "New Partition Table..."
+msgstr "Tipe Tabel Partisi Baru"
+
+#. TRANSLATORS: label for button to clone a partition table
+#: src/lib/y2partitioner/widgets/partition_table_clone_button.rb:38
+#, fuzzy
+#| msgid "Add Partition..."
+msgid "Clone Partitions..."
+msgstr "Tambah Partisi..."
+
+#. TRANSLATORS: label for button to delete all partitions
+#: src/lib/y2partitioner/widgets/partitions_delete_button.rb:38
+#, fuzzy
+#| msgid "Delete..."
+msgid "Delete All..."
+msgstr "Hapus..."
+
+#. @macro seeAbstractWidget
+#: src/lib/y2partitioner/widgets/partitions_tab.rb:54
+msgid "&Partitions"
+msgstr "&Partisi"
+
 #. Reprobes and updates devicegraphs for the partitioner. During
 #. installation, a reactivation is performed before reprobing.
 #.
@@ -3519,6 +3594,12 @@ msgid ""
 "performed when you finish the partitioner. So far, nothing has been changed "
 "yet on your system.</p>"
 msgstr ""
+
+#. TRANSLATORS: label for button to edit used devices
+#: src/lib/y2partitioner/widgets/used_devices_edit_button.rb:40
+#, fuzzy
+msgid "Change..."
+msgstr "&Ubah"
 
 #. @macro seeAbstractWidget
 #: src/lib/y2partitioner/widgets/used_devices_tab.rb:42
@@ -4678,6 +4759,18 @@ msgstr ""
 msgid "Unknown reason"
 msgstr "Tidak Diketahui"
 
+#~ msgid "Resize RAID %s"
+#~ msgstr "Ubah Ukuran RAID %s"
+
+#~ msgid "&Expert..."
+#~ msgstr "Ahli..."
+
+#~ msgid "Create New Partition &Table"
+#~ msgstr "Buat &Tabel Partisi Baru"
+
+#~ msgid "Clone this Disk"
+#~ msgstr "Klon Disk ini"
+
 #~ msgid "Create New Partition Table on %s"
 #~ msgstr "Buat Tabel Partisi Baru pada %s"
 
@@ -4700,9 +4793,6 @@ msgstr "Tidak Diketahui"
 
 #~ msgid "Backward"
 #~ msgstr "Ke belakang"
-
-#~ msgid "<p>Choose the partition table type for the new partition.</p>"
-#~ msgstr "<p>Pilih tipe tabel partisi untuk partisi baru.</p>"
 
 #~ msgid "Disk Label: %s"
 #~ msgstr "Label Disk: %s"
@@ -8472,10 +8562,6 @@ msgstr "Tidak Diketahui"
 #~ "Apakah anda yakin\n"
 #~ "untuk mengakhiri instalasi?Wollen Sie die Installation\n"
 #~ "wirklich beenden?"
-
-#, fuzzy
-#~ msgid "Changes:"
-#~ msgstr "&Ubah"
 
 #, fuzzy
 #~ msgid " Do you really want to execute these changes?"
