@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: YaST2 (@memory@)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-09-19 02:45+0000\n"
+"POT-Creation-Date: 2018-09-20 02:29+0000\n"
 "PO-Revision-Date: 2018-06-16 02:11+0000\n"
 "Last-Translator: Arif Budiman <arifpedia@gmail.com>\n"
 "Language-Team: Indonesian <https://l10n.opensuse.org/projects/yast-storage/"
@@ -416,13 +416,13 @@ msgstr ""
 #. @see DeleteDevice#lvm_vg
 #.
 #. @return [Boolean]
-#: src/lib/y2partitioner/actions/delete_md.rb:64
+#: src/lib/y2partitioner/actions/delete_md.rb:66
 msgid "Confirm Deleting RAID Used by LVM"
 msgstr "Konfirmasi Penghapusan RAID Yang Digunakan Oleh LVM"
 
 #. TRANSLATORS: name is the name of the volume group that the md raid
 #. belongs to (e.g., /dev/system)
-#: src/lib/y2partitioner/actions/delete_md.rb:67
+#: src/lib/y2partitioner/actions/delete_md.rb:69
 msgid ""
 "The selected RAID is used by volume group \"%{name}\".\n"
 "To keep the system in a consistent state, the following volume group\n"
@@ -434,8 +434,43 @@ msgstr ""
 
 #. TRANSLATORS: md is the name of the md raid to be deleted (e.g., /dev/md/md1),
 #. and vg is the name of the volume group to be deleted (e.g., /dev/system)
-#: src/lib/y2partitioner/actions/delete_md.rb:72
+#: src/lib/y2partitioner/actions/delete_md.rb:74
 msgid "Delete RAID \"%{md}\" and volume group \"%{lvm_vg}\"?"
+msgstr "Hapus RAID \"%{md}\" dan grup volume \"%{lvm_vg}\"?"
+
+#. Confirmation when the device contains partitions
+#.
+#. @see ConfirmRecursiveDelete#confirm_recursive_delete
+#.
+#. @return [Boolean]
+#: src/lib/y2partitioner/actions/delete_md.rb:87
+#, fuzzy
+#| msgid "Confirm Deleting of All Partitions"
+msgid "Confirm Deleting RAID with partitions"
+msgstr "Konfirmasi Penghapusan Semua Partisi"
+
+#. TRANSLATORS: name is the name of the volume group that the md raid
+#. belongs to (e.g., /dev/system)
+#: src/lib/y2partitioner/actions/delete_md.rb:90
+#, fuzzy
+#| msgid ""
+#| "The selected partition belongs to RAID \"%{name}\".\n"
+#| "To keep the system in a consistent state, the following\n"
+#| "RAID device will be deleted:"
+msgid ""
+"The selected RAID contains partitions.\n"
+"To keep the system in a consistent state, the following\n"
+"partitions and its associated devices will be deleted:"
+msgstr ""
+"Partisi yang dipilih dimiliki oleh RAID \"%{name}\".\n"
+"Untuk menjaga sistem dalam keadaan konsisten, perangkat\n"
+"RAID berikut akan dihapus:"
+
+#. TRANSLATORS: md is the name of the md raid to be deleted (e.g., /dev/md/md1)
+#: src/lib/y2partitioner/actions/delete_md.rb:94
+#, fuzzy
+#| msgid "Delete RAID \"%{md}\" and volume group \"%{lvm_vg}\"?"
+msgid "Delete RAID \"%{md}\" and the affected devices?"
 msgstr "Hapus RAID \"%{md}\" dan grup volume \"%{lvm_vg}\"?"
 
 #. Error when the partition is implicit
@@ -552,7 +587,7 @@ msgstr "Sunting Volume Logical %{lv_name} pada %{vg}"
 msgid "Edit Partition %s"
 msgstr "Sunting Partisi %s"
 
-#. TRANSLATORS: %{name} is replaced by a device name (e.g., /dev/sda1).
+#. TRANSLATORS: %{name} is replaced by a device name (e.g., /dev/sda1)
 #. and %{users} is replaced by a comma-separated list of name devices
 #. (devices using the first one).
 #: src/lib/y2partitioner/actions/edit_blk_device.rb:107
@@ -568,14 +603,28 @@ msgstr ""
 "Perangkat %{name} sedang digunakan. Ia tidak dapat disunting.\n"
 "Untuk menyunting %{name}, pastikan ia tidak sedang digunakan."
 
+#. TRANSLATORS: %{name} is replaced by a device name (e.g., /dev/sda1).
+#: src/lib/y2partitioner/actions/edit_blk_device.rb:122
+#, fuzzy
+#| msgid ""
+#| "The device %{name} is in use. It cannot be\n"
+#| "edited. To edit %{name}, make sure it is not used."
+msgid ""
+"The device %{name} contains partitions.\n"
+"It cannot be edited directly.\n"
+"To edit %{name}, first delete all its partitions."
+msgstr ""
+"Perangkat %{name} sedang digunakan. Ia tidak dapat disunting.\n"
+"Untuk menyunting %{name}, pastikan ia tidak sedang digunakan."
+
 #. TRANSLATORS: Error message when trying to edit an extented partition
-#: src/lib/y2partitioner/actions/edit_blk_device.rb:121
+#: src/lib/y2partitioner/actions/edit_blk_device.rb:136
 msgid "An extended partition cannot be edited"
 msgstr "Partisi extended tidak dapat disunting"
 
 #. TRANSLATORS: Error message when trying to edit an LVM thin pool. %{name} is
 #. replaced by a logical volume name (e.g., /dev/system/lv1)
-#: src/lib/y2partitioner/actions/edit_blk_device.rb:132
+#: src/lib/y2partitioner/actions/edit_blk_device.rb:147
 msgid ""
 "The volume %{name} is a thin pool.\n"
 "It cannot be edited."
@@ -984,7 +1033,7 @@ msgid "Normal Volume"
 msgstr "Volume Normal"
 
 #: src/lib/y2partitioner/dialogs/lvm_lv_info.rb:134
-#: src/lib/y2partitioner/widgets/blk_devices_table.rb:260
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:262
 msgid "Thin Pool"
 msgstr "Thin Pool"
 
@@ -1530,6 +1579,32 @@ msgid ""
 "The system cannot be installed because the following errors were found:\n"
 msgstr "Sistem tidak dapat dipasang karena ditemukan kesalahan berikut:\n"
 
+#. Specialized description for devices at backend of bcache
+#. @return [String]
+#: src/lib/y2partitioner/widgets/bcache_device_description.rb:46
+#, fuzzy
+#| msgid "Rescan Devices"
+msgid "Bcache Devices:"
+msgstr "Pindai Ulang Perangkat"
+
+#: src/lib/y2partitioner/widgets/bcache_device_description.rb:48
+#, fuzzy
+#| msgid "Device: %s"
+msgid "Backing Device: %s"
+msgstr "Perangkat: %s"
+
+#: src/lib/y2partitioner/widgets/bcache_device_description.rb:49
+#, fuzzy
+#| msgid "Partition ID: %s"
+msgid "Caching UUID: %s"
+msgstr "ID Partisi: %s"
+
+#: src/lib/y2partitioner/widgets/bcache_device_description.rb:50
+#, fuzzy
+#| msgid "Device: %s"
+msgid "Caching Device: %s"
+msgstr "Perangkat: %s"
+
 #. TRANSLATORS: Device name information, where %s is replaced by the
 #. kernel path to device
 #. Attributes for describing a device when it is a volume group
@@ -1673,7 +1748,7 @@ msgstr "Sistem Berkas:"
 #. TRANSLATORS: button label for editing a block device
 #. @see CWM::PushButton#Label
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/blk_device_edit_button.rb:39
+#: src/lib/y2partitioner/widgets/blk_device_edit_button.rb:41
 #: src/lib/y2partitioner/widgets/btrfs_edit_button.rb:42
 #: src/lib/y2partitioner/widgets/lvm_edit_button.rb:39
 msgid "Edit..."
@@ -1728,46 +1803,56 @@ msgstr "Akhir"
 #.
 #. @param device [Y2Storage::BlkDevice]
 #. @return [Yast::Term] icon
-#: src/lib/y2partitioner/widgets/blk_devices_table.rb:250
+#. @macro seeAbstractWidget
+#. TRANSLATORS: Heading
 #: src/lib/y2partitioner/widgets/blk_devices_table.rb:251
+#: src/lib/y2partitioner/widgets/pages/bcaches.rb:47
+#: src/lib/y2partitioner/widgets/pages/bcaches.rb:61
+#, fuzzy
+#| msgid "Bcaches"
+msgid "Bcache"
+msgstr "Bcaches"
+
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:252
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:253
 msgid "Disk"
 msgstr "Diska"
 
-#: src/lib/y2partitioner/widgets/blk_devices_table.rb:252
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:254
 msgid "Multipath"
 msgstr "Multipath"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/blk_devices_table.rb:253
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:255
 #: src/lib/y2partitioner/widgets/pages/nfs_mounts.rb:47
 msgid "NFS"
 msgstr "NFS"
 
-#: src/lib/y2partitioner/widgets/blk_devices_table.rb:254
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:256
 msgid "BIOS RAID"
 msgstr "BIOS RAID"
 
-#: src/lib/y2partitioner/widgets/blk_devices_table.rb:255
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:257
 msgid "MD RAID"
 msgstr "RAID MD"
 
-#: src/lib/y2partitioner/widgets/blk_devices_table.rb:256
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:258
 msgid "PV"
 msgstr "PV"
 
-#: src/lib/y2partitioner/widgets/blk_devices_table.rb:257
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:259
 msgid "LVM"
 msgstr "LVM"
 
-#: src/lib/y2partitioner/widgets/blk_devices_table.rb:258
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:260
 msgid "LV"
 msgstr "LV"
 
-#: src/lib/y2partitioner/widgets/blk_devices_table.rb:259
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:261
 msgid "Xen"
 msgstr ""
 
-#: src/lib/y2partitioner/widgets/blk_devices_table.rb:261
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:263
 msgid "Thin LV"
 msgstr "Thin LV"
 
@@ -1789,10 +1874,11 @@ msgstr "<p>Buat dan hapus subvolume dari sistem berkas Btrfs.</p>\n"
 #. TRANSLATORS: button label to add a btrfs subvolume
 #. TRANSLATORS: button label to add a volume group or logical volume
 #. TRANSLATORS: button label to add a logical volume
+#. TRANSLATORS: label for button to add a partition
 #: src/lib/y2partitioner/widgets/btrfs_subvolumes_add_button.rb:44
 #: src/lib/y2partitioner/widgets/lvm_add_button.rb:44
 #: src/lib/y2partitioner/widgets/lvm_lv_add_button.rb:38
-#: src/lib/y2partitioner/widgets/partition_add_button.rb:39
+#: src/lib/y2partitioner/widgets/partition_add_button.rb:47
 msgid "Add..."
 msgstr "Tambah..."
 
@@ -1804,9 +1890,7 @@ msgid "Mount point %s is shadowed."
 msgstr "Titik Kait %s dibayangi."
 
 #. TRANSLATORS: button label to delete a btrfs subvolume
-#. TRANSLATORS: label for button to delete a device
 #: src/lib/y2partitioner/widgets/btrfs_subvolumes_delete_button.rb:45
-#: src/lib/y2partitioner/widgets/device_delete_button.rb:42
 msgid "Delete..."
 msgstr "Hapus..."
 
@@ -1854,7 +1938,7 @@ msgstr ""
 
 #. @macro seeAbstractWidget
 #. @see #columns_help
-#: src/lib/y2partitioner/widgets/configurable_blk_devices_table.rb:113
+#: src/lib/y2partitioner/widgets/configurable_blk_devices_table.rb:136
 msgid "<p>This view shows storage devices.</p><p>The overview contains:</p>"
 msgstr ""
 "<p>Ini menampilkan semua perangkat penyimpanan.</p><p>Ikhtisar ini berisi:</"
@@ -1945,6 +2029,11 @@ msgstr ""
 #: src/lib/y2partitioner/widgets/lvm_add_button.rb:94
 msgid "No device selected"
 msgstr "Tidak ada perangkat yang dipilih"
+
+#. TRANSLATORS: label for button to delete a device
+#: src/lib/y2partitioner/widgets/device_delete_button.rb:42
+msgid "Delete"
+msgstr "Hapus"
 
 #. Header to show in help
 #.
@@ -3338,14 +3427,14 @@ msgstr ""
 "Grafik ini dibuat saat memulai. Diperbarui jika perangkat dipindai ulang."
 
 #. TRANSLATORS: Heading. String followed by device name of hard disk
-#: src/lib/y2partitioner/widgets/pages/disk.rb:69
+#: src/lib/y2partitioner/widgets/pages/disk.rb:70
 msgid "Hard Disk: %s"
 msgstr "Hard Disk: %s"
 
 #. @macro seeAbstractWidget
 #. @macro seeAbstractWidget
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/pages/disk.rb:131
+#: src/lib/y2partitioner/widgets/pages/disk.rb:132
 #: src/lib/y2partitioner/widgets/pages/lvm_vg.rb:94
 #: src/lib/y2partitioner/widgets/pages/md_raid.rb:97
 msgid "&Overview"
@@ -3400,7 +3489,7 @@ msgstr "RAID: %s"
 #.
 #. @return [String]
 #. TRANSLATORS: Heading
-#: src/lib/y2partitioner/widgets/pages/md_raids.rb:54
+#: src/lib/y2partitioner/widgets/pages/md_raids.rb:52
 #: src/lib/y2partitioner/widgets/pages/md_raids.rb:72
 msgid "RAID"
 msgstr "RAID"
@@ -3468,8 +3557,7 @@ msgstr "Ringkasan Pemasangan"
 msgid "Available Storage on %s"
 msgstr "Penyimpanan Tersedia pada %s"
 
-#. TRANSLATORS: label for button to add a partition
-#: src/lib/y2partitioner/widgets/partition_add_button.rb:39
+#: src/lib/y2partitioner/widgets/partition_add_button.rb:47
 msgid "Add Partition..."
 msgstr "Tambah Partisi..."
 
@@ -3501,7 +3589,7 @@ msgstr "Tambah Partisi..."
 #: src/lib/y2partitioner/widgets/partitions_delete_button.rb:38
 #, fuzzy
 #| msgid "Delete..."
-msgid "Delete All..."
+msgid "Delete All"
 msgstr "Hapus..."
 
 #. @macro seeAbstractWidget
@@ -3750,6 +3838,18 @@ msgstr "volume logical"
 #| msgid "Disk '%s' was not found"
 msgid "Thin pool '%s' was not found"
 msgstr "Disk '%s' tidak ditemukan"
+
+#. TRANSLATORS: status when cache set is not attached to any bcache
+#: src/lib/y2storage/bcache_cset.rb:64
+msgid "Cache set (not attached)"
+msgstr ""
+
+#. TRANSLATORS: %s contain list of devices for which cache act as cache.
+#: src/lib/y2storage/bcache_cset.rb:67
+#, fuzzy
+#| msgid "Bcache Cset: %s"
+msgid "Cache set (%s)"
+msgstr "Bcache Cset: %s"
 
 #. All fatal boot errors detected in the setup, for example, when a / partition
 #. is missing
@@ -6560,9 +6660,6 @@ msgstr "Tidak Diketahui"
 #~ msgid "Edit"
 #~ msgstr "Sunting"
 
-#~ msgid "Delete"
-#~ msgstr "Hapus"
-
 #~ msgid "<p>This view shows all Btrfs volumes.</p>"
 #~ msgstr "<p>Menampilkan semua volume Btrfs.</p>"
 
@@ -8385,9 +8482,6 @@ msgstr "Tidak Diketahui"
 #~ msgid "LUKSes"
 #~ msgstr "LUKSes"
 
-#~ msgid "Bcaches"
-#~ msgstr "Bcaches"
-
 #~ msgid "Bcache Csets"
 #~ msgstr "Bcache Csets"
 
@@ -8414,9 +8508,6 @@ msgstr "Tidak Diketahui"
 
 #~ msgid "Bcache: %s"
 #~ msgstr "Bcache: %s"
-
-#~ msgid "Bcache Cset: %s"
-#~ msgstr "Bcache Cset: %s"
 
 #~ msgid "LUKS: %s"
 #~ msgstr "LUKS: %s"

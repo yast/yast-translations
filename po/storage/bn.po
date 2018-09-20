@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: @PACKAGE@\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-09-19 02:45+0000\n"
+"POT-Creation-Date: 2018-09-20 02:29+0000\n"
 "PO-Revision-Date: 2005-07-29 15:37+0530\n"
 "Last-Translator: Priyavert Sharma<priyavert.sharma@agreeya.com>\n"
 "Language-Team: AgreeYa Solutions <linux_team@agreeya.com>\n"
@@ -404,14 +404,14 @@ msgstr "সত্যিই ভলিউম গ্রুপ\"%1\"অপসার�
 #. @see DeleteDevice#lvm_vg
 #.
 #. @return [Boolean]
-#: src/lib/y2partitioner/actions/delete_md.rb:64
+#: src/lib/y2partitioner/actions/delete_md.rb:66
 #, fuzzy
 msgid "Confirm Deleting RAID Used by LVM"
 msgstr "পার্টিশান  %1$s মুছে ফেলছে"
 
 #. TRANSLATORS: name is the name of the volume group that the md raid
 #. belongs to (e.g., /dev/system)
-#: src/lib/y2partitioner/actions/delete_md.rb:67
+#: src/lib/y2partitioner/actions/delete_md.rb:69
 msgid ""
 "The selected RAID is used by volume group \"%{name}\".\n"
 "To keep the system in a consistent state, the following volume group\n"
@@ -420,9 +420,34 @@ msgstr ""
 
 #. TRANSLATORS: md is the name of the md raid to be deleted (e.g., /dev/md/md1),
 #. and vg is the name of the volume group to be deleted (e.g., /dev/system)
-#: src/lib/y2partitioner/actions/delete_md.rb:72
+#: src/lib/y2partitioner/actions/delete_md.rb:74
 #, fuzzy
 msgid "Delete RAID \"%{md}\" and volume group \"%{lvm_vg}\"?"
+msgstr "গন্তব্য  %1 ইতোমধ্যেই বিদ্যমান।"
+
+#. Confirmation when the device contains partitions
+#.
+#. @see ConfirmRecursiveDelete#confirm_recursive_delete
+#.
+#. @return [Boolean]
+#: src/lib/y2partitioner/actions/delete_md.rb:87
+#, fuzzy
+msgid "Confirm Deleting RAID with partitions"
+msgstr "সব বিভাগগুলি বসাচ্ছি..."
+
+#. TRANSLATORS: name is the name of the volume group that the md raid
+#. belongs to (e.g., /dev/system)
+#: src/lib/y2partitioner/actions/delete_md.rb:90
+msgid ""
+"The selected RAID contains partitions.\n"
+"To keep the system in a consistent state, the following\n"
+"partitions and its associated devices will be deleted:"
+msgstr ""
+
+#. TRANSLATORS: md is the name of the md raid to be deleted (e.g., /dev/md/md1)
+#: src/lib/y2partitioner/actions/delete_md.rb:94
+#, fuzzy
+msgid "Delete RAID \"%{md}\" and the affected devices?"
 msgstr "গন্তব্য  %1 ইতোমধ্যেই বিদ্যমান।"
 
 #. Error when the partition is implicit
@@ -539,7 +564,7 @@ msgstr "লজিক্যাল ভলিউম সম্পাদনা কর
 msgid "Edit Partition %s"
 msgstr "পার্টিশান %1 সম্পাদনা করুন"
 
-#. TRANSLATORS: %{name} is replaced by a device name (e.g., /dev/sda1).
+#. TRANSLATORS: %{name} is replaced by a device name (e.g., /dev/sda1)
 #. and %{users} is replaced by a comma-separated list of name devices
 #. (devices using the first one).
 #: src/lib/y2partitioner/actions/edit_blk_device.rb:107
@@ -553,15 +578,27 @@ msgstr ""
 " এটি আর পরিবর্তন করা যাবে না। (%1) পরিবর্তন করার জন্য, \n"
 " এটিকে আবার অপসারণ করুন এবং সৃষ্টি করুন। \n"
 
+#. TRANSLATORS: %{name} is replaced by a device name (e.g., /dev/sda1).
+#: src/lib/y2partitioner/actions/edit_blk_device.rb:122
+#, fuzzy
+msgid ""
+"The device %{name} contains partitions.\n"
+"It cannot be edited directly.\n"
+"To edit %{name}, first delete all its partitions."
+msgstr ""
+"(%1) পরিবর্তন করার জন্য RAIDটি ইতিমধ্যেই ডিস্কে সৃষ্টি হয়ে গেছে। \n"
+" এটি আর পরিবর্তন করা যাবে না। (%1) পরিবর্তন করার জন্য, \n"
+" এটিকে আবার অপসারণ করুন এবং সৃষ্টি করুন। \n"
+
 #. TRANSLATORS: Error message when trying to edit an extented partition
-#: src/lib/y2partitioner/actions/edit_blk_device.rb:121
+#: src/lib/y2partitioner/actions/edit_blk_device.rb:136
 #, fuzzy
 msgid "An extended partition cannot be edited"
 msgstr "একটি পরিবর্ধিত পার্টিশন তৈরি করা যায় না।"
 
 #. TRANSLATORS: Error message when trying to edit an LVM thin pool. %{name} is
 #. replaced by a logical volume name (e.g., /dev/system/lv1)
-#: src/lib/y2partitioner/actions/edit_blk_device.rb:132
+#: src/lib/y2partitioner/actions/edit_blk_device.rb:147
 #, fuzzy
 #| msgid ""
 #| "\n"
@@ -1018,7 +1055,7 @@ msgid "Normal Volume"
 msgstr " লজিক্যাল ভলিউমগুলি "
 
 #: src/lib/y2partitioner/dialogs/lvm_lv_info.rb:134
-#: src/lib/y2partitioner/widgets/blk_devices_table.rb:260
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:262
 #, fuzzy
 #| msgid "Pool"
 msgid "Thin Pool"
@@ -1572,6 +1609,30 @@ msgid ""
 "The system cannot be installed because the following errors were found:\n"
 msgstr ""
 
+#. Specialized description for devices at backend of bcache
+#. @return [String]
+#: src/lib/y2partitioner/widgets/bcache_device_description.rb:46
+#, fuzzy
+msgid "Bcache Devices:"
+msgstr "&Ram ডিস্ক"
+
+#: src/lib/y2partitioner/widgets/bcache_device_description.rb:48
+#, fuzzy
+#| msgid "Device: %1"
+msgid "Backing Device: %s"
+msgstr "ডিভাইস: %1"
+
+#: src/lib/y2partitioner/widgets/bcache_device_description.rb:49
+#, fuzzy
+msgid "Caching UUID: %s"
+msgstr "পার্টিশন"
+
+#: src/lib/y2partitioner/widgets/bcache_device_description.rb:50
+#, fuzzy
+#| msgid "Device: %1"
+msgid "Caching Device: %s"
+msgstr "ডিভাইস: %1"
+
 #. TRANSLATORS: Device name information, where %s is replaced by the
 #. kernel path to device
 #. Attributes for describing a device when it is a volume group
@@ -1733,7 +1794,7 @@ msgstr "সিস্টেম"
 #. TRANSLATORS: button label for editing a block device
 #. @see CWM::PushButton#Label
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/blk_device_edit_button.rb:39
+#: src/lib/y2partitioner/widgets/blk_device_edit_button.rb:41
 #: src/lib/y2partitioner/widgets/btrfs_edit_button.rb:42
 #: src/lib/y2partitioner/widgets/lvm_edit_button.rb:39
 msgid "Edit..."
@@ -1790,53 +1851,61 @@ msgstr "শেষ"
 #.
 #. @param device [Y2Storage::BlkDevice]
 #. @return [Yast::Term] icon
-#: src/lib/y2partitioner/widgets/blk_devices_table.rb:250
+#. @macro seeAbstractWidget
+#. TRANSLATORS: Heading
 #: src/lib/y2partitioner/widgets/blk_devices_table.rb:251
+#: src/lib/y2partitioner/widgets/pages/bcaches.rb:47
+#: src/lib/y2partitioner/widgets/pages/bcaches.rb:61
+msgid "Bcache"
+msgstr ""
+
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:252
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:253
 msgid "Disk"
 msgstr "ডিস্ক"
 
-#: src/lib/y2partitioner/widgets/blk_devices_table.rb:252
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:254
 #, fuzzy
 #| msgid "Multimedia"
 msgid "Multipath"
 msgstr "মাল্টিমিডিয়া"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/blk_devices_table.rb:253
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:255
 #: src/lib/y2partitioner/widgets/pages/nfs_mounts.rb:47
 msgid "NFS"
 msgstr "NFS"
 
-#: src/lib/y2partitioner/widgets/blk_devices_table.rb:254
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:256
 #, fuzzy
 msgid "BIOS RAID"
 msgstr "BIOS"
 
-#: src/lib/y2partitioner/widgets/blk_devices_table.rb:255
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:257
 #, fuzzy
 msgid "MD RAID"
 msgstr " R&AID :"
 
-#: src/lib/y2partitioner/widgets/blk_devices_table.rb:256
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:258
 #, fuzzy
 msgid "PV"
 msgstr "IP"
 
-#: src/lib/y2partitioner/widgets/blk_devices_table.rb:257
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:259
 #, fuzzy
 #| msgid "&LVM..."
 msgid "LVM"
 msgstr "&LVM..."
 
-#: src/lib/y2partitioner/widgets/blk_devices_table.rb:258
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:260
 msgid "LV"
 msgstr ""
 
-#: src/lib/y2partitioner/widgets/blk_devices_table.rb:259
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:261
 msgid "Xen"
 msgstr ""
 
-#: src/lib/y2partitioner/widgets/blk_devices_table.rb:261
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:263
 #, fuzzy
 #| msgid "&Volume"
 msgid "Thin LV"
@@ -1869,10 +1938,11 @@ msgstr ""
 #. TRANSLATORS: button label to add a btrfs subvolume
 #. TRANSLATORS: button label to add a volume group or logical volume
 #. TRANSLATORS: button label to add a logical volume
+#. TRANSLATORS: label for button to add a partition
 #: src/lib/y2partitioner/widgets/btrfs_subvolumes_add_button.rb:44
 #: src/lib/y2partitioner/widgets/lvm_add_button.rb:44
 #: src/lib/y2partitioner/widgets/lvm_lv_add_button.rb:38
-#: src/lib/y2partitioner/widgets/partition_add_button.rb:39
+#: src/lib/y2partitioner/widgets/partition_add_button.rb:47
 #, fuzzy
 msgid "Add..."
 msgstr "এ&ড..."
@@ -1886,9 +1956,7 @@ msgid "Mount point %s is shadowed."
 msgstr "মাউন্ট পয়েন্ট (&M):"
 
 #. TRANSLATORS: button label to delete a btrfs subvolume
-#. TRANSLATORS: label for button to delete a device
 #: src/lib/y2partitioner/widgets/btrfs_subvolumes_delete_button.rb:45
-#: src/lib/y2partitioner/widgets/device_delete_button.rb:42
 #, fuzzy
 msgid "Delete..."
 msgstr "মোছো"
@@ -1937,7 +2005,7 @@ msgstr ""
 
 #. @macro seeAbstractWidget
 #. @see #columns_help
-#: src/lib/y2partitioner/widgets/configurable_blk_devices_table.rb:113
+#: src/lib/y2partitioner/widgets/configurable_blk_devices_table.rb:136
 #, fuzzy
 msgid "<p>This view shows storage devices.</p><p>The overview contains:</p>"
 msgstr ""
@@ -2042,6 +2110,11 @@ msgstr ""
 #, fuzzy
 msgid "No device selected"
 msgstr "কোন যোজনা নির্বাচিত নেই."
+
+#. TRANSLATORS: label for button to delete a device
+#: src/lib/y2partitioner/widgets/device_delete_button.rb:42
+msgid "Delete"
+msgstr "মোছো"
 
 #. Header to show in help
 #.
@@ -3536,7 +3609,7 @@ msgid ""
 msgstr ""
 
 #. TRANSLATORS: Heading. String followed by device name of hard disk
-#: src/lib/y2partitioner/widgets/pages/disk.rb:69
+#: src/lib/y2partitioner/widgets/pages/disk.rb:70
 #, fuzzy
 #| msgid "Hard Disks"
 msgid "Hard Disk: %s"
@@ -3545,7 +3618,7 @@ msgstr "হার্ড ডিস্কসমূহ"
 #. @macro seeAbstractWidget
 #. @macro seeAbstractWidget
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/pages/disk.rb:131
+#: src/lib/y2partitioner/widgets/pages/disk.rb:132
 #: src/lib/y2partitioner/widgets/pages/lvm_vg.rb:94
 #: src/lib/y2partitioner/widgets/pages/md_raid.rb:97
 msgid "&Overview"
@@ -3606,7 +3679,7 @@ msgstr "ID: %1"
 #.
 #. @return [String]
 #. TRANSLATORS: Heading
-#: src/lib/y2partitioner/widgets/pages/md_raids.rb:54
+#: src/lib/y2partitioner/widgets/pages/md_raids.rb:52
 #: src/lib/y2partitioner/widgets/pages/md_raids.rb:72
 #, fuzzy
 msgid "RAID"
@@ -3671,8 +3744,7 @@ msgstr "ইনস্টলেশনের সারসংক্ষেপ"
 msgid "Available Storage on %s"
 msgstr "উপলব্ধ যোজনাগুলি: %1"
 
-#. TRANSLATORS: label for button to add a partition
-#: src/lib/y2partitioner/widgets/partition_add_button.rb:39
+#: src/lib/y2partitioner/widgets/partition_add_button.rb:47
 #, fuzzy
 msgid "Add Partition..."
 msgstr "এড &পার্টিশন"
@@ -3705,7 +3777,7 @@ msgstr "এড &পার্টিশন"
 #. TRANSLATORS: label for button to delete all partitions
 #: src/lib/y2partitioner/widgets/partitions_delete_button.rb:38
 #, fuzzy
-msgid "Delete All..."
+msgid "Delete All"
 msgstr "মোছো"
 
 #. @macro seeAbstractWidget
@@ -3955,6 +4027,16 @@ msgstr "লজিক্যাল ভলিউম"
 #. TRANSLATORS: LVM thin pool name (eg. 'pool0')
 #: src/lib/y2storage/autoinst_issues/thin_pool_not_found.rb:50
 msgid "Thin pool '%s' was not found"
+msgstr ""
+
+#. TRANSLATORS: status when cache set is not attached to any bcache
+#: src/lib/y2storage/bcache_cset.rb:64
+msgid "Cache set (not attached)"
+msgstr ""
+
+#. TRANSLATORS: %s contain list of devices for which cache act as cache.
+#: src/lib/y2storage/bcache_cset.rb:67
+msgid "Cache set (%s)"
 msgstr ""
 
 #. All fatal boot errors detected in the setup, for example, when a / partition
@@ -6885,9 +6967,6 @@ msgstr "অজানা"
 
 #~ msgid "Edit"
 #~ msgstr "সম্পাদন করো (&স)"
-
-#~ msgid "Delete"
-#~ msgstr "মোছো"
 
 #, fuzzy
 #~ msgid "<p>This view shows all Btrfs volumes.</p>"

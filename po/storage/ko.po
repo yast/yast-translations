@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: storage-ng.ko\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-09-19 02:45+0000\n"
+"POT-Creation-Date: 2018-09-20 02:29+0000\n"
 "PO-Revision-Date: 2018-06-12 11:03+0000\n"
 "Last-Translator: Hwajin Kim <hwajin.kim@e4net.net>\n"
 "Language-Team: Korean <https://l10n.opensuse.org/projects/yast-storage/"
@@ -422,13 +422,13 @@ msgstr "\"%s\" 볼륨 그룹 및 관련된 모든 논리 볼륨을 삭제하시�
 #. @see DeleteDevice#lvm_vg
 #.
 #. @return [Boolean]
-#: src/lib/y2partitioner/actions/delete_md.rb:64
+#: src/lib/y2partitioner/actions/delete_md.rb:66
 msgid "Confirm Deleting RAID Used by LVM"
 msgstr "LVM으로 사용되는 RAID 삭제 확인"
 
 #. TRANSLATORS: name is the name of the volume group that the md raid
 #. belongs to (e.g., /dev/system)
-#: src/lib/y2partitioner/actions/delete_md.rb:67
+#: src/lib/y2partitioner/actions/delete_md.rb:69
 msgid ""
 "The selected RAID is used by volume group \"%{name}\".\n"
 "To keep the system in a consistent state, the following volume group\n"
@@ -441,8 +441,44 @@ msgstr ""
 # translators: error message for adding a new Listen statement
 #. TRANSLATORS: md is the name of the md raid to be deleted (e.g., /dev/md/md1),
 #. and vg is the name of the volume group to be deleted (e.g., /dev/system)
-#: src/lib/y2partitioner/actions/delete_md.rb:72
+#: src/lib/y2partitioner/actions/delete_md.rb:74
 msgid "Delete RAID \"%{md}\" and volume group \"%{lvm_vg}\"?"
+msgstr "지금 \"%{md}\"RAID와 \"%{lvm_vg}\" 볼륨 그룹을 삭제하시겠습니까?"
+
+#. Confirmation when the device contains partitions
+#.
+#. @see ConfirmRecursiveDelete#confirm_recursive_delete
+#.
+#. @return [Boolean]
+#: src/lib/y2partitioner/actions/delete_md.rb:87
+#, fuzzy
+#| msgid "Confirm Deleting of All Partitions"
+msgid "Confirm Deleting RAID with partitions"
+msgstr "모든 파티션의 삭제 확인"
+
+#. TRANSLATORS: name is the name of the volume group that the md raid
+#. belongs to (e.g., /dev/system)
+#: src/lib/y2partitioner/actions/delete_md.rb:90
+#, fuzzy
+#| msgid ""
+#| "The selected partition belongs to RAID \"%{name}\".\n"
+#| "To keep the system in a consistent state, the following\n"
+#| "RAID device will be deleted:"
+msgid ""
+"The selected RAID contains partitions.\n"
+"To keep the system in a consistent state, the following\n"
+"partitions and its associated devices will be deleted:"
+msgstr ""
+"선택한 파티션은 RAID \"%{name}\"에 속합니다.\n"
+"시스템을 일관된 상태로 유지하기 위해 다음\n"
+"RAID 장치가 삭제됩니다."
+
+# translators: error message for adding a new Listen statement
+#. TRANSLATORS: md is the name of the md raid to be deleted (e.g., /dev/md/md1)
+#: src/lib/y2partitioner/actions/delete_md.rb:94
+#, fuzzy
+#| msgid "Delete RAID \"%{md}\" and volume group \"%{lvm_vg}\"?"
+msgid "Delete RAID \"%{md}\" and the affected devices?"
 msgstr "지금 \"%{md}\"RAID와 \"%{lvm_vg}\" 볼륨 그룹을 삭제하시겠습니까?"
 
 #. Error when the partition is implicit
@@ -566,7 +602,7 @@ msgstr "%{vg}의 논리 볼륨 %{lv_name} 편집"
 msgid "Edit Partition %s"
 msgstr "%s 파티션 편집"
 
-#. TRANSLATORS: %{name} is replaced by a device name (e.g., /dev/sda1).
+#. TRANSLATORS: %{name} is replaced by a device name (e.g., /dev/sda1)
 #. and %{users} is replaced by a comma-separated list of name devices
 #. (devices using the first one).
 #: src/lib/y2partitioner/actions/edit_blk_device.rb:107
@@ -582,14 +618,28 @@ msgstr ""
 "기기 %{name}은(는) 사용 중입니다.\n"
 "편집할 수 없습니다. %{name}을(를) 편집하려면 사용을 해제하세요."
 
+#. TRANSLATORS: %{name} is replaced by a device name (e.g., /dev/sda1).
+#: src/lib/y2partitioner/actions/edit_blk_device.rb:122
+#, fuzzy
+#| msgid ""
+#| "The device %{name} is in use. It cannot be\n"
+#| "edited. To edit %{name}, make sure it is not used."
+msgid ""
+"The device %{name} contains partitions.\n"
+"It cannot be edited directly.\n"
+"To edit %{name}, first delete all its partitions."
+msgstr ""
+"기기 %{name}은(는) 사용 중입니다.\n"
+"편집할 수 없습니다. %{name}을(를) 편집하려면 사용을 해제하세요."
+
 #. TRANSLATORS: Error message when trying to edit an extented partition
-#: src/lib/y2partitioner/actions/edit_blk_device.rb:121
+#: src/lib/y2partitioner/actions/edit_blk_device.rb:136
 msgid "An extended partition cannot be edited"
 msgstr "확장 파티션을 편집할 수 없습니다."
 
 #. TRANSLATORS: Error message when trying to edit an LVM thin pool. %{name} is
 #. replaced by a logical volume name (e.g., /dev/system/lv1)
-#: src/lib/y2partitioner/actions/edit_blk_device.rb:132
+#: src/lib/y2partitioner/actions/edit_blk_device.rb:147
 msgid ""
 "The volume %{name} is a thin pool.\n"
 "It cannot be edited."
@@ -1016,7 +1066,7 @@ msgid "Normal Volume"
 msgstr "일반 볼륨"
 
 #: src/lib/y2partitioner/dialogs/lvm_lv_info.rb:134
-#: src/lib/y2partitioner/widgets/blk_devices_table.rb:260
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:262
 msgid "Thin Pool"
 msgstr "씬 풀"
 
@@ -1535,6 +1585,32 @@ msgid ""
 "The system cannot be installed because the following errors were found:\n"
 msgstr "다음 오류가 발견되어 시스템이 제대로 작동하지 않습니다.\n"
 
+#. Specialized description for devices at backend of bcache
+#. @return [String]
+#: src/lib/y2partitioner/widgets/bcache_device_description.rb:46
+#, fuzzy
+#| msgid "Rescan Devices"
+msgid "Bcache Devices:"
+msgstr "장치 다시 스캔"
+
+#: src/lib/y2partitioner/widgets/bcache_device_description.rb:48
+#, fuzzy
+#| msgid "Device: %s"
+msgid "Backing Device: %s"
+msgstr "장치: %s"
+
+#: src/lib/y2partitioner/widgets/bcache_device_description.rb:49
+#, fuzzy
+#| msgid "Partition ID: %s"
+msgid "Caching UUID: %s"
+msgstr "파티션 ID: %s"
+
+#: src/lib/y2partitioner/widgets/bcache_device_description.rb:50
+#, fuzzy
+#| msgid "Device: %s"
+msgid "Caching Device: %s"
+msgstr "장치: %s"
+
 #. TRANSLATORS: Device name information, where %s is replaced by the
 #. kernel path to device
 #. Attributes for describing a device when it is a volume group
@@ -1698,7 +1774,7 @@ msgstr "파일 시스템:"
 #. TRANSLATORS: button label for editing a block device
 #. @see CWM::PushButton#Label
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/blk_device_edit_button.rb:39
+#: src/lib/y2partitioner/widgets/blk_device_edit_button.rb:41
 #: src/lib/y2partitioner/widgets/btrfs_edit_button.rb:42
 #: src/lib/y2partitioner/widgets/lvm_edit_button.rb:39
 msgid "Edit..."
@@ -1751,54 +1827,62 @@ msgstr "시작"
 msgid "End"
 msgstr "종료"
 
-# tree node string
 #. Table icon for the device
 #.
 #. @see DEVICE_ICONS
 #.
 #. @param device [Y2Storage::BlkDevice]
 #. @return [Yast::Term] icon
-#: src/lib/y2partitioner/widgets/blk_devices_table.rb:250
+#. @macro seeAbstractWidget
+#. TRANSLATORS: Heading
 #: src/lib/y2partitioner/widgets/blk_devices_table.rb:251
+#: src/lib/y2partitioner/widgets/pages/bcaches.rb:47
+#: src/lib/y2partitioner/widgets/pages/bcaches.rb:61
+msgid "Bcache"
+msgstr ""
+
+# tree node string
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:252
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:253
 msgid "Disk"
 msgstr "디스크"
 
-#: src/lib/y2partitioner/widgets/blk_devices_table.rb:252
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:254
 msgid "Multipath"
 msgstr "다중 경로"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/blk_devices_table.rb:253
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:255
 #: src/lib/y2partitioner/widgets/pages/nfs_mounts.rb:47
 msgid "NFS"
 msgstr "NFS"
 
 # tree node string
-#: src/lib/y2partitioner/widgets/blk_devices_table.rb:254
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:256
 msgid "BIOS RAID"
 msgstr "BIOS RAID"
 
-#: src/lib/y2partitioner/widgets/blk_devices_table.rb:255
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:257
 msgid "MD RAID"
 msgstr "MD RAID"
 
-#: src/lib/y2partitioner/widgets/blk_devices_table.rb:256
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:258
 msgid "PV"
 msgstr "PV"
 
-#: src/lib/y2partitioner/widgets/blk_devices_table.rb:257
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:259
 msgid "LVM"
 msgstr "LVM"
 
-#: src/lib/y2partitioner/widgets/blk_devices_table.rb:258
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:260
 msgid "LV"
 msgstr "LV"
 
-#: src/lib/y2partitioner/widgets/blk_devices_table.rb:259
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:261
 msgid "Xen"
 msgstr ""
 
-#: src/lib/y2partitioner/widgets/blk_devices_table.rb:261
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:263
 msgid "Thin LV"
 msgstr "씬 LV"
 
@@ -1821,10 +1905,11 @@ msgstr "<p>Btrfs 파일 시스템에서 하위 볼륨을 생성 및 제거합니
 #. TRANSLATORS: button label to add a btrfs subvolume
 #. TRANSLATORS: button label to add a volume group or logical volume
 #. TRANSLATORS: button label to add a logical volume
+#. TRANSLATORS: label for button to add a partition
 #: src/lib/y2partitioner/widgets/btrfs_subvolumes_add_button.rb:44
 #: src/lib/y2partitioner/widgets/lvm_add_button.rb:44
 #: src/lib/y2partitioner/widgets/lvm_lv_add_button.rb:38
-#: src/lib/y2partitioner/widgets/partition_add_button.rb:39
+#: src/lib/y2partitioner/widgets/partition_add_button.rb:47
 msgid "Add..."
 msgstr "추가..."
 
@@ -1837,9 +1922,7 @@ msgid "Mount point %s is shadowed."
 msgstr "마운트 포인트 %s은(는) 섀도됩니다."
 
 #. TRANSLATORS: button label to delete a btrfs subvolume
-#. TRANSLATORS: label for button to delete a device
 #: src/lib/y2partitioner/widgets/btrfs_subvolumes_delete_button.rb:45
-#: src/lib/y2partitioner/widgets/device_delete_button.rb:42
 msgid "Delete..."
 msgstr "삭제..."
 
@@ -1887,7 +1970,7 @@ msgstr ""
 
 #. @macro seeAbstractWidget
 #. @see #columns_help
-#: src/lib/y2partitioner/widgets/configurable_blk_devices_table.rb:113
+#: src/lib/y2partitioner/widgets/configurable_blk_devices_table.rb:136
 msgid "<p>This view shows storage devices.</p><p>The overview contains:</p>"
 msgstr "<p>이 보기는 저장 장치를 표시합니다.</p><p>개요 내용:</p>"
 
@@ -1980,6 +2063,11 @@ msgstr ""
 #: src/lib/y2partitioner/widgets/lvm_add_button.rb:94
 msgid "No device selected"
 msgstr "장치를 선택하지 않음"
+
+#. TRANSLATORS: label for button to delete a device
+#: src/lib/y2partitioner/widgets/device_delete_button.rb:42
+msgid "Delete"
+msgstr "삭제"
 
 #. Header to show in help
 #.
@@ -3379,14 +3467,14 @@ msgstr ""
 # are allowed, otherwise translartion won't be used
 # try to keep short, may be shortened due to bootloader limitations
 #. TRANSLATORS: Heading. String followed by device name of hard disk
-#: src/lib/y2partitioner/widgets/pages/disk.rb:69
+#: src/lib/y2partitioner/widgets/pages/disk.rb:70
 msgid "Hard Disk: %s"
 msgstr "하드 디스크: %s"
 
 #. @macro seeAbstractWidget
 #. @macro seeAbstractWidget
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/pages/disk.rb:131
+#: src/lib/y2partitioner/widgets/pages/disk.rb:132
 #: src/lib/y2partitioner/widgets/pages/lvm_vg.rb:94
 #: src/lib/y2partitioner/widgets/pages/md_raid.rb:97
 msgid "&Overview"
@@ -3444,7 +3532,7 @@ msgstr "RAID: %s"
 #.
 #. @return [String]
 #. TRANSLATORS: Heading
-#: src/lib/y2partitioner/widgets/pages/md_raids.rb:54
+#: src/lib/y2partitioner/widgets/pages/md_raids.rb:52
 #: src/lib/y2partitioner/widgets/pages/md_raids.rb:72
 msgid "RAID"
 msgstr "RAID"
@@ -3519,8 +3607,7 @@ msgstr "설치 요약"
 msgid "Available Storage on %s"
 msgstr "사용할 수 있는 %s의 저장매체"
 
-#. TRANSLATORS: label for button to add a partition
-#: src/lib/y2partitioner/widgets/partition_add_button.rb:39
+#: src/lib/y2partitioner/widgets/partition_add_button.rb:47
 msgid "Add Partition..."
 msgstr "파티션 추가..."
 
@@ -3552,7 +3639,7 @@ msgstr "파티션 추가..."
 #: src/lib/y2partitioner/widgets/partitions_delete_button.rb:38
 #, fuzzy
 #| msgid "Delete..."
-msgid "Delete All..."
+msgid "Delete All"
 msgstr "삭제..."
 
 #. @macro seeAbstractWidget
@@ -3805,6 +3892,16 @@ msgstr "논리 볼륨"
 #: src/lib/y2storage/autoinst_issues/thin_pool_not_found.rb:50
 msgid "Thin pool '%s' was not found"
 msgstr "'%s' 씬 풀을 찾을 수 없음"
+
+#. TRANSLATORS: status when cache set is not attached to any bcache
+#: src/lib/y2storage/bcache_cset.rb:64
+msgid "Cache set (not attached)"
+msgstr ""
+
+#. TRANSLATORS: %s contain list of devices for which cache act as cache.
+#: src/lib/y2storage/bcache_cset.rb:67
+msgid "Cache set (%s)"
+msgstr ""
 
 #. All fatal boot errors detected in the setup, for example, when a / partition
 #. is missing
@@ -6746,9 +6843,6 @@ msgstr "알 수 없는 이유"
 # Button label
 #~ msgid "Edit"
 #~ msgstr "편집"
-
-#~ msgid "Delete"
-#~ msgstr "삭제"
 
 #~ msgid "<p>This view shows all Btrfs volumes.</p>"
 #~ msgstr "<p>이 보기는 모든 BTRFS 볼륨을 표시합니다.</p>"

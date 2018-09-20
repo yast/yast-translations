@@ -21,7 +21,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: storage\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-09-19 02:45+0000\n"
+"POT-Creation-Date: 2018-09-20 02:29+0000\n"
 "PO-Revision-Date: 2018-06-12 12:09+0000\n"
 "Last-Translator: Davide Aiello <davidea@novilinguists.com>\n"
 "Language-Team: Italian <https://l10n.opensuse.org/projects/yast-storage/"
@@ -450,13 +450,13 @@ msgstr ""
 #. @see DeleteDevice#lvm_vg
 #.
 #. @return [Boolean]
-#: src/lib/y2partitioner/actions/delete_md.rb:64
+#: src/lib/y2partitioner/actions/delete_md.rb:66
 msgid "Confirm Deleting RAID Used by LVM"
 msgstr "Conferma eliminazione RAID utilizzato da LVM"
 
 #. TRANSLATORS: name is the name of the volume group that the md raid
 #. belongs to (e.g., /dev/system)
-#: src/lib/y2partitioner/actions/delete_md.rb:67
+#: src/lib/y2partitioner/actions/delete_md.rb:69
 msgid ""
 "The selected RAID is used by volume group \"%{name}\".\n"
 "To keep the system in a consistent state, the following volume group\n"
@@ -468,8 +468,43 @@ msgstr ""
 
 #. TRANSLATORS: md is the name of the md raid to be deleted (e.g., /dev/md/md1),
 #. and vg is the name of the volume group to be deleted (e.g., /dev/system)
-#: src/lib/y2partitioner/actions/delete_md.rb:72
+#: src/lib/y2partitioner/actions/delete_md.rb:74
 msgid "Delete RAID \"%{md}\" and volume group \"%{lvm_vg}\"?"
+msgstr "Eliminare il RAID \"%{md}\" e il gruppo di volumi \"%{lvm_vg}\"?"
+
+#. Confirmation when the device contains partitions
+#.
+#. @see ConfirmRecursiveDelete#confirm_recursive_delete
+#.
+#. @return [Boolean]
+#: src/lib/y2partitioner/actions/delete_md.rb:87
+#, fuzzy
+#| msgid "Confirm Deleting of All Partitions"
+msgid "Confirm Deleting RAID with partitions"
+msgstr "Conferma eliminazione di tutte le partizioni"
+
+#. TRANSLATORS: name is the name of the volume group that the md raid
+#. belongs to (e.g., /dev/system)
+#: src/lib/y2partitioner/actions/delete_md.rb:90
+#, fuzzy
+#| msgid ""
+#| "The selected partition belongs to RAID \"%{name}\".\n"
+#| "To keep the system in a consistent state, the following\n"
+#| "RAID device will be deleted:"
+msgid ""
+"The selected RAID contains partitions.\n"
+"To keep the system in a consistent state, the following\n"
+"partitions and its associated devices will be deleted:"
+msgstr ""
+"La partizione selezionata appartiene al RAID \"%{name}\".\n"
+"Per mantenere coeranza nel sistema, il seguente\n"
+"dispositivo RAID verrà eliminato:"
+
+#. TRANSLATORS: md is the name of the md raid to be deleted (e.g., /dev/md/md1)
+#: src/lib/y2partitioner/actions/delete_md.rb:94
+#, fuzzy
+#| msgid "Delete RAID \"%{md}\" and volume group \"%{lvm_vg}\"?"
+msgid "Delete RAID \"%{md}\" and the affected devices?"
 msgstr "Eliminare il RAID \"%{md}\" e il gruppo di volumi \"%{lvm_vg}\"?"
 
 # #-#-#-#-#  storage.it.po (storage)  #-#-#-#-#
@@ -600,7 +635,7 @@ msgstr "Modifica volume logico %{lv_name} su %{vg}"
 msgid "Edit Partition %s"
 msgstr "Modifica partizione %s"
 
-#. TRANSLATORS: %{name} is replaced by a device name (e.g., /dev/sda1).
+#. TRANSLATORS: %{name} is replaced by a device name (e.g., /dev/sda1)
 #. and %{users} is replaced by a comma-separated list of name devices
 #. (devices using the first one).
 #: src/lib/y2partitioner/actions/edit_blk_device.rb:107
@@ -616,16 +651,30 @@ msgstr ""
 "Il dispositivo %{name} è in uso. Impossibile\n"
 "modificarlo. Per modificare %{name}, assicurarsi che non sia in uso."
 
+#. TRANSLATORS: %{name} is replaced by a device name (e.g., /dev/sda1).
+#: src/lib/y2partitioner/actions/edit_blk_device.rb:122
+#, fuzzy
+#| msgid ""
+#| "The device %{name} is in use. It cannot be\n"
+#| "edited. To edit %{name}, make sure it is not used."
+msgid ""
+"The device %{name} contains partitions.\n"
+"It cannot be edited directly.\n"
+"To edit %{name}, first delete all its partitions."
+msgstr ""
+"Il dispositivo %{name} è in uso. Impossibile\n"
+"modificarlo. Per modificare %{name}, assicurarsi che non sia in uso."
+
 # #-#-#-#-#  storage.it.po (storage)  #-#-#-#-#
 # TLABEL modules/inst_custom_part.ycp:1930
 #. TRANSLATORS: Error message when trying to edit an extented partition
-#: src/lib/y2partitioner/actions/edit_blk_device.rb:121
+#: src/lib/y2partitioner/actions/edit_blk_device.rb:136
 msgid "An extended partition cannot be edited"
 msgstr "Una partizione estesa non può essere modificata"
 
 #. TRANSLATORS: Error message when trying to edit an LVM thin pool. %{name} is
 #. replaced by a logical volume name (e.g., /dev/system/lv1)
-#: src/lib/y2partitioner/actions/edit_blk_device.rb:132
+#: src/lib/y2partitioner/actions/edit_blk_device.rb:147
 msgid ""
 "The volume %{name} is a thin pool.\n"
 "It cannot be edited."
@@ -1051,7 +1100,7 @@ msgid "Normal Volume"
 msgstr "Volume normale"
 
 #: src/lib/y2partitioner/dialogs/lvm_lv_info.rb:134
-#: src/lib/y2partitioner/widgets/blk_devices_table.rb:260
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:262
 msgid "Thin Pool"
 msgstr "Pool thin"
 
@@ -1592,6 +1641,38 @@ msgstr ""
 "Impossibile installare il sistema poiché sono stati riscontrati i seguenti "
 "errori:\n"
 
+#. Specialized description for devices at backend of bcache
+#. @return [String]
+#: src/lib/y2partitioner/widgets/bcache_device_description.rb:46
+#, fuzzy
+#| msgid "Rescan Devices"
+msgid "Bcache Devices:"
+msgstr "Riesamina i dispositivi"
+
+# #-#-#-#-#  storage.it.po (storage)  #-#-#-#-#
+# TLABEL modules/inst_custom_part.ycp:2168
+#: src/lib/y2partitioner/widgets/bcache_device_description.rb:48
+#, fuzzy
+#| msgid "Device: %s"
+msgid "Backing Device: %s"
+msgstr "Dispositivo: %s"
+
+# #-#-#-#-#  storage-ng.it.po (storage)  #-#-#-#-#
+# TLABEL modules/inst_sw_single.ycp:732
+#: src/lib/y2partitioner/widgets/bcache_device_description.rb:49
+#, fuzzy
+#| msgid "Partition ID: %s"
+msgid "Caching UUID: %s"
+msgstr "ID partizione: %s"
+
+# #-#-#-#-#  storage.it.po (storage)  #-#-#-#-#
+# TLABEL modules/inst_custom_part.ycp:2168
+#: src/lib/y2partitioner/widgets/bcache_device_description.rb:50
+#, fuzzy
+#| msgid "Device: %s"
+msgid "Caching Device: %s"
+msgstr "Dispositivo: %s"
+
 # #-#-#-#-#  storage.it.po (storage)  #-#-#-#-#
 # TLABEL modules/inst_custom_part.ycp:2168
 #. TRANSLATORS: Device name information, where %s is replaced by the
@@ -1751,7 +1832,7 @@ msgstr "File system:"
 #. TRANSLATORS: button label for editing a block device
 #. @see CWM::PushButton#Label
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/blk_device_edit_button.rb:39
+#: src/lib/y2partitioner/widgets/blk_device_edit_button.rb:41
 #: src/lib/y2partitioner/widgets/btrfs_edit_button.rb:42
 #: src/lib/y2partitioner/widgets/lvm_edit_button.rb:39
 msgid "Edit..."
@@ -1816,46 +1897,54 @@ msgstr "Fine"
 #.
 #. @param device [Y2Storage::BlkDevice]
 #. @return [Yast::Term] icon
-#: src/lib/y2partitioner/widgets/blk_devices_table.rb:250
+#. @macro seeAbstractWidget
+#. TRANSLATORS: Heading
 #: src/lib/y2partitioner/widgets/blk_devices_table.rb:251
+#: src/lib/y2partitioner/widgets/pages/bcaches.rb:47
+#: src/lib/y2partitioner/widgets/pages/bcaches.rb:61
+msgid "Bcache"
+msgstr ""
+
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:252
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:253
 msgid "Disk"
 msgstr "Disco"
 
-#: src/lib/y2partitioner/widgets/blk_devices_table.rb:252
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:254
 msgid "Multipath"
 msgstr "Multipath"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/blk_devices_table.rb:253
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:255
 #: src/lib/y2partitioner/widgets/pages/nfs_mounts.rb:47
 msgid "NFS"
 msgstr "NFS"
 
-#: src/lib/y2partitioner/widgets/blk_devices_table.rb:254
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:256
 msgid "BIOS RAID"
 msgstr "RAID BIOS"
 
-#: src/lib/y2partitioner/widgets/blk_devices_table.rb:255
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:257
 msgid "MD RAID"
 msgstr "MD RAID"
 
-#: src/lib/y2partitioner/widgets/blk_devices_table.rb:256
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:258
 msgid "PV"
 msgstr "PV"
 
-#: src/lib/y2partitioner/widgets/blk_devices_table.rb:257
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:259
 msgid "LVM"
 msgstr "LVM"
 
-#: src/lib/y2partitioner/widgets/blk_devices_table.rb:258
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:260
 msgid "LV"
 msgstr "LV"
 
-#: src/lib/y2partitioner/widgets/blk_devices_table.rb:259
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:261
 msgid "Xen"
 msgstr ""
 
-#: src/lib/y2partitioner/widgets/blk_devices_table.rb:261
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:263
 msgid "Thin LV"
 msgstr "LV thin"
 
@@ -1878,10 +1967,11 @@ msgstr "<p>Creare e rimuovere i sottovolumi da un file system Btrfs.</p>\n"
 #. TRANSLATORS: button label to add a btrfs subvolume
 #. TRANSLATORS: button label to add a volume group or logical volume
 #. TRANSLATORS: button label to add a logical volume
+#. TRANSLATORS: label for button to add a partition
 #: src/lib/y2partitioner/widgets/btrfs_subvolumes_add_button.rb:44
 #: src/lib/y2partitioner/widgets/lvm_add_button.rb:44
 #: src/lib/y2partitioner/widgets/lvm_lv_add_button.rb:38
-#: src/lib/y2partitioner/widgets/partition_add_button.rb:39
+#: src/lib/y2partitioner/widgets/partition_add_button.rb:47
 msgid "Add..."
 msgstr "Aggiungi..."
 
@@ -1895,9 +1985,7 @@ msgid "Mount point %s is shadowed."
 msgstr "Il punto di montaggio %s è mascherato."
 
 #. TRANSLATORS: button label to delete a btrfs subvolume
-#. TRANSLATORS: label for button to delete a device
 #: src/lib/y2partitioner/widgets/btrfs_subvolumes_delete_button.rb:45
-#: src/lib/y2partitioner/widgets/device_delete_button.rb:42
 msgid "Delete..."
 msgstr "Elimina..."
 
@@ -1946,7 +2034,7 @@ msgstr ""
 
 #. @macro seeAbstractWidget
 #. @see #columns_help
-#: src/lib/y2partitioner/widgets/configurable_blk_devices_table.rb:113
+#: src/lib/y2partitioner/widgets/configurable_blk_devices_table.rb:136
 msgid "<p>This view shows storage devices.</p><p>The overview contains:</p>"
 msgstr ""
 "<p>Questa vista mostra tutti i dispositivi di memorizzazione.</p><p>La "
@@ -2041,6 +2129,11 @@ msgstr ""
 #: src/lib/y2partitioner/widgets/lvm_add_button.rb:94
 msgid "No device selected"
 msgstr "Nessun dispositivo selezionato"
+
+#. TRANSLATORS: label for button to delete a device
+#: src/lib/y2partitioner/widgets/device_delete_button.rb:42
+msgid "Delete"
+msgstr "Elimina"
 
 #. Header to show in help
 #.
@@ -3480,14 +3573,14 @@ msgstr ""
 "vengono sottoposti di nuovo a scansione."
 
 #. TRANSLATORS: Heading. String followed by device name of hard disk
-#: src/lib/y2partitioner/widgets/pages/disk.rb:69
+#: src/lib/y2partitioner/widgets/pages/disk.rb:70
 msgid "Hard Disk: %s"
 msgstr "Disco fisso: %s"
 
 #. @macro seeAbstractWidget
 #. @macro seeAbstractWidget
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/pages/disk.rb:131
+#: src/lib/y2partitioner/widgets/pages/disk.rb:132
 #: src/lib/y2partitioner/widgets/pages/lvm_vg.rb:94
 #: src/lib/y2partitioner/widgets/pages/md_raid.rb:97
 msgid "&Overview"
@@ -3542,7 +3635,7 @@ msgstr "RAID: %s"
 #.
 #. @return [String]
 #. TRANSLATORS: Heading
-#: src/lib/y2partitioner/widgets/pages/md_raids.rb:54
+#: src/lib/y2partitioner/widgets/pages/md_raids.rb:52
 #: src/lib/y2partitioner/widgets/pages/md_raids.rb:72
 msgid "RAID"
 msgstr "RAID"
@@ -3618,8 +3711,7 @@ msgstr "Riepilogo installazione"
 msgid "Available Storage on %s"
 msgstr "Spazio disponibile in %s"
 
-#. TRANSLATORS: label for button to add a partition
-#: src/lib/y2partitioner/widgets/partition_add_button.rb:39
+#: src/lib/y2partitioner/widgets/partition_add_button.rb:47
 msgid "Add Partition..."
 msgstr "Aggiungi partizione..."
 
@@ -3655,7 +3747,7 @@ msgstr "Aggiungi partizione..."
 #: src/lib/y2partitioner/widgets/partitions_delete_button.rb:38
 #, fuzzy
 #| msgid "Delete..."
-msgid "Delete All..."
+msgid "Delete All"
 msgstr "Elimina..."
 
 # #-#-#-#-#  storage-ng.it.po (storage)  #-#-#-#-#
@@ -3921,6 +4013,16 @@ msgstr "volumi logici"
 #: src/lib/y2storage/autoinst_issues/thin_pool_not_found.rb:50
 msgid "Thin pool '%s' was not found"
 msgstr "Il pool thin '%s' non è stato trovato"
+
+#. TRANSLATORS: status when cache set is not attached to any bcache
+#: src/lib/y2storage/bcache_cset.rb:64
+msgid "Cache set (not attached)"
+msgstr ""
+
+#. TRANSLATORS: %s contain list of devices for which cache act as cache.
+#: src/lib/y2storage/bcache_cset.rb:67
+msgid "Cache set (%s)"
+msgstr ""
 
 #. All fatal boot errors detected in the setup, for example, when a / partition
 #. is missing
@@ -6896,9 +6998,6 @@ msgstr "Ragione sconosciuta"
 
 #~ msgid "Edit"
 #~ msgstr "Modifica"
-
-#~ msgid "Delete"
-#~ msgstr "Elimina"
 
 #~ msgid "<p>This view shows all Btrfs volumes.</p>"
 #~ msgstr "<p>Questa vista mostra tutti i volumi Btrfs.</p>"

@@ -18,7 +18,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: storage\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-09-19 02:45+0000\n"
+"POT-Creation-Date: 2018-09-20 02:29+0000\n"
 "PO-Revision-Date: 2018-06-12 10:03+0000\n"
 "Last-Translator: Robert Taisz <robert.taisz@emerald.hu>\n"
 "Language-Team: Hungarian <https://l10n.opensuse.org/projects/yast-storage/"
@@ -433,13 +433,13 @@ msgstr ""
 #. @see DeleteDevice#lvm_vg
 #.
 #. @return [Boolean]
-#: src/lib/y2partitioner/actions/delete_md.rb:64
+#: src/lib/y2partitioner/actions/delete_md.rb:66
 msgid "Confirm Deleting RAID Used by LVM"
 msgstr "LVM által használt RAID törlésének jóváhagyása"
 
 #. TRANSLATORS: name is the name of the volume group that the md raid
 #. belongs to (e.g., /dev/system)
-#: src/lib/y2partitioner/actions/delete_md.rb:67
+#: src/lib/y2partitioner/actions/delete_md.rb:69
 msgid ""
 "The selected RAID is used by volume group \"%{name}\".\n"
 "To keep the system in a consistent state, the following volume group\n"
@@ -451,8 +451,43 @@ msgstr ""
 
 #. TRANSLATORS: md is the name of the md raid to be deleted (e.g., /dev/md/md1),
 #. and vg is the name of the volume group to be deleted (e.g., /dev/system)
-#: src/lib/y2partitioner/actions/delete_md.rb:72
+#: src/lib/y2partitioner/actions/delete_md.rb:74
 msgid "Delete RAID \"%{md}\" and volume group \"%{lvm_vg}\"?"
+msgstr "Törli a(z) \"%{md}\" RAID-et és a(z) \"%{lvm_vg}\" kötetcsoportot?"
+
+#. Confirmation when the device contains partitions
+#.
+#. @see ConfirmRecursiveDelete#confirm_recursive_delete
+#.
+#. @return [Boolean]
+#: src/lib/y2partitioner/actions/delete_md.rb:87
+#, fuzzy
+#| msgid "Confirm Deleting of All Partitions"
+msgid "Confirm Deleting RAID with partitions"
+msgstr "Összes partíció törlésének jóváhagyása"
+
+#. TRANSLATORS: name is the name of the volume group that the md raid
+#. belongs to (e.g., /dev/system)
+#: src/lib/y2partitioner/actions/delete_md.rb:90
+#, fuzzy
+#| msgid ""
+#| "The selected partition belongs to RAID \"%{name}\".\n"
+#| "To keep the system in a consistent state, the following\n"
+#| "RAID device will be deleted:"
+msgid ""
+"The selected RAID contains partitions.\n"
+"To keep the system in a consistent state, the following\n"
+"partitions and its associated devices will be deleted:"
+msgstr ""
+"A kiválasztott partíció a(z) \"%{name}\" RAID-hez tartozik.\n"
+"A rendszer konzisztenciájának megtartása érdekében\n"
+"a következő RAID eszközök kerülnek törlésre:"
+
+#. TRANSLATORS: md is the name of the md raid to be deleted (e.g., /dev/md/md1)
+#: src/lib/y2partitioner/actions/delete_md.rb:94
+#, fuzzy
+#| msgid "Delete RAID \"%{md}\" and volume group \"%{lvm_vg}\"?"
+msgid "Delete RAID \"%{md}\" and the affected devices?"
 msgstr "Törli a(z) \"%{md}\" RAID-et és a(z) \"%{lvm_vg}\" kötetcsoportot?"
 
 #. Error when the partition is implicit
@@ -575,7 +610,7 @@ msgstr "%{lv_name} logikai kötet szerkesztése a(z) %{vg} eszközön"
 msgid "Edit Partition %s"
 msgstr "A(z) %s partíció szerkesztése"
 
-#. TRANSLATORS: %{name} is replaced by a device name (e.g., /dev/sda1).
+#. TRANSLATORS: %{name} is replaced by a device name (e.g., /dev/sda1)
 #. and %{users} is replaced by a comma-separated list of name devices
 #. (devices using the first one).
 #: src/lib/y2partitioner/actions/edit_blk_device.rb:107
@@ -592,14 +627,29 @@ msgstr ""
 "A(z) %{name} szerkesztése előtt győződjön meg arról, hogy nem használja "
 "semmi."
 
+#. TRANSLATORS: %{name} is replaced by a device name (e.g., /dev/sda1).
+#: src/lib/y2partitioner/actions/edit_blk_device.rb:122
+#, fuzzy
+#| msgid ""
+#| "The device %{name} is in use. It cannot be\n"
+#| "edited. To edit %{name}, make sure it is not used."
+msgid ""
+"The device %{name} contains partitions.\n"
+"It cannot be edited directly.\n"
+"To edit %{name}, first delete all its partitions."
+msgstr ""
+"A(z) %{name} eszköz használatban van. Nem lehet szerkeszteni.\n"
+"A(z) %{name} szerkesztése előtt győződjön meg arról, hogy nem használja "
+"semmi."
+
 #. TRANSLATORS: Error message when trying to edit an extented partition
-#: src/lib/y2partitioner/actions/edit_blk_device.rb:121
+#: src/lib/y2partitioner/actions/edit_blk_device.rb:136
 msgid "An extended partition cannot be edited"
 msgstr "Kiterjesztett partíció nem szerkeszthető."
 
 #. TRANSLATORS: Error message when trying to edit an LVM thin pool. %{name} is
 #. replaced by a logical volume name (e.g., /dev/system/lv1)
-#: src/lib/y2partitioner/actions/edit_blk_device.rb:132
+#: src/lib/y2partitioner/actions/edit_blk_device.rb:147
 msgid ""
 "The volume %{name} is a thin pool.\n"
 "It cannot be edited."
@@ -1024,7 +1074,7 @@ msgid "Normal Volume"
 msgstr "Normál kötet"
 
 #: src/lib/y2partitioner/dialogs/lvm_lv_info.rb:134
-#: src/lib/y2partitioner/widgets/blk_devices_table.rb:260
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:262
 msgid "Thin Pool"
 msgstr "Vékony tároló"
 
@@ -1553,6 +1603,36 @@ msgid ""
 "The system cannot be installed because the following errors were found:\n"
 msgstr "A rendszert nem lehet telepíteni a következő hibák miatt:\n"
 
+#. Specialized description for devices at backend of bcache
+#. @return [String]
+#: src/lib/y2partitioner/widgets/bcache_device_description.rb:46
+#, fuzzy
+#| msgid "Rescan Devices"
+msgid "Bcache Devices:"
+msgstr "Eszközök újraolvasása"
+
+# modules/inst_custom_part.ycp:491
+#: src/lib/y2partitioner/widgets/bcache_device_description.rb:48
+#, fuzzy
+#| msgid "Device: %s"
+msgid "Backing Device: %s"
+msgstr "Eszköz: %s"
+
+# modules/inst_sw_single.ycp:665
+# clients/inst_sw_single.ycp:1349
+#: src/lib/y2partitioner/widgets/bcache_device_description.rb:49
+#, fuzzy
+#| msgid "Partition ID: %s"
+msgid "Caching UUID: %s"
+msgstr "Partícióazonosító: %s"
+
+# modules/inst_custom_part.ycp:491
+#: src/lib/y2partitioner/widgets/bcache_device_description.rb:50
+#, fuzzy
+#| msgid "Device: %s"
+msgid "Caching Device: %s"
+msgstr "Eszköz: %s"
+
 # modules/inst_custom_part.ycp:491
 #. TRANSLATORS: Device name information, where %s is replaced by the
 #. kernel path to device
@@ -1703,7 +1783,7 @@ msgstr "Fájlrendszer:"
 #. TRANSLATORS: button label for editing a block device
 #. @see CWM::PushButton#Label
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/blk_device_edit_button.rb:39
+#: src/lib/y2partitioner/widgets/blk_device_edit_button.rb:41
 #: src/lib/y2partitioner/widgets/btrfs_edit_button.rb:42
 #: src/lib/y2partitioner/widgets/lvm_edit_button.rb:39
 msgid "Edit..."
@@ -1756,54 +1836,62 @@ msgstr "Kezdő"
 msgid "End"
 msgstr "Befejező"
 
-# clients/inst_source.ycp:197
 #. Table icon for the device
 #.
 #. @see DEVICE_ICONS
 #.
 #. @param device [Y2Storage::BlkDevice]
 #. @return [Yast::Term] icon
-#: src/lib/y2partitioner/widgets/blk_devices_table.rb:250
+#. @macro seeAbstractWidget
+#. TRANSLATORS: Heading
 #: src/lib/y2partitioner/widgets/blk_devices_table.rb:251
+#: src/lib/y2partitioner/widgets/pages/bcaches.rb:47
+#: src/lib/y2partitioner/widgets/pages/bcaches.rb:61
+msgid "Bcache"
+msgstr ""
+
+# clients/inst_source.ycp:197
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:252
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:253
 msgid "Disk"
 msgstr "Lemez"
 
-#: src/lib/y2partitioner/widgets/blk_devices_table.rb:252
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:254
 msgid "Multipath"
 msgstr "Többutas"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/blk_devices_table.rb:253
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:255
 #: src/lib/y2partitioner/widgets/pages/nfs_mounts.rb:47
 msgid "NFS"
 msgstr "NFS"
 
-#: src/lib/y2partitioner/widgets/blk_devices_table.rb:254
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:256
 msgid "BIOS RAID"
 msgstr "BIOS RAID"
 
-#: src/lib/y2partitioner/widgets/blk_devices_table.rb:255
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:257
 msgid "MD RAID"
 msgstr "MD RAID"
 
-#: src/lib/y2partitioner/widgets/blk_devices_table.rb:256
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:258
 msgid "PV"
 msgstr "PV"
 
-#: src/lib/y2partitioner/widgets/blk_devices_table.rb:257
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:259
 msgid "LVM"
 msgstr "LVM"
 
-#: src/lib/y2partitioner/widgets/blk_devices_table.rb:258
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:260
 msgid "LV"
 msgstr "LV"
 
-#: src/lib/y2partitioner/widgets/blk_devices_table.rb:259
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:261
 msgid "Xen"
 msgstr ""
 
 # modules/sound/sound.ycp:790
-#: src/lib/y2partitioner/widgets/blk_devices_table.rb:261
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:263
 msgid "Thin LV"
 msgstr "Vékony LV"
 
@@ -1826,10 +1914,11 @@ msgstr "<p>Alkötetek létrehozása és eltávolítása Btrfs fájlrendszerből.
 #. TRANSLATORS: button label to add a btrfs subvolume
 #. TRANSLATORS: button label to add a volume group or logical volume
 #. TRANSLATORS: button label to add a logical volume
+#. TRANSLATORS: label for button to add a partition
 #: src/lib/y2partitioner/widgets/btrfs_subvolumes_add_button.rb:44
 #: src/lib/y2partitioner/widgets/lvm_add_button.rb:44
 #: src/lib/y2partitioner/widgets/lvm_lv_add_button.rb:38
-#: src/lib/y2partitioner/widgets/partition_add_button.rb:39
+#: src/lib/y2partitioner/widgets/partition_add_button.rb:47
 msgid "Add..."
 msgstr "Hozzáadás..."
 
@@ -1842,9 +1931,7 @@ msgid "Mount point %s is shadowed."
 msgstr "A(z) %s csatlakoztatási pontról árnyékmásolat készül."
 
 #. TRANSLATORS: button label to delete a btrfs subvolume
-#. TRANSLATORS: label for button to delete a device
 #: src/lib/y2partitioner/widgets/btrfs_subvolumes_delete_button.rb:45
-#: src/lib/y2partitioner/widgets/device_delete_button.rb:42
 msgid "Delete..."
 msgstr "Törlés..."
 
@@ -1893,7 +1980,7 @@ msgstr ""
 
 #. @macro seeAbstractWidget
 #. @see #columns_help
-#: src/lib/y2partitioner/widgets/configurable_blk_devices_table.rb:113
+#: src/lib/y2partitioner/widgets/configurable_blk_devices_table.rb:136
 msgid "<p>This view shows storage devices.</p><p>The overview contains:</p>"
 msgstr ""
 "<p>Ez a nézet a tárolóeszközöket jeleníti meg.</p>Az áttekintés a "
@@ -1993,6 +2080,11 @@ msgstr ""
 #: src/lib/y2partitioner/widgets/lvm_add_button.rb:94
 msgid "No device selected"
 msgstr "Nincs kiválasztott eszköz"
+
+#. TRANSLATORS: label for button to delete a device
+#: src/lib/y2partitioner/widgets/device_delete_button.rb:42
+msgid "Delete"
+msgstr "Törlés"
 
 #. Header to show in help
 #.
@@ -3401,14 +3493,14 @@ msgstr ""
 
 # clients/inst_source.ycp:197
 #. TRANSLATORS: Heading. String followed by device name of hard disk
-#: src/lib/y2partitioner/widgets/pages/disk.rb:69
+#: src/lib/y2partitioner/widgets/pages/disk.rb:70
 msgid "Hard Disk: %s"
 msgstr "Merevlemez: %s"
 
 #. @macro seeAbstractWidget
 #. @macro seeAbstractWidget
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/pages/disk.rb:131
+#: src/lib/y2partitioner/widgets/pages/disk.rb:132
 #: src/lib/y2partitioner/widgets/pages/lvm_vg.rb:94
 #: src/lib/y2partitioner/widgets/pages/md_raid.rb:97
 msgid "&Overview"
@@ -3464,7 +3556,7 @@ msgstr "RAID: %s"
 #.
 #. @return [String]
 #. TRANSLATORS: Heading
-#: src/lib/y2partitioner/widgets/pages/md_raids.rb:54
+#: src/lib/y2partitioner/widgets/pages/md_raids.rb:52
 #: src/lib/y2partitioner/widgets/pages/md_raids.rb:72
 msgid "RAID"
 msgstr "RAID"
@@ -3537,8 +3629,7 @@ msgstr "Telepítés összefoglalása"
 msgid "Available Storage on %s"
 msgstr "Elérhető tárolók a(z) %s gépen"
 
-#. TRANSLATORS: label for button to add a partition
-#: src/lib/y2partitioner/widgets/partition_add_button.rb:39
+#: src/lib/y2partitioner/widgets/partition_add_button.rb:47
 msgid "Add Partition..."
 msgstr "Partíció hozzáadása…"
 
@@ -3573,7 +3664,7 @@ msgstr "Partíció hozzáadása…"
 #: src/lib/y2partitioner/widgets/partitions_delete_button.rb:38
 #, fuzzy
 #| msgid "Delete..."
-msgid "Delete All..."
+msgid "Delete All"
 msgstr "Törlés..."
 
 # modules/inst_sw_single.ycp:665
@@ -3831,6 +3922,16 @@ msgstr "logikai kötetek"
 #: src/lib/y2storage/autoinst_issues/thin_pool_not_found.rb:50
 msgid "Thin pool '%s' was not found"
 msgstr "A(z) '%s' készlet nem található"
+
+#. TRANSLATORS: status when cache set is not attached to any bcache
+#: src/lib/y2storage/bcache_cset.rb:64
+msgid "Cache set (not attached)"
+msgstr ""
+
+#. TRANSLATORS: %s contain list of devices for which cache act as cache.
+#: src/lib/y2storage/bcache_cset.rb:67
+msgid "Cache set (%s)"
+msgstr ""
 
 #. All fatal boot errors detected in the setup, for example, when a / partition
 #. is missing
@@ -6789,9 +6890,6 @@ msgstr "Ismeretlen ok"
 
 #~ msgid "Edit"
 #~ msgstr "Szerkesztés"
-
-#~ msgid "Delete"
-#~ msgstr "Törlés"
 
 #~ msgid "<p>This view shows all Btrfs volumes.</p>"
 #~ msgstr "<p>Ez a nézet minden Btrfs kötetet megjelenít.</p>"
