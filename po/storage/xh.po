@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: storage\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-09-20 02:29+0000\n"
+"POT-Creation-Date: 2018-09-26 02:29+0000\n"
 "PO-Revision-Date: 2006-11-03 14:26\n"
 "Last-Translator: Novell Language <language@novell.com>\n"
 "Language-Team: Novell Language <language@novell.com>\n"
@@ -290,11 +290,17 @@ msgid ""
 msgstr ""
 
 #. TRANSLATORS %s is the name of the device to be deleted (e.g., /dev/sda1)
-#: src/lib/y2partitioner/actions/delete_device.rb:109
+#: src/lib/y2partitioner/actions/delete_device.rb:112
 #, fuzzy
 #| msgid "Really delete %1?"
 msgid "Really delete %s?"
 msgstr "Uyayicima ngenene i-`%1`?"
+
+#. TRANSLATORS: Note added to the dialog for trying to unmount a device
+#: src/lib/y2partitioner/actions/delete_device.rb:174
+#, fuzzy
+msgid "It cannot be deleted while mounted."
+msgstr "Isixhobo sacinywa."
 
 #. Error when there is no partition for deleting
 #.
@@ -709,7 +715,7 @@ msgstr ""
 #. TRANSLATORS: %{name} is replaced by a device name (e.g., /dev/sda1).
 #. and %{users} is replaced by a comma-separated list of name devices
 #. (devices using the first one).
-#: src/lib/y2partitioner/actions/resize_blk_device.rb:106
+#: src/lib/y2partitioner/actions/resize_blk_device.rb:115
 #, fuzzy
 msgid ""
 "The device %{name} is in use (%{users}).\n"
@@ -723,7 +729,7 @@ msgstr ""
 #. Error when the filesystem type cannot be resized
 #.
 #. @return [String, nil] nil if the filesystem can be resized.
-#: src/lib/y2partitioner/actions/resize_blk_device.rb:120
+#: src/lib/y2partitioner/actions/resize_blk_device.rb:129
 #, fuzzy
 msgid "This filesystem type cannot be resized."
 msgstr "Isahlulelo esandisiweyo asinakudalwa."
@@ -732,10 +738,19 @@ msgstr "Isahlulelo esandisiweyo asinakudalwa."
 #. This might be a multi-line message reporting more than one reason.
 #.
 #. @return [String, nil] nil if the device can be resized.
-#: src/lib/y2partitioner/actions/resize_blk_device.rb:131
+#: src/lib/y2partitioner/actions/resize_blk_device.rb:140
 #, fuzzy
 msgid "This device cannot be resized:"
 msgstr "Isahlulelo esandisiweyo asinakudalwa."
+
+#. TRANSLATORS: Note added to the dialog for trying to unmount a device
+#: src/lib/y2partitioner/actions/resize_blk_device.rb:155
+#, fuzzy
+#| msgid "It is not possible to create a partition on %1."
+msgid ""
+"It is not possible to check whether a NTFS\n"
+"can be resized while it is mounted."
+msgstr "Akwenzeki ukudala isahlulelo ku %1."
 
 #. Popup to alert the user about using the Partitioner
 #.
@@ -778,24 +793,58 @@ msgstr ""
 
 #. TRANSLATORS: dialog title, where %{name} is the name of a partition
 #. (e.g. /dev/sda1) or LVM logical volume (e.g. /dev/system/home)
-#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:51
+#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:55
 #, fuzzy
 msgid "Resize %{name}"
 msgstr "Phi&nda Wenze Ubukhulu Besahlulelo"
 
 #. TRANSLATORS: label for current size of the partition or LVM logical volume,
 #. where %{size} is replaced by a size (e.g., 5.5 GiB)
-#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:141
+#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:155
 #, fuzzy
 msgid "Current size: %{size}"
 msgstr "Isimo Sangoku: %1"
 
 #. TRANSLATORS: label for currently used size of the partition or LVM volume,
 #. where %{size} is replaced by a size (e.g., 5.5 GiB)
-#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:149
+#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:163
 #, fuzzy
 msgid "Currently used: %{size}"
 msgstr "Isimo Sangoku: %1"
+
+#. TRANSLATORS: Note added to the dialog for trying to unmount a device
+#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:197
+#, fuzzy
+#| msgid "It is not possible to delete a NIS user."
+msgid "It is not possible to shrink the file system while it is mounted."
+msgstr "Yinto enako ukwenzeka ukucima umsebenzisi we-NIS."
+
+#. TRANSLATORS: Note added to the dialog for trying to unmount a device
+#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:210
+#, fuzzy
+#| msgid "It is not possible to delete a NIS user."
+msgid "It is not possible to extend the file system while it is mounted."
+msgstr "Yinto enako ukwenzeka ukucima umsebenzisi we-NIS."
+
+#. TRANSLATORS: Text for the dialog for trying to unmount a device. It is used
+#. when a device is tried to be resized by extending it too much. %1 is replaced
+#. by a number that represents the amount of GiB to extend (e.g., 56).
+#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:226
+msgid ""
+"You are extending a mounted filesystem by %1 Gigabyte. \n"
+"This may be quite slow and can take hours. You might possibly want \n"
+"to consider umounting the filesystem, which will increase speed of \n"
+"resize task a lot."
+msgstr ""
+
+#. TRANSLATORS: Actions explanation when trying to unmount
+#. TRANSLATORS: Actions explanation when continue is allowed.
+#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:237
+#: src/lib/y2partitioner/immediate_unmount.rb:154
+msgid ""
+"You can try to unmount it now, continue without unmounting or cancel.\n"
+"Click Cancel unless you know exactly what you are doing."
+msgstr ""
 
 #. @macro seeAbstractWidget
 #. @macro seeAbstractWidget
@@ -804,8 +853,8 @@ msgstr "Isimo Sangoku: %1"
 #. @macro seeAbstractWidget
 #. @macro seeAbstractWidget
 #. TRANSLATORS: table header, size of block device e.g. "8.00 GiB"
-#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:171
-#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:424
+#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:294
+#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:547
 #: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:71
 #: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:149
 #: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:296
@@ -815,17 +864,17 @@ msgid "Size"
 msgstr "Isayizi"
 
 #. @see Widgets::ControllerRadioButtons
-#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:176
+#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:299
 #, fuzzy
 msgid "Maximum Size (%{size})"
 msgstr "Isayizi ye-Linux (%1)"
 
-#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:177
+#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:300
 #, fuzzy
 msgid "Minimum Size (%{size})"
 msgstr "Isayizi ye-Linux (%1)"
 
-#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:181
+#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:304
 #: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:80
 #: src/lib/y2partitioner/dialogs/partition_size.rb:96
 #, fuzzy
@@ -833,7 +882,7 @@ msgid "Custom Size"
 msgstr "Ubukhulu &Bolungiselo"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:210
+#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:333
 #, fuzzy
 msgid "<p>Choose new size.</p>"
 msgstr ""
@@ -874,7 +923,7 @@ msgstr ""
 #.
 #. @return [Boolean] true if there are no errors or the user
 #. decides to continue despite of the warnings; false otherwise.
-#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:240
+#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:363
 #: src/lib/y2partitioner/dialogs/format_and_mount.rb:91
 #: src/lib/y2partitioner/widgets/md_devices_selector.rb:99
 #, fuzzy
@@ -884,7 +933,7 @@ msgstr "Ingaba ukuzama kwakhona?"
 
 #. TRANSLATORS: error popup message, where %{min} and %{max} are replaced by sizes.
 #. error popup, :min and :max are replaced by sizes
-#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:306
+#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:429
 #: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:173
 #, fuzzy
 msgid "The size entered is invalid. Enter a size between %{min} and %{max}."
@@ -898,7 +947,7 @@ msgstr ""
 #.
 #. @return [String, nil] nil if the device is not a thin pool or it is not
 #. overcommitted.
-#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:356
+#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:479
 msgid ""
 "The LVM thin pool %{name} is overcomitted (needs %{total_thin_size} and only "
 "has %{size}).\n"
@@ -1604,6 +1653,35 @@ msgstr "Isayizi yesahlulelo."
 #: src/lib/y2partitioner/filesystem_role.rb:54
 msgid "Raw Volume (unformatted)"
 msgstr ""
+
+#. TRANSLATORS: Generic message when trying to unmount a device. %1 is replaced
+#. by a mount point path (e.g., /home).
+#: src/lib/y2partitioner/immediate_unmount.rb:130
+#, fuzzy
+msgid "The file system is currently mounted on %1."
+msgstr "Akukho zikhethwa zale modyuli"
+
+#. TRANSLATORS: Actions explanation when continue is not allowed.
+#: src/lib/y2partitioner/immediate_unmount.rb:158
+msgid ""
+"You can try to unmount it now or cancel.\n"
+"Click Cancel unless you know exactly what you are doing."
+msgstr ""
+
+#. Buttons to show for the immediate unmount popup
+#.
+#. @return [Hash<Symbol, String>]
+#: src/lib/y2partitioner/immediate_unmount.rb:171
+#, fuzzy
+#| msgid "Mount"
+msgid "Unmount"
+msgstr "Gxumeka"
+
+#. TRANSLATORS: Error message when the device could not be unmounted
+#: src/lib/y2partitioner/immediate_unmount.rb:196
+#, fuzzy
+msgid "The file system could not be unmounted"
+msgstr "Isahlulelo esandisiweyo asinakudalwa."
 
 #. TRANSLATORS
 #: src/lib/y2partitioner/setup_errors_presenter.rb:71
@@ -6223,10 +6301,6 @@ msgstr "akwaziwa"
 #~ "Shenxisa u %1 ngaphambi kokusicima.\n"
 
 #, fuzzy
-#~ msgid "It cannot be deleted while mounted."
-#~ msgstr "Isixhobo sacinywa."
-
-#, fuzzy
 #~| msgid ""
 #~| "The device (%1) cannot be removed\n"
 #~| "Since it is a logical partition and another logical \n"
@@ -6939,21 +7013,6 @@ msgstr "akwaziwa"
 #~ "Isayizi encinci yesi sixokelelwano singu %2.\n"
 
 #, fuzzy
-#~| msgid "Mount"
-#~ msgid "Unmount"
-#~ msgstr "Gxumeka"
-
-#, fuzzy
-#~| msgid "It is not possible to delete a NIS user."
-#~ msgid "It is not possible to shrink the file system while it is mounted."
-#~ msgstr "Yinto enako ukwenzeka ukucima umsebenzisi we-NIS."
-
-#, fuzzy
-#~| msgid "It is not possible to delete a NIS user."
-#~ msgid "It is not possible to extend the file system while it is mounted."
-#~ msgstr "Yinto enako ukwenzeka ukucima umsebenzisi we-NIS."
-
-#, fuzzy
 #~| msgid "It is not possible to create a partition on %1."
 #~ msgid "It is not possible to resize the file system while it is mounted."
 #~ msgstr "Akwenzeki ukudala isahlulelo ku %1."
@@ -7131,13 +7190,6 @@ msgstr "akwaziwa"
 #~ "Awunako ukutshintsha ubungakanani besahlulelo esikhethiweyo kuba "
 #~ "isixokelelwano sefayili\n"
 #~ " kwesi sahlulelo asikuxhasi ukutshintshwa kobungakanani.\n"
-
-#, fuzzy
-#~| msgid "It is not possible to create a partition on %1."
-#~ msgid ""
-#~ "It is not possible to check whether a NTFS\n"
-#~ "can be resized while it is mounted."
-#~ msgstr "Akwenzeki ukudala isahlulelo ku %1."
 
 #, fuzzy
 #~| msgid ""

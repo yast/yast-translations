@@ -17,7 +17,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: storage\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-09-20 02:29+0000\n"
+"POT-Creation-Date: 2018-09-26 02:29+0000\n"
 "PO-Revision-Date: 2014-09-24 21:00+0200\n"
 "Last-Translator: Jure Repinc <jlp@holodeck1.com>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
@@ -357,11 +357,16 @@ msgid ""
 msgstr ""
 
 #. TRANSLATORS %s is the name of the device to be deleted (e.g., /dev/sda1)
-#: src/lib/y2partitioner/actions/delete_device.rb:109
+#: src/lib/y2partitioner/actions/delete_device.rb:112
 #, fuzzy
 #| msgid "Really delete %1?"
 msgid "Really delete %s?"
 msgstr "Ali res želite izbrisati %1?"
+
+#. TRANSLATORS: Note added to the dialog for trying to unmount a device
+#: src/lib/y2partitioner/actions/delete_device.rb:174
+msgid "It cannot be deleted while mounted."
+msgstr "Če je razdelek priklopljen, ga ni moč izbrisati."
 
 #. Error when there is no partition for deleting
 #.
@@ -839,7 +844,7 @@ msgstr ""
 #. TRANSLATORS: %{name} is replaced by a device name (e.g., /dev/sda1).
 #. and %{users} is replaced by a comma-separated list of name devices
 #. (devices using the first one).
-#: src/lib/y2partitioner/actions/resize_blk_device.rb:106
+#: src/lib/y2partitioner/actions/resize_blk_device.rb:115
 #, fuzzy
 #| msgid ""
 #| "The RAID %1 is in use. It cannot be\n"
@@ -855,7 +860,7 @@ msgstr ""
 #. Error when the filesystem type cannot be resized
 #.
 #. @return [String, nil] nil if the filesystem can be resized.
-#: src/lib/y2partitioner/actions/resize_blk_device.rb:120
+#: src/lib/y2partitioner/actions/resize_blk_device.rb:129
 #, fuzzy
 #| msgid "An extended partition cannot be resized."
 msgid "This filesystem type cannot be resized."
@@ -865,11 +870,20 @@ msgstr "Razširjenemu razdelku ni moč spreminjati velikosti."
 #. This might be a multi-line message reporting more than one reason.
 #.
 #. @return [String, nil] nil if the device can be resized.
-#: src/lib/y2partitioner/actions/resize_blk_device.rb:131
+#: src/lib/y2partitioner/actions/resize_blk_device.rb:140
 #, fuzzy
 #| msgid "An extended partition cannot be resized."
 msgid "This device cannot be resized:"
 msgstr "Razširjenemu razdelku ni moč spreminjati velikosti."
+
+#. TRANSLATORS: Note added to the dialog for trying to unmount a device
+#: src/lib/y2partitioner/actions/resize_blk_device.rb:155
+msgid ""
+"It is not possible to check whether a NTFS\n"
+"can be resized while it is mounted."
+msgstr ""
+"Ko je razdelek NTFS priklopljen, ni mogoče preveriti\n"
+" ali mu je možno spremeniti velikost."
 
 #. Popup to alert the user about using the Partitioner
 #.
@@ -912,7 +926,7 @@ msgstr ""
 
 #. TRANSLATORS: dialog title, where %{name} is the name of a partition
 #. (e.g. /dev/sda1) or LVM logical volume (e.g. /dev/system/home)
-#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:51
+#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:55
 #, fuzzy
 #| msgid "Resize Partition %1"
 msgid "Resize %{name}"
@@ -920,7 +934,7 @@ msgstr "Spremeni velikost razdelka %1"
 
 #. TRANSLATORS: label for current size of the partition or LVM logical volume,
 #. where %{size} is replaced by a size (e.g., 5.5 GiB)
-#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:141
+#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:155
 #, fuzzy
 #| msgid "Current size: %1"
 msgid "Current size: %{size}"
@@ -928,11 +942,46 @@ msgstr "Trenutna velikost:: %1"
 
 #. TRANSLATORS: label for currently used size of the partition or LVM volume,
 #. where %{size} is replaced by a size (e.g., 5.5 GiB)
-#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:149
+#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:163
 #, fuzzy
 #| msgid "Currently used: %1"
 msgid "Currently used: %{size}"
 msgstr "Trenutno uporabljeno: %1"
+
+#. TRANSLATORS: Note added to the dialog for trying to unmount a device
+#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:197
+msgid "It is not possible to shrink the file system while it is mounted."
+msgstr "Če je datotečni sistem priklopljen, da ni mogoče skrčiti."
+
+#. TRANSLATORS: Note added to the dialog for trying to unmount a device
+#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:210
+msgid "It is not possible to extend the file system while it is mounted."
+msgstr "Če je datotečni sistem priklopljen, da ni mogoče razširiti."
+
+#. TRANSLATORS: Text for the dialog for trying to unmount a device. It is used
+#. when a device is tried to be resized by extending it too much. %1 is replaced
+#. by a number that represents the amount of GiB to extend (e.g., 56).
+#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:226
+msgid ""
+"You are extending a mounted filesystem by %1 Gigabyte. \n"
+"This may be quite slow and can take hours. You might possibly want \n"
+"to consider umounting the filesystem, which will increase speed of \n"
+"resize task a lot."
+msgstr ""
+"Priklopljen datotečni sistem boste razširili za %1 gigabajtov.\n"
+"To je lahko zelo počasno in lahko traja več ur. Morda bi želeli\n"
+"odklopiti datotečni sistem, kar bo zelo pohitrilo spreminjanje velikosti."
+
+#. TRANSLATORS: Actions explanation when trying to unmount
+#. TRANSLATORS: Actions explanation when continue is allowed.
+#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:237
+#: src/lib/y2partitioner/immediate_unmount.rb:154
+msgid ""
+"You can try to unmount it now, continue without unmounting or cancel.\n"
+"Click Cancel unless you know exactly what you are doing."
+msgstr ""
+"Lahko ga poskusite odklopiti, nadaljujete brez odklapljanja ali prekličete.\n"
+"Kliknite Prekliči, razen če točno veste, kaj počnete."
 
 #. @macro seeAbstractWidget
 #. @macro seeAbstractWidget
@@ -941,8 +990,8 @@ msgstr "Trenutno uporabljeno: %1"
 #. @macro seeAbstractWidget
 #. @macro seeAbstractWidget
 #. TRANSLATORS: table header, size of block device e.g. "8.00 GiB"
-#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:171
-#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:424
+#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:294
+#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:547
 #: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:71
 #: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:149
 #: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:296
@@ -952,26 +1001,26 @@ msgid "Size"
 msgstr "Velikost"
 
 #. @see Widgets::ControllerRadioButtons
-#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:176
+#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:299
 #, fuzzy
 #| msgid "Maximum Size (%1)"
 msgid "Maximum Size (%{size})"
 msgstr "Največja velikost (%1)"
 
-#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:177
+#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:300
 #, fuzzy
 #| msgid "Minimum Size (%1)"
 msgid "Minimum Size (%{size})"
 msgstr "Najmanjša velikost (%1)"
 
-#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:181
+#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:304
 #: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:80
 #: src/lib/y2partitioner/dialogs/partition_size.rb:96
 msgid "Custom Size"
 msgstr "Velikost po meri"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:210
+#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:333
 msgid "<p>Choose new size.</p>"
 msgstr "<p>Izberite novo velikost.</p>"
 
@@ -1008,7 +1057,7 @@ msgstr "<p>Izberite novo velikost.</p>"
 #.
 #. @return [Boolean] true if there are no errors or the user
 #. decides to continue despite of the warnings; false otherwise.
-#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:240
+#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:363
 #: src/lib/y2partitioner/dialogs/format_and_mount.rb:91
 #: src/lib/y2partitioner/widgets/md_devices_selector.rb:99
 #, fuzzy
@@ -1018,7 +1067,7 @@ msgstr "Ali želite podati šifrirna gesla?"
 
 #. TRANSLATORS: error popup message, where %{min} and %{max} are replaced by sizes.
 #. error popup, :min and :max are replaced by sizes
-#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:306
+#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:429
 #: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:173
 #, fuzzy
 #| msgid "The size entered is invalid. Enter a size between %1 and %2."
@@ -1031,7 +1080,7 @@ msgstr "Vnesena velikost je neveljavna. Vnesite velikost od %1 do %2."
 #.
 #. @return [String, nil] nil if the device is not a thin pool or it is not
 #. overcommitted.
-#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:356
+#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:479
 msgid ""
 "The LVM thin pool %{name} is overcomitted (needs %{total_thin_size} and only "
 "has %{size}).\n"
@@ -1758,6 +1807,37 @@ msgstr "Sformatiraj razdelek"
 #: src/lib/y2partitioner/filesystem_role.rb:54
 msgid "Raw Volume (unformatted)"
 msgstr ""
+
+#. TRANSLATORS: Generic message when trying to unmount a device. %1 is replaced
+#. by a mount point path (e.g., /home).
+#: src/lib/y2partitioner/immediate_unmount.rb:130
+#, fuzzy
+#| msgid "The file system is currently mounted on %1."
+msgid "The file system is currently mounted on %1."
+msgstr "Datotečni sistem je trenutno priklopljen v %1."
+
+#. TRANSLATORS: Actions explanation when continue is not allowed.
+#: src/lib/y2partitioner/immediate_unmount.rb:158
+msgid ""
+"You can try to unmount it now or cancel.\n"
+"Click Cancel unless you know exactly what you are doing."
+msgstr ""
+"Lahko ga poskusite odklopiti ali prekličete.\n"
+"Kliknite Prekliči, razen če točno veste, kaj počnete."
+
+#. Buttons to show for the immediate unmount popup
+#.
+#. @return [Hash<Symbol, String>]
+#: src/lib/y2partitioner/immediate_unmount.rb:171
+msgid "Unmount"
+msgstr "Odklopi"
+
+#. TRANSLATORS: Error message when the device could not be unmounted
+#: src/lib/y2partitioner/immediate_unmount.rb:196
+#, fuzzy
+#| msgid "An extended partition cannot be resized."
+msgid "The file system could not be unmounted"
+msgstr "Razširjenemu razdelku ni moč spreminjati velikosti."
 
 #. TRANSLATORS
 #: src/lib/y2partitioner/setup_errors_presenter.rb:71
@@ -6436,9 +6516,6 @@ msgstr "neznano"
 #~ "Napravo (%2) uporablja %1.\n"
 #~ "Odstranite %1, preden jo izbrišete.\n"
 
-#~ msgid "It cannot be deleted while mounted."
-#~ msgstr "Če je razdelek priklopljen, ga ni moč izbrisati."
-
 #~ msgid ""
 #~ "The device (%1) cannot be removed since it is a logical partition and \n"
 #~ "another logical partition with a higher number is in use.\n"
@@ -7084,30 +7161,6 @@ msgstr "neznano"
 #~ "\n"
 #~ "Ali res želite uporabiti ta datotečni sistem?\n"
 
-#~ msgid ""
-#~ "You can try to unmount it now, continue without unmounting or cancel.\n"
-#~ "Click Cancel unless you know exactly what you are doing."
-#~ msgstr ""
-#~ "Lahko ga poskusite odklopiti, nadaljujete brez odklapljanja ali "
-#~ "prekličete.\n"
-#~ "Kliknite Prekliči, razen če točno veste, kaj počnete."
-
-#~ msgid "Unmount"
-#~ msgstr "Odklopi"
-
-#~ msgid ""
-#~ "You can try to unmount it now or cancel.\n"
-#~ "Click Cancel unless you know exactly what you are doing."
-#~ msgstr ""
-#~ "Lahko ga poskusite odklopiti ali prekličete.\n"
-#~ "Kliknite Prekliči, razen če točno veste, kaj počnete."
-
-#~ msgid "It is not possible to shrink the file system while it is mounted."
-#~ msgstr "Če je datotečni sistem priklopljen, da ni mogoče skrčiti."
-
-#~ msgid "It is not possible to extend the file system while it is mounted."
-#~ msgstr "Če je datotečni sistem priklopljen, da ni mogoče razširiti."
-
 #~ msgid "It is not possible to resize the file system while it is mounted."
 #~ msgstr ""
 #~ "Če je datotečni sistem priklopljen, mu ni mogoče spremeniti velikosti."
@@ -7277,13 +7330,6 @@ msgstr "neznano"
 #~ "tega ne podpira.\n"
 
 #~ msgid ""
-#~ "It is not possible to check whether a NTFS\n"
-#~ "can be resized while it is mounted."
-#~ msgstr ""
-#~ "Ko je razdelek NTFS priklopljen, ni mogoče preveriti\n"
-#~ " ali mu je možno spremeniti velikost."
-
-#~ msgid ""
 #~ "Partition %1 cannot be resized\n"
 #~ "because the filesystem seems to be inconsistent.\n"
 #~ msgstr ""
@@ -7292,16 +7338,6 @@ msgstr "neznano"
 
 #~ msgid "Resize Logical Volume %1"
 #~ msgstr "Spremeni velikost logičnega nosilca %1"
-
-#~ msgid ""
-#~ "You are extending a mounted filesystem by %1 Gigabyte. \n"
-#~ "This may be quite slow and can take hours. You might possibly want \n"
-#~ "to consider umounting the filesystem, which will increase speed of \n"
-#~ "resize task a lot."
-#~ msgstr ""
-#~ "Priklopljen datotečni sistem boste razširili za %1 gigabajtov.\n"
-#~ "To je lahko zelo počasno in lahko traja več ur. Morda bi želeli\n"
-#~ "odklopiti datotečni sistem, kar bo zelo pohitrilo spreminjanje velikosti."
 
 #~ msgid "Output of %1"
 #~ msgstr "Izhod od %1"

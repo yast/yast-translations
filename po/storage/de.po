@@ -22,7 +22,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: storage-ng.de\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-09-20 02:29+0000\n"
+"POT-Creation-Date: 2018-09-26 02:29+0000\n"
 "PO-Revision-Date: 2018-06-12 10:02+0000\n"
 "Last-Translator: Franziska Weinberger <f.weinberger@gemino.de>\n"
 "Language-Team: German <https://l10n.opensuse.org/projects/yast-storage/"
@@ -328,9 +328,14 @@ msgid ""
 msgstr ""
 
 #. TRANSLATORS %s is the name of the device to be deleted (e.g., /dev/sda1)
-#: src/lib/y2partitioner/actions/delete_device.rb:109
+#: src/lib/y2partitioner/actions/delete_device.rb:112
 msgid "Really delete %s?"
 msgstr "%s wirklich löschen?"
+
+#. TRANSLATORS: Note added to the dialog for trying to unmount a device
+#: src/lib/y2partitioner/actions/delete_device.rb:174
+msgid "It cannot be deleted while mounted."
+msgstr "Sie kann nicht gelöscht werden während sie eingehängt ist."
 
 #. Error when there is no partition for deleting
 #.
@@ -765,7 +770,7 @@ msgstr ""
 #. TRANSLATORS: %{name} is replaced by a device name (e.g., /dev/sda1).
 #. and %{users} is replaced by a comma-separated list of name devices
 #. (devices using the first one).
-#: src/lib/y2partitioner/actions/resize_blk_device.rb:106
+#: src/lib/y2partitioner/actions/resize_blk_device.rb:115
 #, fuzzy
 #| msgid ""
 #| "The device %{name} is in use. It cannot be\n"
@@ -782,7 +787,7 @@ msgstr ""
 #. Error when the filesystem type cannot be resized
 #.
 #. @return [String, nil] nil if the filesystem can be resized.
-#: src/lib/y2partitioner/actions/resize_blk_device.rb:120
+#: src/lib/y2partitioner/actions/resize_blk_device.rb:129
 msgid "This filesystem type cannot be resized."
 msgstr "Die Größe des Dateisystemtyps kann nicht geändert werden."
 
@@ -790,9 +795,18 @@ msgstr "Die Größe des Dateisystemtyps kann nicht geändert werden."
 #. This might be a multi-line message reporting more than one reason.
 #.
 #. @return [String, nil] nil if the device can be resized.
-#: src/lib/y2partitioner/actions/resize_blk_device.rb:131
+#: src/lib/y2partitioner/actions/resize_blk_device.rb:140
 msgid "This device cannot be resized:"
 msgstr "Die Größe des Geräts kann nicht geändert werden:"
+
+#. TRANSLATORS: Note added to the dialog for trying to unmount a device
+#: src/lib/y2partitioner/actions/resize_blk_device.rb:155
+msgid ""
+"It is not possible to check whether a NTFS\n"
+"can be resized while it is mounted."
+msgstr ""
+"Es ist nicht möglich, zu prüfen, ob die Größe eines NTFS-Dateisystems\n"
+"geändert werden kann, während es eingehängt ist."
 
 #. Popup to alert the user about using the Partitioner
 #.
@@ -826,21 +840,60 @@ msgstr "Es wird nichts geschrieben, da keine Übernahme zulässig ist."
 
 #. TRANSLATORS: dialog title, where %{name} is the name of a partition
 #. (e.g. /dev/sda1) or LVM logical volume (e.g. /dev/system/home)
-#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:51
+#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:55
 msgid "Resize %{name}"
 msgstr "Größe von %{name} ändern"
 
 #. TRANSLATORS: label for current size of the partition or LVM logical volume,
 #. where %{size} is replaced by a size (e.g., 5.5 GiB)
-#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:141
+#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:155
 msgid "Current size: %{size}"
 msgstr "Derzeitige Größe: %{size}"
 
 #. TRANSLATORS: label for currently used size of the partition or LVM volume,
 #. where %{size} is replaced by a size (e.g., 5.5 GiB)
-#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:149
+#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:163
 msgid "Currently used: %{size}"
 msgstr "Derzeit benutzt: %{size}"
+
+#. TRANSLATORS: Note added to the dialog for trying to unmount a device
+#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:197
+msgid "It is not possible to shrink the file system while it is mounted."
+msgstr ""
+"Das Dateisystems kann nicht verkleinert werden während es eingehängt ist."
+
+#. TRANSLATORS: Note added to the dialog for trying to unmount a device
+#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:210
+msgid "It is not possible to extend the file system while it is mounted."
+msgstr ""
+"Das Dateisystem kann nicht vergrößert werden während es eingehängt ist."
+
+#. TRANSLATORS: Text for the dialog for trying to unmount a device. It is used
+#. when a device is tried to be resized by extending it too much. %1 is replaced
+#. by a number that represents the amount of GiB to extend (e.g., 56).
+#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:226
+msgid ""
+"You are extending a mounted filesystem by %1 Gigabyte. \n"
+"This may be quite slow and can take hours. You might possibly want \n"
+"to consider umounting the filesystem, which will increase speed of \n"
+"resize task a lot."
+msgstr ""
+"Sie vergrößern ein eingehängtes Dateisystem um %1 Gigabyte.\n"
+"Das kann sehr langsam sein und Stunden dauern. Ziehen Sie in Betracht,\n"
+"das Dateisystem auszuhängen, was die Geschwindigkeit des Vorgangs\n"
+"enorm erhöhen würde."
+
+#. TRANSLATORS: Actions explanation when trying to unmount
+#. TRANSLATORS: Actions explanation when continue is allowed.
+#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:237
+#: src/lib/y2partitioner/immediate_unmount.rb:154
+msgid ""
+"You can try to unmount it now, continue without unmounting or cancel.\n"
+"Click Cancel unless you know exactly what you are doing."
+msgstr ""
+"Sie können versuchen, es auszuhängen (unmount), weitermachen ohne es "
+"auszuhängen\n"
+"oder abbrechen. Klicken Sie auf 'Abbrechen' falls Sie sich nicht sicher sind."
 
 #. @macro seeAbstractWidget
 #. @macro seeAbstractWidget
@@ -849,8 +902,8 @@ msgstr "Derzeit benutzt: %{size}"
 #. @macro seeAbstractWidget
 #. @macro seeAbstractWidget
 #. TRANSLATORS: table header, size of block device e.g. "8.00 GiB"
-#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:171
-#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:424
+#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:294
+#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:547
 #: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:71
 #: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:149
 #: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:296
@@ -860,22 +913,22 @@ msgid "Size"
 msgstr "Größe"
 
 #. @see Widgets::ControllerRadioButtons
-#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:176
+#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:299
 msgid "Maximum Size (%{size})"
 msgstr "Maximale Größe (%{size})"
 
-#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:177
+#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:300
 msgid "Minimum Size (%{size})"
 msgstr "Minimale Größe (%{size})"
 
-#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:181
+#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:304
 #: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:80
 #: src/lib/y2partitioner/dialogs/partition_size.rb:96
 msgid "Custom Size"
 msgstr "Benutzerdefinierte Größe"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:210
+#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:333
 msgid "<p>Choose new size.</p>"
 msgstr "<p>Wählen Sie die neue Größe .</p>"
 
@@ -912,7 +965,7 @@ msgstr "<p>Wählen Sie die neue Größe .</p>"
 #.
 #. @return [Boolean] true if there are no errors or the user
 #. decides to continue despite of the warnings; false otherwise.
-#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:240
+#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:363
 #: src/lib/y2partitioner/dialogs/format_and_mount.rb:91
 #: src/lib/y2partitioner/widgets/md_devices_selector.rb:99
 msgid "Do you want to continue with the current setup?"
@@ -920,7 +973,7 @@ msgstr "Möchten Sie mit dem aktuellen Setup fortfahren?"
 
 #. TRANSLATORS: error popup message, where %{min} and %{max} are replaced by sizes.
 #. error popup, :min and :max are replaced by sizes
-#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:306
+#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:429
 #: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:173
 msgid "The size entered is invalid. Enter a size between %{min} and %{max}."
 msgstr ""
@@ -933,7 +986,7 @@ msgstr ""
 #.
 #. @return [String, nil] nil if the device is not a thin pool or it is not
 #. overcommitted.
-#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:356
+#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:479
 msgid ""
 "The LVM thin pool %{name} is overcomitted (needs %{total_thin_size} and only "
 "has %{size}).\n"
@@ -1582,6 +1635,37 @@ msgstr "EFI-Boot-Partition"
 #: src/lib/y2partitioner/filesystem_role.rb:54
 msgid "Raw Volume (unformatted)"
 msgstr "Raw Volume (unformatiert)"
+
+#. TRANSLATORS: Generic message when trying to unmount a device. %1 is replaced
+#. by a mount point path (e.g., /home).
+#: src/lib/y2partitioner/immediate_unmount.rb:130
+#, fuzzy
+#| msgid "The filesystem is full."
+msgid "The file system is currently mounted on %1."
+msgstr "Das Dateisystem ist voll."
+
+#. TRANSLATORS: Actions explanation when continue is not allowed.
+#: src/lib/y2partitioner/immediate_unmount.rb:158
+msgid ""
+"You can try to unmount it now or cancel.\n"
+"Click Cancel unless you know exactly what you are doing."
+msgstr ""
+"Sie können versuchen, es auszuhängen, oder abbrechen.\n"
+"Klicken Sie auf 'Abbrechen' falls Sie sich nicht sicher sind."
+
+#. Buttons to show for the immediate unmount popup
+#.
+#. @return [Hash<Symbol, String>]
+#: src/lib/y2partitioner/immediate_unmount.rb:171
+msgid "Unmount"
+msgstr "Aushängen"
+
+#. TRANSLATORS: Error message when the device could not be unmounted
+#: src/lib/y2partitioner/immediate_unmount.rb:196
+#, fuzzy
+#| msgid "This filesystem type cannot be resized."
+msgid "The file system could not be unmounted"
+msgstr "Die Größe des Dateisystemtyps kann nicht geändert werden."
 
 #. TRANSLATORS
 #: src/lib/y2partitioner/setup_errors_presenter.rb:71
@@ -6037,9 +6121,6 @@ msgstr "Unbekannter Grund"
 #~ "Das Gerät (%2) wird von %1 verwendet.\n"
 #~ "Entfernen Sie %1 vor dem Löschen.\n"
 
-#~ msgid "It cannot be deleted while mounted."
-#~ msgstr "Sie kann nicht gelöscht werden während sie eingehängt ist."
-
 #~ msgid ""
 #~ "The device (%1) cannot be removed since it is a logical partition and \n"
 #~ "another logical partition with a higher number is in use.\n"
@@ -6712,33 +6793,6 @@ msgstr "Unbekannter Grund"
 #~ "\n"
 #~ "Wollen Sie dieses Dateisystem wirklich nutzen?\n"
 
-#~ msgid ""
-#~ "You can try to unmount it now, continue without unmounting or cancel.\n"
-#~ "Click Cancel unless you know exactly what you are doing."
-#~ msgstr ""
-#~ "Sie können versuchen, es auszuhängen (unmount), weitermachen ohne es "
-#~ "auszuhängen\n"
-#~ "oder abbrechen. Klicken Sie auf 'Abbrechen' falls Sie sich nicht sicher "
-#~ "sind."
-
-#~ msgid "Unmount"
-#~ msgstr "Aushängen"
-
-#~ msgid ""
-#~ "You can try to unmount it now or cancel.\n"
-#~ "Click Cancel unless you know exactly what you are doing."
-#~ msgstr ""
-#~ "Sie können versuchen, es auszuhängen, oder abbrechen.\n"
-#~ "Klicken Sie auf 'Abbrechen' falls Sie sich nicht sicher sind."
-
-#~ msgid "It is not possible to shrink the file system while it is mounted."
-#~ msgstr ""
-#~ "Das Dateisystems kann nicht verkleinert werden während es eingehängt ist."
-
-#~ msgid "It is not possible to extend the file system while it is mounted."
-#~ msgstr ""
-#~ "Das Dateisystem kann nicht vergrößert werden während es eingehängt ist."
-
 #~ msgid "It is not possible to resize the file system while it is mounted."
 #~ msgstr ""
 #~ "Die Größe des Dateisystems kann nicht verändert werden während es "
@@ -6919,13 +6973,6 @@ msgstr "Unbekannter Grund"
 #~ "Partition keine Größenänderungen unterstützt.\n"
 
 #~ msgid ""
-#~ "It is not possible to check whether a NTFS\n"
-#~ "can be resized while it is mounted."
-#~ msgstr ""
-#~ "Es ist nicht möglich, zu prüfen, ob die Größe eines NTFS-Dateisystems\n"
-#~ "geändert werden kann, während es eingehängt ist."
-
-#~ msgid ""
 #~ "Partition %1 cannot be resized\n"
 #~ "because the filesystem seems to be inconsistent.\n"
 #~ msgstr ""
@@ -6934,17 +6981,6 @@ msgstr "Unbekannter Grund"
 
 #~ msgid "Resize Logical Volume %1"
 #~ msgstr "Größe des logischen Volumes %1 ändern"
-
-#~ msgid ""
-#~ "You are extending a mounted filesystem by %1 Gigabyte. \n"
-#~ "This may be quite slow and can take hours. You might possibly want \n"
-#~ "to consider umounting the filesystem, which will increase speed of \n"
-#~ "resize task a lot."
-#~ msgstr ""
-#~ "Sie vergrößern ein eingehängtes Dateisystem um %1 Gigabyte.\n"
-#~ "Das kann sehr langsam sein und Stunden dauern. Ziehen Sie in Betracht,\n"
-#~ "das Dateisystem auszuhängen, was die Geschwindigkeit des Vorgangs\n"
-#~ "enorm erhöhen würde."
 
 #~ msgid "Output of %1"
 #~ msgstr "Ausgabe von %1"

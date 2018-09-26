@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: storage-ng.ko\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-09-20 02:29+0000\n"
+"POT-Creation-Date: 2018-09-26 02:29+0000\n"
 "PO-Revision-Date: 2018-06-12 11:03+0000\n"
 "Last-Translator: Hwajin Kim <hwajin.kim@e4net.net>\n"
 "Language-Team: Korean <https://l10n.opensuse.org/projects/yast-storage/"
@@ -314,9 +314,14 @@ msgid ""
 msgstr ""
 
 #. TRANSLATORS %s is the name of the device to be deleted (e.g., /dev/sda1)
-#: src/lib/y2partitioner/actions/delete_device.rb:109
+#: src/lib/y2partitioner/actions/delete_device.rb:112
 msgid "Really delete %s?"
 msgstr "%s을(를) 삭제하시겠습니까?"
+
+#. TRANSLATORS: Note added to the dialog for trying to unmount a device
+#: src/lib/y2partitioner/actions/delete_device.rb:174
+msgid "It cannot be deleted while mounted."
+msgstr "마운트된 동안에는 삭제할 수 없습니다."
 
 # To translators: label message
 #. Error when there is no partition for deleting
@@ -744,7 +749,7 @@ msgstr ""
 #. TRANSLATORS: %{name} is replaced by a device name (e.g., /dev/sda1).
 #. and %{users} is replaced by a comma-separated list of name devices
 #. (devices using the first one).
-#: src/lib/y2partitioner/actions/resize_blk_device.rb:106
+#: src/lib/y2partitioner/actions/resize_blk_device.rb:115
 #, fuzzy
 #| msgid ""
 #| "The device %{name} is in use. It cannot be\n"
@@ -760,7 +765,7 @@ msgstr ""
 #. Error when the filesystem type cannot be resized
 #.
 #. @return [String, nil] nil if the filesystem can be resized.
-#: src/lib/y2partitioner/actions/resize_blk_device.rb:120
+#: src/lib/y2partitioner/actions/resize_blk_device.rb:129
 msgid "This filesystem type cannot be resized."
 msgstr "이 파일 시스템 유형은 크기를 조정할 수 없습니다."
 
@@ -768,9 +773,18 @@ msgstr "이 파일 시스템 유형은 크기를 조정할 수 없습니다."
 #. This might be a multi-line message reporting more than one reason.
 #.
 #. @return [String, nil] nil if the device can be resized.
-#: src/lib/y2partitioner/actions/resize_blk_device.rb:131
+#: src/lib/y2partitioner/actions/resize_blk_device.rb:140
 msgid "This device cannot be resized:"
 msgstr "이 장치는 크기를 조정할 수 없습니다."
+
+#. TRANSLATORS: Note added to the dialog for trying to unmount a device
+#: src/lib/y2partitioner/actions/resize_blk_device.rb:155
+msgid ""
+"It is not possible to check whether a NTFS\n"
+"can be resized while it is mounted."
+msgstr ""
+"마운트된 동안에는 NTFS 크기를 조정할 수 있는지\n"
+"여부를 확인할 수 없습니다."
 
 #. Popup to alert the user about using the Partitioner
 #.
@@ -803,23 +817,59 @@ msgstr "커밋이 허용되지 않기 때문에 아무것도 기록되지 않습
 
 #. TRANSLATORS: dialog title, where %{name} is the name of a partition
 #. (e.g. /dev/sda1) or LVM logical volume (e.g. /dev/system/home)
-#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:51
+#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:55
 msgid "Resize %{name}"
 msgstr "%{name} 크기 조정"
 
 # heading / label
 #. TRANSLATORS: label for current size of the partition or LVM logical volume,
 #. where %{size} is replaced by a size (e.g., 5.5 GiB)
-#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:141
+#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:155
 msgid "Current size: %{size}"
 msgstr "현재 크기: %{size}"
 
 # table header
 #. TRANSLATORS: label for currently used size of the partition or LVM volume,
 #. where %{size} is replaced by a size (e.g., 5.5 GiB)
-#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:149
+#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:163
 msgid "Currently used: %{size}"
 msgstr "현재 사용량: %{size}"
+
+#. TRANSLATORS: Note added to the dialog for trying to unmount a device
+#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:197
+msgid "It is not possible to shrink the file system while it is mounted."
+msgstr "마운트된 동안에는 파일 시스템을 축소할 수 없습니다."
+
+#. TRANSLATORS: Note added to the dialog for trying to unmount a device
+#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:210
+msgid "It is not possible to extend the file system while it is mounted."
+msgstr "마운트된 동안에는 파일 시스템을 확장할 수 없습니다."
+
+#. TRANSLATORS: Text for the dialog for trying to unmount a device. It is used
+#. when a device is tried to be resized by extending it too much. %1 is replaced
+#. by a number that represents the amount of GiB to extend (e.g., 56).
+#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:226
+msgid ""
+"You are extending a mounted filesystem by %1 Gigabyte. \n"
+"This may be quite slow and can take hours. You might possibly want \n"
+"to consider umounting the filesystem, which will increase speed of \n"
+"resize task a lot."
+msgstr ""
+"마운트된 파일 시스템을 %1GB만큼 확장합니다. \n"
+"작업 속도가 느리고 몇 시간이 걸릴 수도 있습니다. 파일 시스템을 \n"
+"마운트 해제하면 크기 조정 작업 속도가 향상됩니다."
+
+#. TRANSLATORS: Actions explanation when trying to unmount
+#. TRANSLATORS: Actions explanation when continue is allowed.
+#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:237
+#: src/lib/y2partitioner/immediate_unmount.rb:154
+msgid ""
+"You can try to unmount it now, continue without unmounting or cancel.\n"
+"Click Cancel unless you know exactly what you are doing."
+msgstr ""
+"지금 마운트 해제를 시도하거나, 마운트 해제하지 않고 계속하거나, 취소할 수 있"
+"습니다.\n"
+"수행 중인 작업을 정확히 모르는 경우 [취소]를 클릭하십시오."
 
 # label text
 # table column headings
@@ -830,8 +880,8 @@ msgstr "현재 사용량: %{size}"
 #. @macro seeAbstractWidget
 #. @macro seeAbstractWidget
 #. TRANSLATORS: table header, size of block device e.g. "8.00 GiB"
-#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:171
-#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:424
+#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:294
+#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:547
 #: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:71
 #: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:149
 #: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:296
@@ -842,23 +892,23 @@ msgstr "크기"
 
 # IntField - max. log size
 #. @see Widgets::ControllerRadioButtons
-#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:176
+#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:299
 msgid "Maximum Size (%{size})"
 msgstr "최대 크기(%{size})"
 
 # IntField - max. log size
-#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:177
+#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:300
 msgid "Minimum Size (%{size})"
 msgstr "최소 크기(%{size})"
 
-#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:181
+#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:304
 #: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:80
 #: src/lib/y2partitioner/dialogs/partition_size.rb:96
 msgid "Custom Size"
 msgstr "사용자 정의 크기"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:210
+#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:333
 msgid "<p>Choose new size.</p>"
 msgstr "<p>새 크기를 선택하세요.</p>"
 
@@ -895,7 +945,7 @@ msgstr "<p>새 크기를 선택하세요.</p>"
 #.
 #. @return [Boolean] true if there are no errors or the user
 #. decides to continue despite of the warnings; false otherwise.
-#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:240
+#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:363
 #: src/lib/y2partitioner/dialogs/format_and_mount.rb:91
 #: src/lib/y2partitioner/widgets/md_devices_selector.rb:99
 msgid "Do you want to continue with the current setup?"
@@ -903,7 +953,7 @@ msgstr "현재 설정을 계속하시겠습니까?"
 
 #. TRANSLATORS: error popup message, where %{min} and %{max} are replaced by sizes.
 #. error popup, :min and :max are replaced by sizes
-#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:306
+#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:429
 #: src/lib/y2partitioner/dialogs/lvm_lv_size.rb:173
 msgid "The size entered is invalid. Enter a size between %{min} and %{max}."
 msgstr ""
@@ -915,7 +965,7 @@ msgstr ""
 #.
 #. @return [String, nil] nil if the device is not a thin pool or it is not
 #. overcommitted.
-#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:356
+#: src/lib/y2partitioner/dialogs/blk_device_resize.rb:479
 msgid ""
 "The LVM thin pool %{name} is overcomitted (needs %{total_thin_size} and only "
 "has %{size}).\n"
@@ -1565,6 +1615,37 @@ msgstr "EFI 부트 파티션"
 #: src/lib/y2partitioner/filesystem_role.rb:54
 msgid "Raw Volume (unformatted)"
 msgstr "원시 볼륨(포맷되지 않음)"
+
+#. TRANSLATORS: Generic message when trying to unmount a device. %1 is replaced
+#. by a mount point path (e.g., /home).
+#: src/lib/y2partitioner/immediate_unmount.rb:130
+#, fuzzy
+#| msgid "The filesystem is full."
+msgid "The file system is currently mounted on %1."
+msgstr "파일 시스템이 꽉 찼습니다."
+
+#. TRANSLATORS: Actions explanation when continue is not allowed.
+#: src/lib/y2partitioner/immediate_unmount.rb:158
+msgid ""
+"You can try to unmount it now or cancel.\n"
+"Click Cancel unless you know exactly what you are doing."
+msgstr ""
+"지금 마운트 해제를 시도하거나 취소할 수 있습니다.\n"
+"수행 중인 작업을 정확히 모르는 경우 [취소]를 클릭하십시오."
+
+#. Buttons to show for the immediate unmount popup
+#.
+#. @return [Hash<Symbol, String>]
+#: src/lib/y2partitioner/immediate_unmount.rb:171
+msgid "Unmount"
+msgstr "탑재 해제"
+
+#. TRANSLATORS: Error message when the device could not be unmounted
+#: src/lib/y2partitioner/immediate_unmount.rb:196
+#, fuzzy
+#| msgid "This filesystem type cannot be resized."
+msgid "The file system could not be unmounted"
+msgstr "이 파일 시스템 유형은 크기를 조정할 수 없습니다."
 
 #. TRANSLATORS
 #: src/lib/y2partitioner/setup_errors_presenter.rb:71
@@ -6078,9 +6159,6 @@ msgstr "알 수 없는 이유"
 #~ "장치(%2)를 %1에서 사용하고 있습니다.\n"
 #~ "삭제하기 전에 먼저 %1을(를) 제거하십시오.\n"
 
-#~ msgid "It cannot be deleted while mounted."
-#~ msgstr "마운트된 동안에는 삭제할 수 없습니다."
-
 #~ msgid ""
 #~ "The device (%1) cannot be removed since it is a logical partition and \n"
 #~ "another logical partition with a higher number is in use.\n"
@@ -6740,30 +6818,6 @@ msgstr "알 수 없는 이유"
 #~ "\n"
 #~ "이 파일 시스템을 사용하시겠습니까?\n"
 
-#~ msgid ""
-#~ "You can try to unmount it now, continue without unmounting or cancel.\n"
-#~ "Click Cancel unless you know exactly what you are doing."
-#~ msgstr ""
-#~ "지금 마운트 해제를 시도하거나, 마운트 해제하지 않고 계속하거나, 취소할 수 "
-#~ "있습니다.\n"
-#~ "수행 중인 작업을 정확히 모르는 경우 [취소]를 클릭하십시오."
-
-#~ msgid "Unmount"
-#~ msgstr "탑재 해제"
-
-#~ msgid ""
-#~ "You can try to unmount it now or cancel.\n"
-#~ "Click Cancel unless you know exactly what you are doing."
-#~ msgstr ""
-#~ "지금 마운트 해제를 시도하거나 취소할 수 있습니다.\n"
-#~ "수행 중인 작업을 정확히 모르는 경우 [취소]를 클릭하십시오."
-
-#~ msgid "It is not possible to shrink the file system while it is mounted."
-#~ msgstr "마운트된 동안에는 파일 시스템을 축소할 수 없습니다."
-
-#~ msgid "It is not possible to extend the file system while it is mounted."
-#~ msgstr "마운트된 동안에는 파일 시스템을 확장할 수 없습니다."
-
 #~ msgid "It is not possible to resize the file system while it is mounted."
 #~ msgstr "마운트된 동안에는 파일 시스템의 크기를 조정할 수 없습니다."
 
@@ -6939,13 +6993,6 @@ msgstr "알 수 없는 이유"
 #~ " 파티션의 크기를 조정할 수 없습니다.\n"
 
 #~ msgid ""
-#~ "It is not possible to check whether a NTFS\n"
-#~ "can be resized while it is mounted."
-#~ msgstr ""
-#~ "마운트된 동안에는 NTFS 크기를 조정할 수 있는지\n"
-#~ "여부를 확인할 수 없습니다."
-
-#~ msgid ""
 #~ "Partition %1 cannot be resized\n"
 #~ "because the filesystem seems to be inconsistent.\n"
 #~ msgstr ""
@@ -6954,16 +7001,6 @@ msgstr "알 수 없는 이유"
 
 #~ msgid "Resize Logical Volume %1"
 #~ msgstr "%1 논리 볼륨 크기 조정"
-
-#~ msgid ""
-#~ "You are extending a mounted filesystem by %1 Gigabyte. \n"
-#~ "This may be quite slow and can take hours. You might possibly want \n"
-#~ "to consider umounting the filesystem, which will increase speed of \n"
-#~ "resize task a lot."
-#~ msgstr ""
-#~ "마운트된 파일 시스템을 %1GB만큼 확장합니다. \n"
-#~ "작업 속도가 느리고 몇 시간이 걸릴 수도 있습니다. 파일 시스템을 \n"
-#~ "마운트 해제하면 크기 조정 작업 속도가 향상됩니다."
 
 #~ msgid "Output of %1"
 #~ msgstr "%1 의 출력"
