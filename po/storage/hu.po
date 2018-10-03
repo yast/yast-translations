@@ -18,7 +18,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: storage\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-02 02:29+0000\n"
+"POT-Creation-Date: 2018-10-03 02:29+0000\n"
 "PO-Revision-Date: 2018-06-12 10:03+0000\n"
 "Last-Translator: Robert Taisz <robert.taisz@emerald.hu>\n"
 "Language-Team: Hungarian <https://l10n.opensuse.org/projects/yast-storage/"
@@ -89,7 +89,7 @@ msgstr "Nem lehet partíciót létrehozni a(z) %{name} eszközön."
 #. Error message when the device has no partition table
 #.
 #. @return [String, nil] nil if the device has partition table.
-#: src/lib/y2partitioner/actions/clone_partition_table.rb:91
+#: src/lib/y2partitioner/actions/clone_partition_table.rb:93
 #, fuzzy
 #| msgid ""
 #| "There are no partitions on this disk, but a clonable\n"
@@ -107,7 +107,7 @@ msgstr ""
 #. Error message when there are no suitable devices where to clone the device
 #.
 #. @return [String, nil] nil if there are suitable devices.
-#: src/lib/y2partitioner/actions/clone_partition_table.rb:102
+#: src/lib/y2partitioner/actions/clone_partition_table.rb:104
 #, fuzzy
 #| msgid ""
 #| "This disk cannot be cloned. There are no suitable\n"
@@ -277,7 +277,7 @@ msgid "Edit devices of RAID %s"
 msgstr "%s RAID szerkesztése"
 
 #. TRANSLATORS: %s is a device name (e.g. "/dev/sda")
-#: src/lib/y2partitioner/actions/create_partition_table.rb:92
+#: src/lib/y2partitioner/actions/create_partition_table.rb:93
 msgid "It is not possible to create a new partition table on %s."
 msgstr "Nem lehet új partíciós táblát létrehozni a(z) %s eszközön."
 
@@ -285,14 +285,19 @@ msgstr "Nem lehet új partíciós táblát létrehozni a(z) %s eszközön."
 #. @see DeleteDevices#confirm
 #.
 #. @return [Boolean]
-#: src/lib/y2partitioner/actions/create_partition_table.rb:132
+#. @see DeleteDevices#confirm
+#.
+#. @return [Boolean]
+#: src/lib/y2partitioner/actions/create_partition_table.rb:133
+#: src/lib/y2partitioner/actions/delete_lvm_lvs.rb:71
 #: src/lib/y2partitioner/actions/delete_partitions.rb:106
 #, fuzzy
 #| msgid "Confirm Deleting of All Partitions"
 msgid "Confirm Deleting of Current Devices"
 msgstr "Összes partíció törlésének jóváhagyása"
 
-#: src/lib/y2partitioner/actions/create_partition_table.rb:133
+#: src/lib/y2partitioner/actions/create_partition_table.rb:134
+#: src/lib/y2partitioner/actions/delete_lvm_lvs.rb:72
 #: src/lib/y2partitioner/actions/delete_partitions.rb:107
 #, fuzzy
 #| msgid ""
@@ -304,7 +309,7 @@ msgstr ""
 "Ha folytatja, a következő eszközök törölve lesznek:"
 
 #. TRANSLATORS %s is the disk device name ("/dev/sda" or similar)
-#: src/lib/y2partitioner/actions/create_partition_table.rb:135
+#: src/lib/y2partitioner/actions/create_partition_table.rb:136
 #, fuzzy
 #| msgid "Really create a new partition table on %s?"
 msgid "Really create a new partition table on %s"
@@ -313,7 +318,7 @@ msgstr "Biztos, hogy törli az új partíciós táblát a(z) %s eszközön?"
 #. TRANSLATORS: the first %s is replaced by the type of the filesystem
 #. (for example, "Btrfs" or "Ext2"), the second one by the disk device name
 #. ("/dev/sda" or similar).
-#: src/lib/y2partitioner/actions/create_partition_table.rb:156
+#: src/lib/y2partitioner/actions/create_partition_table.rb:157
 msgid ""
 "This will delete all data from the %s file system in the device.\n"
 "\n"
@@ -404,6 +409,22 @@ msgid "Really delete the thin pool \"%{name}\" and all related thin volumes?"
 msgstr ""
 "Biztos, hogy törli a(z) \"%{name}\" vékony készletet és az összes hozzá "
 "tartozó vékony kötetet?"
+
+#. TRANSLATORS: Error when trying to delete LVs from an empty VG
+#: src/lib/y2partitioner/actions/delete_lvm_lvs.rb:62
+#, fuzzy
+#| msgid "Really delete volume group \"%s\" and all related logical volumes?"
+msgid "The volume group does not contain logical volumes."
+msgstr ""
+"Biztos, hogy törli a(z) \"%s\" kötetcsoportot és az összes hozzá tartozó "
+"logikai kötetet?"
+
+#: src/lib/y2partitioner/actions/delete_lvm_lvs.rb:73
+#: src/lib/y2partitioner/actions/delete_partitions.rb:108
+#, fuzzy
+#| msgid "Really delete these devices?"
+msgid "Really delete all these devices?"
+msgstr "Biztos, hogy törli ezeket az eszközöket?"
 
 #. Confirmation when the device contains logical volumes
 #.
@@ -591,12 +612,6 @@ msgstr ""
 #| msgid "<p>Choose the partition table type for the new partition.</p>"
 msgid "The partition table does not contain partitions."
 msgstr "<p>Válassza ki az új partíció partícióstábla-típusát.</p>"
-
-#: src/lib/y2partitioner/actions/delete_partitions.rb:108
-#, fuzzy
-#| msgid "Really delete these devices?"
-msgid "Really delete all these devices?"
-msgstr "Biztos, hogy törli ezeket az eszközöket?"
 
 # modules/inst_custom_part.ycp:502
 #. TRANSLATORS: dialog title. %s is a device name like /dev/md0
@@ -1148,7 +1163,6 @@ msgstr "Név"
 
 #. @macro seeAbstractWidget
 #: src/lib/y2partitioner/dialogs/lvm_lv_info.rb:75
-#: src/lib/y2partitioner/widgets/lvm_add_button.rb:54
 msgid "Logical Volume"
 msgstr "Logikai kötet"
 
@@ -1740,6 +1754,26 @@ msgid ""
 "The system cannot be installed because the following errors were found:\n"
 msgstr "A rendszert nem lehet telepíteni a következő hibák miatt:\n"
 
+#. Title of the section listing the MD RAIDs
+#.
+#. @note This is defined in this class as the simplest way to avoid
+#. dependency cycles in the Ruby requires. We might reconsider a more clean
+#. approach in the future.
+#.
+#. @return [String]
+#: src/lib/y2partitioner/ui_state.rb:46
+msgid "RAID"
+msgstr "RAID"
+
+#. Title of the LVM section
+#.
+#. @note See note on {.md_raids_label} about why this looks misplaced.
+#.
+#. @return [String]
+#: src/lib/y2partitioner/ui_state.rb:55
+msgid "Volume Management"
+msgstr "Kötetkezelés"
+
 #. TRANSLATORS: button label to add a new Bcache device
 #: src/lib/y2partitioner/widgets/bcache_add_button.rb:38
 msgid "Add Bcache..."
@@ -1774,6 +1808,43 @@ msgstr "Partícióazonosító: %s"
 #| msgid "Device: %s"
 msgid "Caching Device: %s"
 msgstr "Eszköz: %s"
+
+#. @macro seeAbstractWidget
+#. @macro seeAbstractWidget
+#. @macro seeAbstractWidget
+#. @macro seeAbstractWidget
+#. @macro seeAbstractWidget
+#. @macro seeAbstractWidget
+#: src/lib/y2partitioner/widgets/bcache_modify_button.rb:38
+#: src/lib/y2partitioner/widgets/disk_modify_button.rb:38
+#: src/lib/y2partitioner/widgets/lvm_lv_modify_button.rb:38
+#: src/lib/y2partitioner/widgets/lvm_vg_modify_button.rb:37
+#: src/lib/y2partitioner/widgets/md_modify_button.rb:39
+#: src/lib/y2partitioner/widgets/partition_modify_button.rb:39
+msgid "&Modify"
+msgstr ""
+
+#. @see DeviceMenuButton#actions
+#.
+#. @return [Array<Hash>]
+#: src/lib/y2partitioner/widgets/bcache_modify_button.rb:50
+#, fuzzy
+#| msgid "Edit..."
+msgid "Edit Bcache..."
+msgstr "Szerkesztés..."
+
+# modules/inst_custom_part.ycp:623
+#. @see DeviceMenuButton#actions
+#.
+#. @return [Array<Hash>]
+#: src/lib/y2partitioner/widgets/bcache_modify_button.rb:55
+#: src/lib/y2partitioner/widgets/disk_modify_button.rb:55
+#: src/lib/y2partitioner/widgets/md_modify_button.rb:65
+#: src/lib/y2partitioner/widgets/partition_table_button.rb:51
+#, fuzzy
+#| msgid "Create New Partition &Table"
+msgid "Create New Partition Table..."
+msgstr "Új partíciós &tábla létrehozása"
 
 # modules/inst_custom_part.ycp:491
 #. TRANSLATORS: Device name information, where %s is replaced by the
@@ -1924,10 +1995,8 @@ msgstr "Fájlrendszer:"
 
 #. TRANSLATORS: button label for editing a block device
 #. @see CWM::PushButton#Label
-#. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/blk_device_edit_button.rb:41
+#: src/lib/y2partitioner/widgets/blk_device_edit_button.rb:40
 #: src/lib/y2partitioner/widgets/btrfs_edit_button.rb:42
-#: src/lib/y2partitioner/widgets/lvm_edit_button.rb:39
 msgid "Edit..."
 msgstr "Szerkesztés..."
 
@@ -1985,10 +2054,8 @@ msgstr "Befejező"
 #. @param device [Y2Storage::BlkDevice]
 #. @return [Yast::Term] icon
 #. @macro seeAbstractWidget
-#. TRANSLATORS: Heading
 #: src/lib/y2partitioner/widgets/blk_devices_table.rb:251
-#: src/lib/y2partitioner/widgets/pages/bcaches.rb:48
-#: src/lib/y2partitioner/widgets/pages/bcaches.rb:62
+#: src/lib/y2partitioner/widgets/pages/bcaches.rb:46
 msgid "Bcache"
 msgstr ""
 
@@ -2054,13 +2121,7 @@ msgid "<p>Create and remove subvolumes from a Btrfs filesystem.</p>\n"
 msgstr "<p>Alkötetek létrehozása és eltávolítása Btrfs fájlrendszerből.</p>\n"
 
 #. TRANSLATORS: button label to add a btrfs subvolume
-#. TRANSLATORS: button label to add a volume group or logical volume
-#. TRANSLATORS: button label to add a logical volume
-#. TRANSLATORS: label for button to add a partition
 #: src/lib/y2partitioner/widgets/btrfs_subvolumes_add_button.rb:44
-#: src/lib/y2partitioner/widgets/lvm_add_button.rb:44
-#: src/lib/y2partitioner/widgets/lvm_lv_add_button.rb:38
-#: src/lib/y2partitioner/widgets/partition_add_button.rb:47
 msgid "Add..."
 msgstr "Hozzáadás..."
 
@@ -2213,13 +2274,13 @@ msgstr ""
 #. @note An error popup is shown when there is no device.
 #.
 #. @return [Boolean]
-#. Runs action for adding a new logical volume to the selected volume group
-#. @see Actions::AddLvmLv
+#. Checks whether there is a device on which to act
 #.
-#. @return [Symbol, nil] :finish, :abort. Returns nil when it is not possible
-#. to determine the volume group (see {#vg}).
-#: src/lib/y2partitioner/widgets/device_button.rb:110
-#: src/lib/y2partitioner/widgets/lvm_add_button.rb:94
+#. @note An error popup is shown when there is no device.
+#.
+#. @return [Boolean]
+#: src/lib/y2partitioner/widgets/device_button.rb:102
+#: src/lib/y2partitioner/widgets/device_menu_button.rb:145
 msgid "No device selected"
 msgstr "Nincs kiválasztott eszköz"
 
@@ -2256,7 +2317,7 @@ msgid "Saving graph file failed."
 msgstr "Az ábra mentése sikertelen."
 
 #. TRANSLATORS: label for button for resizing a device
-#: src/lib/y2partitioner/widgets/device_resize_button.rb:41
+#: src/lib/y2partitioner/widgets/device_resize_button.rb:40
 msgid "Resize..."
 msgstr "Átméretezés…"
 
@@ -2265,7 +2326,7 @@ msgstr "Átméretezés…"
 #. @note An error popup is shown when the device does not support resizing.
 #.
 #. @return [Boolean] true if the device supports resizing; false otherwise.
-#: src/lib/y2partitioner/widgets/device_resize_button.rb:61
+#: src/lib/y2partitioner/widgets/device_resize_button.rb:60
 msgid ""
 "Hard disks, BIOS RAIDs and multipath\n"
 "devices cannot be resized."
@@ -2325,6 +2386,16 @@ msgstr "Particionálatlan"
 #: src/lib/y2partitioner/widgets/disk_device_description.rb:51
 msgid "Hard Disk:"
 msgstr "Merevlemez:"
+
+# clients/inst_source.ycp:197
+#. @see DeviceMenuButton#actions
+#.
+#. @return [Array<Hash>]
+#: src/lib/y2partitioner/widgets/disk_modify_button.rb:50
+#, fuzzy
+#| msgid "Hard Disk"
+msgid "Edit Hard Disk..."
+msgstr "Merevlemez"
 
 #. help text for cryptofs
 #: src/lib/y2partitioner/widgets/encrypt_password.rb:20
@@ -2432,7 +2503,7 @@ msgstr "Ne csatlakoztassa az eszközt"
 #. is given.
 #. TRANSLATORS: Error messagge when the label is not given.
 #: src/lib/y2partitioner/widgets/format_and_mount.rb:292
-#: src/lib/y2partitioner/widgets/fstab_options.rb:289
+#: src/lib/y2partitioner/widgets/fstab_options.rb:290
 msgid "Provide a volume label to mount by label."
 msgstr "Meg kell adnia egy kötetnevet, ha kötetnév szerint akar csatolni."
 
@@ -2579,7 +2650,7 @@ msgid "Partition &ID:"
 msgstr "Partíció &azonosítója:"
 
 #. Push button that launch a dialog to set the fstab options
-#: src/lib/y2partitioner/widgets/fstab_options.rb:150
+#: src/lib/y2partitioner/widgets/fstab_options.rb:151
 msgid "Fstab Options..."
 msgstr "Fstab-beállítások..."
 
@@ -2587,54 +2658,54 @@ msgstr "Fstab-beállítások..."
 #.
 #. @param controller [Actions::Controllers:Filesystem]
 #. @param parent_widget [Widgets::FstabOptions]
-#: src/lib/y2partitioner/widgets/fstab_options.rb:250
-#: src/lib/y2partitioner/widgets/fstab_options.rb:387
+#: src/lib/y2partitioner/widgets/fstab_options.rb:251
+#: src/lib/y2partitioner/widgets/fstab_options.rb:388
 msgid "Volume &Label"
 msgstr "Kötet &címkéje"
 
 #. TRANSLATORS: Error message when the given label is already in use.
-#: src/lib/y2partitioner/widgets/fstab_options.rb:304
+#: src/lib/y2partitioner/widgets/fstab_options.rb:305
 msgid "This volume label is already in use. Select a different one."
 msgstr "A kötetnév már foglalt, válasszon másikat."
 
 #. Group of radio buttons to select the type of identifier to be used for
 #. mouth the specific device (UUID, Label, Path...)
-#: src/lib/y2partitioner/widgets/fstab_options.rb:363
+#: src/lib/y2partitioner/widgets/fstab_options.rb:364
 msgid "Mount in /etc/fstab By"
 msgstr "Csatolás az /etc/fstab fájlban:"
 
 #. TODO: If some day we get more a more sophisticated UI for editing
 #. subvolumes, don't always simply overwrite the subvolumes' mount_by
 #. with whatever is set here - ask the user if this is desired.
-#: src/lib/y2partitioner/widgets/fstab_options.rb:386
+#: src/lib/y2partitioner/widgets/fstab_options.rb:387
 msgid "&Device Name"
 msgstr "&Eszköznév"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:388
+#: src/lib/y2partitioner/widgets/fstab_options.rb:389
 msgid "&UUID"
 msgstr "&UUID"
 
 # /usr/lib/YaST2/clients/lan_inetd_custom.ycp:756
-#: src/lib/y2partitioner/widgets/fstab_options.rb:392
+#: src/lib/y2partitioner/widgets/fstab_options.rb:393
 msgid "Device &ID"
 msgstr "&Eszközazonosító"
 
 # modules/inst_custom_part.ycp:491
-#: src/lib/y2partitioner/widgets/fstab_options.rb:393
+#: src/lib/y2partitioner/widgets/fstab_options.rb:394
 msgid "Device &Path"
 msgstr "Eszközút&vonal"
 
 #. CheckBox to disable the automount option when starting up
-#: src/lib/y2partitioner/widgets/fstab_options.rb:472
+#: src/lib/y2partitioner/widgets/fstab_options.rb:473
 msgid "Do Not Mount at System &Start-up"
 msgstr "&Ne kerüljön csatolásra rendszerindításkor"
 
 #. CheckBox to enable the read only option ("ro")
-#: src/lib/y2partitioner/widgets/fstab_options.rb:482
+#: src/lib/y2partitioner/widgets/fstab_options.rb:483
 msgid "Mount &Read-Only"
 msgstr "Csatolás &csak olvasható módban"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:486
+#: src/lib/y2partitioner/widgets/fstab_options.rb:487
 msgid ""
 "<p><b>Mount Read-Only:</b>\n"
 "Writing to the file system is not possible. Default is false. During "
@@ -2647,11 +2718,11 @@ msgstr ""
 "a fájlrendszer mindig olvasás/írás módban van csatlakoztatva.</p>"
 
 #. CheckBox to enable the noatime option
-#: src/lib/y2partitioner/widgets/fstab_options.rb:497
+#: src/lib/y2partitioner/widgets/fstab_options.rb:498
 msgid "No &Access Time"
 msgstr "Nincs &hozzáférés-rögzítés"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:501
+#: src/lib/y2partitioner/widgets/fstab_options.rb:502
 msgid ""
 "<p><b>No Access Time:</b>\n"
 "Access times are not updated when a file is read. Default is false.</p>\n"
@@ -2662,11 +2733,11 @@ msgstr ""
 
 #. CheckBox to enable the user option which means allow to mount the
 #. filesystem by an ordinary user
-#: src/lib/y2partitioner/widgets/fstab_options.rb:512
+#: src/lib/y2partitioner/widgets/fstab_options.rb:513
 msgid "Mountable by User"
 msgstr "Felhasználó által csatolható"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:516
+#: src/lib/y2partitioner/widgets/fstab_options.rb:517
 msgid ""
 "<p><b>Mountable by User:</b>\n"
 "The file system may be mounted by an ordinary user. Default is false.</p>\n"
@@ -2676,11 +2747,11 @@ msgstr ""
 "</p>\n"
 
 #. CheckBox to enable the use of user quotas
-#: src/lib/y2partitioner/widgets/fstab_options.rb:527
+#: src/lib/y2partitioner/widgets/fstab_options.rb:528
 msgid "Enable &Quota Support"
 msgstr "&Kvóta támogatásának engedélyezése"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:531
+#: src/lib/y2partitioner/widgets/fstab_options.rb:532
 msgid ""
 "<p><b>Enable Quota Support:</b>\n"
 "The file system is mounted with user quotas enabled.\n"
@@ -2691,11 +2762,11 @@ msgstr ""
 "Alapértelmezett érték: nem.</p>"
 
 #. CheckBox to enable access control lists (acl)
-#: src/lib/y2partitioner/widgets/fstab_options.rb:571
+#: src/lib/y2partitioner/widgets/fstab_options.rb:572
 msgid "&Access Control Lists (ACL)"
 msgstr "&Hozzáférési jogosultságlisták (ACL)"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:575
+#: src/lib/y2partitioner/widgets/fstab_options.rb:576
 msgid ""
 "<p><b>Access Control Lists (acl):</b>\n"
 "Enable POSIX access control lists and thus more fine-grained user "
@@ -2708,11 +2779,11 @@ msgstr ""
 
 # modules/inst_custom_part.ycp:608
 #. CheckBox to enable extended user attributes (user_xattr)
-#: src/lib/y2partitioner/widgets/fstab_options.rb:588
+#: src/lib/y2partitioner/widgets/fstab_options.rb:589
 msgid "&Extended User Attributes"
 msgstr "Kiter&jesztett felhasználói tulajdonságok"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:592
+#: src/lib/y2partitioner/widgets/fstab_options.rb:593
 msgid ""
 "<p><b>Extended User Attributes (user_xattr):</b>\n"
 "Enable extended attributes (name:value pairs) on files and directories.\n"
@@ -2725,25 +2796,25 @@ msgstr ""
 "xattr).\n"
 
 #. ComboBox to specify the journal mode to use by the filesystem
-#: src/lib/y2partitioner/widgets/fstab_options.rb:688
+#: src/lib/y2partitioner/widgets/fstab_options.rb:689
 msgid "Data &Journaling Mode"
 msgstr "Naplózási &eljárás"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:697
+#: src/lib/y2partitioner/widgets/fstab_options.rb:698
 msgid "journal"
 msgstr "napló"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:698
+#: src/lib/y2partitioner/widgets/fstab_options.rb:699
 msgid "ordered"
 msgstr "sorrendben"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:699
+#: src/lib/y2partitioner/widgets/fstab_options.rb:700
 msgid "writeback"
 msgstr "visszaírás"
 
 #. journal options tend to break remounting root rw (bsc#1077859).
 #. See also root_fstab_options() in lib/y2storage/filesystems/type.rb
-#: src/lib/y2partitioner/widgets/fstab_options.rb:710
+#: src/lib/y2partitioner/widgets/fstab_options.rb:711
 msgid ""
 "<p><b>Data Journaling Mode:</b>\n"
 "Specifies the journaling mode for file data.\n"
@@ -2769,7 +2840,7 @@ msgstr ""
 
 #. An input field that allows to set other options that are not handled by
 #. specific widgets.
-#: src/lib/y2partitioner/widgets/fstab_options.rb:739
+#: src/lib/y2partitioner/widgets/fstab_options.rb:740
 msgid "Arbitrary Option &Value"
 msgstr "Csatolási &opciók"
 
@@ -2782,7 +2853,7 @@ msgstr "Csatolási &opciók"
 #. So, when a user insists in adding "noauto,user" here, it is applied
 #. correctly, but when entering the dialog again, the checkboxes pick up
 #. those values and they won't show up in this field anymore.
-#: src/lib/y2partitioner/widgets/fstab_options.rb:763
+#: src/lib/y2partitioner/widgets/fstab_options.rb:764
 msgid ""
 "<p><b>Arbitrary Option Value:</b> Enter any other mount options here, "
 "separated with commas. Notice that this does not do any checking, so be "
@@ -2793,11 +2864,11 @@ msgstr ""
 "ellenőrzés, legyen körültekintő.</p>"
 
 #. Swap priority
-#: src/lib/y2partitioner/widgets/fstab_options.rb:839
+#: src/lib/y2partitioner/widgets/fstab_options.rb:840
 msgid "Swap &Priority"
 msgstr "Cserepartíció &prioritás"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:848
+#: src/lib/y2partitioner/widgets/fstab_options.rb:849
 msgid ""
 "<p><b>Swap Priority:</b>\n"
 "Enter the swap priority. Higher numbers mean higher priority.</p>\n"
@@ -2808,11 +2879,11 @@ msgstr ""
 
 #. "iocharset=utf8" breaks VFAT case insensitivity (bsc#1080731).
 #. See also boot_fstab_options() in lib/y2storage/filesystems/type.rb
-#: src/lib/y2partitioner/widgets/fstab_options.rb:881
+#: src/lib/y2partitioner/widgets/fstab_options.rb:882
 msgid "Char&set for File Names"
 msgstr "Fájlnevek &karakterkészlete"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:885
+#: src/lib/y2partitioner/widgets/fstab_options.rb:886
 msgid ""
 "<p><b>Charset for File Names:</b>\n"
 "Set the charset used for display of file names in Windows partitions.</p>\n"
@@ -2822,11 +2893,11 @@ msgstr ""
 "a Windows rendszerű partíciókon lévő fájlnevek megjelenítéséhez.</p>\n"
 
 #. VFAT Codepage
-#: src/lib/y2partitioner/widgets/fstab_options.rb:901
+#: src/lib/y2partitioner/widgets/fstab_options.rb:902
 msgid "Code&page for Short FAT Names"
 msgstr "Rövid FAT-nevek &kódlapja"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:905
+#: src/lib/y2partitioner/widgets/fstab_options.rb:906
 msgid ""
 "<p><b>Codepage for Short FAT Names:</b>\n"
 "This codepage is used for converting to shortname characters on FAT file "
@@ -3167,20 +3238,49 @@ msgstr ""
 msgid "Import Mount Points..."
 msgstr "Csatolási pontok importálása…"
 
-#. When there is no vg, only shows an option to add a new vg.
-#. Otherwise, options for adding a vg or lv are shown.
-#.
-#. @return [Array<[Symbol, String]>] list of menu options
-#: src/lib/y2partitioner/widgets/lvm_add_button.rb:52
-msgid "Volume Group"
-msgstr "Kötetcsoport"
-
 # modules/inst_sw_single.ycp:678
 # clients/inst_sw_single.ycp:1297
 #. TRANSLATORS: table header, type of metadata
 #: src/lib/y2partitioner/widgets/lvm_devices_table.rb:49
 msgid "PE Size"
 msgstr "FE-méret"
+
+#. @macro seeAbstractWidget
+#: src/lib/y2partitioner/widgets/lvm_logical_volumes_button.rb:41
+#, fuzzy
+#| msgid "Log&ical Volumes"
+msgid "&Logical Volumes"
+msgstr "&Logikai kötetek"
+
+#. @see DeviceMenuButton#execute_action
+#. @macro seeAbstractWidget
+#: src/lib/y2partitioner/widgets/lvm_logical_volumes_button.rb:53
+#: src/lib/y2partitioner/widgets/pages/lvm_vg.rb:123
+msgid "Log&ical Volumes"
+msgstr "&Logikai kötetek"
+
+#. @see DeviceMenuButton#actions
+#.
+#. @return [Array<Hash>]
+#: src/lib/y2partitioner/widgets/lvm_logical_volumes_button.rb:66
+#, fuzzy
+#| msgid "Log&ical Volumes"
+msgid "Edit Logical Volumes..."
+msgstr "&Logikai kötetek"
+
+#. TRANSLATORS: button label to add a logical volume
+#: src/lib/y2partitioner/widgets/lvm_logical_volumes_button.rb:71
+#: src/lib/y2partitioner/widgets/lvm_lv_add_button.rb:38
+#, fuzzy
+#| msgid "Add Logical Volume on %s"
+msgid "Add Logical Volume..."
+msgstr "Logikai kötet hozzáadása a(z) %s eszközhöz"
+
+#: src/lib/y2partitioner/widgets/lvm_logical_volumes_button.rb:76
+#, fuzzy
+#| msgid "Log&ical Volumes"
+msgid "Delete Logical Volumes..."
+msgstr "&Logikai kötetek"
 
 #. TRANSLATORS: logical volume stripes information, where %s is replaces by
 #. the stripes info
@@ -3204,6 +3304,35 @@ msgstr "%s (%s)"
 #: src/lib/y2partitioner/widgets/lvm_vg_description.rb:64
 msgid "LVM:"
 msgstr "LVM:"
+
+#. @see DeviceMenuButton#actions
+#: src/lib/y2partitioner/widgets/lvm_lv_modify_button.rb:46
+#, fuzzy
+#| msgid "Logical Volume"
+msgid "Edit Logical Volume..."
+msgstr "Logikai kötet"
+
+#: src/lib/y2partitioner/widgets/lvm_lv_modify_button.rb:47
+#, fuzzy
+#| msgid "Resize Logical Volume %1"
+msgid "Resize Logical Volume..."
+msgstr "%1 logikai kötet átméretezése"
+
+#. TRANSLATORS: label for button to delete all logical volumes
+#. TRANSLATORS: label for button to delete all partitions
+#: src/lib/y2partitioner/widgets/lvm_lvs_delete_button.rb:38
+#: src/lib/y2partitioner/widgets/partitions_delete_button.rb:38
+#, fuzzy
+#| msgid "Delete..."
+msgid "Delete All"
+msgstr "Törlés..."
+
+#. TRANSLATORS: button label to add a LVM volume group
+#: src/lib/y2partitioner/widgets/lvm_vg_add_button.rb:38
+#, fuzzy
+#| msgid "Add Volume Group"
+msgid "Add Volume Group..."
+msgstr "Kötetcsoport hozzáadása"
 
 #. TRANSLATORS: Volume group extent size information, where %s is replaced by
 #. a size (e.g., 8 KiB)
@@ -3268,6 +3397,27 @@ msgid ""
 msgstr ""
 "A(z) %{pvs} fizikai kötet eltávolítása a(z) %{vg} kötetcsoportból \n"
 "nem támogatott, mert lehetséges, hogy a fizikai kötet már használatban van."
+
+#. @see DeviceMenuButton#actions
+#.
+#. @see Actions::ResizeLvmVg
+#.
+#. @return [Array<Hash>]
+#: src/lib/y2partitioner/widgets/lvm_vg_modify_button.rb:51
+#, fuzzy
+#| msgid "&Physical Volumes"
+msgid "Change Physical Volumes..."
+msgstr "&Fizikai kötetek"
+
+#. TRANSLATORS: label for button to change the list of physical
+#. volumes of an LVM VG
+#. TRANSLATORS: label for button to edit used devices
+#: src/lib/y2partitioner/widgets/lvm_vg_resize_button.rb:39
+#: src/lib/y2partitioner/widgets/used_devices_edit_button.rb:40
+#, fuzzy
+#| msgid "Changes:"
+msgid "Change..."
+msgstr "Változások:"
 
 #. TRANSLATORS: button label to add a MD Raid
 #: src/lib/y2partitioner/widgets/md_add_button.rb:38
@@ -3356,6 +3506,25 @@ msgstr "Le"
 #: src/lib/y2partitioner/widgets/md_devices_selector.rb:220
 msgid "Bottom"
 msgstr "Alulra"
+
+#. @see DeviceMenuButton#actions
+#.
+#. @see Actions::EditBlkDevice
+#. @see Actions::EditMdDevices
+#. @see Actions::CreatePartitionTable
+#.
+#. @return [Array<Hash>]
+#: src/lib/y2partitioner/widgets/md_modify_button.rb:55
+#, fuzzy
+#| msgid "Add RAID..."
+msgid "Edit RAID..."
+msgstr "RAID hozzáadása..."
+
+#: src/lib/y2partitioner/widgets/md_modify_button.rb:60
+#, fuzzy
+#| msgid "&Used Devices"
+msgid "Change Used Devices..."
+msgstr "&Használt eszközök"
 
 #. help text, richtext format
 #: src/lib/y2partitioner/widgets/mkfs_optiondata.rb:57
@@ -3635,37 +3804,24 @@ msgstr ""
 
 # clients/inst_source.ycp:197
 #. TRANSLATORS: Heading. String followed by device name of hard disk
-#: src/lib/y2partitioner/widgets/pages/disk.rb:70
+#: src/lib/y2partitioner/widgets/pages/disk.rb:69
 msgid "Hard Disk: %s"
 msgstr "Merevlemez: %s"
 
 #. @macro seeAbstractWidget
 #. @macro seeAbstractWidget
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/pages/disk.rb:132
+#: src/lib/y2partitioner/widgets/pages/disk.rb:131
 #: src/lib/y2partitioner/widgets/pages/lvm_vg.rb:94
-#: src/lib/y2partitioner/widgets/pages/md_raid.rb:97
+#: src/lib/y2partitioner/widgets/pages/md_raid.rb:96
 msgid "&Overview"
 msgstr "Á&ttekintés"
 
 # clients/inst_source.ycp:197
 #. @macro seeAbstractWidget
-#. TRANSLATORS: Heading
-#: src/lib/y2partitioner/widgets/pages/disks.rb:52
-#: src/lib/y2partitioner/widgets/pages/disks.rb:66
+#: src/lib/y2partitioner/widgets/pages/disks.rb:45
 msgid "Hard Disks"
 msgstr "Merevlemezek"
-
-#. Label for all the instances
-#.
-#. @see #label
-#.
-#. @return [String]
-#. TRANSLATORS: Heading
-#: src/lib/y2partitioner/widgets/pages/lvm.rb:53
-#: src/lib/y2partitioner/widgets/pages/lvm.rb:71
-msgid "Volume Management"
-msgstr "Kötetkezelés"
 
 #. TRANSLATORS: Heading. String followed by name of partition
 #: src/lib/y2partitioner/widgets/pages/lvm_lv.rb:63
@@ -3678,30 +3834,14 @@ msgid "Volume Group: %s"
 msgstr "Kötetcsoport: %s"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/pages/lvm_vg.rb:119
-msgid "Log&ical Volumes"
-msgstr "&Logikai kötetek"
-
-#. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/pages/lvm_vg.rb:184
+#: src/lib/y2partitioner/widgets/pages/lvm_vg.rb:185
 msgid "&Physical Volumes"
 msgstr "&Fizikai kötetek"
 
 #. @macro seeCustomWidget
-#: src/lib/y2partitioner/widgets/pages/md_raid.rb:70
+#: src/lib/y2partitioner/widgets/pages/md_raid.rb:69
 msgid "RAID: %s"
 msgstr "RAID: %s"
-
-#. Label for all the instances
-#.
-#. @see #label
-#.
-#. @return [String]
-#. TRANSLATORS: Heading
-#: src/lib/y2partitioner/widgets/pages/md_raids.rb:52
-#: src/lib/y2partitioner/widgets/pages/md_raids.rb:72
-msgid "RAID"
-msgstr "RAID"
 
 #. TRANSLATORS: Heading for the expert partitioner page
 #: src/lib/y2partitioner/widgets/pages/nfs_mounts.rb:62
@@ -3771,7 +3911,9 @@ msgstr "Telepítés összefoglalása"
 msgid "Available Storage on %s"
 msgstr "Elérhető tárolók a(z) %s gépen"
 
-#: src/lib/y2partitioner/widgets/partition_add_button.rb:47
+#. TRANSLATORS: label for button to add a partition
+#: src/lib/y2partitioner/widgets/partition_add_button.rb:38
+#: src/lib/y2partitioner/widgets/partitions_button.rb:73
 msgid "Add Partition..."
 msgstr "Partíció hozzáadása…"
 
@@ -3781,6 +3923,25 @@ msgstr "Partíció hozzáadása…"
 #: src/lib/y2partitioner/widgets/partition_description.rb:50
 msgid "Partition ID: %s"
 msgstr "Partícióazonosító: %s"
+
+#. @see DeviceMenuButton#actions
+#: src/lib/y2partitioner/widgets/partition_modify_button.rb:47
+#, fuzzy
+#| msgid "Add Partition..."
+msgid "Edit Partition..."
+msgstr "Partíció hozzáadása…"
+
+#: src/lib/y2partitioner/widgets/partition_modify_button.rb:48
+#, fuzzy
+#| msgid "Add Partition..."
+msgid "Resize Partition..."
+msgstr "Partíció hozzáadása…"
+
+#: src/lib/y2partitioner/widgets/partition_modify_button.rb:49
+#, fuzzy
+#| msgid "Add Partition..."
+msgid "Move Partition..."
+msgstr "Partíció hozzáadása…"
 
 #. Button for moving a partition
 #: src/lib/y2partitioner/widgets/partition_move_button.rb:36
@@ -3795,26 +3956,46 @@ msgstr "Áthelyezés…"
 msgid "New Partition Table..."
 msgstr "Új partícióstábla-típus"
 
-#. TRANSLATORS: label for button to clone a partition table
-#: src/lib/y2partitioner/widgets/partition_table_clone_button.rb:38
+# modules/inst_custom_part.ycp:623
+#. @macro seeAbstractWidget
+#: src/lib/y2partitioner/widgets/partition_table_button.rb:39
+#, fuzzy
+#| msgid "Create New Partition Table"
+msgid "Partition Table"
+msgstr "Új partíciós tábla létrehozása"
+
+#: src/lib/y2partitioner/widgets/partition_table_button.rb:56
+#: src/lib/y2partitioner/widgets/partitions_button.rb:85
 #, fuzzy
 #| msgid "Add Partition..."
-msgid "Clone Partitions..."
+msgid "Clone Partitions to Other Devices..."
 msgstr "Partíció hozzáadása…"
-
-#. TRANSLATORS: label for button to delete all partitions
-#: src/lib/y2partitioner/widgets/partitions_delete_button.rb:38
-#, fuzzy
-#| msgid "Delete..."
-msgid "Delete All"
-msgstr "Törlés..."
 
 # modules/inst_sw_single.ycp:665
 # clients/inst_sw_single.ycp:1349
 #. @macro seeAbstractWidget
+#. @see DeviceMenuButton#execute_action
+#. @macro seeAbstractWidget
+#: src/lib/y2partitioner/widgets/partitions_button.rb:41
+#: src/lib/y2partitioner/widgets/partitions_button.rb:53
 #: src/lib/y2partitioner/widgets/partitions_tab.rb:54
 msgid "&Partitions"
 msgstr "&Partíciók"
+
+#. @see DeviceMenuButton#actions
+#.
+#. @return [Array<Hash>]
+#: src/lib/y2partitioner/widgets/partitions_button.rb:68
+#, fuzzy
+#| msgid "Edit Partition %s"
+msgid "Edit Partitions..."
+msgstr "A(z) %s partíció szerkesztése"
+
+#: src/lib/y2partitioner/widgets/partitions_button.rb:78
+#, fuzzy
+#| msgid "Add Partition..."
+msgid "Delete Partitions..."
+msgstr "Partíció hozzáadása…"
 
 # modules/inst_custom_part.ycp:608
 #. Reprobes and updates devicegraphs for the partitioner. During
@@ -3908,13 +4089,6 @@ msgstr ""
 "<p><b>Telepítés összesítése:</b> Itt láthatók azok a műveletek, amelyek a "
 "particionáló befejezése után lesznek végrehajtva. Eddig semmilyen változás "
 "nem történt a rendszerben.</p>"
-
-#. TRANSLATORS: label for button to edit used devices
-#: src/lib/y2partitioner/widgets/used_devices_edit_button.rb:40
-#, fuzzy
-#| msgid "Changes:"
-msgid "Change..."
-msgstr "Változások:"
 
 #. @macro seeAbstractWidget
 #: src/lib/y2partitioner/widgets/used_devices_tab.rb:42
@@ -5135,16 +5309,15 @@ msgstr "Az LVM vékony logikai kötet már elérte a maximális lehetséges mér
 msgid "Unknown reason"
 msgstr "Ismeretlen ok"
 
+#~ msgid "Volume Group"
+#~ msgstr "Kötetcsoport"
+
 #~ msgid "Resize RAID %s"
 #~ msgstr "%s RAID átméretezése"
 
 # clients/online_update_start.ycp:198
 #~ msgid "&Expert..."
 #~ msgstr "&Szakértői..."
-
-# modules/inst_custom_part.ycp:623
-#~ msgid "Create New Partition &Table"
-#~ msgstr "Új partíciós &tábla létrehozása"
 
 #~ msgid "Clone this Disk"
 #~ msgstr "Lemez klónozása"
@@ -5743,10 +5916,6 @@ msgstr "Ismeretlen ok"
 # modules/inst_target_selection.ycp:123
 #~ msgid "&Custom Partitioning (for experts)"
 #~ msgstr "&Egyéni particionálás (szakértőknek)"
-
-# clients/inst_source.ycp:197
-#~ msgid "Hard Disk"
-#~ msgstr "Merevlemez"
 
 # modules/inst_target_selection.ycp:121
 # modules/inst_target_selection.ycp:140
@@ -7106,9 +7275,6 @@ msgstr "Ismeretlen ok"
 #~ msgstr ""
 #~ "A(z) %1 partíció nem méretezhető át, mert a fájlrendszer\n"
 #~ "inkonzisztensnek tűnik.\n"
-
-#~ msgid "Resize Logical Volume %1"
-#~ msgstr "%1 logikai kötet átméretezése"
 
 #~ msgid "Output of %1"
 #~ msgstr "A(z) '%1' kimenete"

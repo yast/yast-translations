@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: @PACKAGE@\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-02 02:29+0000\n"
+"POT-Creation-Date: 2018-10-03 02:29+0000\n"
 "PO-Revision-Date: 2005-08-11 20:37+0200\n"
 "Last-Translator: nynorsk <i18n@suse.de>\n"
 "Language-Team:  nn <i18n@suse.de>\n"
@@ -81,7 +81,7 @@ msgstr "Det er ikkje mogleg å oppretta ein partisjon på %1."
 #. Error message when the device has no partition table
 #.
 #. @return [String, nil] nil if the device has partition table.
-#: src/lib/y2partitioner/actions/clone_partition_table.rb:91
+#: src/lib/y2partitioner/actions/clone_partition_table.rb:93
 #, fuzzy
 msgid ""
 "There are no partitions on this device, but a clonable\n"
@@ -95,7 +95,7 @@ msgstr ""
 #. Error message when there are no suitable devices where to clone the device
 #.
 #. @return [String, nil] nil if there are suitable devices.
-#: src/lib/y2partitioner/actions/clone_partition_table.rb:102
+#: src/lib/y2partitioner/actions/clone_partition_table.rb:104
 #, fuzzy
 msgid ""
 "This device cannot be cloned. There are no suitable\n"
@@ -266,7 +266,7 @@ msgid "Edit devices of RAID %s"
 msgstr "Rediger RAID %1"
 
 #. TRANSLATORS: %s is a device name (e.g. "/dev/sda")
-#: src/lib/y2partitioner/actions/create_partition_table.rb:92
+#: src/lib/y2partitioner/actions/create_partition_table.rb:93
 #, fuzzy
 msgid "It is not possible to create a new partition table on %s."
 msgstr "Det er ikkje mogleg å oppretta ein partisjon på %1."
@@ -275,13 +275,18 @@ msgstr "Det er ikkje mogleg å oppretta ein partisjon på %1."
 #. @see DeleteDevices#confirm
 #.
 #. @return [Boolean]
-#: src/lib/y2partitioner/actions/create_partition_table.rb:132
+#. @see DeleteDevices#confirm
+#.
+#. @return [Boolean]
+#: src/lib/y2partitioner/actions/create_partition_table.rb:133
+#: src/lib/y2partitioner/actions/delete_lvm_lvs.rb:71
 #: src/lib/y2partitioner/actions/delete_partitions.rb:106
 #, fuzzy
 msgid "Confirm Deleting of Current Devices"
 msgstr "Stadfest sletting av alle partisjoner"
 
-#: src/lib/y2partitioner/actions/create_partition_table.rb:133
+#: src/lib/y2partitioner/actions/create_partition_table.rb:134
+#: src/lib/y2partitioner/actions/delete_lvm_lvs.rb:72
 #: src/lib/y2partitioner/actions/delete_partitions.rb:107
 #, fuzzy
 msgid "If you proceed, the following devices will be deleted:"
@@ -290,7 +295,7 @@ msgstr ""
 "Viss du held fram, vil følgjande partisjoner slettast:"
 
 #. TRANSLATORS %s is the disk device name ("/dev/sda" or similar)
-#: src/lib/y2partitioner/actions/create_partition_table.rb:135
+#: src/lib/y2partitioner/actions/create_partition_table.rb:136
 #, fuzzy
 msgid "Really create a new partition table on %s"
 msgstr "Er du sikker på at du vil sletta alle partisjonene på %1?"
@@ -298,7 +303,7 @@ msgstr "Er du sikker på at du vil sletta alle partisjonene på %1?"
 #. TRANSLATORS: the first %s is replaced by the type of the filesystem
 #. (for example, "Btrfs" or "Ext2"), the second one by the disk device name
 #. ("/dev/sda" or similar).
-#: src/lib/y2partitioner/actions/create_partition_table.rb:156
+#: src/lib/y2partitioner/actions/create_partition_table.rb:157
 msgid ""
 "This will delete all data from the %s file system in the device.\n"
 "\n"
@@ -396,6 +401,19 @@ msgstr ""
 msgid "Really delete the thin pool \"%{name}\" and all related thin volumes?"
 msgstr ""
 "Vil du verkeleg slette volumgruppen «%1» og alle relaterte logiske volum?"
+
+#. TRANSLATORS: Error when trying to delete LVs from an empty VG
+#: src/lib/y2partitioner/actions/delete_lvm_lvs.rb:62
+#, fuzzy
+msgid "The volume group does not contain logical volumes."
+msgstr ""
+"Vil du verkeleg slette volumgruppen «%1» og alle relaterte logiske volum?"
+
+#: src/lib/y2partitioner/actions/delete_lvm_lvs.rb:73
+#: src/lib/y2partitioner/actions/delete_partitions.rb:108
+#, fuzzy
+msgid "Really delete all these devices?"
+msgstr "Er du sikker på at du vil sletta desse partisjonene?"
 
 #. Confirmation when the device contains logical volumes
 #.
@@ -577,11 +595,6 @@ msgstr ""
 #, fuzzy
 msgid "The partition table does not contain partitions."
 msgstr "<p>Vel partisjonstypen for den nye partisjonen.</p>"
-
-#: src/lib/y2partitioner/actions/delete_partitions.rb:108
-#, fuzzy
-msgid "Really delete all these devices?"
-msgstr "Er du sikker på at du vil sletta desse partisjonene?"
 
 #. TRANSLATORS: dialog title. %s is a device name like /dev/md0
 #: src/lib/y2partitioner/actions/edit_blk_device.rb:61
@@ -1129,7 +1142,6 @@ msgstr "Namn"
 
 #. @macro seeAbstractWidget
 #: src/lib/y2partitioner/dialogs/lvm_lv_info.rb:75
-#: src/lib/y2partitioner/widgets/lvm_add_button.rb:54
 #, fuzzy
 msgid "Logical Volume"
 msgstr "Logisk volum"
@@ -1725,6 +1737,28 @@ msgid ""
 "The system cannot be installed because the following errors were found:\n"
 msgstr ""
 
+#. Title of the section listing the MD RAIDs
+#.
+#. @note This is defined in this class as the simplest way to avoid
+#. dependency cycles in the Ruby requires. We might reconsider a more clean
+#. approach in the future.
+#.
+#. @return [String]
+#: src/lib/y2partitioner/ui_state.rb:46
+#, fuzzy
+msgid "RAID"
+msgstr "RAID"
+
+#. Title of the LVM section
+#.
+#. @note See note on {.md_raids_label} about why this looks misplaced.
+#.
+#. @return [String]
+#: src/lib/y2partitioner/ui_state.rb:55
+#, fuzzy
+msgid "Volume Management"
+msgstr "Volumadministrasjon"
+
 #. TRANSLATORS: button label to add a new Bcache device
 #: src/lib/y2partitioner/widgets/bcache_add_button.rb:38
 msgid "Add Bcache..."
@@ -1751,6 +1785,40 @@ msgstr "&Partisjoner"
 #, fuzzy
 msgid "Caching Device: %s"
 msgstr "Eining: %1"
+
+#. @macro seeAbstractWidget
+#. @macro seeAbstractWidget
+#. @macro seeAbstractWidget
+#. @macro seeAbstractWidget
+#. @macro seeAbstractWidget
+#. @macro seeAbstractWidget
+#: src/lib/y2partitioner/widgets/bcache_modify_button.rb:38
+#: src/lib/y2partitioner/widgets/disk_modify_button.rb:38
+#: src/lib/y2partitioner/widgets/lvm_lv_modify_button.rb:38
+#: src/lib/y2partitioner/widgets/lvm_vg_modify_button.rb:37
+#: src/lib/y2partitioner/widgets/md_modify_button.rb:39
+#: src/lib/y2partitioner/widgets/partition_modify_button.rb:39
+msgid "&Modify"
+msgstr ""
+
+#. @see DeviceMenuButton#actions
+#.
+#. @return [Array<Hash>]
+#: src/lib/y2partitioner/widgets/bcache_modify_button.rb:50
+#, fuzzy
+msgid "Edit Bcache..."
+msgstr "Rediger …"
+
+#. @see DeviceMenuButton#actions
+#.
+#. @return [Array<Hash>]
+#: src/lib/y2partitioner/widgets/bcache_modify_button.rb:55
+#: src/lib/y2partitioner/widgets/disk_modify_button.rb:55
+#: src/lib/y2partitioner/widgets/md_modify_button.rb:65
+#: src/lib/y2partitioner/widgets/partition_table_button.rb:51
+#, fuzzy
+msgid "Create New Partition Table..."
+msgstr "&Opprett partisjonsoppsett …"
 
 #. TRANSLATORS: Device name information, where %s is replaced by the
 #. kernel path to device
@@ -1909,10 +1977,8 @@ msgstr "Filsystem:"
 
 #. TRANSLATORS: button label for editing a block device
 #. @see CWM::PushButton#Label
-#. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/blk_device_edit_button.rb:41
+#: src/lib/y2partitioner/widgets/blk_device_edit_button.rb:40
 #: src/lib/y2partitioner/widgets/btrfs_edit_button.rb:42
-#: src/lib/y2partitioner/widgets/lvm_edit_button.rb:39
 #, fuzzy
 msgid "Edit..."
 msgstr "Rediger …"
@@ -1975,10 +2041,8 @@ msgstr "Slutt"
 #. @param device [Y2Storage::BlkDevice]
 #. @return [Yast::Term] icon
 #. @macro seeAbstractWidget
-#. TRANSLATORS: Heading
 #: src/lib/y2partitioner/widgets/blk_devices_table.rb:251
-#: src/lib/y2partitioner/widgets/pages/bcaches.rb:48
-#: src/lib/y2partitioner/widgets/pages/bcaches.rb:62
+#: src/lib/y2partitioner/widgets/pages/bcaches.rb:46
 msgid "Bcache"
 msgstr ""
 
@@ -2053,13 +2117,7 @@ msgstr ""
 "i eit BTRFS-filsystem.</p>"
 
 #. TRANSLATORS: button label to add a btrfs subvolume
-#. TRANSLATORS: button label to add a volume group or logical volume
-#. TRANSLATORS: button label to add a logical volume
-#. TRANSLATORS: label for button to add a partition
 #: src/lib/y2partitioner/widgets/btrfs_subvolumes_add_button.rb:44
-#: src/lib/y2partitioner/widgets/lvm_add_button.rb:44
-#: src/lib/y2partitioner/widgets/lvm_lv_add_button.rb:38
-#: src/lib/y2partitioner/widgets/partition_add_button.rb:47
 #, fuzzy
 msgid "Add..."
 msgstr "Legg til …"
@@ -2210,13 +2268,13 @@ msgstr ""
 #. @note An error popup is shown when there is no device.
 #.
 #. @return [Boolean]
-#. Runs action for adding a new logical volume to the selected volume group
-#. @see Actions::AddLvmLv
+#. Checks whether there is a device on which to act
 #.
-#. @return [Symbol, nil] :finish, :abort. Returns nil when it is not possible
-#. to determine the volume group (see {#vg}).
-#: src/lib/y2partitioner/widgets/device_button.rb:110
-#: src/lib/y2partitioner/widgets/lvm_add_button.rb:94
+#. @note An error popup is shown when there is no device.
+#.
+#. @return [Boolean]
+#: src/lib/y2partitioner/widgets/device_button.rb:102
+#: src/lib/y2partitioner/widgets/device_menu_button.rb:145
 #, fuzzy
 msgid "No device selected"
 msgstr "Ingen EIT-servar valt."
@@ -2258,7 +2316,7 @@ msgid "Saving graph file failed."
 msgstr "Diagramfilen kunne ikkje lagrast."
 
 #. TRANSLATORS: label for button for resizing a device
-#: src/lib/y2partitioner/widgets/device_resize_button.rb:41
+#: src/lib/y2partitioner/widgets/device_resize_button.rb:40
 #, fuzzy
 msgid "Resize..."
 msgstr "Endre storleik …"
@@ -2268,7 +2326,7 @@ msgstr "Endre storleik …"
 #. @note An error popup is shown when the device does not support resizing.
 #.
 #. @return [Boolean] true if the device supports resizing; false otherwise.
-#: src/lib/y2partitioner/widgets/device_resize_button.rb:61
+#: src/lib/y2partitioner/widgets/device_resize_button.rb:60
 #, fuzzy
 msgid ""
 "Hard disks, BIOS RAIDs and multipath\n"
@@ -2335,6 +2393,14 @@ msgstr "Ikkje partisjonert"
 #, fuzzy
 msgid "Hard Disk:"
 msgstr "Harddisk: "
+
+#. @see DeviceMenuButton#actions
+#.
+#. @return [Array<Hash>]
+#: src/lib/y2partitioner/widgets/disk_modify_button.rb:50
+#, fuzzy
+msgid "Edit Hard Disk..."
+msgstr "Harddisk"
 
 #. help text for cryptofs
 #: src/lib/y2partitioner/widgets/encrypt_password.rb:20
@@ -2444,7 +2510,7 @@ msgstr "Ikkje monter partisjonen"
 #. is given.
 #. TRANSLATORS: Error messagge when the label is not given.
 #: src/lib/y2partitioner/widgets/format_and_mount.rb:292
-#: src/lib/y2partitioner/widgets/fstab_options.rb:289
+#: src/lib/y2partitioner/widgets/fstab_options.rb:290
 #, fuzzy
 msgid "Provide a volume label to mount by label."
 msgstr "Angje ein volumbetegnelse for å montera med nemning."
@@ -2603,7 +2669,7 @@ msgid "Partition &ID:"
 msgstr "Partisjon: %1"
 
 #. Push button that launch a dialog to set the fstab options
-#: src/lib/y2partitioner/widgets/fstab_options.rb:150
+#: src/lib/y2partitioner/widgets/fstab_options.rb:151
 #, fuzzy
 msgid "Fstab Options..."
 msgstr "Fs&tab-val …"
@@ -2612,21 +2678,21 @@ msgstr "Fs&tab-val …"
 #.
 #. @param controller [Actions::Controllers:Filesystem]
 #. @param parent_widget [Widgets::FstabOptions]
-#: src/lib/y2partitioner/widgets/fstab_options.rb:250
-#: src/lib/y2partitioner/widgets/fstab_options.rb:387
+#: src/lib/y2partitioner/widgets/fstab_options.rb:251
+#: src/lib/y2partitioner/widgets/fstab_options.rb:388
 #, fuzzy
 msgid "Volume &Label"
 msgstr "Volum&nemning"
 
 #. TRANSLATORS: Error message when the given label is already in use.
-#: src/lib/y2partitioner/widgets/fstab_options.rb:304
+#: src/lib/y2partitioner/widgets/fstab_options.rb:305
 #, fuzzy
 msgid "This volume label is already in use. Select a different one."
 msgstr "Denne volumbetegnelsen er allereie i bruk. Vel ein annan."
 
 #. Group of radio buttons to select the type of identifier to be used for
 #. mouth the specific device (UUID, Label, Path...)
-#: src/lib/y2partitioner/widgets/fstab_options.rb:363
+#: src/lib/y2partitioner/widgets/fstab_options.rb:364
 #, fuzzy
 msgid "Mount in /etc/fstab By"
 msgstr "Monter i /etc/fstab med"
@@ -2634,39 +2700,39 @@ msgstr "Monter i /etc/fstab med"
 #. TODO: If some day we get more a more sophisticated UI for editing
 #. subvolumes, don't always simply overwrite the subvolumes' mount_by
 #. with whatever is set here - ask the user if this is desired.
-#: src/lib/y2partitioner/widgets/fstab_options.rb:386
+#: src/lib/y2partitioner/widgets/fstab_options.rb:387
 #, fuzzy
 msgid "&Device Name"
 msgstr "Enhetsnavn"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:388
+#: src/lib/y2partitioner/widgets/fstab_options.rb:389
 #, fuzzy
 msgid "&UUID"
 msgstr "UUID"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:392
+#: src/lib/y2partitioner/widgets/fstab_options.rb:393
 #, fuzzy
 msgid "Device &ID"
 msgstr "IDA til-&Eining"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:393
+#: src/lib/y2partitioner/widgets/fstab_options.rb:394
 #, fuzzy
 msgid "Device &Path"
 msgstr "Eining si&filsti"
 
 #. CheckBox to disable the automount option when starting up
-#: src/lib/y2partitioner/widgets/fstab_options.rb:472
+#: src/lib/y2partitioner/widgets/fstab_options.rb:473
 #, fuzzy
 msgid "Do Not Mount at System &Start-up"
 msgstr "Ikkje monter ved &oppstart"
 
 #. CheckBox to enable the read only option ("ro")
-#: src/lib/y2partitioner/widgets/fstab_options.rb:482
+#: src/lib/y2partitioner/widgets/fstab_options.rb:483
 #, fuzzy
 msgid "Mount &Read-Only"
 msgstr "Monter &som skrivebeskyttet"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:486
+#: src/lib/y2partitioner/widgets/fstab_options.rb:487
 #, fuzzy
 msgid ""
 "<p><b>Mount Read-Only:</b>\n"
@@ -2678,12 +2744,12 @@ msgstr ""
 "Ingen data kan verta til skrive filsystemet. Standardverdien er 'nei'.</p>\n"
 
 #. CheckBox to enable the noatime option
-#: src/lib/y2partitioner/widgets/fstab_options.rb:497
+#: src/lib/y2partitioner/widgets/fstab_options.rb:498
 #, fuzzy
 msgid "No &Access Time"
 msgstr "Ingen &tilgangstid"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:501
+#: src/lib/y2partitioner/widgets/fstab_options.rb:502
 #, fuzzy
 msgid ""
 "<p><b>No Access Time:</b>\n"
@@ -2695,12 +2761,12 @@ msgstr ""
 
 #. CheckBox to enable the user option which means allow to mount the
 #. filesystem by an ordinary user
-#: src/lib/y2partitioner/widgets/fstab_options.rb:512
+#: src/lib/y2partitioner/widgets/fstab_options.rb:513
 #, fuzzy
 msgid "Mountable by User"
 msgstr "Kan monterast av &brukar"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:516
+#: src/lib/y2partitioner/widgets/fstab_options.rb:517
 #, fuzzy
 msgid ""
 "<p><b>Mountable by User:</b>\n"
@@ -2710,12 +2776,12 @@ msgstr ""
 "Filsystemet kan monterast av vanleg brukar. Standardverdien er \"Nei\".</p>\n"
 
 #. CheckBox to enable the use of user quotas
-#: src/lib/y2partitioner/widgets/fstab_options.rb:527
+#: src/lib/y2partitioner/widgets/fstab_options.rb:528
 #, fuzzy
 msgid "Enable &Quota Support"
 msgstr "Aktiver disk&kvoter"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:531
+#: src/lib/y2partitioner/widgets/fstab_options.rb:532
 #, fuzzy
 msgid ""
 "<p><b>Enable Quota Support:</b>\n"
@@ -2727,12 +2793,12 @@ msgstr ""
 "Standard er deaktivert.</p>\n"
 
 #. CheckBox to enable access control lists (acl)
-#: src/lib/y2partitioner/widgets/fstab_options.rb:571
+#: src/lib/y2partitioner/widgets/fstab_options.rb:572
 #, fuzzy
 msgid "&Access Control Lists (ACL)"
 msgstr "&Tilgangskontrollister (ACL)"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:575
+#: src/lib/y2partitioner/widgets/fstab_options.rb:576
 #, fuzzy
 msgid ""
 "<p><b>Access Control Lists (acl):</b>\n"
@@ -2743,12 +2809,12 @@ msgstr ""
 "Aktivar tilgangskontrollister for filsystemet.</p>\n"
 
 #. CheckBox to enable extended user attributes (user_xattr)
-#: src/lib/y2partitioner/widgets/fstab_options.rb:588
+#: src/lib/y2partitioner/widgets/fstab_options.rb:589
 #, fuzzy
 msgid "&Extended User Attributes"
 msgstr "&Utvida brukerattributter"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:592
+#: src/lib/y2partitioner/widgets/fstab_options.rb:593
 msgid ""
 "<p><b>Extended User Attributes (user_xattr):</b>\n"
 "Enable extended attributes (name:value pairs) on files and directories.\n"
@@ -2756,27 +2822,27 @@ msgid ""
 msgstr ""
 
 #. ComboBox to specify the journal mode to use by the filesystem
-#: src/lib/y2partitioner/widgets/fstab_options.rb:688
+#: src/lib/y2partitioner/widgets/fstab_options.rb:689
 #, fuzzy
 msgid "Data &Journaling Mode"
 msgstr "Data&indekseringsmodus"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:697
+#: src/lib/y2partitioner/widgets/fstab_options.rb:698
 #, fuzzy
 msgid "journal"
 msgstr "I&ngen journal"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:698
+#: src/lib/y2partitioner/widgets/fstab_options.rb:699
 msgid "ordered"
 msgstr ""
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:699
+#: src/lib/y2partitioner/widgets/fstab_options.rb:700
 msgid "writeback"
 msgstr ""
 
 #. journal options tend to break remounting root rw (bsc#1077859).
 #. See also root_fstab_options() in lib/y2storage/filesystems/type.rb
-#: src/lib/y2partitioner/widgets/fstab_options.rb:710
+#: src/lib/y2partitioner/widgets/fstab_options.rb:711
 #, fuzzy
 msgid ""
 "<p><b>Data Journaling Mode:</b>\n"
@@ -2800,7 +2866,7 @@ msgstr ""
 
 #. An input field that allows to set other options that are not handled by
 #. specific widgets.
-#: src/lib/y2partitioner/widgets/fstab_options.rb:739
+#: src/lib/y2partitioner/widgets/fstab_options.rb:740
 #, fuzzy
 msgid "Arbitrary Option &Value"
 msgstr "Tilfeldig alternativt&verd"
@@ -2814,7 +2880,7 @@ msgstr "Tilfeldig alternativt&verd"
 #. So, when a user insists in adding "noauto,user" here, it is applied
 #. correctly, but when entering the dialog again, the checkboxes pick up
 #. those values and they won't show up in this field anymore.
-#: src/lib/y2partitioner/widgets/fstab_options.rb:763
+#: src/lib/y2partitioner/widgets/fstab_options.rb:764
 msgid ""
 "<p><b>Arbitrary Option Value:</b> Enter any other mount options here, "
 "separated with commas. Notice that this does not do any checking, so be "
@@ -2822,12 +2888,12 @@ msgid ""
 msgstr ""
 
 #. Swap priority
-#: src/lib/y2partitioner/widgets/fstab_options.rb:839
+#: src/lib/y2partitioner/widgets/fstab_options.rb:840
 #, fuzzy
 msgid "Swap &Priority"
 msgstr "Veksleminne&prioritet"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:848
+#: src/lib/y2partitioner/widgets/fstab_options.rb:849
 #, fuzzy
 msgid ""
 "<p><b>Swap Priority:</b>\n"
@@ -2838,12 +2904,12 @@ msgstr ""
 
 #. "iocharset=utf8" breaks VFAT case insensitivity (bsc#1080731).
 #. See also boot_fstab_options() in lib/y2storage/filesystems/type.rb
-#: src/lib/y2partitioner/widgets/fstab_options.rb:881
+#: src/lib/y2partitioner/widgets/fstab_options.rb:882
 #, fuzzy
 msgid "Char&set for File Names"
 msgstr "Teikn&sett for filnavn"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:885
+#: src/lib/y2partitioner/widgets/fstab_options.rb:886
 #, fuzzy
 msgid ""
 "<p><b>Charset for File Names:</b>\n"
@@ -2854,12 +2920,12 @@ msgstr ""
 "partisjoner.</p>\n"
 
 #. VFAT Codepage
-#: src/lib/y2partitioner/widgets/fstab_options.rb:901
+#: src/lib/y2partitioner/widgets/fstab_options.rb:902
 #, fuzzy
 msgid "Code&page for Short FAT Names"
 msgstr "Teikn&sett for korta FAT-namn"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:905
+#: src/lib/y2partitioner/widgets/fstab_options.rb:906
 #, fuzzy
 msgid ""
 "<p><b>Codepage for Short FAT Names:</b>\n"
@@ -3256,20 +3322,45 @@ msgstr ""
 msgid "Import Mount Points..."
 msgstr "Importar monteringspunkter …"
 
-#. When there is no vg, only shows an option to add a new vg.
-#. Otherwise, options for adding a vg or lv are shown.
-#.
-#. @return [Array<[Symbol, String]>] list of menu options
-#: src/lib/y2partitioner/widgets/lvm_add_button.rb:52
-#, fuzzy
-msgid "Volume Group"
-msgstr "Volumgruppe"
-
 #. TRANSLATORS: table header, type of metadata
 #: src/lib/y2partitioner/widgets/lvm_devices_table.rb:49
 #, fuzzy
 msgid "PE Size"
 msgstr "PE-storleik"
+
+#. @macro seeAbstractWidget
+#: src/lib/y2partitioner/widgets/lvm_logical_volumes_button.rb:41
+#, fuzzy
+msgid "&Logical Volumes"
+msgstr "&Logiske volum"
+
+#. @see DeviceMenuButton#execute_action
+#. @macro seeAbstractWidget
+#: src/lib/y2partitioner/widgets/lvm_logical_volumes_button.rb:53
+#: src/lib/y2partitioner/widgets/pages/lvm_vg.rb:123
+#, fuzzy
+msgid "Log&ical Volumes"
+msgstr "&Logiske volum"
+
+#. @see DeviceMenuButton#actions
+#.
+#. @return [Array<Hash>]
+#: src/lib/y2partitioner/widgets/lvm_logical_volumes_button.rb:66
+#, fuzzy
+msgid "Edit Logical Volumes..."
+msgstr "&Logiske volum"
+
+#. TRANSLATORS: button label to add a logical volume
+#: src/lib/y2partitioner/widgets/lvm_logical_volumes_button.rb:71
+#: src/lib/y2partitioner/widgets/lvm_lv_add_button.rb:38
+#, fuzzy
+msgid "Add Logical Volume..."
+msgstr "Legg til logisk volum på %1"
+
+#: src/lib/y2partitioner/widgets/lvm_logical_volumes_button.rb:76
+#, fuzzy
+msgid "Delete Logical Volumes..."
+msgstr "&Logiske volum"
 
 #. TRANSLATORS: logical volume stripes information, where %s is replaces by
 #. the stripes info
@@ -3294,6 +3385,31 @@ msgstr ""
 #: src/lib/y2partitioner/widgets/lvm_vg_description.rb:64
 msgid "LVM:"
 msgstr ""
+
+#. @see DeviceMenuButton#actions
+#: src/lib/y2partitioner/widgets/lvm_lv_modify_button.rb:46
+#, fuzzy
+msgid "Edit Logical Volume..."
+msgstr "Logisk volum"
+
+#: src/lib/y2partitioner/widgets/lvm_lv_modify_button.rb:47
+#, fuzzy
+msgid "Resize Logical Volume..."
+msgstr "Endre storleik på logisk volum %1"
+
+#. TRANSLATORS: label for button to delete all logical volumes
+#. TRANSLATORS: label for button to delete all partitions
+#: src/lib/y2partitioner/widgets/lvm_lvs_delete_button.rb:38
+#: src/lib/y2partitioner/widgets/partitions_delete_button.rb:38
+#, fuzzy
+msgid "Delete All"
+msgstr "Slett …"
+
+#. TRANSLATORS: button label to add a LVM volume group
+#: src/lib/y2partitioner/widgets/lvm_vg_add_button.rb:38
+#, fuzzy
+msgid "Add Volume Group..."
+msgstr "Legg til volumgruppe"
 
 #. TRANSLATORS: Volume group extent size information, where %s is replaced by
 #. a size (e.g., 8 KiB)
@@ -3349,6 +3465,25 @@ msgid ""
 "Removing the physical volume %{pvs} from the volume group %{vg}\n"
 "is not supported because the physical volume may be already in use"
 msgstr ""
+
+#. @see DeviceMenuButton#actions
+#.
+#. @see Actions::ResizeLvmVg
+#.
+#. @return [Array<Hash>]
+#: src/lib/y2partitioner/widgets/lvm_vg_modify_button.rb:51
+#, fuzzy
+msgid "Change Physical Volumes..."
+msgstr "&Fysiske volum"
+
+#. TRANSLATORS: label for button to change the list of physical
+#. volumes of an LVM VG
+#. TRANSLATORS: label for button to edit used devices
+#: src/lib/y2partitioner/widgets/lvm_vg_resize_button.rb:39
+#: src/lib/y2partitioner/widgets/used_devices_edit_button.rb:40
+#, fuzzy
+msgid "Change..."
+msgstr "Endringar:"
 
 #. TRANSLATORS: button label to add a MD Raid
 #: src/lib/y2partitioner/widgets/md_add_button.rb:38
@@ -3432,6 +3567,23 @@ msgstr ""
 #: src/lib/y2partitioner/widgets/md_devices_selector.rb:220
 msgid "Bottom"
 msgstr ""
+
+#. @see DeviceMenuButton#actions
+#.
+#. @see Actions::EditBlkDevice
+#. @see Actions::EditMdDevices
+#. @see Actions::CreatePartitionTable
+#.
+#. @return [Array<Hash>]
+#: src/lib/y2partitioner/widgets/md_modify_button.rb:55
+#, fuzzy
+msgid "Edit RAID..."
+msgstr "Legg til RAID …"
+
+#: src/lib/y2partitioner/widgets/md_modify_button.rb:60
+#, fuzzy
+msgid "Change Used Devices..."
+msgstr "Br&ukt eining"
 
 #. help text, richtext format
 #: src/lib/y2partitioner/widgets/mkfs_optiondata.rb:57
@@ -3708,7 +3860,7 @@ msgid ""
 msgstr ""
 
 #. TRANSLATORS: Heading. String followed by device name of hard disk
-#: src/lib/y2partitioner/widgets/pages/disk.rb:70
+#: src/lib/y2partitioner/widgets/pages/disk.rb:69
 #, fuzzy
 msgid "Hard Disk: %s"
 msgstr "Harddiskar"
@@ -3716,32 +3868,18 @@ msgstr "Harddiskar"
 #. @macro seeAbstractWidget
 #. @macro seeAbstractWidget
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/pages/disk.rb:132
+#: src/lib/y2partitioner/widgets/pages/disk.rb:131
 #: src/lib/y2partitioner/widgets/pages/lvm_vg.rb:94
-#: src/lib/y2partitioner/widgets/pages/md_raid.rb:97
+#: src/lib/y2partitioner/widgets/pages/md_raid.rb:96
 #, fuzzy
 msgid "&Overview"
 msgstr "&Oversyn"
 
 #. @macro seeAbstractWidget
-#. TRANSLATORS: Heading
-#: src/lib/y2partitioner/widgets/pages/disks.rb:52
-#: src/lib/y2partitioner/widgets/pages/disks.rb:66
+#: src/lib/y2partitioner/widgets/pages/disks.rb:45
 #, fuzzy
 msgid "Hard Disks"
 msgstr "Harddiskar"
-
-#. Label for all the instances
-#.
-#. @see #label
-#.
-#. @return [String]
-#. TRANSLATORS: Heading
-#: src/lib/y2partitioner/widgets/pages/lvm.rb:53
-#: src/lib/y2partitioner/widgets/pages/lvm.rb:71
-#, fuzzy
-msgid "Volume Management"
-msgstr "Volumadministrasjon"
 
 #. TRANSLATORS: Heading. String followed by name of partition
 #: src/lib/y2partitioner/widgets/pages/lvm_lv.rb:63
@@ -3756,34 +3894,16 @@ msgid "Volume Group: %s"
 msgstr "Volumgruppe: %1 "
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/pages/lvm_vg.rb:119
-#, fuzzy
-msgid "Log&ical Volumes"
-msgstr "&Logiske volum"
-
-#. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/pages/lvm_vg.rb:184
+#: src/lib/y2partitioner/widgets/pages/lvm_vg.rb:185
 #, fuzzy
 msgid "&Physical Volumes"
 msgstr "&Fysiske volum"
 
 #. @macro seeCustomWidget
-#: src/lib/y2partitioner/widgets/pages/md_raid.rb:70
+#: src/lib/y2partitioner/widgets/pages/md_raid.rb:69
 #, fuzzy
 msgid "RAID: %s"
 msgstr "RAID: %1"
-
-#. Label for all the instances
-#.
-#. @see #label
-#.
-#. @return [String]
-#. TRANSLATORS: Heading
-#: src/lib/y2partitioner/widgets/pages/md_raids.rb:52
-#: src/lib/y2partitioner/widgets/pages/md_raids.rb:72
-#, fuzzy
-msgid "RAID"
-msgstr "RAID"
 
 #. TRANSLATORS: Heading for the expert partitioner page
 #: src/lib/y2partitioner/widgets/pages/nfs_mounts.rb:62
@@ -3852,7 +3972,9 @@ msgstr "Installasjonssammendrag"
 msgid "Available Storage on %s"
 msgstr "Tilgjengeleg plass på %1"
 
-#: src/lib/y2partitioner/widgets/partition_add_button.rb:47
+#. TRANSLATORS: label for button to add a partition
+#: src/lib/y2partitioner/widgets/partition_add_button.rb:38
+#: src/lib/y2partitioner/widgets/partitions_button.rb:73
 #, fuzzy
 msgid "Add Partition..."
 msgstr "Legg til partisjon …"
@@ -3862,6 +3984,22 @@ msgstr "Legg til partisjon …"
 #, fuzzy
 msgid "Partition ID: %s"
 msgstr "&Partisjoner"
+
+#. @see DeviceMenuButton#actions
+#: src/lib/y2partitioner/widgets/partition_modify_button.rb:47
+#, fuzzy
+msgid "Edit Partition..."
+msgstr "Legg til partisjon …"
+
+#: src/lib/y2partitioner/widgets/partition_modify_button.rb:48
+#, fuzzy
+msgid "Resize Partition..."
+msgstr "Legg til partisjon …"
+
+#: src/lib/y2partitioner/widgets/partition_modify_button.rb:49
+#, fuzzy
+msgid "Move Partition..."
+msgstr "Legg til partisjon …"
 
 #. Button for moving a partition
 #: src/lib/y2partitioner/widgets/partition_move_button.rb:36
@@ -3875,23 +4013,40 @@ msgstr "Flytt …"
 msgid "New Partition Table..."
 msgstr "Ny partisjonstype"
 
-#. TRANSLATORS: label for button to clone a partition table
-#: src/lib/y2partitioner/widgets/partition_table_clone_button.rb:38
+#. @macro seeAbstractWidget
+#: src/lib/y2partitioner/widgets/partition_table_button.rb:39
 #, fuzzy
-msgid "Clone Partitions..."
+msgid "Partition Table"
+msgstr "&Opprett partisjonsoppsett …"
+
+#: src/lib/y2partitioner/widgets/partition_table_button.rb:56
+#: src/lib/y2partitioner/widgets/partitions_button.rb:85
+#, fuzzy
+msgid "Clone Partitions to Other Devices..."
 msgstr "Legg til partisjon …"
 
-#. TRANSLATORS: label for button to delete all partitions
-#: src/lib/y2partitioner/widgets/partitions_delete_button.rb:38
-#, fuzzy
-msgid "Delete All"
-msgstr "Slett …"
-
 #. @macro seeAbstractWidget
+#. @see DeviceMenuButton#execute_action
+#. @macro seeAbstractWidget
+#: src/lib/y2partitioner/widgets/partitions_button.rb:41
+#: src/lib/y2partitioner/widgets/partitions_button.rb:53
 #: src/lib/y2partitioner/widgets/partitions_tab.rb:54
 #, fuzzy
 msgid "&Partitions"
 msgstr "&Partisjoner"
+
+#. @see DeviceMenuButton#actions
+#.
+#. @return [Array<Hash>]
+#: src/lib/y2partitioner/widgets/partitions_button.rb:68
+#, fuzzy
+msgid "Edit Partitions..."
+msgstr "Rediger partisjonen %1"
+
+#: src/lib/y2partitioner/widgets/partitions_button.rb:78
+#, fuzzy
+msgid "Delete Partitions..."
+msgstr "Legg til partisjon …"
 
 #. Reprobes and updates devicegraphs for the partitioner. During
 #. installation, a reactivation is performed before reprobing.
@@ -3977,12 +4132,6 @@ msgid ""
 "performed when you finish the partitioner. So far, nothing has been changed "
 "yet on your system.</p>"
 msgstr ""
-
-#. TRANSLATORS: label for button to edit used devices
-#: src/lib/y2partitioner/widgets/used_devices_edit_button.rb:40
-#, fuzzy
-msgid "Change..."
-msgstr "Endringar:"
 
 #. @macro seeAbstractWidget
 #: src/lib/y2partitioner/widgets/used_devices_tab.rb:42
@@ -5183,16 +5332,16 @@ msgid "Unknown reason"
 msgstr ""
 
 #, fuzzy
+#~ msgid "Volume Group"
+#~ msgstr "Volumgruppe"
+
+#, fuzzy
 #~ msgid "Resize RAID %s"
 #~ msgstr "Endre storleik på RAID %1"
 
 #, fuzzy
 #~ msgid "&Expert..."
 #~ msgstr "Avansert …"
-
-#, fuzzy
-#~ msgid "Create New Partition &Table"
-#~ msgstr "&Opprett partisjonsoppsett …"
 
 #, fuzzy
 #~ msgid "Clone this Disk"
@@ -5793,10 +5942,6 @@ msgstr ""
 #, fuzzy
 #~ msgid "&Custom Partitioning (for experts)"
 #~ msgstr "&Egendefinert partisjonering (for avanserte brukarar)"
-
-#, fuzzy
-#~ msgid "Hard Disk"
-#~ msgstr "Harddisk"
 
 #, fuzzy
 #~ msgid ""
@@ -7197,10 +7342,6 @@ msgstr ""
 #~ msgstr ""
 #~ "Storleiken på partisjonen %1 kan ikkje endrast\n"
 #~ "fordi filsystemet ser ut til å vera inkonsistent."
-
-#, fuzzy
-#~ msgid "Resize Logical Volume %1"
-#~ msgstr "Endre storleik på logisk volum %1"
 
 #, fuzzy
 #~ msgid "Output of %1"
