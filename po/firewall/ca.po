@@ -2,11 +2,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Catalan (yast-firewall)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-04 02:29+0000\n"
+"POT-Creation-Date: 2018-10-04 02:28+0000\n"
 "PO-Revision-Date: 2018-10-03 19:02+0000\n"
 "Last-Translator: David Medina <medipas@gmail.com>\n"
-"Language-Team: Catalan <https://l10n.opensuse.org/projects/yast-"
-"firewall/master/ca/>\n"
+"Language-Team: Catalan <https://l10n.opensuse.org/projects/yast-firewall/"
+"master/ca/>\n"
 "Language: ca\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -116,7 +116,9 @@ msgstr "Configuració del tallafoc"
 
 #. TRANSLATORS: part of dialog caption
 #. TRANSLATORS: tree menu item
+#. @macro seeAbstractWidget
 #: src/include/firewall/dialogs.rb:286 src/include/firewall/dialogs.rb:289
+#: src/lib/y2firewall/widgets/pages/startup.rb:41
 msgid "Start-Up"
 msgstr "Inici"
 
@@ -124,14 +126,21 @@ msgstr "Inici"
 #. TRANSLATORS: tree menu item
 #. TRANSLATORS: Summary item label
 #. TRANSLATORS: Summary item label
+#. @macro seeAbstractWidget
+#. @macro seeCustomWidget
 #: src/include/firewall/dialogs.rb:302 src/include/firewall/dialogs.rb:305
 #: src/include/firewall/summary.rb:151 src/include/firewall/summary.rb:153
+#: src/lib/y2firewall/widgets/pages/interfaces.rb:46
+#: src/lib/y2firewall/widgets/pages/interfaces.rb:53
+#: src/lib/y2firewall/widgets/zones_table.rb:66
 msgid "Interfaces"
 msgstr "Interfícies"
 
 #. TRANSLATORS: part of dialog caption
 #. TRANSLATORS: tree menu item
+#. @macro seeAbstractWidget
 #: src/include/firewall/dialogs.rb:313 src/include/firewall/dialogs.rb:316
+#: src/lib/y2firewall/widgets/allowed_services.rb:44
 msgid "Allowed Services"
 msgstr "Serveis permesos"
 
@@ -674,7 +683,9 @@ msgid "Firewall Interfaces"
 msgstr "Interfícies del tallafoc"
 
 #. TRANSLATORS: table header item
+#. @see CWM::Table#header
 #: src/include/firewall/subdialogs.rb:95
+#: src/lib/y2firewall/widgets/interfaces_table.rb:67
 msgid "Device"
 msgstr "Dispositiu"
 
@@ -950,7 +961,10 @@ msgstr "Configuració de difusió"
 msgid "Accepting the Broadcast Reply"
 msgstr "Acceptant la resposta de difusió"
 
+#. @macro seeAbstractWidget
 #: src/include/firewall/subdialogs.rb:911
+#: src/lib/y2firewall/widgets/interfaces_table.rb:68
+#: src/lib/y2firewall/widgets/zone_options.rb:53
 msgid "Zone"
 msgstr "Zona"
 
@@ -1097,12 +1111,16 @@ msgid "&Show Details"
 msgstr "&Mostra els detalls"
 
 #. TRANSLATORS: Summary item label
+#. TRANSLATORS: TCP is the Transmission Control Protocol
 #: src/include/firewall/summary.rb:53
+#: src/lib/y2firewall/widgets/pages/zone.rb:89
 msgid "TCP Ports"
 msgstr "Ports TCP"
 
 #. TRANSLATORS: Summary item label
+#. TRANSLATORS: UDP is the User Datagram Protocol
 #: src/include/firewall/summary.rb:55
+#: src/lib/y2firewall/widgets/pages/zone.rb:91
 msgid "UDP Ports"
 msgstr "Ports UDP"
 
@@ -1486,7 +1504,7 @@ msgid "Firewalld is not available"
 msgstr "El tallafoc no està disponible."
 
 #. Checking if an interface has been defined for different zones
-#: src/lib/y2firewall/clients/auto.rb:166
+#: src/lib/y2firewall/clients/auto.rb:165
 msgid "This interface has been defined for more than one zone."
 msgstr "Aquesta interfície s'ha definit per a més d'una zona."
 
@@ -1494,48 +1512,57 @@ msgstr "Aquesta interfície s'ha definit per a més d'una zona."
 #.
 #. @return [String] HTML formated firewall description
 #. rubocop:disable Metrics/AbcSize
+#: src/lib/y2firewall/clients/auto.rb:267
 #: src/lib/y2firewall/clients/auto.rb:268
-#: src/lib/y2firewall/clients/auto.rb:269
 msgid "yes"
 msgstr "sí"
 
+#: src/lib/y2firewall/clients/auto.rb:267
 #: src/lib/y2firewall/clients/auto.rb:268
-#: src/lib/y2firewall/clients/auto.rb:269
 msgid "no"
 msgstr "no"
 
-#: src/lib/y2firewall/clients/auto.rb:271
+#: src/lib/y2firewall/clients/auto.rb:270
 msgid "Running:"
 msgstr "S'executa:"
 
-#: src/lib/y2firewall/clients/auto.rb:272
+#: src/lib/y2firewall/clients/auto.rb:271
 msgid "Enabled:"
 msgstr "Habilitat:"
 
-#: src/lib/y2firewall/clients/auto.rb:273
+#: src/lib/y2firewall/clients/auto.rb:272
 msgid "Default zone:"
 msgstr "Zona per defecte:"
 
-#: src/lib/y2firewall/clients/auto.rb:274
+#: src/lib/y2firewall/clients/auto.rb:273
 msgid "Defined zones:"
 msgstr "Zones definides:"
 
 #. TRANSLATORS: firewall-config and firewall-cmd are the names of software utilities,
 #. so they should not be translated.
-#: src/lib/y2firewall/clients/firewall.rb:46
+#: src/lib/y2firewall/clients/firewall.rb:47
 msgid ""
-"YaST currently does not have a module for configuring firewall. Please, "
-"either use \"firewall-config\" to configure your firewall via a user "
-"interface or \"firewall-cmd\" for the command line."
+"YaST does not support the command line for configuring the firewall.\n"
+"Instead, please use the firewalld command line clients \"firewalld-cmd\" or "
+"\"firewall-offline-cmd\"."
 msgstr ""
-"El YaST ara no té cap mòdul per configurar el tallafoc. Si us plau, useu "
-"\"firewall-config\" per configurar-lo a través de la interfície d'usuari o "
-"\"firewall-cmd\" per a la línia d'ordres."
 
 #. Constuctor
 #: src/lib/y2firewall/clients/installation_finish.rb:48
 msgid "Writing Firewall Configuration..."
 msgstr "Escrivint la configuració del tallafoc..."
+
+#. @macro seeAbstractWidget
+#. @macro seeAbstractWidget
+#: src/lib/y2firewall/dialogs/change_zone.rb:43
+#: src/lib/y2firewall/widgets/change_zone_button.rb:44
+msgid "Change Zone"
+msgstr ""
+
+#. Constructor
+#: src/lib/y2firewall/dialogs/main.rb:42
+msgid "Firewall"
+msgstr "Tallafoc"
 
 #. Dialog for firewall and ssh proposal configuration
 #: src/lib/y2firewall/dialogs/proposal.rb:40
@@ -1583,6 +1610,140 @@ msgstr ""
 "\n"
 "Comproveu acuradament la configuració aplicada un cop acabada la\n"
 "instal·lació."
+
+#. @macro seeCustomWidget
+#: src/lib/y2firewall/widgets/allowed_services.rb:54
+msgid "Known"
+msgstr ""
+
+#: src/lib/y2firewall/widgets/allowed_services.rb:59
+#, fuzzy
+#| msgid "Allowed Service"
+msgid "Allowed"
+msgstr "Servei permès"
+
+#. TRANSLATORS: %s is the zone label
+#: src/lib/y2firewall/widgets/allowed_services.rb:88
+msgid ""
+"<p>Select which services you want to allow in the zone <b>%s</b>\n"
+"by adding them to the <b>Allowed</b> list (using <b>Add</b> or <b>Add All</"
+"b>\n"
+"buttons).</p>"
+msgstr ""
+
+#. Return a list of buttons to add/remove elements
+#.
+#. @return [Array<Yast::Term>] Buttons set UI terms
+#: src/lib/y2firewall/widgets/allowed_services.rb:139
+#, fuzzy
+#| msgid "&Add..."
+msgid "Add"
+msgstr "&Afegeix..."
+
+#: src/lib/y2firewall/widgets/allowed_services.rb:144
+msgid "Add All"
+msgstr ""
+
+#: src/lib/y2firewall/widgets/allowed_services.rb:150
+msgid "Remove"
+msgstr ""
+
+#: src/lib/y2firewall/widgets/allowed_services.rb:155
+msgid "Remove All"
+msgstr ""
+
+#. @macro seeAbstractWidget
+#: src/lib/y2firewall/widgets/default_zone_button.rb:43
+msgid "Set As Default"
+msgstr ""
+
+#. A table with all {Y2Firewall::Firewalld::Interface}s.
+#. ComboBox which allows to select a zone
+#: src/lib/y2firewall/widgets/interfaces_table.rb:32
+#: src/lib/y2firewall/widgets/zone_options.rb:31
+#, fuzzy
+#| msgid "Default zone:"
+msgid "default"
+msgstr "Zona per defecte:"
+
+#. @see CWM::Table#header
+#. @see CWM::Table#header
+#: src/lib/y2firewall/widgets/interfaces_table.rb:69
+#: src/lib/y2firewall/widgets/services_table.rb:60
+#: src/lib/y2firewall/widgets/zones_table.rb:65
+#, fuzzy
+#| msgid "Zone Name"
+msgid "Name"
+msgstr "Nom de la zona"
+
+#. @macro seeAbstractWidget
+#: src/lib/y2firewall/widgets/interfaces_table.rb:102
+msgid ""
+"<p>Assign your network devices into firewall zones by selecting the device\n"
+"in the table and clicking <b>Change Zone</b>.</p>\n"
+"\n"
+"<p>If you assign an interface to the <b>default</b> zone, the device\n"
+"will be assigned to the firewall's default zone. Visit the <b>Zones</b>\n"
+"section to find out (and eventually change) which zone is the default one.</"
+"p>"
+msgstr ""
+
+#. Constructor
+#.
+#. @param zone [Y2Firewall::Firewalld::Zone]
+#: src/lib/y2firewall/widgets/pages/zone.rb:73
+#, fuzzy
+#| msgid "Port"
+msgid "Ports"
+msgstr "Port"
+
+#. TRANSLATORS: SCTP is the Stream Control Transmission Protocol
+#: src/lib/y2firewall/widgets/pages/zone.rb:93
+#, fuzzy
+#| msgid "TCP Ports"
+msgid "SCTP Ports"
+msgstr "Ports TCP"
+
+#. TRANSLATORS: DCCP is the Datagram Congestion Control Protocol
+#: src/lib/y2firewall/widgets/pages/zone.rb:95
+#, fuzzy
+#| msgid "TCP Ports"
+msgid "DCCP Ports"
+msgstr "Ports TCP"
+
+#: src/lib/y2firewall/widgets/pages/zone.rb:112
+msgid ""
+"Enter ports or port ranges, separated by spaces and/or commas.\n"
+"A port is an integer.\n"
+"A port range is port-dash-port (with no spaces).\n"
+"For example:\n"
+"%s"
+msgstr ""
+
+#: src/lib/y2firewall/widgets/pages/zone.rb:142
+#, fuzzy
+#| msgid "Invalid port range '%1'"
+msgid "Invalid port range: %s"
+msgstr "Gamma de port no vàlida: \"%1\""
+
+#. Constructor
+#.
+#. @param zone [Y2Firewall::Firewalld::Zone]
+#. @param _pager [CWM::TreePager]
+#: src/lib/y2firewall/widgets/pages/zone.rb:216
+#, fuzzy
+#| msgid "Service"
+msgid "Services"
+msgstr "Servei"
+
+#. @macro seeAbstractWidget
+#. @macro seeCustomWidget
+#: src/lib/y2firewall/widgets/pages/zones.rb:45
+#: src/lib/y2firewall/widgets/pages/zones.rb:52
+#, fuzzy
+#| msgid "Zone"
+msgid "Zones"
+msgstr "Zona"
 
 #. Enable firewall service checkbox
 #: src/lib/y2firewall/widgets/proposal.rb:76
@@ -1653,6 +1814,39 @@ msgstr ""
 "<p>També podeu obrir ports per a VNC al tallafoc. Això no habilitarà\n"
 "el servei d'administració remota en un sistema en execució però, si cal,\n"
 "ho inicia automàticament l'instal·lador.</p>"
+
+#: src/lib/y2firewall/widgets/zones_table.rb:67
+#, fuzzy
+#| msgid "Default zone:"
+msgid "Default"
+msgstr "Zona per defecte:"
+
+#. @macro seeAbstractWidget
+#: src/lib/y2firewall/widgets/zones_table.rb:100
+msgid ""
+"<p>A network zone defines the level of trust for network connections.</p>\n"
+"<p>You can designate one of them as the <b>default</b> zone by clicking the\n"
+"<b>Set As Default</b> button.</p>\n"
+"\n"
+"<p>In the <b>Interfaces</b> column you see which interfaces are assigned\n"
+"to a given zone. Bear in mind that, for the zone which is set as the "
+"default\n"
+"one, you will see the interfaces that are implicitly assigned to it, i.e.,\n"
+"those interfaces that are not assigned explicitly to that zone but to the\n"
+"default one.</p>\n"
+"\n"
+"<p>If you want to assign an interface to a given zone, just visit the\n"
+"<b>Interfaces</b> section.</p>"
+msgstr ""
+
+#~ msgid ""
+#~ "YaST currently does not have a module for configuring firewall. Please, "
+#~ "either use \"firewall-config\" to configure your firewall via a user "
+#~ "interface or \"firewall-cmd\" for the command line."
+#~ msgstr ""
+#~ "El YaST ara no té cap mòdul per configurar el tallafoc. Si us plau, useu "
+#~ "\"firewall-config\" per configurar-lo a través de la interfície d'usuari "
+#~ "o \"firewall-cmd\" per a la línia d'ordres."
 
 #~ msgid "Your display can't support the 'firewall-config' UI.\n"
 #~ msgstr "La vostra pantalla no té suport per a l'UI \"firewall-config\".\n"
@@ -1796,9 +1990,6 @@ msgstr ""
 #~ msgid "Shortcut"
 #~ msgstr "Drecera"
 
-#~ msgid "Zone Name"
-#~ msgstr "Nom de la zona"
-
 #~ msgid "Summary:"
 #~ msgstr "Resum:"
 
@@ -1888,9 +2079,6 @@ msgstr ""
 
 #~ msgid "Allowed Broadcast Ports:"
 #~ msgstr "Ports de difusió permesos:"
-
-#~ msgid "Port"
-#~ msgstr "Port"
 
 #~ msgid "Only one action command is allowed here."
 #~ msgstr "Només es permet una ordre d'acció."
@@ -1985,9 +2173,6 @@ msgstr ""
 #~ msgstr ""
 #~ "No es pot canviar la configuració del tallafoc.\n"
 #~ "No hi ha instal·lat el paquet SuSEfirewall2."
-
-#~ msgid "Firewall"
-#~ msgstr "Tallafoc"
 
 #~ msgid "&Firewall"
 #~ msgstr "Talla&foc"

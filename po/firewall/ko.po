@@ -5,11 +5,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: firewall.ko\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-04 02:29+0000\n"
+"POT-Creation-Date: 2018-10-04 02:28+0000\n"
 "PO-Revision-Date: 2018-05-14 06:29+0000\n"
 "Last-Translator: Hwajin Kim <hwajin.kim@e4net.net>\n"
-"Language-Team: Korean <https://l10n.opensuse.org/projects/yast-"
-"firewall/master/ko/>\n"
+"Language-Team: Korean <https://l10n.opensuse.org/projects/yast-firewall/"
+"master/ko/>\n"
 "Language: ko\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -128,7 +128,9 @@ msgstr "방화벽 구성"
 #  dialog caption
 #. TRANSLATORS: part of dialog caption
 #. TRANSLATORS: tree menu item
+#. @macro seeAbstractWidget
 #: src/include/firewall/dialogs.rb:286 src/include/firewall/dialogs.rb:289
+#: src/lib/y2firewall/widgets/pages/startup.rb:41
 msgid "Start-Up"
 msgstr "시작"
 
@@ -137,14 +139,21 @@ msgstr "시작"
 #. TRANSLATORS: tree menu item
 #. TRANSLATORS: Summary item label
 #. TRANSLATORS: Summary item label
+#. @macro seeAbstractWidget
+#. @macro seeCustomWidget
 #: src/include/firewall/dialogs.rb:302 src/include/firewall/dialogs.rb:305
 #: src/include/firewall/summary.rb:151 src/include/firewall/summary.rb:153
+#: src/lib/y2firewall/widgets/pages/interfaces.rb:46
+#: src/lib/y2firewall/widgets/pages/interfaces.rb:53
+#: src/lib/y2firewall/widgets/zones_table.rb:66
 msgid "Interfaces"
 msgstr "인터페이스"
 
 #. TRANSLATORS: part of dialog caption
 #. TRANSLATORS: tree menu item
+#. @macro seeAbstractWidget
 #: src/include/firewall/dialogs.rb:313 src/include/firewall/dialogs.rb:316
+#: src/lib/y2firewall/widgets/allowed_services.rb:44
 msgid "Allowed Services"
 msgstr "허용된 서비스"
 
@@ -670,7 +679,9 @@ msgid "Firewall Interfaces"
 msgstr "방화벽 인터페이스"
 
 #. TRANSLATORS: table header item
+#. @see CWM::Table#header
 #: src/include/firewall/subdialogs.rb:95
+#: src/lib/y2firewall/widgets/interfaces_table.rb:67
 msgid "Device"
 msgstr "장치"
 
@@ -971,7 +982,10 @@ msgstr "브로드캐스트 응답 수신 중"
 
 #  Table header item - DNS listing zones
 #  table header
+#. @macro seeAbstractWidget
 #: src/include/firewall/subdialogs.rb:911
+#: src/lib/y2firewall/widgets/interfaces_table.rb:68
+#: src/lib/y2firewall/widgets/zone_options.rb:53
 msgid "Zone"
 msgstr "영역"
 
@@ -1124,13 +1138,17 @@ msgstr "상세 보기(&S)"
 
 #  table header
 #. TRANSLATORS: Summary item label
+#. TRANSLATORS: TCP is the Transmission Control Protocol
 #: src/include/firewall/summary.rb:53
+#: src/lib/y2firewall/widgets/pages/zone.rb:89
 msgid "TCP Ports"
 msgstr "TCP 포트"
 
 #  table header
 #. TRANSLATORS: Summary item label
+#. TRANSLATORS: UDP is the User Datagram Protocol
 #: src/include/firewall/summary.rb:55
+#: src/lib/y2firewall/widgets/pages/zone.rb:91
 msgid "UDP Ports"
 msgstr "UDP 포트"
 
@@ -1539,7 +1557,7 @@ msgid "Firewalld is not available"
 msgstr "방화벽 사용 불가"
 
 #. Checking if an interface has been defined for different zones
-#: src/lib/y2firewall/clients/auto.rb:166
+#: src/lib/y2firewall/clients/auto.rb:165
 msgid "This interface has been defined for more than one zone."
 msgstr "이 인터페이스는 2개 이상의 영역에 대해 정의되었습니다."
 
@@ -1547,49 +1565,58 @@ msgstr "이 인터페이스는 2개 이상의 영역에 대해 정의되었습�
 #.
 #. @return [String] HTML formated firewall description
 #. rubocop:disable Metrics/AbcSize
+#: src/lib/y2firewall/clients/auto.rb:267
 #: src/lib/y2firewall/clients/auto.rb:268
-#: src/lib/y2firewall/clients/auto.rb:269
 msgid "yes"
 msgstr "예"
 
+#: src/lib/y2firewall/clients/auto.rb:267
 #: src/lib/y2firewall/clients/auto.rb:268
-#: src/lib/y2firewall/clients/auto.rb:269
 msgid "no"
 msgstr "아니요"
 
-#: src/lib/y2firewall/clients/auto.rb:271
+#: src/lib/y2firewall/clients/auto.rb:270
 msgid "Running:"
 msgstr "실행 중:"
 
-#: src/lib/y2firewall/clients/auto.rb:272
+#: src/lib/y2firewall/clients/auto.rb:271
 msgid "Enabled:"
 msgstr "활성화됨:"
 
-#: src/lib/y2firewall/clients/auto.rb:273
+#: src/lib/y2firewall/clients/auto.rb:272
 msgid "Default zone:"
 msgstr "기본 영역:"
 
-#: src/lib/y2firewall/clients/auto.rb:274
+#: src/lib/y2firewall/clients/auto.rb:273
 msgid "Defined zones:"
 msgstr "정의된 영역:"
 
 #. TRANSLATORS: firewall-config and firewall-cmd are the names of software utilities,
 #. so they should not be translated.
-#: src/lib/y2firewall/clients/firewall.rb:46
+#: src/lib/y2firewall/clients/firewall.rb:47
 msgid ""
-"YaST currently does not have a module for configuring firewall. Please, "
-"either use \"firewall-config\" to configure your firewall via a user "
-"interface or \"firewall-cmd\" for the command line."
+"YaST does not support the command line for configuring the firewall.\n"
+"Instead, please use the firewalld command line clients \"firewalld-cmd\" or "
+"\"firewall-offline-cmd\"."
 msgstr ""
-"현재 YaST에 방화벽을 구성하기 위한 모듈이 없습니다. 'firewall-config'를 사용"
-"하여 사용자 인터페이스를 통해 방화벽을 구성하거나 명령 줄에 'firewall-cmd'를 "
-"사용하시기 바랍니다."
 
 #  menubutton item
 #. Constuctor
 #: src/lib/y2firewall/clients/installation_finish.rb:48
 msgid "Writing Firewall Configuration..."
 msgstr "방화벽 구성 기록..."
+
+#. @macro seeAbstractWidget
+#. @macro seeAbstractWidget
+#: src/lib/y2firewall/dialogs/change_zone.rb:43
+#: src/lib/y2firewall/widgets/change_zone_button.rb:44
+msgid "Change Zone"
+msgstr ""
+
+#. Constructor
+#: src/lib/y2firewall/dialogs/main.rb:42
+msgid "Firewall"
+msgstr "방화벽"
 
 #  menubutton item
 #. Dialog for firewall and ssh proposal configuration
@@ -1639,6 +1666,148 @@ msgstr ""
 "\n"
 "설치가 완료되면 적용되는 구성을 주의 깊게 \n"
 "확인하십시오."
+
+#. @macro seeCustomWidget
+#: src/lib/y2firewall/widgets/allowed_services.rb:54
+msgid "Known"
+msgstr ""
+
+#: src/lib/y2firewall/widgets/allowed_services.rb:59
+#, fuzzy
+#| msgid "Allowed Service"
+msgid "Allowed"
+msgstr "허용된 서비스"
+
+#. TRANSLATORS: %s is the zone label
+#: src/lib/y2firewall/widgets/allowed_services.rb:88
+msgid ""
+"<p>Select which services you want to allow in the zone <b>%s</b>\n"
+"by adding them to the <b>Allowed</b> list (using <b>Add</b> or <b>Add All</"
+"b>\n"
+"buttons).</p>"
+msgstr ""
+
+#. Return a list of buttons to add/remove elements
+#.
+#. @return [Array<Yast::Term>] Buttons set UI terms
+#: src/lib/y2firewall/widgets/allowed_services.rb:139
+#, fuzzy
+#| msgid "&Add..."
+msgid "Add"
+msgstr "추가(&A)..."
+
+#: src/lib/y2firewall/widgets/allowed_services.rb:144
+msgid "Add All"
+msgstr ""
+
+#: src/lib/y2firewall/widgets/allowed_services.rb:150
+msgid "Remove"
+msgstr ""
+
+#: src/lib/y2firewall/widgets/allowed_services.rb:155
+msgid "Remove All"
+msgstr ""
+
+#. @macro seeAbstractWidget
+#: src/lib/y2firewall/widgets/default_zone_button.rb:43
+msgid "Set As Default"
+msgstr ""
+
+#. A table with all {Y2Firewall::Firewalld::Interface}s.
+#. ComboBox which allows to select a zone
+#: src/lib/y2firewall/widgets/interfaces_table.rb:32
+#: src/lib/y2firewall/widgets/zone_options.rb:31
+#, fuzzy
+#| msgid "Default zone:"
+msgid "default"
+msgstr "기본 영역:"
+
+#  Textentry - DNS adding zone - Name
+#  text entry
+#. @see CWM::Table#header
+#. @see CWM::Table#header
+#: src/lib/y2firewall/widgets/interfaces_table.rb:69
+#: src/lib/y2firewall/widgets/services_table.rb:60
+#: src/lib/y2firewall/widgets/zones_table.rb:65
+#, fuzzy
+#| msgid "Zone Name"
+msgid "Name"
+msgstr "영역 이름"
+
+#. @macro seeAbstractWidget
+#: src/lib/y2firewall/widgets/interfaces_table.rb:102
+msgid ""
+"<p>Assign your network devices into firewall zones by selecting the device\n"
+"in the table and clicking <b>Change Zone</b>.</p>\n"
+"\n"
+"<p>If you assign an interface to the <b>default</b> zone, the device\n"
+"will be assigned to the firewall's default zone. Visit the <b>Zones</b>\n"
+"section to find out (and eventually change) which zone is the default one.</"
+"p>"
+msgstr ""
+
+#  table header
+#. Constructor
+#.
+#. @param zone [Y2Firewall::Firewalld::Zone]
+#: src/lib/y2firewall/widgets/pages/zone.rb:73
+#, fuzzy
+#| msgid "Port"
+msgid "Ports"
+msgstr "포트"
+
+#  table header
+#. TRANSLATORS: SCTP is the Stream Control Transmission Protocol
+#: src/lib/y2firewall/widgets/pages/zone.rb:93
+#, fuzzy
+#| msgid "TCP Ports"
+msgid "SCTP Ports"
+msgstr "TCP 포트"
+
+#  table header
+#. TRANSLATORS: DCCP is the Datagram Congestion Control Protocol
+#: src/lib/y2firewall/widgets/pages/zone.rb:95
+#, fuzzy
+#| msgid "TCP Ports"
+msgid "DCCP Ports"
+msgstr "TCP 포트"
+
+#: src/lib/y2firewall/widgets/pages/zone.rb:112
+msgid ""
+"Enter ports or port ranges, separated by spaces and/or commas.\n"
+"A port is an integer.\n"
+"A port range is port-dash-port (with no spaces).\n"
+"For example:\n"
+"%s"
+msgstr ""
+
+#  translators: error message, %2 is the value given
+#: src/lib/y2firewall/widgets/pages/zone.rb:142
+#, fuzzy
+#| msgid "Invalid port range '%1'"
+msgid "Invalid port range: %s"
+msgstr "잘못된 포트 범위 '%1'"
+
+#. Constructor
+#.
+#. @param zone [Y2Firewall::Firewalld::Zone]
+#. @param _pager [CWM::TreePager]
+#: src/lib/y2firewall/widgets/pages/zone.rb:216
+#, fuzzy
+#| msgid "Service"
+msgid "Services"
+msgstr "서비스"
+
+#  Table header item - DNS listing zones
+#  table header
+#. @macro seeAbstractWidget
+#. @macro seeCustomWidget
+#: src/lib/y2firewall/widgets/pages/zones.rb:45
+#: src/lib/y2firewall/widgets/pages/zones.rb:52
+#, fuzzy
+#| msgid "Zone"
+msgid "Zones"
+msgstr "영역"
 
 #. Enable firewall service checkbox
 #: src/lib/y2firewall/widgets/proposal.rb:76
@@ -1709,6 +1878,39 @@ msgstr ""
 "<p>방화벽에서 VNC 포트를 열 수도 있습니다.\n"
 "실행 중인 시스템에서 원격 관리 서비스를 활성화하지 않고\n"
 "필요한 경우 설치 관리자에 의해 자동으로 시작됩니다.</p>"
+
+#: src/lib/y2firewall/widgets/zones_table.rb:67
+#, fuzzy
+#| msgid "Default zone:"
+msgid "Default"
+msgstr "기본 영역:"
+
+#. @macro seeAbstractWidget
+#: src/lib/y2firewall/widgets/zones_table.rb:100
+msgid ""
+"<p>A network zone defines the level of trust for network connections.</p>\n"
+"<p>You can designate one of them as the <b>default</b> zone by clicking the\n"
+"<b>Set As Default</b> button.</p>\n"
+"\n"
+"<p>In the <b>Interfaces</b> column you see which interfaces are assigned\n"
+"to a given zone. Bear in mind that, for the zone which is set as the "
+"default\n"
+"one, you will see the interfaces that are implicitly assigned to it, i.e.,\n"
+"those interfaces that are not assigned explicitly to that zone but to the\n"
+"default one.</p>\n"
+"\n"
+"<p>If you want to assign an interface to a given zone, just visit the\n"
+"<b>Interfaces</b> section.</p>"
+msgstr ""
+
+#~ msgid ""
+#~ "YaST currently does not have a module for configuring firewall. Please, "
+#~ "either use \"firewall-config\" to configure your firewall via a user "
+#~ "interface or \"firewall-cmd\" for the command line."
+#~ msgstr ""
+#~ "현재 YaST에 방화벽을 구성하기 위한 모듈이 없습니다. 'firewall-config'를 사"
+#~ "용하여 사용자 인터페이스를 통해 방화벽을 구성하거나 명령 줄에 'firewall-"
+#~ "cmd'를 사용하시기 바랍니다."
 
 #~ msgid "Your display can't support the 'firewall-config' UI.\n"
 #~ msgstr "디스플레이가 'firewall-config' UI를 지원할 수 없습니다.\n"
@@ -1868,11 +2070,6 @@ msgstr ""
 #~ msgid "Shortcut"
 #~ msgstr "바로 가기"
 
-#  Textentry - DNS adding zone - Name
-#  text entry
-#~ msgid "Zone Name"
-#~ msgstr "영역 이름"
-
 #~ msgid "Summary:"
 #~ msgstr "요약:"
 
@@ -1982,10 +2179,6 @@ msgstr ""
 #~ msgid "Allowed Broadcast Ports:"
 #~ msgstr "허용되는 브로드캐스트 포트:"
 
-#  table header
-#~ msgid "Port"
-#~ msgstr "포트"
-
 #~ msgid "Only one action command is allowed here."
 #~ msgstr "여기서는 하나의 작업 명령만 사용할 수 있습니다."
 
@@ -2093,9 +2286,6 @@ msgstr ""
 #~ msgstr ""
 #~ "방화벽 구성을 변경할 수 없습니다.\n"
 #~ "SuSEfirewall2 꾸러미가 설치되어 있지 않습니다."
-
-#~ msgid "Firewall"
-#~ msgstr "방화벽"
 
 #~ msgid "&Firewall"
 #~ msgstr "방화벽(&F)"
