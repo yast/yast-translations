@@ -1,5 +1,8 @@
 #! /usr/bin/env ruby
 
+# This script scans the translations and checks whether the format string
+# in the translated messages match the format string in the original string.
+
 # install missing gems
 if !File.exist?("./.vendor")
   puts "Installing the needed Rubygems to ./.vendor/bundle ..."
@@ -9,153 +12,277 @@ end
 require "rubygems"
 require "bundler/setup"
 
-# require "byebug"
+#require "byebug"
 require "poparser"
 require "readline"
 require "parallel"
+require "optparse"
 
-# YCP placeholders: %1, %2,...
-def ycp_placeholders(str)
-  str.to_s.scan(/%([0-9])/).flatten.uniq.sort
+DEFAULT_DIR = "../../po".freeze
+
+# get command line options
+class Options
+  def self.get
+    options = {
+      dir:         DEFAULT_DIR,
+      interactive: false
+    }
+
+    OptionParser.new do |opts|
+      opts.on("-i", "--[no-]interactive", "Interactively fix the broken translations") do |i|
+        options[:interactive] = i
+      end
+      opts.on("-d", "--directory DIR", "Directory to scan (default: #{DEFAULT_DIR})") do |d|
+        options[:dir] = d
+      end
+    end.parse!
+
+    options
+  end
 end
 
-# Ruby placeholders: %s, %d,...
-def ruby_placeholders(str)
-  # compare also the order
-  # TODO: width prefix
-  str.to_s.scan(/%s|%d|%i/).flatten
-end
+# remember the broken translations
+class BrokenTranslation
+  attr_reader :file, :translations
 
-# Ruby bracket placeholders: %{foo}, %{bar}
-def ruby_bracket_placeholders(str)
-  str.to_s.scan(/%{[^}]+}/).flatten.uniq.sort
-end
-
-def equal_placeholders(item)
-  # handle plural forms
-  if item.msgid_plural
-    return item.msgstr.all? {|str| same_placeholders(item.msgid_plural, str)}
+  def initialize(f, translations:)
+    @file = f
+    @translations = translations
   end
 
-  same_placeholders(item.msgid, item.msgstr)
-end
-
-def same_placeholders(msgid, msgstr)
-  ycp_placeholders(msgid) == ycp_placeholders(msgstr) &&
-    ruby_placeholders(msgid) == ruby_placeholders(msgstr) &&
-    ruby_bracket_placeholders(msgid) == ruby_bracket_placeholders(msgstr)
-end
-
-def file_name(str)
-  str.sub(/^\.\.\/\.\.\/po\//, '')
-end
-
-# unfortunately po.save_file produces wrong cached entries :-(
-# we have to reimplement it
-def save_po(po, file)
-  array = []
-  if po.header
-    array << po.header.to_s
-    array << ""
+  def report(options)
+    return unless translations && !translations.empty?
+    puts "Errors in #{file_name(file)}:"
+    translations.each do |error|
+      entry = PoParser::Entry.new(error.to_h)
+      print(entry)
+      edit(entry) if options[:interactive]
+    end
   end
 
-  po.entries(true).each do |entry|
-    if entry.obsolete?
+private
+
+  def file_name(str)
+    str.sub(/^\.\.\/\.\.\/po\//, "")
+  end
+
+  def print(entry)
+    puts "Original: \"#{entry.msgid}\""
+    puts "Translation: \"#{entry.msgstr}\""
+    puts
+  end
+
+  def edit(entry)
+    editor = PoEditor.new(file, entry)
+    editor.edit
+  end
+end
+
+# monkeypatch the PoParser to properly save obsolete translations back to .po file
+module PoParser
+  # Po class keeps all entries of a Po file
+  class Po
+    # unfortunately po.save_file produces wrong cached entries :-(
+    # we have to reimplement it
+    def save_to(file)
+      array = []
+      if header
+        array << header.to_s
+        array << ""
+      end
+
+      entries(true).each do |entry|
+        if entry.obsolete?
+          format_obsolete_po(array, entry)
+        else
+          array << entry.to_s
+        end
+      end
+
+      File.write(file, array.join("\n"))
+    end
+
+  private
+
+    def format_obsolete_po(array, entry)
       if entry.translator_comment
-       comments = entry.translator_comment.to_s.split("\n")
-       array.concat(comments.map {|l| "# " + l})
+        comments = entry.translator_comment.to_s.split("\n")
+        array.concat(comments.map { |l| "# " + l })
       end
 
-      if entry.flag
-        array << "#, " + entry.flag
-      end
+      array << "#, " + entry.flag if entry.flag
 
       str = entry.obsolete.to_s
-      array << (str.split("\n").map {|l| (l.start_with?("|") ? "#~" : "#~ ") + l}.join("\n"))
+      array << str.split("\n").map { |l| (l.start_with?("|") ? "#~" : "#~ ") + l }.join("\n")
       array << ""
-    else
-      array << entry.to_s
     end
   end
-
-  File.write(file, array.join("\n"))
 end
 
-def ask_action(edit)
-  ret = nil
+# validator for translations
+class TranslationValidator
+  # @param po_entry [PoParser::Entry] PO entry to check
+  def initialize(po_entry)
+    @po_entry = po_entry
+  end
 
-  expected = ["d", "s"]
-  expected << "e" if edit
+  attr_reader :po_entry
 
-  while !expected.include?(ret)
-    if edit
-      print "(E)dit/(D)elete/(S)kip? "
-    else
-      print "(D)elete/(S)kip? "
+  def valid?
+    # handle plural forms
+    if po_entry.msgid_plural
+      return po_entry.msgstr.all? { |str| same_placeholders(po_entry.msgid_plural, str) }
     end
 
-    ret = $stdin.gets.chomp.downcase
+    same_placeholders(po_entry.msgid, po_entry.msgstr)
   end
 
-  ret
-end
+private
 
-def edit(item)
-  item.msgstr = Readline.readline("New text: ")
-end
-
-def ask(po, item)
-  editable = !item.msgid_plural && !item.msgstr.is_a?(Array) && !item.msgstr.to_s.include?("\n")
-  # byebug
-  action = ask_action(editable)
-
-  case action
-  when "s"
-    return false
-  when "d"
-    item.msgstr = ""
-  when "e"
-    edit(item)
+  # YCP placeholders: %1, %2,...
+  def ycp_placeholders(str)
+    # % not followed by $, that would be a Ruby placholder below
+    str.to_s.scan(/%\d(?!\$)/).flatten.uniq.sort
   end
 
-  return true
+  # Ruby placeholders: %s, %d,...
+  def ruby_placeholders(str)
+    # compare also the order
+    list = str.to_s.scan(/%(?:\d+\$)?[sdi]/).flatten
+
+    # all or none items must have position prefix
+    prefixed = list.count { |s| s.include?("$") }
+
+    # no prefix used, return the list
+    return list if prefixed.zero?
+
+    # mixed unnumbered and numbered is not allowed
+    # return the current list, it won't match and cause an error
+    return list if list.size != prefixed
+
+    # reorder the items and remove the position
+    # ["%2$s", "%1$i"] => ["%i", "%s"]
+    ret = []
+    list.each do |s|
+      match = s.match(/%(\d+)\$(.+)/)
+      ret[match[1].to_i - 1] = "%#{match[2]}"
+    end
+    ret
+  end
+
+  # Ruby bracket placeholders: %{foo}, %<bar>
+  def ruby_bracket_placeholders(str)
+    str.to_s.scan(/%{[^}]+}|%<[^>]+>/).flatten.uniq.sort
+  end
+
+  def same_placeholders(msgid, msgstr)
+    ycp_placeholders(msgid) == ycp_placeholders(msgstr) &&
+      ruby_placeholders(msgid) == ruby_placeholders(msgstr) &&
+      ruby_bracket_placeholders(msgid) == ruby_bracket_placeholders(msgstr)
+  end
 end
 
-def process_file(po_file, interactive)
+# Interactively edit a broken translation
+class PoEditor
+  attr_reader :file, :po_entry
+
+  def initialize(file, po_entry)
+    @file = file
+    @po_entry = po_entry
+  end
+
+  def edit
+    action = ask_action
+    return if action == "s"
+
+    po = PoParser.parse(File.read(file))
+
+    item = po.translated.find { |t| t.msgstr.to_s == po_entry.msgstr.to_s }
+    return unless item
+
+    case action
+    when "d"
+      item.msgstr = ""
+    when "e"
+      read(item)
+    end
+
+    # save changes
+    po.save_to(file) if item.msgstr.to_s != po_entry.msgstr.to_s
+  end
+
+private
+
+  def ask_action
+    ret = nil
+
+    expected = ["d", "s"]
+    expected << "e" if editable?
+
+    until expected.include?(ret)
+      if editable?
+        print "(E)dit/(D)elete/(S)kip? "
+      else
+        print "(D)elete/(S)kip? "
+      end
+
+      ret = $stdin.gets.chomp.downcase
+    end
+
+    ret
+  end
+
+  def read(item)
+    # Use pre_input_hook to fillup the input buffer with the current value
+    Readline.pre_input_hook = lambda do
+      Readline.insert_text(item.msgstr)
+      Readline.redisplay
+      Readline.pre_input_hook = nil
+    end
+
+    item.msgstr = Readline.readline("New text: ")
+  end
+
+  def editable?
+    # TODO: so far this script cannot edit string arrays or plural forms
+    !po_entry.msgid_plural && !po_entry.msgstr.is_a?(Array) && !po_entry.msgstr.to_s.include?("\n")
+  end
+end
+
+def process_file(po_file)
   begin
-    # puts "Loading #{po_file}..."
     po = PoParser.parse(File.read(po_file))
   rescue
-    puts "ERROR: cannot parse #{file_name(po_file)}"
-    puts
-    return
+    $stderr.puts "Cannot parse file #{po_file}"
+    return BrokenTranslation.new(po_file)
   end
 
-  modified = false
+  failed = []
 
   po.translated.each do |item|
-    next if equal_placeholders(item)
-
-    puts "Error in #{file_name(po_file)}:"
-    puts "Original: \"#{item.msgid.to_s}\""
-    puts "Translation: \"#{item.msgstr.to_s}\""
-    puts
-
-    if interactive
-      modified ||= ask(po, item)
-    end
+    checker = TranslationValidator.new(item)
+    failed << item unless checker.valid?
   end
 
-  save_po(po, po_file) if modified
+  BrokenTranslation.new(po_file, translations: failed)
 end
 
-po_files = Dir["../../po/**/*.po"].sort
+options = Options.get
 
-interactive = ARGV[0] == "--interactive"
-parallel = ARGV[0] == "--parallel"
-
-if parallel
-  Parallel.each(po_files) { |po_file| process_file(po_file, interactive) }
-else
-  po_files.each { |po_file| process_file(po_file, interactive) }
+po_files = Dir[File.join(options[:dir], "**/*.po")].sort
+broken_translations = Parallel.map(po_files, progress: "Validating PO files...") do |po_file|
+  process_file(po_file)
 end
+
+sum = broken_translations.inject(0) { |a, e| a + e.translations.size }
+if sum.zero?
+  puts "\nOK"
+  exit 0
+end
+
+puts "\nFound invalid translations: #{sum}\n\n"
+broken_translations.each do |bt|
+  bt.report(options)
+end
+
+exit 1
