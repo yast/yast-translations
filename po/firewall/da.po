@@ -14,11 +14,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: firewall\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-04 02:28+0000\n"
+"POT-Creation-Date: 2018-10-30 16:17+0000\n"
 "PO-Revision-Date: 2018-10-08 20:52+0000\n"
 "Last-Translator: scootergrisen <scootergrisen@gmail.com>\n"
-"Language-Team: Danish <https://l10n.opensuse.org/projects/yast-"
-"firewall/master/da/>\n"
+"Language-Team: Danish <https://l10n.opensuse.org/projects/yast-firewall/"
+"master/da/>\n"
 "Language: da\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -152,8 +152,8 @@ msgstr "Opstart"
 #. @macro seeCustomWidget
 #: src/include/firewall/dialogs.rb:302 src/include/firewall/dialogs.rb:305
 #: src/include/firewall/summary.rb:151 src/include/firewall/summary.rb:153
-#: src/lib/y2firewall/widgets/pages/interfaces.rb:46
-#: src/lib/y2firewall/widgets/pages/interfaces.rb:53
+#: src/lib/y2firewall/widgets/pages/interfaces.rb:47
+#: src/lib/y2firewall/widgets/pages/interfaces.rb:54
 #: src/lib/y2firewall/widgets/zones_table.rb:66
 msgid "Interfaces"
 msgstr "Grænseflader"
@@ -723,7 +723,9 @@ msgstr "&Ændr..."
 
 #
 #. TRANSLATORS: push button
+#. @macro seeAbstractWidget
 #: src/include/firewall/subdialogs.rb:114
+#: src/lib/y2firewall/widgets/zone_interfaces_button.rb:41
 msgid "C&ustom..."
 msgstr "Br&ugerdefineret..."
 
@@ -994,8 +996,10 @@ msgstr "Accepterer broadcast-svaret"
 
 #
 #. @macro seeAbstractWidget
+#. @macro seeAbstractWidget
 #: src/include/firewall/subdialogs.rb:911
 #: src/lib/y2firewall/widgets/interfaces_table.rb:68
+#: src/lib/y2firewall/widgets/modify_zone_interfaces.rb:55
 #: src/lib/y2firewall/widgets/zone_options.rb:53
 msgid "Zone"
 msgstr "Zone"
@@ -1551,47 +1555,10 @@ msgstr "Po&rt"
 msgid "Select an item to delete."
 msgstr "Vælg et element til sletning."
 
-#. Configuration summary
-#.
-#. @return [String]
-#: src/lib/y2firewall/clients/auto.rb:65
-msgid "Firewalld is not available"
-msgstr "Firewall er ikke tilgængelig"
-
 #. Checking if an interface has been defined for different zones
-#: src/lib/y2firewall/clients/auto.rb:165
+#: src/lib/y2firewall/clients/auto.rb:189
 msgid "This interface has been defined for more than one zone."
 msgstr "Grænsefladen er blevet defineret til mere end én zone."
-
-#. Creates a general summary for firewalld
-#.
-#. @return [String] HTML formated firewall description
-#. rubocop:disable Metrics/AbcSize
-#: src/lib/y2firewall/clients/auto.rb:267
-#: src/lib/y2firewall/clients/auto.rb:268
-msgid "yes"
-msgstr "ja"
-
-#: src/lib/y2firewall/clients/auto.rb:267
-#: src/lib/y2firewall/clients/auto.rb:268
-msgid "no"
-msgstr "nej"
-
-#: src/lib/y2firewall/clients/auto.rb:270
-msgid "Running:"
-msgstr "Kører:"
-
-#: src/lib/y2firewall/clients/auto.rb:271
-msgid "Enabled:"
-msgstr "Aktiveret:"
-
-#: src/lib/y2firewall/clients/auto.rb:272
-msgid "Default zone:"
-msgstr "Standardzone:"
-
-#: src/lib/y2firewall/clients/auto.rb:273
-msgid "Defined zones:"
-msgstr "Definerede zoner:"
 
 #. TRANSLATORS: firewall-config and firewall-cmd are the names of software utilities,
 #. so they should not be translated.
@@ -1620,9 +1587,17 @@ msgstr "Skift zone"
 
 #
 #. Constructor
-#: src/lib/y2firewall/dialogs/main.rb:42
+#: src/lib/y2firewall/dialogs/main.rb:52
 msgid "Firewall"
 msgstr "Firewall"
+
+#
+#. @macro seeAbstractWidget
+#: src/lib/y2firewall/dialogs/modify_zone_interfaces.rb:38
+#, fuzzy
+#| msgid "Interfaces"
+msgid "Modify Interfaces"
+msgstr "Grænseflader"
 
 #
 #. Dialog for firewall and ssh proposal configuration
@@ -1673,6 +1648,57 @@ msgstr ""
 "Tjek venligst den anvendte konfiguration grundigt når installationen \n"
 "er færdig."
 
+#. Return a not installed html summary
+#.
+#. @return [String] HTML text
+#: src/lib/y2firewall/summary_presenter.rb:73
+msgid "Firewalld is not available"
+msgstr "Firewall er ikke tilgængelig"
+
+#. Creates a piece for summary for zone detail
+#.
+#. See has_many (@see Y2Firewall::Firewalld::Relations#has_many) in
+#. Y2Firewall::Firewalld::Zone for known detail / relations
+#.
+#. @param label [String] the zone attr name (used as a caption for
+#. generated blob)
+#. @param attr_value [Array, Boolean, String, nil] the value of the attr to
+#. be shown
+#. @return [String] A string formated using Yast::HTML methods
+#: src/lib/y2firewall/summary_presenter.rb:97
+#, fuzzy
+#| msgid "yes"
+msgid "Yes"
+msgstr "ja"
+
+#: src/lib/y2firewall/summary_presenter.rb:97
+#, fuzzy
+#| msgid "None"
+msgid "No"
+msgstr "Ingen"
+
+#. Creates a general summary for firewalld
+#.
+#. @return [String] HTML formated firewall description
+#: src/lib/y2firewall/summary_presenter.rb:134
+msgid "Default zone:"
+msgstr "Standardzone:"
+
+#: src/lib/y2firewall/summary_presenter.rb:135
+msgid "Defined zones:"
+msgstr "Definerede zoner:"
+
+#
+#: src/lib/y2firewall/summary_presenter.rb:146
+#, fuzzy
+#| msgid "No zone assigned"
+msgid "No zones defined"
+msgstr "Ingen zone tilknyttet"
+
+#: src/lib/y2firewall/summary_presenter.rb:165
+msgid "DEFAULT"
+msgstr ""
+
 #. @macro seeCustomWidget
 #: src/lib/y2firewall/widgets/allowed_services.rb:54
 msgid "Known"
@@ -1692,27 +1718,36 @@ msgid ""
 "buttons).</p>"
 msgstr ""
 "<p>Vælg hvilke tjenester du vil tillade i zonen <b>%s</b>\n"
-"ved at tilføje dem til <b>Tilladte</b>-listen (med <b>Tilføj</b>- eller <b>"
-"Tilføj alle</b>-knapperne\n"
+"ved at tilføje dem til <b>Tilladte</b>-listen (med <b>Tilføj</b>- eller "
+"<b>Tilføj alle</b>-knapperne\n"
 ").</p>"
+
+#. TRANSLATORS: popup question
+#: src/lib/y2firewall/widgets/allowed_services.rb:98
+msgid ""
+"The selection of services will be lost if you leave without\n"
+"applying the changes.\n"
+"\n"
+"Do you really want to continue?\n"
+msgstr ""
 
 #
 #. Return a list of buttons to add/remove elements
 #.
 #. @return [Array<Yast::Term>] Buttons set UI terms
-#: src/lib/y2firewall/widgets/allowed_services.rb:139
+#: src/lib/y2firewall/widgets/allowed_services.rb:152
 msgid "Add"
 msgstr "Tilføj"
 
-#: src/lib/y2firewall/widgets/allowed_services.rb:144
+#: src/lib/y2firewall/widgets/allowed_services.rb:157
 msgid "Add All"
 msgstr "Tilføj alle"
 
-#: src/lib/y2firewall/widgets/allowed_services.rb:150
+#: src/lib/y2firewall/widgets/allowed_services.rb:163
 msgid "Remove"
 msgstr "Fjern"
 
-#: src/lib/y2firewall/widgets/allowed_services.rb:155
+#: src/lib/y2firewall/widgets/allowed_services.rb:168
 msgid "Remove All"
 msgstr "Fjern alle"
 
@@ -1754,6 +1789,14 @@ msgstr ""
 "<p>Hvis du tildeler en grænseflade til <b>standard</b>-zonen, så\n"
 "tildeles enheden til firewallens standardzone. Besøg <b>Zoner</b>-sektionen\n"
 "for at finde ud af (og efterfølgende ændre) hvilken zone der er standard.</p>"
+
+#
+#. @macro seeAbstractWidget
+#: src/lib/y2firewall/widgets/modify_zone_interfaces.rb:106
+#, fuzzy
+#| msgid "Interfaces"
+msgid "Interfaces:"
+msgstr "Grænseflader"
 
 #
 #. Constructor
@@ -1805,8 +1848,8 @@ msgstr "Tjenester"
 #
 #. @macro seeAbstractWidget
 #. @macro seeCustomWidget
-#: src/lib/y2firewall/widgets/pages/zones.rb:45
-#: src/lib/y2firewall/widgets/pages/zones.rb:52
+#: src/lib/y2firewall/widgets/pages/zones.rb:46
+#: src/lib/y2firewall/widgets/pages/zones.rb:53
 msgid "Zones"
 msgstr "Zoner"
 
@@ -1902,8 +1945,8 @@ msgid ""
 "<p>If you want to assign an interface to a given zone, just visit the\n"
 "<b>Interfaces</b> section.</p>"
 msgstr ""
-"<p>En netværkszone definerer niveauet af betroelse til "
-"netværksforbindelser.</p>\n"
+"<p>En netværkszone definerer niveauet af betroelse til netværksforbindelser."
+"</p>\n"
 "<p>Du kan tilegne en af dem som <b>standard</b>-zone ved at klikke på\n"
 "<b>Sæt som standard</b>-knappen.</p>\n"
 "\n"
@@ -1916,6 +1959,25 @@ msgstr ""
 "\n"
 "<p>Hvis du vil tildele en grænseflade til en given zone, så besøg blot\n"
 "<b>Grænseflader-</b>-sektionen.</p>"
+
+#. Return the network interface device name in case it is configured or
+#. 'Unknown' in other case
+#.
+#. @return [String] its device name or 'Unknown' if not configured
+#: library/network/src/lib/y2firewall/firewalld/interface.rb:87
+#, fuzzy
+#| msgid "Known"
+msgid "Unknown"
+msgstr "Kendt"
+
+#~ msgid "no"
+#~ msgstr "nej"
+
+#~ msgid "Running:"
+#~ msgstr "Kører:"
+
+#~ msgid "Enabled:"
+#~ msgstr "Aktiveret:"
 
 #~ msgid ""
 #~ "YaST currently does not have a module for configuring firewall. Please, "

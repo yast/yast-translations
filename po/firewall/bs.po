@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: firewall.bs\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-04 02:28+0000\n"
+"POT-Creation-Date: 2018-10-30 16:17+0000\n"
 "PO-Revision-Date: 11.07.2003. 21:49\n"
 "Last-Translator: Amila Akagić <bono@linux.org.ba>\n"
 "Language-Team: Bosnian <lokal@lugbih.org>\n"
@@ -146,8 +146,8 @@ msgstr "Start-up States"
 #. @macro seeCustomWidget
 #: src/include/firewall/dialogs.rb:302 src/include/firewall/dialogs.rb:305
 #: src/include/firewall/summary.rb:151 src/include/firewall/summary.rb:153
-#: src/lib/y2firewall/widgets/pages/interfaces.rb:46
-#: src/lib/y2firewall/widgets/pages/interfaces.rb:53
+#: src/lib/y2firewall/widgets/pages/interfaces.rb:47
+#: src/lib/y2firewall/widgets/pages/interfaces.rb:54
 #: src/lib/y2firewall/widgets/zones_table.rb:66
 #, fuzzy
 msgid "Interfaces"
@@ -554,7 +554,9 @@ msgid "&Change..."
 msgstr "&Promijeni..."
 
 #. TRANSLATORS: push button
+#. @macro seeAbstractWidget
 #: src/include/firewall/subdialogs.rb:114
+#: src/lib/y2firewall/widgets/zone_interfaces_button.rb:41
 #, fuzzy
 msgid "C&ustom..."
 msgstr "&Prilagođeno"
@@ -832,8 +834,10 @@ msgid "Accepting the Broadcast Reply"
 msgstr ""
 
 #. @macro seeAbstractWidget
+#. @macro seeAbstractWidget
 #: src/include/firewall/subdialogs.rb:911
 #: src/lib/y2firewall/widgets/interfaces_table.rb:68
+#: src/lib/y2firewall/widgets/modify_zone_interfaces.rb:55
 #: src/lib/y2firewall/widgets/zone_options.rb:53
 #, fuzzy
 msgid "Zone"
@@ -1375,48 +1379,9 @@ msgstr "Pert"
 msgid "Select an item to delete."
 msgstr "Izaberite vanjski interfejs."
 
-#. Configuration summary
-#.
-#. @return [String]
-#: src/lib/y2firewall/clients/auto.rb:65
-#, fuzzy
-msgid "Firewalld is not available"
-msgstr "Firewall"
-
 #. Checking if an interface has been defined for different zones
-#: src/lib/y2firewall/clients/auto.rb:165
+#: src/lib/y2firewall/clients/auto.rb:189
 msgid "This interface has been defined for more than one zone."
-msgstr ""
-
-#. Creates a general summary for firewalld
-#.
-#. @return [String] HTML formated firewall description
-#. rubocop:disable Metrics/AbcSize
-#: src/lib/y2firewall/clients/auto.rb:267
-#: src/lib/y2firewall/clients/auto.rb:268
-msgid "yes"
-msgstr ""
-
-#: src/lib/y2firewall/clients/auto.rb:267
-#: src/lib/y2firewall/clients/auto.rb:268
-msgid "no"
-msgstr ""
-
-#: src/lib/y2firewall/clients/auto.rb:270
-msgid "Running:"
-msgstr ""
-
-#: src/lib/y2firewall/clients/auto.rb:271
-#, fuzzy
-msgid "Enabled:"
-msgstr "Uključeno"
-
-#: src/lib/y2firewall/clients/auto.rb:272
-msgid "Default zone:"
-msgstr ""
-
-#: src/lib/y2firewall/clients/auto.rb:273
-msgid "Defined zones:"
 msgstr ""
 
 #. TRANSLATORS: firewall-config and firewall-cmd are the names of software utilities,
@@ -1443,9 +1408,15 @@ msgid "Change Zone"
 msgstr "Pro&mijeni..."
 
 #. Constructor
-#: src/lib/y2firewall/dialogs/main.rb:42
+#: src/lib/y2firewall/dialogs/main.rb:52
 msgid "Firewall"
 msgstr "Firewall"
+
+#. @macro seeAbstractWidget
+#: src/lib/y2firewall/dialogs/modify_zone_interfaces.rb:38
+#, fuzzy
+msgid "Modify Interfaces"
+msgstr "Mrežni interfejsi"
 
 #. Dialog for firewall and ssh proposal configuration
 #: src/lib/y2firewall/dialogs/proposal.rb:40
@@ -1483,6 +1454,53 @@ msgid ""
 "is finished."
 msgstr ""
 
+#. Return a not installed html summary
+#.
+#. @return [String] HTML text
+#: src/lib/y2firewall/summary_presenter.rb:73
+#, fuzzy
+msgid "Firewalld is not available"
+msgstr "Firewall"
+
+#. Creates a piece for summary for zone detail
+#.
+#. See has_many (@see Y2Firewall::Firewalld::Relations#has_many) in
+#. Y2Firewall::Firewalld::Zone for known detail / relations
+#.
+#. @param label [String] the zone attr name (used as a caption for
+#. generated blob)
+#. @param attr_value [Array, Boolean, String, nil] the value of the attr to
+#. be shown
+#. @return [String] A string formated using Yast::HTML methods
+#: src/lib/y2firewall/summary_presenter.rb:97
+msgid "Yes"
+msgstr ""
+
+#: src/lib/y2firewall/summary_presenter.rb:97
+#, fuzzy
+#| msgid "None"
+msgid "No"
+msgstr "Nijedan"
+
+#. Creates a general summary for firewalld
+#.
+#. @return [String] HTML formated firewall description
+#: src/lib/y2firewall/summary_presenter.rb:134
+msgid "Default zone:"
+msgstr ""
+
+#: src/lib/y2firewall/summary_presenter.rb:135
+msgid "Defined zones:"
+msgstr ""
+
+#: src/lib/y2firewall/summary_presenter.rb:146
+msgid "No zones defined"
+msgstr ""
+
+#: src/lib/y2firewall/summary_presenter.rb:165
+msgid "DEFAULT"
+msgstr ""
+
 #. @macro seeCustomWidget
 #: src/lib/y2firewall/widgets/allowed_services.rb:54
 msgid "Known"
@@ -1502,23 +1520,32 @@ msgid ""
 "buttons).</p>"
 msgstr ""
 
+#. TRANSLATORS: popup question
+#: src/lib/y2firewall/widgets/allowed_services.rb:98
+msgid ""
+"The selection of services will be lost if you leave without\n"
+"applying the changes.\n"
+"\n"
+"Do you really want to continue?\n"
+msgstr ""
+
 #. Return a list of buttons to add/remove elements
 #.
 #. @return [Array<Yast::Term>] Buttons set UI terms
-#: src/lib/y2firewall/widgets/allowed_services.rb:139
+#: src/lib/y2firewall/widgets/allowed_services.rb:152
 #, fuzzy
 msgid "Add"
 msgstr "&Dodaj"
 
-#: src/lib/y2firewall/widgets/allowed_services.rb:144
+#: src/lib/y2firewall/widgets/allowed_services.rb:157
 msgid "Add All"
 msgstr ""
 
-#: src/lib/y2firewall/widgets/allowed_services.rb:150
+#: src/lib/y2firewall/widgets/allowed_services.rb:163
 msgid "Remove"
 msgstr ""
 
-#: src/lib/y2firewall/widgets/allowed_services.rb:155
+#: src/lib/y2firewall/widgets/allowed_services.rb:168
 msgid "Remove All"
 msgstr ""
 
@@ -1554,6 +1581,12 @@ msgid ""
 "section to find out (and eventually change) which zone is the default one.</"
 "p>"
 msgstr ""
+
+#. @macro seeAbstractWidget
+#: src/lib/y2firewall/widgets/modify_zone_interfaces.rb:106
+#, fuzzy
+msgid "Interfaces:"
+msgstr "Mrežni interfejsi"
 
 #. Constructor
 #.
@@ -1599,8 +1632,8 @@ msgstr "Servis"
 
 #. @macro seeAbstractWidget
 #. @macro seeCustomWidget
-#: src/lib/y2firewall/widgets/pages/zones.rb:45
-#: src/lib/y2firewall/widgets/pages/zones.rb:52
+#: src/lib/y2firewall/widgets/pages/zones.rb:46
+#: src/lib/y2firewall/widgets/pages/zones.rb:53
 #, fuzzy
 msgid "Zones"
 msgstr "(nema)"
@@ -1681,6 +1714,19 @@ msgid ""
 "<p>If you want to assign an interface to a given zone, just visit the\n"
 "<b>Interfaces</b> section.</p>"
 msgstr ""
+
+#. Return the network interface device name in case it is configured or
+#. 'Unknown' in other case
+#.
+#. @return [String] its device name or 'Unknown' if not configured
+#: library/network/src/lib/y2firewall/firewalld/interface.rb:87
+#, fuzzy
+msgid "Unknown"
+msgstr "Nepoznat monitor"
+
+#, fuzzy
+#~ msgid "Enabled:"
+#~ msgstr "Uključeno"
 
 #~ msgid "Firewall configuration"
 #~ msgstr "Konfiguracija firewall-a"
@@ -1772,10 +1818,6 @@ msgstr ""
 #, fuzzy
 #~ msgid "Redirect to internal IP"
 #~ msgstr "Štiti od unutrašnje mreže"
-
-#, fuzzy
-#~ msgid "Unknown zone %1."
-#~ msgstr "Nepoznat monitor"
 
 #, fuzzy
 #~ msgid "Parameter %1 must be set."

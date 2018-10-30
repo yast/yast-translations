@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: firewall\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-04 02:28+0000\n"
+"POT-Creation-Date: 2018-10-30 16:17+0000\n"
 "PO-Revision-Date: 2018-10-08 04:10+0000\n"
 "Last-Translator: H. Zeng <zhx@cnzhx.net>\n"
 "Language-Team: Chinese (China) <https://l10n.opensuse.org/projects/yast-"
@@ -138,8 +138,8 @@ msgstr "启动"
 #. @macro seeCustomWidget
 #: src/include/firewall/dialogs.rb:302 src/include/firewall/dialogs.rb:305
 #: src/include/firewall/summary.rb:151 src/include/firewall/summary.rb:153
-#: src/lib/y2firewall/widgets/pages/interfaces.rb:46
-#: src/lib/y2firewall/widgets/pages/interfaces.rb:53
+#: src/lib/y2firewall/widgets/pages/interfaces.rb:47
+#: src/lib/y2firewall/widgets/pages/interfaces.rb:54
 #: src/lib/y2firewall/widgets/zones_table.rb:66
 msgid "Interfaces"
 msgstr "接口"
@@ -662,7 +662,9 @@ msgid "&Change..."
 msgstr "修改(&C)..."
 
 #. TRANSLATORS: push button
+#. @macro seeAbstractWidget
 #: src/include/firewall/subdialogs.rb:114
+#: src/lib/y2firewall/widgets/zone_interfaces_button.rb:41
 msgid "C&ustom..."
 msgstr "自定义(&U)..."
 
@@ -919,8 +921,10 @@ msgid "Accepting the Broadcast Reply"
 msgstr "正在接受广播回应"
 
 #. @macro seeAbstractWidget
+#. @macro seeAbstractWidget
 #: src/include/firewall/subdialogs.rb:911
 #: src/lib/y2firewall/widgets/interfaces_table.rb:68
+#: src/lib/y2firewall/widgets/modify_zone_interfaces.rb:55
 #: src/lib/y2firewall/widgets/zone_options.rb:53
 msgid "Zone"
 msgstr "区域"
@@ -1449,47 +1453,10 @@ msgstr "端口(&R)"
 msgid "Select an item to delete."
 msgstr "选择要删除的项目。"
 
-#. Configuration summary
-#.
-#. @return [String]
-#: src/lib/y2firewall/clients/auto.rb:65
-msgid "Firewalld is not available"
-msgstr "Firewalld 不可用"
-
 #. Checking if an interface has been defined for different zones
-#: src/lib/y2firewall/clients/auto.rb:165
+#: src/lib/y2firewall/clients/auto.rb:189
 msgid "This interface has been defined for more than one zone."
 msgstr "此接口已被超过一个的区域定义。"
-
-#. Creates a general summary for firewalld
-#.
-#. @return [String] HTML formated firewall description
-#. rubocop:disable Metrics/AbcSize
-#: src/lib/y2firewall/clients/auto.rb:267
-#: src/lib/y2firewall/clients/auto.rb:268
-msgid "yes"
-msgstr "是"
-
-#: src/lib/y2firewall/clients/auto.rb:267
-#: src/lib/y2firewall/clients/auto.rb:268
-msgid "no"
-msgstr "否"
-
-#: src/lib/y2firewall/clients/auto.rb:270
-msgid "Running:"
-msgstr "运行中："
-
-#: src/lib/y2firewall/clients/auto.rb:271
-msgid "Enabled:"
-msgstr "已启用："
-
-#: src/lib/y2firewall/clients/auto.rb:272
-msgid "Default zone:"
-msgstr "默认区域："
-
-#: src/lib/y2firewall/clients/auto.rb:273
-msgid "Defined zones:"
-msgstr "定义区域："
 
 #. TRANSLATORS: firewall-config and firewall-cmd are the names of software utilities,
 #. so they should not be translated.
@@ -1515,9 +1482,16 @@ msgid "Change Zone"
 msgstr "更改区域"
 
 #. Constructor
-#: src/lib/y2firewall/dialogs/main.rb:42
+#: src/lib/y2firewall/dialogs/main.rb:52
 msgid "Firewall"
 msgstr "防火墙"
+
+#. @macro seeAbstractWidget
+#: src/lib/y2firewall/dialogs/modify_zone_interfaces.rb:38
+#, fuzzy
+#| msgid "Interfaces"
+msgid "Modify Interfaces"
+msgstr "接口"
 
 #. Dialog for firewall and ssh proposal configuration
 #: src/lib/y2firewall/dialogs/proposal.rb:40
@@ -1563,6 +1537,56 @@ msgstr ""
 "\n"
 "请在安装完成后仔细检查应用的配置。"
 
+#. Return a not installed html summary
+#.
+#. @return [String] HTML text
+#: src/lib/y2firewall/summary_presenter.rb:73
+msgid "Firewalld is not available"
+msgstr "Firewalld 不可用"
+
+#. Creates a piece for summary for zone detail
+#.
+#. See has_many (@see Y2Firewall::Firewalld::Relations#has_many) in
+#. Y2Firewall::Firewalld::Zone for known detail / relations
+#.
+#. @param label [String] the zone attr name (used as a caption for
+#. generated blob)
+#. @param attr_value [Array, Boolean, String, nil] the value of the attr to
+#. be shown
+#. @return [String] A string formated using Yast::HTML methods
+#: src/lib/y2firewall/summary_presenter.rb:97
+#, fuzzy
+#| msgid "yes"
+msgid "Yes"
+msgstr "是"
+
+#: src/lib/y2firewall/summary_presenter.rb:97
+#, fuzzy
+#| msgid "None"
+msgid "No"
+msgstr "无"
+
+#. Creates a general summary for firewalld
+#.
+#. @return [String] HTML formated firewall description
+#: src/lib/y2firewall/summary_presenter.rb:134
+msgid "Default zone:"
+msgstr "默认区域："
+
+#: src/lib/y2firewall/summary_presenter.rb:135
+msgid "Defined zones:"
+msgstr "定义区域："
+
+#: src/lib/y2firewall/summary_presenter.rb:146
+#, fuzzy
+#| msgid "No zone assigned"
+msgid "No zones defined"
+msgstr "未指派任何区域"
+
+#: src/lib/y2firewall/summary_presenter.rb:165
+msgid "DEFAULT"
+msgstr ""
+
 #. @macro seeCustomWidget
 #: src/lib/y2firewall/widgets/allowed_services.rb:54
 msgid "Known"
@@ -1584,22 +1608,31 @@ msgstr ""
 "通过将他们添加到 <b>允许</b> 列表中（使用 <b>添加</b> 或 <b>添加全部</b>\n"
 "按钮）。</p>"
 
+#. TRANSLATORS: popup question
+#: src/lib/y2firewall/widgets/allowed_services.rb:98
+msgid ""
+"The selection of services will be lost if you leave without\n"
+"applying the changes.\n"
+"\n"
+"Do you really want to continue?\n"
+msgstr ""
+
 #. Return a list of buttons to add/remove elements
 #.
 #. @return [Array<Yast::Term>] Buttons set UI terms
-#: src/lib/y2firewall/widgets/allowed_services.rb:139
+#: src/lib/y2firewall/widgets/allowed_services.rb:152
 msgid "Add"
 msgstr "添加"
 
-#: src/lib/y2firewall/widgets/allowed_services.rb:144
+#: src/lib/y2firewall/widgets/allowed_services.rb:157
 msgid "Add All"
 msgstr "添加全部"
 
-#: src/lib/y2firewall/widgets/allowed_services.rb:150
+#: src/lib/y2firewall/widgets/allowed_services.rb:163
 msgid "Remove"
 msgstr "移除"
 
-#: src/lib/y2firewall/widgets/allowed_services.rb:155
+#: src/lib/y2firewall/widgets/allowed_services.rb:168
 msgid "Remove All"
 msgstr "移除全部"
 
@@ -1640,6 +1673,13 @@ msgstr ""
 "<p>如果您将一个接口分配到<b>默认</b>区域，该设备\n"
 "将会被绑定到防火墙的默认区域。浏览<b>区域</b>部分\n"
 "来查看（并最终更改）设定为默认区域的区域。</p>"
+
+#. @macro seeAbstractWidget
+#: src/lib/y2firewall/widgets/modify_zone_interfaces.rb:106
+#, fuzzy
+#| msgid "Interfaces"
+msgid "Interfaces:"
+msgstr "接口"
 
 #. Constructor
 #.
@@ -1686,8 +1726,8 @@ msgstr "服务"
 
 #. @macro seeAbstractWidget
 #. @macro seeCustomWidget
-#: src/lib/y2firewall/widgets/pages/zones.rb:45
-#: src/lib/y2firewall/widgets/pages/zones.rb:52
+#: src/lib/y2firewall/widgets/pages/zones.rb:46
+#: src/lib/y2firewall/widgets/pages/zones.rb:53
 msgid "Zones"
 msgstr "区域"
 
@@ -1788,6 +1828,25 @@ msgstr ""
 "\n"
 "<p>如果您想要将一个接口分配到某个区域，请\n"
 "浏览<b>接口</b>部分。</p>"
+
+#. Return the network interface device name in case it is configured or
+#. 'Unknown' in other case
+#.
+#. @return [String] its device name or 'Unknown' if not configured
+#: library/network/src/lib/y2firewall/firewalld/interface.rb:87
+#, fuzzy
+#| msgid "Known"
+msgid "Unknown"
+msgstr "已知"
+
+#~ msgid "no"
+#~ msgstr "否"
+
+#~ msgid "Running:"
+#~ msgstr "运行中："
+
+#~ msgid "Enabled:"
+#~ msgstr "已启用："
 
 #~ msgid ""
 #~ "YaST currently does not have a module for configuring firewall. Please, "

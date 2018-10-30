@@ -30,11 +30,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: firewall\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-04 02:28+0000\n"
+"POT-Creation-Date: 2018-10-30 16:17+0000\n"
 "PO-Revision-Date: 2018-10-04 18:41+0000\n"
 "Last-Translator: Aleš Kastner <alkas@volny.cz>\n"
-"Language-Team: Czech <https://l10n.opensuse.org/projects/yast-"
-"firewall/master/cs/>\n"
+"Language-Team: Czech <https://l10n.opensuse.org/projects/yast-firewall/"
+"master/cs/>\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -157,8 +157,8 @@ msgstr "Začátek"
 #. @macro seeCustomWidget
 #: src/include/firewall/dialogs.rb:302 src/include/firewall/dialogs.rb:305
 #: src/include/firewall/summary.rb:151 src/include/firewall/summary.rb:153
-#: src/lib/y2firewall/widgets/pages/interfaces.rb:46
-#: src/lib/y2firewall/widgets/pages/interfaces.rb:53
+#: src/lib/y2firewall/widgets/pages/interfaces.rb:47
+#: src/lib/y2firewall/widgets/pages/interfaces.rb:54
 #: src/lib/y2firewall/widgets/zones_table.rb:66
 msgid "Interfaces"
 msgstr "Rozhraní"
@@ -722,7 +722,9 @@ msgid "&Change..."
 msgstr "&Změnit..."
 
 #. TRANSLATORS: push button
+#. @macro seeAbstractWidget
 #: src/include/firewall/subdialogs.rb:114
+#: src/lib/y2firewall/widgets/zone_interfaces_button.rb:41
 msgid "C&ustom..."
 msgstr "V&lastní..."
 
@@ -979,8 +981,10 @@ msgid "Accepting the Broadcast Reply"
 msgstr "Přijímá se odpověď všesměrového vysílání"
 
 #. @macro seeAbstractWidget
+#. @macro seeAbstractWidget
 #: src/include/firewall/subdialogs.rb:911
 #: src/lib/y2firewall/widgets/interfaces_table.rb:68
+#: src/lib/y2firewall/widgets/modify_zone_interfaces.rb:55
 #: src/lib/y2firewall/widgets/zone_options.rb:53
 msgid "Zone"
 msgstr "Zóna"
@@ -1509,47 +1513,10 @@ msgstr "Po&rt"
 msgid "Select an item to delete."
 msgstr "Zvolte položku, která má být odstraněna."
 
-#. Configuration summary
-#.
-#. @return [String]
-#: src/lib/y2firewall/clients/auto.rb:65
-msgid "Firewalld is not available"
-msgstr "Firewall není dostupný"
-
 #. Checking if an interface has been defined for different zones
-#: src/lib/y2firewall/clients/auto.rb:165
+#: src/lib/y2firewall/clients/auto.rb:189
 msgid "This interface has been defined for more than one zone."
 msgstr "Toto rozhraní bylo definováno pro více než jednu zónu."
-
-#. Creates a general summary for firewalld
-#.
-#. @return [String] HTML formated firewall description
-#. rubocop:disable Metrics/AbcSize
-#: src/lib/y2firewall/clients/auto.rb:267
-#: src/lib/y2firewall/clients/auto.rb:268
-msgid "yes"
-msgstr "ano"
-
-#: src/lib/y2firewall/clients/auto.rb:267
-#: src/lib/y2firewall/clients/auto.rb:268
-msgid "no"
-msgstr "ne"
-
-#: src/lib/y2firewall/clients/auto.rb:270
-msgid "Running:"
-msgstr "Běží:"
-
-#: src/lib/y2firewall/clients/auto.rb:271
-msgid "Enabled:"
-msgstr "Povoleno:"
-
-#: src/lib/y2firewall/clients/auto.rb:272
-msgid "Default zone:"
-msgstr "Výchozí zóna:"
-
-#: src/lib/y2firewall/clients/auto.rb:273
-msgid "Defined zones:"
-msgstr "Definované zóny:"
 
 #. TRANSLATORS: firewall-config and firewall-cmd are the names of software utilities,
 #. so they should not be translated.
@@ -1576,9 +1543,16 @@ msgid "Change Zone"
 msgstr "Změnit zónu"
 
 #. Constructor
-#: src/lib/y2firewall/dialogs/main.rb:42
+#: src/lib/y2firewall/dialogs/main.rb:52
 msgid "Firewall"
 msgstr "Firewall"
+
+#. @macro seeAbstractWidget
+#: src/lib/y2firewall/dialogs/modify_zone_interfaces.rb:38
+#, fuzzy
+#| msgid "Interfaces"
+msgid "Modify Interfaces"
+msgstr "Rozhraní"
 
 #. Dialog for firewall and ssh proposal configuration
 #: src/lib/y2firewall/dialogs/proposal.rb:40
@@ -1625,6 +1599,56 @@ msgstr ""
 "\n"
 "Po ukončení instalace raději pečlivě zkontrolujte konfiguraci."
 
+#. Return a not installed html summary
+#.
+#. @return [String] HTML text
+#: src/lib/y2firewall/summary_presenter.rb:73
+msgid "Firewalld is not available"
+msgstr "Firewall není dostupný"
+
+#. Creates a piece for summary for zone detail
+#.
+#. See has_many (@see Y2Firewall::Firewalld::Relations#has_many) in
+#. Y2Firewall::Firewalld::Zone for known detail / relations
+#.
+#. @param label [String] the zone attr name (used as a caption for
+#. generated blob)
+#. @param attr_value [Array, Boolean, String, nil] the value of the attr to
+#. be shown
+#. @return [String] A string formated using Yast::HTML methods
+#: src/lib/y2firewall/summary_presenter.rb:97
+#, fuzzy
+#| msgid "yes"
+msgid "Yes"
+msgstr "ano"
+
+#: src/lib/y2firewall/summary_presenter.rb:97
+#, fuzzy
+#| msgid "None"
+msgid "No"
+msgstr "Nic"
+
+#. Creates a general summary for firewalld
+#.
+#. @return [String] HTML formated firewall description
+#: src/lib/y2firewall/summary_presenter.rb:134
+msgid "Default zone:"
+msgstr "Výchozí zóna:"
+
+#: src/lib/y2firewall/summary_presenter.rb:135
+msgid "Defined zones:"
+msgstr "Definované zóny:"
+
+#: src/lib/y2firewall/summary_presenter.rb:146
+#, fuzzy
+#| msgid "No zone assigned"
+msgid "No zones defined"
+msgstr "Není přiřazena žádná zóna"
+
+#: src/lib/y2firewall/summary_presenter.rb:165
+msgid "DEFAULT"
+msgstr ""
+
 #. @macro seeCustomWidget
 #: src/lib/y2firewall/widgets/allowed_services.rb:54
 msgid "Known"
@@ -1646,22 +1670,31 @@ msgstr ""
 "jejich přidáním k seznamu <b>Povolené</b> (použijte tlačítko\n"
 "<b>Přidat</b> nebo <b>Přidat vše</b>.</p>"
 
+#. TRANSLATORS: popup question
+#: src/lib/y2firewall/widgets/allowed_services.rb:98
+msgid ""
+"The selection of services will be lost if you leave without\n"
+"applying the changes.\n"
+"\n"
+"Do you really want to continue?\n"
+msgstr ""
+
 #. Return a list of buttons to add/remove elements
 #.
 #. @return [Array<Yast::Term>] Buttons set UI terms
-#: src/lib/y2firewall/widgets/allowed_services.rb:139
+#: src/lib/y2firewall/widgets/allowed_services.rb:152
 msgid "Add"
 msgstr "Přidat"
 
-#: src/lib/y2firewall/widgets/allowed_services.rb:144
+#: src/lib/y2firewall/widgets/allowed_services.rb:157
 msgid "Add All"
 msgstr "Přidat vše"
 
-#: src/lib/y2firewall/widgets/allowed_services.rb:150
+#: src/lib/y2firewall/widgets/allowed_services.rb:163
 msgid "Remove"
 msgstr "Odstranit"
 
-#: src/lib/y2firewall/widgets/allowed_services.rb:155
+#: src/lib/y2firewall/widgets/allowed_services.rb:168
 msgid "Remove All"
 msgstr "Odstranit vše"
 
@@ -1702,6 +1735,13 @@ msgstr ""
 "<p>Přiřadíte-li interface k zóně <b>výchozí</b>, bude zařízení přiřazeno\n"
 "výchozí zóně firewallu. Podívejte se na sekci <b>Zóny</b>,\n"
 "kde zjistíte (a případně změníte) výchozí zónu.</p>"
+
+#. @macro seeAbstractWidget
+#: src/lib/y2firewall/widgets/modify_zone_interfaces.rb:106
+#, fuzzy
+#| msgid "Interfaces"
+msgid "Interfaces:"
+msgstr "Rozhraní"
 
 #. Constructor
 #.
@@ -1748,8 +1788,8 @@ msgstr "Služby"
 
 #. @macro seeAbstractWidget
 #. @macro seeCustomWidget
-#: src/lib/y2firewall/widgets/pages/zones.rb:45
-#: src/lib/y2firewall/widgets/pages/zones.rb:52
+#: src/lib/y2firewall/widgets/pages/zones.rb:46
+#: src/lib/y2firewall/widgets/pages/zones.rb:53
 msgid "Zones"
 msgstr "Zóny"
 
@@ -1853,6 +1893,25 @@ msgstr ""
 "\n"
 "<p>Chcete-li rozhraní přiřadit dané zóně, jděte do sekce\n"
 "<b>Rozhraní</b>.</p>"
+
+#. Return the network interface device name in case it is configured or
+#. 'Unknown' in other case
+#.
+#. @return [String] its device name or 'Unknown' if not configured
+#: library/network/src/lib/y2firewall/firewalld/interface.rb:87
+#, fuzzy
+#| msgid "Known"
+msgid "Unknown"
+msgstr "Známý"
+
+#~ msgid "no"
+#~ msgstr "ne"
+
+#~ msgid "Running:"
+#~ msgstr "Běží:"
+
+#~ msgid "Enabled:"
+#~ msgstr "Povoleno:"
 
 #~ msgid ""
 #~ "YaST currently does not have a module for configuring firewall. Please, "
