@@ -20,7 +20,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: registration.de\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-09-11 02:46+0000\n"
+"POT-Creation-Date: 2018-10-30 16:18+0000\n"
 "PO-Revision-Date: 2018-05-31 10:02+0000\n"
 "Last-Translator: Franziska Weinberger <f.weinberger@gemino.de>\n"
 "Language-Team: German <https://l10n.opensuse.org/projects/yast-registration/"
@@ -233,7 +233,7 @@ msgstr ""
 #. @return [Symbol] user input
 #: src/lib/registration/clients/inst_scc.rb:193
 #: src/lib/registration/ui/autoyast_config_dialog.rb:104
-#: src/lib/registration/ui/base_system_registration_dialog.rb:61
+#: src/lib/registration/ui/base_system_registration_dialog.rb:62
 #: src/lib/registration/ui/migration_repos_workflow.rb:461
 #: src/lib/registration/ui/registered_system_dialog.rb:37
 #: src/lib/registration/ui/registration_update_dialog.rb:41
@@ -340,7 +340,7 @@ msgstr ""
 #. FIXME: use a better message, this one has been reused after the text freeze
 #. error message, the entered URL is not valid.
 #: src/lib/registration/connect_helpers.rb:314
-#: src/lib/registration/ui/base_system_registration_dialog.rb:546
+#: src/lib/registration/ui/base_system_registration_dialog.rb:562
 msgid "Invalid URL."
 msgstr "Ungültige URL."
 
@@ -832,7 +832,7 @@ msgstr "&Versionstyp"
 #. handle nil specifically, it cannot be stored in XML profile
 #: src/lib/registration/ui/autoyast_addon_dialog.rb:190
 #: src/lib/registration/ui/autoyast_config_dialog.rb:108
-#: src/lib/registration/ui/base_system_registration_dialog.rb:272
+#: src/lib/registration/ui/base_system_registration_dialog.rb:273
 msgid "Registration &Code"
 msgstr "Registrierungs&code"
 
@@ -872,7 +872,7 @@ msgid "Register the Product"
 msgstr "Produkt registrieren"
 
 #: src/lib/registration/ui/autoyast_config_dialog.rb:106
-#: src/lib/registration/ui/base_system_registration_dialog.rb:269
+#: src/lib/registration/ui/base_system_registration_dialog.rb:270
 msgid "&E-mail Address"
 msgstr "&Email-Adresse"
 
@@ -921,7 +921,7 @@ msgid "Register Extensions or Modules..."
 msgstr "Erweiterungen oder Module registrieren..."
 
 #. TRANSLATORS: Wrong url for registration provided, %s is an URL.
-#: src/lib/registration/ui/base_system_registration_dialog.rb:235
+#: src/lib/registration/ui/base_system_registration_dialog.rb:236
 msgid ""
 "The registration URL provided by the command line is not valid.\n"
 "\n"
@@ -937,20 +937,20 @@ msgstr ""
 "Es wird stattdessen die Standardeinstellung verwendet."
 
 #. TRANSLATORS: radio button; %s is a host name.
-#: src/lib/registration/ui/base_system_registration_dialog.rb:260
+#: src/lib/registration/ui/base_system_registration_dialog.rb:261
 msgid "Register System via %s"
 msgstr "System über %s registrieren"
 
 #. TRANSLATORS: radio button
-#: src/lib/registration/ui/base_system_registration_dialog.rb:303
+#: src/lib/registration/ui/base_system_registration_dialog.rb:304
 msgid "Register System via local SMT Server"
 msgstr "System über lokalen SMT-Server registrieren"
 
-#: src/lib/registration/ui/base_system_registration_dialog.rb:314
+#: src/lib/registration/ui/base_system_registration_dialog.rb:315
 msgid "&Local Registration Server URL"
 msgstr "URL des &lokalen Registrierungsservers"
 
-#: src/lib/registration/ui/base_system_registration_dialog.rb:328
+#: src/lib/registration/ui/base_system_registration_dialog.rb:329
 msgid "&Skip Registration"
 msgstr "Registrierung ü&berspringen"
 
@@ -958,17 +958,17 @@ msgstr "Registrierung ü&berspringen"
 #. @return [Yast::Term]  UI term
 #. the main dialog content
 #. @return [Yast::Term] UI term
-#: src/lib/registration/ui/base_system_registration_dialog.rb:338
+#: src/lib/registration/ui/base_system_registration_dialog.rb:339
 #: src/lib/registration/ui/registered_system_dialog.rb:67
 msgid "The system is already registered."
 msgstr "Das System ist bereits registriert."
 
-#: src/lib/registration/ui/base_system_registration_dialog.rb:340
+#: src/lib/registration/ui/base_system_registration_dialog.rb:341
 msgid "Please select your preferred method of registration."
 msgstr "Wählen Sie die von Ihnen bevorzugte Registrierungsmethode aus."
 
 #. help text
-#: src/lib/registration/ui/base_system_registration_dialog.rb:356
+#: src/lib/registration/ui/base_system_registration_dialog.rb:357
 msgid ""
 "Enter SUSE Customer Center credentials here to register the system to get "
 "updates and extensions."
@@ -976,15 +976,27 @@ msgstr ""
 "Zum Registrieren des Systems geben Sie hier Ihre Anmeldedaten für das SUSE "
 "Customer Center ein, so dass Sie Aktualisierungen und Erweiterungen erhalten."
 
-#. Popup question: confirm skipping the registration
-#. TRANSLATORS:
-#. %{media_name} is the media name (e.g. SLE-15-Packages),
-#. %{download_url} is an URL link (e.g. https://download.suse.com)
-#: src/lib/registration/ui/base_system_registration_dialog.rb:368
+#. Show a warning about skipping the registration
+#.
+#. @return [Boolean] true when skipping has been confirmed
+#: src/lib/registration/ui/base_system_registration_dialog.rb:374
 msgid ""
 "Without registration, update channels will not be\n"
-"configured. This disables updates and security fixes.\n"
-"\n"
+"configured. This disables updates and security fixes."
+msgstr ""
+
+#. cannot be nil
+#: src/lib/registration/ui/base_system_registration_dialog.rb:384
+#, fuzzy
+#| msgid ""
+#| "Without registration, update channels will not be\n"
+#| "configured. This disables updates and security fixes.\n"
+#| "\n"
+#| "A full system can be installed using the\n"
+#| "%{media_name} media from %{download_url}.\n"
+#| "Without these media only a minimum system is available\n"
+#| "in this installation."
+msgid ""
 "A full system can be installed using the\n"
 "%{media_name} media from %{download_url}.\n"
 "Without these media only a minimum system is available\n"
@@ -1000,9 +1012,16 @@ msgstr ""
 
 #. UI term for the network configuration button (or empty if not needed)
 #. @return [Yast::Term] UI term
-#: src/lib/registration/ui/base_system_registration_dialog.rb:383
+#: src/lib/registration/ui/base_system_registration_dialog.rb:399
 msgid "Net&work Configuration..."
 msgstr "Netz&werkkonfiguration..."
+
+#. TRANSLATORS: error message, the entered registration code is not valid.
+#: src/lib/registration/ui/base_system_registration_dialog.rb:573
+msgid ""
+"Invalid registration code.\n"
+"CRLF characters are not allowed."
+msgstr ""
 
 #. SSL error message
 #: src/lib/registration/ui/import_certificate_dialog.rb:23
