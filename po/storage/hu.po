@@ -18,7 +18,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: storage\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-06 02:30+0000\n"
+"POT-Creation-Date: 2018-10-30 16:18+0000\n"
 "PO-Revision-Date: 2018-06-12 10:03+0000\n"
 "Last-Translator: Robert Taisz <robert.taisz@emerald.hu>\n"
 "Language-Team: Hungarian <https://l10n.opensuse.org/projects/yast-storage/"
@@ -277,7 +277,7 @@ msgid "Edit devices of RAID %s"
 msgstr "%s RAID szerkesztése"
 
 #. TRANSLATORS: %s is a device name (e.g. "/dev/sda")
-#: src/lib/y2partitioner/actions/create_partition_table.rb:93
+#: src/lib/y2partitioner/actions/create_partition_table.rb:100
 msgid "It is not possible to create a new partition table on %s."
 msgstr "Nem lehet új partíciós táblát létrehozni a(z) %s eszközön."
 
@@ -288,7 +288,7 @@ msgstr "Nem lehet új partíciós táblát létrehozni a(z) %s eszközön."
 #. @see DeleteDevices#confirm
 #.
 #. @return [Boolean]
-#: src/lib/y2partitioner/actions/create_partition_table.rb:133
+#: src/lib/y2partitioner/actions/create_partition_table.rb:140
 #: src/lib/y2partitioner/actions/delete_lvm_lvs.rb:71
 #: src/lib/y2partitioner/actions/delete_partitions.rb:106
 #, fuzzy
@@ -296,7 +296,7 @@ msgstr "Nem lehet új partíciós táblát létrehozni a(z) %s eszközön."
 msgid "Confirm Deleting of Current Devices"
 msgstr "Összes partíció törlésének jóváhagyása"
 
-#: src/lib/y2partitioner/actions/create_partition_table.rb:134
+#: src/lib/y2partitioner/actions/create_partition_table.rb:141
 #: src/lib/y2partitioner/actions/delete_lvm_lvs.rb:72
 #: src/lib/y2partitioner/actions/delete_partitions.rb:107
 #, fuzzy
@@ -309,7 +309,7 @@ msgstr ""
 "Ha folytatja, a következő eszközök törölve lesznek:"
 
 #. TRANSLATORS %s is the disk device name ("/dev/sda" or similar)
-#: src/lib/y2partitioner/actions/create_partition_table.rb:136
+#: src/lib/y2partitioner/actions/create_partition_table.rb:143
 #, fuzzy
 #| msgid "Really create a new partition table on %s?"
 msgid "Really create a new partition table on %s"
@@ -318,124 +318,110 @@ msgstr "Biztos, hogy törli az új partíciós táblát a(z) %s eszközön?"
 #. TRANSLATORS: the first %s is replaced by the type of the filesystem
 #. (for example, "Btrfs" or "Ext2"), the second one by the disk device name
 #. ("/dev/sda" or similar).
-#: src/lib/y2partitioner/actions/create_partition_table.rb:157
+#: src/lib/y2partitioner/actions/create_partition_table.rb:164
 msgid ""
 "This will delete all data from the %s file system in the device.\n"
 "\n"
 "Really create a new partition table on %s?"
 msgstr ""
 
-#. Confirmation when the device contains partitions
+#. TRANSLATORS: Error when trying to modify an existing bcache that shares caches.
+#: src/lib/y2partitioner/actions/delete_bcache.rb:56
+msgid ""
+"The bcache shares its cache set with other devices.\n"
+"This can result in unreachable space if done without detaching.\n"
+"Detaching can take a very long time in some situations."
+msgstr ""
+
+#. no note if there is no bcache cset associated or if cset is shared by more devices
+#: src/lib/y2partitioner/actions/delete_bcache.rb:86
+msgid ""
+"The selected Bcache is the only one using its caching set.\n"
+"The caching set will be also deleted.\n"
+"\n"
+msgstr ""
+
+#. Confirmation to display when the device is part of another one(s)
 #.
-#. @see ConfirmRecursiveDelete#confirm_recursive_delete
+#. @see #confirm
 #.
 #. @return [Boolean]
-#: src/lib/y2partitioner/actions/delete_bcache.rb:65
+#: src/lib/y2partitioner/actions/delete_device.rb:138
 #, fuzzy
 #| msgid "Confirm Deleting of All Partitions"
-msgid "Confirm Deleting Bcache with its Devices"
+msgid "Confirm Deleting of Devices"
 msgstr "Összes partíció törlésének jóváhagyása"
 
-#: src/lib/y2partitioner/actions/delete_bcache.rb:66
+#: src/lib/y2partitioner/actions/delete_device.rb:139
 #, fuzzy
 #| msgid ""
 #| "The selected partition belongs to RAID \"%{name}\".\n"
 #| "To keep the system in a consistent state, the following\n"
 #| "RAID device will be deleted:"
 msgid ""
-"The selected Bcache has associated devices.\n"
-"To keep the system in a consistent state, the following\n"
-"associated devices will be deleted:"
+"The selected device is used by other devices in the system.\n"
+"To keep the system in a consistent state, the following devices\n"
+"will also be deleted:"
 msgstr ""
 "A kiválasztott partíció a(z) \"%{name}\" RAID-hez tartozik.\n"
 "A rendszer konzisztenciájának megtartása érdekében\n"
 "a következő RAID eszközök kerülnek törlésre:"
 
-#. TRANSLATORS: bcache is the name of the bcache to be deleted (e.g., /dev/bcache0)
-#: src/lib/y2partitioner/actions/delete_bcache.rb:70
+#. Confirmation to display when the device contains partitions
+#.
+#. @see #confirm
+#.
+#. @return [Boolean]
+#: src/lib/y2partitioner/actions/delete_device.rb:154
 #, fuzzy
-#| msgid "Delete RAID \"%{md}\" and volume group \"%{lvm_vg}\"?"
-msgid "Delete bcache \"%{bcache}\" and the affected devices?"
-msgstr "Törli a(z) \"%{md}\" RAID-et és a(z) \"%{lvm_vg}\" kötetcsoportot?"
+#| msgid "Confirm Deleting of All Partitions"
+msgid "Confirm Deleting Device with Partitions"
+msgstr "Összes partíció törlésének jóváhagyása"
 
-#. no note if there is no bcache cset associated or if cset is shared by more devices
-#: src/lib/y2partitioner/actions/delete_bcache.rb:79
+#: src/lib/y2partitioner/actions/delete_device.rb:155
+#, fuzzy
+#| msgid ""
+#| "The selected partition belongs to RAID \"%{name}\".\n"
+#| "To keep the system in a consistent state, the following\n"
+#| "RAID device will be deleted:"
 msgid ""
-"The selected Bcache is only user of the caching set. The caching set will be "
-"also deleted."
+"The selected device contains partitions.\n"
+"To keep the system in a consistent state, the following partitions\n"
+"and its associated devices will also be deleted:"
 msgstr ""
+"A kiválasztott partíció a(z) \"%{name}\" RAID-hez tartozik.\n"
+"A rendszer konzisztenciájának megtartása érdekében\n"
+"a következő RAID eszközök kerülnek törlésre:"
 
-#. TRANSLATORS %s is the name of the device to be deleted (e.g., /dev/bcache0)
-#. TRANSLATORS %s is the name of the device to be deleted (e.g., /dev/sda1)
-#: src/lib/y2partitioner/actions/delete_bcache.rb:92
-#: src/lib/y2partitioner/actions/delete_device.rb:112
+#. TRANSLATORS %s is a kernel name like /dev/sda1
+#: src/lib/y2partitioner/actions/delete_device.rb:171
+#, fuzzy
+#| msgid "Really delete these devices?"
+msgid "Really delete %s and all the affected devices?"
+msgstr "Biztos, hogy törli ezeket az eszközöket?"
+
+#. TRANSLATORS %s is the kernel name of the device (e.g., /dev/sda1)
+#: src/lib/y2partitioner/actions/delete_device.rb:179
 msgid "Really delete %s?"
 msgstr "Biztos, hogy törli a(z) %s eszközt?"
 
 #. TRANSLATORS: Note added to the dialog for trying to unmount a device
-#: src/lib/y2partitioner/actions/delete_device.rb:174
+#: src/lib/y2partitioner/actions/delete_device.rb:202
 msgid "It cannot be deleted while mounted."
 msgstr "A lemez nem törölhető, amíg fel van csatolva."
-
-# modules/sound/sound.ycp:171
-#. Error when there is no partition for deleting
-#.
-#. @return [String, nil] nil if the partition table is not empty
-#: src/lib/y2partitioner/actions/delete_disk_device.rb:62
-msgid "There are no partitions to delete on this disk"
-msgstr "A lemezen nem található törlendő partíció"
-
-#. Error when the device contains an implicit partitition table
-#.
-#. @return [String, nil] nil if the device has no implicit partition table
-#: src/lib/y2partitioner/actions/delete_disk_device.rb:71
-msgid "This device only contains an implicit partition that cannot be deleted."
-msgstr ""
-"Ez az eszköz csak egy implicit partíciót tartalmaz, amely nem törölhető."
-
-#. Confirmation before performing the delete action
-#.
-#. @note It shows all partitions (and dependent devices) that will be deleted.
-#.
-#. @see ConfirmRecursiveDelete#confirm_recursive_delete
-#.
-#. @return [Boolean]
-#: src/lib/y2partitioner/actions/delete_disk_device.rb:84
-msgid "Confirm Deleting of All Partitions"
-msgstr "Összes partíció törlésének jóváhagyása"
-
-#. TRANSLATORS: name is the name of the disk to be deleted (e.g., /dev/sda)
-#: src/lib/y2partitioner/actions/delete_disk_device.rb:86
-msgid ""
-"The disk \"%{name}\" contains at least one partition.\n"
-"If you proceed, the following devices will be deleted:"
-msgstr ""
-"A(z) \"%{name}\" lemez legalább egy partíciót tartalmaz.\n"
-"Ha folytatja, a következő eszközök törölve lesznek:"
-
-#. TRANSLATORS: name is the name of the disk to be deleted (e.g., /dev/sda)
-#: src/lib/y2partitioner/actions/delete_disk_device.rb:89
-msgid "Really delete all partitions on \"%{name}\"?"
-msgstr "Valójában töröli a(z) \"%{name}\" összes partícióját?"
-
-#. TRANSLATORS: Confirmation message when a LVM logical volume is going to be deleted,
-#. where %{name} is replaced by the name of the logical volume (e.g., /dev/system/lv1)
-#: src/lib/y2partitioner/actions/delete_lvm_lv.rb:68
-msgid "Remove the logical volume %{name}?"
-msgstr "Eltávolítja a(z) %{name} logikai kötetet?"
 
 #. Confirmation when the device is a LVM thin pool and there is any thin volume over it
 #.
 #. @see ConfirmRecursiveDelete#confirm_recursive_delete
 #.
 #. @return [Boolean]
-#: src/lib/y2partitioner/actions/delete_lvm_lv.rb:82
+#: src/lib/y2partitioner/actions/delete_lvm_lv.rb:70
 msgid "Confirm Deleting of LVM Thin Pool"
 msgstr "LVM vékony készlete törlésének jóváhagyása"
 
 #. TRANSLATORS: Confirmation message when a LVM thin pool is going to be deleted,
 #. where %{name} is replaced by the name of the thin pool (e.g., /dev/system/pool)
-#: src/lib/y2partitioner/actions/delete_lvm_lv.rb:86
+#: src/lib/y2partitioner/actions/delete_lvm_lv.rb:74
 msgid ""
 "The thin pool %{name} is used by at least one thin volume.\n"
 "If you proceed, the following thin volumes will be unmounted (if mounted)\n"
@@ -446,7 +432,7 @@ msgstr ""
 "(ha csatlakoztatva vannak) és törölve:"
 
 #. TRANSLATORS: %{name} is replaced by the name of the thin pool (e.g., /dev/system/pool)
-#: src/lib/y2partitioner/actions/delete_lvm_lv.rb:93
+#: src/lib/y2partitioner/actions/delete_lvm_lv.rb:81
 msgid "Really delete the thin pool \"%{name}\" and all related thin volumes?"
 msgstr ""
 "Biztos, hogy törli a(z) \"%{name}\" vékony készletet és az összes hozzá "
@@ -495,131 +481,12 @@ msgstr ""
 "Biztos, hogy törli a(z) \"%s\" kötetcsoportot és az összes hozzá tartozó "
 "logikai kötetet?"
 
-#. Confirmation when the device belongs to a volume group
-#.
-#. @see ConfirmRecursiveDelete#confirm_recursive_delete
-#. @see DeleteDevice#lvm_vg
-#.
-#. @return [Boolean]
-#: src/lib/y2partitioner/actions/delete_md.rb:66
-msgid "Confirm Deleting RAID Used by LVM"
-msgstr "LVM által használt RAID törlésének jóváhagyása"
-
-#. TRANSLATORS: name is the name of the volume group that the md raid
-#. belongs to (e.g., /dev/system)
-#: src/lib/y2partitioner/actions/delete_md.rb:69
-msgid ""
-"The selected RAID is used by volume group \"%{name}\".\n"
-"To keep the system in a consistent state, the following volume group\n"
-"and its logical volumes will be deleted:"
-msgstr ""
-"A kiválasztott RAID-et a(z) \"%{name}\" kötetcsoport használja.\n"
-"A konzisztens állapot megtartása érdekében a következő kötetcsoportok\n"
-"és azok logikai kötetei kerülnek törlésre:"
-
-#. TRANSLATORS: md is the name of the md raid to be deleted (e.g., /dev/md/md1),
-#. and vg is the name of the volume group to be deleted (e.g., /dev/system)
-#: src/lib/y2partitioner/actions/delete_md.rb:74
-msgid "Delete RAID \"%{md}\" and volume group \"%{lvm_vg}\"?"
-msgstr "Törli a(z) \"%{md}\" RAID-et és a(z) \"%{lvm_vg}\" kötetcsoportot?"
-
-#. Confirmation when the device contains partitions
-#.
-#. @see ConfirmRecursiveDelete#confirm_recursive_delete
-#.
-#. @return [Boolean]
-#: src/lib/y2partitioner/actions/delete_md.rb:87
-#, fuzzy
-#| msgid "Confirm Deleting of All Partitions"
-msgid "Confirm Deleting RAID with partitions"
-msgstr "Összes partíció törlésének jóváhagyása"
-
-#. TRANSLATORS: name is the name of the volume group that the md raid
-#. belongs to (e.g., /dev/system)
-#: src/lib/y2partitioner/actions/delete_md.rb:90
-#, fuzzy
-#| msgid ""
-#| "The selected partition belongs to RAID \"%{name}\".\n"
-#| "To keep the system in a consistent state, the following\n"
-#| "RAID device will be deleted:"
-msgid ""
-"The selected RAID contains partitions.\n"
-"To keep the system in a consistent state, the following\n"
-"partitions and its associated devices will be deleted:"
-msgstr ""
-"A kiválasztott partíció a(z) \"%{name}\" RAID-hez tartozik.\n"
-"A rendszer konzisztenciájának megtartása érdekében\n"
-"a következő RAID eszközök kerülnek törlésre:"
-
-#. TRANSLATORS: md is the name of the md raid to be deleted (e.g., /dev/md/md1)
-#: src/lib/y2partitioner/actions/delete_md.rb:94
-#, fuzzy
-#| msgid "Delete RAID \"%{md}\" and volume group \"%{lvm_vg}\"?"
-msgid "Delete RAID \"%{md}\" and the affected devices?"
-msgstr "Törli a(z) \"%{md}\" RAID-et és a(z) \"%{lvm_vg}\" kötetcsoportot?"
-
 #. Error when the partition is implicit
 #.
 #. @return [String, nil] nil if the partition is not implicit
 #: src/lib/y2partitioner/actions/delete_partition.rb:59
 msgid "This is an implicit partition and cannot be deleted."
 msgstr "Ez egy implicit partíció, és nem törölhető."
-
-#. Confirmation when the partition belongs to a volume group
-#.
-#. @see ConfirmRecursiveDelete#confirm_recursive_delete
-#. @see DeleteDevice#lvm_vg
-#.
-#. @return [Boolean]
-#: src/lib/y2partitioner/actions/delete_partition.rb:84
-msgid "Confirm Deleting Partition Used by LVM"
-msgstr "LVM által használt partíció törlésének jóváhagyása"
-
-#. TRANSLATORS: name is the name of the volume group that the partition
-#. belongs to (e.g., /dev/system)
-#: src/lib/y2partitioner/actions/delete_partition.rb:87
-msgid ""
-"The selected partition is used by volume group \"%{name}\".\n"
-"To keep the system in a consistent state, the following volume group\n"
-"and its logical volumes will be deleted:"
-msgstr ""
-"A kiválasztott partíciót a(z) \"%{name}\" kötetcsoport használja.\n"
-"A konzisztens állapot megtartása érdekében a következő kötetcsoportok\n"
-"és azok logikai kötetei kerülnek törlésre:"
-
-#. TRANSLATORS: partition is the name of the partition to be deleted (e.g., /dev/sda1),
-#. and vg is the name of the volume group to be deleted (e.g., /dev/system)
-#: src/lib/y2partitioner/actions/delete_partition.rb:92
-msgid "Delete partition \"%{partition}\" and volume group \"%{lvm_vg}\"?"
-msgstr "Törli a(z) \"%{partition}\" partíciót és \"%{lvm_vg}\" kötetcsoportot?"
-
-#. Confirmation when the partition belongs to a md raid
-#.
-#. @see ConfirmRecursiveDelete#confirm_recursive_delete
-#. @see DeleteDevice#md
-#.
-#. @return [Boolean]
-#: src/lib/y2partitioner/actions/delete_partition.rb:106
-msgid "Confirm Deleting Partition Used by RAID"
-msgstr "RAID által használt partíció törlésének jóváhagyása"
-
-#. TRANSLATORS: name is the name of the partition to be deleted (e.g., /dev/sda1)
-#: src/lib/y2partitioner/actions/delete_partition.rb:108
-msgid ""
-"The selected partition belongs to RAID \"%{name}\".\n"
-"To keep the system in a consistent state, the following\n"
-"RAID device will be deleted:"
-msgstr ""
-"A kiválasztott partíció a(z) \"%{name}\" RAID-hez tartozik.\n"
-"A rendszer konzisztenciájának megtartása érdekében\n"
-"a következő RAID eszközök kerülnek törlésre:"
-
-# modules/inst_custom_part.ycp:623
-#. TRANSLATORS: partition is the name of the partition to be deleted (e.g., /dev/sda1),
-#. and md_raid is the name of the raid to be deleted (e.g., /dev/md/md1)
-#: src/lib/y2partitioner/actions/delete_partition.rb:113
-msgid "Delete partition \"%{partition}\" and RAID \"%{md}\"?"
-msgstr "Törli a(z) \"%{partition}\" partíciót és a \"%{md}\" RAID-et?"
 
 #. TRANSLATORS: Error when trying to delete partitions from a directly formatted
 #. device. %{name} is replaced by the name of the device (e.g. "/dev/sda").
@@ -893,7 +760,7 @@ msgid "Nothing gets written because commit is not allowed."
 msgstr "Semmi sem lesz mentve, mivel nincs engedélyezve a véglegesítés."
 
 #. @macro seeDialog
-#: src/lib/y2partitioner/dialogs/bcache.rb:44
+#: src/lib/y2partitioner/dialogs/bcache.rb:47
 #, fuzzy
 #| msgid "Rescan Devices"
 msgid "Bcache Device"
@@ -901,49 +768,70 @@ msgstr "Eszközök újraolvasása"
 
 # modules/inst_custom_part.ycp:491
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/dialogs/bcache.rb:87
+#: src/lib/y2partitioner/dialogs/bcache.rb:103
 #, fuzzy
 #| msgid "Device: %s"
 msgid "Backing Device"
 msgstr "Eszköz: %s"
 
 #. TRANSLATORS: %s stands for name of option
-#: src/lib/y2partitioner/dialogs/bcache.rb:100
+#: src/lib/y2partitioner/dialogs/bcache.rb:117
 msgid ""
-"<b>%s</b> is the device that will be used as backing device for bcache.It "
-"will define the available space of bcache. The Device will be formatted so "
-"any previous content will be wiped out."
+"%s is the device that will be used as backing device for bcache.It will "
+"define the available space of bcache. The Device will be formatted so any "
+"previous content will be wiped out."
 msgstr ""
 
 #. value can be empty string if there is no items
-#: src/lib/y2partitioner/dialogs/bcache.rb:126
+#: src/lib/y2partitioner/dialogs/bcache.rb:144
 msgid "Empty backing device is not yet supported"
 msgstr ""
 
-#: src/lib/y2partitioner/dialogs/bcache.rb:127
-#: src/lib/y2partitioner/dialogs/bcache.rb:133
+#: src/lib/y2partitioner/dialogs/bcache.rb:145
+#: src/lib/y2partitioner/dialogs/bcache.rb:151
 msgid "Cannot Create Bcache"
 msgstr ""
 
-#: src/lib/y2partitioner/dialogs/bcache.rb:132
+#: src/lib/y2partitioner/dialogs/bcache.rb:150
 msgid "Backing and Caching devices cannot be identical."
 msgstr ""
 
 # modules/inst_custom_part.ycp:491
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/dialogs/bcache.rb:159
+#: src/lib/y2partitioner/dialogs/bcache.rb:177
 #, fuzzy
 #| msgid "Device: %s"
 msgid "Caching Device"
 msgstr "Eszköz: %s"
 
 #. TRANSLATORS: %s stands for name of option
-#: src/lib/y2partitioner/dialogs/bcache.rb:177
+#: src/lib/y2partitioner/dialogs/bcache.rb:196
 msgid ""
-"<b>%s</b> is the device that will be used as caching device for bcache.It "
-"should be faster and usually is smaller than the backing device, but it is "
-"not required. The device will be formatted so any previous content will be "
-"wiped out."
+"%s is the device that will be used as caching device for bcache.It should be "
+"faster and usually is smaller than the backing device, but it is not "
+"required. The device will be formatted so any previous content will be wiped "
+"out."
+msgstr ""
+
+#. @macro seeAbstractWidget
+#: src/lib/y2partitioner/dialogs/bcache.rb:233
+msgid "Cache Mode"
+msgstr ""
+
+#. TRANSLATORS: %s stands for name of option
+#: src/lib/y2partitioner/dialogs/bcache.rb:248
+msgid ""
+"%s is the operating mode for bcache. There are currently four supported "
+"modes.<ul> <li><i>Writethrough</i> reading operations are cached, writing is "
+"done in parallel to both devices. No data is lost in case of failure of the "
+"caching device. This is the default mode.</li><li><i>Writeback</i> both "
+"reading and writing operations are cached. This result in better performance "
+"when writing.</li><li><i>Writearound</i> reading is cached, new content is "
+"written only to the backing device.</li><li><i>None</i> means cache is "
+"neither used for reading nor for writing. This is useful mainly for "
+"temporarily disabling the cache before any big sequential read or write, "
+"otherwise that would result in intensive overwriting on the cache device.</"
+"li>"
 msgstr ""
 
 # modules/inst_sw_single.ycp:665
@@ -1859,6 +1747,13 @@ msgstr "Partícióazonosító: %s"
 msgid "Caching Device: %s"
 msgstr "Eszköz: %s"
 
+# modules/inst_custom_part.ycp:491
+#: src/lib/y2partitioner/widgets/bcache_device_description.rb:51
+#, fuzzy
+#| msgid "Device: %s"
+msgid "Cache mode: %s"
+msgstr "Eszköz: %s"
+
 #. @macro seeAbstractWidget
 #. @macro seeAbstractWidget
 #. @macro seeAbstractWidget
@@ -2335,7 +2230,7 @@ msgid "No device selected"
 msgstr "Nincs kiválasztott eszköz"
 
 #. TRANSLATORS: label for button to delete a device
-#: src/lib/y2partitioner/widgets/device_delete_button.rb:43
+#: src/lib/y2partitioner/widgets/device_delete_button.rb:42
 msgid "Delete"
 msgstr "Törlés"
 
@@ -3305,7 +3200,7 @@ msgstr "&Logikai kötetek"
 #. @see DeviceMenuButton#execute_action
 #. @macro seeAbstractWidget
 #: src/lib/y2partitioner/widgets/lvm_logical_volumes_button.rb:53
-#: src/lib/y2partitioner/widgets/pages/lvm_vg.rb:123
+#: src/lib/y2partitioner/widgets/pages/lvm_vg.rb:124
 msgid "Log&ical Volumes"
 msgstr "&Logikai kötetek"
 
@@ -3806,6 +3701,24 @@ msgstr ""
 msgid "System View"
 msgstr "Rendszernézet"
 
+#. TRANSLATORS: Heading. String followed a device name like /dev/bcache0
+#: src/lib/y2partitioner/widgets/pages/bcache.rb:64
+#, fuzzy
+#| msgid "Rescan Devices"
+msgid "Bcache: %s"
+msgstr "Eszközök újraolvasása"
+
+#. @macro seeAbstractWidget
+#. @macro seeAbstractWidget
+#. @macro seeAbstractWidget
+#. @macro seeAbstractWidget
+#: src/lib/y2partitioner/widgets/pages/bcache.rb:88
+#: src/lib/y2partitioner/widgets/pages/disk.rb:130
+#: src/lib/y2partitioner/widgets/pages/lvm_vg.rb:95
+#: src/lib/y2partitioner/widgets/pages/md_raid.rb:96
+msgid "&Overview"
+msgstr "Á&ttekintés"
+
 #. @macro seeAbstractWidget
 #: src/lib/y2partitioner/widgets/pages/btrfs.rb:20
 msgid "Btrfs"
@@ -3854,18 +3767,9 @@ msgstr ""
 
 # clients/inst_source.ycp:197
 #. TRANSLATORS: Heading. String followed by device name of hard disk
-#: src/lib/y2partitioner/widgets/pages/disk.rb:69
+#: src/lib/y2partitioner/widgets/pages/disk.rb:68
 msgid "Hard Disk: %s"
 msgstr "Merevlemez: %s"
-
-#. @macro seeAbstractWidget
-#. @macro seeAbstractWidget
-#. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/pages/disk.rb:131
-#: src/lib/y2partitioner/widgets/pages/lvm_vg.rb:94
-#: src/lib/y2partitioner/widgets/pages/md_raid.rb:96
-msgid "&Overview"
-msgstr "Á&ttekintés"
 
 # clients/inst_source.ycp:197
 #. @macro seeAbstractWidget
@@ -3879,12 +3783,12 @@ msgid "Logical Volume: %s"
 msgstr "Logikai kötet: %s"
 
 #. @macro seeCustomWidget
-#: src/lib/y2partitioner/widgets/pages/lvm_vg.rb:69
+#: src/lib/y2partitioner/widgets/pages/lvm_vg.rb:70
 msgid "Volume Group: %s"
 msgstr "Kötetcsoport: %s"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/pages/lvm_vg.rb:185
+#: src/lib/y2partitioner/widgets/pages/lvm_vg.rb:186
 msgid "&Physical Volumes"
 msgstr "&Fizikai kötetek"
 
@@ -4166,13 +4070,38 @@ msgstr "%d alkötet műveletei (<a href=\"%s\">Részletek elrejtése</a>)"
 
 #. Return the error message to be displayed
 #.
-#. FIXME: we could add the list of boot devices that are required.
+#. @return [String] Error message
+#. @see Issue#message
+#: src/lib/y2storage/autoinst_issues/could_not_calculate_boot.rb:46
+#, fuzzy
+#| msgid ""
+#| "Not possible to add a boot partition. Your system might not boot properly."
+msgid ""
+"Failed to calculate the requirements for booting. Your system might not boot "
+"properly."
+msgstr ""
+"Nem lehet rendszerindító partíciót hozzáadni. Lehetséges, hogy a rendszer "
+"nem fog megfelelően elindulni."
+
+#. Error message to be displayed
 #.
 #. @return [String] Error message
 #. @see Issue#message
-#: src/lib/y2storage/autoinst_issues/could_not_create_boot.rb:48
+#: src/lib/y2storage/autoinst_issues/could_not_create_boot.rb:54
 msgid ""
-"Not possible to add a boot partition. Your system might not boot properly."
+"AutoYaST cannot add a BIOS Boot partition to the described system. It is "
+"strongly advised to use such a partition for booting from GPT devices. "
+"Otherwise your system might not boot properly or might face problems in the "
+"future."
+msgstr ""
+
+#: src/lib/y2storage/autoinst_issues/could_not_create_boot.rb:61
+#, fuzzy
+#| msgid ""
+#| "Not possible to add a boot partition. Your system might not boot properly."
+msgid ""
+"Not possible to add the partitions recommended for booting the described "
+"system. Your system might not boot properly."
 msgstr ""
 "Nem lehet rendszerindító partíciót hozzáadni. Lehetséges, hogy a rendszer "
 "nem fog megfelelően elindulni."
@@ -4216,6 +4145,14 @@ msgstr "Az újból használható eszköz nem található"
 #.
 #. @return [String] Error message
 #. @see Issue#message
+#: src/lib/y2storage/autoinst_issues/missing_reusable_filesystem.rb:52
+msgid "Could not find a reusable filesystem"
+msgstr ""
+
+#. Return the error message to be displayed
+#.
+#. @return [String] Error message
+#. @see Issue#message
 #: src/lib/y2storage/autoinst_issues/missing_reuse_info.rb:53
 msgid "Not enough information to locate a device to reuse"
 msgstr "Nincs elegendő információ az újból használandó eszköz megkereséséhez"
@@ -4250,6 +4187,24 @@ msgstr "Nem található megfelelő lemez"
 msgid "Not enough disk space"
 msgstr "Nincs elegendő lemezterület"
 
+#. TRANSLATORS: %{device} is the kernel device name (eg. '/dev/sda1').
+#. TRANSLATORS: %{type} is the type of partition table specified in the profile (eg. 'gpt')
+#: src/lib/y2storage/autoinst_issues/no_partitionable.rb:55
+#, fuzzy
+#| msgid ""
+#| "This device only contains an implicit partition that cannot be deleted."
+msgid ""
+"The device '%{device}' cannot contain a partition table (%{type} requested)."
+msgstr ""
+"Ez az eszköz csak egy implicit partíciót tartalmaz, amely nem törölhető."
+
+#. TRANSLATORS: %{type} is the type of partition table specified in the profile (eg. 'gpt')
+#: src/lib/y2storage/autoinst_issues/no_partitionable.rb:61
+msgid ""
+"No suitable device was found, none of the remaining devices can contain a "
+"partition table (%s requested)."
+msgstr ""
+
 #. Return the error message to be displayed
 #.
 #. @return [String] Error message
@@ -4283,6 +4238,16 @@ msgstr "particiók"
 #: src/lib/y2storage/autoinst_issues/shrinked_planned_devices.rb:109
 msgid "logical volumes"
 msgstr "logikai kötetek"
+
+#. Error message to be displayed
+#.
+#. @return [String] Error message
+#. @see Issue#message
+#: src/lib/y2storage/autoinst_issues/surplus_partitions.rb:49
+msgid ""
+"The drive contains several partition sections, but only the first will be "
+"considered."
+msgstr ""
 
 #. TRANSLATORS: LVM thin pool name (eg. 'pool0')
 #: src/lib/y2storage/autoinst_issues/thin_pool_not_found.rb:50
@@ -4326,8 +4291,18 @@ msgstr ""
 "A rendszerindítási követelmények nem határozhatók meg, mert nincs '/' "
 "csatlakoztatási pont"
 
+#. Boot errors when partition table is gpt
+#.
+#. @return [Array<SetupError>]
+#: src/lib/y2storage/boot_requirements_strategies/legacy.rb:151
+msgid ""
+"There is no partition of type BIOS Boot. For GPT devices it is strongly "
+"advised to use a BIOS Boot partition. A setup without such a partition is "
+"not supported and may cause problems now or in the future."
+msgstr ""
+
 #. TRANSLATORS: error message
-#: src/lib/y2storage/boot_requirements_strategies/legacy.rb:164
+#: src/lib/y2storage/boot_requirements_strategies/legacy.rb:183
 msgid ""
 "Boot disk has no partition table and it is not possible to boot from it.You "
 "can fix it by creating a partition table on the boot disk."
@@ -4337,7 +4312,7 @@ msgstr ""
 "rendszerindító lemezen."
 
 #. TRANSLATORS: error message
-#: src/lib/y2storage/boot_requirements_strategies/legacy.rb:176
+#: src/lib/y2storage/boot_requirements_strategies/legacy.rb:195
 msgid "MBR gap size is not enough to correctly install bootloader"
 msgstr "Az MBR-résméret nem elegendő a rendszerbetöltő megfelelő telepítéséhez"
 
@@ -4381,6 +4356,28 @@ msgid ""
 msgstr ""
 "Úgy tűnik, hogy LDL-eszköz lett választva a rendszer telepítéséhez. Ezekről "
 "az eszközökről nem lehet rendszerindítást végezni."
+
+#. TRANSLATORS: operation mode for cache. If you are not sure how to translate keep it as it is.
+#: src/lib/y2storage/cache_mode.rb:37
+msgid "Writethrough"
+msgstr ""
+
+#. TRANSLATORS: operation mode for cache. If you are not sure how to translate keep it as it is.
+#: src/lib/y2storage/cache_mode.rb:39
+#, fuzzy
+#| msgid "writeback"
+msgid "Writeback"
+msgstr "visszaírás"
+
+#. TRANSLATORS: operation mode for cache. If you are not sure how to translate keep it as it is.
+#: src/lib/y2storage/cache_mode.rb:41
+msgid "Writearound"
+msgstr ""
+
+#. TRANSLATORS: operation mode for cache. If you are not sure how to translate keep it as it is.
+#: src/lib/y2storage/cache_mode.rb:43
+msgid "None"
+msgstr ""
 
 #. Decides whether multipath should be activated
 #.
@@ -5058,7 +5055,7 @@ msgstr "UUID"
 #. Class to represent all the possible MD levels
 #.
 #. This is a wrapper for the Storage::MdLevel enum
-#: src/lib/y2storage/md_level.rb:36 src/lib/y2storage/partition_id.rb:55
+#: src/lib/y2storage/md_level.rb:36 src/lib/y2storage/partition_id.rb:56
 msgid "Unknown"
 msgstr "Ismeretlen"
 
@@ -5179,74 +5176,84 @@ msgstr "A szükséges csomagok telepítése nem sikerült."
 msgid "Adding the following packages failed: %s"
 msgstr "Nem sikerült a következő csomagok hozzáadása: %s"
 
-#. Class to represent all the possible partition ids
-#.
-#. This is a wrapper for the Storage::ID enum
-#: src/lib/y2storage/partition_id.rb:40
-msgid "BIOS Boot Partition"
+#. Do not include 'Partition' in the name.
+#: src/lib/y2storage/partition_id.rb:41
+#, fuzzy
+#| msgid "BIOS Boot Partition"
+msgid "BIOS Boot"
 msgstr "BIOS rendszerindító partíció"
 
 # modules/inst_custom_part.ycp:623
-#: src/lib/y2storage/partition_id.rb:41
-msgid "Diagnostics Partition"
+#: src/lib/y2storage/partition_id.rb:42
+#, fuzzy
+#| msgid "Diagnostics Partition"
+msgid "Diagnostics"
 msgstr "Diagnosztikai partíció"
 
-#: src/lib/y2storage/partition_id.rb:42
+#: src/lib/y2storage/partition_id.rb:43
 msgid "DOS12"
 msgstr "DOS12"
 
-#: src/lib/y2storage/partition_id.rb:43
+#: src/lib/y2storage/partition_id.rb:44
 msgid "DOS16"
 msgstr "DOS16"
 
-#: src/lib/y2storage/partition_id.rb:44
+#: src/lib/y2storage/partition_id.rb:45
 msgid "DOS32"
 msgstr "DOS32"
 
-#: src/lib/y2storage/partition_id.rb:45
-msgid "EFI System Partition"
-msgstr "EFI rendszerpartíció"
-
 #: src/lib/y2storage/partition_id.rb:46
+#, fuzzy
+#| msgid "File System:"
+msgid "EFI System"
+msgstr "Fájlrendszer:"
+
+#: src/lib/y2storage/partition_id.rb:47
 msgid "Extended"
 msgstr "Kiterjesztett"
 
-#: src/lib/y2storage/partition_id.rb:47
+#: src/lib/y2storage/partition_id.rb:48
 msgid "Intel Rapid Start"
 msgstr ""
 
-#: src/lib/y2storage/partition_id.rb:48
+#: src/lib/y2storage/partition_id.rb:49
 msgid "Linux Native"
 msgstr "Linux Native"
 
-#: src/lib/y2storage/partition_id.rb:49
+#: src/lib/y2storage/partition_id.rb:50
 msgid "Linux LVM"
 msgstr "Linux LVM"
 
 # modules/inst_custom_part.ycp:623
-#: src/lib/y2storage/partition_id.rb:50
-msgid "Microsoft Reserved Partition"
+#: src/lib/y2storage/partition_id.rb:51
+#, fuzzy
+#| msgid "Microsoft Reserved Partition"
+msgid "Microsoft Reserved"
 msgstr "Foglalt Microsoft-partíció"
 
-#: src/lib/y2storage/partition_id.rb:51
+#: src/lib/y2storage/partition_id.rb:52
 msgid "NTFS"
 msgstr "NTFS"
 
-#: src/lib/y2storage/partition_id.rb:52
-msgid "PReP Boot Partition"
+#: src/lib/y2storage/partition_id.rb:53
+#, fuzzy
+#| msgid "PReP Boot Partition"
+msgid "PReP Boot"
 msgstr "PReP rendszerindító partíció"
 
-#: src/lib/y2storage/partition_id.rb:53
+#: src/lib/y2storage/partition_id.rb:54
 msgid "Linux RAID"
 msgstr "Linux RAID"
 
-#: src/lib/y2storage/partition_id.rb:54
+#: src/lib/y2storage/partition_id.rb:55
 msgid "Linux Swap"
 msgstr "Linux Swap"
 
 # modules/inst_custom_part.ycp:623
-#: src/lib/y2storage/partition_id.rb:56
-msgid "Windows Data Partition"
+#: src/lib/y2storage/partition_id.rb:57
+#, fuzzy
+#| msgid "Windows Data Partition"
+msgid "Windows Data"
 msgstr "Windows-adatpartíció"
 
 # modules/inst_custom_part.ycp:623
@@ -5358,6 +5365,96 @@ msgstr "Az LVM vékony logikai kötet már elérte a maximális lehetséges mér
 #: src/lib/y2storage/resize_info.rb:109
 msgid "Unknown reason"
 msgstr "Ismeretlen ok"
+
+#, fuzzy
+#~| msgid "Confirm Deleting of All Partitions"
+#~ msgid "Confirm Deleting Bcache with its Devices"
+#~ msgstr "Összes partíció törlésének jóváhagyása"
+
+#, fuzzy
+#~| msgid "Delete RAID \"%{md}\" and volume group \"%{lvm_vg}\"?"
+#~ msgid "Delete bcache \"%{bcache}\" and the affected devices?"
+#~ msgstr "Törli a(z) \"%{md}\" RAID-et és a(z) \"%{lvm_vg}\" kötetcsoportot?"
+
+# modules/sound/sound.ycp:171
+#~ msgid "There are no partitions to delete on this disk"
+#~ msgstr "A lemezen nem található törlendő partíció"
+
+#~ msgid ""
+#~ "This device only contains an implicit partition that cannot be deleted."
+#~ msgstr ""
+#~ "Ez az eszköz csak egy implicit partíciót tartalmaz, amely nem törölhető."
+
+#~ msgid "Confirm Deleting of All Partitions"
+#~ msgstr "Összes partíció törlésének jóváhagyása"
+
+#~ msgid ""
+#~ "The disk \"%{name}\" contains at least one partition.\n"
+#~ "If you proceed, the following devices will be deleted:"
+#~ msgstr ""
+#~ "A(z) \"%{name}\" lemez legalább egy partíciót tartalmaz.\n"
+#~ "Ha folytatja, a következő eszközök törölve lesznek:"
+
+#~ msgid "Really delete all partitions on \"%{name}\"?"
+#~ msgstr "Valójában töröli a(z) \"%{name}\" összes partícióját?"
+
+#~ msgid "Remove the logical volume %{name}?"
+#~ msgstr "Eltávolítja a(z) %{name} logikai kötetet?"
+
+#~ msgid "Confirm Deleting RAID Used by LVM"
+#~ msgstr "LVM által használt RAID törlésének jóváhagyása"
+
+#~ msgid ""
+#~ "The selected RAID is used by volume group \"%{name}\".\n"
+#~ "To keep the system in a consistent state, the following volume group\n"
+#~ "and its logical volumes will be deleted:"
+#~ msgstr ""
+#~ "A kiválasztott RAID-et a(z) \"%{name}\" kötetcsoport használja.\n"
+#~ "A konzisztens állapot megtartása érdekében a következő kötetcsoportok\n"
+#~ "és azok logikai kötetei kerülnek törlésre:"
+
+#~ msgid "Delete RAID \"%{md}\" and volume group \"%{lvm_vg}\"?"
+#~ msgstr "Törli a(z) \"%{md}\" RAID-et és a(z) \"%{lvm_vg}\" kötetcsoportot?"
+
+#, fuzzy
+#~| msgid "Delete RAID \"%{md}\" and volume group \"%{lvm_vg}\"?"
+#~ msgid "Delete RAID \"%{md}\" and the affected devices?"
+#~ msgstr "Törli a(z) \"%{md}\" RAID-et és a(z) \"%{lvm_vg}\" kötetcsoportot?"
+
+#~ msgid "Confirm Deleting Partition Used by LVM"
+#~ msgstr "LVM által használt partíció törlésének jóváhagyása"
+
+#~ msgid ""
+#~ "The selected partition is used by volume group \"%{name}\".\n"
+#~ "To keep the system in a consistent state, the following volume group\n"
+#~ "and its logical volumes will be deleted:"
+#~ msgstr ""
+#~ "A kiválasztott partíciót a(z) \"%{name}\" kötetcsoport használja.\n"
+#~ "A konzisztens állapot megtartása érdekében a következő kötetcsoportok\n"
+#~ "és azok logikai kötetei kerülnek törlésre:"
+
+#~ msgid "Delete partition \"%{partition}\" and volume group \"%{lvm_vg}\"?"
+#~ msgstr ""
+#~ "Törli a(z) \"%{partition}\" partíciót és \"%{lvm_vg}\" kötetcsoportot?"
+
+#~ msgid "Confirm Deleting Partition Used by RAID"
+#~ msgstr "RAID által használt partíció törlésének jóváhagyása"
+
+#~ msgid ""
+#~ "The selected partition belongs to RAID \"%{name}\".\n"
+#~ "To keep the system in a consistent state, the following\n"
+#~ "RAID device will be deleted:"
+#~ msgstr ""
+#~ "A kiválasztott partíció a(z) \"%{name}\" RAID-hez tartozik.\n"
+#~ "A rendszer konzisztenciájának megtartása érdekében\n"
+#~ "a következő RAID eszközök kerülnek törlésre:"
+
+# modules/inst_custom_part.ycp:623
+#~ msgid "Delete partition \"%{partition}\" and RAID \"%{md}\"?"
+#~ msgstr "Törli a(z) \"%{partition}\" partíciót és a \"%{md}\" RAID-et?"
+
+#~ msgid "EFI System Partition"
+#~ msgstr "EFI rendszerpartíció"
 
 #~ msgid "Volume Group"
 #~ msgstr "Kötetcsoport"

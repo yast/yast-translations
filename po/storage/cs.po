@@ -19,11 +19,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: storage\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-06 02:30+0000\n"
+"POT-Creation-Date: 2018-10-30 16:18+0000\n"
 "PO-Revision-Date: 2018-10-07 21:43+0000\n"
 "Last-Translator: Aleš Kastner <alkas@volny.cz>\n"
-"Language-Team: Czech <https://l10n.opensuse.org/projects/yast-"
-"storage/master/cs/>\n"
+"Language-Team: Czech <https://l10n.opensuse.org/projects/yast-storage/master/"
+"cs/>\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -260,7 +260,7 @@ msgid "Edit devices of RAID %s"
 msgstr "Upravit zařízení s RAID %s"
 
 #. TRANSLATORS: %s is a device name (e.g. "/dev/sda")
-#: src/lib/y2partitioner/actions/create_partition_table.rb:93
+#: src/lib/y2partitioner/actions/create_partition_table.rb:100
 msgid "It is not possible to create a new partition table on %s."
 msgstr "Nelze vytvořit novou tabulku oddílů na %s."
 
@@ -271,27 +271,27 @@ msgstr "Nelze vytvořit novou tabulku oddílů na %s."
 #. @see DeleteDevices#confirm
 #.
 #. @return [Boolean]
-#: src/lib/y2partitioner/actions/create_partition_table.rb:133
+#: src/lib/y2partitioner/actions/create_partition_table.rb:140
 #: src/lib/y2partitioner/actions/delete_lvm_lvs.rb:71
 #: src/lib/y2partitioner/actions/delete_partitions.rb:106
 msgid "Confirm Deleting of Current Devices"
 msgstr "Potvrďte smazání současných zařízení"
 
-#: src/lib/y2partitioner/actions/create_partition_table.rb:134
+#: src/lib/y2partitioner/actions/create_partition_table.rb:141
 #: src/lib/y2partitioner/actions/delete_lvm_lvs.rb:72
 #: src/lib/y2partitioner/actions/delete_partitions.rb:107
 msgid "If you proceed, the following devices will be deleted:"
 msgstr "Budete-li pokračovat, budou smazána tato zařízení:"
 
 #. TRANSLATORS %s is the disk device name ("/dev/sda" or similar)
-#: src/lib/y2partitioner/actions/create_partition_table.rb:136
+#: src/lib/y2partitioner/actions/create_partition_table.rb:143
 msgid "Really create a new partition table on %s"
 msgstr "Opravdu vytvořit novou tabulku oddílů na %s"
 
 #. TRANSLATORS: the first %s is replaced by the type of the filesystem
 #. (for example, "Btrfs" or "Ext2"), the second one by the disk device name
 #. ("/dev/sda" or similar).
-#: src/lib/y2partitioner/actions/create_partition_table.rb:157
+#: src/lib/y2partitioner/actions/create_partition_table.rb:164
 msgid ""
 "This will delete all data from the %s file system in the device.\n"
 "\n"
@@ -301,108 +301,109 @@ msgstr ""
 "\n"
 "Opravdu vytvořit novou tabulku oddílů na %s?"
 
-#. Confirmation when the device contains partitions
+#. TRANSLATORS: Error when trying to modify an existing bcache that shares caches.
+#: src/lib/y2partitioner/actions/delete_bcache.rb:56
+msgid ""
+"The bcache shares its cache set with other devices.\n"
+"This can result in unreachable space if done without detaching.\n"
+"Detaching can take a very long time in some situations."
+msgstr ""
+
+#. no note if there is no bcache cset associated or if cset is shared by more devices
+#: src/lib/y2partitioner/actions/delete_bcache.rb:86
+#, fuzzy
+#| msgid ""
+#| "The selected Bcache is only user of the caching set. The caching set will "
+#| "be also deleted."
+msgid ""
+"The selected Bcache is the only one using its caching set.\n"
+"The caching set will be also deleted.\n"
+"\n"
+msgstr ""
+"Zvolená Bcache je jediným uživatelem kešovací sady, která bude tedy také "
+"odstraněna."
+
+#. Confirmation to display when the device is part of another one(s)
 #.
-#. @see ConfirmRecursiveDelete#confirm_recursive_delete
+#. @see #confirm
 #.
 #. @return [Boolean]
-#: src/lib/y2partitioner/actions/delete_bcache.rb:65
-msgid "Confirm Deleting Bcache with its Devices"
-msgstr "Potvrďte smazání Bcache a jejích zařízení"
+#: src/lib/y2partitioner/actions/delete_device.rb:138
+#, fuzzy
+#| msgid "Confirm Deleting of Current Devices"
+msgid "Confirm Deleting of Devices"
+msgstr "Potvrďte smazání současných zařízení"
 
-#: src/lib/y2partitioner/actions/delete_bcache.rb:66
+#: src/lib/y2partitioner/actions/delete_device.rb:139
+#, fuzzy
+#| msgid ""
+#| "The selected Bcache has associated devices.\n"
+#| "To keep the system in a consistent state, the following\n"
+#| "associated devices will be deleted:"
 msgid ""
-"The selected Bcache has associated devices.\n"
-"To keep the system in a consistent state, the following\n"
-"associated devices will be deleted:"
+"The selected device is used by other devices in the system.\n"
+"To keep the system in a consistent state, the following devices\n"
+"will also be deleted:"
 msgstr ""
 "Vybraná Bcache má přidružená zařízení. Aby byl systém\n"
 "v konzistentním stavu, budou odstraněna tato přidružená\n"
 "zařízení:"
 
-#. TRANSLATORS: bcache is the name of the bcache to be deleted (e.g., /dev/bcache0)
-#: src/lib/y2partitioner/actions/delete_bcache.rb:70
-msgid "Delete bcache \"%{bcache}\" and the affected devices?"
-msgstr "Smazat Bcache \"%{bcache}\" a příslušná zařízení?"
+#. Confirmation to display when the device contains partitions
+#.
+#. @see #confirm
+#.
+#. @return [Boolean]
+#: src/lib/y2partitioner/actions/delete_device.rb:154
+#, fuzzy
+#| msgid "Confirm Deleting RAID with partitions"
+msgid "Confirm Deleting Device with Partitions"
+msgstr "Potvrďte smazání všech RAID s oddíly"
 
-#. no note if there is no bcache cset associated or if cset is shared by more devices
-#: src/lib/y2partitioner/actions/delete_bcache.rb:79
+#: src/lib/y2partitioner/actions/delete_device.rb:155
+#, fuzzy
+#| msgid ""
+#| "The selected RAID contains partitions.\n"
+#| "To keep the system in a consistent state, the following\n"
+#| "partitions and its associated devices will be deleted:"
 msgid ""
-"The selected Bcache is only user of the caching set. The caching set will be "
-"also deleted."
+"The selected device contains partitions.\n"
+"To keep the system in a consistent state, the following partitions\n"
+"and its associated devices will also be deleted:"
 msgstr ""
-"Zvolená Bcache je jediným uživatelem kešovací sady, která bude tedy také "
-"odstraněna."
+"Vybraný RAID obsahuje oddíly. Aby byl systém\n"
+"v konzistentním stavu, budou odstraněny tyto oddíly\n"
+"a jejich přidružená zařízení:"
 
-#. TRANSLATORS %s is the name of the device to be deleted (e.g., /dev/bcache0)
-#. TRANSLATORS %s is the name of the device to be deleted (e.g., /dev/sda1)
-#: src/lib/y2partitioner/actions/delete_bcache.rb:92
-#: src/lib/y2partitioner/actions/delete_device.rb:112
+#. TRANSLATORS %s is a kernel name like /dev/sda1
+#: src/lib/y2partitioner/actions/delete_device.rb:171
+#, fuzzy
+#| msgid "Really delete all these devices?"
+msgid "Really delete %s and all the affected devices?"
+msgstr "Odstranit všechna tato zařízení?"
+
+#. TRANSLATORS %s is the kernel name of the device (e.g., /dev/sda1)
+#: src/lib/y2partitioner/actions/delete_device.rb:179
 msgid "Really delete %s?"
 msgstr "Skutečně smazat %s?"
 
 #. TRANSLATORS: Note added to the dialog for trying to unmount a device
-#: src/lib/y2partitioner/actions/delete_device.rb:174
+#: src/lib/y2partitioner/actions/delete_device.rb:202
 msgid "It cannot be deleted while mounted."
 msgstr "Nemůže být smazán, když je připojen."
-
-#. Error when there is no partition for deleting
-#.
-#. @return [String, nil] nil if the partition table is not empty
-#: src/lib/y2partitioner/actions/delete_disk_device.rb:62
-msgid "There are no partitions to delete on this disk"
-msgstr "Na tomto disku nejsou žádné oddíly ke smazání"
-
-#. Error when the device contains an implicit partitition table
-#.
-#. @return [String, nil] nil if the device has no implicit partition table
-#: src/lib/y2partitioner/actions/delete_disk_device.rb:71
-msgid "This device only contains an implicit partition that cannot be deleted."
-msgstr "Toto zařízení obsahuje pouze výchozí oddíl, který nelze odstranit."
-
-#. Confirmation before performing the delete action
-#.
-#. @note It shows all partitions (and dependent devices) that will be deleted.
-#.
-#. @see ConfirmRecursiveDelete#confirm_recursive_delete
-#.
-#. @return [Boolean]
-#: src/lib/y2partitioner/actions/delete_disk_device.rb:84
-msgid "Confirm Deleting of All Partitions"
-msgstr "Potvrďte smazání všech oddílů"
-
-#. TRANSLATORS: name is the name of the disk to be deleted (e.g., /dev/sda)
-#: src/lib/y2partitioner/actions/delete_disk_device.rb:86
-msgid ""
-"The disk \"%{name}\" contains at least one partition.\n"
-"If you proceed, the following devices will be deleted:"
-msgstr ""
-"Disk \"%{name}\" obsahuje nejméně jeden oddíl.\n"
-"Budete-li pokračovat, budou smazány tyto oddíly:"
-
-#. TRANSLATORS: name is the name of the disk to be deleted (e.g., /dev/sda)
-#: src/lib/y2partitioner/actions/delete_disk_device.rb:89
-msgid "Really delete all partitions on \"%{name}\"?"
-msgstr "Opravdu odstranit všechny oddíly na \"%{name}\"?"
-
-#. TRANSLATORS: Confirmation message when a LVM logical volume is going to be deleted,
-#. where %{name} is replaced by the name of the logical volume (e.g., /dev/system/lv1)
-#: src/lib/y2partitioner/actions/delete_lvm_lv.rb:68
-msgid "Remove the logical volume %{name}?"
-msgstr "Odstranit logický svazek %{name}?"
 
 #. Confirmation when the device is a LVM thin pool and there is any thin volume over it
 #.
 #. @see ConfirmRecursiveDelete#confirm_recursive_delete
 #.
 #. @return [Boolean]
-#: src/lib/y2partitioner/actions/delete_lvm_lv.rb:82
+#: src/lib/y2partitioner/actions/delete_lvm_lv.rb:70
 msgid "Confirm Deleting of LVM Thin Pool"
 msgstr "Potvrďte smazání tenkého bloku LVM"
 
 #. TRANSLATORS: Confirmation message when a LVM thin pool is going to be deleted,
 #. where %{name} is replaced by the name of the thin pool (e.g., /dev/system/pool)
-#: src/lib/y2partitioner/actions/delete_lvm_lv.rb:86
+#: src/lib/y2partitioner/actions/delete_lvm_lv.rb:74
 msgid ""
 "The thin pool %{name} is used by at least one thin volume.\n"
 "If you proceed, the following thin volumes will be unmounted (if mounted)\n"
@@ -414,7 +415,7 @@ msgstr ""
 "a smažou se:"
 
 #. TRANSLATORS: %{name} is replaced by the name of the thin pool (e.g., /dev/system/pool)
-#: src/lib/y2partitioner/actions/delete_lvm_lv.rb:93
+#: src/lib/y2partitioner/actions/delete_lvm_lv.rb:81
 msgid "Really delete the thin pool \"%{name}\" and all related thin volumes?"
 msgstr ""
 "Opravdu odstranit tenký blok \"%{name}\" a všechny související tenké svazky?"
@@ -456,121 +457,12 @@ msgstr ""
 "Opravdu chcete odstranit skupinu svazků \"%s\" a všechny související logické "
 "svazky?"
 
-#. Confirmation when the device belongs to a volume group
-#.
-#. @see ConfirmRecursiveDelete#confirm_recursive_delete
-#. @see DeleteDevice#lvm_vg
-#.
-#. @return [Boolean]
-#: src/lib/y2partitioner/actions/delete_md.rb:66
-msgid "Confirm Deleting RAID Used by LVM"
-msgstr "Potvrďte smazání RAID použitého LVM"
-
-#. TRANSLATORS: name is the name of the volume group that the md raid
-#. belongs to (e.g., /dev/system)
-#: src/lib/y2partitioner/actions/delete_md.rb:69
-msgid ""
-"The selected RAID is used by volume group \"%{name}\".\n"
-"To keep the system in a consistent state, the following volume group\n"
-"and its logical volumes will be deleted:"
-msgstr ""
-"Vybraný RAID je použit ve skupině svazků \"%{name}\".\n"
-"Aby byl systém v konzistentním stavu, bude odstraněna\n"
-"následující skupina svazků a její logické svazky:"
-
-#. TRANSLATORS: md is the name of the md raid to be deleted (e.g., /dev/md/md1),
-#. and vg is the name of the volume group to be deleted (e.g., /dev/system)
-#: src/lib/y2partitioner/actions/delete_md.rb:74
-msgid "Delete RAID \"%{md}\" and volume group \"%{lvm_vg}\"?"
-msgstr "Smazat RAID \"%{md}\" a skupinu svazků \"%{lvm_vg}\"?"
-
-#. Confirmation when the device contains partitions
-#.
-#. @see ConfirmRecursiveDelete#confirm_recursive_delete
-#.
-#. @return [Boolean]
-#: src/lib/y2partitioner/actions/delete_md.rb:87
-msgid "Confirm Deleting RAID with partitions"
-msgstr "Potvrďte smazání všech RAID s oddíly"
-
-#. TRANSLATORS: name is the name of the volume group that the md raid
-#. belongs to (e.g., /dev/system)
-#: src/lib/y2partitioner/actions/delete_md.rb:90
-msgid ""
-"The selected RAID contains partitions.\n"
-"To keep the system in a consistent state, the following\n"
-"partitions and its associated devices will be deleted:"
-msgstr ""
-"Vybraný RAID obsahuje oddíly. Aby byl systém\n"
-"v konzistentním stavu, budou odstraněny tyto oddíly\n"
-"a jejich přidružená zařízení:"
-
-#. TRANSLATORS: md is the name of the md raid to be deleted (e.g., /dev/md/md1)
-#: src/lib/y2partitioner/actions/delete_md.rb:94
-msgid "Delete RAID \"%{md}\" and the affected devices?"
-msgstr "Smazat RAID \"%{md}\" a dotčená zařízení?"
-
 #. Error when the partition is implicit
 #.
 #. @return [String, nil] nil if the partition is not implicit
 #: src/lib/y2partitioner/actions/delete_partition.rb:59
 msgid "This is an implicit partition and cannot be deleted."
 msgstr "Toto je výchozí oddíl, nelze ho odstranit."
-
-#. Confirmation when the partition belongs to a volume group
-#.
-#. @see ConfirmRecursiveDelete#confirm_recursive_delete
-#. @see DeleteDevice#lvm_vg
-#.
-#. @return [Boolean]
-#: src/lib/y2partitioner/actions/delete_partition.rb:84
-msgid "Confirm Deleting Partition Used by LVM"
-msgstr "Potvrzení smazání oddílu použitým v LVM"
-
-#. TRANSLATORS: name is the name of the volume group that the partition
-#. belongs to (e.g., /dev/system)
-#: src/lib/y2partitioner/actions/delete_partition.rb:87
-msgid ""
-"The selected partition is used by volume group \"%{name}\".\n"
-"To keep the system in a consistent state, the following volume group\n"
-"and its logical volumes will be deleted:"
-msgstr ""
-"Vybraný oddíl je použit skupinou svazků \"%{name}\".\n"
-"Aby byl systém v konzistentním stavu, bude odstraněna\n"
-"tato skupina svazků a její logické svazky:"
-
-#. TRANSLATORS: partition is the name of the partition to be deleted (e.g., /dev/sda1),
-#. and vg is the name of the volume group to be deleted (e.g., /dev/system)
-#: src/lib/y2partitioner/actions/delete_partition.rb:92
-msgid "Delete partition \"%{partition}\" and volume group \"%{lvm_vg}\"?"
-msgstr "Smazat oddíl \"%{partition}\" a skupinu svazků \"%{lvm_vg}\"?"
-
-#. Confirmation when the partition belongs to a md raid
-#.
-#. @see ConfirmRecursiveDelete#confirm_recursive_delete
-#. @see DeleteDevice#md
-#.
-#. @return [Boolean]
-#: src/lib/y2partitioner/actions/delete_partition.rb:106
-msgid "Confirm Deleting Partition Used by RAID"
-msgstr "Potvrzení smazání oddílu použitým v RAIDu"
-
-#. TRANSLATORS: name is the name of the partition to be deleted (e.g., /dev/sda1)
-#: src/lib/y2partitioner/actions/delete_partition.rb:108
-msgid ""
-"The selected partition belongs to RAID \"%{name}\".\n"
-"To keep the system in a consistent state, the following\n"
-"RAID device will be deleted:"
-msgstr ""
-"Vybraný oddíl je součástí RAIDu \"%{name}\".\n"
-"Aby byl systém v konzistentním stavu, bude odstraněno\n"
-"toto RAID zařízení:"
-
-#. TRANSLATORS: partition is the name of the partition to be deleted (e.g., /dev/sda1),
-#. and md_raid is the name of the raid to be deleted (e.g., /dev/md/md1)
-#: src/lib/y2partitioner/actions/delete_partition.rb:113
-msgid "Delete partition \"%{partition}\" and RAID \"%{md}\"?"
-msgstr "Odstranit oddíl \"%{partition}\" a RAID \"%{md}\"?"
 
 #. TRANSLATORS: Error when trying to delete partitions from a directly formatted
 #. device. %{name} is replaced by the name of the device (e.g. "/dev/sda").
@@ -805,56 +697,88 @@ msgid "Nothing gets written because commit is not allowed."
 msgstr "Nic nebylo zapsáno, protože commit není povolen."
 
 #. @macro seeDialog
-#: src/lib/y2partitioner/dialogs/bcache.rb:44
+#: src/lib/y2partitioner/dialogs/bcache.rb:47
 msgid "Bcache Device"
 msgstr "Zařízení Bcache"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/dialogs/bcache.rb:87
+#: src/lib/y2partitioner/dialogs/bcache.rb:103
 msgid "Backing Device"
 msgstr "Zálohovací zařízení"
 
 #. TRANSLATORS: %s stands for name of option
-#: src/lib/y2partitioner/dialogs/bcache.rb:100
+#: src/lib/y2partitioner/dialogs/bcache.rb:117
+#, fuzzy
+#| msgid ""
+#| "<b>%s</b> is the device that will be used as backing device for bcache.It "
+#| "will define the available space of bcache. The Device will be formatted "
+#| "so any previous content will be wiped out."
 msgid ""
-"<b>%s</b> is the device that will be used as backing device for bcache.It "
-"will define the available space of bcache. The Device will be formatted so "
-"any previous content will be wiped out."
+"%s is the device that will be used as backing device for bcache.It will "
+"define the available space of bcache. The Device will be formatted so any "
+"previous content will be wiped out."
 msgstr ""
 "<b>%s</b> je zařízení, které bude použito jako zálohovací pro bcache. Bude "
 "definovat dostpný prostor pro bcache. Zařízení bude zformátováno a případný "
 "předešlý obsah bude smazán."
 
 #. value can be empty string if there is no items
-#: src/lib/y2partitioner/dialogs/bcache.rb:126
+#: src/lib/y2partitioner/dialogs/bcache.rb:144
 msgid "Empty backing device is not yet supported"
 msgstr "Prázdné zálohovací zařízení zatím není podporováno"
 
-#: src/lib/y2partitioner/dialogs/bcache.rb:127
-#: src/lib/y2partitioner/dialogs/bcache.rb:133
+#: src/lib/y2partitioner/dialogs/bcache.rb:145
+#: src/lib/y2partitioner/dialogs/bcache.rb:151
 msgid "Cannot Create Bcache"
 msgstr "Nelze vytvořit Bcache"
 
-#: src/lib/y2partitioner/dialogs/bcache.rb:132
+#: src/lib/y2partitioner/dialogs/bcache.rb:150
 msgid "Backing and Caching devices cannot be identical."
 msgstr "Zálohovací a kešovací zařízení nemohou být totožná."
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/dialogs/bcache.rb:159
+#: src/lib/y2partitioner/dialogs/bcache.rb:177
 msgid "Caching Device"
 msgstr "Kešovací zařízení (vyrov. paměť)"
 
 #. TRANSLATORS: %s stands for name of option
-#: src/lib/y2partitioner/dialogs/bcache.rb:177
+#: src/lib/y2partitioner/dialogs/bcache.rb:196
+#, fuzzy
+#| msgid ""
+#| "<b>%s</b> is the device that will be used as caching device for bcache.It "
+#| "should be faster and usually is smaller than the backing device, but it "
+#| "is not required. The device will be formatted so any previous content "
+#| "will be wiped out."
 msgid ""
-"<b>%s</b> is the device that will be used as caching device for bcache.It "
-"should be faster and usually is smaller than the backing device, but it is "
-"not required. The device will be formatted so any previous content will be "
-"wiped out."
+"%s is the device that will be used as caching device for bcache.It should be "
+"faster and usually is smaller than the backing device, but it is not "
+"required. The device will be formatted so any previous content will be wiped "
+"out."
 msgstr ""
 "Zařízení <b>%s</b> se bude používat jako kešovací pro bcache. Mělo by být "
 "rychlejší a zpravidla i menší než zálohovací zařízení, ale není to nutné. "
 "Zařízení bude zformátováno a jeho případný předešlý obsah bude vymazán."
+
+#. @macro seeAbstractWidget
+#: src/lib/y2partitioner/dialogs/bcache.rb:233
+msgid "Cache Mode"
+msgstr ""
+
+#. TRANSLATORS: %s stands for name of option
+#: src/lib/y2partitioner/dialogs/bcache.rb:248
+msgid ""
+"%s is the operating mode for bcache. There are currently four supported "
+"modes.<ul> <li><i>Writethrough</i> reading operations are cached, writing is "
+"done in parallel to both devices. No data is lost in case of failure of the "
+"caching device. This is the default mode.</li><li><i>Writeback</i> both "
+"reading and writing operations are cached. This result in better performance "
+"when writing.</li><li><i>Writearound</i> reading is cached, new content is "
+"written only to the backing device.</li><li><i>None</i> means cache is "
+"neither used for reading nor for writing. This is useful mainly for "
+"temporarily disabling the cache before any big sequential read or write, "
+"otherwise that would result in intensive overwriting on the cache device.</"
+"li>"
+msgstr ""
 
 # Tady je málo místa, musí tam být jen "oddíl"...
 #. TRANSLATORS: dialog title, where %{name} is the name of a partition
@@ -1715,6 +1639,12 @@ msgstr "Keš.UUID: %s"
 msgid "Caching Device: %s"
 msgstr "Kešovací zařízení: %s"
 
+#: src/lib/y2partitioner/widgets/bcache_device_description.rb:51
+#, fuzzy
+#| msgid "Cache set (%s)"
+msgid "Cache mode: %s"
+msgstr "Sada keší (%s)"
+
 #. @macro seeAbstractWidget
 #. @macro seeAbstractWidget
 #. @macro seeAbstractWidget
@@ -2155,7 +2085,7 @@ msgid "No device selected"
 msgstr "Není vybrané žadné zařízení"
 
 #. TRANSLATORS: label for button to delete a device
-#: src/lib/y2partitioner/widgets/device_delete_button.rb:43
+#: src/lib/y2partitioner/widgets/device_delete_button.rb:42
 msgid "Delete"
 msgstr "Smazat"
 
@@ -3101,7 +3031,7 @@ msgstr "&Logické svazky"
 #. @see DeviceMenuButton#execute_action
 #. @macro seeAbstractWidget
 #: src/lib/y2partitioner/widgets/lvm_logical_volumes_button.rb:53
-#: src/lib/y2partitioner/widgets/pages/lvm_vg.rb:123
+#: src/lib/y2partitioner/widgets/pages/lvm_vg.rb:124
 msgid "Log&ical Volumes"
 msgstr "Log&ické svazky"
 
@@ -3562,6 +3492,22 @@ msgstr ""
 msgid "System View"
 msgstr "Systémový pohled"
 
+#. TRANSLATORS: Heading. String followed a device name like /dev/bcache0
+#: src/lib/y2partitioner/widgets/pages/bcache.rb:64
+msgid "Bcache: %s"
+msgstr "Bcache:  %s"
+
+#. @macro seeAbstractWidget
+#. @macro seeAbstractWidget
+#. @macro seeAbstractWidget
+#. @macro seeAbstractWidget
+#: src/lib/y2partitioner/widgets/pages/bcache.rb:88
+#: src/lib/y2partitioner/widgets/pages/disk.rb:130
+#: src/lib/y2partitioner/widgets/pages/lvm_vg.rb:95
+#: src/lib/y2partitioner/widgets/pages/md_raid.rb:96
+msgid "&Overview"
+msgstr "Př&ehled"
+
 #. @macro seeAbstractWidget
 #: src/lib/y2partitioner/widgets/pages/btrfs.rb:20
 msgid "Btrfs"
@@ -3609,18 +3555,9 @@ msgstr ""
 "proskenovaná."
 
 #. TRANSLATORS: Heading. String followed by device name of hard disk
-#: src/lib/y2partitioner/widgets/pages/disk.rb:69
+#: src/lib/y2partitioner/widgets/pages/disk.rb:68
 msgid "Hard Disk: %s"
 msgstr "Pevný disk: %s"
-
-#. @macro seeAbstractWidget
-#. @macro seeAbstractWidget
-#. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/pages/disk.rb:131
-#: src/lib/y2partitioner/widgets/pages/lvm_vg.rb:94
-#: src/lib/y2partitioner/widgets/pages/md_raid.rb:96
-msgid "&Overview"
-msgstr "Př&ehled"
 
 #. @macro seeAbstractWidget
 #: src/lib/y2partitioner/widgets/pages/disks.rb:45
@@ -3633,12 +3570,12 @@ msgid "Logical Volume: %s"
 msgstr "Logický svazek: %s"
 
 #. @macro seeCustomWidget
-#: src/lib/y2partitioner/widgets/pages/lvm_vg.rb:69
+#: src/lib/y2partitioner/widgets/pages/lvm_vg.rb:70
 msgid "Volume Group: %s"
 msgstr "Skupina svazků: %s"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/pages/lvm_vg.rb:185
+#: src/lib/y2partitioner/widgets/pages/lvm_vg.rb:186
 msgid "&Physical Volumes"
 msgstr "&Fyzické svazky"
 
@@ -3891,13 +3828,36 @@ msgstr "%d akcí podsvazku (<a href=\"%s\">skrýt podrobnosti</a>)"
 
 #. Return the error message to be displayed
 #.
-#. FIXME: we could add the list of boot devices that are required.
+#. @return [String] Error message
+#. @see Issue#message
+#: src/lib/y2storage/autoinst_issues/could_not_calculate_boot.rb:46
+#, fuzzy
+#| msgid ""
+#| "Not possible to add a boot partition. Your system might not boot properly."
+msgid ""
+"Failed to calculate the requirements for booting. Your system might not boot "
+"properly."
+msgstr "Nelze přidat zaváděcí oddíl. Váš systém se nemusí zavádět správně."
+
+#. Error message to be displayed
 #.
 #. @return [String] Error message
 #. @see Issue#message
-#: src/lib/y2storage/autoinst_issues/could_not_create_boot.rb:48
+#: src/lib/y2storage/autoinst_issues/could_not_create_boot.rb:54
 msgid ""
-"Not possible to add a boot partition. Your system might not boot properly."
+"AutoYaST cannot add a BIOS Boot partition to the described system. It is "
+"strongly advised to use such a partition for booting from GPT devices. "
+"Otherwise your system might not boot properly or might face problems in the "
+"future."
+msgstr ""
+
+#: src/lib/y2storage/autoinst_issues/could_not_create_boot.rb:61
+#, fuzzy
+#| msgid ""
+#| "Not possible to add a boot partition. Your system might not boot properly."
+msgid ""
+"Not possible to add the partitions recommended for booting the described "
+"system. Your system might not boot properly."
 msgstr "Nelze přidat zaváděcí oddíl. Váš systém se nemusí zavádět správně."
 
 #. Return the error message to be displayed
@@ -3938,6 +3898,14 @@ msgstr "Opětně použitelné zařízení nenalezeno"
 #.
 #. @return [String] Error message
 #. @see Issue#message
+#: src/lib/y2storage/autoinst_issues/missing_reusable_filesystem.rb:52
+msgid "Could not find a reusable filesystem"
+msgstr ""
+
+#. Return the error message to be displayed
+#.
+#. @return [String] Error message
+#. @see Issue#message
 #: src/lib/y2storage/autoinst_issues/missing_reuse_info.rb:53
 msgid "Not enough information to locate a device to reuse"
 msgstr "Nedostatek údajů k nalezení zařízení k opětnému použití"
@@ -3972,6 +3940,26 @@ msgstr "Nebyl nalezen vhodný disk"
 msgid "Not enough disk space"
 msgstr "Nedostatek místa na disku"
 
+#. TRANSLATORS: %{device} is the kernel device name (eg. '/dev/sda1').
+#. TRANSLATORS: %{type} is the type of partition table specified in the profile (eg. 'gpt')
+#: src/lib/y2storage/autoinst_issues/no_partitionable.rb:55
+#, fuzzy
+#| msgid ""
+#| "The device %{name} does not contain a partition table, so\n"
+#| "no partition can be deleted"
+msgid ""
+"The device '%{device}' cannot contain a partition table (%{type} requested)."
+msgstr ""
+"Zařízení %{name} neobsahuje tabulku oddílů\n"
+"a proto nelze odstranit žádný oddíl"
+
+#. TRANSLATORS: %{type} is the type of partition table specified in the profile (eg. 'gpt')
+#: src/lib/y2storage/autoinst_issues/no_partitionable.rb:61
+msgid ""
+"No suitable device was found, none of the remaining devices can contain a "
+"partition table (%s requested)."
+msgstr ""
+
 #. Return the error message to be displayed
 #.
 #. @return [String] Error message
@@ -4004,6 +3992,16 @@ msgstr "oddíly"
 #: src/lib/y2storage/autoinst_issues/shrinked_planned_devices.rb:109
 msgid "logical volumes"
 msgstr "logické svazky"
+
+#. Error message to be displayed
+#.
+#. @return [String] Error message
+#. @see Issue#message
+#: src/lib/y2storage/autoinst_issues/surplus_partitions.rb:49
+msgid ""
+"The drive contains several partition sections, but only the first will be "
+"considered."
+msgstr ""
 
 #. TRANSLATORS: LVM thin pool name (eg. 'pool0')
 #: src/lib/y2storage/autoinst_issues/thin_pool_not_found.rb:50
@@ -4045,8 +4043,18 @@ msgid ""
 "Boot requirements cannot be determined because there is no '/' mount point"
 msgstr "Požadavky bootu nelze určit, neboť chybí '/', bod připojení"
 
+#. Boot errors when partition table is gpt
+#.
+#. @return [Array<SetupError>]
+#: src/lib/y2storage/boot_requirements_strategies/legacy.rb:151
+msgid ""
+"There is no partition of type BIOS Boot. For GPT devices it is strongly "
+"advised to use a BIOS Boot partition. A setup without such a partition is "
+"not supported and may cause problems now or in the future."
+msgstr ""
+
 #. TRANSLATORS: error message
-#: src/lib/y2storage/boot_requirements_strategies/legacy.rb:164
+#: src/lib/y2storage/boot_requirements_strategies/legacy.rb:183
 msgid ""
 "Boot disk has no partition table and it is not possible to boot from it.You "
 "can fix it by creating a partition table on the boot disk."
@@ -4055,7 +4063,7 @@ msgstr ""
 "můžete vytvořením tabulky oddílů."
 
 #. TRANSLATORS: error message
-#: src/lib/y2storage/boot_requirements_strategies/legacy.rb:176
+#: src/lib/y2storage/boot_requirements_strategies/legacy.rb:195
 msgid "MBR gap size is not enough to correctly install bootloader"
 msgstr "Velikost mezery pro MBR nepostačuje ke správné instalaci zavaděče"
 
@@ -4098,6 +4106,28 @@ msgid ""
 msgstr ""
 "Zdá se, že chcete instalovat systém na zařízení LDL.\n"
 "Zavádění systému z takových zařízení není podporováno."
+
+#. TRANSLATORS: operation mode for cache. If you are not sure how to translate keep it as it is.
+#: src/lib/y2storage/cache_mode.rb:37
+msgid "Writethrough"
+msgstr ""
+
+#. TRANSLATORS: operation mode for cache. If you are not sure how to translate keep it as it is.
+#: src/lib/y2storage/cache_mode.rb:39
+#, fuzzy
+#| msgid "writeback"
+msgid "Writeback"
+msgstr "zápis zpět"
+
+#. TRANSLATORS: operation mode for cache. If you are not sure how to translate keep it as it is.
+#: src/lib/y2storage/cache_mode.rb:41
+msgid "Writearound"
+msgstr ""
+
+#. TRANSLATORS: operation mode for cache. If you are not sure how to translate keep it as it is.
+#: src/lib/y2storage/cache_mode.rb:43
+msgid "None"
+msgstr ""
 
 #. Decides whether multipath should be activated
 #.
@@ -4741,7 +4771,7 @@ msgstr "UUID"
 #. Class to represent all the possible MD levels
 #.
 #. This is a wrapper for the Storage::MdLevel enum
-#: src/lib/y2storage/md_level.rb:36 src/lib/y2storage/partition_id.rb:55
+#: src/lib/y2storage/md_level.rb:36 src/lib/y2storage/partition_id.rb:56
 msgid "Unknown"
 msgstr "Neznámý"
 
@@ -4859,71 +4889,81 @@ msgstr "Instalace požadovaných balíčků se nezdařila."
 msgid "Adding the following packages failed: %s"
 msgstr "Přidání následujících balíčků selhalo: %s"
 
-#. Class to represent all the possible partition ids
-#.
-#. This is a wrapper for the Storage::ID enum
-#: src/lib/y2storage/partition_id.rb:40
-msgid "BIOS Boot Partition"
+#. Do not include 'Partition' in the name.
+#: src/lib/y2storage/partition_id.rb:41
+#, fuzzy
+#| msgid "BIOS Boot Partition"
+msgid "BIOS Boot"
 msgstr "Spouštěcí oddíl BIOS"
 
-#: src/lib/y2storage/partition_id.rb:41
-msgid "Diagnostics Partition"
+#: src/lib/y2storage/partition_id.rb:42
+#, fuzzy
+#| msgid "Diagnostics Partition"
+msgid "Diagnostics"
 msgstr "Diagnostický oddíl"
 
-#: src/lib/y2storage/partition_id.rb:42
+#: src/lib/y2storage/partition_id.rb:43
 msgid "DOS12"
 msgstr "DOS12"
 
-#: src/lib/y2storage/partition_id.rb:43
+#: src/lib/y2storage/partition_id.rb:44
 msgid "DOS16"
 msgstr "DOS16"
 
-#: src/lib/y2storage/partition_id.rb:44
+#: src/lib/y2storage/partition_id.rb:45
 msgid "DOS32"
 msgstr "DOS32"
 
-#: src/lib/y2storage/partition_id.rb:45
-msgid "EFI System Partition"
-msgstr "Systémový oddíl EFI"
-
 #: src/lib/y2storage/partition_id.rb:46
+#, fuzzy
+#| msgid "File System:"
+msgid "EFI System"
+msgstr "Souborový systém:"
+
+#: src/lib/y2storage/partition_id.rb:47
 msgid "Extended"
 msgstr "Rozšířený"
 
-#: src/lib/y2storage/partition_id.rb:47
+#: src/lib/y2storage/partition_id.rb:48
 msgid "Intel Rapid Start"
 msgstr "Intel Rapid Start"
 
-#: src/lib/y2storage/partition_id.rb:48
+#: src/lib/y2storage/partition_id.rb:49
 msgid "Linux Native"
 msgstr "Nativní Linux"
 
-#: src/lib/y2storage/partition_id.rb:49
+#: src/lib/y2storage/partition_id.rb:50
 msgid "Linux LVM"
 msgstr "Linux LVM"
 
-#: src/lib/y2storage/partition_id.rb:50
-msgid "Microsoft Reserved Partition"
+#: src/lib/y2storage/partition_id.rb:51
+#, fuzzy
+#| msgid "Microsoft Reserved Partition"
+msgid "Microsoft Reserved"
 msgstr "Reservovaný oddíl Microsoft"
 
-#: src/lib/y2storage/partition_id.rb:51
+#: src/lib/y2storage/partition_id.rb:52
 msgid "NTFS"
 msgstr "NTFS"
 
-#: src/lib/y2storage/partition_id.rb:52
-msgid "PReP Boot Partition"
+#: src/lib/y2storage/partition_id.rb:53
+#, fuzzy
+#| msgid "PReP Boot Partition"
+msgid "PReP Boot"
 msgstr "Spouštěcí oddíl PReP"
 
-#: src/lib/y2storage/partition_id.rb:53
+#: src/lib/y2storage/partition_id.rb:54
 msgid "Linux RAID"
 msgstr "Linux RAID"
 
-#: src/lib/y2storage/partition_id.rb:54
+#: src/lib/y2storage/partition_id.rb:55
 msgid "Linux Swap"
 msgstr "Linux Swap"
 
-#: src/lib/y2storage/partition_id.rb:56
-msgid "Windows Data Partition"
+#: src/lib/y2storage/partition_id.rb:57
+#, fuzzy
+#| msgid "Windows Data Partition"
+msgid "Windows Data"
 msgstr "Datový oddíl Windows"
 
 #. TRANSLATORS: %s is a mount point like "/home"
@@ -5030,6 +5070,86 @@ msgstr "Tenký logický svazek LVM už má největší možnou velikost."
 #: src/lib/y2storage/resize_info.rb:109
 msgid "Unknown reason"
 msgstr "Příčina neznámá"
+
+#~ msgid "Confirm Deleting Bcache with its Devices"
+#~ msgstr "Potvrďte smazání Bcache a jejích zařízení"
+
+#~ msgid "Delete bcache \"%{bcache}\" and the affected devices?"
+#~ msgstr "Smazat Bcache \"%{bcache}\" a příslušná zařízení?"
+
+#~ msgid "There are no partitions to delete on this disk"
+#~ msgstr "Na tomto disku nejsou žádné oddíly ke smazání"
+
+#~ msgid ""
+#~ "This device only contains an implicit partition that cannot be deleted."
+#~ msgstr "Toto zařízení obsahuje pouze výchozí oddíl, který nelze odstranit."
+
+#~ msgid "Confirm Deleting of All Partitions"
+#~ msgstr "Potvrďte smazání všech oddílů"
+
+#~ msgid ""
+#~ "The disk \"%{name}\" contains at least one partition.\n"
+#~ "If you proceed, the following devices will be deleted:"
+#~ msgstr ""
+#~ "Disk \"%{name}\" obsahuje nejméně jeden oddíl.\n"
+#~ "Budete-li pokračovat, budou smazány tyto oddíly:"
+
+#~ msgid "Really delete all partitions on \"%{name}\"?"
+#~ msgstr "Opravdu odstranit všechny oddíly na \"%{name}\"?"
+
+#~ msgid "Remove the logical volume %{name}?"
+#~ msgstr "Odstranit logický svazek %{name}?"
+
+#~ msgid "Confirm Deleting RAID Used by LVM"
+#~ msgstr "Potvrďte smazání RAID použitého LVM"
+
+#~ msgid ""
+#~ "The selected RAID is used by volume group \"%{name}\".\n"
+#~ "To keep the system in a consistent state, the following volume group\n"
+#~ "and its logical volumes will be deleted:"
+#~ msgstr ""
+#~ "Vybraný RAID je použit ve skupině svazků \"%{name}\".\n"
+#~ "Aby byl systém v konzistentním stavu, bude odstraněna\n"
+#~ "následující skupina svazků a její logické svazky:"
+
+#~ msgid "Delete RAID \"%{md}\" and volume group \"%{lvm_vg}\"?"
+#~ msgstr "Smazat RAID \"%{md}\" a skupinu svazků \"%{lvm_vg}\"?"
+
+#~ msgid "Delete RAID \"%{md}\" and the affected devices?"
+#~ msgstr "Smazat RAID \"%{md}\" a dotčená zařízení?"
+
+#~ msgid "Confirm Deleting Partition Used by LVM"
+#~ msgstr "Potvrzení smazání oddílu použitým v LVM"
+
+#~ msgid ""
+#~ "The selected partition is used by volume group \"%{name}\".\n"
+#~ "To keep the system in a consistent state, the following volume group\n"
+#~ "and its logical volumes will be deleted:"
+#~ msgstr ""
+#~ "Vybraný oddíl je použit skupinou svazků \"%{name}\".\n"
+#~ "Aby byl systém v konzistentním stavu, bude odstraněna\n"
+#~ "tato skupina svazků a její logické svazky:"
+
+#~ msgid "Delete partition \"%{partition}\" and volume group \"%{lvm_vg}\"?"
+#~ msgstr "Smazat oddíl \"%{partition}\" a skupinu svazků \"%{lvm_vg}\"?"
+
+#~ msgid "Confirm Deleting Partition Used by RAID"
+#~ msgstr "Potvrzení smazání oddílu použitým v RAIDu"
+
+#~ msgid ""
+#~ "The selected partition belongs to RAID \"%{name}\".\n"
+#~ "To keep the system in a consistent state, the following\n"
+#~ "RAID device will be deleted:"
+#~ msgstr ""
+#~ "Vybraný oddíl je součástí RAIDu \"%{name}\".\n"
+#~ "Aby byl systém v konzistentním stavu, bude odstraněno\n"
+#~ "toto RAID zařízení:"
+
+#~ msgid "Delete partition \"%{partition}\" and RAID \"%{md}\"?"
+#~ msgstr "Odstranit oddíl \"%{partition}\" a RAID \"%{md}\"?"
+
+#~ msgid "EFI System Partition"
+#~ msgstr "Systémový oddíl EFI"
 
 #~ msgid "Volume Group"
 #~ msgstr "Skupina svazků"
@@ -8558,9 +8678,6 @@ msgstr "Příčina neznámá"
 
 #~ msgid "Storage"
 #~ msgstr "Úložiště"
-
-#~ msgid "Bcache: %s"
-#~ msgstr "Bcache:  %s"
 
 #~ msgid "LUKS: %s"
 #~ msgstr "LUKS:  %s"

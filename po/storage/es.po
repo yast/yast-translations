@@ -23,7 +23,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: storage\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-06 02:30+0000\n"
+"POT-Creation-Date: 2018-10-30 16:18+0000\n"
 "PO-Revision-Date: 2018-06-10 10:06+0000\n"
 "Last-Translator: jc sl <trcs@gmx.com>\n"
 "Language-Team: Spanish <https://l10n.opensuse.org/projects/yast-storage/"
@@ -312,7 +312,7 @@ msgstr "Editar RAID %s"
 # clients/inst_custom_part.ycp:2563
 # clients/inst_custom_part.ycp:2577
 #. TRANSLATORS: %s is a device name (e.g. "/dev/sda")
-#: src/lib/y2partitioner/actions/create_partition_table.rb:93
+#: src/lib/y2partitioner/actions/create_partition_table.rb:100
 msgid "It is not possible to create a new partition table on %s."
 msgstr "No es posible crear una tabla de partición nueva en %s."
 
@@ -323,7 +323,7 @@ msgstr "No es posible crear una tabla de partición nueva en %s."
 #. @see DeleteDevices#confirm
 #.
 #. @return [Boolean]
-#: src/lib/y2partitioner/actions/create_partition_table.rb:133
+#: src/lib/y2partitioner/actions/create_partition_table.rb:140
 #: src/lib/y2partitioner/actions/delete_lvm_lvs.rb:71
 #: src/lib/y2partitioner/actions/delete_partitions.rb:106
 #, fuzzy
@@ -331,7 +331,7 @@ msgstr "No es posible crear una tabla de partición nueva en %s."
 msgid "Confirm Deleting of Current Devices"
 msgstr "Confirmar la eliminación de todas las particiones"
 
-#: src/lib/y2partitioner/actions/create_partition_table.rb:134
+#: src/lib/y2partitioner/actions/create_partition_table.rb:141
 #: src/lib/y2partitioner/actions/delete_lvm_lvs.rb:72
 #: src/lib/y2partitioner/actions/delete_partitions.rb:107
 #, fuzzy
@@ -347,7 +347,7 @@ msgstr ""
 # clients/inst_custom_part.ycp:2931
 # clients/inst_custom_part.ycp:2945
 #. TRANSLATORS %s is the disk device name ("/dev/sda" or similar)
-#: src/lib/y2partitioner/actions/create_partition_table.rb:136
+#: src/lib/y2partitioner/actions/create_partition_table.rb:143
 #, fuzzy
 #| msgid "Really create a new partition table on %s?"
 msgid "Really create a new partition table on %s"
@@ -356,123 +356,105 @@ msgstr "¿Seguro que desea crear una tabla de partición en %s?"
 #. TRANSLATORS: the first %s is replaced by the type of the filesystem
 #. (for example, "Btrfs" or "Ext2"), the second one by the disk device name
 #. ("/dev/sda" or similar).
-#: src/lib/y2partitioner/actions/create_partition_table.rb:157
+#: src/lib/y2partitioner/actions/create_partition_table.rb:164
 msgid ""
 "This will delete all data from the %s file system in the device.\n"
 "\n"
 "Really create a new partition table on %s?"
 msgstr ""
 
-#. Confirmation when the device contains partitions
+#. TRANSLATORS: Error when trying to modify an existing bcache that shares caches.
+#: src/lib/y2partitioner/actions/delete_bcache.rb:56
+msgid ""
+"The bcache shares its cache set with other devices.\n"
+"This can result in unreachable space if done without detaching.\n"
+"Detaching can take a very long time in some situations."
+msgstr ""
+
+#. no note if there is no bcache cset associated or if cset is shared by more devices
+#: src/lib/y2partitioner/actions/delete_bcache.rb:86
+msgid ""
+"The selected Bcache is the only one using its caching set.\n"
+"The caching set will be also deleted.\n"
+"\n"
+msgstr ""
+
+#. Confirmation to display when the device is part of another one(s)
 #.
-#. @see ConfirmRecursiveDelete#confirm_recursive_delete
+#. @see #confirm
 #.
 #. @return [Boolean]
-#: src/lib/y2partitioner/actions/delete_bcache.rb:65
+#: src/lib/y2partitioner/actions/delete_device.rb:138
 #, fuzzy
 #| msgid "Confirm Deleting of All Partitions"
-msgid "Confirm Deleting Bcache with its Devices"
+msgid "Confirm Deleting of Devices"
 msgstr "Confirmar la eliminación de todas las particiones"
 
 # include/partitioning/custom_part_check_generated.ycp:671
 # include/partitioning/custom_part_check_generated.ycp:671
 # include/partitioning/custom_part_check_generated.ycp:704
-#: src/lib/y2partitioner/actions/delete_bcache.rb:66
+#: src/lib/y2partitioner/actions/delete_device.rb:139
 #, fuzzy
 #| msgid ""
 #| "The selected partition belongs to RAID \"%{name}\".\n"
 #| "To keep the system in a consistent state, the following\n"
 #| "RAID device will be deleted:"
 msgid ""
-"The selected Bcache has associated devices.\n"
-"To keep the system in a consistent state, the following\n"
-"associated devices will be deleted:"
+"The selected device is used by other devices in the system.\n"
+"To keep the system in a consistent state, the following devices\n"
+"will also be deleted:"
 msgstr ""
 "La partición seleccionada pertenece al RAID %{name}.\n"
 "Para mantener el sistema en un estado coherente, se suprimirá\n"
 "el siguiente dispositivo RAID:"
 
-#. TRANSLATORS: bcache is the name of the bcache to be deleted (e.g., /dev/bcache0)
-#: src/lib/y2partitioner/actions/delete_bcache.rb:70
+#. Confirmation to display when the device contains partitions
+#.
+#. @see #confirm
+#.
+#. @return [Boolean]
+#: src/lib/y2partitioner/actions/delete_device.rb:154
 #, fuzzy
-#| msgid "Delete RAID \"%{md}\" and volume group \"%{lvm_vg}\"?"
-msgid "Delete bcache \"%{bcache}\" and the affected devices?"
-msgstr "¿Desea suprimir el RAID %{md} y el grupo de volúmenes %{lvm_vg}?"
+#| msgid "Confirm Deleting of All Partitions"
+msgid "Confirm Deleting Device with Partitions"
+msgstr "Confirmar la eliminación de todas las particiones"
 
-#. no note if there is no bcache cset associated or if cset is shared by more devices
-#: src/lib/y2partitioner/actions/delete_bcache.rb:79
+# include/partitioning/custom_part_check_generated.ycp:671
+# include/partitioning/custom_part_check_generated.ycp:671
+# include/partitioning/custom_part_check_generated.ycp:704
+#: src/lib/y2partitioner/actions/delete_device.rb:155
+#, fuzzy
+#| msgid ""
+#| "The selected partition belongs to RAID \"%{name}\".\n"
+#| "To keep the system in a consistent state, the following\n"
+#| "RAID device will be deleted:"
 msgid ""
-"The selected Bcache is only user of the caching set. The caching set will be "
-"also deleted."
+"The selected device contains partitions.\n"
+"To keep the system in a consistent state, the following partitions\n"
+"and its associated devices will also be deleted:"
 msgstr ""
+"La partición seleccionada pertenece al RAID %{name}.\n"
+"Para mantener el sistema en un estado coherente, se suprimirá\n"
+"el siguiente dispositivo RAID:"
+
+#. TRANSLATORS %s is a kernel name like /dev/sda1
+#: src/lib/y2partitioner/actions/delete_device.rb:171
+#, fuzzy
+#| msgid "Really delete these devices?"
+msgid "Really delete %s and all the affected devices?"
+msgstr "¿Seguro que desea suprimir estos dispositivos?"
 
 #
 # include/lilo/ui.ycp:232
-#. TRANSLATORS %s is the name of the device to be deleted (e.g., /dev/bcache0)
-#. TRANSLATORS %s is the name of the device to be deleted (e.g., /dev/sda1)
-#: src/lib/y2partitioner/actions/delete_bcache.rb:92
-#: src/lib/y2partitioner/actions/delete_device.rb:112
+#. TRANSLATORS %s is the kernel name of the device (e.g., /dev/sda1)
+#: src/lib/y2partitioner/actions/delete_device.rb:179
 msgid "Really delete %s?"
 msgstr "¿Está seguro de que desea borrar %s?"
 
 #. TRANSLATORS: Note added to the dialog for trying to unmount a device
-#: src/lib/y2partitioner/actions/delete_device.rb:174
+#: src/lib/y2partitioner/actions/delete_device.rb:202
 msgid "It cannot be deleted while mounted."
 msgstr "No puede borrarse mientras esta montado."
-
-#
-#. Error when there is no partition for deleting
-#.
-#. @return [String, nil] nil if the partition table is not empty
-#: src/lib/y2partitioner/actions/delete_disk_device.rb:62
-msgid "There are no partitions to delete on this disk"
-msgstr "No hay particiones para borrar en este disco"
-
-#. Error when the device contains an implicit partitition table
-#.
-#. @return [String, nil] nil if the device has no implicit partition table
-#: src/lib/y2partitioner/actions/delete_disk_device.rb:71
-msgid "This device only contains an implicit partition that cannot be deleted."
-msgstr ""
-"Este dispositivo solo contiene una partición implícita que no se puede "
-"eliminar."
-
-#. Confirmation before performing the delete action
-#.
-#. @note It shows all partitions (and dependent devices) that will be deleted.
-#.
-#. @see ConfirmRecursiveDelete#confirm_recursive_delete
-#.
-#. @return [Boolean]
-#: src/lib/y2partitioner/actions/delete_disk_device.rb:84
-msgid "Confirm Deleting of All Partitions"
-msgstr "Confirmar la eliminación de todas las particiones"
-
-#. TRANSLATORS: name is the name of the disk to be deleted (e.g., /dev/sda)
-#: src/lib/y2partitioner/actions/delete_disk_device.rb:86
-msgid ""
-"The disk \"%{name}\" contains at least one partition.\n"
-"If you proceed, the following devices will be deleted:"
-msgstr ""
-"El disco %{name} contiene al menos una partición.\n"
-"Si continúa, las siguiente particiones se suprimirán:"
-
-# clients/inst_custom_part.ycp:2943
-# clients/inst_custom_part.ycp:2931
-# clients/inst_custom_part.ycp:2945
-#. TRANSLATORS: name is the name of the disk to be deleted (e.g., /dev/sda)
-#: src/lib/y2partitioner/actions/delete_disk_device.rb:89
-msgid "Really delete all partitions on \"%{name}\"?"
-msgstr "¿Seguro que desea suprimir todas las particiones de %{name}?"
-
-# clients/inst_lvm_lv.ycp:410
-# clients/inst_lvm_lv.ycp:410
-# clients/inst_lvm_lv.ycp:410
-#. TRANSLATORS: Confirmation message when a LVM logical volume is going to be deleted,
-#. where %{name} is replaced by the name of the logical volume (e.g., /dev/system/lv1)
-#: src/lib/y2partitioner/actions/delete_lvm_lv.rb:68
-msgid "Remove the logical volume %{name}?"
-msgstr "¿Desea eliminar el volumen lógico %{name}?"
 
 #
 #. Confirmation when the device is a LVM thin pool and there is any thin volume over it
@@ -480,7 +462,7 @@ msgstr "¿Desea eliminar el volumen lógico %{name}?"
 #. @see ConfirmRecursiveDelete#confirm_recursive_delete
 #.
 #. @return [Boolean]
-#: src/lib/y2partitioner/actions/delete_lvm_lv.rb:82
+#: src/lib/y2partitioner/actions/delete_lvm_lv.rb:70
 msgid "Confirm Deleting of LVM Thin Pool"
 msgstr "Confirmar supresión del depósito flexible LVM"
 
@@ -489,7 +471,7 @@ msgstr "Confirmar supresión del depósito flexible LVM"
 # clients/inst_lvm_pv.ycp:254 clients/lvm_config_ui.ycp:285
 #. TRANSLATORS: Confirmation message when a LVM thin pool is going to be deleted,
 #. where %{name} is replaced by the name of the thin pool (e.g., /dev/system/pool)
-#: src/lib/y2partitioner/actions/delete_lvm_lv.rb:86
+#: src/lib/y2partitioner/actions/delete_lvm_lv.rb:74
 msgid ""
 "The thin pool %{name} is used by at least one thin volume.\n"
 "If you proceed, the following thin volumes will be unmounted (if mounted)\n"
@@ -504,7 +486,7 @@ msgstr ""
 # clients/inst_lvm_pv.ycp:261 clients/lvm_config_ui.ycp:287
 # clients/inst_lvm_pv.ycp:261 clients/lvm_config_ui.ycp:292
 #. TRANSLATORS: %{name} is replaced by the name of the thin pool (e.g., /dev/system/pool)
-#: src/lib/y2partitioner/actions/delete_lvm_lv.rb:93
+#: src/lib/y2partitioner/actions/delete_lvm_lv.rb:81
 msgid "Really delete the thin pool \"%{name}\" and all related thin volumes?"
 msgstr ""
 "¿Seguro que desea suprimir el depósito flexible %{name} y todos los "
@@ -563,73 +545,6 @@ msgstr ""
 "¿Seguro que desea suprimir el grupo de volúmenes %s y todos los volúmenes "
 "lógicos relacionados?"
 
-# clients/inst_rootpart.ycp:74 clients/inst_rootpart.ycp:212
-#. Confirmation when the device belongs to a volume group
-#.
-#. @see ConfirmRecursiveDelete#confirm_recursive_delete
-#. @see DeleteDevice#lvm_vg
-#.
-#. @return [Boolean]
-#: src/lib/y2partitioner/actions/delete_md.rb:66
-msgid "Confirm Deleting RAID Used by LVM"
-msgstr "Confirmar supresión de RAID usado por LVM"
-
-#. TRANSLATORS: name is the name of the volume group that the md raid
-#. belongs to (e.g., /dev/system)
-#: src/lib/y2partitioner/actions/delete_md.rb:69
-msgid ""
-"The selected RAID is used by volume group \"%{name}\".\n"
-"To keep the system in a consistent state, the following volume group\n"
-"and its logical volumes will be deleted:"
-msgstr ""
-"El grupo de volúmenes %{name} usa el RAID seleccionado.\n"
-"Para mantener el sistema en un estado coherente, se suprimirán\n"
-"el siguiente grupo de volúmenes y sus volúmenes lógicos:"
-
-#. TRANSLATORS: md is the name of the md raid to be deleted (e.g., /dev/md/md1),
-#. and vg is the name of the volume group to be deleted (e.g., /dev/system)
-#: src/lib/y2partitioner/actions/delete_md.rb:74
-msgid "Delete RAID \"%{md}\" and volume group \"%{lvm_vg}\"?"
-msgstr "¿Desea suprimir el RAID %{md} y el grupo de volúmenes %{lvm_vg}?"
-
-#. Confirmation when the device contains partitions
-#.
-#. @see ConfirmRecursiveDelete#confirm_recursive_delete
-#.
-#. @return [Boolean]
-#: src/lib/y2partitioner/actions/delete_md.rb:87
-#, fuzzy
-#| msgid "Confirm Deleting of All Partitions"
-msgid "Confirm Deleting RAID with partitions"
-msgstr "Confirmar la eliminación de todas las particiones"
-
-# include/partitioning/custom_part_check_generated.ycp:671
-# include/partitioning/custom_part_check_generated.ycp:671
-# include/partitioning/custom_part_check_generated.ycp:704
-#. TRANSLATORS: name is the name of the volume group that the md raid
-#. belongs to (e.g., /dev/system)
-#: src/lib/y2partitioner/actions/delete_md.rb:90
-#, fuzzy
-#| msgid ""
-#| "The selected partition belongs to RAID \"%{name}\".\n"
-#| "To keep the system in a consistent state, the following\n"
-#| "RAID device will be deleted:"
-msgid ""
-"The selected RAID contains partitions.\n"
-"To keep the system in a consistent state, the following\n"
-"partitions and its associated devices will be deleted:"
-msgstr ""
-"La partición seleccionada pertenece al RAID %{name}.\n"
-"Para mantener el sistema en un estado coherente, se suprimirá\n"
-"el siguiente dispositivo RAID:"
-
-#. TRANSLATORS: md is the name of the md raid to be deleted (e.g., /dev/md/md1)
-#: src/lib/y2partitioner/actions/delete_md.rb:94
-#, fuzzy
-#| msgid "Delete RAID \"%{md}\" and volume group \"%{lvm_vg}\"?"
-msgid "Delete RAID \"%{md}\" and the affected devices?"
-msgstr "¿Desea suprimir el RAID %{md} y el grupo de volúmenes %{lvm_vg}?"
-
 #
 # clients/inst_custom_part.ycp:2233
 # clients/inst_custom_part.ycp:2232
@@ -640,70 +555,6 @@ msgstr "¿Desea suprimir el RAID %{md} y el grupo de volúmenes %{lvm_vg}?"
 #: src/lib/y2partitioner/actions/delete_partition.rb:59
 msgid "This is an implicit partition and cannot be deleted."
 msgstr "Esta partición es implícita y no se puede suprimir."
-
-# clients/inst_rootpart.ycp:74 clients/inst_rootpart.ycp:212
-#. Confirmation when the partition belongs to a volume group
-#.
-#. @see ConfirmRecursiveDelete#confirm_recursive_delete
-#. @see DeleteDevice#lvm_vg
-#.
-#. @return [Boolean]
-#: src/lib/y2partitioner/actions/delete_partition.rb:84
-msgid "Confirm Deleting Partition Used by LVM"
-msgstr "Confirmar la eliminación de la partición utilizada por LVM"
-
-#. TRANSLATORS: name is the name of the volume group that the partition
-#. belongs to (e.g., /dev/system)
-#: src/lib/y2partitioner/actions/delete_partition.rb:87
-msgid ""
-"The selected partition is used by volume group \"%{name}\".\n"
-"To keep the system in a consistent state, the following volume group\n"
-"and its logical volumes will be deleted:"
-msgstr ""
-"El grupo de volúmenes %{name} usa la partición seleccionada.\n"
-"Para mantener el sistema en un estado coherente, se suprimirán\n"
-"el siguiente grupo de volúmenes y sus volúmenes lógicos:"
-
-#. TRANSLATORS: partition is the name of the partition to be deleted (e.g., /dev/sda1),
-#. and vg is the name of the volume group to be deleted (e.g., /dev/system)
-#: src/lib/y2partitioner/actions/delete_partition.rb:92
-msgid "Delete partition \"%{partition}\" and volume group \"%{lvm_vg}\"?"
-msgstr ""
-"¿Desea suprimir la partición %{partition} y el grupo de volúmenes %{lvm_vg}?"
-
-# clients/inst_rootpart.ycp:74 clients/inst_rootpart.ycp:212
-#. Confirmation when the partition belongs to a md raid
-#.
-#. @see ConfirmRecursiveDelete#confirm_recursive_delete
-#. @see DeleteDevice#md
-#.
-#. @return [Boolean]
-#: src/lib/y2partitioner/actions/delete_partition.rb:106
-msgid "Confirm Deleting Partition Used by RAID"
-msgstr "Confirmar la eliminación de la partición usada por RAID"
-
-# include/partitioning/custom_part_check_generated.ycp:671
-# include/partitioning/custom_part_check_generated.ycp:671
-# include/partitioning/custom_part_check_generated.ycp:704
-#. TRANSLATORS: name is the name of the partition to be deleted (e.g., /dev/sda1)
-#: src/lib/y2partitioner/actions/delete_partition.rb:108
-msgid ""
-"The selected partition belongs to RAID \"%{name}\".\n"
-"To keep the system in a consistent state, the following\n"
-"RAID device will be deleted:"
-msgstr ""
-"La partición seleccionada pertenece al RAID %{name}.\n"
-"Para mantener el sistema en un estado coherente, se suprimirá\n"
-"el siguiente dispositivo RAID:"
-
-# include/partitioning/partition_defines.ycp:382
-# include/partitioning/partition_defines.ycp:382
-# include/partitioning/partition_defines.ycp:391
-#. TRANSLATORS: partition is the name of the partition to be deleted (e.g., /dev/sda1),
-#. and md_raid is the name of the raid to be deleted (e.g., /dev/md/md1)
-#: src/lib/y2partitioner/actions/delete_partition.rb:113
-msgid "Delete partition \"%{partition}\" and RAID \"%{md}\"?"
-msgstr "¿Desea suprimir la partición %{partition} y el RAID %{md}?"
 
 #. TRANSLATORS: Error when trying to delete partitions from a directly formatted
 #. device. %{name} is replaced by the name of the device (e.g. "/dev/sda").
@@ -1000,7 +851,7 @@ msgid "Nothing gets written because commit is not allowed."
 msgstr "No se escribe nada porque no se permite el compromiso."
 
 #. @macro seeDialog
-#: src/lib/y2partitioner/dialogs/bcache.rb:44
+#: src/lib/y2partitioner/dialogs/bcache.rb:47
 #, fuzzy
 #| msgid "Rescan Devices"
 msgid "Bcache Device"
@@ -1010,31 +861,31 @@ msgstr "Volver a explorar dispositivos"
 # include/partitioning/lvm_ui_lib.ycp:351
 # include/partitioning/lvm_ui_lib.ycp:377
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/dialogs/bcache.rb:87
+#: src/lib/y2partitioner/dialogs/bcache.rb:103
 #, fuzzy
 #| msgid "Device: %s"
 msgid "Backing Device"
 msgstr "Dispositivo: %s"
 
 #. TRANSLATORS: %s stands for name of option
-#: src/lib/y2partitioner/dialogs/bcache.rb:100
+#: src/lib/y2partitioner/dialogs/bcache.rb:117
 msgid ""
-"<b>%s</b> is the device that will be used as backing device for bcache.It "
-"will define the available space of bcache. The Device will be formatted so "
-"any previous content will be wiped out."
+"%s is the device that will be used as backing device for bcache.It will "
+"define the available space of bcache. The Device will be formatted so any "
+"previous content will be wiped out."
 msgstr ""
 
 #. value can be empty string if there is no items
-#: src/lib/y2partitioner/dialogs/bcache.rb:126
+#: src/lib/y2partitioner/dialogs/bcache.rb:144
 msgid "Empty backing device is not yet supported"
 msgstr ""
 
-#: src/lib/y2partitioner/dialogs/bcache.rb:127
-#: src/lib/y2partitioner/dialogs/bcache.rb:133
+#: src/lib/y2partitioner/dialogs/bcache.rb:145
+#: src/lib/y2partitioner/dialogs/bcache.rb:151
 msgid "Cannot Create Bcache"
 msgstr ""
 
-#: src/lib/y2partitioner/dialogs/bcache.rb:132
+#: src/lib/y2partitioner/dialogs/bcache.rb:150
 msgid "Backing and Caching devices cannot be identical."
 msgstr ""
 
@@ -1042,19 +893,40 @@ msgstr ""
 # include/partitioning/lvm_ui_lib.ycp:351
 # include/partitioning/lvm_ui_lib.ycp:377
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/dialogs/bcache.rb:159
+#: src/lib/y2partitioner/dialogs/bcache.rb:177
 #, fuzzy
 #| msgid "Device: %s"
 msgid "Caching Device"
 msgstr "Dispositivo: %s"
 
 #. TRANSLATORS: %s stands for name of option
-#: src/lib/y2partitioner/dialogs/bcache.rb:177
+#: src/lib/y2partitioner/dialogs/bcache.rb:196
 msgid ""
-"<b>%s</b> is the device that will be used as caching device for bcache.It "
-"should be faster and usually is smaller than the backing device, but it is "
-"not required. The device will be formatted so any previous content will be "
-"wiped out."
+"%s is the device that will be used as caching device for bcache.It should be "
+"faster and usually is smaller than the backing device, but it is not "
+"required. The device will be formatted so any previous content will be wiped "
+"out."
+msgstr ""
+
+#. @macro seeAbstractWidget
+#: src/lib/y2partitioner/dialogs/bcache.rb:233
+msgid "Cache Mode"
+msgstr ""
+
+#. TRANSLATORS: %s stands for name of option
+#: src/lib/y2partitioner/dialogs/bcache.rb:248
+msgid ""
+"%s is the operating mode for bcache. There are currently four supported "
+"modes.<ul> <li><i>Writethrough</i> reading operations are cached, writing is "
+"done in parallel to both devices. No data is lost in case of failure of the "
+"caching device. This is the default mode.</li><li><i>Writeback</i> both "
+"reading and writing operations are cached. This result in better performance "
+"when writing.</li><li><i>Writearound</i> reading is cached, new content is "
+"written only to the backing device.</li><li><i>None</i> means cache is "
+"neither used for reading nor for writing. This is useful mainly for "
+"temporarily disabling the cache before any big sequential read or write, "
+"otherwise that would result in intensive overwriting on the cache device.</"
+"li>"
 msgstr ""
 
 #. TRANSLATORS: dialog title, where %{name} is the name of a partition
@@ -2095,6 +1967,15 @@ msgstr "ID de partición: %s"
 msgid "Caching Device: %s"
 msgstr "Dispositivo: %s"
 
+# include/partitioning/lvm_ui_lib.ycp:351
+# include/partitioning/lvm_ui_lib.ycp:351
+# include/partitioning/lvm_ui_lib.ycp:377
+#: src/lib/y2partitioner/widgets/bcache_device_description.rb:51
+#, fuzzy
+#| msgid "Device: %s"
+msgid "Cache mode: %s"
+msgstr "Dispositivo: %s"
+
 #. @macro seeAbstractWidget
 #. @macro seeAbstractWidget
 #. @macro seeAbstractWidget
@@ -2610,7 +2491,7 @@ msgid "No device selected"
 msgstr "No se ha seleccionado ningún dispositivo"
 
 #. TRANSLATORS: label for button to delete a device
-#: src/lib/y2partitioner/widgets/device_delete_button.rb:43
+#: src/lib/y2partitioner/widgets/device_delete_button.rb:42
 msgid "Delete"
 msgstr "Eliminar"
 
@@ -3678,7 +3559,7 @@ msgstr "Volúmenes lóg&icos"
 #. @see DeviceMenuButton#execute_action
 #. @macro seeAbstractWidget
 #: src/lib/y2partitioner/widgets/lvm_logical_volumes_button.rb:53
-#: src/lib/y2partitioner/widgets/pages/lvm_vg.rb:123
+#: src/lib/y2partitioner/widgets/pages/lvm_vg.rb:124
 msgid "Log&ical Volumes"
 msgstr "Volúmenes lóg&icos"
 
@@ -4259,6 +4140,24 @@ msgstr ""
 msgid "System View"
 msgstr "Vista del sistema"
 
+#. TRANSLATORS: Heading. String followed a device name like /dev/bcache0
+#: src/lib/y2partitioner/widgets/pages/bcache.rb:64
+#, fuzzy
+#| msgid "Rescan Devices"
+msgid "Bcache: %s"
+msgstr "Volver a explorar dispositivos"
+
+#. @macro seeAbstractWidget
+#. @macro seeAbstractWidget
+#. @macro seeAbstractWidget
+#. @macro seeAbstractWidget
+#: src/lib/y2partitioner/widgets/pages/bcache.rb:88
+#: src/lib/y2partitioner/widgets/pages/disk.rb:130
+#: src/lib/y2partitioner/widgets/pages/lvm_vg.rb:95
+#: src/lib/y2partitioner/widgets/pages/md_raid.rb:96
+msgid "&Overview"
+msgstr "&Descripción general"
+
 #. @macro seeAbstractWidget
 #: src/lib/y2partitioner/widgets/pages/btrfs.rb:20
 msgid "Btrfs"
@@ -4311,18 +4210,9 @@ msgstr ""
 # clients/inst_source.ycp:185
 # clients/inst_source.ycp:162
 #. TRANSLATORS: Heading. String followed by device name of hard disk
-#: src/lib/y2partitioner/widgets/pages/disk.rb:69
+#: src/lib/y2partitioner/widgets/pages/disk.rb:68
 msgid "Hard Disk: %s"
 msgstr "Disco duro: %s"
-
-#. @macro seeAbstractWidget
-#. @macro seeAbstractWidget
-#. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/pages/disk.rb:131
-#: src/lib/y2partitioner/widgets/pages/lvm_vg.rb:94
-#: src/lib/y2partitioner/widgets/pages/md_raid.rb:96
-msgid "&Overview"
-msgstr "&Descripción general"
 
 # clients/inst_source.ycp:185
 # clients/inst_source.ycp:162
@@ -4343,7 +4233,7 @@ msgstr "Volumen lógico: %s"
 # include/partitioning/lvm_ui_lib.ycp:271
 # include/partitioning/lvm_ui_lib.ycp:297
 #. @macro seeCustomWidget
-#: src/lib/y2partitioner/widgets/pages/lvm_vg.rb:69
+#: src/lib/y2partitioner/widgets/pages/lvm_vg.rb:70
 msgid "Volume Group: %s"
 msgstr "Grupo de volúmenes: %s"
 
@@ -4351,7 +4241,7 @@ msgstr "Grupo de volúmenes: %s"
 # include/partitioning/lvm_ui_lib.ycp:199
 # include/partitioning/lvm_ui_lib.ycp:199
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/pages/lvm_vg.rb:185
+#: src/lib/y2partitioner/widgets/pages/lvm_vg.rb:186
 msgid "&Physical Volumes"
 msgstr "&Volúmenes físicos"
 
@@ -4643,13 +4533,38 @@ msgstr "%d acciones de subvolumen (<a href=\"%s\">ocultar detalles</a>)"
 
 #. Return the error message to be displayed
 #.
-#. FIXME: we could add the list of boot devices that are required.
+#. @return [String] Error message
+#. @see Issue#message
+#: src/lib/y2storage/autoinst_issues/could_not_calculate_boot.rb:46
+#, fuzzy
+#| msgid ""
+#| "Not possible to add a boot partition. Your system might not boot properly."
+msgid ""
+"Failed to calculate the requirements for booting. Your system might not boot "
+"properly."
+msgstr ""
+"No es posible añadir una partición de arranque. Puede que el sistema no se "
+"arranque correctamente."
+
+#. Error message to be displayed
 #.
 #. @return [String] Error message
 #. @see Issue#message
-#: src/lib/y2storage/autoinst_issues/could_not_create_boot.rb:48
+#: src/lib/y2storage/autoinst_issues/could_not_create_boot.rb:54
 msgid ""
-"Not possible to add a boot partition. Your system might not boot properly."
+"AutoYaST cannot add a BIOS Boot partition to the described system. It is "
+"strongly advised to use such a partition for booting from GPT devices. "
+"Otherwise your system might not boot properly or might face problems in the "
+"future."
+msgstr ""
+
+#: src/lib/y2storage/autoinst_issues/could_not_create_boot.rb:61
+#, fuzzy
+#| msgid ""
+#| "Not possible to add a boot partition. Your system might not boot properly."
+msgid ""
+"Not possible to add the partitions recommended for booting the described "
+"system. Your system might not boot properly."
 msgstr ""
 "No es posible añadir una partición de arranque. Puede que el sistema no se "
 "arranque correctamente."
@@ -4692,6 +4607,14 @@ msgstr "No se encuentra el dispositivo reutilizable"
 #.
 #. @return [String] Error message
 #. @see Issue#message
+#: src/lib/y2storage/autoinst_issues/missing_reusable_filesystem.rb:52
+msgid "Could not find a reusable filesystem"
+msgstr ""
+
+#. Return the error message to be displayed
+#.
+#. @return [String] Error message
+#. @see Issue#message
 #: src/lib/y2storage/autoinst_issues/missing_reuse_info.rb:53
 msgid "Not enough information to locate a device to reuse"
 msgstr ""
@@ -4726,6 +4649,25 @@ msgstr "No se encuentra ningún disco apto"
 #: src/lib/y2storage/autoinst_issues/no_disk_space.rb:46
 msgid "Not enough disk space"
 msgstr "No hay suficiente espacio en el disco"
+
+#. TRANSLATORS: %{device} is the kernel device name (eg. '/dev/sda1').
+#. TRANSLATORS: %{type} is the type of partition table specified in the profile (eg. 'gpt')
+#: src/lib/y2storage/autoinst_issues/no_partitionable.rb:55
+#, fuzzy
+#| msgid ""
+#| "This device only contains an implicit partition that cannot be deleted."
+msgid ""
+"The device '%{device}' cannot contain a partition table (%{type} requested)."
+msgstr ""
+"Este dispositivo solo contiene una partición implícita que no se puede "
+"eliminar."
+
+#. TRANSLATORS: %{type} is the type of partition table specified in the profile (eg. 'gpt')
+#: src/lib/y2storage/autoinst_issues/no_partitionable.rb:61
+msgid ""
+"No suitable device was found, none of the remaining devices can contain a "
+"partition table (%s requested)."
+msgstr ""
 
 #. Return the error message to be displayed
 #.
@@ -4762,6 +4704,16 @@ msgstr "particiones"
 #: src/lib/y2storage/autoinst_issues/shrinked_planned_devices.rb:109
 msgid "logical volumes"
 msgstr "volúmenes lógicos"
+
+#. Error message to be displayed
+#.
+#. @return [String] Error message
+#. @see Issue#message
+#: src/lib/y2storage/autoinst_issues/surplus_partitions.rb:49
+msgid ""
+"The drive contains several partition sections, but only the first will be "
+"considered."
+msgstr ""
 
 #. TRANSLATORS: LVM thin pool name (eg. 'pool0')
 #: src/lib/y2storage/autoinst_issues/thin_pool_not_found.rb:50
@@ -4805,8 +4757,18 @@ msgstr ""
 "No es posible determinar los requisitos de arranque porque no hay ningún "
 "punto de montaje \"/\""
 
+#. Boot errors when partition table is gpt
+#.
+#. @return [Array<SetupError>]
+#: src/lib/y2storage/boot_requirements_strategies/legacy.rb:151
+msgid ""
+"There is no partition of type BIOS Boot. For GPT devices it is strongly "
+"advised to use a BIOS Boot partition. A setup without such a partition is "
+"not supported and may cause problems now or in the future."
+msgstr ""
+
 #. TRANSLATORS: error message
-#: src/lib/y2storage/boot_requirements_strategies/legacy.rb:164
+#: src/lib/y2storage/boot_requirements_strategies/legacy.rb:183
 msgid ""
 "Boot disk has no partition table and it is not possible to boot from it.You "
 "can fix it by creating a partition table on the boot disk."
@@ -4816,7 +4778,7 @@ msgstr ""
 "partición en el disco de arranque."
 
 #. TRANSLATORS: error message
-#: src/lib/y2storage/boot_requirements_strategies/legacy.rb:176
+#: src/lib/y2storage/boot_requirements_strategies/legacy.rb:195
 msgid "MBR gap size is not enough to correctly install bootloader"
 msgstr ""
 "El tamaño del espacio de MBR no es suficiente para instalar correctamente un "
@@ -4861,6 +4823,28 @@ msgid ""
 msgstr ""
 "Parece que el sistema se va a instalar en un dispositivo LDL.\n"
 "No se admite el arranque desde esos dispositivos."
+
+#. TRANSLATORS: operation mode for cache. If you are not sure how to translate keep it as it is.
+#: src/lib/y2storage/cache_mode.rb:37
+msgid "Writethrough"
+msgstr ""
+
+#. TRANSLATORS: operation mode for cache. If you are not sure how to translate keep it as it is.
+#: src/lib/y2storage/cache_mode.rb:39
+#, fuzzy
+#| msgid "writeback"
+msgid "Writeback"
+msgstr "writeback"
+
+#. TRANSLATORS: operation mode for cache. If you are not sure how to translate keep it as it is.
+#: src/lib/y2storage/cache_mode.rb:41
+msgid "Writearound"
+msgstr ""
+
+#. TRANSLATORS: operation mode for cache. If you are not sure how to translate keep it as it is.
+#: src/lib/y2storage/cache_mode.rb:43
+msgid "None"
+msgstr ""
 
 #. Decides whether multipath should be activated
 #.
@@ -5566,7 +5550,7 @@ msgstr "UUID"
 #. Class to represent all the possible MD levels
 #.
 #. This is a wrapper for the Storage::MdLevel enum
-#: src/lib/y2storage/md_level.rb:36 src/lib/y2storage/partition_id.rb:55
+#: src/lib/y2storage/md_level.rb:36 src/lib/y2storage/partition_id.rb:56
 msgid "Unknown"
 msgstr "Desconocido"
 
@@ -5703,89 +5687,99 @@ msgstr "Error al instalar los paquetes requeridos."
 msgid "Adding the following packages failed: %s"
 msgstr "Error al añadir los paquetes siguientes: %s"
 
-#. Class to represent all the possible partition ids
-#.
-#. This is a wrapper for the Storage::ID enum
-#: src/lib/y2storage/partition_id.rb:40
-msgid "BIOS Boot Partition"
+#. Do not include 'Partition' in the name.
+#: src/lib/y2storage/partition_id.rb:41
+#, fuzzy
+#| msgid "BIOS Boot Partition"
+msgid "BIOS Boot"
 msgstr "Partición BIOS Boot"
 
 # clients/inst_custom_part.ycp:2172 clients/inst_custom_part.ycp:2180
 # clients/inst_custom_part.ycp:2171 clients/inst_custom_part.ycp:2179
 # clients/inst_custom_part.ycp:2183 clients/inst_custom_part.ycp:2191
-#: src/lib/y2storage/partition_id.rb:41
-msgid "Diagnostics Partition"
+#: src/lib/y2storage/partition_id.rb:42
+#, fuzzy
+#| msgid "Diagnostics Partition"
+msgid "Diagnostics"
 msgstr "Partición de diagnósticos"
 
-#: src/lib/y2storage/partition_id.rb:42
+#: src/lib/y2storage/partition_id.rb:43
 msgid "DOS12"
 msgstr "DOS12"
 
-#: src/lib/y2storage/partition_id.rb:43
+#: src/lib/y2storage/partition_id.rb:44
 msgid "DOS16"
 msgstr "DOS16"
 
-#: src/lib/y2storage/partition_id.rb:44
+#: src/lib/y2storage/partition_id.rb:45
 msgid "DOS32"
 msgstr "DOS32"
 
-#: src/lib/y2storage/partition_id.rb:45
-msgid "EFI System Partition"
-msgstr "Partición del sistema EFI"
-
 #: src/lib/y2storage/partition_id.rb:46
+#, fuzzy
+#| msgid "File System:"
+msgid "EFI System"
+msgstr "Sistema de archivos:"
+
+#: src/lib/y2storage/partition_id.rb:47
 msgid "Extended"
 msgstr "Extendida"
 
-#: src/lib/y2storage/partition_id.rb:47
+#: src/lib/y2storage/partition_id.rb:48
 msgid "Intel Rapid Start"
 msgstr ""
 
 # clients/inst_resize_ui.ycp:705
 # clients/inst_resize_ui.ycp:705
 # clients/inst_resize_ui.ycp:705
-#: src/lib/y2storage/partition_id.rb:48
+#: src/lib/y2storage/partition_id.rb:49
 msgid "Linux Native"
 msgstr "Linux nativo"
 
 # clients/inst_resize_ui.ycp:705
 # clients/inst_resize_ui.ycp:705
 # clients/inst_resize_ui.ycp:705
-#: src/lib/y2storage/partition_id.rb:49
+#: src/lib/y2storage/partition_id.rb:50
 msgid "Linux LVM"
 msgstr "Linux LVM"
 
-#: src/lib/y2storage/partition_id.rb:50
-msgid "Microsoft Reserved Partition"
+#: src/lib/y2storage/partition_id.rb:51
+#, fuzzy
+#| msgid "Microsoft Reserved Partition"
+msgid "Microsoft Reserved"
 msgstr "Partición reservada para Microsoft"
 
-#: src/lib/y2storage/partition_id.rb:51
+#: src/lib/y2storage/partition_id.rb:52
 msgid "NTFS"
 msgstr "NTFS"
 
-#: src/lib/y2storage/partition_id.rb:52
-msgid "PReP Boot Partition"
+#: src/lib/y2storage/partition_id.rb:53
+#, fuzzy
+#| msgid "PReP Boot Partition"
+msgid "PReP Boot"
 msgstr "Partición PReP Boot"
 
 # clients/inst_resize_ui.ycp:705
 # clients/inst_resize_ui.ycp:705
 # clients/inst_resize_ui.ycp:705
-#: src/lib/y2storage/partition_id.rb:53
+#: src/lib/y2storage/partition_id.rb:54
 msgid "Linux RAID"
 msgstr "Linux RAID"
 
 # clients/inst_resize_ui.ycp:705
 # clients/inst_resize_ui.ycp:705
 # clients/inst_resize_ui.ycp:705
-#: src/lib/y2storage/partition_id.rb:54
+#: src/lib/y2storage/partition_id.rb:55
 msgid "Linux Swap"
 msgstr "Linux Swap"
 
 # include/partitioning/auto_part_ui.ycp:151
 # include/partitioning/auto_part_ui.ycp:151
 # include/partitioning/auto_part_ui.ycp:151
-#: src/lib/y2storage/partition_id.rb:56
-msgid "Windows Data Partition"
+#: src/lib/y2storage/partition_id.rb:57
+#, fuzzy
+#| msgid "Windows Data Partition"
+msgid "Windows Data"
 msgstr "Partición de datos de Windows"
 
 #. TRANSLATORS: %s is a mount point like "/home"
@@ -5929,6 +5923,112 @@ msgstr "El volumen lógico ligero LVM tiene el tamaño máximo."
 #: src/lib/y2storage/resize_info.rb:109
 msgid "Unknown reason"
 msgstr "Motivo desconocido"
+
+#, fuzzy
+#~| msgid "Confirm Deleting of All Partitions"
+#~ msgid "Confirm Deleting Bcache with its Devices"
+#~ msgstr "Confirmar la eliminación de todas las particiones"
+
+#, fuzzy
+#~| msgid "Delete RAID \"%{md}\" and volume group \"%{lvm_vg}\"?"
+#~ msgid "Delete bcache \"%{bcache}\" and the affected devices?"
+#~ msgstr "¿Desea suprimir el RAID %{md} y el grupo de volúmenes %{lvm_vg}?"
+
+#
+#~ msgid "There are no partitions to delete on this disk"
+#~ msgstr "No hay particiones para borrar en este disco"
+
+#~ msgid ""
+#~ "This device only contains an implicit partition that cannot be deleted."
+#~ msgstr ""
+#~ "Este dispositivo solo contiene una partición implícita que no se puede "
+#~ "eliminar."
+
+#~ msgid "Confirm Deleting of All Partitions"
+#~ msgstr "Confirmar la eliminación de todas las particiones"
+
+#~ msgid ""
+#~ "The disk \"%{name}\" contains at least one partition.\n"
+#~ "If you proceed, the following devices will be deleted:"
+#~ msgstr ""
+#~ "El disco %{name} contiene al menos una partición.\n"
+#~ "Si continúa, las siguiente particiones se suprimirán:"
+
+# clients/inst_custom_part.ycp:2943
+# clients/inst_custom_part.ycp:2931
+# clients/inst_custom_part.ycp:2945
+#~ msgid "Really delete all partitions on \"%{name}\"?"
+#~ msgstr "¿Seguro que desea suprimir todas las particiones de %{name}?"
+
+# clients/inst_lvm_lv.ycp:410
+# clients/inst_lvm_lv.ycp:410
+# clients/inst_lvm_lv.ycp:410
+#~ msgid "Remove the logical volume %{name}?"
+#~ msgstr "¿Desea eliminar el volumen lógico %{name}?"
+
+# clients/inst_rootpart.ycp:74 clients/inst_rootpart.ycp:212
+#~ msgid "Confirm Deleting RAID Used by LVM"
+#~ msgstr "Confirmar supresión de RAID usado por LVM"
+
+#~ msgid ""
+#~ "The selected RAID is used by volume group \"%{name}\".\n"
+#~ "To keep the system in a consistent state, the following volume group\n"
+#~ "and its logical volumes will be deleted:"
+#~ msgstr ""
+#~ "El grupo de volúmenes %{name} usa el RAID seleccionado.\n"
+#~ "Para mantener el sistema en un estado coherente, se suprimirán\n"
+#~ "el siguiente grupo de volúmenes y sus volúmenes lógicos:"
+
+#~ msgid "Delete RAID \"%{md}\" and volume group \"%{lvm_vg}\"?"
+#~ msgstr "¿Desea suprimir el RAID %{md} y el grupo de volúmenes %{lvm_vg}?"
+
+#, fuzzy
+#~| msgid "Delete RAID \"%{md}\" and volume group \"%{lvm_vg}\"?"
+#~ msgid "Delete RAID \"%{md}\" and the affected devices?"
+#~ msgstr "¿Desea suprimir el RAID %{md} y el grupo de volúmenes %{lvm_vg}?"
+
+# clients/inst_rootpart.ycp:74 clients/inst_rootpart.ycp:212
+#~ msgid "Confirm Deleting Partition Used by LVM"
+#~ msgstr "Confirmar la eliminación de la partición utilizada por LVM"
+
+#~ msgid ""
+#~ "The selected partition is used by volume group \"%{name}\".\n"
+#~ "To keep the system in a consistent state, the following volume group\n"
+#~ "and its logical volumes will be deleted:"
+#~ msgstr ""
+#~ "El grupo de volúmenes %{name} usa la partición seleccionada.\n"
+#~ "Para mantener el sistema en un estado coherente, se suprimirán\n"
+#~ "el siguiente grupo de volúmenes y sus volúmenes lógicos:"
+
+#~ msgid "Delete partition \"%{partition}\" and volume group \"%{lvm_vg}\"?"
+#~ msgstr ""
+#~ "¿Desea suprimir la partición %{partition} y el grupo de volúmenes "
+#~ "%{lvm_vg}?"
+
+# clients/inst_rootpart.ycp:74 clients/inst_rootpart.ycp:212
+#~ msgid "Confirm Deleting Partition Used by RAID"
+#~ msgstr "Confirmar la eliminación de la partición usada por RAID"
+
+# include/partitioning/custom_part_check_generated.ycp:671
+# include/partitioning/custom_part_check_generated.ycp:671
+# include/partitioning/custom_part_check_generated.ycp:704
+#~ msgid ""
+#~ "The selected partition belongs to RAID \"%{name}\".\n"
+#~ "To keep the system in a consistent state, the following\n"
+#~ "RAID device will be deleted:"
+#~ msgstr ""
+#~ "La partición seleccionada pertenece al RAID %{name}.\n"
+#~ "Para mantener el sistema en un estado coherente, se suprimirá\n"
+#~ "el siguiente dispositivo RAID:"
+
+# include/partitioning/partition_defines.ycp:382
+# include/partitioning/partition_defines.ycp:382
+# include/partitioning/partition_defines.ycp:391
+#~ msgid "Delete partition \"%{partition}\" and RAID \"%{md}\"?"
+#~ msgstr "¿Desea suprimir la partición %{partition} y el RAID %{md}?"
+
+#~ msgid "EFI System Partition"
+#~ msgstr "Partición del sistema EFI"
 
 # include/partitioning/lvm_ui_lib.ycp:558
 # include/partitioning/lvm_ui_lib.ycp:558
