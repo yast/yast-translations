@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: storage\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-08 02:29+0000\n"
+"POT-Creation-Date: 2018-11-17 02:29+0000\n"
 "PO-Revision-Date: 2018-10-30 23:03+0000\n"
 "Last-Translator: Yasuhiko Kamata <belphegor@belbel.or.jp>\n"
 "Language-Team: Japanese <https://l10n.opensuse.org/projects/yast-storage/"
@@ -4080,11 +4080,11 @@ msgstr "キャッシュセット (%s)"
 #. @see SetupError
 #.
 #. @return [Array<SetupError>]
-#: src/lib/y2storage/boot_requirements_strategies/base.rb:95
+#: src/lib/y2storage/boot_requirements_strategies/base.rb:100
 msgid "There is no device mounted at '/'"
 msgstr "'/' にマウントされているデバイスがありません"
 
-#: src/lib/y2storage/boot_requirements_strategies/base.rb:101
+#: src/lib/y2storage/boot_requirements_strategies/base.rb:106
 msgid ""
 "The device mounted at '/boot' does not have enough space to contain a kernel."
 msgstr ""
@@ -4092,41 +4092,46 @@ msgstr ""
 "域がありません。"
 
 #. TRANSLATORS: error message
-#: src/lib/y2storage/boot_requirements_strategies/base.rb:186
+#: src/lib/y2storage/boot_requirements_strategies/base.rb:191
 msgid ""
 "Boot requirements cannot be determined because there is no '/' mount point"
 msgstr ""
 "'/' マウントポイントが存在しないため、起動時の要件を判断することができません"
 
-#. Boot errors when partition table is gpt
+#. TRANSLATORS: error message
+#: src/lib/y2storage/boot_requirements_strategies/legacy.rb:229
+#, fuzzy
+#| msgid "List disks and partitions"
+msgid "Boot disk has no partition table."
+msgstr "ディスクとパーティションの一覧を表示します"
+
+#. TRANSLATORS: error message; %s is a human readable disk size like 256 KiB
+#: src/lib/y2storage/boot_requirements_strategies/legacy.rb:241
+msgid ""
+"Not enough space before the first partition to install the bootloader. Leave "
+"at least %s."
+msgstr ""
+
+#. TRANSLATORS: %s is a partition type, e.g. "BIOS Boot"
+#: src/lib/y2storage/boot_requirements_strategies/legacy.rb:256
+msgid "A partition of type %s is needed to install the bootloader."
+msgstr ""
+
+#. Specific warning when the current setup is not supported
 #.
-#. @return [Array<SetupError>]
-#: src/lib/y2storage/boot_requirements_strategies/legacy.rb:151
+#. @return [SetupError]
+#: src/lib/y2storage/boot_requirements_strategies/legacy.rb:266
 msgid ""
-"There is no partition of type BIOS Boot. For GPT devices it is strongly "
-"advised to use a BIOS Boot partition. A setup without such a partition is "
-"not supported and may cause problems now or in the future."
+"Such a setup is not supported and may cause problems with the bootloader now "
+"or in the future."
 msgstr ""
-"BIOS Boot に設定されているパーティションがありません。 GPT デバイスの場合、 "
-"BIOS 起動パーティションを使用することを強くお勧めします。 BIOS 起動パーティ"
-"ション無しでの設定はサポート対象外となるほか、将来的に問題が発生することもあ"
-"ります。"
 
-#. TRANSLATORS: error message
-#: src/lib/y2storage/boot_requirements_strategies/legacy.rb:183
-msgid ""
-"Boot disk has no partition table and it is not possible to boot from it.You "
-"can fix it by creating a partition table on the boot disk."
+#. Specific error when we are quite sure the current setup will not work
+#.
+#. @return [SetupError]
+#: src/lib/y2storage/boot_requirements_strategies/legacy.rb:277
+msgid "It will not be possible to install the bootloader."
 msgstr ""
-"起動ディスクにはパーティションテーブルがありませんので、このデバイスから起動"
-"することができません。起動ディスクに対してパーティションテーブルを作成してく"
-"ださい。"
-
-#. TRANSLATORS: error message
-#: src/lib/y2storage/boot_requirements_strategies/legacy.rb:195
-msgid "MBR gap size is not enough to correctly install bootloader"
-msgstr ""
-"ブートローダをインストールするのに十分な MBR ギャップサイズがありません"
 
 #. TRANSLATORS: %s is single or list of partitions that are too big.
 #: src/lib/y2storage/boot_requirements_strategies/prep.rb:84
@@ -4143,20 +4148,38 @@ msgstr ""
 "ファームウエアによっては、 %s より大きいサイズの PReP パーティションを読み込"
 "むことができず、起動に失敗することがあります。"
 
-#. EFI in RAID can work, but it is not much reliable.
-#. See bsc#1081578#c9, FATE#322485, FATE#314829
-#. - RAID metadata must be somewhere where it will not interfere with UEFI reading
-#. the disk. libstorage-ng currently uses "mdadm --metadata=1.0" which is OK
-#. - The partition boot flag must be on
-#. - The partition RAID flag must be on (but setting it resets the boot flag)
-#: src/lib/y2storage/boot_requirements_strategies/uefi.rb:55
+#. Missing EFI does not need to be a fatal (e.g. when boot from network).
+#. User just has to not select grub2-efi bootloader.
+#: src/lib/y2storage/boot_requirements_strategies/uefi.rb:70
+#, fuzzy
+#| msgid "An extended partition cannot be edited"
+msgid "EFI System Partition cannot be encrypted."
+msgstr "拡張パーティションは編集できません"
+
+#: src/lib/y2storage/boot_requirements_strategies/uefi.rb:75
+#, fuzzy
+#| msgid "EFI System Partition"
+msgid "EFI System Partition cannot be on LVM."
+msgstr "EFI システムパーティション"
+
+#: src/lib/y2storage/boot_requirements_strategies/uefi.rb:82
+#, fuzzy
+#| msgid ""
+#| "/boot/efi is in a software RAID. That setup is not guaranteed \n"
+#| "to boot in all cases. Proceed only if you know the implications."
 msgid ""
-"/boot/efi is in a software RAID. That setup is not guaranteed \n"
-"to boot in all cases. Proceed only if you know the implications."
+"EFI System Partition is on a software RAID1. That setup is not guaranteed to "
+"boot in all cases."
 msgstr ""
 "/boot/efi がソフトウエア RAID 内に存在しています。このような構成は、\n"
 "全ての場合において正しく動作するとは限りません。あらかじめご了承のうえ、先に"
 "進めてください。"
+
+#: src/lib/y2storage/boot_requirements_strategies/uefi.rb:87
+#, fuzzy
+#| msgid "An extended partition cannot be moved."
+msgid "EFI System Partition cannot be on software RAID."
+msgstr "拡張パーティションは移動できません。"
 
 #. TRANSLATORS: error message
 #: src/lib/y2storage/boot_requirements_strategies/zipl.rb:109
@@ -5124,6 +5147,28 @@ msgstr "LVM Thin 論理ボリュームは既に設定可能な最大サイズに
 msgid "Unknown reason"
 msgstr "不明な理由"
 
+#~ msgid ""
+#~ "There is no partition of type BIOS Boot. For GPT devices it is strongly "
+#~ "advised to use a BIOS Boot partition. A setup without such a partition is "
+#~ "not supported and may cause problems now or in the future."
+#~ msgstr ""
+#~ "BIOS Boot に設定されているパーティションがありません。 GPT デバイスの場"
+#~ "合、 BIOS 起動パーティションを使用することを強くお勧めします。 BIOS 起動"
+#~ "パーティション無しでの設定はサポート対象外となるほか、将来的に問題が発生す"
+#~ "ることもあります。"
+
+#~ msgid ""
+#~ "Boot disk has no partition table and it is not possible to boot from it."
+#~ "You can fix it by creating a partition table on the boot disk."
+#~ msgstr ""
+#~ "起動ディスクにはパーティションテーブルがありませんので、このデバイスから起"
+#~ "動することができません。起動ディスクに対してパーティションテーブルを作成し"
+#~ "てください。"
+
+#~ msgid "MBR gap size is not enough to correctly install bootloader"
+#~ msgstr ""
+#~ "ブートローダをインストールするのに十分な MBR ギャップサイズがありません"
+
 #~ msgid "Confirm Deleting Bcache with its Devices"
 #~ msgstr "Bcache とそのデバイスに対する削除の確認"
 
@@ -5207,9 +5252,6 @@ msgstr "不明な理由"
 #~ msgstr ""
 #~ "パーティション \"%{partition}\" と RAID \"%{md}\" を削除してよろしいです"
 #~ "か？"
-
-#~ msgid "EFI System Partition"
-#~ msgstr "EFI システムパーティション"
 
 #~ msgid "Volume Group"
 #~ msgstr "ボリュームグループ"
@@ -5347,9 +5389,6 @@ msgstr "不明な理由"
 
 #~ msgid "Storage Configuration"
 #~ msgstr "ストレージの設定"
-
-#~ msgid "List disks and partitions"
-#~ msgstr "ディスクとパーティションの一覧を表示します"
 
 #~ msgid "List disks"
 #~ msgstr "ディスクの一覧を表示します"

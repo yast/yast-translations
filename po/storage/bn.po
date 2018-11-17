@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: @PACKAGE@\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-08 02:29+0000\n"
+"POT-Creation-Date: 2018-11-17 02:29+0000\n"
 "PO-Revision-Date: 2005-07-29 15:37+0530\n"
 "Last-Translator: Priyavert Sharma<priyavert.sharma@agreeya.com>\n"
 "Language-Team: AgreeYa Solutions <linux_team@agreeya.com>\n"
@@ -4329,41 +4329,54 @@ msgstr ""
 #. @see SetupError
 #.
 #. @return [Array<SetupError>]
-#: src/lib/y2storage/boot_requirements_strategies/base.rb:95
+#: src/lib/y2storage/boot_requirements_strategies/base.rb:100
 msgid "There is no device mounted at '/'"
 msgstr ""
 
-#: src/lib/y2storage/boot_requirements_strategies/base.rb:101
+#: src/lib/y2storage/boot_requirements_strategies/base.rb:106
 msgid ""
 "The device mounted at '/boot' does not have enough space to contain a kernel."
 msgstr ""
 
 #. TRANSLATORS: error message
-#: src/lib/y2storage/boot_requirements_strategies/base.rb:186
+#: src/lib/y2storage/boot_requirements_strategies/base.rb:191
 msgid ""
 "Boot requirements cannot be determined because there is no '/' mount point"
 msgstr ""
 
-#. Boot errors when partition table is gpt
+#. TRANSLATORS: error message
+#: src/lib/y2storage/boot_requirements_strategies/legacy.rb:229
+#, fuzzy
+#| msgid "Reading disk partitions..."
+msgid "Boot disk has no partition table."
+msgstr "ডিস্ক পার্টিশানগুলি পড়ছে..."
+
+#. TRANSLATORS: error message; %s is a human readable disk size like 256 KiB
+#: src/lib/y2storage/boot_requirements_strategies/legacy.rb:241
+msgid ""
+"Not enough space before the first partition to install the bootloader. Leave "
+"at least %s."
+msgstr ""
+
+#. TRANSLATORS: %s is a partition type, e.g. "BIOS Boot"
+#: src/lib/y2storage/boot_requirements_strategies/legacy.rb:256
+msgid "A partition of type %s is needed to install the bootloader."
+msgstr ""
+
+#. Specific warning when the current setup is not supported
 #.
-#. @return [Array<SetupError>]
-#: src/lib/y2storage/boot_requirements_strategies/legacy.rb:151
+#. @return [SetupError]
+#: src/lib/y2storage/boot_requirements_strategies/legacy.rb:266
 msgid ""
-"There is no partition of type BIOS Boot. For GPT devices it is strongly "
-"advised to use a BIOS Boot partition. A setup without such a partition is "
-"not supported and may cause problems now or in the future."
+"Such a setup is not supported and may cause problems with the bootloader now "
+"or in the future."
 msgstr ""
 
-#. TRANSLATORS: error message
-#: src/lib/y2storage/boot_requirements_strategies/legacy.rb:183
-msgid ""
-"Boot disk has no partition table and it is not possible to boot from it.You "
-"can fix it by creating a partition table on the boot disk."
-msgstr ""
-
-#. TRANSLATORS: error message
-#: src/lib/y2storage/boot_requirements_strategies/legacy.rb:195
-msgid "MBR gap size is not enough to correctly install bootloader"
+#. Specific error when we are quite sure the current setup will not work
+#.
+#. @return [SetupError]
+#: src/lib/y2storage/boot_requirements_strategies/legacy.rb:277
+msgid "It will not be possible to install the bootloader."
 msgstr ""
 
 #. TRANSLATORS: %s is single or list of partitions that are too big.
@@ -4380,17 +4393,29 @@ msgid ""
 "prevent booting."
 msgstr ""
 
-#. EFI in RAID can work, but it is not much reliable.
-#. See bsc#1081578#c9, FATE#322485, FATE#314829
-#. - RAID metadata must be somewhere where it will not interfere with UEFI reading
-#. the disk. libstorage-ng currently uses "mdadm --metadata=1.0" which is OK
-#. - The partition boot flag must be on
-#. - The partition RAID flag must be on (but setting it resets the boot flag)
-#: src/lib/y2storage/boot_requirements_strategies/uefi.rb:55
+#. Missing EFI does not need to be a fatal (e.g. when boot from network).
+#. User just has to not select grub2-efi bootloader.
+#: src/lib/y2storage/boot_requirements_strategies/uefi.rb:70
+#, fuzzy
+#| msgid "An extended partition cannot be created."
+msgid "EFI System Partition cannot be encrypted."
+msgstr "একটি পরিবর্ধিত পার্টিশন তৈরি করা যায় না।"
+
+#: src/lib/y2storage/boot_requirements_strategies/uefi.rb:75
+#, fuzzy
+msgid "EFI System Partition cannot be on LVM."
+msgstr "বিভাগের মাপ"
+
+#: src/lib/y2storage/boot_requirements_strategies/uefi.rb:82
 msgid ""
-"/boot/efi is in a software RAID. That setup is not guaranteed \n"
-"to boot in all cases. Proceed only if you know the implications."
+"EFI System Partition is on a software RAID1. That setup is not guaranteed to "
+"boot in all cases."
 msgstr ""
+
+#: src/lib/y2storage/boot_requirements_strategies/uefi.rb:87
+#, fuzzy
+msgid "EFI System Partition cannot be on software RAID."
+msgstr "একটি পরিবর্ধিত পার্টিশন তৈরি করা যায় না।"
 
 #. TRANSLATORS: error message
 #: src/lib/y2storage/boot_requirements_strategies/zipl.rb:109
@@ -5480,10 +5505,6 @@ msgstr "অজানা"
 #~ msgstr " পার্টিশান %1$গুলি (%2$গুলি) মুছে ফেলুন"
 
 #, fuzzy
-#~ msgid "EFI System Partition"
-#~ msgstr "বিভাগের মাপ"
-
-#, fuzzy
 #~| msgid "&Shrink Windows partition"
 #~ msgid "Windows Data Partition"
 #~ msgstr "উন্ডোস-এর পার্টিশান সংকুচিত করুন"
@@ -5625,11 +5646,6 @@ msgstr "অজানা"
 #~| msgid "Image Configuration"
 #~ msgid "Storage Configuration"
 #~ msgstr "ছবি কনফিগারেশন "
-
-#, fuzzy
-#~| msgid "Reading disk partitions..."
-#~ msgid "List disks and partitions"
-#~ msgstr "ডিস্ক পার্টিশানগুলি পড়ছে..."
 
 # ডিস্ক
 #, fuzzy
@@ -10410,9 +10426,6 @@ msgstr "অজানা"
 
 #~ msgid "An extended partition can be created.\n"
 #~ msgstr "একটি পরিবর্ধিত পার্টিশন তৈরি করা যেতে পারে।\n"
-
-#~ msgid "An extended partition cannot be created."
-#~ msgstr "একটি পরিবর্ধিত পার্টিশন তৈরি করা যায় না।"
 
 #~ msgid "&Load Module"
 #~ msgstr "লোড মডিউল"

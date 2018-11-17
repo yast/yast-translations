@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: YaST2 (partitioning)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-08 02:29+0000\n"
+"POT-Creation-Date: 2018-11-17 02:29+0000\n"
 "PO-Revision-Date: 2018-06-08 12:00+0000\n"
 "Last-Translator: Michael Hogan <mhogan@novell.com>\n"
 "Language-Team: Arabic <https://l10n.opensuse.org/projects/yast-storage/"
@@ -4123,44 +4123,55 @@ msgstr ""
 #. @see SetupError
 #.
 #. @return [Array<SetupError>]
-#: src/lib/y2storage/boot_requirements_strategies/base.rb:95
+#: src/lib/y2storage/boot_requirements_strategies/base.rb:100
 msgid "There is no device mounted at '/'"
 msgstr "لا يوجد جهاز موصل في '/'"
 
-#: src/lib/y2storage/boot_requirements_strategies/base.rb:101
+#: src/lib/y2storage/boot_requirements_strategies/base.rb:106
 msgid ""
 "The device mounted at '/boot' does not have enough space to contain a kernel."
 msgstr "لا توجد مساحة كافية على الجهاز الموصل في '/boot' لتتضمن محرك شبكة."
 
 #. TRANSLATORS: error message
-#: src/lib/y2storage/boot_requirements_strategies/base.rb:186
+#: src/lib/y2storage/boot_requirements_strategies/base.rb:191
 msgid ""
 "Boot requirements cannot be determined because there is no '/' mount point"
 msgstr "لا يمكن تحديد متطلبات التشغيل نظرًا لعدم وجودود نقطة توصيل '/'"
 
-#. Boot errors when partition table is gpt
+#. TRANSLATORS: error message
+#: src/lib/y2storage/boot_requirements_strategies/legacy.rb:229
+#, fuzzy
+#| msgid "List disks and partitions"
+msgid "Boot disk has no partition table."
+msgstr "قائمة الأقراص والأقسام"
+
+#. TRANSLATORS: error message; %s is a human readable disk size like 256 KiB
+#: src/lib/y2storage/boot_requirements_strategies/legacy.rb:241
+msgid ""
+"Not enough space before the first partition to install the bootloader. Leave "
+"at least %s."
+msgstr ""
+
+#. TRANSLATORS: %s is a partition type, e.g. "BIOS Boot"
+#: src/lib/y2storage/boot_requirements_strategies/legacy.rb:256
+msgid "A partition of type %s is needed to install the bootloader."
+msgstr ""
+
+#. Specific warning when the current setup is not supported
 #.
-#. @return [Array<SetupError>]
-#: src/lib/y2storage/boot_requirements_strategies/legacy.rb:151
+#. @return [SetupError]
+#: src/lib/y2storage/boot_requirements_strategies/legacy.rb:266
 msgid ""
-"There is no partition of type BIOS Boot. For GPT devices it is strongly "
-"advised to use a BIOS Boot partition. A setup without such a partition is "
-"not supported and may cause problems now or in the future."
+"Such a setup is not supported and may cause problems with the bootloader now "
+"or in the future."
 msgstr ""
 
-#. TRANSLATORS: error message
-#: src/lib/y2storage/boot_requirements_strategies/legacy.rb:183
-msgid ""
-"Boot disk has no partition table and it is not possible to boot from it.You "
-"can fix it by creating a partition table on the boot disk."
+#. Specific error when we are quite sure the current setup will not work
+#.
+#. @return [SetupError]
+#: src/lib/y2storage/boot_requirements_strategies/legacy.rb:277
+msgid "It will not be possible to install the bootloader."
 msgstr ""
-"لا يوجد جدول تقسيم في قرص التشغيل ولا يمكن التشغيل منه. يمكنك إصلاحه بإنشاء "
-"جدول تقسيم على قرص التشغيل."
-
-#. TRANSLATORS: error message
-#: src/lib/y2storage/boot_requirements_strategies/legacy.rb:195
-msgid "MBR gap size is not enough to correctly install bootloader"
-msgstr "حجم فجوة MBR لا يكفي لتثبيت مدير التشغيل بشكل صحيح"
 
 #. TRANSLATORS: %s is single or list of partitions that are too big.
 #: src/lib/y2storage/boot_requirements_strategies/prep.rb:84
@@ -4182,19 +4193,37 @@ msgstr ""
 "قد تفشل بعض البرامج الثابتة في تحميل أقسام PReP الأكبر من %s وبالتالي تمنع "
 "التشغيل."
 
-#. EFI in RAID can work, but it is not much reliable.
-#. See bsc#1081578#c9, FATE#322485, FATE#314829
-#. - RAID metadata must be somewhere where it will not interfere with UEFI reading
-#. the disk. libstorage-ng currently uses "mdadm --metadata=1.0" which is OK
-#. - The partition boot flag must be on
-#. - The partition RAID flag must be on (but setting it resets the boot flag)
-#: src/lib/y2storage/boot_requirements_strategies/uefi.rb:55
+#. Missing EFI does not need to be a fatal (e.g. when boot from network).
+#. User just has to not select grub2-efi bootloader.
+#: src/lib/y2storage/boot_requirements_strategies/uefi.rb:70
+#, fuzzy
+#| msgid "An extended partition cannot be created."
+msgid "EFI System Partition cannot be encrypted."
+msgstr "لا يمكن إنشاء قسم موسع."
+
+#: src/lib/y2storage/boot_requirements_strategies/uefi.rb:75
+#, fuzzy
+#| msgid "EFI System Partition"
+msgid "EFI System Partition cannot be on LVM."
+msgstr "قسم نظام EFI"
+
+#: src/lib/y2storage/boot_requirements_strategies/uefi.rb:82
+#, fuzzy
+#| msgid ""
+#| "/boot/efi is in a software RAID. That setup is not guaranteed \n"
+#| "to boot in all cases. Proceed only if you know the implications."
 msgid ""
-"/boot/efi is in a software RAID. That setup is not guaranteed \n"
-"to boot in all cases. Proceed only if you know the implications."
+"EFI System Partition is on a software RAID1. That setup is not guaranteed to "
+"boot in all cases."
 msgstr ""
 "/boot/efi في برنامج RAID. هذا الإعداد غير مضمون \n"
 "للتشغيل في كل الحالات. لا تتابع إلا إذا كنت تفهم العواقب."
+
+#: src/lib/y2storage/boot_requirements_strategies/uefi.rb:87
+#, fuzzy
+#| msgid "An extended partition cannot be moved."
+msgid "EFI System Partition cannot be on software RAID."
+msgstr "لا يمكن نقل قسم موسع."
 
 #. TRANSLATORS: error message
 #: src/lib/y2storage/boot_requirements_strategies/zipl.rb:109
@@ -5177,6 +5206,16 @@ msgstr "وحدة التخزين المنطقية البسيطة LVM بأكبر �
 msgid "Unknown reason"
 msgstr "سبب غير معروف"
 
+#~ msgid ""
+#~ "Boot disk has no partition table and it is not possible to boot from it."
+#~ "You can fix it by creating a partition table on the boot disk."
+#~ msgstr ""
+#~ "لا يوجد جدول تقسيم في قرص التشغيل ولا يمكن التشغيل منه. يمكنك إصلاحه "
+#~ "بإنشاء جدول تقسيم على قرص التشغيل."
+
+#~ msgid "MBR gap size is not enough to correctly install bootloader"
+#~ msgstr "حجم فجوة MBR لا يكفي لتثبيت مدير التشغيل بشكل صحيح"
+
 #, fuzzy
 #~| msgid "Confirm Deleting of All Partitions"
 #~ msgid "Confirm Deleting Bcache with its Devices"
@@ -5261,9 +5300,6 @@ msgstr "سبب غير معروف"
 
 #~ msgid "Delete partition \"%{partition}\" and RAID \"%{md}\"?"
 #~ msgstr "هل تريد حذف القسم \"%{partition}\" وRAID‏ \"%{md}\"؟"
-
-#~ msgid "EFI System Partition"
-#~ msgstr "قسم نظام EFI"
 
 #~ msgid "Windows Data Partition"
 #~ msgstr "قسم بيانات Windows"
@@ -5423,9 +5459,6 @@ msgstr "سبب غير معروف"
 
 #~ msgid "Storage Configuration"
 #~ msgstr "إعدادات التخزين"
-
-#~ msgid "List disks and partitions"
-#~ msgstr "قائمة الأقراص والأقسام"
 
 #~ msgid "List disks"
 #~ msgstr "قائمة الأقراص"
@@ -10208,9 +10241,6 @@ msgstr "سبب غير معروف"
 
 #~ msgid "An extended partition can be created.\n"
 #~ msgstr "يمكن إنشاء قسم موسع.\n"
-
-#~ msgid "An extended partition cannot be created."
-#~ msgstr "لا يمكن إنشاء قسم موسع."
 
 #~ msgid "&Load Module"
 #~ msgstr "تحميل الوحدة النمطية"

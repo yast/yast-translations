@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: storage\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-08 02:29+0000\n"
+"POT-Creation-Date: 2018-11-17 02:29+0000\n"
 "PO-Revision-Date: 2018-11-03 07:01+0000\n"
 "Last-Translator: Marguerite Su <i@marguerite.su>\n"
 "Language-Team: Chinese (China) <https://l10n.opensuse.org/projects/yast-"
@@ -3832,46 +3832,55 @@ msgstr "缓存集合(%s)"
 #. @see SetupError
 #.
 #. @return [Array<SetupError>]
-#: src/lib/y2storage/boot_requirements_strategies/base.rb:95
+#: src/lib/y2storage/boot_requirements_strategies/base.rb:100
 msgid "There is no device mounted at '/'"
 msgstr "没有设备挂载为 '/'"
 
-#: src/lib/y2storage/boot_requirements_strategies/base.rb:101
+#: src/lib/y2storage/boot_requirements_strategies/base.rb:106
 msgid ""
 "The device mounted at '/boot' does not have enough space to contain a kernel."
 msgstr "挂载到 “/boot” 的设备没有足够的空间存储内核。"
 
 #. TRANSLATORS: error message
-#: src/lib/y2storage/boot_requirements_strategies/base.rb:186
+#: src/lib/y2storage/boot_requirements_strategies/base.rb:191
 msgid ""
 "Boot requirements cannot be determined because there is no '/' mount point"
 msgstr "无法确定引导要求，因为没有“/”挂载点"
 
-#. Boot errors when partition table is gpt
+#. TRANSLATORS: error message
+#: src/lib/y2storage/boot_requirements_strategies/legacy.rb:229
+#, fuzzy
+#| msgid "List disks and partitions"
+msgid "Boot disk has no partition table."
+msgstr "列出磁盘和分区"
+
+#. TRANSLATORS: error message; %s is a human readable disk size like 256 KiB
+#: src/lib/y2storage/boot_requirements_strategies/legacy.rb:241
+msgid ""
+"Not enough space before the first partition to install the bootloader. Leave "
+"at least %s."
+msgstr ""
+
+#. TRANSLATORS: %s is a partition type, e.g. "BIOS Boot"
+#: src/lib/y2storage/boot_requirements_strategies/legacy.rb:256
+msgid "A partition of type %s is needed to install the bootloader."
+msgstr ""
+
+#. Specific warning when the current setup is not supported
 #.
-#. @return [Array<SetupError>]
-#: src/lib/y2storage/boot_requirements_strategies/legacy.rb:151
+#. @return [SetupError]
+#: src/lib/y2storage/boot_requirements_strategies/legacy.rb:266
 msgid ""
-"There is no partition of type BIOS Boot. For GPT devices it is strongly "
-"advised to use a BIOS Boot partition. A setup without such a partition is "
-"not supported and may cause problems now or in the future."
+"Such a setup is not supported and may cause problems with the bootloader now "
+"or in the future."
 msgstr ""
-"没有类型为 BIOS 引导分区的分区。强烈建议为 GPT 设备使用 BIOS 引导分区。不支持"
-"没有这种分区的设置，这种设置在现在或后续会造成问题。"
 
-#. TRANSLATORS: error message
-#: src/lib/y2storage/boot_requirements_strategies/legacy.rb:183
-msgid ""
-"Boot disk has no partition table and it is not possible to boot from it.You "
-"can fix it by creating a partition table on the boot disk."
+#. Specific error when we are quite sure the current setup will not work
+#.
+#. @return [SetupError]
+#: src/lib/y2storage/boot_requirements_strategies/legacy.rb:277
+msgid "It will not be possible to install the bootloader."
 msgstr ""
-"引导磁盘没有分区表所以不可能从它启动。您可以通过在引导磁盘上创建一个分区表来"
-"修复该问题。"
-
-#. TRANSLATORS: error message
-#: src/lib/y2storage/boot_requirements_strategies/legacy.rb:195
-msgid "MBR gap size is not enough to correctly install bootloader"
-msgstr "MBR 间隙大小不足以正确安装引导加载程序"
 
 #. TRANSLATORS: %s is single or list of partitions that are too big.
 #: src/lib/y2storage/boot_requirements_strategies/prep.rb:84
@@ -3886,19 +3895,37 @@ msgid ""
 "prevent booting."
 msgstr "一些固件可能无法加载大于 %s 的 PReP 分区所以会妨碍启动。"
 
-#. EFI in RAID can work, but it is not much reliable.
-#. See bsc#1081578#c9, FATE#322485, FATE#314829
-#. - RAID metadata must be somewhere where it will not interfere with UEFI reading
-#. the disk. libstorage-ng currently uses "mdadm --metadata=1.0" which is OK
-#. - The partition boot flag must be on
-#. - The partition RAID flag must be on (but setting it resets the boot flag)
-#: src/lib/y2storage/boot_requirements_strategies/uefi.rb:55
+#. Missing EFI does not need to be a fatal (e.g. when boot from network).
+#. User just has to not select grub2-efi bootloader.
+#: src/lib/y2storage/boot_requirements_strategies/uefi.rb:70
+#, fuzzy
+#| msgid "An extended partition cannot be created."
+msgid "EFI System Partition cannot be encrypted."
+msgstr "无法创建扩展分区。"
+
+#: src/lib/y2storage/boot_requirements_strategies/uefi.rb:75
+#, fuzzy
+#| msgid "EFI System Partition"
+msgid "EFI System Partition cannot be on LVM."
+msgstr "EFI 系统分区"
+
+#: src/lib/y2storage/boot_requirements_strategies/uefi.rb:82
+#, fuzzy
+#| msgid ""
+#| "/boot/efi is in a software RAID. That setup is not guaranteed \n"
+#| "to boot in all cases. Proceed only if you know the implications."
 msgid ""
-"/boot/efi is in a software RAID. That setup is not guaranteed \n"
-"to boot in all cases. Proceed only if you know the implications."
+"EFI System Partition is on a software RAID1. That setup is not guaranteed to "
+"boot in all cases."
 msgstr ""
 "/boot/efi 位于软件 RAID 中。这种配置方式无法保证 \n"
 "能在任何情况下启动。请在完全理解其隐藏的风险后再继续。"
+
+#: src/lib/y2storage/boot_requirements_strategies/uefi.rb:87
+#, fuzzy
+#| msgid "An extended partition cannot be moved."
+msgid "EFI System Partition cannot be on software RAID."
+msgstr "一个扩展分区不能移动。"
 
 #. TRANSLATORS: error message
 #: src/lib/y2storage/boot_requirements_strategies/zipl.rb:109
@@ -4833,6 +4860,24 @@ msgstr "该 LVM 瘦卷组的大小已经是最大大小。"
 msgid "Unknown reason"
 msgstr "未知原因"
 
+#~ msgid ""
+#~ "There is no partition of type BIOS Boot. For GPT devices it is strongly "
+#~ "advised to use a BIOS Boot partition. A setup without such a partition is "
+#~ "not supported and may cause problems now or in the future."
+#~ msgstr ""
+#~ "没有类型为 BIOS 引导分区的分区。强烈建议为 GPT 设备使用 BIOS 引导分区。不"
+#~ "支持没有这种分区的设置，这种设置在现在或后续会造成问题。"
+
+#~ msgid ""
+#~ "Boot disk has no partition table and it is not possible to boot from it."
+#~ "You can fix it by creating a partition table on the boot disk."
+#~ msgstr ""
+#~ "引导磁盘没有分区表所以不可能从它启动。您可以通过在引导磁盘上创建一个分区表"
+#~ "来修复该问题。"
+
+#~ msgid "MBR gap size is not enough to correctly install bootloader"
+#~ msgstr "MBR 间隙大小不足以正确安装引导加载程序"
+
 #~ msgid "Confirm Deleting Bcache with its Devices"
 #~ msgstr "确认删除 Bcache 及其设备"
 
@@ -4904,9 +4949,6 @@ msgstr "未知原因"
 
 #~ msgid "Delete partition \"%{partition}\" and RAID \"%{md}\"?"
 #~ msgstr "删除分区 “%{partition}” 和 RAID “%{md}”吗？"
-
-#~ msgid "EFI System Partition"
-#~ msgstr "EFI 系统分区"
 
 #~ msgid "Windows Data Partition"
 #~ msgstr "Windows 数据分区"
@@ -5046,9 +5088,6 @@ msgstr "未知原因"
 
 #~ msgid "Storage Configuration"
 #~ msgstr "存储配置"
-
-#~ msgid "List disks and partitions"
-#~ msgstr "列出磁盘和分区"
 
 #~ msgid "List disks"
 #~ msgstr "列出磁盘"
@@ -9608,9 +9647,6 @@ msgstr "未知原因"
 
 #~ msgid "An extended partition can be created.\n"
 #~ msgstr "可以创建扩展分区。\n"
-
-#~ msgid "An extended partition cannot be created."
-#~ msgstr "无法创建扩展分区。"
 
 #~ msgid "&Load Module"
 #~ msgstr "装载模块(&L)"

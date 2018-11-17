@@ -5,11 +5,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-08 02:29+0000\n"
+"POT-Creation-Date: 2018-11-17 02:29+0000\n"
 "PO-Revision-Date: 2018-11-11 17:35+0000\n"
 "Last-Translator: Ferdinand Galko <galko.ferdinand@gmail.com>\n"
-"Language-Team: Slovak <https://l10n.opensuse.org/projects/yast-"
-"storage/master/sk/>\n"
+"Language-Team: Slovak <https://l10n.opensuse.org/projects/yast-storage/"
+"master/sk/>\n"
 "Language: sk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -4011,11 +4011,11 @@ msgstr "Bcache Cset: %s"
 #. @see SetupError
 #.
 #. @return [Array<SetupError>]
-#: src/lib/y2storage/boot_requirements_strategies/base.rb:95
+#: src/lib/y2storage/boot_requirements_strategies/base.rb:100
 msgid "There is no device mounted at '/'"
 msgstr "Neexistuje žiadne zariadenie pripojené na '/'"
 
-#: src/lib/y2storage/boot_requirements_strategies/base.rb:101
+#: src/lib/y2storage/boot_requirements_strategies/base.rb:106
 msgid ""
 "The device mounted at '/boot' does not have enough space to contain a kernel."
 msgstr ""
@@ -4023,36 +4023,47 @@ msgstr ""
 "jadro."
 
 #. TRANSLATORS: error message
-#: src/lib/y2storage/boot_requirements_strategies/base.rb:186
+#: src/lib/y2storage/boot_requirements_strategies/base.rb:191
 msgid ""
 "Boot requirements cannot be determined because there is no '/' mount point"
 msgstr ""
 "Požiadavky štartu systému nie je možné určiť, pretože neexistuje žiadny bod "
 "pripojenia '/'"
 
-#. Boot errors when partition table is gpt
+#. TRANSLATORS: error message
+#: src/lib/y2storage/boot_requirements_strategies/legacy.rb:229
+#, fuzzy
+#| msgid "List disks and partitions"
+msgid "Boot disk has no partition table."
+msgstr "Vypísať disky a oddiely"
+
+#. TRANSLATORS: error message; %s is a human readable disk size like 256 KiB
+#: src/lib/y2storage/boot_requirements_strategies/legacy.rb:241
+msgid ""
+"Not enough space before the first partition to install the bootloader. Leave "
+"at least %s."
+msgstr ""
+
+#. TRANSLATORS: %s is a partition type, e.g. "BIOS Boot"
+#: src/lib/y2storage/boot_requirements_strategies/legacy.rb:256
+msgid "A partition of type %s is needed to install the bootloader."
+msgstr ""
+
+#. Specific warning when the current setup is not supported
 #.
-#. @return [Array<SetupError>]
-#: src/lib/y2storage/boot_requirements_strategies/legacy.rb:151
+#. @return [SetupError]
+#: src/lib/y2storage/boot_requirements_strategies/legacy.rb:266
 msgid ""
-"There is no partition of type BIOS Boot. For GPT devices it is strongly "
-"advised to use a BIOS Boot partition. A setup without such a partition is "
-"not supported and may cause problems now or in the future."
+"Such a setup is not supported and may cause problems with the bootloader now "
+"or in the future."
 msgstr ""
 
-#. TRANSLATORS: error message
-#: src/lib/y2storage/boot_requirements_strategies/legacy.rb:183
-msgid ""
-"Boot disk has no partition table and it is not possible to boot from it.You "
-"can fix it by creating a partition table on the boot disk."
+#. Specific error when we are quite sure the current setup will not work
+#.
+#. @return [SetupError]
+#: src/lib/y2storage/boot_requirements_strategies/legacy.rb:277
+msgid "It will not be possible to install the bootloader."
 msgstr ""
-"Štartovací disk neobsahuje tabuľku oddielov a nie je možné z nej spustiť "
-"systém. Môžete to opraviť vytvorením tabuľky oddielov na štartovacom disku."
-
-#. TRANSLATORS: error message
-#: src/lib/y2storage/boot_requirements_strategies/legacy.rb:195
-msgid "MBR gap size is not enough to correctly install bootloader"
-msgstr "Veľkosť medzery MBR nestačí na správnu inštaláciu správcu štartu"
 
 #. TRANSLATORS: %s is single or list of partitions that are too big.
 #: src/lib/y2storage/boot_requirements_strategies/prep.rb:84
@@ -4071,19 +4082,37 @@ msgstr ""
 "Niektoré firmware nedokážu načítať oddiely PReP väčšie ako %s a takto bránia "
 "štartu systému."
 
-#. EFI in RAID can work, but it is not much reliable.
-#. See bsc#1081578#c9, FATE#322485, FATE#314829
-#. - RAID metadata must be somewhere where it will not interfere with UEFI reading
-#. the disk. libstorage-ng currently uses "mdadm --metadata=1.0" which is OK
-#. - The partition boot flag must be on
-#. - The partition RAID flag must be on (but setting it resets the boot flag)
-#: src/lib/y2storage/boot_requirements_strategies/uefi.rb:55
+#. Missing EFI does not need to be a fatal (e.g. when boot from network).
+#. User just has to not select grub2-efi bootloader.
+#: src/lib/y2storage/boot_requirements_strategies/uefi.rb:70
+#, fuzzy
+#| msgid "An extended partition cannot be edited"
+msgid "EFI System Partition cannot be encrypted."
+msgstr "Rozšírený oddiel sa nemôže upravovať."
+
+#: src/lib/y2storage/boot_requirements_strategies/uefi.rb:75
+#, fuzzy
+#| msgid "EFI System Partition"
+msgid "EFI System Partition cannot be on LVM."
+msgstr "Systémový oddiel EFI"
+
+#: src/lib/y2storage/boot_requirements_strategies/uefi.rb:82
+#, fuzzy
+#| msgid ""
+#| "/boot/efi is in a software RAID. That setup is not guaranteed \n"
+#| "to boot in all cases. Proceed only if you know the implications."
 msgid ""
-"/boot/efi is in a software RAID. That setup is not guaranteed \n"
-"to boot in all cases. Proceed only if you know the implications."
+"EFI System Partition is on a software RAID1. That setup is not guaranteed to "
+"boot in all cases."
 msgstr ""
 "/boot/efi je v softvérovom RAID. Toto nastavenie nie je zaručené, že spustí\n"
 "systém vo všetkých prípadoch. Pokračujte len vtedy, ak poznáte dôsledky."
+
+#: src/lib/y2storage/boot_requirements_strategies/uefi.rb:87
+#, fuzzy
+#| msgid "An extended partition cannot be moved."
+msgid "EFI System Partition cannot be on software RAID."
+msgstr "Rozšírený oddiel sa nemôže presunúť."
 
 #. TRANSLATORS: error message
 #: src/lib/y2storage/boot_requirements_strategies/zipl.rb:109
@@ -5059,6 +5088,17 @@ msgstr "Tenký logický zväzok LVM už má maximálnu veľkosť."
 msgid "Unknown reason"
 msgstr "Neznámy dôvod"
 
+#~ msgid ""
+#~ "Boot disk has no partition table and it is not possible to boot from it."
+#~ "You can fix it by creating a partition table on the boot disk."
+#~ msgstr ""
+#~ "Štartovací disk neobsahuje tabuľku oddielov a nie je možné z nej spustiť "
+#~ "systém. Môžete to opraviť vytvorením tabuľky oddielov na štartovacom "
+#~ "disku."
+
+#~ msgid "MBR gap size is not enough to correctly install bootloader"
+#~ msgstr "Veľkosť medzery MBR nestačí na správnu inštaláciu správcu štartu"
+
 #, fuzzy
 #~| msgid "Confirm Deleting of Current Devices"
 #~ msgid "Confirm Deleting Bcache with its Devices"
@@ -5142,9 +5182,6 @@ msgstr "Neznámy dôvod"
 
 #~ msgid "Delete partition \"%{partition}\" and RAID \"%{md}\"?"
 #~ msgstr "Zmazať oddiel \"%{partition}\" a RAID \"%{md}\"?"
-
-#~ msgid "EFI System Partition"
-#~ msgstr "Systémový oddiel EFI"
 
 #~ msgid "Volume Group"
 #~ msgstr "Skupina zväzkov"
@@ -5282,9 +5319,6 @@ msgstr "Neznámy dôvod"
 
 #~ msgid "Storage Configuration"
 #~ msgstr "Konfigurácia úložiska"
-
-#~ msgid "List disks and partitions"
-#~ msgstr "Vypísať disky a oddiely"
 
 #~ msgid "List disks"
 #~ msgstr "Vypísať disky"

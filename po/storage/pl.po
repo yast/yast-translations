@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: storage\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-08 02:29+0000\n"
+"POT-Creation-Date: 2018-11-17 02:29+0000\n"
 "PO-Revision-Date: 2018-06-12 17:05+0000\n"
 "Last-Translator: Ewelina Michalowska <ewelina.michalowska@stgambit.com>\n"
 "Language-Team: Polish <https://l10n.opensuse.org/projects/yast-storage/"
@@ -4193,11 +4193,11 @@ msgstr ""
 #. @see SetupError
 #.
 #. @return [Array<SetupError>]
-#: src/lib/y2storage/boot_requirements_strategies/base.rb:95
+#: src/lib/y2storage/boot_requirements_strategies/base.rb:100
 msgid "There is no device mounted at '/'"
 msgstr "Brak urządzenia zamontowanego w partycji /"
 
-#: src/lib/y2storage/boot_requirements_strategies/base.rb:101
+#: src/lib/y2storage/boot_requirements_strategies/base.rb:106
 msgid ""
 "The device mounted at '/boot' does not have enough space to contain a kernel."
 msgstr ""
@@ -4205,37 +4205,46 @@ msgstr ""
 "na jądro."
 
 #. TRANSLATORS: error message
-#: src/lib/y2storage/boot_requirements_strategies/base.rb:186
+#: src/lib/y2storage/boot_requirements_strategies/base.rb:191
 msgid ""
 "Boot requirements cannot be determined because there is no '/' mount point"
 msgstr ""
 "Nie można ustalić wymagań rozruchowych, ponieważ nie ma punktu mocowania /"
 
-#. Boot errors when partition table is gpt
+#. TRANSLATORS: error message
+#: src/lib/y2storage/boot_requirements_strategies/legacy.rb:229
+#, fuzzy
+#| msgid "List disks and partitions"
+msgid "Boot disk has no partition table."
+msgstr "Wyświetlenie dysków i partycji"
+
+#. TRANSLATORS: error message; %s is a human readable disk size like 256 KiB
+#: src/lib/y2storage/boot_requirements_strategies/legacy.rb:241
+msgid ""
+"Not enough space before the first partition to install the bootloader. Leave "
+"at least %s."
+msgstr ""
+
+#. TRANSLATORS: %s is a partition type, e.g. "BIOS Boot"
+#: src/lib/y2storage/boot_requirements_strategies/legacy.rb:256
+msgid "A partition of type %s is needed to install the bootloader."
+msgstr ""
+
+#. Specific warning when the current setup is not supported
 #.
-#. @return [Array<SetupError>]
-#: src/lib/y2storage/boot_requirements_strategies/legacy.rb:151
+#. @return [SetupError]
+#: src/lib/y2storage/boot_requirements_strategies/legacy.rb:266
 msgid ""
-"There is no partition of type BIOS Boot. For GPT devices it is strongly "
-"advised to use a BIOS Boot partition. A setup without such a partition is "
-"not supported and may cause problems now or in the future."
+"Such a setup is not supported and may cause problems with the bootloader now "
+"or in the future."
 msgstr ""
 
-#. TRANSLATORS: error message
-#: src/lib/y2storage/boot_requirements_strategies/legacy.rb:183
-msgid ""
-"Boot disk has no partition table and it is not possible to boot from it.You "
-"can fix it by creating a partition table on the boot disk."
+#. Specific error when we are quite sure the current setup will not work
+#.
+#. @return [SetupError]
+#: src/lib/y2storage/boot_requirements_strategies/legacy.rb:277
+msgid "It will not be possible to install the bootloader."
 msgstr ""
-"Dysk rozruchowy nie ma tablicy partycji i nie można przeprowadzić z niego "
-"rozruchu. Można to naprawić, tworząc na nim tablicę partycji."
-
-#. TRANSLATORS: error message
-#: src/lib/y2storage/boot_requirements_strategies/legacy.rb:195
-msgid "MBR gap size is not enough to correctly install bootloader"
-msgstr ""
-"Rozmiar przerwy głównego rekordu rozruchowego MBR jest niewystarczający, by "
-"poprawnie zainstalować program rozruchowy"
 
 #. TRANSLATORS: %s is single or list of partitions that are too big.
 #: src/lib/y2storage/boot_requirements_strategies/prep.rb:84
@@ -4254,20 +4263,38 @@ msgstr ""
 "Niektóre oprogramowanie firmowe może mieć problemy z wczytywaniem partycji "
 "PReP większych niż %s, co może uniemożliwiać rozruch."
 
-#. EFI in RAID can work, but it is not much reliable.
-#. See bsc#1081578#c9, FATE#322485, FATE#314829
-#. - RAID metadata must be somewhere where it will not interfere with UEFI reading
-#. the disk. libstorage-ng currently uses "mdadm --metadata=1.0" which is OK
-#. - The partition boot flag must be on
-#. - The partition RAID flag must be on (but setting it resets the boot flag)
-#: src/lib/y2storage/boot_requirements_strategies/uefi.rb:55
+#. Missing EFI does not need to be a fatal (e.g. when boot from network).
+#. User just has to not select grub2-efi bootloader.
+#: src/lib/y2storage/boot_requirements_strategies/uefi.rb:70
+#, fuzzy
+#| msgid "An extended partition cannot be created."
+msgid "EFI System Partition cannot be encrypted."
+msgstr "Nie można utworzyć partycji rozszerzonej."
+
+#: src/lib/y2storage/boot_requirements_strategies/uefi.rb:75
+#, fuzzy
+#| msgid "EFI System Partition"
+msgid "EFI System Partition cannot be on LVM."
+msgstr "Partycja systemowa EFI"
+
+#: src/lib/y2storage/boot_requirements_strategies/uefi.rb:82
+#, fuzzy
+#| msgid ""
+#| "/boot/efi is in a software RAID. That setup is not guaranteed \n"
+#| "to boot in all cases. Proceed only if you know the implications."
 msgid ""
-"/boot/efi is in a software RAID. That setup is not guaranteed \n"
-"to boot in all cases. Proceed only if you know the implications."
+"EFI System Partition is on a software RAID1. That setup is not guaranteed to "
+"boot in all cases."
 msgstr ""
 "Partycja /boot/efi znajduje się w programowym woluminie RAID. \n"
 "Taka konfiguracja nie gwarantuje każdorazowo rozruchu. \n"
 "Kontynuuj tylko wtedy, gdy znasz następstwa."
+
+#: src/lib/y2storage/boot_requirements_strategies/uefi.rb:87
+#, fuzzy
+#| msgid "An extended partition cannot be moved."
+msgid "EFI System Partition cannot be on software RAID."
+msgstr "Partycja rozszerzona nie może być przenoszona."
 
 #. TRANSLATORS: error message
 #: src/lib/y2storage/boot_requirements_strategies/zipl.rb:109
@@ -5261,6 +5288,18 @@ msgstr "Cienki wolumin logiczny LVM ma już maksymalny możliwy rozmiar."
 msgid "Unknown reason"
 msgstr "Nieznana przyczyna"
 
+#~ msgid ""
+#~ "Boot disk has no partition table and it is not possible to boot from it."
+#~ "You can fix it by creating a partition table on the boot disk."
+#~ msgstr ""
+#~ "Dysk rozruchowy nie ma tablicy partycji i nie można przeprowadzić z niego "
+#~ "rozruchu. Można to naprawić, tworząc na nim tablicę partycji."
+
+#~ msgid "MBR gap size is not enough to correctly install bootloader"
+#~ msgstr ""
+#~ "Rozmiar przerwy głównego rekordu rozruchowego MBR jest niewystarczający, "
+#~ "by poprawnie zainstalować program rozruchowy"
+
 #, fuzzy
 #~| msgid "Confirm Deleting of All Partitions"
 #~ msgid "Confirm Deleting Bcache with its Devices"
@@ -5344,9 +5383,6 @@ msgstr "Nieznana przyczyna"
 
 #~ msgid "Delete partition \"%{partition}\" and RAID \"%{md}\"?"
 #~ msgstr "Czy usunąć partycję %{partition} i urządzenie RAID %{md}?"
-
-#~ msgid "EFI System Partition"
-#~ msgstr "Partycja systemowa EFI"
 
 #~ msgid "Windows Data Partition"
 #~ msgstr "Partycja danych systemu Windows"
@@ -5505,9 +5541,6 @@ msgstr "Nieznana przyczyna"
 
 #~ msgid "Storage Configuration"
 #~ msgstr "Konfiguracja dysków"
-
-#~ msgid "List disks and partitions"
-#~ msgstr "Wyświetlenie dysków i partycji"
 
 #~ msgid "List disks"
 #~ msgstr "Lista dysków"
@@ -11742,9 +11775,6 @@ msgstr "Nieznana przyczyna"
 
 #~ msgid "An extended partition can be created.\n"
 #~ msgstr "Można utworzyć partycję rozszerzoną.\n"
-
-#~ msgid "An extended partition cannot be created."
-#~ msgstr "Nie można utworzyć partycji rozszerzonej."
 
 #~ msgid ""
 #~ "<p>\n"

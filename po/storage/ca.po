@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Catalan (yast-storage)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-08 02:29+0000\n"
+"POT-Creation-Date: 2018-11-17 02:29+0000\n"
 "PO-Revision-Date: 2018-10-31 19:00+0000\n"
 "Last-Translator: David Medina <medipas@gmail.com>\n"
 "Language-Team: Catalan <https://l10n.opensuse.org/projects/yast-storage/"
@@ -4042,52 +4042,57 @@ msgstr "Conjunt de cau (%s)"
 #. @see SetupError
 #.
 #. @return [Array<SetupError>]
-#: src/lib/y2storage/boot_requirements_strategies/base.rb:95
+#: src/lib/y2storage/boot_requirements_strategies/base.rb:100
 msgid "There is no device mounted at '/'"
 msgstr "No hi ha cap dispositiu muntat a \"/\"."
 
-#: src/lib/y2storage/boot_requirements_strategies/base.rb:101
+#: src/lib/y2storage/boot_requirements_strategies/base.rb:106
 msgid ""
 "The device mounted at '/boot' does not have enough space to contain a kernel."
 msgstr "El dispositiu muntat a /boot no té prou espai per contenir un nucli."
 
 #. TRANSLATORS: error message
-#: src/lib/y2storage/boot_requirements_strategies/base.rb:186
+#: src/lib/y2storage/boot_requirements_strategies/base.rb:191
 msgid ""
 "Boot requirements cannot be determined because there is no '/' mount point"
 msgstr ""
 "No es poden determinar els requeriments de l'arrencada perquè no hi ha punt "
 "de muntatge de \"/\"."
 
-#. Boot errors when partition table is gpt
+#. TRANSLATORS: error message
+#: src/lib/y2storage/boot_requirements_strategies/legacy.rb:229
+#, fuzzy
+#| msgid "List disks and partitions"
+msgid "Boot disk has no partition table."
+msgstr "Llista els discs i les particions"
+
+#. TRANSLATORS: error message; %s is a human readable disk size like 256 KiB
+#: src/lib/y2storage/boot_requirements_strategies/legacy.rb:241
+msgid ""
+"Not enough space before the first partition to install the bootloader. Leave "
+"at least %s."
+msgstr ""
+
+#. TRANSLATORS: %s is a partition type, e.g. "BIOS Boot"
+#: src/lib/y2storage/boot_requirements_strategies/legacy.rb:256
+msgid "A partition of type %s is needed to install the bootloader."
+msgstr ""
+
+#. Specific warning when the current setup is not supported
 #.
-#. @return [Array<SetupError>]
-#: src/lib/y2storage/boot_requirements_strategies/legacy.rb:151
+#. @return [SetupError]
+#: src/lib/y2storage/boot_requirements_strategies/legacy.rb:266
 msgid ""
-"There is no partition of type BIOS Boot. For GPT devices it is strongly "
-"advised to use a BIOS Boot partition. A setup without such a partition is "
-"not supported and may cause problems now or in the future."
+"Such a setup is not supported and may cause problems with the bootloader now "
+"or in the future."
 msgstr ""
-"No hi ha cap partició d'arrencada del tipus BIOS. Per als dispositius GPT és "
-"molt recomanable usar una partició d'arrencada BIOS. No s'admet una "
-"configuració sense aquest tipus de partició i això pot causar problemes ara "
-"o més endavant."
 
-#. TRANSLATORS: error message
-#: src/lib/y2storage/boot_requirements_strategies/legacy.rb:183
-msgid ""
-"Boot disk has no partition table and it is not possible to boot from it.You "
-"can fix it by creating a partition table on the boot disk."
+#. Specific error when we are quite sure the current setup will not work
+#.
+#. @return [SetupError]
+#: src/lib/y2storage/boot_requirements_strategies/legacy.rb:277
+msgid "It will not be possible to install the bootloader."
 msgstr ""
-"El disc d'arrencada no té taula de particions i no és possible arrencar-ne. "
-"Podeu corregir-ho creant una taula de particions al disc d'arrencada."
-
-#. TRANSLATORS: error message
-#: src/lib/y2storage/boot_requirements_strategies/legacy.rb:195
-msgid "MBR gap size is not enough to correctly install bootloader"
-msgstr ""
-"La mida de l'MBR no és suficient per instal·lar-hi el carregador "
-"correctament."
 
 #. TRANSLATORS: %s is single or list of partitions that are too big.
 #: src/lib/y2storage/boot_requirements_strategies/prep.rb:84
@@ -4105,20 +4110,38 @@ msgstr ""
 "Alguns microprogramaris poden no carregar particions PReP més grosses de %s "
 "i així evitar l'arrencada."
 
-#. EFI in RAID can work, but it is not much reliable.
-#. See bsc#1081578#c9, FATE#322485, FATE#314829
-#. - RAID metadata must be somewhere where it will not interfere with UEFI reading
-#. the disk. libstorage-ng currently uses "mdadm --metadata=1.0" which is OK
-#. - The partition boot flag must be on
-#. - The partition RAID flag must be on (but setting it resets the boot flag)
-#: src/lib/y2storage/boot_requirements_strategies/uefi.rb:55
+#. Missing EFI does not need to be a fatal (e.g. when boot from network).
+#. User just has to not select grub2-efi bootloader.
+#: src/lib/y2storage/boot_requirements_strategies/uefi.rb:70
+#, fuzzy
+#| msgid "An extended partition cannot be edited"
+msgid "EFI System Partition cannot be encrypted."
+msgstr "No es pot editar una partició ampliada."
+
+#: src/lib/y2storage/boot_requirements_strategies/uefi.rb:75
+#, fuzzy
+#| msgid "EFI System Partition"
+msgid "EFI System Partition cannot be on LVM."
+msgstr "Partició de sistema EFI"
+
+#: src/lib/y2storage/boot_requirements_strategies/uefi.rb:82
+#, fuzzy
+#| msgid ""
+#| "/boot/efi is in a software RAID. That setup is not guaranteed \n"
+#| "to boot in all cases. Proceed only if you know the implications."
 msgid ""
-"/boot/efi is in a software RAID. That setup is not guaranteed \n"
-"to boot in all cases. Proceed only if you know the implications."
+"EFI System Partition is on a software RAID1. That setup is not guaranteed to "
+"boot in all cases."
 msgstr ""
 "/boot/efi és en una RAID de programari. Aquesta configuració no té\n"
 "la garantia d'arrencar en tots els casos. Procediu només si en sabeu les "
 "implicacions."
+
+#: src/lib/y2storage/boot_requirements_strategies/uefi.rb:87
+#, fuzzy
+#| msgid "An extended partition cannot be moved."
+msgid "EFI System Partition cannot be on software RAID."
+msgstr "No es pot moure una partició extesa."
 
 #. TRANSLATORS: error message
 #: src/lib/y2storage/boot_requirements_strategies/zipl.rb:109
@@ -5087,6 +5110,28 @@ msgstr "El volum lògic prim d'LVM ja té la mida més grossa possible."
 msgid "Unknown reason"
 msgstr "Raó desconeguda"
 
+#~ msgid ""
+#~ "There is no partition of type BIOS Boot. For GPT devices it is strongly "
+#~ "advised to use a BIOS Boot partition. A setup without such a partition is "
+#~ "not supported and may cause problems now or in the future."
+#~ msgstr ""
+#~ "No hi ha cap partició d'arrencada del tipus BIOS. Per als dispositius GPT "
+#~ "és molt recomanable usar una partició d'arrencada BIOS. No s'admet una "
+#~ "configuració sense aquest tipus de partició i això pot causar problemes "
+#~ "ara o més endavant."
+
+#~ msgid ""
+#~ "Boot disk has no partition table and it is not possible to boot from it."
+#~ "You can fix it by creating a partition table on the boot disk."
+#~ msgstr ""
+#~ "El disc d'arrencada no té taula de particions i no és possible arrencar-"
+#~ "ne. Podeu corregir-ho creant una taula de particions al disc d'arrencada."
+
+#~ msgid "MBR gap size is not enough to correctly install bootloader"
+#~ msgstr ""
+#~ "La mida de l'MBR no és suficient per instal·lar-hi el carregador "
+#~ "correctament."
+
 #~ msgid "Confirm Deleting Bcache with its Devices"
 #~ msgstr "Confirmeu la supressió de la Bcau amb els seus dispositius"
 
@@ -5169,9 +5214,6 @@ msgstr "Raó desconeguda"
 
 #~ msgid "Delete partition \"%{partition}\" and RAID \"%{md}\"?"
 #~ msgstr "Voleu suprimir la partició \"%{partition}\" i la RAID \"%{md}\"?"
-
-#~ msgid "EFI System Partition"
-#~ msgstr "Partició de sistema EFI"
 
 #~ msgid "Volume Group"
 #~ msgstr "Grup de volums"
@@ -5309,9 +5351,6 @@ msgstr "Raó desconeguda"
 
 #~ msgid "Storage Configuration"
 #~ msgstr "Configuració de l'emmagatzematge"
-
-#~ msgid "List disks and partitions"
-#~ msgstr "Llista els discs i les particions"
 
 #~ msgid "List disks"
 #~ msgstr "Llista els discs"
