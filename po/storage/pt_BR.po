@@ -16,8 +16,8 @@ msgstr ""
 "Project-Id-Version: storage\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-11-23 02:29+0000\n"
-"PO-Revision-Date: 2018-11-22 20:05+0000\n"
-"Last-Translator: Luiz Fernando Ranghetti <elchevive68@gmail.com>\n"
+"PO-Revision-Date: 2018-12-04 11:07+0000\n"
+"Last-Translator: Rodrigo Macedo <rmsolucoeseminformatic4@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) <https://l10n.opensuse.org/projects/yast-"
 "storage/master/pt_BR/>\n"
 "Language: pt_BR\n"
@@ -306,6 +306,9 @@ msgid ""
 "This can result in unreachable space if done without detaching.\n"
 "Detaching can take a very long time in some situations."
 msgstr ""
+"O bcache compartilha seu conjunto de cache com outros dispositivos.\n"
+"Isso pode resultar em espaço inacessível se feito sem desanexar.\n"
+"Desanexar pode levar muito tempo em algumas situações."
 
 #. no note if there is no bcache cset associated or if cset is shared by more devices
 #: src/lib/y2partitioner/actions/delete_bcache.rb:86
@@ -314,6 +317,10 @@ msgid ""
 "The caching set will be also deleted.\n"
 "\n"
 msgstr ""
+"O Bcache selecionado é o único que usa seu conjunto de armazenamento em "
+"cache.\n"
+"O conjunto de armazenamento em cache também será excluído.\n"
+"\n"
 
 #. Confirmation to display when the device is part of another one(s)
 #.
@@ -695,20 +702,23 @@ msgid ""
 "define the available space of bcache. The Device will be formatted so any "
 "previous content will be wiped out."
 msgstr ""
+"%s é o dispositivo que será usado como dispositivo de apoio para bcache. Ele "
+"irá definir o espaço disponível do bcache. O dispositivo será formatado para "
+"que qualquer conteúdo anterior seja eliminado."
 
 #. value can be empty string if there is no items
 #: src/lib/y2partitioner/dialogs/bcache.rb:144
 msgid "Empty backing device is not yet supported"
-msgstr ""
+msgstr "O dispositivo de apoio vazio ainda não é suportado"
 
 #: src/lib/y2partitioner/dialogs/bcache.rb:145
 #: src/lib/y2partitioner/dialogs/bcache.rb:151
 msgid "Cannot Create Bcache"
-msgstr ""
+msgstr "Não é possível criar o Bcache"
 
 #: src/lib/y2partitioner/dialogs/bcache.rb:150
 msgid "Backing and Caching devices cannot be identical."
-msgstr ""
+msgstr "Os dispositivos Backing e Caching não podem ser idênticos."
 
 #. @macro seeAbstractWidget
 #: src/lib/y2partitioner/dialogs/bcache.rb:177
@@ -723,11 +733,15 @@ msgid ""
 "required. The device will be formatted so any previous content will be wiped "
 "out."
 msgstr ""
+"%s é o dispositivo que será usado como dispositivo de cache para bcache.Ele "
+"deve ser mais rápido e geralmente é menor do que o dispositivo de apoio, mas "
+"não é necessário. O dispositivo será formatado para que qualquer conteúdo "
+"anterior seja eliminado."
 
 #. @macro seeAbstractWidget
 #: src/lib/y2partitioner/dialogs/bcache.rb:233
 msgid "Cache Mode"
-msgstr ""
+msgstr "Modo de Cache"
 
 #. TRANSLATORS: %s stands for name of option
 #: src/lib/y2partitioner/dialogs/bcache.rb:248
@@ -744,6 +758,19 @@ msgid ""
 "otherwise that would result in intensive overwriting on the cache device.</"
 "li>"
 msgstr ""
+"%s é o modo de operação do bcache. Atualmente, existem quatro modos "
+"suportados.<ul> <li><i>Writethrough</i> as operações de leitura são "
+"armazenadas em cache, a gravação é feita em paralelo aos dois dispositivos. "
+"Nenhum dado é perdido em caso de falha do dispositivo de armazenamento em "
+"cache. Este é o modo padrão.</li><li><i>Writeback</i> as operações de "
+"leitura e gravação são armazenadas em cache. Isso resulta em melhor "
+"desempenho ao escrever.</li><li><i>Writearound</i> a leitura é armazenada em "
+"cache, o novo conteúdo é gravado apenas no dispositivo de "
+"apoio.</li><li><i>None</i> significa que o cache não é usado para leitura "
+"nem para gravação. Isso é útil principalmente para desabilitar "
+"temporariamente o cache antes de qualquer leitura ou gravação sequencial "
+"grande, caso contrário isso resultaria em sobrescrever intensamente o "
+"dispositivo de cache.</li>"
 
 #. TRANSLATORS: dialog title, where %{name} is the name of a partition
 #. (e.g. /dev/sda1) or LVM logical volume (e.g. /dev/system/home)
@@ -3849,6 +3876,10 @@ msgid ""
 "Otherwise your system might not boot properly or might face problems in the "
 "future."
 msgstr ""
+"O AutoYaST não pode adicionar uma partição de inicialização do BIOS ao "
+"sistema descrito. É altamente recomendável usar essa partição para "
+"inicializar a partir de dispositivos GPT. Caso contrário, seu sistema poderá "
+"não inicializar corretamente ou poderá enfrentar problemas no futuro."
 
 #: src/lib/y2storage/autoinst_issues/could_not_create_boot.rb:61
 msgid ""
@@ -3954,6 +3985,8 @@ msgid ""
 "No suitable device was found, none of the remaining devices can contain a "
 "partition table (%s requested)."
 msgstr ""
+"Nenhum dispositivo adequado foi encontrado, nenhum dos dispositivos "
+"restantes pode conter uma tabela de partição (%s solicitada)."
 
 #. Return the error message to be displayed
 #.
@@ -3998,6 +4031,8 @@ msgid ""
 "The drive contains several partition sections, but only the first will be "
 "considered."
 msgstr ""
+"A unidade contém várias seções de partição, mas apenas a primeira será "
+"considerada."
 
 #. TRANSLATORS: LVM thin pool name (eg. 'pool0')
 #: src/lib/y2storage/autoinst_issues/thin_pool_not_found.rb:50
@@ -4043,10 +4078,8 @@ msgstr ""
 
 #. TRANSLATORS: error message
 #: src/lib/y2storage/boot_requirements_strategies/legacy.rb:229
-#, fuzzy
-#| msgid "List disks and partitions"
 msgid "Boot disk has no partition table."
-msgstr "Listar discos e partições"
+msgstr "O disco de inicialização não possui tabela de partições."
 
 #. TRANSLATORS: error message; %s is a human readable disk size like 256 KiB
 #: src/lib/y2storage/boot_requirements_strategies/legacy.rb:241
@@ -4054,11 +4087,13 @@ msgid ""
 "Not enough space before the first partition to install the bootloader. Leave "
 "at least %s."
 msgstr ""
+"Não há espaço suficiente antes da primeira partição para instalar o "
+"bootloader. Deixe pelo menos %s."
 
 #. TRANSLATORS: %s is a partition type, e.g. "BIOS Boot"
 #: src/lib/y2storage/boot_requirements_strategies/legacy.rb:256
 msgid "A partition of type %s is needed to install the bootloader."
-msgstr ""
+msgstr "Uma partição do tipo %s é necessário para instalar o bootloader."
 
 #. Specific warning when the current setup is not supported
 #.
@@ -4068,13 +4103,15 @@ msgid ""
 "Such a setup is not supported and may cause problems with the bootloader now "
 "or in the future."
 msgstr ""
+"Tal configuração não é suportada e pode causar problemas com o bootloader "
+"agora ou no futuro."
 
 #. Specific error when we are quite sure the current setup will not work
 #.
 #. @return [SetupError]
 #: src/lib/y2storage/boot_requirements_strategies/legacy.rb:277
 msgid "It will not be possible to install the bootloader."
-msgstr ""
+msgstr "Não será possível instalar o bootloader."
 
 #. TRANSLATORS: %s is single or list of partitions that are too big.
 #: src/lib/y2storage/boot_requirements_strategies/prep.rb:84
@@ -4095,35 +4132,24 @@ msgstr ""
 #. Missing EFI does not need to be a fatal (e.g. when boot from network).
 #. User just has to not select grub2-efi bootloader.
 #: src/lib/y2storage/boot_requirements_strategies/uefi.rb:70
-#, fuzzy
-#| msgid "An extended partition cannot be edited"
 msgid "EFI System Partition cannot be encrypted."
-msgstr "Uma partição estendida não pode ser editada"
+msgstr "A partição do sistema EFI não pode ser criptografada."
 
 #: src/lib/y2storage/boot_requirements_strategies/uefi.rb:75
-#, fuzzy
-#| msgid "EFI System Partition"
 msgid "EFI System Partition cannot be on LVM."
-msgstr "Partição de sistema EFI"
+msgstr "A partição do sistema EFI não pode estar no LVM."
 
 #: src/lib/y2storage/boot_requirements_strategies/uefi.rb:82
-#, fuzzy
-#| msgid ""
-#| "/boot/efi is in a software RAID. That setup is not guaranteed \n"
-#| "to boot in all cases. Proceed only if you know the implications."
 msgid ""
 "EFI System Partition is on a software RAID1. That setup is not guaranteed to "
 "boot in all cases."
 msgstr ""
-"/boot/efi está em RAID de software. Esta configuração não é\n"
-"garantida que inicie em todos os casos. Proceda apenas se\n"
-"souber as implicações."
+"A partição do sistema EFI está em um software RAID1. Essa configuração não é "
+"garantida para inicializar em todos os casos."
 
 #: src/lib/y2storage/boot_requirements_strategies/uefi.rb:87
-#, fuzzy
-#| msgid "An extended partition cannot be moved."
 msgid "EFI System Partition cannot be on software RAID."
-msgstr "Uma partição estendida não pode ser movida."
+msgstr "A partição do sistema EFI não pode estar no software RAID."
 
 #. TRANSLATORS: error message
 #: src/lib/y2storage/boot_requirements_strategies/zipl.rb:109
@@ -4137,7 +4163,7 @@ msgstr ""
 #. TRANSLATORS: operation mode for cache. If you are not sure how to translate keep it as it is.
 #: src/lib/y2storage/cache_mode.rb:37
 msgid "Writethrough"
-msgstr ""
+msgstr "Escrito"
 
 #. TRANSLATORS: operation mode for cache. If you are not sure how to translate keep it as it is.
 #: src/lib/y2storage/cache_mode.rb:39
@@ -4147,12 +4173,12 @@ msgstr "Escreva de volta"
 #. TRANSLATORS: operation mode for cache. If you are not sure how to translate keep it as it is.
 #: src/lib/y2storage/cache_mode.rb:41
 msgid "Writearound"
-msgstr ""
+msgstr "Escreva ao redor"
 
 #. TRANSLATORS: operation mode for cache. If you are not sure how to translate keep it as it is.
 #: src/lib/y2storage/cache_mode.rb:43
 msgid "None"
-msgstr ""
+msgstr "Nenhum"
 
 #. Decides whether multipath should be activated
 #.
