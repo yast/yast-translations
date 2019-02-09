@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: storage.nl\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-02-07 02:29+0000\n"
+"POT-Creation-Date: 2019-02-09 02:30+0000\n"
 "PO-Revision-Date: 2019-01-28 01:08+0000\n"
 "Last-Translator: Freek de Kruijf <freek@opensuse.org>\n"
 "Language-Team: Dutch <https://l10n.opensuse.org/projects/yast-storage/master/"
@@ -22,6 +22,14 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 3.3\n"
+
+#. TRANSLATORS: Error message.
+#: src/lib/y2partitioner/actions/add_bcache.rb:83
+#, fuzzy
+#| msgid "There are not enough suitable unused devices to create a RAID."
+msgid "There are not enough suitable unused devices to create a Bcache."
+msgstr ""
+"Er zijn niet genoeg geschikte ongebruikte apparaten om een RAID aan te maken."
 
 #. TRANSLATORS: %s is a volume group name (e.g. "system")
 #: src/lib/y2partitioner/actions/add_lvm_lv.rb:114
@@ -683,77 +691,102 @@ msgstr ""
 "Er wordt niets geschreven omdat vastleggen (commit) niet is toegestaan."
 
 #. @macro seeDialog
-#: src/lib/y2partitioner/dialogs/bcache.rb:49
+#: src/lib/y2partitioner/dialogs/bcache.rb:51
 msgid "Bcache Device"
 msgstr "Bcache-apparaat"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/dialogs/bcache.rb:105
+#: src/lib/y2partitioner/dialogs/bcache.rb:194
 msgid "Backing Device"
 msgstr "Backing-apparaat"
 
-#. TRANSLATORS: %s stands for name of option
-#: src/lib/y2partitioner/dialogs/bcache.rb:119
+#. TRANSLATORS: %{label} is replaced by the label of the option to select a backing device.
+#: src/lib/y2partitioner/dialogs/bcache.rb:206
+#, fuzzy
+#| msgid ""
+#| "%s is the device that will be used as backing device for bcache.It will "
+#| "define the available space of bcache. The Device will be formatted so any "
+#| "previous content will be wiped out."
 msgid ""
-"%s is the device that will be used as backing device for bcache.It will "
-"define the available space of bcache. The Device will be formatted so any "
-"previous content will be wiped out."
+"<p><b>%{label}</b> is the device that will be used as backing device for "
+"bcache.It will define the size of the resulting bcache device. The device "
+"will be formatted so any previous content will be wiped out.</p>"
 msgstr ""
 "%s is het apparaat dat gebruikt zal worden als backing-apparaat voor bcache. "
 "Het zal de beschikbare ruimte van bcache definiëren. Het apparaat zal "
 "geformatteerd worden, dus alle vorige inhoud zal gewist worden."
 
-#. value can be empty string if there is no items
-#: src/lib/y2partitioner/dialogs/bcache.rb:146
-msgid "Empty backing device is not yet supported"
-msgstr "Een leeg backing-apparaat wordt nog niet ondersteund"
-
-#: src/lib/y2partitioner/dialogs/bcache.rb:147
-#: src/lib/y2partitioner/dialogs/bcache.rb:153
-msgid "Cannot Create Bcache"
-msgstr "Bcache aanmaken lukt niet"
-
-#: src/lib/y2partitioner/dialogs/bcache.rb:152
+#. Value can be an empty string if there is no items
+#: src/lib/y2partitioner/dialogs/bcache.rb:233
 msgid "Backing and Caching devices cannot be identical."
 msgstr "Apparaten voor backing en caching kunnen niet identiek zijn."
 
+#: src/lib/y2partitioner/dialogs/bcache.rb:234
+msgid "Cannot Create Bcache"
+msgstr "Bcache aanmaken lukt niet"
+
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/dialogs/bcache.rb:179
+#: src/lib/y2partitioner/dialogs/bcache.rb:255
 msgid "Caching Device"
 msgstr "Caching-apparaat"
 
-#. TRANSLATORS: %s stands for name of option
-#: src/lib/y2partitioner/dialogs/bcache.rb:198
+#. TRANSLATORS: %{label} is replaced by the label of the option to select a caching device.
+#: src/lib/y2partitioner/dialogs/bcache.rb:269
+#, fuzzy
+#| msgid ""
+#| "%s is the device that will be used as caching device for bcache.It should "
+#| "be faster and usually is smaller than the backing device, but it is not "
+#| "required. The device will be formatted so any previous content will be "
+#| "wiped out."
 msgid ""
-"%s is the device that will be used as caching device for bcache.It should be "
-"faster and usually is smaller than the backing device, but it is not "
-"required. The device will be formatted so any previous content will be wiped "
-"out."
+"<p><b>%{label}</b> is the device that will be used as caching device for "
+"bcache.It should be faster and usually is smaller than the backing device, "
+"but that is not strictly required. The device will be formatted so any "
+"previous content will be wiped out.</p><p>If you are thinking about using "
+"bcache later, it is recommended to setup your slow devices as bcache backing "
+"devices without a cache. You can add a caching device later.</p>"
 msgstr ""
 "%s is het apparaat dat gebruikt zal worden als caching-apparaat voor bcache. "
 "Het zou sneller moeten zijn en gewoonlijk kleiner dan het backing-apparaat, "
 "maar dat is niet vereist. Het apparaat zal geformatteerd worden, dus elke "
 "vorige inhoud zal gewist worden."
 
+#: src/lib/y2partitioner/dialogs/bcache.rb:287
+msgid "Without caching"
+msgstr ""
+
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/dialogs/bcache.rb:235
+#: src/lib/y2partitioner/dialogs/bcache.rb:317
 msgid "Cache Mode"
 msgstr "Cache-modus"
 
-#. TRANSLATORS: %s stands for name of option
-#: src/lib/y2partitioner/dialogs/bcache.rb:250
+#. TRANSLATORS: %{label} is replaced by the label of the option to select a cache mode.
+#: src/lib/y2partitioner/dialogs/bcache.rb:333
+#, fuzzy
+#| msgid ""
+#| "%s is the operating mode for bcache. There are currently four supported "
+#| "modes.<ul> <li><i>Writethrough</i> reading operations are cached, writing "
+#| "is done in parallel to both devices. No data is lost in case of failure "
+#| "of the caching device. This is the default mode.</li><li><i>Writeback</i> "
+#| "both reading and writing operations are cached. This result in better "
+#| "performance when writing.</li><li><i>Writearound</i> reading is cached, "
+#| "new content is written only to the backing device.</li><li><i>None</i> "
+#| "means cache is neither used for reading nor for writing. This is useful "
+#| "mainly for temporarily disabling the cache before any big sequential read "
+#| "or write, otherwise that would result in intensive overwriting on the "
+#| "cache device.</li>"
 msgid ""
-"%s is the operating mode for bcache. There are currently four supported "
-"modes.<ul> <li><i>Writethrough</i> reading operations are cached, writing is "
-"done in parallel to both devices. No data is lost in case of failure of the "
-"caching device. This is the default mode.</li><li><i>Writeback</i> both "
-"reading and writing operations are cached. This result in better performance "
-"when writing.</li><li><i>Writearound</i> reading is cached, new content is "
-"written only to the backing device.</li><li><i>None</i> means cache is "
-"neither used for reading nor for writing. This is useful mainly for "
-"temporarily disabling the cache before any big sequential read or write, "
-"otherwise that would result in intensive overwriting on the cache device.</"
-"li>"
+"<p><b>%{label}</b> is the operating mode for bcache. There are currently "
+"four supported modes.<ul> <li><i>Writethrough</i> reading operations are "
+"cached, writing is done in parallel to both devices. No data is lost in case "
+"of failure of the caching device. This is the default mode.</"
+"li><li><i>Writeback</i> both reading and writing operations are cached. This "
+"result in better performance when writing.</li><li><i>Writearound</i> "
+"reading is cached, new content is written only to the backing device.</"
+"li><li><i>None</i> means cache is neither used for reading nor for writing. "
+"This is useful mainly for temporarily disabling the cache before any big "
+"sequential read or write, otherwise that would result in intensive "
+"overwriting on the cache device.</li></p>"
 msgstr ""
 "%s is de werkmodus voor bcache. Er zijn nu vier ondersteunde modi.<ul> "
 "<li><i>Writethrough</i> leesbewerkingen worden in de cache gezet, schrijven "
@@ -5172,6 +5205,9 @@ msgstr "Het LVM logische volume heeft al de maximale grootte."
 #: src/lib/y2storage/resize_info.rb:109
 msgid "Unknown reason"
 msgstr "Onbekende reden"
+
+#~ msgid "Empty backing device is not yet supported"
+#~ msgstr "Een leeg backing-apparaat wordt nog niet ondersteund"
 
 #~ msgid ""
 #~ "There is no partition of type BIOS Boot. For GPT devices it is strongly "

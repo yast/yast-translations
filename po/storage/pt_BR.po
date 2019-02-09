@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: storage\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-02-07 02:29+0000\n"
+"POT-Creation-Date: 2019-02-09 02:30+0000\n"
 "PO-Revision-Date: 2019-01-28 01:08+0000\n"
 "Last-Translator: Rodrigo Macedo <rmsolucoeseminformatic4@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) <https://l10n.opensuse.org/projects/yast-"
@@ -26,6 +26,13 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
 "X-Generator: Weblate 3.3\n"
+
+#. TRANSLATORS: Error message.
+#: src/lib/y2partitioner/actions/add_bcache.rb:83
+#, fuzzy
+#| msgid "There are not enough suitable unused devices to create a RAID."
+msgid "There are not enough suitable unused devices to create a Bcache."
+msgstr "Não existem dispositivos não usados apropriados para criar um RAID."
 
 #. TRANSLATORS: %s is a volume group name (e.g. "system")
 #: src/lib/y2partitioner/actions/add_lvm_lv.rb:114
@@ -686,77 +693,102 @@ msgid "Nothing gets written because commit is not allowed."
 msgstr "Nada é gravado, pois a confirmação não é permitida."
 
 #. @macro seeDialog
-#: src/lib/y2partitioner/dialogs/bcache.rb:49
+#: src/lib/y2partitioner/dialogs/bcache.rb:51
 msgid "Bcache Device"
 msgstr "Dispositivo Bcache"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/dialogs/bcache.rb:105
+#: src/lib/y2partitioner/dialogs/bcache.rb:194
 msgid "Backing Device"
 msgstr "Dispositivo de apoio"
 
-#. TRANSLATORS: %s stands for name of option
-#: src/lib/y2partitioner/dialogs/bcache.rb:119
+#. TRANSLATORS: %{label} is replaced by the label of the option to select a backing device.
+#: src/lib/y2partitioner/dialogs/bcache.rb:206
+#, fuzzy
+#| msgid ""
+#| "%s is the device that will be used as backing device for bcache.It will "
+#| "define the available space of bcache. The Device will be formatted so any "
+#| "previous content will be wiped out."
 msgid ""
-"%s is the device that will be used as backing device for bcache.It will "
-"define the available space of bcache. The Device will be formatted so any "
-"previous content will be wiped out."
+"<p><b>%{label}</b> is the device that will be used as backing device for "
+"bcache.It will define the size of the resulting bcache device. The device "
+"will be formatted so any previous content will be wiped out.</p>"
 msgstr ""
 "%s é o dispositivo que será usado como dispositivo de apoio para bcache. Ele "
 "irá definir o espaço disponível do bcache. O dispositivo será formatado para "
 "que qualquer conteúdo anterior seja eliminado."
 
-#. value can be empty string if there is no items
-#: src/lib/y2partitioner/dialogs/bcache.rb:146
-msgid "Empty backing device is not yet supported"
-msgstr "O dispositivo de apoio vazio ainda não é suportado"
-
-#: src/lib/y2partitioner/dialogs/bcache.rb:147
-#: src/lib/y2partitioner/dialogs/bcache.rb:153
-msgid "Cannot Create Bcache"
-msgstr "Não é possível criar o Bcache"
-
-#: src/lib/y2partitioner/dialogs/bcache.rb:152
+#. Value can be an empty string if there is no items
+#: src/lib/y2partitioner/dialogs/bcache.rb:233
 msgid "Backing and Caching devices cannot be identical."
 msgstr "Os dispositivos Backing e Caching não podem ser idênticos."
 
+#: src/lib/y2partitioner/dialogs/bcache.rb:234
+msgid "Cannot Create Bcache"
+msgstr "Não é possível criar o Bcache"
+
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/dialogs/bcache.rb:179
+#: src/lib/y2partitioner/dialogs/bcache.rb:255
 msgid "Caching Device"
 msgstr "Dispositivo de Cache"
 
-#. TRANSLATORS: %s stands for name of option
-#: src/lib/y2partitioner/dialogs/bcache.rb:198
+#. TRANSLATORS: %{label} is replaced by the label of the option to select a caching device.
+#: src/lib/y2partitioner/dialogs/bcache.rb:269
+#, fuzzy
+#| msgid ""
+#| "%s is the device that will be used as caching device for bcache.It should "
+#| "be faster and usually is smaller than the backing device, but it is not "
+#| "required. The device will be formatted so any previous content will be "
+#| "wiped out."
 msgid ""
-"%s is the device that will be used as caching device for bcache.It should be "
-"faster and usually is smaller than the backing device, but it is not "
-"required. The device will be formatted so any previous content will be wiped "
-"out."
+"<p><b>%{label}</b> is the device that will be used as caching device for "
+"bcache.It should be faster and usually is smaller than the backing device, "
+"but that is not strictly required. The device will be formatted so any "
+"previous content will be wiped out.</p><p>If you are thinking about using "
+"bcache later, it is recommended to setup your slow devices as bcache backing "
+"devices without a cache. You can add a caching device later.</p>"
 msgstr ""
 "%s é o dispositivo que será usado como dispositivo de cache para bcache.Ele "
 "deve ser mais rápido e geralmente é menor do que o dispositivo de apoio, mas "
 "não é necessário. O dispositivo será formatado para que qualquer conteúdo "
 "anterior seja eliminado."
 
+#: src/lib/y2partitioner/dialogs/bcache.rb:287
+msgid "Without caching"
+msgstr ""
+
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/dialogs/bcache.rb:235
+#: src/lib/y2partitioner/dialogs/bcache.rb:317
 msgid "Cache Mode"
 msgstr "Modo de Cache"
 
-#. TRANSLATORS: %s stands for name of option
-#: src/lib/y2partitioner/dialogs/bcache.rb:250
+#. TRANSLATORS: %{label} is replaced by the label of the option to select a cache mode.
+#: src/lib/y2partitioner/dialogs/bcache.rb:333
+#, fuzzy
+#| msgid ""
+#| "%s is the operating mode for bcache. There are currently four supported "
+#| "modes.<ul> <li><i>Writethrough</i> reading operations are cached, writing "
+#| "is done in parallel to both devices. No data is lost in case of failure "
+#| "of the caching device. This is the default mode.</li><li><i>Writeback</i> "
+#| "both reading and writing operations are cached. This result in better "
+#| "performance when writing.</li><li><i>Writearound</i> reading is cached, "
+#| "new content is written only to the backing device.</li><li><i>None</i> "
+#| "means cache is neither used for reading nor for writing. This is useful "
+#| "mainly for temporarily disabling the cache before any big sequential read "
+#| "or write, otherwise that would result in intensive overwriting on the "
+#| "cache device.</li>"
 msgid ""
-"%s is the operating mode for bcache. There are currently four supported "
-"modes.<ul> <li><i>Writethrough</i> reading operations are cached, writing is "
-"done in parallel to both devices. No data is lost in case of failure of the "
-"caching device. This is the default mode.</li><li><i>Writeback</i> both "
-"reading and writing operations are cached. This result in better performance "
-"when writing.</li><li><i>Writearound</i> reading is cached, new content is "
-"written only to the backing device.</li><li><i>None</i> means cache is "
-"neither used for reading nor for writing. This is useful mainly for "
-"temporarily disabling the cache before any big sequential read or write, "
-"otherwise that would result in intensive overwriting on the cache device.</"
-"li>"
+"<p><b>%{label}</b> is the operating mode for bcache. There are currently "
+"four supported modes.<ul> <li><i>Writethrough</i> reading operations are "
+"cached, writing is done in parallel to both devices. No data is lost in case "
+"of failure of the caching device. This is the default mode.</"
+"li><li><i>Writeback</i> both reading and writing operations are cached. This "
+"result in better performance when writing.</li><li><i>Writearound</i> "
+"reading is cached, new content is written only to the backing device.</"
+"li><li><i>None</i> means cache is neither used for reading nor for writing. "
+"This is useful mainly for temporarily disabling the cache before any big "
+"sequential read or write, otherwise that would result in intensive "
+"overwriting on the cache device.</li></p>"
 msgstr ""
 "%s é o modo de operação do bcache. Atualmente, existem quatro modos "
 "suportados.<ul> <li><i>Writethrough</i> as operações de leitura são "
@@ -5141,6 +5173,9 @@ msgstr "O volume lógico LVM dinâmico já tem o tamanho máximo."
 #: src/lib/y2storage/resize_info.rb:109
 msgid "Unknown reason"
 msgstr "Motivo desconhecido"
+
+#~ msgid "Empty backing device is not yet supported"
+#~ msgstr "O dispositivo de apoio vazio ainda não é suportado"
 
 #~ msgid ""
 #~ "Boot disk has no partition table and it is not possible to boot from it."

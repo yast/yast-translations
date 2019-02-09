@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: storage\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-02-07 02:29+0000\n"
+"POT-Creation-Date: 2019-02-09 02:30+0000\n"
 "PO-Revision-Date: 2019-01-28 01:08+0000\n"
 "Last-Translator: scootergrisen <scootergrisen@gmail.com>\n"
 "Language-Team: Danish <https://l10n.opensuse.org/projects/yast-storage/"
@@ -27,6 +27,13 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 3.3\n"
+
+#. TRANSLATORS: Error message.
+#: src/lib/y2partitioner/actions/add_bcache.rb:83
+#, fuzzy
+#| msgid "There are not enough suitable unused devices to create a RAID."
+msgid "There are not enough suitable unused devices to create a Bcache."
+msgstr "Der er ikke nok egnede ubrugte enheder til at oprette et RAID."
 
 #. TRANSLATORS: %s is a volume group name (e.g. "system")
 #: src/lib/y2partitioner/actions/add_lvm_lv.rb:114
@@ -680,76 +687,101 @@ msgid "Nothing gets written because commit is not allowed."
 msgstr "Intet bliver skrevet da gennemførelse ikke er tilladt."
 
 #. @macro seeDialog
-#: src/lib/y2partitioner/dialogs/bcache.rb:49
+#: src/lib/y2partitioner/dialogs/bcache.rb:51
 msgid "Bcache Device"
 msgstr "Omellemlager-enhed"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/dialogs/bcache.rb:105
+#: src/lib/y2partitioner/dialogs/bcache.rb:194
 msgid "Backing Device"
 msgstr "Opbakningsenhed"
 
-#. TRANSLATORS: %s stands for name of option
-#: src/lib/y2partitioner/dialogs/bcache.rb:119
+#. TRANSLATORS: %{label} is replaced by the label of the option to select a backing device.
+#: src/lib/y2partitioner/dialogs/bcache.rb:206
+#, fuzzy
+#| msgid ""
+#| "%s is the device that will be used as backing device for bcache.It will "
+#| "define the available space of bcache. The Device will be formatted so any "
+#| "previous content will be wiped out."
 msgid ""
-"%s is the device that will be used as backing device for bcache.It will "
-"define the available space of bcache. The Device will be formatted so any "
-"previous content will be wiped out."
+"<p><b>%{label}</b> is the device that will be used as backing device for "
+"bcache.It will define the size of the resulting bcache device. The device "
+"will be formatted so any previous content will be wiped out.</p>"
 msgstr ""
 "%s er enheden der vil blive brugt som opbakningsenhed til omellemlager. Den "
 "definerer den tilgængelige plads af omellemlager. Enheden formateres så "
 "tidligere indhold vil blive ryddet."
 
-#. value can be empty string if there is no items
-#: src/lib/y2partitioner/dialogs/bcache.rb:146
-msgid "Empty backing device is not yet supported"
-msgstr "Tom opbakningsenhed understøttes endnu ikke"
-
-#: src/lib/y2partitioner/dialogs/bcache.rb:147
-#: src/lib/y2partitioner/dialogs/bcache.rb:153
-msgid "Cannot Create Bcache"
-msgstr "Kan ikke oprette omellemlager"
-
-#: src/lib/y2partitioner/dialogs/bcache.rb:152
+#. Value can be an empty string if there is no items
+#: src/lib/y2partitioner/dialogs/bcache.rb:233
 msgid "Backing and Caching devices cannot be identical."
 msgstr "Opbaknings- og mellemlagringsenheder må ikke være identiske."
 
+#: src/lib/y2partitioner/dialogs/bcache.rb:234
+msgid "Cannot Create Bcache"
+msgstr "Kan ikke oprette omellemlager"
+
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/dialogs/bcache.rb:179
+#: src/lib/y2partitioner/dialogs/bcache.rb:255
 msgid "Caching Device"
 msgstr "Cachingenhed"
 
-#. TRANSLATORS: %s stands for name of option
-#: src/lib/y2partitioner/dialogs/bcache.rb:198
+#. TRANSLATORS: %{label} is replaced by the label of the option to select a caching device.
+#: src/lib/y2partitioner/dialogs/bcache.rb:269
+#, fuzzy
+#| msgid ""
+#| "%s is the device that will be used as caching device for bcache.It should "
+#| "be faster and usually is smaller than the backing device, but it is not "
+#| "required. The device will be formatted so any previous content will be "
+#| "wiped out."
 msgid ""
-"%s is the device that will be used as caching device for bcache.It should be "
-"faster and usually is smaller than the backing device, but it is not "
-"required. The device will be formatted so any previous content will be wiped "
-"out."
+"<p><b>%{label}</b> is the device that will be used as caching device for "
+"bcache.It should be faster and usually is smaller than the backing device, "
+"but that is not strictly required. The device will be formatted so any "
+"previous content will be wiped out.</p><p>If you are thinking about using "
+"bcache later, it is recommended to setup your slow devices as bcache backing "
+"devices without a cache. You can add a caching device later.</p>"
 msgstr ""
 "%s er enheden der vil blive brugt som mellemlagring til omellemlager. Den "
 "bør være hurtigere og vil typisk være mindre end opbakningsenheden, men den "
 "kræves ikke. Enheden formateres så tidligere indhold vil blive ryddet."
 
+#: src/lib/y2partitioner/dialogs/bcache.rb:287
+msgid "Without caching"
+msgstr ""
+
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/dialogs/bcache.rb:235
+#: src/lib/y2partitioner/dialogs/bcache.rb:317
 msgid "Cache Mode"
 msgstr "Mellemlagertilstand"
 
-#. TRANSLATORS: %s stands for name of option
-#: src/lib/y2partitioner/dialogs/bcache.rb:250
+#. TRANSLATORS: %{label} is replaced by the label of the option to select a cache mode.
+#: src/lib/y2partitioner/dialogs/bcache.rb:333
+#, fuzzy
+#| msgid ""
+#| "%s is the operating mode for bcache. There are currently four supported "
+#| "modes.<ul> <li><i>Writethrough</i> reading operations are cached, writing "
+#| "is done in parallel to both devices. No data is lost in case of failure "
+#| "of the caching device. This is the default mode.</li><li><i>Writeback</i> "
+#| "both reading and writing operations are cached. This result in better "
+#| "performance when writing.</li><li><i>Writearound</i> reading is cached, "
+#| "new content is written only to the backing device.</li><li><i>None</i> "
+#| "means cache is neither used for reading nor for writing. This is useful "
+#| "mainly for temporarily disabling the cache before any big sequential read "
+#| "or write, otherwise that would result in intensive overwriting on the "
+#| "cache device.</li>"
 msgid ""
-"%s is the operating mode for bcache. There are currently four supported "
-"modes.<ul> <li><i>Writethrough</i> reading operations are cached, writing is "
-"done in parallel to both devices. No data is lost in case of failure of the "
-"caching device. This is the default mode.</li><li><i>Writeback</i> both "
-"reading and writing operations are cached. This result in better performance "
-"when writing.</li><li><i>Writearound</i> reading is cached, new content is "
-"written only to the backing device.</li><li><i>None</i> means cache is "
-"neither used for reading nor for writing. This is useful mainly for "
-"temporarily disabling the cache before any big sequential read or write, "
-"otherwise that would result in intensive overwriting on the cache device.</"
-"li>"
+"<p><b>%{label}</b> is the operating mode for bcache. There are currently "
+"four supported modes.<ul> <li><i>Writethrough</i> reading operations are "
+"cached, writing is done in parallel to both devices. No data is lost in case "
+"of failure of the caching device. This is the default mode.</"
+"li><li><i>Writeback</i> both reading and writing operations are cached. This "
+"result in better performance when writing.</li><li><i>Writearound</i> "
+"reading is cached, new content is written only to the backing device.</"
+"li><li><i>None</i> means cache is neither used for reading nor for writing. "
+"This is useful mainly for temporarily disabling the cache before any big "
+"sequential read or write, otherwise that would result in intensive "
+"overwriting on the cache device.</li></p>"
 msgstr ""
 "%s er handlingstilstanden for omellemlager. Der er på nuværende tidspunkt "
 "fire understøttede tilstande.<ul> <li><i>Writethrough</i> læsehandlinger "
@@ -5119,6 +5151,9 @@ msgstr ""
 #: src/lib/y2storage/resize_info.rb:109
 msgid "Unknown reason"
 msgstr "Ukendt årsag"
+
+#~ msgid "Empty backing device is not yet supported"
+#~ msgstr "Tom opbakningsenhed understøttes endnu ikke"
 
 #~ msgid ""
 #~ "There is no partition of type BIOS Boot. For GPT devices it is strongly "
