@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: storage-ng.ko\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-02-15 02:29+0000\n"
+"POT-Creation-Date: 2019-02-20 02:29+0000\n"
 "PO-Revision-Date: 2019-01-31 14:23+0000\n"
 "Last-Translator: Hwajin Kim <hwajin.kim@e4net.net>\n"
 "Language-Team: Korean <https://l10n.opensuse.org/projects/yast-storage/"
@@ -20,7 +20,7 @@ msgstr ""
 "X-Poedit-SourceCharset: utf-8\n"
 
 #. TRANSLATORS: Error message.
-#: src/lib/y2partitioner/actions/add_bcache.rb:83
+#: src/lib/y2partitioner/actions/add_bcache.rb:61
 #, fuzzy
 #| msgid "There are not enough suitable unused devices to create a RAID."
 msgid "There are not enough suitable unused devices to create a Bcache."
@@ -305,19 +305,33 @@ msgstr ""
 "\n"
 "%s에서 새 파티션 테이블을 생성하시겠습니까?"
 
-#. TRANSLATORS: Error when trying to modify an existing bcache that shares caches.
-#: src/lib/y2partitioner/actions/delete_bcache.rb:56
+#. TRANSLATORS: error message, %{name} is replaced by a bcache name (e.g., /dev/bcache0)
+#: src/lib/y2partitioner/actions/delete_bcache.rb:61
 msgid ""
-"The bcache shares its cache set with other devices.\n"
-"This can result in unreachable space if done without detaching.\n"
-"Detaching can take a very long time in some situations."
+"The device %{name} is a Flash-only Bcache. Deleting this kind of devices\n"
+"is not supported yet."
+msgstr ""
+
+#. TRANSLATORS: Error message when detach is not a safe action
+#: src/lib/y2partitioner/actions/delete_bcache.rb:76
+#, fuzzy
+#| msgid ""
+#| "The bcache shares its cache set with other devices.\n"
+#| "This can result in unreachable space if done without detaching.\n"
+#| "Detaching can take a very long time in some situations."
+msgid ""
+"The bcache cannot be deleted because it shares its cache set with other "
+"devices.\n"
+"Deleting it without detaching the device first can result in unreachable "
+"space.\n"
+"Unfortunately detaching can take a very long time in some situations."
 msgstr ""
 "bcache에서 캐시 세트를 다른 장치와 공유합니다.\n"
 "분리하지 않고 수행하면 공간에 연결할 수 없게 됩니다.\n"
 "경우에 따라 분리하는 데 시간이 매우 오래 걸릴 수 있습니다."
 
 #. no note if there is no bcache cset associated or if cset is shared by more devices
-#: src/lib/y2partitioner/actions/delete_bcache.rb:86
+#: src/lib/y2partitioner/actions/delete_bcache.rb:105
 msgid ""
 "The selected Bcache is the only one using its caching set.\n"
 "The caching set will be also deleted.\n"
@@ -332,11 +346,11 @@ msgstr ""
 #. @see #confirm
 #.
 #. @return [Boolean]
-#: src/lib/y2partitioner/actions/delete_device.rb:138
+#: src/lib/y2partitioner/actions/delete_device.rb:118
 msgid "Confirm Deleting of Devices"
 msgstr "장치 삭제 확인"
 
-#: src/lib/y2partitioner/actions/delete_device.rb:139
+#: src/lib/y2partitioner/actions/delete_device.rb:119
 msgid ""
 "The selected device is used by other devices in the system.\n"
 "To keep the system in a consistent state, the following devices\n"
@@ -351,11 +365,11 @@ msgstr ""
 #. @see #confirm
 #.
 #. @return [Boolean]
-#: src/lib/y2partitioner/actions/delete_device.rb:154
+#: src/lib/y2partitioner/actions/delete_device.rb:134
 msgid "Confirm Deleting Device with Partitions"
 msgstr "파티션이 있는 장치 삭제 확인"
 
-#: src/lib/y2partitioner/actions/delete_device.rb:155
+#: src/lib/y2partitioner/actions/delete_device.rb:135
 msgid ""
 "The selected device contains partitions.\n"
 "To keep the system in a consistent state, the following partitions\n"
@@ -366,17 +380,17 @@ msgstr ""
 "관련 장치도 삭제됩니다."
 
 #. TRANSLATORS %s is a kernel name like /dev/sda1
-#: src/lib/y2partitioner/actions/delete_device.rb:171
+#: src/lib/y2partitioner/actions/delete_device.rb:151
 msgid "Really delete %s and all the affected devices?"
 msgstr "%s과(와) 영향받는 모든 장치를 삭제하시겠습니까?"
 
 #. TRANSLATORS %s is the kernel name of the device (e.g., /dev/sda1)
-#: src/lib/y2partitioner/actions/delete_device.rb:179
+#: src/lib/y2partitioner/actions/delete_device.rb:159
 msgid "Really delete %s?"
 msgstr "%s을(를) 삭제하시겠습니까?"
 
 #. TRANSLATORS: Note added to the dialog for trying to unmount a device
-#: src/lib/y2partitioner/actions/delete_device.rb:202
+#: src/lib/y2partitioner/actions/delete_device.rb:182
 msgid "It cannot be deleted while mounted."
 msgstr "마운트된 동안에는 삭제할 수 없습니다."
 
@@ -473,6 +487,34 @@ msgstr ""
 #: src/lib/y2partitioner/actions/delete_partitions.rb:97
 msgid "The partition table does not contain partitions."
 msgstr "파티션 테이블에 파티션이 포함되어 있지 않습니다."
+
+# src/dsl/dialogs.ycp:478
+# translators: error message
+#. TRANSLATORS: error message, %{name} is replaced by a bcache name (e.g., /dev/bcache0)
+#: src/lib/y2partitioner/actions/edit_bcache.rb:66
+#, fuzzy
+#| msgid "The device is in use and cannot be modified."
+msgid ""
+"The device %{name} is a Flash-only Bcache and its caching cannot be modified."
+msgstr "장치가 사용 중이므로 수정할 수 없습니다."
+
+#. TRANSLATORS: error message, %{name} is replaced by a bcache name (e.g., /dev/bcache0)
+#: src/lib/y2partitioner/actions/edit_bcache.rb:79
+#, fuzzy
+#| msgid ""
+#| "The bcache shares its cache set with other devices.\n"
+#| "This can result in unreachable space if done without detaching.\n"
+#| "Detaching can take a very long time in some situations."
+msgid ""
+"The Bcache %{name} is already created on disk. Such device cannot be "
+"modified\n"
+"because that might imply a detaching operation. Unfortunately detaching can "
+"take\n"
+"a very long time in some situations."
+msgstr ""
+"bcache에서 캐시 세트를 다른 장치와 공유합니다.\n"
+"분리하지 않고 수행하면 공간에 연결할 수 없게 됩니다.\n"
+"경우에 따라 분리하는 데 시간이 매우 오래 걸릴 수 있습니다."
 
 #. TRANSLATORS: dialog title. %s is a device name like /dev/md0
 #: src/lib/y2partitioner/actions/edit_blk_device.rb:83
@@ -684,17 +726,17 @@ msgid "Nothing gets written because commit is not allowed."
 msgstr "커밋이 허용되지 않기 때문에 아무것도 기록되지 않습니다."
 
 #. @macro seeDialog
-#: src/lib/y2partitioner/dialogs/bcache.rb:51
+#: src/lib/y2partitioner/dialogs/bcache.rb:49
 msgid "Bcache Device"
 msgstr "Bcache 장치"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/dialogs/bcache.rb:194
+#: src/lib/y2partitioner/dialogs/bcache.rb:198
 msgid "Backing Device"
 msgstr "백업 장치"
 
 #. TRANSLATORS: %{label} is replaced by the label of the option to select a backing device.
-#: src/lib/y2partitioner/dialogs/bcache.rb:206
+#: src/lib/y2partitioner/dialogs/bcache.rb:210
 #, fuzzy
 msgid ""
 "<p><b>%{label}</b> is the device that will be used as backing device for "
@@ -705,21 +747,21 @@ msgstr ""
 "합니다. 장치가 포맷되므로 이전 컨텐츠가 모두 삭제됩니다."
 
 #. Value can be an empty string if there is no items
-#: src/lib/y2partitioner/dialogs/bcache.rb:233
+#: src/lib/y2partitioner/dialogs/bcache.rb:237
 msgid "Backing and Caching devices cannot be identical."
 msgstr "백업 및 캐싱 장치는 같지 않아야 합니다."
 
-#: src/lib/y2partitioner/dialogs/bcache.rb:234
+#: src/lib/y2partitioner/dialogs/bcache.rb:238
 msgid "Cannot Create Bcache"
 msgstr "Bcache를 생성할 수 없음"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/dialogs/bcache.rb:255
+#: src/lib/y2partitioner/dialogs/bcache.rb:259
 msgid "Caching Device"
 msgstr "캐싱 장치"
 
 #. TRANSLATORS: %{label} is replaced by the label of the option to select a caching device.
-#: src/lib/y2partitioner/dialogs/bcache.rb:269
+#: src/lib/y2partitioner/dialogs/bcache.rb:273
 #, fuzzy
 msgid ""
 "<p><b>%{label}</b> is the device that will be used as caching device for "
@@ -733,17 +775,17 @@ msgstr ""
 "장치보다 작습니다. 하지만 필수는 아닙니다. 장치가 포맷되므로 이전 컨텐츠는 모"
 "두 삭제됩니다."
 
-#: src/lib/y2partitioner/dialogs/bcache.rb:287
+#: src/lib/y2partitioner/dialogs/bcache.rb:291
 msgid "Without caching"
 msgstr ""
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/dialogs/bcache.rb:317
+#: src/lib/y2partitioner/dialogs/bcache.rb:321
 msgid "Cache Mode"
 msgstr "캐시 모드"
 
 #. TRANSLATORS: %{label} is replaced by the label of the option to select a cache mode.
-#: src/lib/y2partitioner/dialogs/bcache.rb:333
+#: src/lib/y2partitioner/dialogs/bcache.rb:337
 #, fuzzy
 msgid ""
 "<p><b>%{label}</b> is the operating mode for bcache. There are currently "
@@ -1636,6 +1678,22 @@ msgstr "RAID"
 msgid "Volume Management"
 msgstr "볼륨 관리"
 
+#. Title of the Bcache section
+#.
+#. @note See note on {.md_raids_label} about why this looks misplaced.
+#.
+#. @return [String]
+#. Table icon for the device
+#.
+#. @see DEVICE_ICONS
+#.
+#. @param device [Y2Storage::BlkDevice]
+#. @return [Yast::Term] icon
+#: src/lib/y2partitioner/ui_state.rb:64
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:251
+msgid "Bcache"
+msgstr "Bcache"
+
 #. TRANSLATORS: button label to add a new Bcache device
 #: src/lib/y2partitioner/widgets/bcache_add_button.rb:38
 msgid "Add Bcache..."
@@ -1647,21 +1705,34 @@ msgstr "Bcache 추가..."
 msgid "Bcache Devices:"
 msgstr "Bcache 장치:"
 
-#: src/lib/y2partitioner/widgets/bcache_device_description.rb:48
+#. Attributes for describing a bcache device
+#.
+#. @return [Array<String>]
+#: src/lib/y2partitioner/widgets/bcache_device_description.rb:64
 msgid "Backing Device: %s"
 msgstr "백업 장치: %s"
 
-#: src/lib/y2partitioner/widgets/bcache_device_description.rb:49
+#: src/lib/y2partitioner/widgets/bcache_device_description.rb:65
 msgid "Caching UUID: %s"
 msgstr "캐싱 UUID: %s"
 
-#: src/lib/y2partitioner/widgets/bcache_device_description.rb:50
+#: src/lib/y2partitioner/widgets/bcache_device_description.rb:66
 msgid "Caching Device: %s"
 msgstr "캐싱 장치: %s"
 
-#: src/lib/y2partitioner/widgets/bcache_device_description.rb:51
-msgid "Cache mode: %s"
+#: src/lib/y2partitioner/widgets/bcache_device_description.rb:67
+#, fuzzy
+#| msgid "Cache mode: %s"
+msgid "Cache Mode: %s"
 msgstr "캐시 모드: %s"
+
+#. TRANSLATORS: label for button to edit a bcache
+#: src/lib/y2partitioner/widgets/bcache_edit_button.rb:40
+#: src/lib/y2partitioner/widgets/bcache_modify_button.rb:56
+#, fuzzy
+#| msgid "Change..."
+msgid "Change Caching..."
+msgstr "변경..."
 
 #. @macro seeAbstractWidget
 #. @macro seeAbstractWidget
@@ -1669,7 +1740,7 @@ msgstr "캐시 모드: %s"
 #. @macro seeAbstractWidget
 #. @macro seeAbstractWidget
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/bcache_modify_button.rb:38
+#: src/lib/y2partitioner/widgets/bcache_modify_button.rb:39
 #: src/lib/y2partitioner/widgets/disk_modify_button.rb:38
 #: src/lib/y2partitioner/widgets/lvm_lv_modify_button.rb:38
 #: src/lib/y2partitioner/widgets/lvm_vg_modify_button.rb:37
@@ -1681,14 +1752,14 @@ msgstr "수정(&M)"
 #. @see DeviceMenuButton#actions
 #.
 #. @return [Array<Hash>]
-#: src/lib/y2partitioner/widgets/bcache_modify_button.rb:50
+#: src/lib/y2partitioner/widgets/bcache_modify_button.rb:51
 msgid "Edit Bcache..."
 msgstr "Bcache 편집..."
 
 #. @see DeviceMenuButton#actions
 #.
 #. @return [Array<Hash>]
-#: src/lib/y2partitioner/widgets/bcache_modify_button.rb:55
+#: src/lib/y2partitioner/widgets/bcache_modify_button.rb:61
 #: src/lib/y2partitioner/widgets/disk_modify_button.rb:55
 #: src/lib/y2partitioner/widgets/md_modify_button.rb:65
 #: src/lib/y2partitioner/widgets/partition_table_button.rb:51
@@ -1904,18 +1975,6 @@ msgstr "시작"
 #: src/lib/y2partitioner/widgets/blk_devices_table.rb:146
 msgid "End"
 msgstr "종료"
-
-#. Table icon for the device
-#.
-#. @see DEVICE_ICONS
-#.
-#. @param device [Y2Storage::BlkDevice]
-#. @return [Yast::Term] icon
-#. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/blk_devices_table.rb:251
-#: src/lib/y2partitioner/widgets/pages/bcaches.rb:46
-msgid "Bcache"
-msgstr "Bcache"
 
 # tree node string
 #: src/lib/y2partitioner/widgets/blk_devices_table.rb:252
@@ -3054,8 +3113,43 @@ msgstr ""
 msgid "<b>Vendor</b> shows the device vendor."
 msgstr "<b>제조업체</b>는 장치 제조업체를 표시합니다."
 
-#. help texts that are appended to the common help only in Mode.normal
+#: src/lib/y2partitioner/widgets/help.rb:107
+#, fuzzy
+#| msgid ""
+#| "<b>Device</b> shows the kernel name of the\n"
+#| "device."
+msgid ""
+"<b>Backing Device</b> shows the device used as backing device for bcache."
+msgstr ""
+"<b>장치</b>는 장치의 커널\n"
+"이름을 표시합니다."
+
 #: src/lib/y2partitioner/widgets/help.rb:110
+#, fuzzy
+#| msgid ""
+#| "<b>BIOS ID</b> shows the BIOS ID of the hard\n"
+#| "disk. This field can be empty."
+msgid ""
+"<b>Caching UUID</b> shows the UUID of the used caching set. This field is "
+"empty if no caching is used."
+msgstr ""
+"<b>BIOS ID</b>는 하드 디스크의 BIOS ID를 표시합니다.\n"
+"이 필드는 비워둘 수 없습니다."
+
+#: src/lib/y2partitioner/widgets/help.rb:113
+msgid ""
+"<b>Caching Device</b> shows the device used for caching. This field is empty "
+"if no caching is used."
+msgstr ""
+
+#: src/lib/y2partitioner/widgets/help.rb:116
+msgid ""
+"<b>Cache Mode</b> shows the operating mode for bcache. Currently there are "
+"four supported modes: Writethrough, Writeback, Writearound and None."
+msgstr ""
+
+#. help texts that are appended to the common help only in Mode.normal
+#: src/lib/y2partitioner/widgets/help.rb:122
 msgid ""
 "A question mark (?) indicates that\n"
 "the file system is not listed in <tt>/etc/fstab</tt>. It is either mounted\n"
@@ -3068,7 +3162,7 @@ msgstr ""
 "또는 자동 마운트 시스템에 마운트됩니다. 이 볼륨의 설정을\n"
 "변경할 때 YaST는 <tt>/etc/fstab</tt>를 업데이트하지 않습니다.\n"
 
-#: src/lib/y2partitioner/widgets/help.rb:115
+#: src/lib/y2partitioner/widgets/help.rb:127
 msgid ""
 "An asterisk (*) after the mount point\n"
 "indicates a file system that is currently not mounted (for example, because "
@@ -3569,7 +3663,7 @@ msgid "System View"
 msgstr "시스템 보기"
 
 #. TRANSLATORS: Heading. String followed a device name like /dev/bcache0
-#: src/lib/y2partitioner/widgets/pages/bcache.rb:64
+#: src/lib/y2partitioner/widgets/pages/bcache.rb:65
 msgid "Bcache: %s"
 msgstr "Bcache: %s"
 
@@ -3577,7 +3671,7 @@ msgstr "Bcache: %s"
 #. @macro seeAbstractWidget
 #. @macro seeAbstractWidget
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/pages/bcache.rb:88
+#: src/lib/y2partitioner/widgets/pages/bcache.rb:89
 #: src/lib/y2partitioner/widgets/pages/disk.rb:130
 #: src/lib/y2partitioner/widgets/pages/lvm_vg.rb:95
 #: src/lib/y2partitioner/widgets/pages/md_raid.rb:96
@@ -4523,15 +4617,27 @@ msgstr "하드 디스크 선택"
 msgid "Select one or more (max %d) hard disks"
 msgstr "하드 디스크를 하나 이상(최대 %d개) 선택"
 
+#. TRANSLATORS: Help text for guided storage setup
+#: src/lib/y2storage/dialogs/guided_setup/select_disks.rb:80
+msgid ""
+"<p>Select the disks to install on.</p><p>In later dialogs, you can select "
+"which of those disks will be used for the root filesystem and what to do "
+"with any existing Linux, Windows or other partitions (keep, remove, "
+"sometimes resize).</p><p>How many of the disks you select here will actually "
+"be used depends on the exact scenario you choose (LVM, with or without "
+"separate home partition etc.).</p><p>Disks that are not selected here remain "
+"completely untouched.</p>"
+msgstr ""
+
 # src/dsl/dialogs.ycp:324 src/services/dns.ycp:160
 # popup error message
-#: src/lib/y2storage/dialogs/guided_setup/select_disks.rb:86
+#: src/lib/y2storage/dialogs/guided_setup/select_disks.rb:106
 msgid "At least one disk must be selected"
 msgstr "하나 이상의 하드 디스크를 선택해야 합니다."
 
 # src/dsl/dialogs.ycp:324 src/services/dns.ycp:160
 # popup error message
-#: src/lib/y2storage/dialogs/guided_setup/select_disks.rb:92
+#: src/lib/y2storage/dialogs/guided_setup/select_disks.rb:112
 msgid "At most %d disks can be selected"
 msgstr "최대 %d 디스크를 선택할 수 있습니다."
 
@@ -4540,6 +4646,14 @@ msgstr "최대 %d 디스크를 선택할 수 있습니다."
 #: src/lib/y2storage/dialogs/guided_setup/select_filesystem/base.rb:39
 msgid "Filesystem Options"
 msgstr "파일 시스템 옵션"
+
+#: src/lib/y2storage/dialogs/guided_setup/select_filesystem/base.rb:47
+msgid "Select the filesystem type for each of the volumes."
+msgstr ""
+
+#: src/lib/y2storage/dialogs/guided_setup/select_filesystem/base.rb:51
+msgid "Select the filesystem type for each of the partitions."
+msgstr ""
 
 #. Dialog to select filesystems.
 #. This is the simpler version for the legacy-style proposal settings that
@@ -4707,6 +4821,28 @@ msgstr "다른 파티션으로 무엇을 할지 선택"
 msgid "Any disk"
 msgstr "임의의 디스크"
 
+#. TRANSLATORS: Help text for root disk selection
+#: src/lib/y2storage/dialogs/guided_setup/select_root_disk.rb:166
+msgid ""
+"<p>Select the disk where to create the root filesystem. </p><p>This is also "
+"the disk where any boot-related partitions will be created as necessary: /"
+"boot, ESP (EFI System Partition), BIOS-Grub. That means that this disk "
+"should be usable by the machine's BIOS / firmware.</p><p>In this dialog you "
+"can also choose what to do with existing partitions:</p><p><ul><li>Do not "
+"modify (keep them as they are)</li><li>Remove if needed</li><li>Remove even "
+"if not needed (always remove)</li></ul>"
+msgstr ""
+
+#. TRANSLATORS: Help text for root disk selection, continued
+#: src/lib/y2storage/dialogs/guided_setup/select_root_disk.rb:186
+msgid ""
+"<ul><li>Resize if needed (Windows partitions only)</li><li>Resize or remove "
+"if needed (Windows partitions only)</li></ul><p>That last option means to "
+"try to resize the Windows partition(s) to make enough disk space available "
+"for Linux, but if that is not enough, completely delete the Windows "
+"partition.</p>"
+msgstr ""
+
 #. @return [EncryptPasswordChecker]
 #: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:68
 msgid "Partitioning Scheme"
@@ -4729,9 +4865,28 @@ msgstr "비밀번호"
 msgid "Verify Password"
 msgstr "비밀번호 확인"
 
+#. TRANSLATORS: Help text for the partitioning scheme (LVM / encryption)
+#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:113
+msgid ""
+"<p>Select the parititioning scheme:</p><p><ul><li>Plain partitions (no LVM), "
+"the simple traditional way</li><li>LVM (Logical Volume Management): <p>This "
+"is a more flexible way of managing disk space. </p><p>You can spread single "
+"filesystems over multiple disks and add (or, to some extent, remove) disks "
+"later as necessary. </p><p>You define PVs (Physical Volumes) from partitions "
+"or whole disks and combine them into VGs (Volume Groups) that serve as "
+"storage pools. You can create LVs (logical volumes) to create filesystems "
+"(Btrfs, Ext2/3/4, XFS) on.</p><p>In this <i>Guided Setup</i>, all this is "
+"done for you for the standard filesystem layout if you check <b>Enable LVM</"
+"b>.</li></ul></p><p><b>Enable Disk Encryption</b> (with or without LVM) adds "
+"a LUKS  disk encryption layer to the partitioning setup. Notice that you "
+"will have to enter the correct password each time you boot the system. </"
+"p><p><i>If you lose the password, there is no way to recover it, so make "
+"sure not to lose it!</i></p>"
+msgstr ""
+
 # / yes-no popup contents
 #. User has the last word to decide whether to use a weak password.
-#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:137
+#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:175
 msgid "Really use this password?"
 msgstr "이 비밀번호를 사용하시겠습니까?"
 

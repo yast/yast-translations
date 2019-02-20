@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Catalan (yast-storage)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-01-19 02:29+0000\n"
+"POT-Creation-Date: 2019-02-20 02:29+0000\n"
 "PO-Revision-Date: 2019-02-18 15:49+0000\n"
 "Last-Translator: David Medina <medipas@gmail.com>\n"
 "Language-Team: Catalan <https://l10n.opensuse.org/projects/yast-storage/"
@@ -15,7 +15,7 @@ msgstr ""
 "X-Generator: Weblate 3.3\n"
 
 #. TRANSLATORS: Error message.
-#: src/lib/y2partitioner/actions/add_bcache.rb:83
+#: src/lib/y2partitioner/actions/add_bcache.rb:61
 #, fuzzy
 #| msgid "There are not enough suitable unused devices to create a RAID."
 msgid "There are not enough suitable unused devices to create a Bcache."
@@ -293,19 +293,33 @@ msgstr ""
 "\n"
 "Realment voleu crear una taula de particions nova a %s?"
 
-#. TRANSLATORS: Error when trying to modify an existing bcache that shares caches.
-#: src/lib/y2partitioner/actions/delete_bcache.rb:56
+#. TRANSLATORS: error message, %{name} is replaced by a bcache name (e.g., /dev/bcache0)
+#: src/lib/y2partitioner/actions/delete_bcache.rb:61
 msgid ""
-"The bcache shares its cache set with other devices.\n"
-"This can result in unreachable space if done without detaching.\n"
-"Detaching can take a very long time in some situations."
+"The device %{name} is a Flash-only Bcache. Deleting this kind of devices\n"
+"is not supported yet."
+msgstr ""
+
+#. TRANSLATORS: Error message when detach is not a safe action
+#: src/lib/y2partitioner/actions/delete_bcache.rb:76
+#, fuzzy
+#| msgid ""
+#| "The bcache shares its cache set with other devices.\n"
+#| "This can result in unreachable space if done without detaching.\n"
+#| "Detaching can take a very long time in some situations."
+msgid ""
+"The bcache cannot be deleted because it shares its cache set with other "
+"devices.\n"
+"Deleting it without detaching the device first can result in unreachable "
+"space.\n"
+"Unfortunately detaching can take a very long time in some situations."
 msgstr ""
 "La bcau comparteix el seu conjunt de cau amb altres dispositius.\n"
 "Això pot resultar en un espai de disc inabastable si es fa sense separació.\n"
 "La separació pot trigar molta estona en algunes situacions."
 
 #. no note if there is no bcache cset associated or if cset is shared by more devices
-#: src/lib/y2partitioner/actions/delete_bcache.rb:86
+#: src/lib/y2partitioner/actions/delete_bcache.rb:105
 msgid ""
 "The selected Bcache is the only one using its caching set.\n"
 "The caching set will be also deleted.\n"
@@ -320,11 +334,11 @@ msgstr ""
 #. @see #confirm
 #.
 #. @return [Boolean]
-#: src/lib/y2partitioner/actions/delete_device.rb:138
+#: src/lib/y2partitioner/actions/delete_device.rb:118
 msgid "Confirm Deleting of Devices"
 msgstr "Confirmeu la supressió de dispositius"
 
-#: src/lib/y2partitioner/actions/delete_device.rb:139
+#: src/lib/y2partitioner/actions/delete_device.rb:119
 msgid ""
 "The selected device is used by other devices in the system.\n"
 "To keep the system in a consistent state, the following devices\n"
@@ -339,11 +353,11 @@ msgstr ""
 #. @see #confirm
 #.
 #. @return [Boolean]
-#: src/lib/y2partitioner/actions/delete_device.rb:154
+#: src/lib/y2partitioner/actions/delete_device.rb:134
 msgid "Confirm Deleting Device with Partitions"
 msgstr "Confirmeu la supressió d'un dispositiu amb particions"
 
-#: src/lib/y2partitioner/actions/delete_device.rb:155
+#: src/lib/y2partitioner/actions/delete_device.rb:135
 msgid ""
 "The selected device contains partitions.\n"
 "To keep the system in a consistent state, the following partitions\n"
@@ -354,17 +368,17 @@ msgstr ""
 "les particions següents i els dispositius que s'hi associen:"
 
 #. TRANSLATORS %s is a kernel name like /dev/sda1
-#: src/lib/y2partitioner/actions/delete_device.rb:171
+#: src/lib/y2partitioner/actions/delete_device.rb:151
 msgid "Really delete %s and all the affected devices?"
 msgstr "Realment voleu suprimir %s i tots dispositius afectats?"
 
 #. TRANSLATORS %s is the kernel name of the device (e.g., /dev/sda1)
-#: src/lib/y2partitioner/actions/delete_device.rb:179
+#: src/lib/y2partitioner/actions/delete_device.rb:159
 msgid "Really delete %s?"
 msgstr "Realment voleu suprimir %s?"
 
 #. TRANSLATORS: Note added to the dialog for trying to unmount a device
-#: src/lib/y2partitioner/actions/delete_device.rb:202
+#: src/lib/y2partitioner/actions/delete_device.rb:182
 msgid "It cannot be deleted while mounted."
 msgstr "No es pot suprimir mentre estigui muntat."
 
@@ -465,6 +479,32 @@ msgstr ""
 #: src/lib/y2partitioner/actions/delete_partitions.rb:97
 msgid "The partition table does not contain partitions."
 msgstr "La taula de particions no conté particions."
+
+#. TRANSLATORS: error message, %{name} is replaced by a bcache name (e.g., /dev/bcache0)
+#: src/lib/y2partitioner/actions/edit_bcache.rb:66
+#, fuzzy
+#| msgid "The device is in use and cannot be modified."
+msgid ""
+"The device %{name} is a Flash-only Bcache and its caching cannot be modified."
+msgstr "El dispositiu s'usa i no es pot modificar."
+
+#. TRANSLATORS: error message, %{name} is replaced by a bcache name (e.g., /dev/bcache0)
+#: src/lib/y2partitioner/actions/edit_bcache.rb:79
+#, fuzzy
+#| msgid ""
+#| "The bcache shares its cache set with other devices.\n"
+#| "This can result in unreachable space if done without detaching.\n"
+#| "Detaching can take a very long time in some situations."
+msgid ""
+"The Bcache %{name} is already created on disk. Such device cannot be "
+"modified\n"
+"because that might imply a detaching operation. Unfortunately detaching can "
+"take\n"
+"a very long time in some situations."
+msgstr ""
+"La bcau comparteix el seu conjunt de cau amb altres dispositius.\n"
+"Això pot resultar en un espai de disc inabastable si es fa sense separació.\n"
+"La separació pot trigar molta estona en algunes situacions."
 
 #. TRANSLATORS: dialog title. %s is a device name like /dev/md0
 #: src/lib/y2partitioner/actions/edit_blk_device.rb:83
@@ -674,17 +714,17 @@ msgid "Nothing gets written because commit is not allowed."
 msgstr "No s'escriu res perquè no es permet fer-ho efectiu."
 
 #. @macro seeDialog
-#: src/lib/y2partitioner/dialogs/bcache.rb:51
+#: src/lib/y2partitioner/dialogs/bcache.rb:49
 msgid "Bcache Device"
 msgstr "Dispositius de Bcau"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/dialogs/bcache.rb:194
+#: src/lib/y2partitioner/dialogs/bcache.rb:198
 msgid "Backing Device"
 msgstr "Dispositiu de còpia de seguretat"
 
 #. TRANSLATORS: %{label} is replaced by the label of the option to select a backing device.
-#: src/lib/y2partitioner/dialogs/bcache.rb:206
+#: src/lib/y2partitioner/dialogs/bcache.rb:210
 #, fuzzy
 #| msgid ""
 #| "%s is the device that will be used as backing device for bcache.It will "
@@ -700,21 +740,21 @@ msgstr ""
 "per tant, se'n suprimirà qualsevol contingut anterior."
 
 #. Value can be an empty string if there is no items
-#: src/lib/y2partitioner/dialogs/bcache.rb:233
+#: src/lib/y2partitioner/dialogs/bcache.rb:237
 msgid "Backing and Caching devices cannot be identical."
 msgstr "Els dispositius de còpia de seguretat i de cau no poden ser idèntics."
 
-#: src/lib/y2partitioner/dialogs/bcache.rb:234
+#: src/lib/y2partitioner/dialogs/bcache.rb:238
 msgid "Cannot Create Bcache"
 msgstr "No es pot crear la Bcau"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/dialogs/bcache.rb:255
+#: src/lib/y2partitioner/dialogs/bcache.rb:259
 msgid "Caching Device"
 msgstr "Dispositiu de cau"
 
 #. TRANSLATORS: %{label} is replaced by the label of the option to select a caching device.
-#: src/lib/y2partitioner/dialogs/bcache.rb:269
+#: src/lib/y2partitioner/dialogs/bcache.rb:273
 #, fuzzy
 #| msgid ""
 #| "%s is the device that will be used as caching device for bcache.It should "
@@ -734,17 +774,17 @@ msgstr ""
 "de seguretat, però no és necessari. El dispositiu es formatarà; per tant, "
 "se'n suprimirà qualsevol contingut anterior."
 
-#: src/lib/y2partitioner/dialogs/bcache.rb:287
+#: src/lib/y2partitioner/dialogs/bcache.rb:291
 msgid "Without caching"
 msgstr ""
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/dialogs/bcache.rb:317
+#: src/lib/y2partitioner/dialogs/bcache.rb:321
 msgid "Cache Mode"
 msgstr "Mode de cau"
 
 #. TRANSLATORS: %{label} is replaced by the label of the option to select a cache mode.
-#: src/lib/y2partitioner/dialogs/bcache.rb:333
+#: src/lib/y2partitioner/dialogs/bcache.rb:337
 #, fuzzy
 #| msgid ""
 #| "%s is the operating mode for bcache. There are currently four supported "
@@ -1316,9 +1356,9 @@ msgid ""
 "symmetric is the one that offers maximum performance on typical disks with "
 "rotating platters.</p>"
 msgstr ""
-"<p><b>Algorisme de paritat: </b> l'algorisme de paritat per usar amb  RAIDS /"
-" 6. El tipus simètric esquerrà és el que ofereix el màxim rendiment en discs "
-"típics amb plats rotatoris.</p>"
+"<p><b>Algorisme de paritat: </b> l'algorisme de paritat per usar amb  "
+"RAIDS / 6. El tipus simètric esquerrà és el que ofereix el màxim rendiment "
+"en discs típics amb plats rotatoris.</p>"
 
 #. @param controller [Actions::Controllers::Filesystem]
 #: src/lib/y2partitioner/dialogs/mkfs_options.rb:39
@@ -1636,6 +1676,22 @@ msgstr "RAID"
 msgid "Volume Management"
 msgstr "Gestió dels volums"
 
+#. Title of the Bcache section
+#.
+#. @note See note on {.md_raids_label} about why this looks misplaced.
+#.
+#. @return [String]
+#. Table icon for the device
+#.
+#. @see DEVICE_ICONS
+#.
+#. @param device [Y2Storage::BlkDevice]
+#. @return [Yast::Term] icon
+#: src/lib/y2partitioner/ui_state.rb:64
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:251
+msgid "Bcache"
+msgstr "Bcau"
+
 #. TRANSLATORS: button label to add a new Bcache device
 #: src/lib/y2partitioner/widgets/bcache_add_button.rb:38
 msgid "Add Bcache..."
@@ -1647,21 +1703,34 @@ msgstr "Afegeix una Bcau..."
 msgid "Bcache Devices:"
 msgstr "Dispositius de Bcau:"
 
-#: src/lib/y2partitioner/widgets/bcache_device_description.rb:48
+#. Attributes for describing a bcache device
+#.
+#. @return [Array<String>]
+#: src/lib/y2partitioner/widgets/bcache_device_description.rb:64
 msgid "Backing Device: %s"
 msgstr "Dispositiu de còpia de seguretat: %s"
 
-#: src/lib/y2partitioner/widgets/bcache_device_description.rb:49
+#: src/lib/y2partitioner/widgets/bcache_device_description.rb:65
 msgid "Caching UUID: %s"
 msgstr "UUID de la cau: %s"
 
-#: src/lib/y2partitioner/widgets/bcache_device_description.rb:50
+#: src/lib/y2partitioner/widgets/bcache_device_description.rb:66
 msgid "Caching Device: %s"
 msgstr "Dispositiu de la cau: %s"
 
-#: src/lib/y2partitioner/widgets/bcache_device_description.rb:51
-msgid "Cache mode: %s"
+#: src/lib/y2partitioner/widgets/bcache_device_description.rb:67
+#, fuzzy
+#| msgid "Cache mode: %s"
+msgid "Cache Mode: %s"
 msgstr "Mode de cau: (%s)"
+
+#. TRANSLATORS: label for button to edit a bcache
+#: src/lib/y2partitioner/widgets/bcache_edit_button.rb:40
+#: src/lib/y2partitioner/widgets/bcache_modify_button.rb:56
+#, fuzzy
+#| msgid "Change..."
+msgid "Change Caching..."
+msgstr "Canvia..."
 
 #. @macro seeAbstractWidget
 #. @macro seeAbstractWidget
@@ -1669,7 +1738,7 @@ msgstr "Mode de cau: (%s)"
 #. @macro seeAbstractWidget
 #. @macro seeAbstractWidget
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/bcache_modify_button.rb:38
+#: src/lib/y2partitioner/widgets/bcache_modify_button.rb:39
 #: src/lib/y2partitioner/widgets/disk_modify_button.rb:38
 #: src/lib/y2partitioner/widgets/lvm_lv_modify_button.rb:38
 #: src/lib/y2partitioner/widgets/lvm_vg_modify_button.rb:37
@@ -1681,14 +1750,14 @@ msgstr "&Modifica"
 #. @see DeviceMenuButton#actions
 #.
 #. @return [Array<Hash>]
-#: src/lib/y2partitioner/widgets/bcache_modify_button.rb:50
+#: src/lib/y2partitioner/widgets/bcache_modify_button.rb:51
 msgid "Edit Bcache..."
 msgstr "Edita la Bcau..."
 
 #. @see DeviceMenuButton#actions
 #.
 #. @return [Array<Hash>]
-#: src/lib/y2partitioner/widgets/bcache_modify_button.rb:55
+#: src/lib/y2partitioner/widgets/bcache_modify_button.rb:61
 #: src/lib/y2partitioner/widgets/disk_modify_button.rb:55
 #: src/lib/y2partitioner/widgets/md_modify_button.rb:65
 #: src/lib/y2partitioner/widgets/partition_table_button.rb:51
@@ -1878,18 +1947,6 @@ msgstr "Inici"
 #: src/lib/y2partitioner/widgets/blk_devices_table.rb:146
 msgid "End"
 msgstr "Final"
-
-#. Table icon for the device
-#.
-#. @see DEVICE_ICONS
-#.
-#. @param device [Y2Storage::BlkDevice]
-#. @return [Yast::Term] icon
-#. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/blk_devices_table.rb:251
-#: src/lib/y2partitioner/widgets/pages/bcaches.rb:46
-msgid "Bcache"
-msgstr "Bcau"
 
 #: src/lib/y2partitioner/widgets/blk_devices_table.rb:252
 #: src/lib/y2partitioner/widgets/blk_devices_table.rb:253
@@ -3019,8 +3076,43 @@ msgstr ""
 msgid "<b>Vendor</b> shows the device vendor."
 msgstr "L'opció <b>Fabricant</b> mostra el fabricant del dispositiu."
 
-#. help texts that are appended to the common help only in Mode.normal
+#: src/lib/y2partitioner/widgets/help.rb:107
+#, fuzzy
+#| msgid ""
+#| "<b>Device</b> shows the kernel name of the\n"
+#| "device."
+msgid ""
+"<b>Backing Device</b> shows the device used as backing device for bcache."
+msgstr ""
+"L'opció <b>Dispositiu</b> mostra el nom de nucli\n"
+"del dispositiu."
+
 #: src/lib/y2partitioner/widgets/help.rb:110
+#, fuzzy
+#| msgid ""
+#| "<b>BIOS ID</b> shows the BIOS ID of the hard\n"
+#| "disk. This field can be empty."
+msgid ""
+"<b>Caching UUID</b> shows the UUID of the used caching set. This field is "
+"empty if no caching is used."
+msgstr ""
+"L'opció <b>Identificació de la BIOS</b> mostra la identificació de la BIOS\n"
+"del disc dur. Aquest camp pot ser buit."
+
+#: src/lib/y2partitioner/widgets/help.rb:113
+msgid ""
+"<b>Caching Device</b> shows the device used for caching. This field is empty "
+"if no caching is used."
+msgstr ""
+
+#: src/lib/y2partitioner/widgets/help.rb:116
+msgid ""
+"<b>Cache Mode</b> shows the operating mode for bcache. Currently there are "
+"four supported modes: Writethrough, Writeback, Writearound and None."
+msgstr ""
+
+#. help texts that are appended to the common help only in Mode.normal
+#: src/lib/y2partitioner/widgets/help.rb:122
 msgid ""
 "A question mark (?) indicates that\n"
 "the file system is not listed in <tt>/etc/fstab</tt>. It is either mounted\n"
@@ -3035,7 +3127,7 @@ msgstr ""
 "d'aquest volum\n"
 "el YaST no actualitzarà el contingut de <tt>/etc/fstab</tt>.\n"
 
-#: src/lib/y2partitioner/widgets/help.rb:115
+#: src/lib/y2partitioner/widgets/help.rb:127
 msgid ""
 "An asterisk (*) after the mount point\n"
 "indicates a file system that is currently not mounted (for example, because "
@@ -3543,7 +3635,7 @@ msgid "System View"
 msgstr "Visualització del sistema"
 
 #. TRANSLATORS: Heading. String followed a device name like /dev/bcache0
-#: src/lib/y2partitioner/widgets/pages/bcache.rb:64
+#: src/lib/y2partitioner/widgets/pages/bcache.rb:65
 msgid "Bcache: %s"
 msgstr "Bcau: %s"
 
@@ -3551,7 +3643,7 @@ msgstr "Bcau: %s"
 #. @macro seeAbstractWidget
 #. @macro seeAbstractWidget
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/pages/bcache.rb:88
+#: src/lib/y2partitioner/widgets/pages/bcache.rb:89
 #: src/lib/y2partitioner/widgets/pages/disk.rb:130
 #: src/lib/y2partitioner/widgets/pages/lvm_vg.rb:95
 #: src/lib/y2partitioner/widgets/pages/md_raid.rb:96
@@ -4499,11 +4591,23 @@ msgstr "Seleccioneu els discs durs"
 msgid "Select one or more (max %d) hard disks"
 msgstr "Seleccioneu un o més discs durs (màx. %d)"
 
-#: src/lib/y2storage/dialogs/guided_setup/select_disks.rb:86
+#. TRANSLATORS: Help text for guided storage setup
+#: src/lib/y2storage/dialogs/guided_setup/select_disks.rb:80
+msgid ""
+"<p>Select the disks to install on.</p><p>In later dialogs, you can select "
+"which of those disks will be used for the root filesystem and what to do "
+"with any existing Linux, Windows or other partitions (keep, remove, "
+"sometimes resize).</p><p>How many of the disks you select here will actually "
+"be used depends on the exact scenario you choose (LVM, with or without "
+"separate home partition etc.).</p><p>Disks that are not selected here remain "
+"completely untouched.</p>"
+msgstr ""
+
+#: src/lib/y2storage/dialogs/guided_setup/select_disks.rb:106
 msgid "At least one disk must be selected"
 msgstr "Com a mínim cal seleccionar un disc"
 
-#: src/lib/y2storage/dialogs/guided_setup/select_disks.rb:92
+#: src/lib/y2storage/dialogs/guided_setup/select_disks.rb:112
 msgid "At most %d disks can be selected"
 msgstr "Com a màxim es poden seleccionar %d discs"
 
@@ -4511,6 +4615,14 @@ msgstr "Com a màxim es poden seleccionar %d discs"
 #: src/lib/y2storage/dialogs/guided_setup/select_filesystem/base.rb:39
 msgid "Filesystem Options"
 msgstr "Opcions per a sistema de fitxers"
+
+#: src/lib/y2storage/dialogs/guided_setup/select_filesystem/base.rb:47
+msgid "Select the filesystem type for each of the volumes."
+msgstr ""
+
+#: src/lib/y2storage/dialogs/guided_setup/select_filesystem/base.rb:51
+msgid "Select the filesystem type for each of the partitions."
+msgstr ""
 
 #. Dialog to select filesystems.
 #. This is the simpler version for the legacy-style proposal settings that
@@ -4677,6 +4789,28 @@ msgstr "Trieu què fer de les altres particions"
 msgid "Any disk"
 msgstr "Qualsevol disc"
 
+#. TRANSLATORS: Help text for root disk selection
+#: src/lib/y2storage/dialogs/guided_setup/select_root_disk.rb:166
+msgid ""
+"<p>Select the disk where to create the root filesystem. </p><p>This is also "
+"the disk where any boot-related partitions will be created as necessary: /"
+"boot, ESP (EFI System Partition), BIOS-Grub. That means that this disk "
+"should be usable by the machine's BIOS / firmware.</p><p>In this dialog you "
+"can also choose what to do with existing partitions:</p><p><ul><li>Do not "
+"modify (keep them as they are)</li><li>Remove if needed</li><li>Remove even "
+"if not needed (always remove)</li></ul>"
+msgstr ""
+
+#. TRANSLATORS: Help text for root disk selection, continued
+#: src/lib/y2storage/dialogs/guided_setup/select_root_disk.rb:186
+msgid ""
+"<ul><li>Resize if needed (Windows partitions only)</li><li>Resize or remove "
+"if needed (Windows partitions only)</li></ul><p>That last option means to "
+"try to resize the Windows partition(s) to make enough disk space available "
+"for Linux, but if that is not enough, completely delete the Windows "
+"partition.</p>"
+msgstr ""
+
 #. @return [EncryptPasswordChecker]
 #: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:68
 msgid "Partitioning Scheme"
@@ -4698,8 +4832,27 @@ msgstr "Contrasenya"
 msgid "Verify Password"
 msgstr "Verificació de la contrasenya"
 
+#. TRANSLATORS: Help text for the partitioning scheme (LVM / encryption)
+#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:113
+msgid ""
+"<p>Select the parititioning scheme:</p><p><ul><li>Plain partitions (no LVM), "
+"the simple traditional way</li><li>LVM (Logical Volume Management): <p>This "
+"is a more flexible way of managing disk space. </p><p>You can spread single "
+"filesystems over multiple disks and add (or, to some extent, remove) disks "
+"later as necessary. </p><p>You define PVs (Physical Volumes) from partitions "
+"or whole disks and combine them into VGs (Volume Groups) that serve as "
+"storage pools. You can create LVs (logical volumes) to create filesystems "
+"(Btrfs, Ext2/3/4, XFS) on.</p><p>In this <i>Guided Setup</i>, all this is "
+"done for you for the standard filesystem layout if you check <b>Enable LVM</"
+"b>.</li></ul></p><p><b>Enable Disk Encryption</b> (with or without LVM) adds "
+"a LUKS  disk encryption layer to the partitioning setup. Notice that you "
+"will have to enter the correct password each time you boot the system. </"
+"p><p><i>If you lose the password, there is no way to recover it, so make "
+"sure not to lose it!</i></p>"
+msgstr ""
+
 #. User has the last word to decide whether to use a weak password.
-#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:137
+#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:175
 msgid "Really use this password?"
 msgstr "Realment voleu fer servir aquesta contrasenya?"
 

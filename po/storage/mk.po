@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: YaST (@memory@)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-02-15 02:29+0000\n"
+"POT-Creation-Date: 2019-02-20 02:29+0000\n"
 "PO-Revision-Date: 2001-07-17 16:12+0200\n"
 "Last-Translator: Зоран Димовски <zoki.dimovski@gmail.com>\n"
 "Language-Team: Macedonian <i18n@suse.de>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 #. TRANSLATORS: Error message.
-#: src/lib/y2partitioner/actions/add_bcache.rb:83
+#: src/lib/y2partitioner/actions/add_bcache.rb:61
 msgid "There are not enough suitable unused devices to create a Bcache."
 msgstr ""
 
@@ -279,16 +279,25 @@ msgid ""
 "Really create a new partition table on %s?"
 msgstr ""
 
-#. TRANSLATORS: Error when trying to modify an existing bcache that shares caches.
-#: src/lib/y2partitioner/actions/delete_bcache.rb:56
+#. TRANSLATORS: error message, %{name} is replaced by a bcache name (e.g., /dev/bcache0)
+#: src/lib/y2partitioner/actions/delete_bcache.rb:61
 msgid ""
-"The bcache shares its cache set with other devices.\n"
-"This can result in unreachable space if done without detaching.\n"
-"Detaching can take a very long time in some situations."
+"The device %{name} is a Flash-only Bcache. Deleting this kind of devices\n"
+"is not supported yet."
+msgstr ""
+
+#. TRANSLATORS: Error message when detach is not a safe action
+#: src/lib/y2partitioner/actions/delete_bcache.rb:76
+msgid ""
+"The bcache cannot be deleted because it shares its cache set with other "
+"devices.\n"
+"Deleting it without detaching the device first can result in unreachable "
+"space.\n"
+"Unfortunately detaching can take a very long time in some situations."
 msgstr ""
 
 #. no note if there is no bcache cset associated or if cset is shared by more devices
-#: src/lib/y2partitioner/actions/delete_bcache.rb:86
+#: src/lib/y2partitioner/actions/delete_bcache.rb:105
 msgid ""
 "The selected Bcache is the only one using its caching set.\n"
 "The caching set will be also deleted.\n"
@@ -300,12 +309,12 @@ msgstr ""
 #. @see #confirm
 #.
 #. @return [Boolean]
-#: src/lib/y2partitioner/actions/delete_device.rb:138
+#: src/lib/y2partitioner/actions/delete_device.rb:118
 #, fuzzy
 msgid "Confirm Deleting of Devices"
 msgstr "Навистина сакате да ја избришете оваа ставка?"
 
-#: src/lib/y2partitioner/actions/delete_device.rb:139
+#: src/lib/y2partitioner/actions/delete_device.rb:119
 msgid ""
 "The selected device is used by other devices in the system.\n"
 "To keep the system in a consistent state, the following devices\n"
@@ -317,12 +326,12 @@ msgstr ""
 #. @see #confirm
 #.
 #. @return [Boolean]
-#: src/lib/y2partitioner/actions/delete_device.rb:154
+#: src/lib/y2partitioner/actions/delete_device.rb:134
 #, fuzzy
 msgid "Confirm Deleting Device with Partitions"
 msgstr "Навистина сакате да ја избришете оваа ставка?"
 
-#: src/lib/y2partitioner/actions/delete_device.rb:155
+#: src/lib/y2partitioner/actions/delete_device.rb:135
 msgid ""
 "The selected device contains partitions.\n"
 "To keep the system in a consistent state, the following partitions\n"
@@ -330,19 +339,19 @@ msgid ""
 msgstr ""
 
 #. TRANSLATORS %s is a kernel name like /dev/sda1
-#: src/lib/y2partitioner/actions/delete_device.rb:171
+#: src/lib/y2partitioner/actions/delete_device.rb:151
 #, fuzzy
 msgid "Really delete %s and all the affected devices?"
 msgstr "Навистина сакате да ја избришете оваа ставка?"
 
 #. TRANSLATORS %s is the kernel name of the device (e.g., /dev/sda1)
-#: src/lib/y2partitioner/actions/delete_device.rb:179
+#: src/lib/y2partitioner/actions/delete_device.rb:159
 #, fuzzy
 msgid "Really delete %s?"
 msgstr "Навистина сакате да ја избришете оваа ставка?"
 
 #. TRANSLATORS: Note added to the dialog for trying to unmount a device
-#: src/lib/y2partitioner/actions/delete_device.rb:202
+#: src/lib/y2partitioner/actions/delete_device.rb:182
 #, fuzzy
 msgid "It cannot be deleted while mounted."
 msgstr "Прикажи го статусот на „TFTP“ сервисот"
@@ -439,6 +448,22 @@ msgstr ""
 #, fuzzy
 msgid "The partition table does not contain partitions."
 msgstr "<p>Изберете ја категоријата која е соодветна на вашиот проблем.</p>"
+
+#. TRANSLATORS: error message, %{name} is replaced by a bcache name (e.g., /dev/bcache0)
+#: src/lib/y2partitioner/actions/edit_bcache.rb:66
+msgid ""
+"The device %{name} is a Flash-only Bcache and its caching cannot be modified."
+msgstr ""
+
+#. TRANSLATORS: error message, %{name} is replaced by a bcache name (e.g., /dev/bcache0)
+#: src/lib/y2partitioner/actions/edit_bcache.rb:79
+msgid ""
+"The Bcache %{name} is already created on disk. Such device cannot be "
+"modified\n"
+"because that might imply a detaching operation. Unfortunately detaching can "
+"take\n"
+"a very long time in some situations."
+msgstr ""
 
 #. TRANSLATORS: dialog title. %s is a device name like /dev/md0
 #: src/lib/y2partitioner/actions/edit_blk_device.rb:83
@@ -617,19 +642,19 @@ msgid "Nothing gets written because commit is not allowed."
 msgstr ""
 
 #. @macro seeDialog
-#: src/lib/y2partitioner/dialogs/bcache.rb:51
+#: src/lib/y2partitioner/dialogs/bcache.rb:49
 #, fuzzy
 msgid "Bcache Device"
 msgstr "Рестартирај ги сервисите"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/dialogs/bcache.rb:194
+#: src/lib/y2partitioner/dialogs/bcache.rb:198
 #, fuzzy
 msgid "Backing Device"
 msgstr "Идентификација на уред"
 
 #. TRANSLATORS: %{label} is replaced by the label of the option to select a backing device.
-#: src/lib/y2partitioner/dialogs/bcache.rb:206
+#: src/lib/y2partitioner/dialogs/bcache.rb:210
 msgid ""
 "<p><b>%{label}</b> is the device that will be used as backing device for "
 "bcache.It will define the size of the resulting bcache device. The device "
@@ -637,22 +662,22 @@ msgid ""
 msgstr ""
 
 #. Value can be an empty string if there is no items
-#: src/lib/y2partitioner/dialogs/bcache.rb:233
+#: src/lib/y2partitioner/dialogs/bcache.rb:237
 msgid "Backing and Caching devices cannot be identical."
 msgstr ""
 
-#: src/lib/y2partitioner/dialogs/bcache.rb:234
+#: src/lib/y2partitioner/dialogs/bcache.rb:238
 msgid "Cannot Create Bcache"
 msgstr ""
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/dialogs/bcache.rb:255
+#: src/lib/y2partitioner/dialogs/bcache.rb:259
 #, fuzzy
 msgid "Caching Device"
 msgstr "Идентификација на уред"
 
 #. TRANSLATORS: %{label} is replaced by the label of the option to select a caching device.
-#: src/lib/y2partitioner/dialogs/bcache.rb:269
+#: src/lib/y2partitioner/dialogs/bcache.rb:273
 msgid ""
 "<p><b>%{label}</b> is the device that will be used as caching device for "
 "bcache.It should be faster and usually is smaller than the backing device, "
@@ -662,17 +687,17 @@ msgid ""
 "devices without a cache. You can add a caching device later.</p>"
 msgstr ""
 
-#: src/lib/y2partitioner/dialogs/bcache.rb:287
+#: src/lib/y2partitioner/dialogs/bcache.rb:291
 msgid "Without caching"
 msgstr ""
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/dialogs/bcache.rb:317
+#: src/lib/y2partitioner/dialogs/bcache.rb:321
 msgid "Cache Mode"
 msgstr ""
 
 #. TRANSLATORS: %{label} is replaced by the label of the option to select a cache mode.
-#: src/lib/y2partitioner/dialogs/bcache.rb:333
+#: src/lib/y2partitioner/dialogs/bcache.rb:337
 msgid ""
 "<p><b>%{label}</b> is the operating mode for bcache. There are currently "
 "four supported modes.<ul> <li><i>Writethrough</i> reading operations are "
@@ -1530,6 +1555,22 @@ msgstr "Патека до директориумот: %1"
 msgid "Volume Management"
 msgstr "Име на „Samba“ група"
 
+#. Title of the Bcache section
+#.
+#. @note See note on {.md_raids_label} about why this looks misplaced.
+#.
+#. @return [String]
+#. Table icon for the device
+#.
+#. @see DEVICE_ICONS
+#.
+#. @param device [Y2Storage::BlkDevice]
+#. @return [Yast::Term] icon
+#: src/lib/y2partitioner/ui_state.rb:64
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:251
+msgid "Bcache"
+msgstr ""
+
 #. TRANSLATORS: button label to add a new Bcache device
 #: src/lib/y2partitioner/widgets/bcache_add_button.rb:38
 #, fuzzy
@@ -1543,25 +1584,35 @@ msgstr "Додај „NFS“ монтирање"
 msgid "Bcache Devices:"
 msgstr "Рестартирај ги сервисите"
 
-#: src/lib/y2partitioner/widgets/bcache_device_description.rb:48
+#. Attributes for describing a bcache device
+#.
+#. @return [Array<String>]
+#: src/lib/y2partitioner/widgets/bcache_device_description.rb:64
 #, fuzzy
 msgid "Backing Device: %s"
 msgstr "Идентификација на уред"
 
-#: src/lib/y2partitioner/widgets/bcache_device_description.rb:49
+#: src/lib/y2partitioner/widgets/bcache_device_description.rb:65
 #, fuzzy
 msgid "Caching UUID: %s"
 msgstr "О&пции"
 
-#: src/lib/y2partitioner/widgets/bcache_device_description.rb:50
+#: src/lib/y2partitioner/widgets/bcache_device_description.rb:66
 #, fuzzy
 msgid "Caching Device: %s"
 msgstr "Идентификација на уред"
 
-#: src/lib/y2partitioner/widgets/bcache_device_description.rb:51
+#: src/lib/y2partitioner/widgets/bcache_device_description.rb:67
 #, fuzzy
-msgid "Cache mode: %s"
+msgid "Cache Mode: %s"
 msgstr "Идентификација на уред"
+
+#. TRANSLATORS: label for button to edit a bcache
+#: src/lib/y2partitioner/widgets/bcache_edit_button.rb:40
+#: src/lib/y2partitioner/widgets/bcache_modify_button.rb:56
+#, fuzzy
+msgid "Change Caching..."
+msgstr "&Промени"
 
 #. @macro seeAbstractWidget
 #. @macro seeAbstractWidget
@@ -1569,7 +1620,7 @@ msgstr "Идентификација на уред"
 #. @macro seeAbstractWidget
 #. @macro seeAbstractWidget
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/bcache_modify_button.rb:38
+#: src/lib/y2partitioner/widgets/bcache_modify_button.rb:39
 #: src/lib/y2partitioner/widgets/disk_modify_button.rb:38
 #: src/lib/y2partitioner/widgets/lvm_lv_modify_button.rb:38
 #: src/lib/y2partitioner/widgets/lvm_vg_modify_button.rb:37
@@ -1581,7 +1632,7 @@ msgstr ""
 #. @see DeviceMenuButton#actions
 #.
 #. @return [Array<Hash>]
-#: src/lib/y2partitioner/widgets/bcache_modify_button.rb:50
+#: src/lib/y2partitioner/widgets/bcache_modify_button.rb:51
 #, fuzzy
 msgid "Edit Bcache..."
 msgstr "Додај „NFS“ монтирање"
@@ -1589,7 +1640,7 @@ msgstr "Додај „NFS“ монтирање"
 #. @see DeviceMenuButton#actions
 #.
 #. @return [Array<Hash>]
-#: src/lib/y2partitioner/widgets/bcache_modify_button.rb:55
+#: src/lib/y2partitioner/widgets/bcache_modify_button.rb:61
 #: src/lib/y2partitioner/widgets/disk_modify_button.rb:55
 #: src/lib/y2partitioner/widgets/md_modify_button.rb:65
 #: src/lib/y2partitioner/widgets/partition_table_button.rb:51
@@ -1803,18 +1854,6 @@ msgstr ""
 #, fuzzy
 msgid "End"
 msgstr "Овозможено"
-
-#. Table icon for the device
-#.
-#. @see DEVICE_ICONS
-#.
-#. @param device [Y2Storage::BlkDevice]
-#. @return [Yast::Term] icon
-#. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/blk_devices_table.rb:251
-#: src/lib/y2partitioner/widgets/pages/bcaches.rb:46
-msgid "Bcache"
-msgstr ""
 
 #: src/lib/y2partitioner/widgets/blk_devices_table.rb:252
 #: src/lib/y2partitioner/widgets/blk_devices_table.rb:253
@@ -2861,8 +2900,32 @@ msgstr "Прикажи го статусот на „TFTP“ сервисот"
 msgid "<b>Vendor</b> shows the device vendor."
 msgstr "Прикажи го статусот на „TFTP“ сервисот"
 
-#. help texts that are appended to the common help only in Mode.normal
+#: src/lib/y2partitioner/widgets/help.rb:107
+#, fuzzy
+msgid ""
+"<b>Backing Device</b> shows the device used as backing device for bcache."
+msgstr "Прикажи го статусот на „TFTP“ сервисот"
+
 #: src/lib/y2partitioner/widgets/help.rb:110
+msgid ""
+"<b>Caching UUID</b> shows the UUID of the used caching set. This field is "
+"empty if no caching is used."
+msgstr ""
+
+#: src/lib/y2partitioner/widgets/help.rb:113
+msgid ""
+"<b>Caching Device</b> shows the device used for caching. This field is empty "
+"if no caching is used."
+msgstr ""
+
+#: src/lib/y2partitioner/widgets/help.rb:116
+msgid ""
+"<b>Cache Mode</b> shows the operating mode for bcache. Currently there are "
+"four supported modes: Writethrough, Writeback, Writearound and None."
+msgstr ""
+
+#. help texts that are appended to the common help only in Mode.normal
+#: src/lib/y2partitioner/widgets/help.rb:122
 msgid ""
 "A question mark (?) indicates that\n"
 "the file system is not listed in <tt>/etc/fstab</tt>. It is either mounted\n"
@@ -2871,7 +2934,7 @@ msgid ""
 "YaST will not update <tt>/etc/fstab</tt>.\n"
 msgstr ""
 
-#: src/lib/y2partitioner/widgets/help.rb:115
+#: src/lib/y2partitioner/widgets/help.rb:127
 msgid ""
 "An asterisk (*) after the mount point\n"
 "indicates a file system that is currently not mounted (for example, because "
@@ -3340,7 +3403,7 @@ msgid "System View"
 msgstr "Анализа на системот"
 
 #. TRANSLATORS: Heading. String followed a device name like /dev/bcache0
-#: src/lib/y2partitioner/widgets/pages/bcache.rb:64
+#: src/lib/y2partitioner/widgets/pages/bcache.rb:65
 #, fuzzy
 msgid "Bcache: %s"
 msgstr "Рестартирај ги сервисите"
@@ -3349,7 +3412,7 @@ msgstr "Рестартирај ги сервисите"
 #. @macro seeAbstractWidget
 #. @macro seeAbstractWidget
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/pages/bcache.rb:88
+#: src/lib/y2partitioner/widgets/pages/bcache.rb:89
 #: src/lib/y2partitioner/widgets/pages/disk.rb:130
 #: src/lib/y2partitioner/widgets/pages/lvm_vg.rb:95
 #: src/lib/y2partitioner/widgets/pages/md_raid.rb:96
@@ -4252,12 +4315,24 @@ msgstr "Скенирање на мрежата..."
 msgid "Select one or more (max %d) hard disks"
 msgstr ""
 
-#: src/lib/y2storage/dialogs/guided_setup/select_disks.rb:86
+#. TRANSLATORS: Help text for guided storage setup
+#: src/lib/y2storage/dialogs/guided_setup/select_disks.rb:80
+msgid ""
+"<p>Select the disks to install on.</p><p>In later dialogs, you can select "
+"which of those disks will be used for the root filesystem and what to do "
+"with any existing Linux, Windows or other partitions (keep, remove, "
+"sometimes resize).</p><p>How many of the disks you select here will actually "
+"be used depends on the exact scenario you choose (LVM, with or without "
+"separate home partition etc.).</p><p>Disks that are not selected here remain "
+"completely untouched.</p>"
+msgstr ""
+
+#: src/lib/y2storage/dialogs/guided_setup/select_disks.rb:106
 #, fuzzy
 msgid "At least one disk must be selected"
 msgstr "Испитување за хард дискови"
 
-#: src/lib/y2storage/dialogs/guided_setup/select_disks.rb:92
+#: src/lib/y2storage/dialogs/guided_setup/select_disks.rb:112
 #, fuzzy
 msgid "At most %d disks can be selected"
 msgstr "Испитување за хард дискови"
@@ -4267,6 +4342,14 @@ msgstr "Испитување за хард дискови"
 #, fuzzy
 msgid "Filesystem Options"
 msgstr "Тип на податочен систем"
+
+#: src/lib/y2storage/dialogs/guided_setup/select_filesystem/base.rb:47
+msgid "Select the filesystem type for each of the volumes."
+msgstr ""
+
+#: src/lib/y2storage/dialogs/guided_setup/select_filesystem/base.rb:51
+msgid "Select the filesystem type for each of the partitions."
+msgstr ""
 
 #. Dialog to select filesystems.
 #. This is the simpler version for the legacy-style proposal settings that
@@ -4452,6 +4535,28 @@ msgstr "<p>Изберете ја категоријата која е соодв
 msgid "Any disk"
 msgstr ""
 
+#. TRANSLATORS: Help text for root disk selection
+#: src/lib/y2storage/dialogs/guided_setup/select_root_disk.rb:166
+msgid ""
+"<p>Select the disk where to create the root filesystem. </p><p>This is also "
+"the disk where any boot-related partitions will be created as necessary: /"
+"boot, ESP (EFI System Partition), BIOS-Grub. That means that this disk "
+"should be usable by the machine's BIOS / firmware.</p><p>In this dialog you "
+"can also choose what to do with existing partitions:</p><p><ul><li>Do not "
+"modify (keep them as they are)</li><li>Remove if needed</li><li>Remove even "
+"if not needed (always remove)</li></ul>"
+msgstr ""
+
+#. TRANSLATORS: Help text for root disk selection, continued
+#: src/lib/y2storage/dialogs/guided_setup/select_root_disk.rb:186
+msgid ""
+"<ul><li>Resize if needed (Windows partitions only)</li><li>Resize or remove "
+"if needed (Windows partitions only)</li></ul><p>That last option means to "
+"try to resize the Windows partition(s) to make enough disk space available "
+"for Linux, but if that is not enough, completely delete the Windows "
+"partition.</p>"
+msgstr ""
+
 #. @return [EncryptPasswordChecker]
 #: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:68
 #, fuzzy
@@ -4478,8 +4583,27 @@ msgstr "&Лозинка"
 msgid "Verify Password"
 msgstr "„Root“ лозинка"
 
+#. TRANSLATORS: Help text for the partitioning scheme (LVM / encryption)
+#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:113
+msgid ""
+"<p>Select the parititioning scheme:</p><p><ul><li>Plain partitions (no LVM), "
+"the simple traditional way</li><li>LVM (Logical Volume Management): <p>This "
+"is a more flexible way of managing disk space. </p><p>You can spread single "
+"filesystems over multiple disks and add (or, to some extent, remove) disks "
+"later as necessary. </p><p>You define PVs (Physical Volumes) from partitions "
+"or whole disks and combine them into VGs (Volume Groups) that serve as "
+"storage pools. You can create LVs (logical volumes) to create filesystems "
+"(Btrfs, Ext2/3/4, XFS) on.</p><p>In this <i>Guided Setup</i>, all this is "
+"done for you for the standard filesystem layout if you check <b>Enable LVM</"
+"b>.</li></ul></p><p><b>Enable Disk Encryption</b> (with or without LVM) adds "
+"a LUKS  disk encryption layer to the partitioning setup. Notice that you "
+"will have to enter the correct password each time you boot the system. </"
+"p><p><i>If you lose the password, there is no way to recover it, so make "
+"sure not to lose it!</i></p>"
+msgstr ""
+
 #. User has the last word to decide whether to use a weak password.
-#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:137
+#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:175
 #, fuzzy
 msgid "Really use this password?"
 msgstr "Навистина сакате да ја избришете оваа ставка?"
