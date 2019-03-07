@@ -12,8 +12,8 @@ msgstr ""
 "Project-Id-Version: storage.ru\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-03-07 02:29+0000\n"
-"PO-Revision-Date: 2019-01-31 14:23+0000\n"
-"Last-Translator: Nikita Maynagashev <maynagashev@palex.ru>\n"
+"PO-Revision-Date: 2019-03-01 06:29+0000\n"
+"Last-Translator: Alex Minton <alex239@gmail.com>\n"
 "Language-Team: Russian <https://l10n.opensuse.org/projects/yast-storage/"
 "master/ru/>\n"
 "Language: ru\n"
@@ -26,10 +26,8 @@ msgstr ""
 
 #. TRANSLATORS: Error message.
 #: src/lib/y2partitioner/actions/add_bcache.rb:61
-#, fuzzy
-#| msgid "There are not enough suitable unused devices to create a RAID."
 msgid "There are not enough suitable unused devices to create a Bcache."
-msgstr "Недостаточно подходящих неиспользуемых устройств для создания RAIDа."
+msgstr "Недостаточно подходящих неиспользуемых устройств для создания Bcache."
 
 #. TRANSLATORS: %s is a volume group name (e.g. "system")
 #: src/lib/y2partitioner/actions/add_lvm_lv.rb:114
@@ -736,19 +734,14 @@ msgstr "Резервное устройство"
 
 #. TRANSLATORS: %{label} is replaced by the label of the option to select a backing device.
 #: src/lib/y2partitioner/dialogs/bcache.rb:210
-#, fuzzy
-#| msgid ""
-#| "<b>%s</b> is the device that will be used as backing device for bcache.It "
-#| "will define the available space of bcache. The Device will be formatted "
-#| "so any previous content will be wiped out."
 msgid ""
 "<p><b>%{label}</b> is the device that will be used as backing device for "
 "bcache.It will define the size of the resulting bcache device. The device "
 "will be formatted so any previous content will be wiped out.</p>"
 msgstr ""
-"<b>%s</b> — это резервное устройство для bcache. Оно определит доступное для "
-"bcache пространство. Устройство будет отформатировано, так что всё "
-"содержимое будет удалено."
+"<p><b>%{label}</b> — это резервное устройство для bcache. Оно определяет "
+"размер результирующего устройства bcache. Устройство будет отформатировано, "
+"так что всё содержимое будет удалено.</p>"
 
 #. Value can be an empty string if there is no items
 #: src/lib/y2partitioner/dialogs/bcache.rb:237
@@ -768,12 +761,6 @@ msgstr "Кэширующее устройство"
 
 #. TRANSLATORS: %{label} is replaced by the label of the option to select a caching device.
 #: src/lib/y2partitioner/dialogs/bcache.rb:273
-#, fuzzy
-#| msgid ""
-#| "<b>%s</b> is the device that will be used as caching device for bcache.It "
-#| "should be faster and usually is smaller than the backing device, but it "
-#| "is not required. The device will be formatted so any previous content "
-#| "will be wiped out."
 msgid ""
 "<p><b>%{label}</b> is the device that will be used as caching device for "
 "bcache.It should be faster and usually is smaller than the backing device, "
@@ -782,13 +769,16 @@ msgid ""
 "bcache later, it is recommended to setup your slow devices as bcache backing "
 "devices without a cache. You can add a caching device later.</p>"
 msgstr ""
-"<b>%s</b> — это кэширующее устройство для bcache. Оно должно работать "
-"быстрее и быть меньше резервного, но это не обязательно. Устройство будет "
-"отформатировано, так что всё содержимое будет стёрто."
+"<p><b>%{label}</b> — это кэширующее устройство для bcache. Оно должно "
+"работать быстрее и быть меньше резервного, но это не обязательно. Устройство "
+"будет отформатировано, так что всё содержимое будет стёрто.</p><p>Если вы "
+"раздумываете о применении bcache в дальнейшем, то рекомендуется настраивать "
+"свои медленные устройства как резервные устройства bcache без кэширования. "
+"Кэширующее устройство можно добавить потом.</p>"
 
 #: src/lib/y2partitioner/dialogs/bcache.rb:291
 msgid "Without caching"
-msgstr ""
+msgstr "Без кэширования"
 
 #. @macro seeAbstractWidget
 #: src/lib/y2partitioner/dialogs/bcache.rb:321
@@ -810,6 +800,17 @@ msgid ""
 "sequential read or write, otherwise that would result in intensive "
 "overwriting on the cache device.</li></p>"
 msgstr ""
+"<p><b>%{label}</b> — это рабочий режим bcache. Сейчас поддерживается четыре "
+"режима. <ul><li><i>Writethrough</i>: операции чтения кэшируются, запись "
+"осуществляется параллельно на оба устройства. В случае сбоя кэширующего "
+"устройства потери данных не произойдёт. Это режим по умолчанию.</li> "
+"<li><i>Writeback</i>: кэшируются операции и чтения, и записи. Это повышает "
+"производительность при записи.</li> <li><i>Writearound</i>: чтение "
+"кэшируется, новые данные пишутся только на резервное устройство.</li> "
+"<li><i>None</i> означает, что кэш не используется ни при чтении, ни при "
+"записи. Это полезно в основном в случаях, когда нужно временно отключить кэш "
+"перед большим последовательным чтением или записью, иначе это приведёт к "
+"интенсивной перезаписи на кэширующем устройстве.</li></p>"
 
 #. TRANSLATORS: dialog title, where %{name} is the name of a partition
 #. (e.g. /dev/sda1) or LVM logical volume (e.g. /dev/system/home)
@@ -4541,7 +4542,7 @@ msgstr ""
 #. @return [String]
 #: src/lib/y2storage/devicegraph_sanitizer.rb:192
 msgid "Bcache detected, but bcache is not supported on this platform!"
-msgstr ""
+msgstr "Устройство Bcache обнаружено, но не поддерживается на этой платформе!"
 
 #: src/lib/y2storage/devicegraph_sanitizer.rb:194
 msgid ""
@@ -4549,6 +4550,10 @@ msgid ""
 "The safe way is to remove this bcache manually\n"
 "with command line tools and then restart YaST."
 msgstr ""
+"Это может заработать или не заработать.\n"
+"Используйте на свой страх и риск.\n"
+"Безопасный путь — удалить bcache вручную\n"
+"через командную строку и перезапустить YaST."
 
 #. Dialog to manage luks activation callbacks
 #: src/lib/y2storage/dialogs/callbacks/activate_luks.rb:64
@@ -4587,11 +4592,11 @@ msgstr ""
 #. @return [String] empty string if the transport is not worth mentioning
 #: src/lib/y2storage/dialogs/guided_setup/base.rb:150
 msgid "USB"
-msgstr ""
+msgstr "USB"
 
 #: src/lib/y2storage/dialogs/guided_setup/base.rb:152
 msgid "IEEE 1394"
-msgstr ""
+msgstr "IEEE 1394"
 
 #. Maximum number of disks that can be displayed at the same time with
 #. the default interface. If that number is exceeded an alternative
@@ -5352,6 +5357,19 @@ msgid "Unknown reason"
 msgstr "Неизвестная причина"
 
 #~ msgid ""
+#~ "The bcache shares its cache set with other devices.\n"
+#~ "This can result in unreachable space if done without detaching.\n"
+#~ "Detaching can take a very long time in some situations."
+#~ msgstr ""
+#~ "Набор кэширования bcache используется совместно с другими устройствами.\n"
+#~ "Это может привести к потере доступа к определенному пространству, если не "
+#~ "выполнить отключение.\n"
+#~ "Иногда отключение занимает очень длительное время."
+
+#~ msgid "Cache mode: %s"
+#~ msgstr "Режим кэширования: %s"
+
+#~ msgid ""
 #~ "%s is the device that will be used as backing device for bcache.It will "
 #~ "define the available space of bcache. The Device will be formatted so any "
 #~ "previous content will be wiped out."
@@ -5499,6 +5517,9 @@ msgstr "Неизвестная причина"
 
 #~ msgid "Clone this Disk"
 #~ msgstr "Клонировать этот диск"
+
+#~ msgid "Create New Partition Table on %s"
+#~ msgstr "Создать новую таблицу разделов на %s"
 
 #~ msgid ""
 #~ "This will delete all existing partitions on that device\n"
@@ -7357,6 +7378,13 @@ msgstr "Неизвестная причина"
 #~ "BIOS RAIDы и логические тома LVM здесь не показаны.</p>\n"
 
 #~ msgid ""
+#~ "<p>This view shows detailed information about the\n"
+#~ "selected Device Mapper device.</p>"
+#~ msgstr ""
+#~ "<p>Здесь показана детальная информация о\n"
+#~ "выбранном устройстве Device Mapper.</p>"
+
+#~ msgid ""
 #~ "<p>This view shows all devices used by the\n"
 #~ "selected Device Mapper device.</p>"
 #~ msgstr ""
@@ -8067,6 +8095,13 @@ msgstr "Неизвестная причина"
 #~ "<p>Здесь показаны устройства без назначенной\n"
 #~ "точки монтирования, неразмеченные диски и группы томов\n"
 #~ "без логических томов.</p>"
+
+#~ msgid ""
+#~ "Rescanning unused devices cancels\n"
+#~ "all current changes. Really rescan unused devices?"
+#~ msgstr ""
+#~ "Пересканирование неиспользуемых устройств отменит\n"
+#~ "все изменения. Действительно пересканировать неиспользуемые устройства?"
 
 #~ msgid ""
 #~ "A logical volume with the requested size could \n"
