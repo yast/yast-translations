@@ -23,7 +23,7 @@ msgstr ""
 "Project-Id-Version: storage-ng.de\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-03-14 02:30+0000\n"
-"PO-Revision-Date: 2019-01-31 14:23+0000\n"
+"PO-Revision-Date: 2019-03-15 22:55+0000\n"
 "Last-Translator: Franziska Weinberger <f.weinberger@gemino.de>\n"
 "Language-Team: German <https://l10n.opensuse.org/projects/yast-storage/"
 "master/de/>\n"
@@ -40,7 +40,7 @@ msgstr ""
 #| msgid "There are not enough suitable unused devices to create a RAID."
 msgid "There are not enough suitable unused devices to create a bcache."
 msgstr ""
-"Es gibt nicht genug passende unbenutzte Geräte, um ein RAID zu erstellen."
+"Es gibt nicht genug passende unbenutzte Geräte, um ein bcache zu erstellen."
 
 #. TRANSLATORS: %s is a volume group name (e.g. "system")
 #: src/lib/y2partitioner/actions/add_lvm_lv.rb:114
@@ -327,7 +327,9 @@ msgstr ""
 msgid ""
 "The device %{name} is a flash-only bcache. Deleting this kind of devices\n"
 "is not supported yet."
-msgstr "Das Gerät wird verwendet und kann nicht geändert werden."
+msgstr ""
+"Das Gerät %{name} ist ein Bcache ohne Backing-Gerät. Das Löschen solcher\n"
+"Geräte wird noch nicht unterstützt."
 
 #. TRANSLATORS: Error message when detach is not a safe action
 #: src/lib/y2partitioner/actions/delete_bcache.rb:76
@@ -343,18 +345,14 @@ msgid ""
 "space.\n"
 "Unfortunately detaching can take a very long time in some situations."
 msgstr ""
-"Der Cache-Satz des Bcache wird von mehreren Geräten gemeinsam genutzt.\n"
-"Daher ist ggf. kein Zugriff auf den Speicher möglich, wenn Geräte nicht "
-"getrennt werden.\n"
-"Das Trennen von Geräten kann in einigen Fällen sehr lange dauern."
+"Der Bcache kann nicht gelöscht werden, weil der sein Cache-Satz von mehreren "
+"Geräten genutzt wird.\n"
+"Wenn Sie ihn löschen, ohne das Gerät zuvor zu trennen, kann dies zu nicht "
+"erreichbarem Speicher führen.\n"
+"Das Trennen von Geräten kann in einigen Fällen leider sehr lange dauern."
 
 #. no note if there is no bcache cset associated or if cset is shared by more devices
 #: src/lib/y2partitioner/actions/delete_bcache.rb:105
-#, fuzzy
-#| msgid ""
-#| "The selected Bcache is the only one using its caching set.\n"
-#| "The caching set will be also deleted.\n"
-#| "\n"
 msgid ""
 "The selected bcache is the only one using its caching set.\n"
 "The caching set will be also deleted.\n"
@@ -523,7 +521,9 @@ msgstr "Die Partitionstabelle enthält keine Partitionen."
 #| msgid "The device is in use and cannot be modified."
 msgid ""
 "The device %{name} is a flash-only bcache and its caching cannot be modified."
-msgstr "Das Gerät wird verwendet und kann nicht geändert werden."
+msgstr ""
+"Das Gerät %{name} ist ein Bcache ohne Backing-Gerät und das Caching kann "
+"nicht geändert werden."
 
 #. TRANSLATORS: error message, %{name} is replaced by a bcache name (e.g., /dev/bcache0)
 #: src/lib/y2partitioner/actions/edit_bcache.rb:79
@@ -539,10 +539,10 @@ msgid ""
 "take\n"
 "a very long time in some situations."
 msgstr ""
-"Der Cache-Satz des Bcache wird von mehreren Geräten gemeinsam genutzt.\n"
-"Daher ist ggf. kein Zugriff auf den Speicher möglich, wenn Geräte nicht "
-"getrennt werden.\n"
-"Das Trennen von Geräten kann in einigen Fällen sehr lange dauern."
+"Der Bcache %{name} wurde bereits auf der Festplatte erstellt. Ein solches "
+"Gerät\n"
+"kann nicht geändert werden, da dies einen Trennvorgang beinhalten könnte.\n"
+"Das Trennen von Geräten kann leider in einigen Fällen sehr lange dauern."
 
 #. TRANSLATORS: dialog title. %s is a device name like /dev/md0
 #: src/lib/y2partitioner/actions/edit_blk_device.rb:83
@@ -773,9 +773,9 @@ msgid ""
 "bcache.It will define the size of the resulting bcache device. The device "
 "will be formatted so any previous content will be wiped out.</p>"
 msgstr ""
-"%s ist das Gerät, das als Backing-Gerät für Bcache verwendet werden soll. Es "
-"legt den verfügbaren Bcache-Speicher fest. Das Gerät wird formatiert, sodass "
-"der gesamte vorherige Inhalt gelöscht wird."
+"<p>%{label}</b> ist das Gerät, das als Backing-Gerät für Bcache verwendet "
+"werden soll. Es legt die Größe des resultierenden Bcache-Geräts fest. Das "
+"Gerät wird formatiert, sodass der gesamte vorherige Inhalt gelöscht wird.</p>"
 
 #. Value can be an empty string if there is no items
 #: src/lib/y2partitioner/dialogs/bcache.rb:237
@@ -804,14 +804,18 @@ msgid ""
 "bcache later, it is recommended to setup your slow devices as bcache backing "
 "devices without a cache. You can add a caching device later.</p>"
 msgstr ""
-"%s ist das Gerät, das als Caching-Gerät für Bcache verwendet wird. Es ist "
-"normalerweise schneller und kleiner als das Backing-Gerät, das ist jedoch "
-"nicht zwingend erforderlich. Das Gerät wird formatiert, sodass der gesamte "
-"vorherige Inhalt gelöscht wird."
+"<p><b>%{label}</b> ist das Gerät, das als Caching-Gerät für Bcache verwendet "
+"wird. Es ist normalerweise schneller und kleiner als das Backing-Gerät, das "
+"ist jedoch nicht zwingend erforderlich. Das Gerät wird formatiert, sodass "
+"der gesamte vorherige Inhalt gelöscht wird.</p><p>Wenn Sie Bcache zu einem "
+"späteren Zeitpunkt verwenden möchten, sollten Sie Ihre langsamen Geräte als "
+"Bcache-Backing-Geräte ohne Cache einrichten. Ein Caching-Gerät können Sie "
+"später hinzufügen."
 
 #: src/lib/y2partitioner/dialogs/bcache.rb:291
+#, fuzzy
 msgid "Without caching"
-msgstr ""
+msgstr "Ohne Caching"
 
 #. @macro seeAbstractWidget
 #: src/lib/y2partitioner/dialogs/bcache.rb:321
@@ -834,18 +838,18 @@ msgid ""
 "sequential read or write, otherwise that would result in intensive "
 "overwriting on the cache device.</li></p>"
 msgstr ""
-"%s ist der Funktionsmodus von Bcache. Zurzeit werden vier Modi unterstützt."
-"<ul> <li><i>Writethrough:</i> Lesevorgänge werden in den Cache geschrieben, "
-"Schreibvorgänge erfolgen parallel auf beiden Geräten. Falls das Caching-"
-"Gerät ausfällt, gehen keine Daten verloren. Dies ist der Standardmodus.</"
-"li><li><i>Writeback:</i> Lese- und Schreibvorgänge werden in den Cache "
-"geschrieben. Das kann zu einer höheren Performance beim Schreiben führen.</"
-"li><li><i>Writearound:</i> Lesevorgänge werden in den Cache geschrieben, "
-"neue Inhalte werden nur auf das Backing-Gerät geschrieben.</li><li><i>Keiner:"
-"</i> Der Cache wird weder zum Lesen noch zum Schreiben verwendet. Das ist "
-"nützlich, um den Cache vor einem umfangreichen sequentiellen Lese- oder "
-"Schreibvorgang temporär zu deaktivieren, der sonst zu aufwendigem "
-"Überschreiben des Caching-Geräts führen würde.</li>"
+"<p><b>%{label}</b> ist der Funktionsmodus von Bcache. Zurzeit werden vier "
+"Modi unterstützt.<ul> <li><i>Writethrough:</i> Lesevorgänge werden in den "
+"Cache geschrieben, Schreibvorgänge erfolgen parallel auf beiden Geräten. "
+"Falls das Caching-Gerät ausfällt, gehen keine Daten verloren. Dies ist der "
+"Standardmodus.</li><li><i>Writeback:</i> Lese- und Schreibvorgänge werden in "
+"den Cache geschrieben. Das kann zu einer höheren Performance beim Schreiben "
+"führen.</li><li><i>Writearound:</i> Lesevorgänge werden in den Cache "
+"geschrieben, neue Inhalte werden nur auf das Backing-Gerät "
+"geschrieben.</li><li><i>Keiner:</i> Der Cache wird weder zum Lesen noch zum "
+"Schreiben verwendet. Das ist nützlich, um den Cache vor einem umfangreichen "
+"sequentiellen Lese- oder Schreibvorgang temporär zu deaktivieren, der sonst "
+"zu aufwendigem Überschreiben des Caching-Geräts führen würde.</li>"
 
 #. TRANSLATORS: dialog title, where %{name} is the name of a partition
 #. (e.g. /dev/sda1) or LVM logical volume (e.g. /dev/system/home)
@@ -856,11 +860,17 @@ msgstr "Größe von %{name} ändern"
 #. TRANSLATORS: Warning message when the user wanted to resize a filesystem
 #. and there was a problem getting information about that filesystem.
 #: src/lib/y2partitioner/dialogs/blk_device_resize.rb:112
+#, fuzzy
 msgid ""
 "Obtaining information about free space on this filesystem failed.\n"
 "Resizing it might or might not work. If you continue, there is a risk\n"
 "of losing all data on this filesystem."
 msgstr ""
+"Es konnten keine Informationen über freien Speicher auf diesem Dateisystem "
+"abgerufen werden.\n"
+"Möglicherweise kann die Größe nicht geändert werden. Wenn Sie fortfahren, "
+"besteht die Gefahr,\n"
+"dass alle Daten auf diesem Dateisystem verloren gehen."
 
 #. TRANSLATORS: label for current size of the partition or LVM logical volume,
 #. where %{size} is replaced by a size (e.g., 5.5 GiB)
@@ -1585,7 +1595,7 @@ msgstr "&DASD"
 #, fuzzy
 #| msgid "Create New Partition Table..."
 msgid "Create New Partition Table on %s"
-msgstr "Neue Partitionstabelle erstellen..."
+msgstr "Neue Partitionstabelle auf %s erstellen"
 
 #. @macro seeAbstractWidget
 #: src/lib/y2partitioner/dialogs/partition_type.rb:44
@@ -1774,8 +1784,6 @@ msgid "Caching Device: %s"
 msgstr "Caching-Gerät: %s"
 
 #: src/lib/y2partitioner/widgets/bcache_device_description.rb:67
-#, fuzzy
-#| msgid "Cache mode: %s"
 msgid "Cache Mode: %s"
 msgstr "Cache-Modus: %s"
 
@@ -1785,7 +1793,7 @@ msgstr "Cache-Modus: %s"
 #, fuzzy
 #| msgid "Change..."
 msgid "Change Caching..."
-msgstr "Ändern..."
+msgstr "Caching ändern..."
 
 #. @macro seeAbstractWidget
 #. @macro seeAbstractWidget
@@ -2131,6 +2139,7 @@ msgstr ""
 
 #. TRANSLATORS: help text for the Partitioner
 #: src/lib/y2partitioner/widgets/configure.rb:78
+#, fuzzy
 msgid ""
 "<p>The <b>Configure</b> button offers several options to activate devices "
 "that were not detected by the initial system analysis. After activating the "
@@ -2139,6 +2148,13 @@ msgid ""
 "Crypt Passwords</b> option is also useful when no encryption is involved, to "
 "activate devices of other technologies like LVM or Multipath.</p>"
 msgstr ""
+"<p>Die Schaltfläche <b>Konfigurieren</b> bietet mehrere Optionen zur "
+"Aktivierung von Geräten, die von der anfänglichen Systemanalyse nicht "
+"erkannt wurden. Nachdem Sie die Geräte mit der gewählten Technologie "
+"aktiviert haben, wird das System erneut eingelesen und alle Informationen "
+"über Speichergeräte werden aktualisiert. Daher ist die Option <b>Crypt-"
+"Passwörter angeben</b> auch ohne Verschlüsselung sinnvoll, um Geräte mit "
+"anderen Technologien wie LVM oder Multipath zu aktivieren.</p>"
 
 #. Translators: Configure menu in the initial Partitioner screen
 #: src/lib/y2partitioner/widgets/configure.rb:108
@@ -2180,8 +2196,8 @@ msgid ""
 "Rescanning crypt devices cancels all current changes.\n"
 "Really activate crypt devices?"
 msgstr ""
-"Ein erneutes Einlesen nicht verwendeter Geräte verwirft\n"
-"alle Änderungen. Möchten Sie die Geräte wirklich neu einlesen?"
+"Ein erneutes Einlesen von Crypt-Geräten verwirft alle aktuellen\n"
+"Änderungen. Möchten Sie die Crypt-Geräte wirklich aktivieren?"
 
 #. @see Action#warning_text
 #: src/lib/y2partitioner/widgets/configure.rb:297
@@ -3171,8 +3187,8 @@ msgstr "<b>Hersteller</b> zeigt den Gerätehersteller an."
 msgid ""
 "<b>Backing Device</b> shows the device used as backing device for bcache."
 msgstr ""
-"<b>Gerät</b> zeigt den Kernel-Namen\n"
-"des Geräts."
+"<b>Backing-Gerät</b> zeigt das Gerät an, das als Backing-Gerät für Bcache "
+"verwendet wird."
 
 #: src/lib/y2partitioner/widgets/help.rb:110
 #, fuzzy
@@ -3183,20 +3199,26 @@ msgid ""
 "<b>Caching UUID</b> shows the UUID of the used caching set. This field is "
 "empty if no caching is used."
 msgstr ""
-"<b>BIOS-ID</b> zeigt die BIOS-ID der\n"
-"Festplatte an. Dieses Feld kann leer sein."
+"<b>Caching-UUID</b> zeigt die UUID des verwendeten Cache-Satzes an. Dieses "
+"Feld ist leer, wenn kein Caching verwendet wird."
 
 #: src/lib/y2partitioner/widgets/help.rb:113
+#, fuzzy
 msgid ""
 "<b>Caching Device</b> shows the device used for caching. This field is empty "
 "if no caching is used."
 msgstr ""
+"<b>Caching-Gerät</b> zeigt das für Caching verwendete Gerät an. Dieses Feld "
+"ist leer, wenn kein Caching verwendet wird."
 
 #: src/lib/y2partitioner/widgets/help.rb:116
+#, fuzzy
 msgid ""
 "<b>Cache Mode</b> shows the operating mode for bcache. Currently there are "
 "four supported modes: Writethrough, Writeback, Writearound and None."
 msgstr ""
+"<b>Cache-Modus</b> zeigt den Funktionsmodus für Bcache an. Zurzeit werden "
+"vier Modi unterstützt: Writethrough, Writeback, Writearound und Keiner."
 
 #. help texts that are appended to the common help only in Mode.normal
 #: src/lib/y2partitioner/widgets/help.rb:122
@@ -3742,14 +3764,14 @@ msgstr "Üb&erblick"
 #, fuzzy
 #| msgid "Bcache Devices:"
 msgid "Bcache Devices"
-msgstr "Bcache-Geräte:"
+msgstr "Bcache-Geräte"
 
 #. @macro seeAbstractWidget
 #: src/lib/y2partitioner/widgets/pages/bcaches.rb:168
 #, fuzzy
 #| msgid "Caching Device"
 msgid "Caching Set Devices"
-msgstr "Caching-Gerät"
+msgstr "Cache-Satz-Geräte"
 
 #. TRANSLATORS: table column label.
 #: src/lib/y2partitioner/widgets/pages/bcaches.rb:218
@@ -3989,8 +4011,8 @@ msgid ""
 "<p>The <b>Rescan Devices</b> button refreshes the information about storage "
 "devices.</p>"
 msgstr ""
-"<p>Diese Ansicht zeigt detaillierte Informationen über\n"
-"das ausgewählte Device-Mapper-Gerät.</p>"
+"<p>Mit der Schaltfläche <b>Geräte erneut absuchen</b> werden die "
+"Informationen über Speichergeräte aktualisiert.</p>"
 
 #: src/lib/y2partitioner/widgets/rescan_devices_button.rb:72
 msgid ""
@@ -4195,22 +4217,19 @@ msgstr "Element '%{attr}' fehlt"
 
 #. @return [String] bcache device name
 #: src/lib/y2storage/autoinst_issues/multiple_bcache_members.rb:39
-#, fuzzy
-#| msgid "Backing Device"
 msgid "backing device"
 msgstr "Backing-Gerät"
 
 #: src/lib/y2storage/autoinst_issues/multiple_bcache_members.rb:40
-#, fuzzy
-#| msgid "Caching Device"
 msgid "caching device"
 msgstr "Caching-Gerät"
 
 #. TRANSLATORS: 'bcache_name is the bcache device name (e.g., '/dev/bcache0');
 #. 'role' is the kind of device (e.g., 'caching device').
 #: src/lib/y2storage/autoinst_issues/multiple_bcache_members.rb:70
+#, fuzzy
 msgid "%{bcache_name}: only one %{role} can be specified per bcache."
-msgstr ""
+msgstr "%{bcache_name}: Nur ein %{role} pro Becache kann angegeben werden."
 
 #. TRANSLATORS: kernel device name (eg. '/dev/sda1')
 #: src/lib/y2storage/autoinst_issues/no_disk.rb:52
@@ -4299,8 +4318,10 @@ msgstr "Thin Pool '%s' wurde nicht gefunden"
 
 #. TRANSLATORS: 'type' is the type of the AutoYaST drive section
 #: src/lib/y2storage/autoinst_issues/unsupported_drive_section.rb:49
+#, fuzzy
 msgid "A drive of type '%{type}' is not supported in this architecture"
 msgstr ""
+"Ein Laufwerk des Typs '%{type}' wird in dieser Architektur nicht unterstützt."
 
 #. TRANSLATORS: status when cache set is not attached to any bcache
 #: src/lib/y2storage/bcache_cset.rb:69
@@ -4677,15 +4698,23 @@ msgstr ""
 #.
 #. @return [String]
 #: src/lib/y2storage/devicegraph_sanitizer.rb:192
+#, fuzzy
 msgid "Bcache detected, but bcache is not supported on this platform!"
 msgstr ""
+"Bcache erkannt. Auf dieser Plattform wird jedoch kein Bcache unterstützt."
 
 #: src/lib/y2storage/devicegraph_sanitizer.rb:194
+#, fuzzy
 msgid ""
 "This may or may not work. Use at your own risk.\n"
 "The safe way is to remove this bcache manually\n"
 "with command line tools and then restart YaST."
 msgstr ""
+"Dies kann funktionieren oder nicht. Die Verwendung erfolgt auf eigene Gefahr."
+"\n"
+"Die sicherste Möglichkeit ist, diesen Bcache manuell mit den Kommandozeilen-"
+"\n"
+"Tools zu entfernen und YaST neu zu starten."
 
 #. Dialog to manage luks activation callbacks
 #: src/lib/y2storage/dialogs/callbacks/activate_luks.rb:64
@@ -4725,11 +4754,11 @@ msgstr ""
 #. @return [String] empty string if the transport is not worth mentioning
 #: src/lib/y2storage/dialogs/guided_setup/base.rb:150
 msgid "USB"
-msgstr ""
+msgstr "USB"
 
 #: src/lib/y2storage/dialogs/guided_setup/base.rb:152
 msgid "IEEE 1394"
-msgstr ""
+msgstr "IEEE 1394"
 
 #. Maximum number of disks that can be displayed at the same time with
 #. the default interface. If that number is exceeded an alternative
@@ -4746,6 +4775,7 @@ msgstr "Wählen Sie eine oder mehrere (max %d) Festplatte(n) aus"
 
 #. TRANSLATORS: Help text for guided storage setup
 #: src/lib/y2storage/dialogs/guided_setup/select_disks.rb:80
+#, fuzzy
 msgid ""
 "<p>Select the disks to install on.</p><p>In later dialogs, you can select "
 "which of those disks will be used for the root filesystem and what to do "
@@ -4755,6 +4785,15 @@ msgid ""
 "separate home partition etc.).</p><p>Disks that are not selected here remain "
 "completely untouched.</p>"
 msgstr ""
+"<p>Wählen Sie die Festplatten für die Installation aus.</p><p>In späteren "
+"Dialogfeldern können Sie auswählen, welche der Festplatten als Root-"
+"Dateisystem verwendet wird und was mit den vorhandenen Linux-, Windows- oder "
+"anderen Partitionen geschehen soll (beibehalten, entfernen, ggf. die Größe "
+"ändern).</p><p>Wie viele der hier ausgewählten Festplatten tatsächlich "
+"verwendet werden, hängt von dem genauen Szenario ab, für das Sie sich "
+"entscheiden (LVM, mit oder ohne separater Home-Partition usw.).</p><p>"
+"Festplatten, die hier nicht ausgewählt werden, bleiben vollkommen "
+"unberührt.</p>"
 
 #: src/lib/y2storage/dialogs/guided_setup/select_disks.rb:106
 msgid "At least one disk must be selected"
@@ -4770,12 +4809,14 @@ msgid "Filesystem Options"
 msgstr "Dateisystem-Optionen"
 
 #: src/lib/y2storage/dialogs/guided_setup/select_filesystem/base.rb:47
+#, fuzzy
 msgid "Select the filesystem type for each of the volumes."
-msgstr ""
+msgstr "Wählen Sie den Typ des Dateisystems für jedes Volume aus."
 
 #: src/lib/y2storage/dialogs/guided_setup/select_filesystem/base.rb:51
+#, fuzzy
 msgid "Select the filesystem type for each of the partitions."
-msgstr ""
+msgstr "Wählen Sie den Typ des Dateisystems für jede Partition aus."
 
 #. Dialog to select filesystems.
 #. This is the simpler version for the legacy-style proposal settings that
@@ -4950,6 +4991,7 @@ msgstr "Jede Festplatte"
 
 #. TRANSLATORS: Help text for root disk selection
 #: src/lib/y2storage/dialogs/guided_setup/select_root_disk.rb:166
+#, fuzzy
 msgid ""
 "<p>Select the disk where to create the root filesystem. </p><p>This is also "
 "the disk where boot-related partitions will typically be created as "
@@ -4959,9 +5001,18 @@ msgid ""
 "p><p><ul><li>Do not modify (keep them as they are)</li><li>Remove if needed</"
 "li><li>Remove even if not needed (always remove)</li></ul>"
 msgstr ""
+"<p>Wählen Sie die Festplatte zum Erstellen des Root-Dateisystems aus. </p><p>"
+"Auf dieser Festplatte werden in der Regel auch die bootbezogenen Partitionen "
+"erstellt: /boot, ESP (EFI-Systempartition), BIOS-Grub. Das bedeutet, dass "
+"diese Festplatte für den BIOS/die Firmware verfügbar sein sollte.</p><p>In "
+"diesem Dialogfeld können Sie auch auswählen, was mit den vorhandenen "
+"Partitionen geschehen soll:</p><p><ul><li>Nicht ändern (wie vorhanden "
+"beibehalten)</li><li>Löschen sofern erforderlich</li><li>Löschen, auch wenn "
+"nicht benötigt (immer löschen)</li></ul>"
 
 #. TRANSLATORS: Help text for root disk selection, continued
 #: src/lib/y2storage/dialogs/guided_setup/select_root_disk.rb:186
+#, fuzzy
 msgid ""
 "<ul><li>Resize if needed (Windows partitions only)</li><li>Resize or remove "
 "if needed (Windows partitions only)</li></ul><p>That last option means to "
@@ -4969,6 +5020,12 @@ msgid ""
 "for Linux, but if that is not enough, completely delete the Windows "
 "partition.</p>"
 msgstr ""
+"<ul><li>Größe ändern falls erforderlich (nur Windows-Partitionen)</li><li>"
+"Größe ändern oder löschen falls erforderlich (nur Windows-"
+"Partitionen)</li></ul><p>Bei der letzten Option wird versucht, die Größe der "
+"Windows-Partition(en) zu ändern, um auf der Festplatte genug Platz für Linux "
+"zu schaffen. Wenn der Platz jedoch nicht ausreicht, wird die Windows-"
+"Partition vollständig gelöscht.</p>"
 
 #. @return [EncryptPasswordChecker]
 #: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:68
@@ -4993,6 +5050,7 @@ msgstr "Passwort Überprüfen"
 
 #. TRANSLATORS: Help text for the partitioning scheme (LVM / encryption)
 #: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:113
+#, fuzzy
 msgid ""
 "<p>Select the partitioning scheme:</p><p><ul><li>Plain partitions (no LVM), "
 "the simple traditional way</li><li>LVM (Logical Volume Management): <p>This "
@@ -5009,6 +5067,24 @@ msgid ""
 "p><p><i>If you lose the password, there is no way to recover it, so make "
 "sure not to lose it!</i></p>"
 msgstr ""
+"<p>Wählen Sie ein Partitionierungsschema aus:</p><p><ul><li>Einfache "
+"Partitionen (kein LVM), auf die einfache, herkömmliche Art</li><li>LVM ("
+"Logical Volume Management): <p>Bietet mehr Flexibilität bei der Verwaltung "
+"von Festplattenspeicher. </p><p>Sie können ein einziges Dateisystem auf "
+"mehrere Festplatten verteilen und bei Bedarf später weitere Festplatten "
+"hinzufügen (und teilweise auch entfernen). </p><p>Sie definieren PVs ("
+"physische Volumes) anhand von Partitionen oder ganzen Festplatten und "
+"kombinieren sie zu VGs (Volume-Gruppen), die als Speicherpools verwendet "
+"werden. Sie können LVs (logische Volumes) erstellen, auf denen Sie "
+"Dateisysteme (Btrfs, Ext2/3/4, XFS) anlegen.</p><p>In diesem <i>Geführten "
+"Setup</i> erfolgt all dies automatisch unter Verwendung des Standard-"
+"Dateisystem-Layouts, wenn Sie <b>LVM aktivieren</b> "
+"auswählen.</li></ul></p><p><b>Festplatten-Verschlüsselung aktivieren</b> ("
+"mit oder ohne LVM) fügt einen Layer mit einer LUKS-Festplatten-"
+"Verschlüsselung dem Partitionierungs-Setup hinzu. Beachten Sie, dass Sie bei "
+"jedem Booten das richtige Passwort eingeben müssen. </p><p><i>Wenn Sie das "
+"Passwort verlieren oder vergessen, gibt es keine Möglichkeit zur "
+"Wiederherstellung. Verlieren Sie es also nicht!</i></p>"
 
 #. User has the last word to decide whether to use a weak password.
 #: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:175
@@ -5345,7 +5421,7 @@ msgstr "DOS32"
 
 #: src/lib/y2storage/partition_id.rb:46
 msgid "EFI System"
-msgstr "EFI-System:"
+msgstr "EFI-System"
 
 #: src/lib/y2storage/partition_id.rb:47
 msgid "Extended"
