@@ -19,7 +19,7 @@ msgstr ""
 "Project-Id-Version: storage\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-03-14 02:30+0000\n"
-"PO-Revision-Date: 2019-03-19 15:16+0000\n"
+"PO-Revision-Date: 2019-03-21 11:20+0000\n"
 "Last-Translator: Robert Taisz <robert.taisz@emerald.hu>\n"
 "Language-Team: Hungarian <https://l10n.opensuse.org/projects/yast-storage/"
 "master/hu/>\n"
@@ -361,6 +361,9 @@ msgid ""
 "To keep the system in a consistent state, the following devices\n"
 "will also be deleted:"
 msgstr ""
+"A kiválasztott eszközt más eszközök használják a rendszerben.\n"
+"A rendszer egységes állapotának fenntartásához a következő \n"
+"eszközök törölve lesznek:"
 
 #. Confirmation to display when the device contains partitions
 #.
@@ -377,6 +380,9 @@ msgid ""
 "To keep the system in a consistent state, the following partitions\n"
 "and its associated devices will also be deleted:"
 msgstr ""
+"A kiválasztott eszköz partíciókat tartalmaz.\n"
+"A rendszer egységes állapotának fenntartásához a következő partíciók \n"
+"és a társított eszközök is törölve lesznek:"
 
 #. TRANSLATORS %s is a kernel name like /dev/sda1
 #: src/lib/y2partitioner/actions/delete_device.rb:151
@@ -742,6 +748,9 @@ msgid ""
 "bcache.It will define the size of the resulting bcache device. The device "
 "will be formatted so any previous content will be wiped out.</p>"
 msgstr ""
+"<p>A(z) <b>%{label}</b> eszköz lesz a bcache háttértár eszköze. Ez fogja "
+"meghatározni a létrejövő bcache-eszköz méretét. Az eszköz formázva lesz, "
+"vagyis az összes korábbi tartalom törlődik.</p>"
 
 #. Value can be an empty string if there is no items
 #: src/lib/y2partitioner/dialogs/bcache.rb:237
@@ -770,10 +779,16 @@ msgid ""
 "bcache later, it is recommended to setup your slow devices as bcache backing "
 "devices without a cache. You can add a caching device later.</p>"
 msgstr ""
+"<p>A(z) <b>%{label}</b> eszköz lesz a bcache háttértár eszköze. Gyorsabbnak "
+"és általában kisebbnek kell lennie a háttértár eszköznél, de ez nem "
+"feltétlenül szükséges. Az eszköz formázva lesz, vagyis az összes korábbi "
+"tartalom törlődik.</p><p>Ha a bcache későbbi használatát tervezi, célszerű a "
+"lassú eszközöket beállítania a bcache háttértár eszközeiként, gyorsítótár "
+"nélkül. Később pedig felvehet gyorsítótárazó eszközt.</p>"
 
 #: src/lib/y2partitioner/dialogs/bcache.rb:291
 msgid "Without caching"
-msgstr ""
+msgstr "Gyorsítótárazás nélkül"
 
 #. @macro seeAbstractWidget
 #: src/lib/y2partitioner/dialogs/bcache.rb:321
@@ -795,6 +810,19 @@ msgid ""
 "sequential read or write, otherwise that would result in intensive "
 "overwriting on the cache device.</li></p>"
 msgstr ""
+"<p>A(z) <b>%{label}</b> a bcache működési módja. Jelenleg négy támogatott "
+"módja van.<ul> <li><i>Azonnali írás</i> esetén a rendszer gyorsítótárazza az "
+"olvasási műveleteket, és az írás párhuzamosan történik mindkét eszközre. A "
+"gyorsítótárazó eszköz meghibásodása esetén nincs adatvesztés. Ez az "
+"alapértelmezett mód.</li><li><i>Visszaírás</i> esetén a rendszer az olvasási "
+"és az írási műveleteket is gyorsítótárazza. Ez jobb teljesítményt eredményez "
+"íráskor.</li><li><i>Megkerülő írás</i> esetén a rendszer gyorsítótárazza az "
+"olvasást, és az új tartalmat csak háttértár eszközre írja.</li><li>A "
+"<i>Nincs</i> beállítás esetén a rendszer nem használ gyorsítótárat sem az "
+"olvasáshoz, sem az íráshoz. Ez főleg akkor hasznos, ha ideiglenesen le kell "
+"tiltani a gyorsítótárat a nagyobb sorozatos olvasási vagy írási műveletek "
+"előtt, amelyek máskülönben intenzív túlírást okoznának a gyorsítótárazó "
+"eszközön.</li></p>"
 
 # modules/inst_sw_single.ycp:665
 # clients/inst_sw_single.ycp:1349
@@ -812,6 +840,11 @@ msgid ""
 "Resizing it might or might not work. If you continue, there is a risk\n"
 "of losing all data on this filesystem."
 msgstr ""
+"Nem sikerült a fájlrendszer szabad területére vonatkozó információ lekérése."
+"\n"
+"Nem biztos, hogy sikerülni fog az átméretezése. Ha folytatja, fennáll a "
+"fájlrendszerben\n"
+"található összes adat elvesztésének kockázata."
 
 #. TRANSLATORS: label for current size of the partition or LVM logical volume,
 #. where %{size} is replaced by a size (e.g., 5.5 GiB)
@@ -2116,6 +2149,13 @@ msgid ""
 "Crypt Passwords</b> option is also useful when no encryption is involved, to "
 "activate devices of other technologies like LVM or Multipath.</p>"
 msgstr ""
+"<p>A <b>Konfigurálás</b> gomb több lehetőséget kínál a kezdeti "
+"rendszerelemzés során nem észlelt eszközök aktiválásához. A kiválasztott "
+"technológiájú eszközök aktiválása után újabb vizsgálat történik a "
+"rendszerben, és frissülnek a tárolóeszközökkel kapcsolatos adatok. Ezért a  "
+"<b>Titkosító jelszó megadása</b> beállítás olyankor is hasznos, ha nincs "
+"titkosítás, mivel az egyéb technológiájú (LVM vagy Multipath) eszközök "
+"aktiválásához használható.</p>"
 
 #. Translators: Configure menu in the initial Partitioner screen
 #: src/lib/y2partitioner/widgets/configure.rb:108
@@ -3163,12 +3203,17 @@ msgid ""
 "<b>Caching Device</b> shows the device used for caching. This field is empty "
 "if no caching is used."
 msgstr ""
+"A <b>Gyorsítótárazó eszköz</b> mezőben látható a gyorsítótárazáshoz használt "
+"eszköz. A mező üres, ha nincs beállítva a gyorsítótárazás."
 
 #: src/lib/y2partitioner/widgets/help.rb:116
 msgid ""
 "<b>Cache Mode</b> shows the operating mode for bcache. Currently there are "
 "four supported modes: Writethrough, Writeback, Writearound and None."
 msgstr ""
+"A <b>Gyorsítótárazási mód</b> beállításnál látható a bcache működési módja. "
+"Jelenleg négy támogatott módja van: Azonnali írás, Visszaírás, Megkerülő "
+"írás és Nincs."
 
 #. help texts that are appended to the common help only in Mode.normal
 #: src/lib/y2partitioner/widgets/help.rb:122
@@ -4178,7 +4223,7 @@ msgstr "gyorsítótárazó eszköz"
 #. 'role' is the kind of device (e.g., 'caching device').
 #: src/lib/y2storage/autoinst_issues/multiple_bcache_members.rb:70
 msgid "%{bcache_name}: only one %{role} can be specified per bcache."
-msgstr ""
+msgstr "%{bcache_name}: csak egy %{role} adható meg egy bcache-hez."
 
 #. TRANSLATORS: kernel device name (eg. '/dev/sda1')
 #: src/lib/y2storage/autoinst_issues/no_disk.rb:52
@@ -4269,6 +4314,7 @@ msgstr "A(z) '%s' készlet nem található"
 #: src/lib/y2storage/autoinst_issues/unsupported_drive_section.rb:49
 msgid "A drive of type '%{type}' is not supported in this architecture"
 msgstr ""
+"A(z) '%{type}' típusú meghajtók nem támogatottak ebben az architektúrában"
 
 #. TRANSLATORS: status when cache set is not attached to any bcache
 #: src/lib/y2storage/bcache_cset.rb:69
@@ -4652,6 +4698,7 @@ msgstr ""
 #: src/lib/y2storage/devicegraph_sanitizer.rb:192
 msgid "Bcache detected, but bcache is not supported on this platform!"
 msgstr ""
+"A rendszer bcache-t észlelt, de a bcache nem támogatott ezen a platformon."
 
 #: src/lib/y2storage/devicegraph_sanitizer.rb:194
 msgid ""
@@ -4659,6 +4706,9 @@ msgid ""
 "The safe way is to remove this bcache manually\n"
 "with command line tools and then restart YaST."
 msgstr ""
+"Ennek bizonytalan a működése. A saját kockázatára használja.\n"
+"A biztonságos módszer a bcache kézi eltávolítása parancssori \n"
+"eszközökkel, majd a YaST újraindítása."
 
 #. Dialog to manage luks activation callbacks
 #: src/lib/y2storage/dialogs/callbacks/activate_luks.rb:64
@@ -4697,11 +4747,11 @@ msgstr ""
 #. @return [String] empty string if the transport is not worth mentioning
 #: src/lib/y2storage/dialogs/guided_setup/base.rb:150
 msgid "USB"
-msgstr ""
+msgstr "USB"
 
 #: src/lib/y2storage/dialogs/guided_setup/base.rb:152
 msgid "IEEE 1394"
-msgstr ""
+msgstr "IEEE 1394"
 
 # clients/inst_source.ycp:197
 #. Maximum number of disks that can be displayed at the same time with
@@ -4728,6 +4778,14 @@ msgid ""
 "separate home partition etc.).</p><p>Disks that are not selected here remain "
 "completely untouched.</p>"
 msgstr ""
+"<p>Válassza ki a lemezeket a telepítéshez.</p><p>A további "
+"párbeszédpaneleken megadhatja, hogy a lemezek közül melyik lesz használva a "
+"gyökérszintű fájlrendszerhez, valamint a meglévő Linux, Windows vagy más "
+"rendszerű partíciókkal végrehajtandó műveletet (megőrzés, eltávolítás, "
+"esetenként átméretezés).</p><p>Az adott esettől (LVM, külön kezdőpartícióval "
+"vagy anélkül stb.) függ az, hogy az itt kiválasztott lemezek közül "
+"ténylegesen hány lesz használva.</p><p>Az itt nem kiválasztott lemezek "
+"érintetlenek maradnak.</p>"
 
 #: src/lib/y2storage/dialogs/guided_setup/select_disks.rb:106
 msgid "At least one disk must be selected"
@@ -4744,11 +4802,11 @@ msgstr "Fájlrendszer beállításai"
 
 #: src/lib/y2storage/dialogs/guided_setup/select_filesystem/base.rb:47
 msgid "Select the filesystem type for each of the volumes."
-msgstr ""
+msgstr "Válassza ki a fájlrendszer típusát mindegyik kötethez."
 
 #: src/lib/y2storage/dialogs/guided_setup/select_filesystem/base.rb:51
 msgid "Select the filesystem type for each of the partitions."
-msgstr ""
+msgstr "Válassza ki a fájlrendszer típusát mindegyik partícióhoz."
 
 #. Dialog to select filesystems.
 #. This is the simpler version for the legacy-style proposal settings that
@@ -4936,6 +4994,15 @@ msgid ""
 "p><p><ul><li>Do not modify (keep them as they are)</li><li>Remove if needed</"
 "li><li>Remove even if not needed (always remove)</li></ul>"
 msgstr ""
+"<p>Válassza ki a gyökérszintű fájlrendszer létrehozásához használandó "
+"lemezt. </p><p>Általában ezen a lemezen lesznek létrehozva a "
+"rendszerindításhoz kapcsolódó partíciók is szükség szerint: /boot, ESP (EFI-"
+"rendszerpartíció), BIOS-Grub. Ez azt jelenti, hogy lemeznek használhatónak "
+"kell lennie a gép BIOS-a és firmvere számára.</p><p>Ezen a párbeszédpanelen "
+"azt is kiválaszthatja, hogy mit szeretne tenni a meglévő "
+"partíciókkal:</p><p><ul><li>Nincs módosítás (megőrzés változatlan "
+"állapotban)</li><li>Eltávolítás szükség esetén</li><li>Eltávolítás akkor is, "
+"ha ez nem szükséges (mindig)</li></ul>"
 
 #. TRANSLATORS: Help text for root disk selection, continued
 #: src/lib/y2storage/dialogs/guided_setup/select_root_disk.rb:186
@@ -4946,6 +5013,12 @@ msgid ""
 "for Linux, but if that is not enough, completely delete the Windows "
 "partition.</p>"
 msgstr ""
+"<ul><li>Átméretezés szükség esetén (csak a Windows-partíciók "
+"esetében)</li><li>Átméretezés vagy eltávolítás szükség esetén (csak a "
+"Windows-partíciók esetében)</li></ul><p>Az utolsó beállítás azt jelenti, "
+"hogy a rendszer megpróbálja átméretezni a Windows-partíció(ka)t, hogy "
+"elegendő lemezterületet szabadítson fel a Linux számára, de ha ez kevés, "
+"akkor teljesen törli a Windows-partíciót.</p>"
 
 # modules/inst_custom_part.ycp:608
 #. @return [EncryptPasswordChecker]
@@ -4987,6 +5060,23 @@ msgid ""
 "p><p><i>If you lose the password, there is no way to recover it, so make "
 "sure not to lose it!</i></p>"
 msgstr ""
+"<p>Válassza ki a particionálási sémát:</p><p><ul><li>Normál partíciók (LVM "
+"nélkül), az egyszerű hagyományos módszer</li><li>LVM (logikai kötetek "
+"kezelése): <p>Ez rugalmasabb lehetőséget kínál a lemezterület kezeléséhez. "
+"</p><p>A fájlrendszereket kiterjesztheti több lemezre, és később további "
+"lemezeket adhat hozzá szükség esetén (és bizonyos mértékig eltávolíthatja a "
+"lemezeket). </p><p>Definiálhat fizikai köteteket a partíciókból vagy a "
+"teljes lemezekből, és kötetcsoportokat hozhat létre belőlük, amelyeket "
+"tárolókészletként használhat. Létrehozhat logikai köteteket, amelyeken a "
+"fájlrendszereket (Btrfs, Ext2/3/4, XFS) fogja létrehozni.</p><p>A <i>"
+"Segített telepítés</i> során a rendszer mindezt végrehajtja a normál "
+"fájlrendszerhez, ha bejelöli az <b>LVM engedélyezése</b> "
+"beállítást.</li></ul></p><p>A <b>Lemeztitkosítás engedélyezése</b> (LVM "
+"használatával vagy anélkül) beállítás megadásával LUKS lemeztitkosítás "
+"réteget adhat hozzá a particionálási konfigurációhoz. Vegye figyelembe, hogy "
+"minden rendszerindításkor meg kell majd adnia a helyes jelszót. </p><p><i>Ha "
+"elveszíti a jelszót, nincs lehetőség a visszanyerésére, ezért legyen nagyon "
+"óvatos.</i></p>"
 
 #. User has the last word to decide whether to use a weak password.
 #: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:175
