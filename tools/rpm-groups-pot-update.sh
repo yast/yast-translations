@@ -14,29 +14,7 @@ fi
 
 cd po/rpm-groups
 
-exec >rpm-groups.pot
-echo '# This file was automatically generated'
-echo 'msgid ""'
-echo 'msgstr ""'
-echo '"Project-Id-Version: rpm-groups\n"'
-echo '"Report-Msgid-Bugs-To: bugzilla.opensuse.org\n"'
-echo "\"POT-Creation-Date: $(date "+%F %R%z")\\n\""
-echo "\"PO-Revision-Date: $(date "+%F %R%z")\\n\""
-echo '"Last-Translator: Automatically generated\n"'
-echo '"Language-Team: openSUSE <opensuse-translation@opensuse.org>\n"'
-echo '"Language: en\n"'
-echo '"MIME-Version: 1.0\n"'
-echo '"Content-Type: text/plain; charset=UTF-8\n"'
-echo '"Content-Transfer-Encoding: 8bit\n"'
-curl -s http://downloadcontent.opensuse.org/tumbleweed/repo/oss/suse/setup/descr/packages.gz |
-	gzip -c -d |
-	sed -n -e 's/=Grp: //gp' |
-	sed -e 's:/:\n:g' |
-	LC_ALL=en_US.UTF-8 sort -u |
-	while IFS='' read -r LINE ; do
-		[ -n "$LINE" ] && echo "" && echo "msgid \"$LINE\"" && echo 'msgstr ""'
-	done
-exec >&-
+curl -s https://raw.githubusercontent.com/openSUSE/packages-i18n/master/50-pot/rpm-groups.pot -o rpm-groups.pot
 
 for PO in *.po ; do
 	if msgmerge --previous --lang=${PO%.po} $PO rpm-groups.pot -o $PO.new ; then
