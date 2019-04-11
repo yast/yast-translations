@@ -14,6 +14,7 @@ fi
 
 cd po/rpm-groups
 
+curl -s https://raw.githubusercontent.com/openSUSE/packages-i18n/master/50-pot/rpm-groups.pot -o rpm-groups.pot
 exec >rpm-groups.pot
 echo '# This file was automatically generated'
 echo 'msgid ""'
