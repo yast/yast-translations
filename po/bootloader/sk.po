@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-08 02:29+0000\n"
+"POT-Creation-Date: 2019-04-30 02:28+0000\n"
 "PO-Revision-Date: 2019-03-19 15:15+0000\n"
 "Last-Translator: Ferdinand Galko <galko.ferdinand@gmail.com>\n"
 "Language-Team: Slovak <https://l10n.opensuse.org/projects/yast-bootloader/"
@@ -33,7 +33,7 @@ msgstr ""
 
 #. TRANSLATORS: %s stands for readon why yast cannot process it
 #. TRANSLATORS: %s stands for readon why yast cannot process it
-#: src/lib/bootloader/config_dialog.rb:25 src/modules/Bootloader.rb:153
+#: src/lib/bootloader/config_dialog.rb:30 src/modules/Bootloader.rb:153
 msgid ""
 "YaST cannot process current bootloader configuration (%s). Propose new "
 "configuration from scratch?"
@@ -41,16 +41,16 @@ msgstr ""
 "YaST nemôže spracovať aktuálnu konfiguráciu správcu štartu (%s). Navrhnúť "
 "novú konfiguráciu od začiatku?"
 
-#: src/lib/bootloader/config_dialog.rb:31 src/modules/Bootloader.rb:159
+#: src/lib/bootloader/config_dialog.rb:36 src/modules/Bootloader.rb:159
 msgid "Unsupported Configuration"
 msgstr "Nepodporovaná konfigurácia"
 
 #. TRANSLATORS: %s stands for readon why yast cannot process it
-#: src/lib/bootloader/config_dialog.rb:33 src/modules/Bootloader.rb:162
+#: src/lib/bootloader/config_dialog.rb:38 src/modules/Bootloader.rb:162
 msgid "Propose"
 msgstr "Navrhnúť"
 
-#: src/lib/bootloader/config_dialog.rb:34 src/modules/Bootloader.rb:144
+#: src/lib/bootloader/config_dialog.rb:39 src/modules/Bootloader.rb:144
 #: src/modules/Bootloader.rb:163
 msgid "Quit"
 msgstr "Koniec"
@@ -58,15 +58,33 @@ msgstr "Koniec"
 #. F#300779 - Install diskless client (NFS-root)
 #. additional warning that root partition is nfs type -> bootloader will not be installed
 #. kokso: additional warning that root partition is nfs type -> bootloader will not be installed
-#: src/lib/bootloader/config_dialog.rb:57 src/modules/Bootloader.rb:209
+#: src/lib/bootloader/config_dialog.rb:62 src/modules/Bootloader.rb:209
 msgid "The boot partition is of type NFS. Bootloader cannot be installed."
 msgstr ""
 "Oddiel disku pre /boot je typu NFS. Správca štartu nemôže byť nainštalovaný."
 
 #. F#300779: end
-#: src/lib/bootloader/config_dialog.rb:75
+#: src/lib/bootloader/config_dialog.rb:73
 msgid "Boot Loader Settings"
 msgstr "Nastavenie správcu štartu systému"
+
+#. Specialized class to handle CPU mitigation settings.
+#. @see https://www.suse.com/support/kb/doc/?id=7023836
+#: src/lib/bootloader/cpu_mitigations.rb:21
+msgid "Auto + No SMT"
+msgstr ""
+
+#: src/lib/bootloader/cpu_mitigations.rb:22
+msgid "Auto"
+msgstr ""
+
+#: src/lib/bootloader/cpu_mitigations.rb:23
+msgid "Off"
+msgstr ""
+
+#: src/lib/bootloader/cpu_mitigations.rb:24
+msgid "Manually"
+msgstr ""
 
 #. Represents dialog for modification of device map
 #: src/lib/bootloader/device_map_dialog.rb:58
@@ -296,11 +314,11 @@ msgid "Change Location: %s"
 msgstr "Zmeniť umiestnenie: %s"
 
 #. Represents bootloader timeout value
-#: src/lib/bootloader/grub2_widgets.rb:56
+#: src/lib/bootloader/grub2_widgets.rb:57
 msgid "&Timeout in Seconds"
 msgstr "&Časový limit v sekundách"
 
-#: src/lib/bootloader/grub2_widgets.rb:60
+#: src/lib/bootloader/grub2_widgets.rb:61
 msgid ""
 "<p><b>Timeout in Seconds</b>\n"
 "specifies the time the boot loader will wait until the default kernel is "
@@ -311,11 +329,11 @@ msgstr ""
 "p>\n"
 
 #. Represents decision if bootloader need activated partition
-#: src/lib/bootloader/grub2_widgets.rb:92
+#: src/lib/bootloader/grub2_widgets.rb:93
 msgid "Set &active Flag in Partition Table for Boot Partition"
 msgstr "Nastaviť &aktívny príznak v tabuľke oddielov pre štartovací oddiel"
 
-#: src/lib/bootloader/grub2_widgets.rb:96
+#: src/lib/bootloader/grub2_widgets.rb:97
 msgid ""
 "<p><b>Set Active Flag in Partition Table for Boot Partition</b>\n"
 "specifies whether the partition containing the boot loader will have the "
@@ -332,24 +350,49 @@ msgstr ""
 "aj keď je správca štartu nainštalovaný v MBR.</p>"
 
 #. Represents decision if smt is enabled
-#: src/lib/bootloader/grub2_widgets.rb:124
-msgid "Disable Simultaneous &Multithreading"
-msgstr "Zakázať simultánny &multithreading"
-
-#: src/lib/bootloader/grub2_widgets.rb:128
-msgid ""
-"<p><b>Disable Simultaneous Multithreading</b><br>\n"
-"To disable sharing physical cores by more virtual ones."
+#: src/lib/bootloader/grub2_widgets.rb:125
+msgid "CPU Mitigations"
 msgstr ""
-"<p><b>Zakázať simultánny multithreading</b><br>\n"
-"Ak chcete zakázať zdieľanie fyzických jadier viacerými virtuálnymi."
+
+#: src/lib/bootloader/grub2_widgets.rb:135
+msgid ""
+"<p><b>CPU Mitigations</b><br>\n"
+"The option selects which default settings should be used for CPU \n"
+"side channels mitigations. A highlevel description is on our Technical "
+"Information \n"
+"Document TID 7023836. Following options are available:<ul>\n"
+"<li><b>Auto</b>: This option enables all the mitigations needed for your CPU "
+"model. \n"
+"This setting can impact performance to some degree, depending on CPU model "
+"and \n"
+"workload. It provides all security mitigations, but it does not protect "
+"against \n"
+"cross-CPU thread attacks.</li>\n"
+"<li><b>Auto + No SMT</b>: This option enables all the above mitigations in \n"
+"\"Auto\", and also disables Simultaneous Multithreading to avoid \n"
+"side channel attacks across multiple CPU threads. This setting can \n"
+"further impact performance, depending on your \n"
+"workload. This setting provides the full set of available security "
+"mitigations.</li>\n"
+"<li><b>Off</b>: All CPU Mitigations are disabled. This setting has no "
+"performance \n"
+"impact, but side channel attacks against your CPU are possible, depending on "
+"CPU \n"
+"model.</li>\n"
+"<li><b>Manual</b>: This setting does not specify a mitigation level and "
+"leaves \n"
+"this to be the kernel default. The administrator can add other mitigations "
+"options \n"
+"in the <i>kernel command line</i> widget.\n"
+"All CPU mitigation specific options can be set manually.</li></ul></p>"
+msgstr ""
 
 #. Represents decision if generic MBR have to be installed on disk
-#: src/lib/bootloader/grub2_widgets.rb:152
+#: src/lib/bootloader/grub2_widgets.rb:177
 msgid "Write &generic Boot Code to MBR"
 msgstr "Zapísať &všeobecný štartovací kód do MBR"
 
-#: src/lib/bootloader/grub2_widgets.rb:156
+#: src/lib/bootloader/grub2_widgets.rb:181
 msgid ""
 "<p><b>Write generic Boot Code to MBR</b> replace the master boot record of "
 "your disk with generic code (OS independent code which\n"
@@ -360,22 +403,22 @@ msgstr ""
 "štart z aktívneho oddielu).</p>"
 
 #. Represents decision if menu should be hidden or visible
-#: src/lib/bootloader/grub2_widgets.rb:181
+#: src/lib/bootloader/grub2_widgets.rb:206
 msgid "&Hide Menu on Boot"
 msgstr "&Skryť ponuku pri štarte"
 
-#: src/lib/bootloader/grub2_widgets.rb:185
+#: src/lib/bootloader/grub2_widgets.rb:210
 msgid "<p>Selecting <b>Hide Menu on Boot</b> will hide the boot menu.</p>"
 msgstr ""
 "<p>Výberom <b>Skryť ponuku pri štarte</b> bude skrytá ponuka štartu systému."
 "</p>"
 
 #. Represents if os prober should be run
-#: src/lib/bootloader/grub2_widgets.rb:204
+#: src/lib/bootloader/grub2_widgets.rb:229
 msgid "Pro&be Foreign OS"
 msgstr "&Preskúmať cudzí OS"
 
-#: src/lib/bootloader/grub2_widgets.rb:208
+#: src/lib/bootloader/grub2_widgets.rb:233
 msgid ""
 "<p><b>Probe Foreign OS</b> by means of os-prober for multiboot with other "
 "foreign distribution </p>"
@@ -384,11 +427,11 @@ msgstr ""
 "cudzej distribúcie </p>"
 
 #. represents kernel command line
-#: src/lib/bootloader/grub2_widgets.rb:232
+#: src/lib/bootloader/grub2_widgets.rb:257
 msgid "O&ptional Kernel Command Line Parameter"
 msgstr "V&oliteľný parameter príkazového riadku jadra"
 
-#: src/lib/bootloader/grub2_widgets.rb:236
+#: src/lib/bootloader/grub2_widgets.rb:261
 msgid ""
 "<p><b>Optional Kernel Command Line Parameter</b> lets you define additional "
 "parameters to pass to the kernel.</p>"
@@ -397,11 +440,11 @@ msgstr ""
 "ďalšie parametre predané jadru.</p>"
 
 #. Represents Protective MBR action
-#: src/lib/bootloader/grub2_widgets.rb:260
+#: src/lib/bootloader/grub2_widgets.rb:285
 msgid "&Protective MBR flag"
 msgstr "&Ochranný MBR príznak"
 
-#: src/lib/bootloader/grub2_widgets.rb:264
+#: src/lib/bootloader/grub2_widgets.rb:289
 msgid ""
 "<p><b>Protective MBR flag</b> is expert only settings, that is needed only "
 "on exotic hardware. For details see Protective MBR in GPT disks. Do not "
@@ -412,12 +455,12 @@ msgstr ""
 "diskoch GPT. Nedotýkajte sa, ak si nie ste istí.</p>"
 
 #. TRANSLATORS: set flag on disk
-#: src/lib/bootloader/grub2_widgets.rb:278
+#: src/lib/bootloader/grub2_widgets.rb:303
 msgid "set"
 msgstr "nastaviť"
 
 #. TRANSLATORS: remove flag from disk
-#: src/lib/bootloader/grub2_widgets.rb:280
+#: src/lib/bootloader/grub2_widgets.rb:305
 msgid "remove"
 msgstr "odstrániť"
 
@@ -425,17 +468,17 @@ msgstr "odstrániť"
 #. force re-calculation of bootloader proposal
 #. this deletes any internally cached values, a new proposal will
 #. not be partially based on old data now any more
-#: src/lib/bootloader/grub2_widgets.rb:282
+#: src/lib/bootloader/grub2_widgets.rb:307
 #: src/lib/bootloader/proposal_client.rb:151
 msgid "do not change"
 msgstr "nemeniť"
 
 #. Represents switcher for secure boot on EFI
-#: src/lib/bootloader/grub2_widgets.rb:300
+#: src/lib/bootloader/grub2_widgets.rb:325
 msgid "Enable &Secure Boot Support"
 msgstr "Povoliť podporu pre &Secure Boot"
 
-#: src/lib/bootloader/grub2_widgets.rb:304
+#: src/lib/bootloader/grub2_widgets.rb:329
 msgid ""
 "<p><b>Enable Secure Boot Support</b> if checked enables UEFI Secure Boot "
 "support.</p>"
@@ -444,12 +487,12 @@ msgstr ""
 "pre UEFI Secure Boot.</p>"
 
 #. Represents switcher for Trusted Boot
-#: src/lib/bootloader/grub2_widgets.rb:325
+#: src/lib/bootloader/grub2_widgets.rb:350
 msgid "Enable &Trusted Boot Support"
 msgstr "Povoliť podporu pre &dôveryhodný štart systému"
 
 #. TRANSLATORS: TrustedGRUB2 is a name, don't translate it
-#: src/lib/bootloader/grub2_widgets.rb:330
+#: src/lib/bootloader/grub2_widgets.rb:355
 msgid ""
 "<p><b>Trusted Boot</b> will install TrustedGRUB2\n"
 "instead of regular GRUB2.\n"
@@ -463,7 +506,7 @@ msgstr ""
 "s pomocou od hardvéru (TPM, Trusted Platform Module,\n"
 "čip).\n"
 
-#: src/lib/bootloader/grub2_widgets.rb:336
+#: src/lib/bootloader/grub2_widgets.rb:361
 msgid ""
 "First you need to make sure Trusted Boot is enabled in the BIOS\n"
 "setup (the setting may be named \"Security Chip\", for example).\n"
@@ -474,7 +517,7 @@ msgstr ""
 #. check for file size does not work, since FS reports it 4096
 #. even if the file is in fact empty and a single byte cannot
 #. be read, therefore testing real reading (details: bsc#994556)
-#: src/lib/bootloader/grub2_widgets.rb:362
+#: src/lib/bootloader/grub2_widgets.rb:387
 msgid ""
 "Trusted Platform Module not found.\n"
 "Make sure it is enabled in BIOS.\n"
@@ -485,30 +528,30 @@ msgstr ""
 "Systém sa inak nezavedie."
 
 #. Represents grub password protection widget
-#: src/lib/bootloader/grub2_widgets.rb:382
+#: src/lib/bootloader/grub2_widgets.rb:407
 msgid "Prot&ect Boot Loader with Password"
 msgstr "Chrániť správcu štartu h&eslom"
 
 #. TRANSLATORS: checkbox entry
-#: src/lib/bootloader/grub2_widgets.rb:388
+#: src/lib/bootloader/grub2_widgets.rb:413
 msgid "P&rotect Entry Modification Only"
 msgstr "Chrániť iba p&red úpravou položky"
 
 #. TRANSLATORS: text entry, please keep it short
-#: src/lib/bootloader/grub2_widgets.rb:394
+#: src/lib/bootloader/grub2_widgets.rb:419
 msgid "&Password for GRUB2 User 'root'"
 msgstr "&Heslo pre GRUB2 používateľa 'root'"
 
 #. text entry
-#: src/lib/bootloader/grub2_widgets.rb:397
+#: src/lib/bootloader/grub2_widgets.rb:422
 msgid "Re&type Password"
 msgstr "Zo&pakujte heslo"
 
-#: src/lib/bootloader/grub2_widgets.rb:408
+#: src/lib/bootloader/grub2_widgets.rb:433
 msgid "The password must not be empty."
 msgstr "Heslo nesmie byť prázdne."
 
-#: src/lib/bootloader/grub2_widgets.rb:415
+#: src/lib/bootloader/grub2_widgets.rb:440
 msgid ""
 "'Password' and 'Retype password'\n"
 "do not match. Retype the password."
@@ -517,7 +560,7 @@ msgstr ""
 "sú rôzne. Prosím, skúste to znovu."
 
 #. special value as we do not know password, so it mean user do not change it
-#: src/lib/bootloader/grub2_widgets.rb:468
+#: src/lib/bootloader/grub2_widgets.rb:493
 msgid ""
 "<p><b>Protect Boot Loader with Password</b>\n"
 "at boot time, modifying or even booting any entry will require the password. "
@@ -543,7 +586,7 @@ msgstr ""
 "skript.</p>"
 
 #. Translators: do not translate the quoted parts like "unit"
-#: src/lib/bootloader/grub2_widgets.rb:508
+#: src/lib/bootloader/grub2_widgets.rb:533
 msgid ""
 "<p><b>Use graphical console</b> when checked it allows to use various "
 "display resolutions. The <tt>auto</tt> option tries to find the best one "
@@ -565,13 +608,13 @@ msgstr ""
 "<tt>NUM</tt> v príkazoch znamená kladné číslo, ako je napr. 8. Vzorové "
 "parametre sú <tt>serial --speed=38400 --unit=0</tt>.</p>"
 
-#: src/lib/bootloader/grub2_widgets.rb:536
+#: src/lib/bootloader/grub2_widgets.rb:561
 msgid "To enable serial console you must provide the corresponding arguments."
 msgstr ""
 "Ak chcete povoliť sériovú konzolu, musíte poskytnúť \tpríslušné argumenty."
 
 #. Translators: do not translate "unit"
-#: src/lib/bootloader/grub2_widgets.rb:543
+#: src/lib/bootloader/grub2_widgets.rb:568
 msgid ""
 "To enable the serial console you must provide the corresponding arguments.\n"
 "The \"unit\" argument is required, the complete syntax is:\n"
@@ -581,7 +624,7 @@ msgstr ""
 "Je potrebný argument \"unit\", kompletná syntax je:\n"
 "%s"
 
-#: src/lib/bootloader/grub2_widgets.rb:584
+#: src/lib/bootloader/grub2_widgets.rb:609
 msgid "Choose new graphical theme file"
 msgstr "Vybrať nový súbor s grafickou témou"
 
@@ -589,40 +632,40 @@ msgstr "Vybrať nový súbor s grafickou témou"
 #. to be substituted in a command like
 #. "serial --unit=NUM --speed=NUM --parity={odd|even|no} --word=NUM --stop=NUM"
 #. so do not use punctuation
-#: src/lib/bootloader/grub2_widgets.rb:620
+#: src/lib/bootloader/grub2_widgets.rb:645
 msgid "NUM"
 msgstr "NUM"
 
-#: src/lib/bootloader/grub2_widgets.rb:627
+#: src/lib/bootloader/grub2_widgets.rb:652
 msgid "Use &graphical console"
 msgstr "Použiť &grafickú konzolu"
 
-#: src/lib/bootloader/grub2_widgets.rb:632
+#: src/lib/bootloader/grub2_widgets.rb:657
 msgid "&Console resolution"
 msgstr "&Rozlíšenie konzoly"
 
-#: src/lib/bootloader/grub2_widgets.rb:637
+#: src/lib/bootloader/grub2_widgets.rb:662
 msgid "&Console theme"
 msgstr "&Téma konzoly"
 
-#: src/lib/bootloader/grub2_widgets.rb:668
+#: src/lib/bootloader/grub2_widgets.rb:693
 msgid "Autodetect by grub2"
 msgstr "Automaticky zistené s grub2"
 
-#: src/lib/bootloader/grub2_widgets.rb:676
+#: src/lib/bootloader/grub2_widgets.rb:701
 msgid "Use &serial console"
 msgstr "Použiť &sériovú konzolu"
 
-#: src/lib/bootloader/grub2_widgets.rb:683
+#: src/lib/bootloader/grub2_widgets.rb:708
 msgid "&Console arguments"
 msgstr "&Argumenty konzoly"
 
 #. represent choosing default section to boot
-#: src/lib/bootloader/grub2_widgets.rb:700
+#: src/lib/bootloader/grub2_widgets.rb:725
 msgid "&Default Boot Section"
 msgstr "&Predvolená štartovacia sekcia"
 
-#: src/lib/bootloader/grub2_widgets.rb:704
+#: src/lib/bootloader/grub2_widgets.rb:729
 msgid ""
 "<p><b>Default Boot Section</b> selects the default section for booting.\n"
 " If sections are not generated yet ( e.g. during installation) \n"
@@ -634,34 +677,34 @@ msgstr ""
 "potom je políčko prázdne a predvolená je vybraná samotným grub2.</p>\n"
 
 #. Represents stage1 location for bootloader
-#: src/lib/bootloader/grub2_widgets.rb:735
+#: src/lib/bootloader/grub2_widgets.rb:760
 msgid "Boot Loader Location"
 msgstr "Umiestnenie správcu štartu"
 
 #. Add it exactly as specified by the user
-#: src/lib/bootloader/grub2_widgets.rb:790
+#: src/lib/bootloader/grub2_widgets.rb:815
 msgid "Custom boot device have to be specied if checked"
 msgstr ""
 "Ak je zaškrtnuté, musí byť špecifikované vlastné zariadenie štartu systému"
 
-#: src/lib/bootloader/grub2_widgets.rb:818
+#: src/lib/bootloader/grub2_widgets.rb:843
 msgid "Boo&t from Partition"
 msgstr "Štar&tovať systém z oddielu"
 
-#: src/lib/bootloader/grub2_widgets.rb:819
+#: src/lib/bootloader/grub2_widgets.rb:844
 msgid "Boot from &Master Boot Record"
 msgstr "Štartovať z &Master Boot Record"
 
-#: src/lib/bootloader/grub2_widgets.rb:830
+#: src/lib/bootloader/grub2_widgets.rb:855
 msgid "C&ustom Boot Partition"
 msgstr "V&lastný štartovací oddiel"
 
 #. Represents button that open Device Map edit dialog
-#: src/lib/bootloader/grub2_widgets.rb:843
+#: src/lib/bootloader/grub2_widgets.rb:868
 msgid "&Edit Disk Boot Order"
 msgstr "&Upraviť poradie diskov pri štarte systému"
 
-#: src/lib/bootloader/grub2_widgets.rb:849
+#: src/lib/bootloader/grub2_widgets.rb:874
 msgid ""
 "<p><b>Edit Disk Boot Order</b>\n"
 "allows to specify the order of the disks according to the order in BIOS. "
@@ -677,17 +720,17 @@ msgstr ""
 "Ak chcete odstrániť disk, kliknite na <b>Odstrániť</b>.</p>"
 
 #. represents Tab with kernel related configuration
-#: src/lib/bootloader/grub2_widgets.rb:870
+#: src/lib/bootloader/grub2_widgets.rb:895
 msgid "&Kernel Parameters"
 msgstr "&Parametre jadra"
 
 #. Represent tab with options related to stage1 location and bootloader type
-#: src/lib/bootloader/grub2_widgets.rb:897
+#: src/lib/bootloader/grub2_widgets.rb:917
 msgid "Boot Co&de Options"
 msgstr "Voľby kó&du štartu systému"
 
 #. Represents bootloader specific options like its timeout, default section or password protection
-#: src/lib/bootloader/grub2_widgets.rb:986
+#: src/lib/bootloader/grub2_widgets.rb:1006
 msgid "Boot&loader Options"
 msgstr "&Voľby správcu štartu"
 
@@ -919,6 +962,16 @@ msgstr "Ukladám nastavenie správcu štartu"
 #: src/modules/Bootloader.rb:252
 msgid "Cannot continue without install required packages"
 msgstr "Nie je možné pokračovať bez nainštalovania požadovaných balíkov"
+
+#~ msgid "Disable Simultaneous &Multithreading"
+#~ msgstr "Zakázať simultánny &multithreading"
+
+#~ msgid ""
+#~ "<p><b>Disable Simultaneous Multithreading</b><br>\n"
+#~ "To disable sharing physical cores by more virtual ones."
+#~ msgstr ""
+#~ "<p><b>Zakázať simultánny multithreading</b><br>\n"
+#~ "Ak chcete zakázať zdieľanie fyzických jadier viacerými virtuálnymi."
 
 #~ msgid ""
 #~ "Changing the bootloader configuration during an upgrade is not supported."

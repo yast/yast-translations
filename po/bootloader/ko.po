@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bootloader.ko\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-08 02:29+0000\n"
+"POT-Creation-Date: 2019-04-30 02:28+0000\n"
 "PO-Revision-Date: 2019-03-21 11:19+0000\n"
 "Last-Translator: Hwajin Kim <hwajin.kim@e4net.net>\n"
 "Language-Team: Korean <https://l10n.opensuse.org/projects/yast-bootloader/"
@@ -34,7 +34,7 @@ msgstr "선택한 부트 로더는 이 아키텍처에서 지원되지 않습니
 
 #. TRANSLATORS: %s stands for readon why yast cannot process it
 #. TRANSLATORS: %s stands for readon why yast cannot process it
-#: src/lib/bootloader/config_dialog.rb:25 src/modules/Bootloader.rb:153
+#: src/lib/bootloader/config_dialog.rb:30 src/modules/Bootloader.rb:153
 msgid ""
 "YaST cannot process current bootloader configuration (%s). Propose new "
 "configuration from scratch?"
@@ -45,16 +45,16 @@ msgstr ""
 # src/clients/lan_auto.ycp:63
 #  radiobutton
 #  menubutton item, keep as short as possible
-#: src/lib/bootloader/config_dialog.rb:31 src/modules/Bootloader.rb:159
+#: src/lib/bootloader/config_dialog.rb:36 src/modules/Bootloader.rb:159
 msgid "Unsupported Configuration"
 msgstr "지원되지 않는 구성"
 
 #. TRANSLATORS: %s stands for readon why yast cannot process it
-#: src/lib/bootloader/config_dialog.rb:33 src/modules/Bootloader.rb:162
+#: src/lib/bootloader/config_dialog.rb:38 src/modules/Bootloader.rb:162
 msgid "Propose"
 msgstr "제안"
 
-#: src/lib/bootloader/config_dialog.rb:34 src/modules/Bootloader.rb:144
+#: src/lib/bootloader/config_dialog.rb:39 src/modules/Bootloader.rb:144
 #: src/modules/Bootloader.rb:163
 msgid "Quit"
 msgstr "끝내기"
@@ -62,14 +62,32 @@ msgstr "끝내기"
 #. F#300779 - Install diskless client (NFS-root)
 #. additional warning that root partition is nfs type -> bootloader will not be installed
 #. kokso: additional warning that root partition is nfs type -> bootloader will not be installed
-#: src/lib/bootloader/config_dialog.rb:57 src/modules/Bootloader.rb:209
+#: src/lib/bootloader/config_dialog.rb:62 src/modules/Bootloader.rb:209
 msgid "The boot partition is of type NFS. Bootloader cannot be installed."
 msgstr "NFS 유형의 부트 파티션입니다. 부트 로더를 설치할 수 없습니다."
 
 #. F#300779: end
-#: src/lib/bootloader/config_dialog.rb:75
+#: src/lib/bootloader/config_dialog.rb:73
 msgid "Boot Loader Settings"
 msgstr "부트 로더 설정"
+
+#. Specialized class to handle CPU mitigation settings.
+#. @see https://www.suse.com/support/kb/doc/?id=7023836
+#: src/lib/bootloader/cpu_mitigations.rb:21
+msgid "Auto + No SMT"
+msgstr ""
+
+#: src/lib/bootloader/cpu_mitigations.rb:22
+msgid "Auto"
+msgstr ""
+
+#: src/lib/bootloader/cpu_mitigations.rb:23
+msgid "Off"
+msgstr ""
+
+#: src/lib/bootloader/cpu_mitigations.rb:24
+msgid "Manually"
+msgstr ""
 
 #  message box
 #. Represents dialog for modification of device map
@@ -213,8 +231,9 @@ msgid ""
 "configuration."
 msgstr ""
 "<p><b>부트 로더</b>\n"
-"설치할 부트 로더를 지정합니다. <tt>없음</tt>으로 설정할 수도 있습니다. 이 경우 부트 로더 구성을 YaST에서 관리하지 않으며, "
-"커널 설치 후 스크립트가 부트 로더 구성을 업데이트하지 않습니다."
+"설치할 부트 로더를 지정합니다. <tt>없음</tt>으로 설정할 수도 있습니다. 이 경"
+"우 부트 로더 구성을 YaST에서 관리하지 않으며, 커널 설치 후 스크립트가 부트 로"
+"더 구성을 업데이트하지 않습니다."
 
 #  summary text, %1 is bootloader name (eg. LILO)
 #. Display bootloader summary
@@ -299,11 +318,11 @@ msgid "Change Location: %s"
 msgstr "위치 변경: %s"
 
 #. Represents bootloader timeout value
-#: src/lib/bootloader/grub2_widgets.rb:56
+#: src/lib/bootloader/grub2_widgets.rb:57
 msgid "&Timeout in Seconds"
 msgstr "제한 시간(초)(&T)"
 
-#: src/lib/bootloader/grub2_widgets.rb:60
+#: src/lib/bootloader/grub2_widgets.rb:61
 msgid ""
 "<p><b>Timeout in Seconds</b>\n"
 "specifies the time the boot loader will wait until the default kernel is "
@@ -313,11 +332,11 @@ msgstr ""
 "기본 커널이 로드될 때까지 부트 로더가 대기하는 시간을 지정합니다.</p>\n"
 
 #. Represents decision if bootloader need activated partition
-#: src/lib/bootloader/grub2_widgets.rb:92
+#: src/lib/bootloader/grub2_widgets.rb:93
 msgid "Set &active Flag in Partition Table for Boot Partition"
 msgstr "부트 파티션에 대한 파티션 테이블에서 플래그 활성 설정(&A)"
 
-#: src/lib/bootloader/grub2_widgets.rb:96
+#: src/lib/bootloader/grub2_widgets.rb:97
 msgid ""
 "<p><b>Set Active Flag in Partition Table for Boot Partition</b>\n"
 "specifies whether the partition containing the boot loader will have the "
@@ -327,29 +346,55 @@ msgid ""
 "if the boot loader is installed in the MBR.</p>"
 msgstr ""
 "<p><b>파티션 테이블에서 부트 파티션에 대한 활성 플래그 설정</b>\n"
-"부트 로더가 포함되어 있는 파티션에 \"active\" 플래그를 포함할 것인지 여부를 지정합니다. 그러면 일반 MBR 코드가 활성\n"
+"부트 로더가 포함되어 있는 파티션에 \"active\" 플래그를 포함할 것인지 여부를 "
+"지정합니다. 그러면 일반 MBR 코드가 활성\n"
 "파티션을 부팅하게 됩니다. 이전 BIOS의 경우 MBR에 부트 로더가 설치되어\n"
 "있더라도 하나의 파티션을 활성화해야 합니다.</p>"
 
 #. Represents decision if smt is enabled
-#: src/lib/bootloader/grub2_widgets.rb:124
-msgid "Disable Simultaneous &Multithreading"
-msgstr "동시 다중 프레드 비활성화(&M)"
-
-#: src/lib/bootloader/grub2_widgets.rb:128
-msgid ""
-"<p><b>Disable Simultaneous Multithreading</b><br>\n"
-"To disable sharing physical cores by more virtual ones."
+#: src/lib/bootloader/grub2_widgets.rb:125
+msgid "CPU Mitigations"
 msgstr ""
-"<p><b>동시 다중 스레드 비활성화</b><br>\n"
-"더 많은 가상 코어로 실제 코어 공유를 비활성화합니다."
+
+#: src/lib/bootloader/grub2_widgets.rb:135
+msgid ""
+"<p><b>CPU Mitigations</b><br>\n"
+"The option selects which default settings should be used for CPU \n"
+"side channels mitigations. A highlevel description is on our Technical "
+"Information \n"
+"Document TID 7023836. Following options are available:<ul>\n"
+"<li><b>Auto</b>: This option enables all the mitigations needed for your CPU "
+"model. \n"
+"This setting can impact performance to some degree, depending on CPU model "
+"and \n"
+"workload. It provides all security mitigations, but it does not protect "
+"against \n"
+"cross-CPU thread attacks.</li>\n"
+"<li><b>Auto + No SMT</b>: This option enables all the above mitigations in \n"
+"\"Auto\", and also disables Simultaneous Multithreading to avoid \n"
+"side channel attacks across multiple CPU threads. This setting can \n"
+"further impact performance, depending on your \n"
+"workload. This setting provides the full set of available security "
+"mitigations.</li>\n"
+"<li><b>Off</b>: All CPU Mitigations are disabled. This setting has no "
+"performance \n"
+"impact, but side channel attacks against your CPU are possible, depending on "
+"CPU \n"
+"model.</li>\n"
+"<li><b>Manual</b>: This setting does not specify a mitigation level and "
+"leaves \n"
+"this to be the kernel default. The administrator can add other mitigations "
+"options \n"
+"in the <i>kernel command line</i> widget.\n"
+"All CPU mitigation specific options can be set manually.</li></ul></p>"
+msgstr ""
 
 #. Represents decision if generic MBR have to be installed on disk
-#: src/lib/bootloader/grub2_widgets.rb:152
+#: src/lib/bootloader/grub2_widgets.rb:177
 msgid "Write &generic Boot Code to MBR"
 msgstr "MBR에 일반 부트 코드 쓰기(&G)"
 
-#: src/lib/bootloader/grub2_widgets.rb:156
+#: src/lib/bootloader/grub2_widgets.rb:181
 msgid ""
 "<p><b>Write generic Boot Code to MBR</b> replace the master boot record of "
 "your disk with generic code (OS independent code which\n"
@@ -360,21 +405,21 @@ msgstr ""
 "OS 독립 코드)</p>"
 
 #. Represents decision if menu should be hidden or visible
-#: src/lib/bootloader/grub2_widgets.rb:181
+#: src/lib/bootloader/grub2_widgets.rb:206
 msgid "&Hide Menu on Boot"
 msgstr "부팅 시 메뉴 숨기기(&H)"
 
-#: src/lib/bootloader/grub2_widgets.rb:185
+#: src/lib/bootloader/grub2_widgets.rb:210
 msgid "<p>Selecting <b>Hide Menu on Boot</b> will hide the boot menu.</p>"
 msgstr ""
 "<p><b>부팅 시 메뉴 숨기기</b>를 선택하면 부트 메뉴가 표시되지 않습니다.</p>"
 
 #. Represents if os prober should be run
-#: src/lib/bootloader/grub2_widgets.rb:204
+#: src/lib/bootloader/grub2_widgets.rb:229
 msgid "Pro&be Foreign OS"
 msgstr "외부 OS 검사(&B)"
 
-#: src/lib/bootloader/grub2_widgets.rb:208
+#: src/lib/bootloader/grub2_widgets.rb:233
 msgid ""
 "<p><b>Probe Foreign OS</b> by means of os-prober for multiboot with other "
 "foreign distribution </p>"
@@ -384,11 +429,11 @@ msgstr ""
 
 #  Provider dialog caption
 #. represents kernel command line
-#: src/lib/bootloader/grub2_widgets.rb:232
+#: src/lib/bootloader/grub2_widgets.rb:257
 msgid "O&ptional Kernel Command Line Parameter"
 msgstr "선택적 커널 명령줄 파라미터(&P)"
 
-#: src/lib/bootloader/grub2_widgets.rb:236
+#: src/lib/bootloader/grub2_widgets.rb:261
 msgid ""
 "<p><b>Optional Kernel Command Line Parameter</b> lets you define additional "
 "parameters to pass to the kernel.</p>"
@@ -397,11 +442,11 @@ msgstr ""
 "수를 정의할 수 있습니다.</p>"
 
 #. Represents Protective MBR action
-#: src/lib/bootloader/grub2_widgets.rb:260
+#: src/lib/bootloader/grub2_widgets.rb:285
 msgid "&Protective MBR flag"
 msgstr "보호 MBR 플래그(&P)"
 
-#: src/lib/bootloader/grub2_widgets.rb:264
+#: src/lib/bootloader/grub2_widgets.rb:289
 msgid ""
 "<p><b>Protective MBR flag</b> is expert only settings, that is needed only "
 "on exotic hardware. For details see Protective MBR in GPT disks. Do not "
@@ -412,13 +457,13 @@ msgstr ""
 "십시오.</p>"
 
 #. TRANSLATORS: set flag on disk
-#: src/lib/bootloader/grub2_widgets.rb:278
+#: src/lib/bootloader/grub2_widgets.rb:303
 msgid "set"
 msgstr "설정"
 
 #  to translators: sound card has been removed from the machine
 #. TRANSLATORS: remove flag from disk
-#: src/lib/bootloader/grub2_widgets.rb:280
+#: src/lib/bootloader/grub2_widgets.rb:305
 msgid "remove"
 msgstr "제거"
 
@@ -426,29 +471,31 @@ msgstr "제거"
 #. force re-calculation of bootloader proposal
 #. this deletes any internally cached values, a new proposal will
 #. not be partially based on old data now any more
-#: src/lib/bootloader/grub2_widgets.rb:282
+#: src/lib/bootloader/grub2_widgets.rb:307
 #: src/lib/bootloader/proposal_client.rb:151
 msgid "do not change"
 msgstr "변경하지 않음"
 
 #. Represents switcher for secure boot on EFI
-#: src/lib/bootloader/grub2_widgets.rb:300
+#: src/lib/bootloader/grub2_widgets.rb:325
 msgid "Enable &Secure Boot Support"
 msgstr "보안 부트 지원 활성화(&S)"
 
-#: src/lib/bootloader/grub2_widgets.rb:304
+#: src/lib/bootloader/grub2_widgets.rb:329
 msgid ""
 "<p><b>Enable Secure Boot Support</b> if checked enables UEFI Secure Boot "
 "support.</p>"
-msgstr "<p><b>보안 부트 지원 활성화</b> 선택한 경우 UEFI 보안 부트 지원을 활성화합니다.</p>"
+msgstr ""
+"<p><b>보안 부트 지원 활성화</b> 선택한 경우 UEFI 보안 부트 지원을 활성화합니"
+"다.</p>"
 
 #. Represents switcher for Trusted Boot
-#: src/lib/bootloader/grub2_widgets.rb:325
+#: src/lib/bootloader/grub2_widgets.rb:350
 msgid "Enable &Trusted Boot Support"
 msgstr "트러스트된 부트 지원 활성화(&T)"
 
 #. TRANSLATORS: TrustedGRUB2 is a name, don't translate it
-#: src/lib/bootloader/grub2_widgets.rb:330
+#: src/lib/bootloader/grub2_widgets.rb:355
 msgid ""
 "<p><b>Trusted Boot</b> will install TrustedGRUB2\n"
 "instead of regular GRUB2.\n"
@@ -462,7 +509,7 @@ msgstr ""
 "부팅 프로세스 무결성을 측정합니다(TPM, Trusted Platform Module,\n"
 "칩).\n"
 
-#: src/lib/bootloader/grub2_widgets.rb:336
+#: src/lib/bootloader/grub2_widgets.rb:361
 msgid ""
 "First you need to make sure Trusted Boot is enabled in the BIOS\n"
 "setup (the setting may be named \"Security Chip\", for example).\n"
@@ -473,7 +520,7 @@ msgstr ""
 #. check for file size does not work, since FS reports it 4096
 #. even if the file is in fact empty and a single byte cannot
 #. be read, therefore testing real reading (details: bsc#994556)
-#: src/lib/bootloader/grub2_widgets.rb:362
+#: src/lib/bootloader/grub2_widgets.rb:387
 msgid ""
 "Trusted Platform Module not found.\n"
 "Make sure it is enabled in BIOS.\n"
@@ -485,34 +532,34 @@ msgstr ""
 
 #  Heading text
 #. Represents grub password protection widget
-#: src/lib/bootloader/grub2_widgets.rb:382
+#: src/lib/bootloader/grub2_widgets.rb:407
 msgid "Prot&ect Boot Loader with Password"
 msgstr "비밀번호로 부트 로더 보호(&E)"
 
 #. TRANSLATORS: checkbox entry
-#: src/lib/bootloader/grub2_widgets.rb:388
+#: src/lib/bootloader/grub2_widgets.rb:413
 msgid "P&rotect Entry Modification Only"
 msgstr "엔트리 수정만 보호(&R)"
 
 #. TRANSLATORS: text entry, please keep it short
-#: src/lib/bootloader/grub2_widgets.rb:394
+#: src/lib/bootloader/grub2_widgets.rb:419
 msgid "&Password for GRUB2 User 'root'"
 msgstr "'루트' GRUB2 사용자에 대한 비밀번호(&P)"
 
 #  password textentry
 #. text entry
-#: src/lib/bootloader/grub2_widgets.rb:397
+#: src/lib/bootloader/grub2_widgets.rb:422
 msgid "Re&type Password"
 msgstr "비밀번호 재입력(&T)"
 
 # src/dsl/dialogs.ycp:478
 #  error popup
-#: src/lib/bootloader/grub2_widgets.rb:408
+#: src/lib/bootloader/grub2_widgets.rb:433
 msgid "The password must not be empty."
 msgstr "비밀번호는 생략할 수 없습니다."
 
 #  error popup
-#: src/lib/bootloader/grub2_widgets.rb:415
+#: src/lib/bootloader/grub2_widgets.rb:440
 msgid ""
 "'Password' and 'Retype password'\n"
 "do not match. Retype the password."
@@ -521,7 +568,7 @@ msgstr ""
 "의 값이 일치하지 않습니다. 비밀번호를 다시 입력하십시오."
 
 #. special value as we do not know password, so it mean user do not change it
-#: src/lib/bootloader/grub2_widgets.rb:468
+#: src/lib/bootloader/grub2_widgets.rb:493
 msgid ""
 "<p><b>Protect Boot Loader with Password</b>\n"
 "at boot time, modifying or even booting any entry will require the password. "
@@ -535,14 +582,17 @@ msgid ""
 "them, use a separate GRUB2 script.</p>"
 msgstr ""
 "<p><b>비밀번호로 부트로더 보호</b>\n"
-"부팅 시 엔트리를 수정하거나 부팅하려면 비밀번호가 필요합니다. <b>엔트리 수정만 보호</b>가 선택된 상태이면 엔트리 부팅은 제한되지 "
-"않으나 엔트리 수정 시 비밀번호가 필요합니다(GRUB 1 동작 방식과 동일). 이 옵션의 부작용으로 initrd 셸에 대한 무단 액세스를 "
-"방지하기 위해 커널 매개 변수에 rd.shell=0이 추가됩니다. YaST에서는 <b>비밀번호 재입력</b>에 다시 입력한 비밀번호만 "
-"승인합니다. 이 비밀번호는 Linux 'root'와 구분되는 GRUB2 사용자 'root'에 적용됩니다. YaST는 현재 다른 GRUB2 "
-"사용자를 지원하지 않습니다. 필요한 경우 별도의 GRUB2 스크립트를 사용하십시오.</p>"
+"부팅 시 엔트리를 수정하거나 부팅하려면 비밀번호가 필요합니다. <b>엔트리 수정"
+"만 보호</b>가 선택된 상태이면 엔트리 부팅은 제한되지 않으나 엔트리 수정 시 비"
+"밀번호가 필요합니다(GRUB 1 동작 방식과 동일). 이 옵션의 부작용으로 initrd 셸"
+"에 대한 무단 액세스를 방지하기 위해 커널 매개 변수에 rd.shell=0이 추가됩니"
+"다. YaST에서는 <b>비밀번호 재입력</b>에 다시 입력한 비밀번호만 승인합니다. "
+"이 비밀번호는 Linux 'root'와 구분되는 GRUB2 사용자 'root'에 적용됩니다. YaST"
+"는 현재 다른 GRUB2 사용자를 지원하지 않습니다. 필요한 경우 별도의 GRUB2 스크"
+"립트를 사용하십시오.</p>"
 
 #. Translators: do not translate the quoted parts like "unit"
-#: src/lib/bootloader/grub2_widgets.rb:508
+#: src/lib/bootloader/grub2_widgets.rb:533
 msgid ""
 "<p><b>Use graphical console</b> when checked it allows to use various "
 "display resolutions. The <tt>auto</tt> option tries to find the best one "
@@ -554,19 +604,20 @@ msgid ""
 "for a positive number like 8. Example parameters are <tt>serial --"
 "speed=38400 --unit=0</tt>.</p>"
 msgstr ""
-"<p><b>그래픽 콘솔 사용</b>을 선택할 경우 다양한 디스플레이 해상도를 사용할 수 있습니다. <tt>자동</tt> 옵션은 부팅 시 "
-"최적의 해상도를 찾습니다.</p>\n"
-"<p><b>시리얼 콘솔 사용</b>을 선택할 경우 부팅 출력이 <tt>ttyS0</tt>과 같은 직렬 장치로 인쇄됩니다. 최소한 "
-"<tt>--unit</tt> 옵션을 지정해야 하고 완전한 구문은 <tt>%s</tt>입니다. 다른 부분은 선택 사항이며, 이를 지정하지 "
-"않을 경우 기본값이 사용됩니다. 명령의 <tt>NUM</tt>은 8과 같은 양수를 나타냅니다. 예제 파라미터는 <tt>serial "
-"--speed=38400 --unit=0</tt>입니다.</p>"
+"<p><b>그래픽 콘솔 사용</b>을 선택할 경우 다양한 디스플레이 해상도를 사용할 "
+"수 있습니다. <tt>자동</tt> 옵션은 부팅 시 최적의 해상도를 찾습니다.</p>\n"
+"<p><b>시리얼 콘솔 사용</b>을 선택할 경우 부팅 출력이 <tt>ttyS0</tt>과 같은 직"
+"렬 장치로 인쇄됩니다. 최소한 <tt>--unit</tt> 옵션을 지정해야 하고 완전한 구문"
+"은 <tt>%s</tt>입니다. 다른 부분은 선택 사항이며, 이를 지정하지 않을 경우 기본"
+"값이 사용됩니다. 명령의 <tt>NUM</tt>은 8과 같은 양수를 나타냅니다. 예제 파라"
+"미터는 <tt>serial --speed=38400 --unit=0</tt>입니다.</p>"
 
-#: src/lib/bootloader/grub2_widgets.rb:536
+#: src/lib/bootloader/grub2_widgets.rb:561
 msgid "To enable serial console you must provide the corresponding arguments."
 msgstr "시리얼 콘솔을 활성화하려면 해당하는 인수를 입력해야 합니다."
 
 #. Translators: do not translate "unit"
-#: src/lib/bootloader/grub2_widgets.rb:543
+#: src/lib/bootloader/grub2_widgets.rb:568
 msgid ""
 "To enable the serial console you must provide the corresponding arguments.\n"
 "The \"unit\" argument is required, the complete syntax is:\n"
@@ -576,7 +627,7 @@ msgstr ""
 "\"unit\" 인수는 필수이며 완전한 구문은 다음과 같습니다.\n"
 "%s"
 
-#: src/lib/bootloader/grub2_widgets.rb:584
+#: src/lib/bootloader/grub2_widgets.rb:609
 msgid "Choose new graphical theme file"
 msgstr "새 그래픽 테마 파일 선택"
 
@@ -584,41 +635,41 @@ msgstr "새 그래픽 테마 파일 선택"
 #. to be substituted in a command like
 #. "serial --unit=NUM --speed=NUM --parity={odd|even|no} --word=NUM --stop=NUM"
 #. so do not use punctuation
-#: src/lib/bootloader/grub2_widgets.rb:620
+#: src/lib/bootloader/grub2_widgets.rb:645
 msgid "NUM"
 msgstr "NUM"
 
-#: src/lib/bootloader/grub2_widgets.rb:627
+#: src/lib/bootloader/grub2_widgets.rb:652
 msgid "Use &graphical console"
 msgstr "그래픽 콘솔 사용(&G)"
 
-#: src/lib/bootloader/grub2_widgets.rb:632
+#: src/lib/bootloader/grub2_widgets.rb:657
 msgid "&Console resolution"
 msgstr "콘솔 해상도(&C)"
 
-#: src/lib/bootloader/grub2_widgets.rb:637
+#: src/lib/bootloader/grub2_widgets.rb:662
 msgid "&Console theme"
 msgstr "콘솔 테마(&C)"
 
-#: src/lib/bootloader/grub2_widgets.rb:668
+#: src/lib/bootloader/grub2_widgets.rb:693
 msgid "Autodetect by grub2"
 msgstr "grub2에 의해 자동 검색"
 
-#: src/lib/bootloader/grub2_widgets.rb:676
+#: src/lib/bootloader/grub2_widgets.rb:701
 msgid "Use &serial console"
 msgstr "직렬 콘솔 사용(&S)"
 
-#: src/lib/bootloader/grub2_widgets.rb:683
+#: src/lib/bootloader/grub2_widgets.rb:708
 msgid "&Console arguments"
 msgstr "콘솔 인수(&C)"
 
 #  table item / label
 #. represent choosing default section to boot
-#: src/lib/bootloader/grub2_widgets.rb:700
+#: src/lib/bootloader/grub2_widgets.rb:725
 msgid "&Default Boot Section"
 msgstr "기본 부트 섹션(&D)"
 
-#: src/lib/bootloader/grub2_widgets.rb:704
+#: src/lib/bootloader/grub2_widgets.rb:729
 msgid ""
 "<p><b>Default Boot Section</b> selects the default section for booting.\n"
 " If sections are not generated yet ( e.g. during installation) \n"
@@ -632,36 +683,36 @@ msgstr ""
 #  frame
 #  table cell / label
 #. Represents stage1 location for bootloader
-#: src/lib/bootloader/grub2_widgets.rb:735
+#: src/lib/bootloader/grub2_widgets.rb:760
 msgid "Boot Loader Location"
 msgstr "부트 로더 위치"
 
 #. Add it exactly as specified by the user
-#: src/lib/bootloader/grub2_widgets.rb:790
+#: src/lib/bootloader/grub2_widgets.rb:815
 msgid "Custom boot device have to be specied if checked"
 msgstr "선택할 경우 사용자 정의 부트 장치를 지정해야 함"
 
 #  radiobutton, %1 is device (eg. /dev/hda1)
-#: src/lib/bootloader/grub2_widgets.rb:818
+#: src/lib/bootloader/grub2_widgets.rb:843
 msgid "Boo&t from Partition"
 msgstr "파티션에서 부팅(&T)"
 
 #  radio button
-#: src/lib/bootloader/grub2_widgets.rb:819
+#: src/lib/bootloader/grub2_widgets.rb:844
 msgid "Boot from &Master Boot Record"
 msgstr "마스터 부트 레코드에서 부팅(&M)"
 
 #  label / table entry
-#: src/lib/bootloader/grub2_widgets.rb:830
+#: src/lib/bootloader/grub2_widgets.rb:855
 msgid "C&ustom Boot Partition"
 msgstr "사용자 정의 부트 파티션(&U)"
 
 #. Represents button that open Device Map edit dialog
-#: src/lib/bootloader/grub2_widgets.rb:843
+#: src/lib/bootloader/grub2_widgets.rb:868
 msgid "&Edit Disk Boot Order"
 msgstr "디스크 부팅 순서 편집(&E)"
 
-#: src/lib/bootloader/grub2_widgets.rb:849
+#: src/lib/bootloader/grub2_widgets.rb:874
 msgid ""
 "<p><b>Edit Disk Boot Order</b>\n"
 "allows to specify the order of the disks according to the order in BIOS. "
@@ -677,17 +728,17 @@ msgstr ""
 "제거할 때는 <b>제거</b>를 누르십시오.</p>"
 
 #. represents Tab with kernel related configuration
-#: src/lib/bootloader/grub2_widgets.rb:870
+#: src/lib/bootloader/grub2_widgets.rb:895
 msgid "&Kernel Parameters"
 msgstr "커널 파라미터(&K)"
 
 #. Represent tab with options related to stage1 location and bootloader type
-#: src/lib/bootloader/grub2_widgets.rb:897
+#: src/lib/bootloader/grub2_widgets.rb:917
 msgid "Boot Co&de Options"
 msgstr "부트 코드 옵션(&D)"
 
 #. Represents bootloader specific options like its timeout, default section or password protection
-#: src/lib/bootloader/grub2_widgets.rb:986
+#: src/lib/bootloader/grub2_widgets.rb:1006
 msgid "Boot&loader Options"
 msgstr "부트 로더 옵션(&L)"
 
@@ -927,6 +978,16 @@ msgstr "부트 로더 구성 저장 중"
 #: src/modules/Bootloader.rb:252
 msgid "Cannot continue without install required packages"
 msgstr "필수 패키지를 설치하지 않으면 계속할 수 없습니다."
+
+#~ msgid "Disable Simultaneous &Multithreading"
+#~ msgstr "동시 다중 프레드 비활성화(&M)"
+
+#~ msgid ""
+#~ "<p><b>Disable Simultaneous Multithreading</b><br>\n"
+#~ "To disable sharing physical cores by more virtual ones."
+#~ msgstr ""
+#~ "<p><b>동시 다중 스레드 비활성화</b><br>\n"
+#~ "더 많은 가상 코어로 실제 코어 공유를 비활성화합니다."
 
 #~ msgid ""
 #~ "Changing the bootloader configuration during an upgrade is not supported."

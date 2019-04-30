@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: YaST (@memory@)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-08 02:29+0000\n"
+"POT-Creation-Date: 2019-04-30 02:28+0000\n"
 "PO-Revision-Date: 2005-07-29 15:37+0530\n"
 "Last-Translator: Priyavert Sharma<priyavert.sharma@agreeya.com>\n"
 "Language-Team: AgreeYa Solutions<linux_team@agreeya.com>\n"
@@ -26,24 +26,24 @@ msgstr ""
 
 #. TRANSLATORS: %s stands for readon why yast cannot process it
 #. TRANSLATORS: %s stands for readon why yast cannot process it
-#: src/lib/bootloader/config_dialog.rb:25 src/modules/Bootloader.rb:153
+#: src/lib/bootloader/config_dialog.rb:30 src/modules/Bootloader.rb:153
 msgid ""
 "YaST cannot process current bootloader configuration (%s). Propose new "
 "configuration from scratch?"
 msgstr ""
 
-#: src/lib/bootloader/config_dialog.rb:31 src/modules/Bootloader.rb:159
+#: src/lib/bootloader/config_dialog.rb:36 src/modules/Bootloader.rb:159
 #, fuzzy
 #| msgid "&Propose New Configuration"
 msgid "Unsupported Configuration"
 msgstr " এবং নতুন কনফিগারেশন-এর প্রস্তাব দিন"
 
 #. TRANSLATORS: %s stands for readon why yast cannot process it
-#: src/lib/bootloader/config_dialog.rb:33 src/modules/Bootloader.rb:162
+#: src/lib/bootloader/config_dialog.rb:38 src/modules/Bootloader.rb:162
 msgid "Propose"
 msgstr ""
 
-#: src/lib/bootloader/config_dialog.rb:34 src/modules/Bootloader.rb:144
+#: src/lib/bootloader/config_dialog.rb:39 src/modules/Bootloader.rb:144
 #: src/modules/Bootloader.rb:163
 msgid "Quit"
 msgstr ""
@@ -51,15 +51,33 @@ msgstr ""
 #. F#300779 - Install diskless client (NFS-root)
 #. additional warning that root partition is nfs type -> bootloader will not be installed
 #. kokso: additional warning that root partition is nfs type -> bootloader will not be installed
-#: src/lib/bootloader/config_dialog.rb:57 src/modules/Bootloader.rb:209
+#: src/lib/bootloader/config_dialog.rb:62 src/modules/Bootloader.rb:209
 #, fuzzy
 msgid "The boot partition is of type NFS. Bootloader cannot be installed."
 msgstr "বিভাজিতকরনের জন্য, বুটলোডারটি সঠিকভাবে ইনস্টল করা যাবে না"
 
 #. F#300779: end
-#: src/lib/bootloader/config_dialog.rb:75
+#: src/lib/bootloader/config_dialog.rb:73
 msgid "Boot Loader Settings"
 msgstr "বুট লোডার সেটিং লোড করুন"
+
+#. Specialized class to handle CPU mitigation settings.
+#. @see https://www.suse.com/support/kb/doc/?id=7023836
+#: src/lib/bootloader/cpu_mitigations.rb:21
+msgid "Auto + No SMT"
+msgstr ""
+
+#: src/lib/bootloader/cpu_mitigations.rb:22
+msgid "Auto"
+msgstr ""
+
+#: src/lib/bootloader/cpu_mitigations.rb:23
+msgid "Off"
+msgstr ""
+
+#: src/lib/bootloader/cpu_mitigations.rb:24
+msgid "Manually"
+msgstr ""
 
 #. Represents dialog for modification of device map
 #: src/lib/bootloader/device_map_dialog.rb:58
@@ -280,12 +298,12 @@ msgid "Change Location: %s"
 msgstr "%1 অবস্থান"
 
 #. Represents bootloader timeout value
-#: src/lib/bootloader/grub2_widgets.rb:56
+#: src/lib/bootloader/grub2_widgets.rb:57
 #, fuzzy
 msgid "&Timeout in Seconds"
 msgstr "সময়শেষ সেকেন্ডে"
 
-#: src/lib/bootloader/grub2_widgets.rb:60
+#: src/lib/bootloader/grub2_widgets.rb:61
 #, fuzzy
 #| msgid ""
 #| "<p><b>Timeout in Seconds</b><br>\n"
@@ -302,12 +320,12 @@ msgstr ""
 "\"\n"
 
 #. Represents decision if bootloader need activated partition
-#: src/lib/bootloader/grub2_widgets.rb:92
+#: src/lib/bootloader/grub2_widgets.rb:93
 #, fuzzy
 msgid "Set &active Flag in Partition Table for Boot Partition"
 msgstr "বুট পার্টিশানের জন্য পার্টিশান টেবিলে সক্রিয় ফ্ল্যাগ স্থির করুন"
 
-#: src/lib/bootloader/grub2_widgets.rb:96
+#: src/lib/bootloader/grub2_widgets.rb:97
 #, fuzzy
 msgid ""
 "<p><b>Set Active Flag in Partition Table for Boot Partition</b>\n"
@@ -325,23 +343,50 @@ msgstr ""
 "যদি MBR-এ বুট লোডার ইনস্টল করা হয়ে থাকে তাহলেও।</p>"
 
 #. Represents decision if smt is enabled
-#: src/lib/bootloader/grub2_widgets.rb:124
-msgid "Disable Simultaneous &Multithreading"
+#: src/lib/bootloader/grub2_widgets.rb:125
+msgid "CPU Mitigations"
 msgstr ""
 
-#: src/lib/bootloader/grub2_widgets.rb:128
+#: src/lib/bootloader/grub2_widgets.rb:135
 msgid ""
-"<p><b>Disable Simultaneous Multithreading</b><br>\n"
-"To disable sharing physical cores by more virtual ones."
+"<p><b>CPU Mitigations</b><br>\n"
+"The option selects which default settings should be used for CPU \n"
+"side channels mitigations. A highlevel description is on our Technical "
+"Information \n"
+"Document TID 7023836. Following options are available:<ul>\n"
+"<li><b>Auto</b>: This option enables all the mitigations needed for your CPU "
+"model. \n"
+"This setting can impact performance to some degree, depending on CPU model "
+"and \n"
+"workload. It provides all security mitigations, but it does not protect "
+"against \n"
+"cross-CPU thread attacks.</li>\n"
+"<li><b>Auto + No SMT</b>: This option enables all the above mitigations in \n"
+"\"Auto\", and also disables Simultaneous Multithreading to avoid \n"
+"side channel attacks across multiple CPU threads. This setting can \n"
+"further impact performance, depending on your \n"
+"workload. This setting provides the full set of available security "
+"mitigations.</li>\n"
+"<li><b>Off</b>: All CPU Mitigations are disabled. This setting has no "
+"performance \n"
+"impact, but side channel attacks against your CPU are possible, depending on "
+"CPU \n"
+"model.</li>\n"
+"<li><b>Manual</b>: This setting does not specify a mitigation level and "
+"leaves \n"
+"this to be the kernel default. The administrator can add other mitigations "
+"options \n"
+"in the <i>kernel command line</i> widget.\n"
+"All CPU mitigation specific options can be set manually.</li></ul></p>"
 msgstr ""
 
 #. Represents decision if generic MBR have to be installed on disk
-#: src/lib/bootloader/grub2_widgets.rb:152
+#: src/lib/bootloader/grub2_widgets.rb:177
 #, fuzzy
 msgid "Write &generic Boot Code to MBR"
 msgstr "MBR-এ বর্গীয় বুট কোড লিখুন"
 
-#: src/lib/bootloader/grub2_widgets.rb:156
+#: src/lib/bootloader/grub2_widgets.rb:181
 #, fuzzy
 msgid ""
 "<p><b>Write generic Boot Code to MBR</b> replace the master boot record of "
@@ -354,33 +399,33 @@ msgstr ""
 "b>নির্বাচন করুন।</p>"
 
 #. Represents decision if menu should be hidden or visible
-#: src/lib/bootloader/grub2_widgets.rb:181
+#: src/lib/bootloader/grub2_widgets.rb:206
 #, fuzzy
 msgid "&Hide Menu on Boot"
 msgstr "মেনুকে বুট-এ লুকিয়ে দিন"
 
-#: src/lib/bootloader/grub2_widgets.rb:185
+#: src/lib/bootloader/grub2_widgets.rb:210
 msgid "<p>Selecting <b>Hide Menu on Boot</b> will hide the boot menu.</p>"
 msgstr "<p><b>বুটের সময়ে মেনু লুকিয়ে ফেলুন</b> নির্বাচন করলে বুট মেনু লুকিয়ে যাবে।</p>"
 
 #. Represents if os prober should be run
-#: src/lib/bootloader/grub2_widgets.rb:204
+#: src/lib/bootloader/grub2_widgets.rb:229
 msgid "Pro&be Foreign OS"
 msgstr ""
 
-#: src/lib/bootloader/grub2_widgets.rb:208
+#: src/lib/bootloader/grub2_widgets.rb:233
 msgid ""
 "<p><b>Probe Foreign OS</b> by means of os-prober for multiboot with other "
 "foreign distribution </p>"
 msgstr ""
 
 #. represents kernel command line
-#: src/lib/bootloader/grub2_widgets.rb:232
+#: src/lib/bootloader/grub2_widgets.rb:257
 #, fuzzy
 msgid "O&ptional Kernel Command Line Parameter"
 msgstr "কার্নেল কম্যান্ড লাইেনর জন্য অ্যাপেন্ডেড বিকল্প"
 
-#: src/lib/bootloader/grub2_widgets.rb:236
+#: src/lib/bootloader/grub2_widgets.rb:261
 msgid ""
 "<p><b>Optional Kernel Command Line Parameter</b> lets you define additional "
 "parameters to pass to the kernel.</p>"
@@ -389,11 +434,11 @@ msgstr ""
 "জন্য অতিরিক্ত প্যারামিটার বর্ণনা করার  সুযোগ দেয়।</p>"
 
 #. Represents Protective MBR action
-#: src/lib/bootloader/grub2_widgets.rb:260
+#: src/lib/bootloader/grub2_widgets.rb:285
 msgid "&Protective MBR flag"
 msgstr ""
 
-#: src/lib/bootloader/grub2_widgets.rb:264
+#: src/lib/bootloader/grub2_widgets.rb:289
 msgid ""
 "<p><b>Protective MBR flag</b> is expert only settings, that is needed only "
 "on exotic hardware. For details see Protective MBR in GPT disks. Do not "
@@ -401,14 +446,14 @@ msgid ""
 msgstr ""
 
 #. TRANSLATORS: set flag on disk
-#: src/lib/bootloader/grub2_widgets.rb:278
+#: src/lib/bootloader/grub2_widgets.rb:303
 #, fuzzy
 #| msgid "1st"
 msgid "set"
 msgstr "প্রথম"
 
 #. TRANSLATORS: remove flag from disk
-#: src/lib/bootloader/grub2_widgets.rb:280
+#: src/lib/bootloader/grub2_widgets.rb:305
 #, fuzzy
 #| msgid "Remove"
 msgid "remove"
@@ -418,33 +463,33 @@ msgstr "সরাও"
 #. force re-calculation of bootloader proposal
 #. this deletes any internally cached values, a new proposal will
 #. not be partially based on old data now any more
-#: src/lib/bootloader/grub2_widgets.rb:282
+#: src/lib/bootloader/grub2_widgets.rb:307
 #: src/lib/bootloader/proposal_client.rb:151
 msgid "do not change"
 msgstr ""
 
 #. Represents switcher for secure boot on EFI
-#: src/lib/bootloader/grub2_widgets.rb:300
+#: src/lib/bootloader/grub2_widgets.rb:325
 #, fuzzy
 #| msgid "Enable &Layer 2 Support"
 msgid "Enable &Secure Boot Support"
 msgstr "সক্ষম &লেয়ার 2 সমর্থন"
 
-#: src/lib/bootloader/grub2_widgets.rb:304
+#: src/lib/bootloader/grub2_widgets.rb:329
 msgid ""
 "<p><b>Enable Secure Boot Support</b> if checked enables UEFI Secure Boot "
 "support.</p>"
 msgstr ""
 
 #. Represents switcher for Trusted Boot
-#: src/lib/bootloader/grub2_widgets.rb:325
+#: src/lib/bootloader/grub2_widgets.rb:350
 #, fuzzy
 #| msgid "Enable &Layer 2 Support"
 msgid "Enable &Trusted Boot Support"
 msgstr "সক্ষম &লেয়ার 2 সমর্থন"
 
 #. TRANSLATORS: TrustedGRUB2 is a name, don't translate it
-#: src/lib/bootloader/grub2_widgets.rb:330
+#: src/lib/bootloader/grub2_widgets.rb:355
 msgid ""
 "<p><b>Trusted Boot</b> will install TrustedGRUB2\n"
 "instead of regular GRUB2.\n"
@@ -453,7 +498,7 @@ msgid ""
 "chip).\n"
 msgstr ""
 
-#: src/lib/bootloader/grub2_widgets.rb:336
+#: src/lib/bootloader/grub2_widgets.rb:361
 msgid ""
 "First you need to make sure Trusted Boot is enabled in the BIOS\n"
 "setup (the setting may be named \"Security Chip\", for example).\n"
@@ -462,7 +507,7 @@ msgstr ""
 #. check for file size does not work, since FS reports it 4096
 #. even if the file is in fact empty and a single byte cannot
 #. be read, therefore testing real reading (details: bsc#994556)
-#: src/lib/bootloader/grub2_widgets.rb:362
+#: src/lib/bootloader/grub2_widgets.rb:387
 msgid ""
 "Trusted Platform Module not found.\n"
 "Make sure it is enabled in BIOS.\n"
@@ -470,32 +515,32 @@ msgid ""
 msgstr ""
 
 #. Represents grub password protection widget
-#: src/lib/bootloader/grub2_widgets.rb:382
+#: src/lib/bootloader/grub2_widgets.rb:407
 msgid "Prot&ect Boot Loader with Password"
 msgstr "পাসওয়ার্ডের মাধ্যমে বুট লোডার সুরক্ষিত করুন"
 
 #. TRANSLATORS: checkbox entry
-#: src/lib/bootloader/grub2_widgets.rb:388
+#: src/lib/bootloader/grub2_widgets.rb:413
 #, fuzzy
 #| msgid "Security Event Notification"
 msgid "P&rotect Entry Modification Only"
 msgstr "বর্তমান কনফিগারেশন পড়ুন"
 
 #. TRANSLATORS: text entry, please keep it short
-#: src/lib/bootloader/grub2_widgets.rb:394
+#: src/lib/bootloader/grub2_widgets.rb:419
 msgid "&Password for GRUB2 User 'root'"
 msgstr ""
 
 #. text entry
-#: src/lib/bootloader/grub2_widgets.rb:397
+#: src/lib/bootloader/grub2_widgets.rb:422
 msgid "Re&type Password"
 msgstr "পাসওয়ার্ড (&প)"
 
-#: src/lib/bootloader/grub2_widgets.rb:408
+#: src/lib/bootloader/grub2_widgets.rb:433
 msgid "The password must not be empty."
 msgstr "পাসওয়ার্ড খালি থাকবে না."
 
-#: src/lib/bootloader/grub2_widgets.rb:415
+#: src/lib/bootloader/grub2_widgets.rb:440
 msgid ""
 "'Password' and 'Retype password'\n"
 "do not match. Retype the password."
@@ -504,7 +549,7 @@ msgstr ""
 "মিলছে না. পাসওয়ার্ড আবার টাইপ করুন."
 
 #. special value as we do not know password, so it mean user do not change it
-#: src/lib/bootloader/grub2_widgets.rb:468
+#: src/lib/bootloader/grub2_widgets.rb:493
 #, fuzzy
 msgid ""
 "<p><b>Protect Boot Loader with Password</b>\n"
@@ -524,7 +569,7 @@ msgstr ""
 "<b>পাসওয়ার্ড পুনরায় টাইপ করুন</b> এ পুনরাবৃত্তি করেন।</p>"
 
 #. Translators: do not translate the quoted parts like "unit"
-#: src/lib/bootloader/grub2_widgets.rb:508
+#: src/lib/bootloader/grub2_widgets.rb:533
 msgid ""
 "<p><b>Use graphical console</b> when checked it allows to use various "
 "display resolutions. The <tt>auto</tt> option tries to find the best one "
@@ -537,19 +582,19 @@ msgid ""
 "speed=38400 --unit=0</tt>.</p>"
 msgstr ""
 
-#: src/lib/bootloader/grub2_widgets.rb:536
+#: src/lib/bootloader/grub2_widgets.rb:561
 msgid "To enable serial console you must provide the corresponding arguments."
 msgstr ""
 
 #. Translators: do not translate "unit"
-#: src/lib/bootloader/grub2_widgets.rb:543
+#: src/lib/bootloader/grub2_widgets.rb:568
 msgid ""
 "To enable the serial console you must provide the corresponding arguments.\n"
 "The \"unit\" argument is required, the complete syntax is:\n"
 "%s"
 msgstr ""
 
-#: src/lib/bootloader/grub2_widgets.rb:584
+#: src/lib/bootloader/grub2_widgets.rb:609
 #, fuzzy
 msgid "Choose new graphical theme file"
 msgstr "লেখচিত্রমূলক মেনু ফাইল"
@@ -558,49 +603,49 @@ msgstr "লেখচিত্রমূলক মেনু ফাইল"
 #. to be substituted in a command like
 #. "serial --unit=NUM --speed=NUM --parity={odd|even|no} --word=NUM --stop=NUM"
 #. so do not use punctuation
-#: src/lib/bootloader/grub2_widgets.rb:620
+#: src/lib/bootloader/grub2_widgets.rb:645
 msgid "NUM"
 msgstr ""
 
-#: src/lib/bootloader/grub2_widgets.rb:627
+#: src/lib/bootloader/grub2_widgets.rb:652
 #, fuzzy
 msgid "Use &graphical console"
 msgstr "সিরিয়াল নিয়ন্ত্রক"
 
-#: src/lib/bootloader/grub2_widgets.rb:632
+#: src/lib/bootloader/grub2_widgets.rb:657
 #, fuzzy
 #| msgid "Conflict Resolution:"
 msgid "&Console resolution"
 msgstr "দ্বন্দ্ব মীমাংসা:"
 
-#: src/lib/bootloader/grub2_widgets.rb:637
+#: src/lib/bootloader/grub2_widgets.rb:662
 #, fuzzy
 msgid "&Console theme"
 msgstr "অবৈধ যুক্তি "
 
-#: src/lib/bootloader/grub2_widgets.rb:668
+#: src/lib/bootloader/grub2_widgets.rb:693
 #, fuzzy
 #| msgid "Autodetected card"
 msgid "Autodetect by grub2"
 msgstr "অটোডিটেক্টেড কার্ড"
 
-#: src/lib/bootloader/grub2_widgets.rb:676
+#: src/lib/bootloader/grub2_widgets.rb:701
 #, fuzzy
 msgid "Use &serial console"
 msgstr "সিরিয়াল নিয়ন্ত্রক"
 
-#: src/lib/bootloader/grub2_widgets.rb:683
+#: src/lib/bootloader/grub2_widgets.rb:708
 #, fuzzy
 msgid "&Console arguments"
 msgstr "অবৈধ যুক্তি "
 
 #. represent choosing default section to boot
-#: src/lib/bootloader/grub2_widgets.rb:700
+#: src/lib/bootloader/grub2_widgets.rb:725
 #, fuzzy
 msgid "&Default Boot Section"
 msgstr "ডিফল্ট বুট সেক্শন"
 
-#: src/lib/bootloader/grub2_widgets.rb:704
+#: src/lib/bootloader/grub2_widgets.rb:729
 msgid ""
 "<p><b>Default Boot Section</b> selects the default section for booting.\n"
 " If sections are not generated yet ( e.g. during installation) \n"
@@ -608,38 +653,38 @@ msgid ""
 msgstr ""
 
 #. Represents stage1 location for bootloader
-#: src/lib/bootloader/grub2_widgets.rb:735
+#: src/lib/bootloader/grub2_widgets.rb:760
 msgid "Boot Loader Location"
 msgstr "বুট লোডার লোকেশন"
 
 #. Add it exactly as specified by the user
-#: src/lib/bootloader/grub2_widgets.rb:790
+#: src/lib/bootloader/grub2_widgets.rb:815
 msgid "Custom boot device have to be specied if checked"
 msgstr ""
 
-#: src/lib/bootloader/grub2_widgets.rb:818
+#: src/lib/bootloader/grub2_widgets.rb:843
 #, fuzzy
 msgid "Boo&t from Partition"
 msgstr "41 PReP বুট পার্টিশান"
 
-#: src/lib/bootloader/grub2_widgets.rb:819
+#: src/lib/bootloader/grub2_widgets.rb:844
 #, fuzzy
 msgid "Boot from &Master Boot Record"
 msgstr "মাস্টার বুট রেকর্ড থেকে বুট করুন"
 
-#: src/lib/bootloader/grub2_widgets.rb:830
+#: src/lib/bootloader/grub2_widgets.rb:855
 #, fuzzy
 msgid "C&ustom Boot Partition"
 msgstr "বুট বিভাজন করতে ইমেজ কপি করুন"
 
 #. Represents button that open Device Map edit dialog
-#: src/lib/bootloader/grub2_widgets.rb:843
+#: src/lib/bootloader/grub2_widgets.rb:868
 #, fuzzy
 #| msgid "Disk Order"
 msgid "&Edit Disk Boot Order"
 msgstr "ডিস্ক ক্রম"
 
-#: src/lib/bootloader/grub2_widgets.rb:849
+#: src/lib/bootloader/grub2_widgets.rb:874
 #, fuzzy
 msgid ""
 "<p><b>Edit Disk Boot Order</b>\n"
@@ -654,21 +699,21 @@ msgstr ""
 "<b>Up</b> এবং <b>নীচে করুন</b> বোতাম ডিস্ক রিঅর্ডার করতে.</p>"
 
 #. represents Tab with kernel related configuration
-#: src/lib/bootloader/grub2_widgets.rb:870
+#: src/lib/bootloader/grub2_widgets.rb:895
 #, fuzzy
 #| msgid "Other Kernel &Parameters"
 msgid "&Kernel Parameters"
 msgstr "অন্যান্য কারনাল এবং স্থিতিমাপগুলি "
 
 #. Represent tab with options related to stage1 location and bootloader type
-#: src/lib/bootloader/grub2_widgets.rb:897
+#: src/lib/bootloader/grub2_widgets.rb:917
 #, fuzzy
 #| msgid "Boot Loader Options"
 msgid "Boot Co&de Options"
 msgstr "বুট লোডার লোকেশন"
 
 #. Represents bootloader specific options like its timeout, default section or password protection
-#: src/lib/bootloader/grub2_widgets.rb:986
+#: src/lib/bootloader/grub2_widgets.rb:1006
 #, fuzzy
 #| msgid "Boot Loader Options"
 msgid "Boot&loader Options"
