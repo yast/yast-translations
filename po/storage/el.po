@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: storage-ng.el\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-26 02:29+0000\n"
+"POT-Creation-Date: 2019-05-01 02:29+0000\n"
 "PO-Revision-Date: 2016-11-09 17:20+0000\n"
 "Last-Translator: alexandros Vennos <alexandros.venn@gmail.com>\n"
 "Language-Team: Greek <https://l10n.opensuse.org/projects/yast-storage/ng-"
@@ -698,6 +698,14 @@ msgstr ""
 "Το αρχείο %1 δεν βρέθηκε.\n"
 "Αδύνατη η ανάκτησή του.\n"
 
+#. TRANSLATORS: Wizard step title, where %{basename} is replaced by the device
+#. base name (e.g., sda1).
+#: src/lib/y2partitioner/actions/edit_btrfs.rb:55
+#, fuzzy
+#| msgid "Edit Btrfs %1"
+msgid "Edit Btrfs %{basename}"
+msgstr "Επεξεργασία Btrfs %1"
+
 #. TRANSLATORS: error message, %{name} is replaced by a device name (e.g., /dev/md1)
 #: src/lib/y2partitioner/actions/edit_md_devices.rb:102
 #, fuzzy
@@ -1114,7 +1122,7 @@ msgstr "<p>Επιλέξτε το νέο μέγεθος.</p>"
 #. @return [Boolean] true if there are no errors or the user
 #. decides to continue despite of the warnings; false otherwise.
 #: src/lib/y2partitioner/dialogs/blk_device_resize.rb:381
-#: src/lib/y2partitioner/dialogs/format_and_mount.rb:91
+#: src/lib/y2partitioner/widgets/filesystem_options.rb:59
 #: src/lib/y2partitioner/widgets/md_devices_selector.rb:99
 #, fuzzy
 #| msgid "Do you want to provide encryption passwords?"
@@ -1246,6 +1254,15 @@ msgstr "Τόμοι Btrfs"
 msgid "Encryption password for %s"
 msgstr "&Εισάγετε κωδικό κρυπτογράφησης:"
 
+#. @macro seeAbstractWidget
+#: src/lib/y2partitioner/dialogs/format_and_mount.rb:69
+msgid "Formatting Options"
+msgstr "Επιλογές Διαμόρφωσης"
+
+#: src/lib/y2partitioner/dialogs/format_and_mount.rb:74
+msgid "Mounting Options"
+msgstr "Επιλογές Προσάρτησης"
+
 #. @param controller [Actions::Controllers::Filesystem]
 #: src/lib/y2partitioner/dialogs/fstab_options.rb:40
 msgid "Fstab Options:"
@@ -1309,7 +1326,7 @@ msgid "Normal Volume"
 msgstr "Λογικός Τόμος"
 
 #: src/lib/y2partitioner/dialogs/lvm_lv_info.rb:134
-#: src/lib/y2partitioner/widgets/blk_devices_table.rb:262
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:253
 #, fuzzy
 #| msgid "Pool"
 msgid "Thin Pool"
@@ -1933,6 +1950,7 @@ msgstr ""
 #.
 #. @return [String]
 #: src/lib/y2partitioner/ui_state.rb:62
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:248
 msgid "RAID"
 msgstr "RAID"
 
@@ -1957,7 +1975,7 @@ msgstr "Διαχείριση Τόμου"
 #. @param device [Y2Storage::BlkDevice]
 #. @return [Yast::Term] icon
 #: src/lib/y2partitioner/ui_state.rb:80
-#: src/lib/y2partitioner/widgets/blk_devices_table.rb:251
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:242
 msgid "Bcache"
 msgstr ""
 
@@ -2170,85 +2188,125 @@ msgstr "Συσκευή"
 msgid "Enc"
 msgstr "Enc"
 
-#. TRANSLATORS: table header, file system type
-#: src/lib/y2partitioner/widgets/blk_devices_table.rb:126
-msgid "FS Type"
-msgstr "Τύπος Συστήματος Αρχείων"
-
 #. TRANSLATORS: table header, disk or partition label. Can be empty.
 #. TRANSLATORS: label of a table column
-#: src/lib/y2partitioner/widgets/blk_devices_table.rb:131
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:126
 #: src/lib/y2partitioner/widgets/btrfs_filesystems_table.rb:63
 msgid "Label"
 msgstr "Ετικέτα"
 
 #. TRANSLATORS: table header, where is device mounted. Can be empty. E.g. "/" or "/home"
 #. Synchronize the widget with the information from the controller
-#: src/lib/y2partitioner/widgets/blk_devices_table.rb:136
-#: src/lib/y2partitioner/widgets/format_and_mount.rb:566
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:131
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:552
 #, fuzzy
 msgid "Mount Point"
 msgstr "Σημείο προσάρτησης"
 
 #. TRANSLATORS: table header, which sector is the first one for device. E.g. "0"
-#: src/lib/y2partitioner/widgets/blk_devices_table.rb:141
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:136
 msgid "Start"
 msgstr "Εκκίνηση"
 
 #. TRANSLATORS: table header, which sector is the the last for device. E.g. "126"
-#: src/lib/y2partitioner/widgets/blk_devices_table.rb:146
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:141
 msgid "End"
 msgstr "Τέλος"
 
-#: src/lib/y2partitioner/widgets/blk_devices_table.rb:252
-#: src/lib/y2partitioner/widgets/blk_devices_table.rb:253
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:243
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:244
 msgid "Disk"
 msgstr "Δίσκος"
 
-#: src/lib/y2partitioner/widgets/blk_devices_table.rb:254
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:245
 msgid "Multipath"
 msgstr "Multicast"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/blk_devices_table.rb:255
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:246
 #: src/lib/y2partitioner/widgets/pages/nfs_mounts.rb:47
 msgid "NFS"
 msgstr "NFS"
 
-#: src/lib/y2partitioner/widgets/blk_devices_table.rb:256
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:247
 msgid "BIOS RAID"
 msgstr "BIOS ID"
 
-#: src/lib/y2partitioner/widgets/blk_devices_table.rb:257
-msgid "MD RAID"
-msgstr "MD RAID"
-
-#: src/lib/y2partitioner/widgets/blk_devices_table.rb:258
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:249
 #, fuzzy
 msgid "PV"
 msgstr "IP"
 
-#: src/lib/y2partitioner/widgets/blk_devices_table.rb:259
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:250
 #, fuzzy
 #| msgid "LVM:"
 msgid "LVM"
 msgstr "LVM:"
 
-#: src/lib/y2partitioner/widgets/blk_devices_table.rb:260
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:251
 #, fuzzy
 #| msgid "LVM:"
 msgid "LV"
 msgstr "LVM:"
 
-#: src/lib/y2partitioner/widgets/blk_devices_table.rb:261
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:252
 msgid "Xen"
 msgstr ""
 
-#: src/lib/y2partitioner/widgets/blk_devices_table.rb:263
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:254
 #, fuzzy
 #| msgid "&Volume"
 msgid "Thin LV"
 msgstr "&Ένταση"
+
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:255
+#, fuzzy
+#| msgid "&Partitions"
+msgid "Partition"
+msgstr "&Κατατμήσεις"
+
+#. TRANSLATORS: %{fs_type} is the filesystem type. I.e., FAT, Ext4, etc
+#. %{device_label} is the device label. I.e., Partition, Disk, etc
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:286
+msgid "%{fs_type} %{device_label}"
+msgstr ""
+
+#. Type label when the device is a LVM physical volume
+#.
+#. @param device [Y2Storage::LvmPv]
+#. @return [String]
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:330
+msgid "Orphan PV"
+msgstr ""
+
+#. TRANSLATORS: %s is the volume group name. E.g., "vg0"
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:333
+msgid "PV of %s"
+msgstr ""
+
+#. TRANSLATORS: %s is a device base name. E.g., sda1+
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:342
+#, fuzzy
+#| msgid "Edit Btrfs %1"
+msgid "Part of Btrfs %s"
+msgstr "Επεξεργασία Btrfs %1"
+
+#. TRANSLATORS: an special type of device
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:350
+#, fuzzy
+#| msgid "Rescan Devices"
+msgid "Bcache cache"
+msgstr "Επανασάρωση Συσκευών"
+
+#. Type label when the device is part of another one, like Bcache or RAID
+#.
+#. @param ancestor_device [Y2Storage::BlkDevice]
+#. @return [String]
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:358
+#, fuzzy
+#| msgid "Partition: %1"
+msgid "Part of %s"
+msgstr "Κατάτμηση: %1"
 
 #. TRANSLATORS: label of a table column
 #: src/lib/y2partitioner/widgets/btrfs_filesystems_table.rb:55
@@ -2833,37 +2891,29 @@ msgstr ""
 "να προσαρτηθεί και εισάγετε το σημείο προσάρτησης ( /, /boot, /home, /var , "
 "κλπ.).</p>"
 
-#: src/lib/y2partitioner/widgets/format_and_mount.rb:122
-msgid "Formatting Options"
-msgstr "Επιλογές Διαμόρφωσης"
-
-#: src/lib/y2partitioner/widgets/format_and_mount.rb:130
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:125
 #, fuzzy
 #| msgid "Format"
 msgid "Format device"
 msgstr "Διαμόρφωση"
 
-#: src/lib/y2partitioner/widgets/format_and_mount.rb:138
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:133
 #, fuzzy
 #| msgid "Do &not format"
 msgid "Do not format device"
 msgstr "Να μην γίνει &διαμόρφωση"
 
-#. Synchronize the widget with the information from the controller
-#: src/lib/y2partitioner/widgets/format_and_mount.rb:227
-msgid "Mounting Options"
-msgstr "Επιλογές Προσάρτησης"
-
 #  label for testpage, %1 will be user-friendly description
 #  of the URI of the printer
 #  TRANSLATORS: keep this short! Only translations in languages
 #  with encodings ISO-8859-[1|2|15] will be used.
-#: src/lib/y2partitioner/widgets/format_and_mount.rb:235
+#. Synchronize the widget with the information from the controller
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:223
 #, fuzzy
 msgid "Mount device"
 msgstr "Συσκευή: %1"
 
-#: src/lib/y2partitioner/widgets/format_and_mount.rb:243
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:231
 #, fuzzy
 #| msgid "Do not mount partition"
 msgid "Do not mount device"
@@ -2872,13 +2922,13 @@ msgstr "Να μην προσαρτηθεί η κατάτμηση"
 #. TRANSLATORS: Error message when a device should be mounted by label but no label
 #. is given.
 #. TRANSLATORS: Error messagge when the label is not given.
-#: src/lib/y2partitioner/widgets/format_and_mount.rb:293
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:279
 #: src/lib/y2partitioner/widgets/fstab_options.rb:290
 msgid "Provide a volume label to mount by label."
 msgstr "Δώστε μια ετικέτα τόμου αν θέλετε να προσαρτείτε κατά ετικέτα"
 
 #. Translators: popup text
-#: src/lib/y2partitioner/widgets/format_and_mount.rb:315
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:301
 msgid ""
 "\n"
 "You chose to install onto an existing partition that will not be\n"
@@ -2892,7 +2942,7 @@ msgstr ""
 "ειδικά σε οποιαδήποτε από τις ακόλουθες περιπτώσεις:\n"
 
 #. continued popup text
-#: src/lib/y2partitioner/widgets/format_and_mount.rb:322
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:308
 #, fuzzy
 #| msgid ""
 #| "- if this is an existing ReiserFS partition\n"
@@ -2911,7 +2961,7 @@ msgstr ""
 "- αν αυτή η κατάτμηση δεν περιέχει ένα σύστημα αρχείων\n"
 
 #. continued popup text
-#: src/lib/y2partitioner/widgets/format_and_mount.rb:329
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:315
 msgid ""
 "If in doubt, better go back and mark this partition for\n"
 "formatting, especially if it is assigned to one of the standard mount "
@@ -2925,7 +2975,7 @@ msgstr ""
 "όπως /, /boot, /opt, ή /var.\n"
 
 #. continued popup text
-#: src/lib/y2partitioner/widgets/format_and_mount.rb:335
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:321
 #, fuzzy
 #| msgid ""
 #| "If you decide to format the partition, all data on it will be lost.\n"
@@ -2942,13 +2992,13 @@ msgstr ""
 "Θέλετε να κρατήσετε την κατάτμηση χωρίς διαμόρφωση;\n"
 
 #. Synchronize the widget with the information from the controller
-#: src/lib/y2partitioner/widgets/format_and_mount.rb:438
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:424
 #, fuzzy
 msgid "Filesystem"
 msgstr "Σύστημα αρχείων"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/format_and_mount.rb:499
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:485
 #, fuzzy
 #| msgid "O&ptions..."
 msgid "Options..."
@@ -2958,7 +3008,7 @@ msgstr "Ε&πιλογές..."
 #. Check box for enabling snapshots
 #.
 #. @return [WidgetTerm]
-#: src/lib/y2partitioner/widgets/format_and_mount.rb:526
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:512
 #: src/lib/y2storage/dialogs/guided_setup/select_filesystem/legacy.rb:73
 #: src/lib/y2storage/dialogs/guided_setup/select_filesystem/volume_widget.rb:227
 msgid "Enable Snapshots"
@@ -2968,7 +3018,7 @@ msgstr "Ενεργοποίηση Στιγμιοτύπων"
 #. An error popup is shown when an empty mount point is entered.
 #.
 #. @return [Boolean] true if mount point is not empty
-#: src/lib/y2partitioner/widgets/format_and_mount.rb:600
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:586
 #, fuzzy
 #| msgid "Empty subvolume name not allowed."
 msgid "Empty mount point not allowed."
@@ -2980,7 +3030,7 @@ msgstr "Δεν επιτρέπεται κενό όνομα υπο-τόμου."
 #. @see #duplicated_mount_point?
 #.
 #. @return [Boolean] true if mount point is unique
-#: src/lib/y2partitioner/widgets/format_and_mount.rb:613
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:599
 msgid "This mount point is already in use. Select a different one."
 msgstr ""
 "Το σημείο προσάρτησης είναι ήδη σε χρήση. Παρακαλώ επιλέξτε ένα διαφορετικό."
@@ -2989,19 +3039,19 @@ msgstr ""
 #. An error popup is shown when a subvolume is shadowed by the mount point.
 #.
 #. @return [Boolean] true if mount point does not shadow a subvolume
-#: src/lib/y2partitioner/widgets/format_and_mount.rb:625
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:611
 #, fuzzy
 #| msgid "Mount Point: %1"
 msgid "The Btrfs subvolume mounted at %s is shadowed."
 msgstr "Σημείο προσάρτησης: %1"
 
 #. @param controller [Actions::Controllers::Filesystem]
-#: src/lib/y2partitioner/widgets/format_and_mount.rb:678
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:665
 msgid "Subvolume Handling"
 msgstr "Χειρισμός Υπο-τόμου"
 
 #. @param controller [Actions::Controllers::Filesystem]
-#: src/lib/y2partitioner/widgets/format_and_mount.rb:697
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:683
 #, fuzzy
 #| msgid "&Encrypt Device"
 msgid "Encrypt Device"
@@ -3010,12 +3060,12 @@ msgstr "&Κρυπτογράφηση Συσκευής"
 #. FIXME: have generic check when new partition is created if it is valid
 #. like e.g. if fs fits to partition, and others
 #. size number is from bsc1065071#c5
-#: src/lib/y2partitioner/widgets/format_and_mount.rb:724
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:710
 msgid "Only devices bigger than 2 MiB can be encrypted."
 msgstr ""
 
 #. Inode Size format option
-#: src/lib/y2partitioner/widgets/format_and_mount.rb:745
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:731
 msgid "&Inode Size"
 msgstr "Μέγεθος &Inode"
 
@@ -3030,14 +3080,14 @@ msgstr "Μέγεθος &Inode"
 #. - :help texts automatically get the :label text prepended as a title
 #. - options will only appear in the final command line if the selected value
 #. is different from the default value
-#: src/lib/y2partitioner/widgets/format_and_mount.rb:763
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:749
 #: src/lib/y2partitioner/widgets/mkfs_optiondata.rb:52
 #: src/lib/y2partitioner/widgets/mkfs_optiondata.rb:182
 msgid "Block &Size in Bytes"
 msgstr "&Μέγεθος Block σε Bytes"
 
 #. Synchronize the widget with the information from the controller
-#: src/lib/y2partitioner/widgets/format_and_mount.rb:848
+#: src/lib/y2partitioner/widgets/format_and_mount.rb:834
 #, fuzzy
 #| msgid "Partition 2"
 msgid "Partition &ID:"
@@ -4266,7 +4316,7 @@ msgstr "Επανασάρωση Συσκευών"
 #. @macro seeAbstractWidget
 #. @macro seeAbstractWidget
 #: src/lib/y2partitioner/widgets/pages/bcache.rb:88
-#: src/lib/y2partitioner/widgets/pages/btrfs.rb:151
+#: src/lib/y2partitioner/widgets/pages/btrfs.rb:132
 #: src/lib/y2partitioner/widgets/pages/disk.rb:129
 #: src/lib/y2partitioner/widgets/pages/lvm_vg.rb:94
 #: src/lib/y2partitioner/widgets/pages/md_raid.rb:95
@@ -4296,11 +4346,16 @@ msgstr "Συσκευή: %1"
 msgid "Used By"
 msgstr "Χρησιμοποιούμενο από"
 
-#. TRANSLATORS: BTRFS page title, where %{fs_type} is replaced by the filesystem
-#. type (i.e., Btrfs) and %{info} is replaced by the device basename (e.g., sda1).
-#: src/lib/y2partitioner/widgets/pages/btrfs.rb:92
-msgid "%{fs_type}: %{info}"
+#. TRANSLATORS: BTRFS page title, where %{basename} is replaced by the device
+#. basename (e.g., sda1).
+#: src/lib/y2partitioner/widgets/pages/btrfs.rb:91
+msgid "Btrfs %{basename}"
 msgstr ""
+
+#. @macro seeAbstractWidget
+#: src/lib/y2partitioner/widgets/pages/btrfs_filesystems.rb:48
+msgid "Btrfs"
+msgstr "Btrfs"
 
 #. @macro seeAbstractWidget
 #. TRANSLATORS: Heading for the expert partitioner page
@@ -6128,6 +6183,12 @@ msgstr ""
 msgid "Unknown reason"
 msgstr "άγνωστο"
 
+#~ msgid "FS Type"
+#~ msgstr "Τύπος Συστήματος Αρχείων"
+
+#~ msgid "MD RAID"
+#~ msgstr "MD RAID"
+
 #, fuzzy
 #~| msgid "There are no partitions to delete on this disk."
 #~ msgid "There is no filesystem selected to edit."
@@ -6137,9 +6198,6 @@ msgstr "άγνωστο"
 #~| msgid "Parity Algorithm: %1"
 #~ msgid "Partity algorithm: %s"
 #~ msgstr "Αλγόριθμος Ισοτιμίας: %1"
-
-#~ msgid "Btrfs"
-#~ msgstr "Btrfs"
 
 #~ msgid "Btrfs Volumes"
 #~ msgstr "Τόμοι Btrfs"
@@ -8064,9 +8122,6 @@ msgstr "άγνωστο"
 #~ msgstr ""
 #~ "Η κλήση της ρύθμισης του Multipath ακυρώνει τις τρέχουσες αλλαγές.\n"
 #~ "Θέλετε να κληθεί η ρύθμιση του Multipath;\n"
-
-#~ msgid "Edit Btrfs %1"
-#~ msgstr "Επεξεργασία Btrfs %1"
 
 #~ msgid "<p>Change the devices that are used by the Btrfs volume.</p>"
 #~ msgstr "<p>Αλλαγή συσκευών που χρησιμοποιούνται από τον τόμο Btrfs.</p>"
