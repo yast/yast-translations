@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Catalan (yast-storage)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-05-04 02:29+0000\n"
+"POT-Creation-Date: 2019-05-11 02:29+0000\n"
 "PO-Revision-Date: 2019-05-10 13:56+0200\n"
 "Last-Translator: David Medina <medipas@gmail.com>\n"
 "Language-Team: Catalan <https://l10n.opensuse.org/projects/yast-storage/"
@@ -18,6 +18,20 @@ msgstr ""
 #: src/lib/y2partitioner/actions/add_bcache.rb:61
 msgid "There are not enough suitable unused devices to create a bcache."
 msgstr "No hi ha prou dispositius sense usar adients per crear una bcau."
+
+#. TRANSLATORS: wizard title when creating a new Btrfs filesystem.
+#: src/lib/y2partitioner/actions/add_btrfs.rb:84
+#, fuzzy
+#| msgid "Btrfs"
+msgid "Add Btrfs"
+msgstr "Btrfs"
+
+#. TRANSLATORS: error message
+#: src/lib/y2partitioner/actions/add_btrfs.rb:92
+#, fuzzy
+#| msgid "There are not enough suitable unused devices to create a RAID."
+msgid "There are not enough suitable unused devices to create a Btrfs."
+msgstr "No hi ha prou dispositius sense utilitzar adients per crear un RAID."
 
 #. TRANSLATORS: %s is a volume group name (e.g. "system")
 #: src/lib/y2partitioner/actions/add_lvm_lv.rb:114
@@ -183,20 +197,20 @@ msgstr ""
 "al grup de volums \"%{vg_name}\"."
 
 #. TRANSLATORS: dialog title when creating an LVM volume group
-#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:79
+#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:83
 msgid "Add Volume Group"
 msgstr "Addició d'un grup de volums"
 
 #. TRANSLATORS: dialog title when resizing an LVM volume group, where %s is replaced
 #. by a device name (e.g., /dev/vg0)
-#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:83
+#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:87
 msgid "Resize Volume Group %s"
 msgstr "Canvi de mida del grup de volums %s"
 
 #. Error message to show when the given volume group name is empty
 #.
 #. @return [String]
-#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:297
+#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:294
 msgid "Enter a name for the volume group."
 msgstr "Introduïu un nom per al grup de volums."
 
@@ -204,7 +218,7 @@ msgstr "Introduïu un nom per al grup de volums."
 #. characters
 #.
 #. @return [String]
-#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:315
+#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:312
 msgid ""
 "The name for the volume group contains illegal characters. Allowed\n"
 "are alphanumeric characters, \".\", \"_\", \"-\" and \"+\""
@@ -213,7 +227,7 @@ msgstr ""
 "els caràcters alfanumèrics, \".\", \"_\", \"-\" i \"+\"."
 
 #. TRANSLATORS: %{vg_name} is replaced by the name of the volume group
-#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:338
+#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:335
 msgid ""
 "The volume group name \"%{vg_name}\" conflicts\n"
 "with another entry in the /dev directory."
@@ -226,7 +240,7 @@ msgstr ""
 #. @see #invalid_extent_size?
 #.
 #. @return [String]
-#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:363
+#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:360
 msgid ""
 "The data entered is invalid. Insert a physical extent size larger than 1 "
 "KiB\n"
@@ -239,13 +253,13 @@ msgstr ""
 
 #. TRANSLATORS: dialog title when creating a MD RAID.
 #. %s is a device name like /dev/md0
-#: src/lib/y2partitioner/actions/controllers/md.rb:194
+#: src/lib/y2partitioner/actions/controllers/md.rb:198
 msgid "Add RAID %s"
 msgstr "Addició de la RAID %s"
 
 #. TRANSLATORS: dialog title when editing the devices of a Software RAID.
 #. %s is a device name (e.g., /dev/md0)
-#: src/lib/y2partitioner/actions/controllers/md.rb:198
+#: src/lib/y2partitioner/actions/controllers/md.rb:202
 msgid "Edit devices of RAID %s"
 msgstr "Edició dels dispositius de la RAID %s"
 
@@ -326,6 +340,19 @@ msgstr ""
 "La bcau seleccionada és l'única que usa el seu conjunt de cau.\n"
 "El conjunt de cau també se suprimirà.\n"
 "\n"
+
+#. @see DeleteDevice#simple_confirm_text
+#.
+#. @note The implementation in the base class relies on the #display_name
+#. method of the device, which returns nil for regular (non multi-device)
+#. filesystems.
+#.
+#. @return [String]
+#: src/lib/y2partitioner/actions/delete_btrfs.rb:53
+#, fuzzy
+#| msgid "Really delete these devices?"
+msgid "Really delete the filesystem?"
+msgstr "Realment voleu suprimir aquests dispositius?"
 
 #. Confirmation to display when the device is part of another one(s)
 #.
@@ -525,7 +552,7 @@ msgstr "Edició del dispositiu %s"
 #. TRANSLATORS: %{name} is replaced by a device name (e.g., /dev/sda1)
 #. and %{users} is replaced by a comma-separated list of name devices
 #. (devices using the first one).
-#: src/lib/y2partitioner/actions/edit_blk_device.rb:132
+#: src/lib/y2partitioner/actions/edit_blk_device.rb:133
 msgid ""
 "The device %{name} is in use (%{users}).\n"
 "It cannot be edited.\n"
@@ -536,7 +563,23 @@ msgstr ""
 "Per poder editar %{name}, assegureu-vos que no s'usa."
 
 #. TRANSLATORS: %{name} is replaced by a device name (e.g., /dev/sda1).
-#: src/lib/y2partitioner/actions/edit_blk_device.rb:147
+#. Since device names can be rather long, make sure the lines
+#. containing %{name} are sorter than the others.
+#: src/lib/y2partitioner/actions/edit_blk_device.rb:151
+msgid ""
+"The device %{name} belongs to a Btrfs.\n"
+"It cannot be edited.\n"
+"\n"
+"To modify the settings of the Btrfs, edit the filesystem itself\n"
+"instead of its individual block devices.\n"
+"\n"
+"To use %{name} for other purpose, make sure it does not\n"
+"belong to the Btrfs filesystem, either deleting the filesystem or\n"
+"removing %{name} from it."
+msgstr ""
+
+#. TRANSLATORS: %{name} is replaced by a device name (e.g., /dev/sda1).
+#: src/lib/y2partitioner/actions/edit_blk_device.rb:170
 msgid ""
 "The device %{name} contains partitions.\n"
 "It cannot be edited directly.\n"
@@ -547,13 +590,13 @@ msgstr ""
 "Per editar %{name}, primer suprimiu-ne totes les particions."
 
 #. TRANSLATORS: Error message when trying to edit an extented partition
-#: src/lib/y2partitioner/actions/edit_blk_device.rb:161
+#: src/lib/y2partitioner/actions/edit_blk_device.rb:184
 msgid "An extended partition cannot be edited"
 msgstr "No es pot editar una partició ampliada."
 
 #. TRANSLATORS: Error message when trying to edit an LVM thin pool. %{name} is
 #. replaced by a logical volume name (e.g., /dev/system/lv1)
-#: src/lib/y2partitioner/actions/edit_blk_device.rb:172
+#: src/lib/y2partitioner/actions/edit_blk_device.rb:195
 msgid ""
 "The volume %{name} is a thin pool.\n"
 "It cannot be edited."
@@ -566,6 +609,31 @@ msgstr ""
 #: src/lib/y2partitioner/actions/edit_btrfs.rb:55
 msgid "Edit Btrfs %{basename}"
 msgstr "Edita Btrfs %{basename}"
+
+#. Wizard title
+#.
+#. @return [String]
+#: src/lib/y2partitioner/actions/edit_btrfs_devices.rb:77
+#, fuzzy
+#| msgid "Edit Btrfs %{basename}"
+msgid "Edit devices of Btrfs %{name}"
+msgstr "Edita Btrfs %{basename}"
+
+#. TRANSLATORS: error message, where %{name} is replaced by a device base name (e.g., sda1)
+#: src/lib/y2partitioner/actions/edit_btrfs_devices.rb:113
+#, fuzzy
+#| msgid ""
+#| "The RAID %{name} is already created on disk and its used devices\n"
+#| "cannot be modified. To modify the used devices, remove the RAID\n"
+#| "and create it again."
+msgid ""
+"The Btrfs %{name} is already created on disk and its used devices\n"
+"cannot be modified. To modify the used devices, remove the Btrfs\n"
+"and create it again."
+msgstr ""
+"La RAID %{name} ja està creada al disc i no se'n poden modificar els\n"
+"dispositius que s'usen. Per modificar els dispositius usats, suprimiu\n"
+"la RAID i torneu-la a crear."
 
 #. TRANSLATORS: error message, %{name} is replaced by a device name (e.g., /dev/md1)
 #: src/lib/y2partitioner/actions/edit_md_devices.rb:102
@@ -648,12 +716,18 @@ msgstr ""
 "si sortiu de l'editor de particions.\n"
 "Segur que voleu sortir-ne?"
 
-#. TRANSLATORS: %{name} is replaced by a device name (e.g., /dev/sda1).
-#. and %{users} is replaced by a comma-separated list of name devices
-#. (devices using the first one).
-#: src/lib/y2partitioner/actions/resize_blk_device.rb:115
+#. TRANSLATORS: %{name} is replaced by a device name (e.g., /dev/sda1) and %{users} is replaced
+#. by a list of name devices (devices using the first one).
+#: src/lib/y2partitioner/actions/resize_blk_device.rb:114
+#, fuzzy
+#| msgid ""
+#| "The device %{name} is in use (%{users}).\n"
+#| "It cannot be resized.\n"
+#| "To resize %{name}, make sure it is not used."
 msgid ""
-"The device %{name} is in use (%{users}).\n"
+"The device %{name} is being used by:\n"
+"%{users}\n"
+"\n"
 "It cannot be resized.\n"
 "To resize %{name}, make sure it is not used."
 msgstr ""
@@ -720,12 +794,12 @@ msgid "Bcache Device"
 msgstr "Dispositius de Bcau"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/dialogs/bcache.rb:198
+#: src/lib/y2partitioner/dialogs/bcache.rb:196
 msgid "Backing Device"
 msgstr "Dispositiu de còpia de seguretat"
 
 #. TRANSLATORS: %{label} is replaced by the label of the option to select a backing device.
-#: src/lib/y2partitioner/dialogs/bcache.rb:210
+#: src/lib/y2partitioner/dialogs/bcache.rb:208
 msgid ""
 "<p><b>%{label}</b> is the device that will be used as backing device for "
 "bcache.It will define the size of the resulting bcache device. The device "
@@ -737,23 +811,23 @@ msgstr ""
 "anterior.</p>"
 
 #. Value can be an empty string if there is no items
-#: src/lib/y2partitioner/dialogs/bcache.rb:237
+#: src/lib/y2partitioner/dialogs/bcache.rb:235
 msgid "Backing and Caching devices cannot be identical."
 msgstr "Els dispositius de còpia de seguretat i de cau no poden ser idèntics."
 
-#: src/lib/y2partitioner/dialogs/bcache.rb:238
+#: src/lib/y2partitioner/dialogs/bcache.rb:236
 msgid "Cannot Create Bcache"
 msgstr "No es pot crear la Bcau"
 
 #. @macro seeAbstractWidget
 #. TRANSLATORS: table column label.
-#: src/lib/y2partitioner/dialogs/bcache.rb:259
+#: src/lib/y2partitioner/dialogs/bcache.rb:257
 #: src/lib/y2partitioner/widgets/pages/bcaches.rb:214
 msgid "Caching Device"
 msgstr "Dispositiu de cau"
 
 #. TRANSLATORS: %{label} is replaced by the label of the option to select a caching device.
-#: src/lib/y2partitioner/dialogs/bcache.rb:273
+#: src/lib/y2partitioner/dialogs/bcache.rb:271
 msgid ""
 "<p><b>%{label}</b> is the device that will be used as caching device for "
 "bcache.It should be faster and usually is smaller than the backing device, "
@@ -770,17 +844,17 @@ msgstr ""
 "lents com a dispositius de còpia de seguretat de bcau sense una cau. Podeu "
 "afegir un dispositiu de cau més endavant.</p>"
 
-#: src/lib/y2partitioner/dialogs/bcache.rb:291
+#: src/lib/y2partitioner/dialogs/bcache.rb:289
 msgid "Without caching"
 msgstr "Sense cau"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/dialogs/bcache.rb:321
+#: src/lib/y2partitioner/dialogs/bcache.rb:319
 msgid "Cache Mode"
 msgstr "Mode de cau"
 
 #. TRANSLATORS: %{label} is replaced by the label of the option to select a cache mode.
-#: src/lib/y2partitioner/dialogs/bcache.rb:337
+#: src/lib/y2partitioner/dialogs/bcache.rb:335
 msgid ""
 "<p><b>%{label}</b> is the operating mode for bcache. There are currently "
 "four supported modes.<ul> <li><i>Writethrough</i> reading operations are "
@@ -1704,6 +1778,15 @@ msgstr "Gestió dels volums"
 msgid "Bcache"
 msgstr "Bcau"
 
+#. Title of the Btrfs section
+#.
+#. @note See note on {.md_raids_label} about why this looks misplaced.
+#.
+#. @return [String]
+#: src/lib/y2partitioner/ui_state.rb:91
+msgid "Btrfs"
+msgstr "Btrfs"
+
 #. TRANSLATORS: button label to add a new Bcache device
 #: src/lib/y2partitioner/widgets/bcache_add_button.rb:41
 msgid "Add Bcache..."
@@ -1721,7 +1804,9 @@ msgstr "Canvia la cau..."
 #. @macro seeAbstractWidget
 #. @macro seeAbstractWidget
 #. @macro seeAbstractWidget
+#. @macro seeAbstractWidget
 #: src/lib/y2partitioner/widgets/bcache_modify_button.rb:39
+#: src/lib/y2partitioner/widgets/btrfs_modify_button.rb:38
 #: src/lib/y2partitioner/widgets/disk_modify_button.rb:38
 #: src/lib/y2partitioner/widgets/lvm_lv_modify_button.rb:38
 #: src/lib/y2partitioner/widgets/lvm_vg_modify_button.rb:37
@@ -1952,8 +2037,8 @@ msgstr "%{fs_type} %{device_label}"
 #. @param device [Y2Storage::LvmPv]
 #. @return [String]
 #: src/lib/y2partitioner/widgets/blk_devices_table.rb:342
-msgid "Orphan PV"
-msgstr "PV orfe"
+msgid "Unused LVM PV"
+msgstr ""
 
 #: src/lib/y2partitioner/widgets/blk_devices_table.rb:343
 msgid "PV of LVM"
@@ -1982,18 +2067,150 @@ msgstr "Cau de Bcau"
 msgid "Part of %s"
 msgstr "Part de %s"
 
+#. TRANSLATORS: button label to add a new Bcache device
+#: src/lib/y2partitioner/widgets/btrfs_add_button.rb:41
+#, fuzzy
+#| msgid "Add Bcache..."
+msgid "Add Btrfs..."
+msgstr "Afegeix una Bcau..."
+
+#. TRANSLATORS: widget label
+#: src/lib/y2partitioner/widgets/btrfs_data_raid_level.rb:42
+msgid "RAID Level"
+msgstr "Nivell de RAID"
+
+#. TRANSLATORS: widget help, where %{label} is replaced by the label of the widget.
+#: src/lib/y2partitioner/widgets/btrfs_data_raid_level.rb:49
+msgid "<p><b>%{label}:</b> RAID level for the Btrfs data.</p>"
+msgstr ""
+
+#. TRANSLATORS: help text
+#: src/lib/y2partitioner/widgets/btrfs_devices.rb:114
+msgid ""
+"<h4><b>Btrfs RAID levels</b></h4><p>Btrfs supports the following RAID levels "
+"for both, data and metadata:<ul><li><b>DUP:</b> stores two copies of each "
+"piece of data on the same device. This is similar to RAID1, and protects "
+"against block-level errors on the device, but does not provide any "
+"guarantees if the device fails. Only one device must be be selected to use "
+"DUP.</li><li><b>SINGLE:</b> stores a single copy of each piece of data. "
+"Btrfs requires a minimum of one device to use SINGLE.</li><li><b>RAID0:</b> "
+"provides no form of error recovery, but stripes a single copy of data across "
+"multiple devices for performance purpose. Btrfs requires a minimum of two "
+"devices to use RAID0.</li><li><b>RAID1:</b> stores two complete copies of "
+"each piece of data. Each copy is stored on a different device. Btrfs "
+"requires a minimum of two devices to use RAID1.</li><li><b>RAID10:</b> "
+"stores two complete copies of each piece of data, and also stripes each copy "
+"across multiple devices for performance. Btrfs requires a minimum of five "
+"devices to use RAID10</li></ul></p>"
+msgstr ""
+
+#. TRANSLATORS: help text
+#: src/lib/y2partitioner/widgets/btrfs_devices.rb:151
+msgid ""
+"<p>When the default RAID level is used, Btrfs will select a RAID level "
+"depending on whether the filesystem is being created on top of multiple "
+"devices or using only one device. For a single-device Btrfs, the tool also "
+"will distinguish between rotational or not-rotational devices to choose the "
+"default value.</p>"
+msgstr ""
+
+#. TRANSLATORS: error message
+#: src/lib/y2partitioner/widgets/btrfs_devices.rb:171
+msgid "RAID levels do not match the amount of selected devices."
+msgstr ""
+
+#. TRANSLATORS: error message
+#: src/lib/y2partitioner/widgets/btrfs_devices.rb:174
+msgid "The RAID level does not match the amount of selected devices."
+msgstr ""
+
+#. TRANSLATORS: error message
+#: src/lib/y2partitioner/widgets/btrfs_devices.rb:177
+msgid "The metadata RAID level does not match the amount of selected devices."
+msgstr ""
+
+#. TRANSLATORS: error message, where %{error_by} is replaced by an initial sentence.
+#: src/lib/y2partitioner/widgets/btrfs_devices.rb:182
+msgid ""
+"%{error_by}\n"
+"Modify the list of devices or adjust the RAID levels."
+msgstr ""
+
+#. TRANSLATORS: error message, where %{data} is replaced by "data" or "metadata" and %{levels} is
+#. replaced by a list of raid levels separated by comma (e.g., "RAID1, RAID10").
+#: src/lib/y2partitioner/widgets/btrfs_devices.rb:220
+msgid ""
+"According to the selected devices, only the following %{data}\n"
+"RAID levels can be used: %{levels}."
+msgstr ""
+
+#. TRANSLATORS: help text, where %{label} is a widget label
+#: src/lib/y2partitioner/widgets/btrfs_devices_selector.rb:109
+#, fuzzy
+#| msgid "<p>Change the devices that are used by the Btrfs volume.</p>"
+msgid ""
+"<p><b>%{label}</b> Unused devices that can be used for a Btrfs filesystem.</"
+"p>"
+msgstr "<p>Canvieu els dispositius que són utilitzats pel volum Btrfs.</p>"
+
+#. TRANSLATORS: help text, where %{label} is a widget label
+#: src/lib/y2partitioner/widgets/btrfs_devices_selector.rb:120
+msgid "<p><b>%{label}</b> Devices selected to be part of the Btrfs.</p>"
+msgstr ""
+
+#. TRANSLATORS: Error message when no device is selected
+#. TRANSLATORS: Error message when no device is selected
+#: src/lib/y2partitioner/widgets/btrfs_devices_selector.rb:132
+#: src/lib/y2partitioner/widgets/lvm_vg_devices_selector.rb:123
+msgid "Select at least one device."
+msgstr "Seleccioneu com a mínim un dispositiu."
+
 #. TRANSLATORS: label of a table column
 #: src/lib/y2partitioner/widgets/btrfs_filesystems_table.rb:55
+msgid "Id"
+msgstr ""
+
+#. TRANSLATORS: label of a table column
+#: src/lib/y2partitioner/widgets/btrfs_filesystems_table.rb:71
 msgid "Devices"
 msgstr "Dispositius"
 
 #. TRANSLATORS: label of a table column
 #. TRANSLATORS: table column label.
-#: src/lib/y2partitioner/widgets/btrfs_filesystems_table.rb:71
+#: src/lib/y2partitioner/widgets/btrfs_filesystems_table.rb:79
 #: src/lib/y2partitioner/widgets/pages/bcaches.rb:222
 #: src/lib/y2storage/filesystems/mount_by_type.rb:56
 msgid "UUID"
 msgstr "UUID"
+
+#. TRANSLATORS: widget label
+#: src/lib/y2partitioner/widgets/btrfs_metadata_raid_level.rb:40
+#, fuzzy
+#| msgid "RAID Level"
+msgid "RAID Level for Metadata"
+msgstr "Nivell de RAID"
+
+#. TRANSLATORS: widget help, where %{label} is replaced by the label of the widget.
+#: src/lib/y2partitioner/widgets/btrfs_metadata_raid_level.rb:47
+msgid "<p><b>%{label}:</b> RAID level for the Btrfs metadata.</p>"
+msgstr ""
+
+#. @see DeviceMenuButton#actions
+#.
+#. @see Actions::EditBtrfs
+#. @see Actions::EditBtrfsDevices
+#.
+#. @return [Array<Hash>]
+#: src/lib/y2partitioner/widgets/btrfs_modify_button.rb:53
+#, fuzzy
+#| msgid "Edit..."
+msgid "Edit Btrfs..."
+msgstr "Edita..."
+
+#: src/lib/y2partitioner/widgets/btrfs_modify_button.rb:58
+#: src/lib/y2partitioner/widgets/md_modify_button.rb:60
+msgid "Change Used Devices..."
+msgstr "Canvia els dispositius usats..."
 
 #. FIXME: The help handle does not work without wizard
 #.
@@ -2225,36 +2442,50 @@ msgstr "Sistema de fitxers:"
 
 #. TRANSLATORS: Filesystem type information, where %s is replaced by
 #. a filesystem type (e.g., VFAT, BTRFS)
-#: src/lib/y2partitioner/widgets/description_section/filesystem.rb:61
+#: src/lib/y2partitioner/widgets/description_section/filesystem.rb:70
 msgid "File System: %s"
 msgstr "Sistema de fitxers: %s"
 
 #. TRANSLATORS: Mount point information, where %s is replaced by a mount point
-#: src/lib/y2partitioner/widgets/description_section/filesystem.rb:72
+#: src/lib/y2partitioner/widgets/description_section/filesystem.rb:81
 msgid "Mount Point: %s"
 msgstr "Punt de muntatge: %s"
 
 #. TRANSLATORS: note appended to mount point if mount point is not now mounted
-#: src/lib/y2partitioner/widgets/description_section/filesystem.rb:74
+#: src/lib/y2partitioner/widgets/description_section/filesystem.rb:83
 msgid " (not mounted)"
 msgstr " (sense muntar)"
 
 #. TRANSLATORS: Mount by information, where %s is replaced by a "mount by" option
-#: src/lib/y2partitioner/widgets/description_section/filesystem.rb:84
+#: src/lib/y2partitioner/widgets/description_section/filesystem.rb:93
 msgid "Mount By: %s"
 msgstr "Muntatge: %s"
 
 #. TRANSLATORS: Filesystem label information, where %s is replaced by the
 #. filesystem label
-#: src/lib/y2partitioner/widgets/description_section/filesystem.rb:95
+#: src/lib/y2partitioner/widgets/description_section/filesystem.rb:104
 msgid "Label: %s"
 msgstr "Etiqueta: %s"
 
 #. TRANSLATORS: Filesystem UUID information, where %s is replaced by the
 #. filesystem UUID
-#: src/lib/y2partitioner/widgets/description_section/filesystem.rb:106
+#: src/lib/y2partitioner/widgets/description_section/filesystem.rb:115
 msgid "UUID: %s"
 msgstr "UUID: %s"
+
+#. TRANSLATORS: Btrfs data information, where %s is replaced by a RAID level (e.g., RAID0).
+#: src/lib/y2partitioner/widgets/description_section/filesystem.rb:125
+#, fuzzy
+#| msgid "RAID Level"
+msgid "RAID Level: %s"
+msgstr "Nivell de RAID"
+
+#. TRANSLATORS: Btrfs metadata information, where %s is replaced by a RAID level (e.g., RAID0).
+#: src/lib/y2partitioner/widgets/description_section/filesystem.rb:135
+#, fuzzy
+#| msgid "Metadata: %1"
+msgid "Metadata RAID Level: %s"
+msgstr "Metadades: %1"
 
 #. TRANSLATORS: title for section about LVM LV details
 #. TRANSLATORS: title for section about LVM VG details
@@ -2319,7 +2550,7 @@ msgid "No device selected"
 msgstr "No s'ha seleccionat cap dispositiu"
 
 #. TRANSLATORS: label for button to delete a device
-#: src/lib/y2partitioner/widgets/device_delete_button.rb:42
+#: src/lib/y2partitioner/widgets/device_delete_button.rb:43
 msgid "Delete"
 msgstr "Esborra"
 
@@ -2370,40 +2601,40 @@ msgstr ""
 " els RAID de BIOS i dispositius de ruta múltiple."
 
 #. TRANSLATORS: %s is a disk size. E.g. "10.5 GiB"
-#: src/lib/y2partitioner/widgets/devices_selection.rb:124
+#: src/lib/y2partitioner/widgets/devices_selection.rb:125
 msgid "Resulting size: %s"
 msgstr "Mida resultant: %s"
 
 #. TRANSLATORS: %s is a disk size. E.g. "10.5 GiB"
-#: src/lib/y2partitioner/widgets/devices_selection.rb:128
+#: src/lib/y2partitioner/widgets/devices_selection.rb:131
 msgid "Total size: %s"
 msgstr "Mida total: %s"
 
-#: src/lib/y2partitioner/widgets/devices_selection.rb:135
+#: src/lib/y2partitioner/widgets/devices_selection.rb:139
 msgid "Selected Devices:"
 msgstr "Dispositius seleccionats:"
 
-#: src/lib/y2partitioner/widgets/devices_selection.rb:139
+#: src/lib/y2partitioner/widgets/devices_selection.rb:143
 msgid "Available Devices:"
 msgstr "Dispositius disponibles:"
 
 #. push button text
-#: src/lib/y2partitioner/widgets/devices_selection.rb:159
+#: src/lib/y2partitioner/widgets/devices_selection.rb:163
 msgid "Add"
 msgstr "Afegeix"
 
 #. push button text
-#: src/lib/y2partitioner/widgets/devices_selection.rb:165
+#: src/lib/y2partitioner/widgets/devices_selection.rb:169
 msgid "Add All"
 msgstr "Afegeix-ho tot"
 
 #. push button text
-#: src/lib/y2partitioner/widgets/devices_selection.rb:172
+#: src/lib/y2partitioner/widgets/devices_selection.rb:176
 msgid "Remove"
 msgstr "Suprimeix"
 
 #. push button text
-#: src/lib/y2partitioner/widgets/devices_selection.rb:178
+#: src/lib/y2partitioner/widgets/devices_selection.rb:182
 msgid "Remove All"
 msgstr "Suprimeix-ho tot"
 
@@ -2991,7 +3222,7 @@ msgstr ""
 msgid "<b>Number of Sectors</b> shows how many sectors the hard disk has."
 msgstr "L'opció <b>Nombre de sectors</b> mostra quants sectors té el disc dur."
 
-#: src/lib/y2partitioner/widgets/help.rb:30
+#: src/lib/y2partitioner/widgets/help.rb:31
 msgid ""
 "<b>Sector Size</b> shows the size of the\n"
 "sectors of the hard disk."
@@ -2999,7 +3230,7 @@ msgstr ""
 "L'opció <b>Mida del sector</b> mostra la mida\n"
 "dels sectors del disc dur."
 
-#: src/lib/y2partitioner/widgets/help.rb:32
+#: src/lib/y2partitioner/widgets/help.rb:34
 msgid ""
 "<b>Device</b> shows the kernel name of the\n"
 "device."
@@ -3007,7 +3238,7 @@ msgstr ""
 "L'opció <b>Dispositiu</b> mostra el nom de nucli\n"
 "del dispositiu."
 
-#: src/lib/y2partitioner/widgets/help.rb:34
+#: src/lib/y2partitioner/widgets/help.rb:36
 msgid ""
 "<b>Partition Table</b> shows the partition table\n"
 "type of the disk, e.g <tt>MS-DOS</tt> or <tt>GPT</tt>."
@@ -3015,7 +3246,7 @@ msgstr ""
 "L'opció <b>Taula de particions</b> mostra el tipus de taula\n"
 "de particions del disc, com ara <tt>MS-DOS</tt> o <tt>GPT</tt>."
 
-#: src/lib/y2partitioner/widgets/help.rb:37
+#: src/lib/y2partitioner/widgets/help.rb:39
 msgid ""
 "<b>Encrypted</b> shows whether the device is\n"
 "encrypted."
@@ -3023,7 +3254,7 @@ msgstr ""
 "L'opció <b>encriptat</b> indica si el dispositiu\n"
 "està encriptat."
 
-#: src/lib/y2partitioner/widgets/help.rb:39
+#: src/lib/y2partitioner/widgets/help.rb:41
 msgid ""
 "<b>End</b> shows the end block of\n"
 "the partition."
@@ -3031,7 +3262,7 @@ msgstr ""
 "L'opció <b>Final</b> mostra el bloc final\n"
 "de la partició."
 
-#: src/lib/y2partitioner/widgets/help.rb:41
+#: src/lib/y2partitioner/widgets/help.rb:43
 msgid ""
 "<b>LUN</b> shows the Logical Unit Number for\n"
 "Fibre Channel disks."
@@ -3039,7 +3270,7 @@ msgstr ""
 "L'opció <b>LUN</b> (Logical Unit Number) mostra\n"
 "el número d'unitat lògica dels discs Fibre Channel."
 
-#: src/lib/y2partitioner/widgets/help.rb:43
+#: src/lib/y2partitioner/widgets/help.rb:46
 msgid ""
 "<b>Port ID</b> shows the port id for Fibre\n"
 "Channel disks."
@@ -3047,7 +3278,7 @@ msgstr ""
 "L'opció <b>Identificador del port</b> mostra l'identificador\n"
 "del port de discs Fibre Channel."
 
-#: src/lib/y2partitioner/widgets/help.rb:45
+#: src/lib/y2partitioner/widgets/help.rb:48
 msgid ""
 "<b>WWPN</b> shows the World Wide Port Name for\n"
 "Fibre Channel disks."
@@ -3055,7 +3286,7 @@ msgstr ""
 "L'opció <b>WWPN</b> mostra el nom de port a nivell mundial\n"
 "dels discs Fibre Channel."
 
-#: src/lib/y2partitioner/widgets/help.rb:48
+#: src/lib/y2partitioner/widgets/help.rb:51
 msgid ""
 "<b>File Path</b> shows the path of the file for\n"
 "an encrypted loop device."
@@ -3063,7 +3294,7 @@ msgstr ""
 "L'opció <b>Camí del fitxer</b> mostra el camí del fitxer\n"
 "d'un dispositiu de bucle encriptat."
 
-#: src/lib/y2partitioner/widgets/help.rb:51
+#: src/lib/y2partitioner/widgets/help.rb:54
 msgid ""
 "<b>Format</b> shows some flags: <tt>F</tt>\n"
 "means the device is selected to be formatted."
@@ -3071,16 +3302,16 @@ msgstr ""
 "L'opció <b>Format</b> mostra alguns senyaladors: <tt>F</tt>\n"
 "indica que s'ha seleccionat el dispositiu per formatar-lo."
 
-#: src/lib/y2partitioner/widgets/help.rb:54
+#: src/lib/y2partitioner/widgets/help.rb:57
 msgid "<b>Partition ID</b> shows the partition id."
 msgstr ""
 "L'opció <b>ID de la partició</b> mostra l'identificador de la partició."
 
-#: src/lib/y2partitioner/widgets/help.rb:56
+#: src/lib/y2partitioner/widgets/help.rb:59
 msgid "<b>FS Type</b> shows the file system type."
 msgstr "L'opció <b>Tipus de SF</b> mostra el tipus del sistema de fitxers."
 
-#: src/lib/y2partitioner/widgets/help.rb:58
+#: src/lib/y2partitioner/widgets/help.rb:61
 msgid ""
 "<b>Label</b> shows the label of the file\n"
 "system."
@@ -3088,7 +3319,7 @@ msgstr ""
 "L'opció <b>Etiqueta</b> mostra l'etiqueta\n"
 "del sistema de fitxers."
 
-#: src/lib/y2partitioner/widgets/help.rb:60
+#: src/lib/y2partitioner/widgets/help.rb:63
 msgid ""
 "<b>Metadata</b> shows the LVM metadata type for\n"
 "volume groups."
@@ -3096,11 +3327,11 @@ msgstr ""
 "L'opció <b>Metadades</b> mostra el tipus de metadades LVM\n"
 "dels grups de volums."
 
-#: src/lib/y2partitioner/widgets/help.rb:62
+#: src/lib/y2partitioner/widgets/help.rb:66
 msgid "<b>Model</b> shows the device model."
 msgstr "L'opció <b>Model</b> mostra el model del dispositiu."
 
-#: src/lib/y2partitioner/widgets/help.rb:64
+#: src/lib/y2partitioner/widgets/help.rb:68
 msgid ""
 "<b>Mount by</b> indicates how the file system\n"
 "is mounted: (Kernel) by kernel name, (Label) by file system label, (UUID) "
@@ -3112,7 +3343,7 @@ msgstr ""
 "sistema\n"
 "de fitxers, (ID) pel dispositiu i (Path) pel camí del dispositiu.\n"
 
-#: src/lib/y2partitioner/widgets/help.rb:68
+#: src/lib/y2partitioner/widgets/help.rb:73
 msgid ""
 "<b>Mount Point</b> shows where the file system\n"
 "is mounted."
@@ -3120,7 +3351,7 @@ msgstr ""
 "L'opció <b>Punt de muntatge</b> mostra on es munta\n"
 "el sistema de fitxers."
 
-#: src/lib/y2partitioner/widgets/help.rb:70
+#: src/lib/y2partitioner/widgets/help.rb:75
 msgid ""
 "<b>Number of Cylinders</b> shows how many\n"
 "cylinders the hard disk has."
@@ -3128,7 +3359,7 @@ msgstr ""
 "L'opció <b>Nombre de cilindres</b> mostra quants\n"
 "cilindres té el disc dur."
 
-#: src/lib/y2partitioner/widgets/help.rb:73
+#: src/lib/y2partitioner/widgets/help.rb:78
 msgid ""
 "<b>Parity Algorithm</b> shows the parity\n"
 "algorithm for RAID devices with RAID type 5, 6 or 10."
@@ -3136,7 +3367,7 @@ msgstr ""
 "L'opció <b>Algorisme de paritat</b> mostra l'algorisme\n"
 "de paritat dels dispositius RAID amb RAID de tipus 5, 6 o 10."
 
-#: src/lib/y2partitioner/widgets/help.rb:76
+#: src/lib/y2partitioner/widgets/help.rb:81
 msgid ""
 "<b>PE Size</b> shows the physical extent size\n"
 "for LVM volume groups."
@@ -3144,11 +3375,11 @@ msgstr ""
 "L'opció <b>Mida de PE</b> mostra la mida de l'ampliació física\n"
 "per a grups de volums d'LVM."
 
-#: src/lib/y2partitioner/widgets/help.rb:79
+#: src/lib/y2partitioner/widgets/help.rb:84
 msgid "<b>RAID Version</b> shows the RAID version."
 msgstr "L'opció <b>Versió RAID</b> mostra la versió de RAID."
 
-#: src/lib/y2partitioner/widgets/help.rb:81
+#: src/lib/y2partitioner/widgets/help.rb:86
 msgid ""
 "<b>RAID Type</b> shows the RAID type, also\n"
 "called RAID level, for RAID devices."
@@ -3156,11 +3387,11 @@ msgstr ""
 "L'opció <b>Tipus de RAID</b> mostra el tipus de RAID, també anomenat\n"
 "nivell de RAID, dels dispositius RAID."
 
-#: src/lib/y2partitioner/widgets/help.rb:84
+#: src/lib/y2partitioner/widgets/help.rb:89
 msgid "<b>Size</b> shows the size of the device."
 msgstr "L'opció <b>Mida</b> mostra la mida del dispositiu."
 
-#: src/lib/y2partitioner/widgets/help.rb:86
+#: src/lib/y2partitioner/widgets/help.rb:91
 msgid ""
 "<b>Start</b> shows the start block\n"
 "of the partition."
@@ -3168,16 +3399,21 @@ msgstr ""
 "L'opció <b>Inici</b> mostra el bloc d'inici\n"
 "de la partició."
 
-#: src/lib/y2partitioner/widgets/help.rb:88
+#: src/lib/y2partitioner/widgets/help.rb:93
+#, fuzzy
+#| msgid ""
+#| "<b>Stripes</b> shows the stripe number for LVM\n"
+#| "logical volumes and, if greater than one, the stripe size in "
+#| "parenthesis.\n"
 msgid ""
 "<b>Stripes</b> shows the stripe number for LVM\n"
-"logical volumes and, if greater than one, the stripe size in parenthesis.\n"
+"logical volumes and, if greater than one, the stripe size in parenthesis."
 msgstr ""
 "L'opció <b>Bandes</b> mostra el nombre de bandes (stripes) dels volums "
 "lògics\n"
 "LVM i, si és més que 1, també mostra la mida de la banda entre parèntesis.\n"
 
-#: src/lib/y2partitioner/widgets/help.rb:91
+#: src/lib/y2partitioner/widgets/help.rb:97
 msgid ""
 "<b>Type</b> gives a general overview about the\n"
 "device type."
@@ -3185,7 +3421,7 @@ msgstr ""
 "L'opció <b>Tipus</b> mostra una visió general\n"
 "del tipus de dispositiu."
 
-#: src/lib/y2partitioner/widgets/help.rb:93
+#: src/lib/y2partitioner/widgets/help.rb:99
 msgid ""
 "<b>Device ID</b> shows the persistent device\n"
 "IDs. This field can be empty."
@@ -3194,7 +3430,7 @@ msgstr ""
 "identificadors de dispositius persistents. Aquest camp\n"
 "pot estar buit."
 
-#: src/lib/y2partitioner/widgets/help.rb:96
+#: src/lib/y2partitioner/widgets/help.rb:102
 msgid ""
 "<b>Device Path</b> shows the persistent device\n"
 "path. This field can be empty."
@@ -3202,7 +3438,7 @@ msgstr ""
 "L'opció <b>Camí del dispositiu</b> mostra el camí\n"
 "dels dispositius continus. Aquest camp pot ser buit."
 
-#: src/lib/y2partitioner/widgets/help.rb:99
+#: src/lib/y2partitioner/widgets/help.rb:105
 msgid ""
 "<b>Used By</b> shows if a device is used by\n"
 "e.g. RAID or LVM. If not, this column is empty."
@@ -3210,7 +3446,7 @@ msgstr ""
 "L'opció <b>usat per</b> mostra si un dispositiu l'usa,\n"
 "per exemple, la RAID o l'LVM. Si no, aquesta columna és buida."
 
-#: src/lib/y2partitioner/widgets/help.rb:102
+#: src/lib/y2partitioner/widgets/help.rb:108
 msgid ""
 "<b>UUID</b> shows the Universally Unique\n"
 "Identifier of the file system."
@@ -3218,18 +3454,18 @@ msgstr ""
 "L'opció <b>UUID</b> mostra l'identificador únic\n"
 "universal del sistema de fitxers."
 
-#: src/lib/y2partitioner/widgets/help.rb:105
+#: src/lib/y2partitioner/widgets/help.rb:111
 msgid "<b>Vendor</b> shows the device vendor."
 msgstr "L'opció <b>Fabricant</b> mostra el fabricant del dispositiu."
 
-#: src/lib/y2partitioner/widgets/help.rb:107
+#: src/lib/y2partitioner/widgets/help.rb:113
 msgid ""
 "<b>Backing Device</b> shows the device used as backing device for bcache."
 msgstr ""
 "<b>Dispositiu de còpia de seguretat</b> mostra el dispositiu usat com a "
 "dispositiu de còpia de seguretat per a la bcau."
 
-#: src/lib/y2partitioner/widgets/help.rb:110
+#: src/lib/y2partitioner/widgets/help.rb:116
 msgid ""
 "<b>Caching UUID</b> shows the UUID of the used caching set. This field is "
 "empty if no caching is used."
@@ -3237,7 +3473,7 @@ msgstr ""
 "<b>UUID de la cau</b> mostra l'UUID del conjunt de cau que s'usa. Aquest "
 "camp és buit si no s'usa cap cau."
 
-#: src/lib/y2partitioner/widgets/help.rb:113
+#: src/lib/y2partitioner/widgets/help.rb:119
 msgid ""
 "<b>Caching Device</b> shows the device used for caching. This field is empty "
 "if no caching is used."
@@ -3245,7 +3481,7 @@ msgstr ""
 "<b>Dispositiu de cau</b> mostra el dispositiu que s'usa per a la cau. Aquest "
 "camp és buit si no s'usa cap cau."
 
-#: src/lib/y2partitioner/widgets/help.rb:116
+#: src/lib/y2partitioner/widgets/help.rb:122
 msgid ""
 "<b>Cache Mode</b> shows the operating mode for bcache. Currently there are "
 "four supported modes: Writethrough, Writeback, Writearound and None."
@@ -3254,16 +3490,30 @@ msgstr ""
 "ha quatre modes admesos: escriptura directa (writethrough), escriptura "
 "enrere (writeback), escriptura arreu (writearound) i cap."
 
-#: src/lib/y2partitioner/widgets/help.rb:119
+#: src/lib/y2partitioner/widgets/help.rb:126
+#, fuzzy
+#| msgid ""
+#| "<b>Btrfs Devices</b> shows the kernel name of the devices used by a Btrfs "
+#| "file system."
 msgid ""
-"<b>Btrfs Devices</b> shows the kernel name of the devices used by a Btrfs "
-"file system."
+"<b>Devices</b> shows the kernel name of the devices used by a Btrfs file "
+"system."
 msgstr ""
 "L'opció <b>Dispositius Btrfs</b> mostra el nom de nucli dels dispositius "
 "usats per un sistema Btrfs."
 
+#: src/lib/y2partitioner/widgets/help.rb:128
+msgid "<b>Metadata RAID Level</b> shows the RAID level for the Btrfs metadata."
+msgstr ""
+
+#: src/lib/y2partitioner/widgets/help.rb:131
+#, fuzzy
+#| msgid "<b>RAID Version</b> shows the RAID version."
+msgid "<b>Data RAID Level</b> shows the RAID level for the Btrfs data."
+msgstr "L'opció <b>Versió RAID</b> mostra la versió de RAID."
+
 #. help texts that are appended to the common help only in Mode.normal
-#: src/lib/y2partitioner/widgets/help.rb:125
+#: src/lib/y2partitioner/widgets/help.rb:136
 msgid ""
 "A question mark (?) indicates that\n"
 "the file system is not listed in <tt>/etc/fstab</tt>. It is either mounted\n"
@@ -3278,7 +3528,7 @@ msgstr ""
 "d'aquest volum\n"
 "el YaST no actualitzarà el contingut de <tt>/etc/fstab</tt>.\n"
 
-#: src/lib/y2partitioner/widgets/help.rb:130
+#: src/lib/y2partitioner/widgets/help.rb:141
 msgid ""
 "An asterisk (*) after the mount point\n"
 "indicates a file system that is currently not mounted (for example, because "
@@ -3385,11 +3635,6 @@ msgstr ""
 "crear aquest grup de volums. Si cal, sempre podeu afegir-hi més volums "
 "físics més endavant.</p>"
 
-#. TRANSLATORS: Error message when no device is selected
-#: src/lib/y2partitioner/widgets/lvm_vg_devices_selector.rb:123
-msgid "Select at least one device."
-msgstr "Seleccioneu com a mínim un dispositiu."
-
 #. TRANSLATORS: Error message when the resulting volume group size is not
 #. enough. %s is replaced by a size (e.g., 4 GiB).
 #: src/lib/y2partitioner/widgets/lvm_vg_devices_selector.rb:139
@@ -3431,7 +3676,7 @@ msgstr "Canvia els volums físics..."
 #. volumes of an LVM VG
 #. TRANSLATORS: label for button to edit used devices
 #: src/lib/y2partitioner/widgets/lvm_vg_resize_button.rb:39
-#: src/lib/y2partitioner/widgets/used_devices_edit_button.rb:40
+#: src/lib/y2partitioner/widgets/used_devices_edit_button.rb:41
 msgid "Change..."
 msgstr "Canvia..."
 
@@ -3500,10 +3745,6 @@ msgstr "Al final"
 #: src/lib/y2partitioner/widgets/md_modify_button.rb:55
 msgid "Edit RAID..."
 msgstr "Edita la RAID..."
-
-#: src/lib/y2partitioner/widgets/md_modify_button.rb:60
-msgid "Change Used Devices..."
-msgstr "Canvia els dispositius usats..."
 
 #. help text, richtext format
 #: src/lib/y2partitioner/widgets/mkfs_optiondata.rb:57
@@ -3750,7 +3991,7 @@ msgstr "Bcau: %s"
 #. @macro seeAbstractWidget
 #. @macro seeAbstractWidget
 #: src/lib/y2partitioner/widgets/pages/bcache.rb:88
-#: src/lib/y2partitioner/widgets/pages/btrfs.rb:132
+#: src/lib/y2partitioner/widgets/pages/btrfs.rb:127
 #: src/lib/y2partitioner/widgets/pages/disk.rb:129
 #: src/lib/y2partitioner/widgets/pages/lvm_vg.rb:94
 #: src/lib/y2partitioner/widgets/pages/md_raid.rb:95
@@ -3774,14 +4015,9 @@ msgstr "Usat per"
 
 #. TRANSLATORS: BTRFS page title, where %{basename} is replaced by the device
 #. basename (e.g., sda1).
-#: src/lib/y2partitioner/widgets/pages/btrfs.rb:91
+#: src/lib/y2partitioner/widgets/pages/btrfs.rb:93
 msgid "Btrfs %{basename}"
 msgstr "Btrfs %{basename}"
-
-#. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/pages/btrfs_filesystems.rb:48
-msgid "Btrfs"
-msgstr "Btrfs"
 
 #. @macro seeAbstractWidget
 #. TRANSLATORS: Heading for the expert partitioner page
@@ -4298,12 +4534,12 @@ msgid "A drive of type '%{type}' is not supported in this architecture"
 msgstr "Un dispositiu del tipus %{type} no s'admet en aquesta arquitectura."
 
 #. TRANSLATORS: status when cache set is not attached to any bcache
-#: src/lib/y2storage/bcache_cset.rb:69
+#: src/lib/y2storage/bcache_cset.rb:71
 msgid "Cache set (not attached)"
 msgstr "Conjunt de cau (no adjuntat)"
 
 #. TRANSLATORS: %s contain list of devices for which cache act as cache.
-#: src/lib/y2storage/bcache_cset.rb:72
+#: src/lib/y2storage/bcache_cset.rb:74
 msgid "Cache set (%s)"
 msgstr "Conjunt de cau (%s)"
 
@@ -4416,6 +4652,54 @@ msgid ""
 msgstr ""
 "Sembla que el sistema s'instal·larà en un dispositiu LDL.\n"
 "No hi ha suport per arrencar des d'aquest tipus de dispositius."
+
+#. Class to represent all the possible Btrfs RAID levels
+#.
+#. This is a wrapper for the Storage::BtrfsRaidLevel enum
+#. Class to represent all the possible MD levels
+#.
+#. This is a wrapper for the Storage::MdLevel enum
+#: src/lib/y2storage/btrfs_raid_level.rb:39 src/lib/y2storage/md_level.rb:36
+#: src/lib/y2storage/partition_id.rb:56
+msgid "Unknown"
+msgstr "Desconegut"
+
+#. TODO: should be tested by some real OPS guy, I (JR) pick human wording from `man mdadm`
+#: src/lib/y2storage/btrfs_raid_level.rb:40
+#: src/lib/y2storage/clients/partitions_proposal.rb:160
+#: src/lib/y2storage/md_parity.rb:37
+msgid "Default"
+msgstr "Per defecte"
+
+#. TRANSLATORS: this is one of the RAID modes used by Btrfs, likely to be left as-is
+#: src/lib/y2storage/btrfs_raid_level.rb:42
+msgid "SINGLE"
+msgstr ""
+
+#. TRANSLATORS: this is one of the RAID modes used by Btrfs, likely to be left as-is
+#: src/lib/y2storage/btrfs_raid_level.rb:44
+msgid "DUP"
+msgstr ""
+
+#: src/lib/y2storage/btrfs_raid_level.rb:45 src/lib/y2storage/md_level.rb:37
+msgid "RAID0"
+msgstr "RAID0"
+
+#: src/lib/y2storage/btrfs_raid_level.rb:46 src/lib/y2storage/md_level.rb:38
+msgid "RAID1"
+msgstr "RAID1"
+
+#: src/lib/y2storage/btrfs_raid_level.rb:47 src/lib/y2storage/md_level.rb:40
+msgid "RAID5"
+msgstr "RAID5"
+
+#: src/lib/y2storage/btrfs_raid_level.rb:48 src/lib/y2storage/md_level.rb:41
+msgid "RAID6"
+msgstr "RAID6"
+
+#: src/lib/y2storage/btrfs_raid_level.rb:49 src/lib/y2storage/md_level.rb:42
+msgid "RAID10"
+msgstr "RAID10"
 
 #. TRANSLATORS: operation mode for cache. If you are not sure how to translate keep it as it is.
 #: src/lib/y2storage/cache_mode.rb:37
@@ -4622,12 +4906,6 @@ msgstr "No hi ha proposta possible amb la configuració actual."
 #: src/lib/y2storage/clients/partitions_proposal.rb:160
 msgid "Custom"
 msgstr "Personalitzada"
-
-#. TODO: should be tested by some real OPS guy, I (JR) pick human wording from `man mdadm`
-#: src/lib/y2storage/clients/partitions_proposal.rb:160
-#: src/lib/y2storage/md_parity.rb:37
-msgid "Default"
-msgstr "Per defecte"
 
 #. TRANSLATORS: %{name} is the name of an LVM Volume Group (e.g., /dev/vg1)
 #: src/lib/y2storage/devicegraph_sanitizer.rb:144
@@ -5203,6 +5481,20 @@ msgstr ""
 "del 0 al 9, de la A a la Z (maj. o no), i qualsevol dels signes @#* ,.;:._-+!"
 "$%&/|?{[()]}^\\<>."
 
+#. TRANSLATORS: block device basename for a multi-device filesystem, where %{basename} is replaced
+#. by the basename of the first block device (e.g., "(sda1...)").
+#: src/lib/y2storage/filesystems/blk_filesystem.rb:136
+#, fuzzy
+#| msgid "Btrfs %{basename}"
+msgid "(%{basename}\\u2026)"
+msgstr "Btrfs %{basename}"
+
+#. TRANSLATORS: display name when the Btrfs is multidevice, where %{num_devices} is replaced by
+#. a number (e.g., "2") and %{name} is replaced by a device representation (e.g., "(sda1...)").
+#: src/lib/y2storage/filesystems/btrfs.rb:498
+msgid "Btrfs over %{num_devices} devices %{name}"
+msgstr ""
+
 #. Hash with the properties for each mount by type.
 #.
 #. Keys are the symbols representing the types and values are hashes that
@@ -5224,36 +5516,17 @@ msgstr "Etiqueta del volum"
 msgid "Device Path"
 msgstr "Camí al dispositiu"
 
-#. Class to represent all the possible MD levels
-#.
-#. This is a wrapper for the Storage::MdLevel enum
-#: src/lib/y2storage/md_level.rb:36 src/lib/y2storage/partition_id.rb:56
-msgid "Unknown"
-msgstr "Desconegut"
-
-#: src/lib/y2storage/md_level.rb:37
-msgid "RAID0"
-msgstr "RAID0"
-
-#: src/lib/y2storage/md_level.rb:38
-msgid "RAID1"
-msgstr "RAID1"
+#. TRANSLATORS: display name when the PV has no associated VG, where %{device} is replaced by a
+#. device name (e.g., "/dev/sda1").
+#: src/lib/y2storage/lvm_pv.rb:80
+#, fuzzy
+#| msgid "Unused Devices"
+msgid "Unused LVM PV on %{device}"
+msgstr "Dispositius no usats"
 
 #: src/lib/y2storage/md_level.rb:39
 msgid "RAID4"
 msgstr "RAID4"
-
-#: src/lib/y2storage/md_level.rb:40
-msgid "RAID5"
-msgstr "RAID5"
-
-#: src/lib/y2storage/md_level.rb:41
-msgid "RAID6"
-msgstr "RAID6"
-
-#: src/lib/y2storage/md_level.rb:42
-msgid "RAID10"
-msgstr "RAID10"
 
 #: src/lib/y2storage/md_level.rb:43
 msgid "Container"
@@ -5520,6 +5793,9 @@ msgstr "El volum lògic prim d'LVM ja té la mida més grossa possible."
 msgid "Unknown reason"
 msgstr "Raó desconeguda"
 
+#~ msgid "Orphan PV"
+#~ msgstr "PV orfe"
+
 #~ msgid "FS Type"
 #~ msgstr "Tipus de SF"
 
@@ -5725,9 +6001,6 @@ msgstr "Raó desconeguda"
 
 #~ msgid "Device Mapper"
 #~ msgstr "Mapador de dispositius"
-
-#~ msgid "Unused Devices"
-#~ msgstr "Dispositius no usats"
 
 #~ msgid "Mount Graph"
 #~ msgstr "Gràfic de muntatge"
@@ -7426,9 +7699,6 @@ msgstr "Raó desconeguda"
 #~ "Si activeu la configuració de multicamí, es cancel·laran tots els\n"
 #~ "canvis actuals. Segur que voleu activar la configuració de multicamí?\n"
 
-#~ msgid "<p>Change the devices that are used by the Btrfs volume.</p>"
-#~ msgstr "<p>Canvieu els dispositius que són utilitzats pel volum Btrfs.</p>"
-
 #~ msgid "Unused Devices:"
 #~ msgstr "Dispositius no utilitzats:"
 
@@ -9091,9 +9361,6 @@ msgstr "Raó desconeguda"
 #~ msgid "Bus: %1"
 #~ msgstr "Bus: %1"
 
-#~ msgid "Metadata: %1"
-#~ msgstr "Metadades: %1"
-
 #~ msgid "PE Size: %1"
 #~ msgstr "Mida del PE: %1"
 
@@ -9322,9 +9589,6 @@ msgstr "Raó desconeguda"
 
 #~ msgid "Mount By"
 #~ msgstr "Munta per"
-
-#~ msgid "RAID Level"
-#~ msgstr "Nivell de RAID"
 
 #~ msgid "Spare"
 #~ msgstr "Recanvi"

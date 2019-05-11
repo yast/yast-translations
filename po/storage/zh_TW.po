@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: storage\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-05-04 02:29+0000\n"
+"POT-Creation-Date: 2019-05-11 02:29+0000\n"
 "PO-Revision-Date: 2019-05-02 20:14+0000\n"
 "Last-Translator: Ramax Lo <ramaxlo@gmail.com>\n"
 "Language-Team: Chinese (Taiwan) <https://l10n.opensuse.org/projects/yast-"
@@ -24,6 +24,20 @@ msgstr ""
 #: src/lib/y2partitioner/actions/add_bcache.rb:61
 msgid "There are not enough suitable unused devices to create a bcache."
 msgstr "合適的未使用裝置數不足，無法建立 bcache。"
+
+#. TRANSLATORS: wizard title when creating a new Btrfs filesystem.
+#: src/lib/y2partitioner/actions/add_btrfs.rb:84
+#, fuzzy
+#| msgid "Btrfs"
+msgid "Add Btrfs"
+msgstr "Btrfs"
+
+#. TRANSLATORS: error message
+#: src/lib/y2partitioner/actions/add_btrfs.rb:92
+#, fuzzy
+#| msgid "There are not enough suitable unused devices to create a RAID."
+msgid "There are not enough suitable unused devices to create a Btrfs."
+msgstr "合適的未使用裝置數不足，無法建立 RAID。"
 
 #. TRANSLATORS: %s is a volume group name (e.g. "system")
 #: src/lib/y2partitioner/actions/add_lvm_lv.rb:114
@@ -184,20 +198,20 @@ msgstr ""
 "名為「%{lv_name}」的邏輯磁碟區。"
 
 #. TRANSLATORS: dialog title when creating an LVM volume group
-#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:79
+#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:83
 msgid "Add Volume Group"
 msgstr "新增磁碟區群組"
 
 #. TRANSLATORS: dialog title when resizing an LVM volume group, where %s is replaced
 #. by a device name (e.g., /dev/vg0)
-#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:83
+#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:87
 msgid "Resize Volume Group %s"
 msgstr "調整磁碟區群組 %s 的大小"
 
 #. Error message to show when the given volume group name is empty
 #.
 #. @return [String]
-#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:297
+#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:294
 msgid "Enter a name for the volume group."
 msgstr "輸入磁碟區群組的名稱。"
 
@@ -205,7 +219,7 @@ msgstr "輸入磁碟區群組的名稱。"
 #. characters
 #.
 #. @return [String]
-#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:315
+#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:312
 msgid ""
 "The name for the volume group contains illegal characters. Allowed\n"
 "are alphanumeric characters, \".\", \"_\", \"-\" and \"+\""
@@ -214,7 +228,7 @@ msgstr ""
 "允許的字元包括英數字元、「.」、「_」、「-」與「+」"
 
 #. TRANSLATORS: %{vg_name} is replaced by the name of the volume group
-#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:338
+#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:335
 msgid ""
 "The volume group name \"%{vg_name}\" conflicts\n"
 "with another entry in the /dev directory."
@@ -227,7 +241,7 @@ msgstr ""
 #. @see #invalid_extent_size?
 #.
 #. @return [String]
-#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:363
+#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:360
 msgid ""
 "The data entered is invalid. Insert a physical extent size larger than 1 "
 "KiB\n"
@@ -238,13 +252,13 @@ msgstr ""
 
 #. TRANSLATORS: dialog title when creating a MD RAID.
 #. %s is a device name like /dev/md0
-#: src/lib/y2partitioner/actions/controllers/md.rb:194
+#: src/lib/y2partitioner/actions/controllers/md.rb:198
 msgid "Add RAID %s"
 msgstr "新增 RAID %s"
 
 #. TRANSLATORS: dialog title when editing the devices of a Software RAID.
 #. %s is a device name (e.g., /dev/md0)
-#: src/lib/y2partitioner/actions/controllers/md.rb:198
+#: src/lib/y2partitioner/actions/controllers/md.rb:202
 msgid "Edit devices of RAID %s"
 msgstr "編輯 RAID 裝置 %s"
 
@@ -322,6 +336,19 @@ msgstr ""
 "所選的 bcache 是唯一使用其快取集的 bcache。\n"
 "系統還將刪除該快取集。\n"
 "\n"
+
+#. @see DeleteDevice#simple_confirm_text
+#.
+#. @note The implementation in the base class relies on the #display_name
+#. method of the device, which returns nil for regular (non multi-device)
+#. filesystems.
+#.
+#. @return [String]
+#: src/lib/y2partitioner/actions/delete_btrfs.rb:53
+#, fuzzy
+#| msgid "Really delete these devices?"
+msgid "Really delete the filesystem?"
+msgstr "確定要刪除這些裝置嗎？"
 
 #. Confirmation to display when the device is part of another one(s)
 #.
@@ -511,7 +538,7 @@ msgstr "編輯裝置 %s"
 #. TRANSLATORS: %{name} is replaced by a device name (e.g., /dev/sda1)
 #. and %{users} is replaced by a comma-separated list of name devices
 #. (devices using the first one).
-#: src/lib/y2partitioner/actions/edit_blk_device.rb:132
+#: src/lib/y2partitioner/actions/edit_blk_device.rb:133
 msgid ""
 "The device %{name} is in use (%{users}).\n"
 "It cannot be edited.\n"
@@ -521,7 +548,23 @@ msgstr ""
 "若要編輯 %{name}，請確認它未在使用中。"
 
 #. TRANSLATORS: %{name} is replaced by a device name (e.g., /dev/sda1).
-#: src/lib/y2partitioner/actions/edit_blk_device.rb:147
+#. Since device names can be rather long, make sure the lines
+#. containing %{name} are sorter than the others.
+#: src/lib/y2partitioner/actions/edit_blk_device.rb:151
+msgid ""
+"The device %{name} belongs to a Btrfs.\n"
+"It cannot be edited.\n"
+"\n"
+"To modify the settings of the Btrfs, edit the filesystem itself\n"
+"instead of its individual block devices.\n"
+"\n"
+"To use %{name} for other purpose, make sure it does not\n"
+"belong to the Btrfs filesystem, either deleting the filesystem or\n"
+"removing %{name} from it."
+msgstr ""
+
+#. TRANSLATORS: %{name} is replaced by a device name (e.g., /dev/sda1).
+#: src/lib/y2partitioner/actions/edit_blk_device.rb:170
 msgid ""
 "The device %{name} contains partitions.\n"
 "It cannot be edited directly.\n"
@@ -531,13 +574,13 @@ msgstr ""
 "若要編輯 %{name}，請先刪除它的所有分割區。"
 
 #. TRANSLATORS: Error message when trying to edit an extented partition
-#: src/lib/y2partitioner/actions/edit_blk_device.rb:161
+#: src/lib/y2partitioner/actions/edit_blk_device.rb:184
 msgid "An extended partition cannot be edited"
 msgstr "無法編輯延伸分割區"
 
 #. TRANSLATORS: Error message when trying to edit an LVM thin pool. %{name} is
 #. replaced by a logical volume name (e.g., /dev/system/lv1)
-#: src/lib/y2partitioner/actions/edit_blk_device.rb:172
+#: src/lib/y2partitioner/actions/edit_blk_device.rb:195
 msgid ""
 "The volume %{name} is a thin pool.\n"
 "It cannot be edited."
@@ -550,6 +593,30 @@ msgstr ""
 #: src/lib/y2partitioner/actions/edit_btrfs.rb:55
 msgid "Edit Btrfs %{basename}"
 msgstr "編輯 Btrfs %{basename}"
+
+#. Wizard title
+#.
+#. @return [String]
+#: src/lib/y2partitioner/actions/edit_btrfs_devices.rb:77
+#, fuzzy
+#| msgid "Edit Btrfs %{basename}"
+msgid "Edit devices of Btrfs %{name}"
+msgstr "編輯 Btrfs %{basename}"
+
+#. TRANSLATORS: error message, where %{name} is replaced by a device base name (e.g., sda1)
+#: src/lib/y2partitioner/actions/edit_btrfs_devices.rb:113
+#, fuzzy
+#| msgid ""
+#| "The RAID %{name} is already created on disk and its used devices\n"
+#| "cannot be modified. To modify the used devices, remove the RAID\n"
+#| "and create it again."
+msgid ""
+"The Btrfs %{name} is already created on disk and its used devices\n"
+"cannot be modified. To modify the used devices, remove the Btrfs\n"
+"and create it again."
+msgstr ""
+"磁碟上已建立了 RAID %{name}，無法修改它的已用裝置。\n"
+"若要修改已用裝置，請移除 RAID，然後再重新建立。"
 
 #. TRANSLATORS: error message, %{name} is replaced by a device name (e.g., /dev/md1)
 #: src/lib/y2partitioner/actions/edit_md_devices.rb:102
@@ -630,12 +697,18 @@ msgstr ""
 "如果結束磁碟分割程式，將會遺失這些變更。\n"
 "確定要結束？"
 
-#. TRANSLATORS: %{name} is replaced by a device name (e.g., /dev/sda1).
-#. and %{users} is replaced by a comma-separated list of name devices
-#. (devices using the first one).
-#: src/lib/y2partitioner/actions/resize_blk_device.rb:115
+#. TRANSLATORS: %{name} is replaced by a device name (e.g., /dev/sda1) and %{users} is replaced
+#. by a list of name devices (devices using the first one).
+#: src/lib/y2partitioner/actions/resize_blk_device.rb:114
+#, fuzzy
+#| msgid ""
+#| "The device %{name} is in use (%{users}).\n"
+#| "It cannot be resized.\n"
+#| "To resize %{name}, make sure it is not used."
 msgid ""
-"The device %{name} is in use (%{users}).\n"
+"The device %{name} is being used by:\n"
+"%{users}\n"
+"\n"
 "It cannot be resized.\n"
 "To resize %{name}, make sure it is not used."
 msgstr ""
@@ -701,12 +774,12 @@ msgid "Bcache Device"
 msgstr "Bcache 裝置"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/dialogs/bcache.rb:198
+#: src/lib/y2partitioner/dialogs/bcache.rb:196
 msgid "Backing Device"
 msgstr "備用裝置"
 
 #. TRANSLATORS: %{label} is replaced by the label of the option to select a backing device.
-#: src/lib/y2partitioner/dialogs/bcache.rb:210
+#: src/lib/y2partitioner/dialogs/bcache.rb:208
 msgid ""
 "<p><b>%{label}</b> is the device that will be used as backing device for "
 "bcache.It will define the size of the resulting bcache device. The device "
@@ -716,23 +789,23 @@ msgstr ""
 "置的大小。該裝置將執行格式化，以便抹除先前包含的任何內容。</p>"
 
 #. Value can be an empty string if there is no items
-#: src/lib/y2partitioner/dialogs/bcache.rb:237
+#: src/lib/y2partitioner/dialogs/bcache.rb:235
 msgid "Backing and Caching devices cannot be identical."
 msgstr "備用裝置和快取裝置不能相同。"
 
-#: src/lib/y2partitioner/dialogs/bcache.rb:238
+#: src/lib/y2partitioner/dialogs/bcache.rb:236
 msgid "Cannot Create Bcache"
 msgstr "無法建立 Bcache"
 
 #. @macro seeAbstractWidget
 #. TRANSLATORS: table column label.
-#: src/lib/y2partitioner/dialogs/bcache.rb:259
+#: src/lib/y2partitioner/dialogs/bcache.rb:257
 #: src/lib/y2partitioner/widgets/pages/bcaches.rb:214
 msgid "Caching Device"
 msgstr "快取裝置"
 
 #. TRANSLATORS: %{label} is replaced by the label of the option to select a caching device.
-#: src/lib/y2partitioner/dialogs/bcache.rb:273
+#: src/lib/y2partitioner/dialogs/bcache.rb:271
 msgid ""
 "<p><b>%{label}</b> is the device that will be used as caching device for "
 "bcache.It should be faster and usually is smaller than the backing device, "
@@ -746,17 +819,17 @@ msgstr ""
 "先前包含的任何內容。</p><p>如果您想稍後使用 bcache，建議設定較慢的裝置充當 "
 "bcache 備用裝置而不要設定快取裝置。您可以日後再新增快取裝置。</p>"
 
-#: src/lib/y2partitioner/dialogs/bcache.rb:291
+#: src/lib/y2partitioner/dialogs/bcache.rb:289
 msgid "Without caching"
 msgstr "不設定快取"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/dialogs/bcache.rb:321
+#: src/lib/y2partitioner/dialogs/bcache.rb:319
 msgid "Cache Mode"
 msgstr "快取模式"
 
 #. TRANSLATORS: %{label} is replaced by the label of the option to select a cache mode.
-#: src/lib/y2partitioner/dialogs/bcache.rb:337
+#: src/lib/y2partitioner/dialogs/bcache.rb:335
 msgid ""
 "<p><b>%{label}</b> is the operating mode for bcache. There are currently "
 "four supported modes.<ul> <li><i>Writethrough</i> reading operations are "
@@ -1648,6 +1721,15 @@ msgstr "磁碟區管理"
 msgid "Bcache"
 msgstr "Bcache"
 
+#. Title of the Btrfs section
+#.
+#. @note See note on {.md_raids_label} about why this looks misplaced.
+#.
+#. @return [String]
+#: src/lib/y2partitioner/ui_state.rb:91
+msgid "Btrfs"
+msgstr "Btrfs"
+
 #. TRANSLATORS: button label to add a new Bcache device
 #: src/lib/y2partitioner/widgets/bcache_add_button.rb:41
 msgid "Add Bcache..."
@@ -1665,7 +1747,9 @@ msgstr "變更快取..."
 #. @macro seeAbstractWidget
 #. @macro seeAbstractWidget
 #. @macro seeAbstractWidget
+#. @macro seeAbstractWidget
 #: src/lib/y2partitioner/widgets/bcache_modify_button.rb:39
+#: src/lib/y2partitioner/widgets/btrfs_modify_button.rb:38
 #: src/lib/y2partitioner/widgets/disk_modify_button.rb:38
 #: src/lib/y2partitioner/widgets/lvm_lv_modify_button.rb:38
 #: src/lib/y2partitioner/widgets/lvm_vg_modify_button.rb:37
@@ -1898,8 +1982,9 @@ msgstr "%{fs_type} %{device_label}"
 #. @param device [Y2Storage::LvmPv]
 #. @return [String]
 #: src/lib/y2partitioner/widgets/blk_devices_table.rb:342
-msgid "Orphan PV"
-msgstr ""
+#, fuzzy
+msgid "Unused LVM PV"
+msgstr "未使用磁碟空間 (%1)"
 
 #: src/lib/y2partitioner/widgets/blk_devices_table.rb:343
 msgid "PV of LVM"
@@ -1932,18 +2017,150 @@ msgstr "Bcache 快取裝置"
 msgid "Part of %s"
 msgstr "分割區︰%s"
 
+#. TRANSLATORS: button label to add a new Bcache device
+#: src/lib/y2partitioner/widgets/btrfs_add_button.rb:41
+#, fuzzy
+#| msgid "Add Bcache..."
+msgid "Add Btrfs..."
+msgstr "新增 Bcache..."
+
+#. TRANSLATORS: widget label
+#: src/lib/y2partitioner/widgets/btrfs_data_raid_level.rb:42
+msgid "RAID Level"
+msgstr "RAID 等級"
+
+#. TRANSLATORS: widget help, where %{label} is replaced by the label of the widget.
+#: src/lib/y2partitioner/widgets/btrfs_data_raid_level.rb:49
+msgid "<p><b>%{label}:</b> RAID level for the Btrfs data.</p>"
+msgstr ""
+
+#. TRANSLATORS: help text
+#: src/lib/y2partitioner/widgets/btrfs_devices.rb:114
+msgid ""
+"<h4><b>Btrfs RAID levels</b></h4><p>Btrfs supports the following RAID levels "
+"for both, data and metadata:<ul><li><b>DUP:</b> stores two copies of each "
+"piece of data on the same device. This is similar to RAID1, and protects "
+"against block-level errors on the device, but does not provide any "
+"guarantees if the device fails. Only one device must be be selected to use "
+"DUP.</li><li><b>SINGLE:</b> stores a single copy of each piece of data. "
+"Btrfs requires a minimum of one device to use SINGLE.</li><li><b>RAID0:</b> "
+"provides no form of error recovery, but stripes a single copy of data across "
+"multiple devices for performance purpose. Btrfs requires a minimum of two "
+"devices to use RAID0.</li><li><b>RAID1:</b> stores two complete copies of "
+"each piece of data. Each copy is stored on a different device. Btrfs "
+"requires a minimum of two devices to use RAID1.</li><li><b>RAID10:</b> "
+"stores two complete copies of each piece of data, and also stripes each copy "
+"across multiple devices for performance. Btrfs requires a minimum of five "
+"devices to use RAID10</li></ul></p>"
+msgstr ""
+
+#. TRANSLATORS: help text
+#: src/lib/y2partitioner/widgets/btrfs_devices.rb:151
+msgid ""
+"<p>When the default RAID level is used, Btrfs will select a RAID level "
+"depending on whether the filesystem is being created on top of multiple "
+"devices or using only one device. For a single-device Btrfs, the tool also "
+"will distinguish between rotational or not-rotational devices to choose the "
+"default value.</p>"
+msgstr ""
+
+#. TRANSLATORS: error message
+#: src/lib/y2partitioner/widgets/btrfs_devices.rb:171
+msgid "RAID levels do not match the amount of selected devices."
+msgstr ""
+
+#. TRANSLATORS: error message
+#: src/lib/y2partitioner/widgets/btrfs_devices.rb:174
+msgid "The RAID level does not match the amount of selected devices."
+msgstr ""
+
+#. TRANSLATORS: error message
+#: src/lib/y2partitioner/widgets/btrfs_devices.rb:177
+msgid "The metadata RAID level does not match the amount of selected devices."
+msgstr ""
+
+#. TRANSLATORS: error message, where %{error_by} is replaced by an initial sentence.
+#: src/lib/y2partitioner/widgets/btrfs_devices.rb:182
+msgid ""
+"%{error_by}\n"
+"Modify the list of devices or adjust the RAID levels."
+msgstr ""
+
+#. TRANSLATORS: error message, where %{data} is replaced by "data" or "metadata" and %{levels} is
+#. replaced by a list of raid levels separated by comma (e.g., "RAID1, RAID10").
+#: src/lib/y2partitioner/widgets/btrfs_devices.rb:220
+msgid ""
+"According to the selected devices, only the following %{data}\n"
+"RAID levels can be used: %{levels}."
+msgstr ""
+
+#. TRANSLATORS: help text, where %{label} is a widget label
+#: src/lib/y2partitioner/widgets/btrfs_devices_selector.rb:109
+#, fuzzy
+#| msgid "<p>Change the devices that are used by the Btrfs volume.</p>"
+msgid ""
+"<p><b>%{label}</b> Unused devices that can be used for a Btrfs filesystem.</"
+"p>"
+msgstr "<p>變更 Btrfs 磁碟區使用的裝置。</p>"
+
+#. TRANSLATORS: help text, where %{label} is a widget label
+#: src/lib/y2partitioner/widgets/btrfs_devices_selector.rb:120
+msgid "<p><b>%{label}</b> Devices selected to be part of the Btrfs.</p>"
+msgstr ""
+
+#. TRANSLATORS: Error message when no device is selected
+#. TRANSLATORS: Error message when no device is selected
+#: src/lib/y2partitioner/widgets/btrfs_devices_selector.rb:132
+#: src/lib/y2partitioner/widgets/lvm_vg_devices_selector.rb:123
+msgid "Select at least one device."
+msgstr "請至少選取一個裝置。"
+
 #. TRANSLATORS: label of a table column
 #: src/lib/y2partitioner/widgets/btrfs_filesystems_table.rb:55
+msgid "Id"
+msgstr ""
+
+#. TRANSLATORS: label of a table column
+#: src/lib/y2partitioner/widgets/btrfs_filesystems_table.rb:71
 msgid "Devices"
 msgstr "裝置"
 
 #. TRANSLATORS: label of a table column
 #. TRANSLATORS: table column label.
-#: src/lib/y2partitioner/widgets/btrfs_filesystems_table.rb:71
+#: src/lib/y2partitioner/widgets/btrfs_filesystems_table.rb:79
 #: src/lib/y2partitioner/widgets/pages/bcaches.rb:222
 #: src/lib/y2storage/filesystems/mount_by_type.rb:56
 msgid "UUID"
 msgstr "UUID"
+
+#. TRANSLATORS: widget label
+#: src/lib/y2partitioner/widgets/btrfs_metadata_raid_level.rb:40
+#, fuzzy
+#| msgid "RAID Level"
+msgid "RAID Level for Metadata"
+msgstr "RAID 等級"
+
+#. TRANSLATORS: widget help, where %{label} is replaced by the label of the widget.
+#: src/lib/y2partitioner/widgets/btrfs_metadata_raid_level.rb:47
+msgid "<p><b>%{label}:</b> RAID level for the Btrfs metadata.</p>"
+msgstr ""
+
+#. @see DeviceMenuButton#actions
+#.
+#. @see Actions::EditBtrfs
+#. @see Actions::EditBtrfsDevices
+#.
+#. @return [Array<Hash>]
+#: src/lib/y2partitioner/widgets/btrfs_modify_button.rb:53
+#, fuzzy
+#| msgid "Edit..."
+msgid "Edit Btrfs..."
+msgstr "編輯..."
+
+#: src/lib/y2partitioner/widgets/btrfs_modify_button.rb:58
+#: src/lib/y2partitioner/widgets/md_modify_button.rb:60
+msgid "Change Used Devices..."
+msgstr "變更使用的裝置..."
 
 #. FIXME: The help handle does not work without wizard
 #.
@@ -2166,36 +2383,50 @@ msgstr "檔案系統："
 
 #. TRANSLATORS: Filesystem type information, where %s is replaced by
 #. a filesystem type (e.g., VFAT, BTRFS)
-#: src/lib/y2partitioner/widgets/description_section/filesystem.rb:61
+#: src/lib/y2partitioner/widgets/description_section/filesystem.rb:70
 msgid "File System: %s"
 msgstr "檔案系統：%s"
 
 #. TRANSLATORS: Mount point information, where %s is replaced by a mount point
-#: src/lib/y2partitioner/widgets/description_section/filesystem.rb:72
+#: src/lib/y2partitioner/widgets/description_section/filesystem.rb:81
 msgid "Mount Point: %s"
 msgstr "裝載點：%s"
 
 #. TRANSLATORS: note appended to mount point if mount point is not now mounted
-#: src/lib/y2partitioner/widgets/description_section/filesystem.rb:74
+#: src/lib/y2partitioner/widgets/description_section/filesystem.rb:83
 msgid " (not mounted)"
 msgstr " (未裝載)"
 
 #. TRANSLATORS: Mount by information, where %s is replaced by a "mount by" option
-#: src/lib/y2partitioner/widgets/description_section/filesystem.rb:84
+#: src/lib/y2partitioner/widgets/description_section/filesystem.rb:93
 msgid "Mount By: %s"
 msgstr "掛載方式：%s"
 
 #. TRANSLATORS: Filesystem label information, where %s is replaced by the
 #. filesystem label
-#: src/lib/y2partitioner/widgets/description_section/filesystem.rb:95
+#: src/lib/y2partitioner/widgets/description_section/filesystem.rb:104
 msgid "Label: %s"
 msgstr "標籤：%s"
 
 #. TRANSLATORS: Filesystem UUID information, where %s is replaced by the
 #. filesystem UUID
-#: src/lib/y2partitioner/widgets/description_section/filesystem.rb:106
+#: src/lib/y2partitioner/widgets/description_section/filesystem.rb:115
 msgid "UUID: %s"
 msgstr "UUID：%s"
+
+#. TRANSLATORS: Btrfs data information, where %s is replaced by a RAID level (e.g., RAID0).
+#: src/lib/y2partitioner/widgets/description_section/filesystem.rb:125
+#, fuzzy
+#| msgid "RAID Level"
+msgid "RAID Level: %s"
+msgstr "RAID 等級"
+
+#. TRANSLATORS: Btrfs metadata information, where %s is replaced by a RAID level (e.g., RAID0).
+#: src/lib/y2partitioner/widgets/description_section/filesystem.rb:135
+#, fuzzy
+#| msgid "Metadata: %1"
+msgid "Metadata RAID Level: %s"
+msgstr "中繼資料：%1"
 
 #. TRANSLATORS: title for section about LVM LV details
 #. TRANSLATORS: title for section about LVM VG details
@@ -2260,7 +2491,7 @@ msgid "No device selected"
 msgstr "未選取裝置"
 
 #. TRANSLATORS: label for button to delete a device
-#: src/lib/y2partitioner/widgets/device_delete_button.rb:42
+#: src/lib/y2partitioner/widgets/device_delete_button.rb:43
 msgid "Delete"
 msgstr "刪除"
 
@@ -2310,40 +2541,40 @@ msgstr ""
 "裝置的大小。"
 
 #. TRANSLATORS: %s is a disk size. E.g. "10.5 GiB"
-#: src/lib/y2partitioner/widgets/devices_selection.rb:124
+#: src/lib/y2partitioner/widgets/devices_selection.rb:125
 msgid "Resulting size: %s"
 msgstr "產生的大小：%s"
 
 #. TRANSLATORS: %s is a disk size. E.g. "10.5 GiB"
-#: src/lib/y2partitioner/widgets/devices_selection.rb:128
+#: src/lib/y2partitioner/widgets/devices_selection.rb:131
 msgid "Total size: %s"
 msgstr "大小總計：%s"
 
-#: src/lib/y2partitioner/widgets/devices_selection.rb:135
+#: src/lib/y2partitioner/widgets/devices_selection.rb:139
 msgid "Selected Devices:"
 msgstr "選定裝置："
 
-#: src/lib/y2partitioner/widgets/devices_selection.rb:139
+#: src/lib/y2partitioner/widgets/devices_selection.rb:143
 msgid "Available Devices:"
 msgstr "可用的裝置："
 
 #. push button text
-#: src/lib/y2partitioner/widgets/devices_selection.rb:159
+#: src/lib/y2partitioner/widgets/devices_selection.rb:163
 msgid "Add"
 msgstr "新增"
 
 #. push button text
-#: src/lib/y2partitioner/widgets/devices_selection.rb:165
+#: src/lib/y2partitioner/widgets/devices_selection.rb:169
 msgid "Add All"
 msgstr "全部新增"
 
 #. push button text
-#: src/lib/y2partitioner/widgets/devices_selection.rb:172
+#: src/lib/y2partitioner/widgets/devices_selection.rb:176
 msgid "Remove"
 msgstr "移除"
 
 #. push button text
-#: src/lib/y2partitioner/widgets/devices_selection.rb:178
+#: src/lib/y2partitioner/widgets/devices_selection.rb:182
 msgid "Remove All"
 msgstr "全部移除"
 
@@ -2912,7 +3143,7 @@ msgstr ""
 msgid "<b>Number of Sectors</b> shows how many sectors the hard disk has."
 msgstr "<b>磁區數</b>顯示硬碟有多少個磁區。"
 
-#: src/lib/y2partitioner/widgets/help.rb:30
+#: src/lib/y2partitioner/widgets/help.rb:31
 msgid ""
 "<b>Sector Size</b> shows the size of the\n"
 "sectors of the hard disk."
@@ -2920,7 +3151,7 @@ msgstr ""
 "<b>「磁區大小」</b>顯示硬碟的\n"
 "磁區大小。"
 
-#: src/lib/y2partitioner/widgets/help.rb:32
+#: src/lib/y2partitioner/widgets/help.rb:34
 msgid ""
 "<b>Device</b> shows the kernel name of the\n"
 "device."
@@ -2928,7 +3159,7 @@ msgstr ""
 "<b>「裝置」</b>顯示裝置的\n"
 "核心名稱。"
 
-#: src/lib/y2partitioner/widgets/help.rb:34
+#: src/lib/y2partitioner/widgets/help.rb:36
 msgid ""
 "<b>Partition Table</b> shows the partition table\n"
 "type of the disk, e.g <tt>MS-DOS</tt> or <tt>GPT</tt>."
@@ -2936,7 +3167,7 @@ msgstr ""
 "<b>分割區表</b>顯示磁碟的分割區表類型，\n"
 "例如，<tt>MSDOS</tt> 或 <tt>GPT</tt>。"
 
-#: src/lib/y2partitioner/widgets/help.rb:37
+#: src/lib/y2partitioner/widgets/help.rb:39
 msgid ""
 "<b>Encrypted</b> shows whether the device is\n"
 "encrypted."
@@ -2944,13 +3175,13 @@ msgstr ""
 "<b>「已加密」</b>指出裝置是否\n"
 "已加密。"
 
-#: src/lib/y2partitioner/widgets/help.rb:39
+#: src/lib/y2partitioner/widgets/help.rb:41
 msgid ""
 "<b>End</b> shows the end block of\n"
 "the partition."
 msgstr "<b>結束</b>顯示分割區的結束區塊。"
 
-#: src/lib/y2partitioner/widgets/help.rb:41
+#: src/lib/y2partitioner/widgets/help.rb:43
 msgid ""
 "<b>LUN</b> shows the Logical Unit Number for\n"
 "Fibre Channel disks."
@@ -2958,7 +3189,7 @@ msgstr ""
 "<b>「LUN」</b>顯示光纖通道磁碟的\n"
 "邏輯單位編號。"
 
-#: src/lib/y2partitioner/widgets/help.rb:43
+#: src/lib/y2partitioner/widgets/help.rb:46
 msgid ""
 "<b>Port ID</b> shows the port id for Fibre\n"
 "Channel disks."
@@ -2966,7 +3197,7 @@ msgstr ""
 "<b>「埠 ID」</b>顯示光纖通道磁碟的\n"
 "埠 ID。"
 
-#: src/lib/y2partitioner/widgets/help.rb:45
+#: src/lib/y2partitioner/widgets/help.rb:48
 msgid ""
 "<b>WWPN</b> shows the World Wide Port Name for\n"
 "Fibre Channel disks."
@@ -2974,7 +3205,7 @@ msgstr ""
 "<b>「WWPN」</b>顯示光纖通道磁碟的\n"
 "全球埠名稱。"
 
-#: src/lib/y2partitioner/widgets/help.rb:48
+#: src/lib/y2partitioner/widgets/help.rb:51
 msgid ""
 "<b>File Path</b> shows the path of the file for\n"
 "an encrypted loop device."
@@ -2982,7 +3213,7 @@ msgstr ""
 "<b>「檔案路徑」</b>顯示已加密迴路裝置的\n"
 "檔案路徑。"
 
-#: src/lib/y2partitioner/widgets/help.rb:51
+#: src/lib/y2partitioner/widgets/help.rb:54
 msgid ""
 "<b>Format</b> shows some flags: <tt>F</tt>\n"
 "means the device is selected to be formatted."
@@ -2990,15 +3221,15 @@ msgstr ""
 "<b>「格式化」</b>會顯示一些旗標︰<tt>F</tt>\n"
 "表示裝置已選定要進行格式化。"
 
-#: src/lib/y2partitioner/widgets/help.rb:54
+#: src/lib/y2partitioner/widgets/help.rb:57
 msgid "<b>Partition ID</b> shows the partition id."
 msgstr "<b>分割區 ID</b> 顯示分割區 ID。"
 
-#: src/lib/y2partitioner/widgets/help.rb:56
+#: src/lib/y2partitioner/widgets/help.rb:59
 msgid "<b>FS Type</b> shows the file system type."
 msgstr "<b>「FS 類型」</b>顯示檔案系統類型。"
 
-#: src/lib/y2partitioner/widgets/help.rb:58
+#: src/lib/y2partitioner/widgets/help.rb:61
 msgid ""
 "<b>Label</b> shows the label of the file\n"
 "system."
@@ -3006,7 +3237,7 @@ msgstr ""
 "<b>「標籤」</b>顯示檔案系統的\n"
 "標籤。"
 
-#: src/lib/y2partitioner/widgets/help.rb:60
+#: src/lib/y2partitioner/widgets/help.rb:63
 msgid ""
 "<b>Metadata</b> shows the LVM metadata type for\n"
 "volume groups."
@@ -3014,11 +3245,11 @@ msgstr ""
 "<b>「中繼資料」</b>顯示磁碟區群組的\n"
 "LVM 中繼資料類型。"
 
-#: src/lib/y2partitioner/widgets/help.rb:62
+#: src/lib/y2partitioner/widgets/help.rb:66
 msgid "<b>Model</b> shows the device model."
 msgstr "<b>「型號」</b>顯示裝置型號。"
 
-#: src/lib/y2partitioner/widgets/help.rb:64
+#: src/lib/y2partitioner/widgets/help.rb:68
 msgid ""
 "<b>Mount by</b> indicates how the file system\n"
 "is mounted: (Kernel) by kernel name, (Label) by file system label, (UUID) "
@@ -3029,7 +3260,7 @@ msgstr ""
 "(核心) 依據核心名稱、(標籤) 依據檔案系統標籤、\n"
 "(UUID) 依據檔案系統 UUID、(ID) 依據裝置 ID 以及 (路徑) 依據裝置路徑。\n"
 
-#: src/lib/y2partitioner/widgets/help.rb:68
+#: src/lib/y2partitioner/widgets/help.rb:73
 msgid ""
 "<b>Mount Point</b> shows where the file system\n"
 "is mounted."
@@ -3037,7 +3268,7 @@ msgstr ""
 "<b>「掛接點」</b>顯示檔案系統的\n"
 "安裝位置。"
 
-#: src/lib/y2partitioner/widgets/help.rb:70
+#: src/lib/y2partitioner/widgets/help.rb:75
 msgid ""
 "<b>Number of Cylinders</b> shows how many\n"
 "cylinders the hard disk has."
@@ -3045,7 +3276,7 @@ msgstr ""
 "<b>「磁柱數」</b>顯示硬碟有多少個\n"
 "磁柱。"
 
-#: src/lib/y2partitioner/widgets/help.rb:73
+#: src/lib/y2partitioner/widgets/help.rb:78
 msgid ""
 "<b>Parity Algorithm</b> shows the parity\n"
 "algorithm for RAID devices with RAID type 5, 6 or 10."
@@ -3053,7 +3284,7 @@ msgstr ""
 "<b>「同位演算法」</b>顯示 RAID 類型為 5、6 或 10 之\n"
 "RAID 裝置的同位演算法。"
 
-#: src/lib/y2partitioner/widgets/help.rb:76
+#: src/lib/y2partitioner/widgets/help.rb:81
 msgid ""
 "<b>PE Size</b> shows the physical extent size\n"
 "for LVM volume groups."
@@ -3061,11 +3292,11 @@ msgstr ""
 "<b>「PE 大小」</b>顯示 LVM 磁碟區群組的\n"
 "實體範圍大小。"
 
-#: src/lib/y2partitioner/widgets/help.rb:79
+#: src/lib/y2partitioner/widgets/help.rb:84
 msgid "<b>RAID Version</b> shows the RAID version."
 msgstr "<b>「RAID 版本」</b>顯示 RAID 版本。"
 
-#: src/lib/y2partitioner/widgets/help.rb:81
+#: src/lib/y2partitioner/widgets/help.rb:86
 msgid ""
 "<b>RAID Type</b> shows the RAID type, also\n"
 "called RAID level, for RAID devices."
@@ -3073,25 +3304,30 @@ msgstr ""
 "<b>「RAID 類型」</b>顯示 RAID 裝置的 RAID 類型，\n"
 "也稱為 RAID 層級。"
 
-#: src/lib/y2partitioner/widgets/help.rb:84
+#: src/lib/y2partitioner/widgets/help.rb:89
 msgid "<b>Size</b> shows the size of the device."
 msgstr "<b>「大小」</b>顯示裝置的大小。"
 
-#: src/lib/y2partitioner/widgets/help.rb:86
+#: src/lib/y2partitioner/widgets/help.rb:91
 msgid ""
 "<b>Start</b> shows the start block\n"
 "of the partition."
 msgstr "<b>啟始</b>顯示分割區的啟始區塊。"
 
-#: src/lib/y2partitioner/widgets/help.rb:88
+#: src/lib/y2partitioner/widgets/help.rb:93
+#, fuzzy
+#| msgid ""
+#| "<b>Stripes</b> shows the stripe number for LVM\n"
+#| "logical volumes and, if greater than one, the stripe size in "
+#| "parenthesis.\n"
 msgid ""
 "<b>Stripes</b> shows the stripe number for LVM\n"
-"logical volumes and, if greater than one, the stripe size in parenthesis.\n"
+"logical volumes and, if greater than one, the stripe size in parenthesis."
 msgstr ""
 "<b>等量磁碟區</b>顯示 LVM 邏輯磁碟區的等量磁碟區數，\n"
 "如果大於 1，則用括弧括住等量磁碟區大小。\n"
 
-#: src/lib/y2partitioner/widgets/help.rb:91
+#: src/lib/y2partitioner/widgets/help.rb:97
 msgid ""
 "<b>Type</b> gives a general overview about the\n"
 "device type."
@@ -3099,7 +3335,7 @@ msgstr ""
 "<b>「類型」</b>提供裝置類型的\n"
 "一般綜覽。"
 
-#: src/lib/y2partitioner/widgets/help.rb:93
+#: src/lib/y2partitioner/widgets/help.rb:99
 msgid ""
 "<b>Device ID</b> shows the persistent device\n"
 "IDs. This field can be empty."
@@ -3107,7 +3343,7 @@ msgstr ""
 "<b>裝置 ID</b>顯示永久的裝置 ID。\n"
 "此欄位可以為空。"
 
-#: src/lib/y2partitioner/widgets/help.rb:96
+#: src/lib/y2partitioner/widgets/help.rb:102
 msgid ""
 "<b>Device Path</b> shows the persistent device\n"
 "path. This field can be empty."
@@ -3115,7 +3351,7 @@ msgstr ""
 "<b>「裝置路徑」</b>顯示永久的裝置路徑。\n"
 "此欄位可以為空白。"
 
-#: src/lib/y2partitioner/widgets/help.rb:99
+#: src/lib/y2partitioner/widgets/help.rb:105
 msgid ""
 "<b>Used By</b> shows if a device is used by\n"
 "e.g. RAID or LVM. If not, this column is empty."
@@ -3123,7 +3359,7 @@ msgstr ""
 "<b>使用者</b>顯示裝置是否\n"
 "由 RAID 或 LVM 等所使用。如果不是，則此欄為空。"
 
-#: src/lib/y2partitioner/widgets/help.rb:102
+#: src/lib/y2partitioner/widgets/help.rb:108
 msgid ""
 "<b>UUID</b> shows the Universally Unique\n"
 "Identifier of the file system."
@@ -3131,29 +3367,29 @@ msgstr ""
 "<b>「UUID」</b>顯示檔案系統的\n"
 "通用唯一識別碼。"
 
-#: src/lib/y2partitioner/widgets/help.rb:105
+#: src/lib/y2partitioner/widgets/help.rb:111
 msgid "<b>Vendor</b> shows the device vendor."
 msgstr "<b>「廠商」</b>顯示裝置廠商。"
 
-#: src/lib/y2partitioner/widgets/help.rb:107
+#: src/lib/y2partitioner/widgets/help.rb:113
 msgid ""
 "<b>Backing Device</b> shows the device used as backing device for bcache."
 msgstr "<b>備用裝置</b>顯示充當 bcache 備用裝置的裝置。"
 
-#: src/lib/y2partitioner/widgets/help.rb:110
+#: src/lib/y2partitioner/widgets/help.rb:116
 msgid ""
 "<b>Caching UUID</b> shows the UUID of the used caching set. This field is "
 "empty if no caching is used."
 msgstr ""
 "<b>快取 UUID</b>顯示所使用快取集的 UUID。如果未使用快取則此欄位為空白。"
 
-#: src/lib/y2partitioner/widgets/help.rb:113
+#: src/lib/y2partitioner/widgets/help.rb:119
 msgid ""
 "<b>Caching Device</b> shows the device used for caching. This field is empty "
 "if no caching is used."
 msgstr "<b>快取裝置</b>顯示用於快取的裝置。如果未使用快取則此欄位為空白。"
 
-#: src/lib/y2partitioner/widgets/help.rb:116
+#: src/lib/y2partitioner/widgets/help.rb:122
 msgid ""
 "<b>Cache Mode</b> shows the operating mode for bcache. Currently there are "
 "four supported modes: Writethrough, Writeback, Writearound and None."
@@ -3161,14 +3397,28 @@ msgstr ""
 "<b>快取模式</b>顯示 bcache 的操作模式。目前支援的模式有四種：直寫、回寫、繞寫"
 "和無。"
 
-#: src/lib/y2partitioner/widgets/help.rb:119
+#: src/lib/y2partitioner/widgets/help.rb:126
+#, fuzzy
+#| msgid ""
+#| "<b>Btrfs Devices</b> shows the kernel name of the devices used by a Btrfs "
+#| "file system."
 msgid ""
-"<b>Btrfs Devices</b> shows the kernel name of the devices used by a Btrfs "
-"file system."
+"<b>Devices</b> shows the kernel name of the devices used by a Btrfs file "
+"system."
 msgstr "<b>「Btrfs 裝置」</b>顯示 Btrfs 檔案系統使用的裝置核心名稱。"
 
+#: src/lib/y2partitioner/widgets/help.rb:128
+msgid "<b>Metadata RAID Level</b> shows the RAID level for the Btrfs metadata."
+msgstr ""
+
+#: src/lib/y2partitioner/widgets/help.rb:131
+#, fuzzy
+#| msgid "<b>RAID Version</b> shows the RAID version."
+msgid "<b>Data RAID Level</b> shows the RAID level for the Btrfs data."
+msgstr "<b>「RAID 版本」</b>顯示 RAID 版本。"
+
 #. help texts that are appended to the common help only in Mode.normal
-#: src/lib/y2partitioner/widgets/help.rb:125
+#: src/lib/y2partitioner/widgets/help.rb:136
 msgid ""
 "A question mark (?) indicates that\n"
 "the file system is not listed in <tt>/etc/fstab</tt>. It is either mounted\n"
@@ -3181,7 +3431,7 @@ msgstr ""
 "已由某個自動掛載系統掛接。變更此磁碟區的設定時，\n"
 "YaST 不會更新 <tt>/etc/fstab</tt>。\n"
 
-#: src/lib/y2partitioner/widgets/help.rb:130
+#: src/lib/y2partitioner/widgets/help.rb:141
 msgid ""
 "An asterisk (*) after the mount point\n"
 "indicates a file system that is currently not mounted (for example, because "
@@ -3286,11 +3536,6 @@ msgstr ""
 "<p><b>選定裝置：</b>要從中建立此磁碟區群組的實體磁碟區。如果需要，您永遠都可"
 "在以後新增更多實體磁碟區。</p>"
 
-#. TRANSLATORS: Error message when no device is selected
-#: src/lib/y2partitioner/widgets/lvm_vg_devices_selector.rb:123
-msgid "Select at least one device."
-msgstr "請至少選取一個裝置。"
-
 #. TRANSLATORS: Error message when the resulting volume group size is not
 #. enough. %s is replaced by a size (e.g., 4 GiB).
 #: src/lib/y2partitioner/widgets/lvm_vg_devices_selector.rb:139
@@ -3332,7 +3577,7 @@ msgstr "變更實體磁碟區..."
 #. volumes of an LVM VG
 #. TRANSLATORS: label for button to edit used devices
 #: src/lib/y2partitioner/widgets/lvm_vg_resize_button.rb:39
-#: src/lib/y2partitioner/widgets/used_devices_edit_button.rb:40
+#: src/lib/y2partitioner/widgets/used_devices_edit_button.rb:41
 msgid "Change..."
 msgstr "變更..."
 
@@ -3398,10 +3643,6 @@ msgstr "底端"
 #: src/lib/y2partitioner/widgets/md_modify_button.rb:55
 msgid "Edit RAID..."
 msgstr "編輯 RAID..."
-
-#: src/lib/y2partitioner/widgets/md_modify_button.rb:60
-msgid "Change Used Devices..."
-msgstr "變更使用的裝置..."
 
 #. help text, richtext format
 #: src/lib/y2partitioner/widgets/mkfs_optiondata.rb:57
@@ -3620,7 +3861,7 @@ msgstr "Bcache：%s"
 #. @macro seeAbstractWidget
 #. @macro seeAbstractWidget
 #: src/lib/y2partitioner/widgets/pages/bcache.rb:88
-#: src/lib/y2partitioner/widgets/pages/btrfs.rb:132
+#: src/lib/y2partitioner/widgets/pages/btrfs.rb:127
 #: src/lib/y2partitioner/widgets/pages/disk.rb:129
 #: src/lib/y2partitioner/widgets/pages/lvm_vg.rb:94
 #: src/lib/y2partitioner/widgets/pages/md_raid.rb:95
@@ -3644,14 +3885,9 @@ msgstr "使用項目"
 
 #. TRANSLATORS: BTRFS page title, where %{basename} is replaced by the device
 #. basename (e.g., sda1).
-#: src/lib/y2partitioner/widgets/pages/btrfs.rb:91
+#: src/lib/y2partitioner/widgets/pages/btrfs.rb:93
 msgid "Btrfs %{basename}"
 msgstr "Btrfs %{basename}"
-
-#. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/pages/btrfs_filesystems.rb:48
-msgid "Btrfs"
-msgstr "Btrfs"
 
 #. @macro seeAbstractWidget
 #. TRANSLATORS: Heading for the expert partitioner page
@@ -4137,12 +4373,12 @@ msgid "A drive of type '%{type}' is not supported in this architecture"
 msgstr "此架構中不支援類型為「%{type}」的磁碟機"
 
 #. TRANSLATORS: status when cache set is not attached to any bcache
-#: src/lib/y2storage/bcache_cset.rb:69
+#: src/lib/y2storage/bcache_cset.rb:71
 msgid "Cache set (not attached)"
 msgstr "快取集 (未連接)"
 
 #. TRANSLATORS: %s contain list of devices for which cache act as cache.
-#: src/lib/y2storage/bcache_cset.rb:72
+#: src/lib/y2storage/bcache_cset.rb:74
 msgid "Cache set (%s)"
 msgstr "快取集 (%s)"
 
@@ -4243,6 +4479,54 @@ msgid ""
 msgstr ""
 "系統似乎將安裝在 LDL 裝置上。\n"
 "不支援從此類裝置開機。"
+
+#. Class to represent all the possible Btrfs RAID levels
+#.
+#. This is a wrapper for the Storage::BtrfsRaidLevel enum
+#. Class to represent all the possible MD levels
+#.
+#. This is a wrapper for the Storage::MdLevel enum
+#: src/lib/y2storage/btrfs_raid_level.rb:39 src/lib/y2storage/md_level.rb:36
+#: src/lib/y2storage/partition_id.rb:56
+msgid "Unknown"
+msgstr "未知"
+
+#. TODO: should be tested by some real OPS guy, I (JR) pick human wording from `man mdadm`
+#: src/lib/y2storage/btrfs_raid_level.rb:40
+#: src/lib/y2storage/clients/partitions_proposal.rb:160
+#: src/lib/y2storage/md_parity.rb:37
+msgid "Default"
+msgstr "預設"
+
+#. TRANSLATORS: this is one of the RAID modes used by Btrfs, likely to be left as-is
+#: src/lib/y2storage/btrfs_raid_level.rb:42
+msgid "SINGLE"
+msgstr ""
+
+#. TRANSLATORS: this is one of the RAID modes used by Btrfs, likely to be left as-is
+#: src/lib/y2storage/btrfs_raid_level.rb:44
+msgid "DUP"
+msgstr ""
+
+#: src/lib/y2storage/btrfs_raid_level.rb:45 src/lib/y2storage/md_level.rb:37
+msgid "RAID0"
+msgstr "RAID0"
+
+#: src/lib/y2storage/btrfs_raid_level.rb:46 src/lib/y2storage/md_level.rb:38
+msgid "RAID1"
+msgstr "RAID1"
+
+#: src/lib/y2storage/btrfs_raid_level.rb:47 src/lib/y2storage/md_level.rb:40
+msgid "RAID5"
+msgstr "RAID5"
+
+#: src/lib/y2storage/btrfs_raid_level.rb:48 src/lib/y2storage/md_level.rb:41
+msgid "RAID6"
+msgstr "RAID6"
+
+#: src/lib/y2storage/btrfs_raid_level.rb:49 src/lib/y2storage/md_level.rb:42
+msgid "RAID10"
+msgstr "RAID10"
 
 #. TRANSLATORS: operation mode for cache. If you are not sure how to translate keep it as it is.
 #: src/lib/y2storage/cache_mode.rb:37
@@ -4443,12 +4727,6 @@ msgstr "沒有適用於目前設定的建議"
 #: src/lib/y2storage/clients/partitions_proposal.rb:160
 msgid "Custom"
 msgstr "自訂"
-
-#. TODO: should be tested by some real OPS guy, I (JR) pick human wording from `man mdadm`
-#: src/lib/y2storage/clients/partitions_proposal.rb:160
-#: src/lib/y2storage/md_parity.rb:37
-msgid "Default"
-msgstr "預設"
 
 #. TRANSLATORS: %{name} is the name of an LVM Volume Group (e.g., /dev/vg1)
 #: src/lib/y2storage/devicegraph_sanitizer.rb:144
@@ -4990,6 +5268,20 @@ msgstr ""
 "密碼只能包含下列字元：\n"
 "0..9、a..z、A..Z 以及「@#* ,.;:._-+=!$%&/|?{[()]}^\\<>」中的任意字元。"
 
+#. TRANSLATORS: block device basename for a multi-device filesystem, where %{basename} is replaced
+#. by the basename of the first block device (e.g., "(sda1...)").
+#: src/lib/y2storage/filesystems/blk_filesystem.rb:136
+#, fuzzy
+#| msgid "Btrfs %{basename}"
+msgid "(%{basename}\\u2026)"
+msgstr "Btrfs %{basename}"
+
+#. TRANSLATORS: display name when the Btrfs is multidevice, where %{num_devices} is replaced by
+#. a number (e.g., "2") and %{name} is replaced by a device representation (e.g., "(sda1...)").
+#: src/lib/y2storage/filesystems/btrfs.rb:498
+msgid "Btrfs over %{num_devices} devices %{name}"
+msgstr ""
+
 #. Hash with the properties for each mount by type.
 #.
 #. Keys are the symbols representing the types and values are hashes that
@@ -5011,36 +5303,17 @@ msgstr "磁碟區標籤"
 msgid "Device Path"
 msgstr "裝置路徑"
 
-#. Class to represent all the possible MD levels
-#.
-#. This is a wrapper for the Storage::MdLevel enum
-#: src/lib/y2storage/md_level.rb:36 src/lib/y2storage/partition_id.rb:56
-msgid "Unknown"
-msgstr "未知"
-
-#: src/lib/y2storage/md_level.rb:37
-msgid "RAID0"
-msgstr "RAID0"
-
-#: src/lib/y2storage/md_level.rb:38
-msgid "RAID1"
-msgstr "RAID1"
+#. TRANSLATORS: display name when the PV has no associated VG, where %{device} is replaced by a
+#. device name (e.g., "/dev/sda1").
+#: src/lib/y2storage/lvm_pv.rb:80
+#, fuzzy
+#| msgid "Unused Devices"
+msgid "Unused LVM PV on %{device}"
+msgstr "未使用的裝置"
 
 #: src/lib/y2storage/md_level.rb:39
 msgid "RAID4"
 msgstr "RAID4"
-
-#: src/lib/y2storage/md_level.rb:40
-msgid "RAID5"
-msgstr "RAID5"
-
-#: src/lib/y2storage/md_level.rb:41
-msgid "RAID6"
-msgstr "RAID6"
-
-#: src/lib/y2storage/md_level.rb:42
-msgid "RAID10"
-msgstr "RAID10"
 
 #: src/lib/y2storage/md_level.rb:43
 msgid "Container"
@@ -5484,9 +5757,6 @@ msgstr "未知原因"
 
 #~ msgid "Device Mapper"
 #~ msgstr "裝置對應程式"
-
-#~ msgid "Unused Devices"
-#~ msgstr "未使用的裝置"
 
 #~ msgid "Mount Graph"
 #~ msgstr "掛接圖表"
@@ -7131,9 +7401,6 @@ msgstr "未知原因"
 #~ "呼叫多重路徑組態會取消所有目前的變更。\n"
 #~ "確定要呼叫多重路徑組態嗎？\n"
 
-#~ msgid "<p>Change the devices that are used by the Btrfs volume.</p>"
-#~ msgstr "<p>變更 Btrfs 磁碟區使用的裝置。</p>"
-
 #~ msgid "Unused Devices:"
 #~ msgstr "未使用的裝置："
 
@@ -8694,9 +8961,6 @@ msgstr "未知原因"
 #~ msgid "Bus: %1"
 #~ msgstr "匯流排：%1"
 
-#~ msgid "Metadata: %1"
-#~ msgstr "中繼資料：%1"
-
 #~ msgid "PE Size: %1"
 #~ msgstr "PE 大小：%1"
 
@@ -8854,9 +9118,6 @@ msgstr "未知原因"
 
 #~ msgid "Storage ID"
 #~ msgstr "存儲ID"
-
-#~ msgid "RAID Level"
-#~ msgstr "RAID 等級"
 
 #~ msgid "Spare"
 #~ msgstr "備用"
@@ -10897,10 +11158,6 @@ msgstr "未知原因"
 #~ "未使用\n"
 #~ "磁碟空間\n"
 #~ "%1 "
-
-#, fuzzy
-#~ msgid "Unused Disk: "
-#~ msgstr "未使用磁碟空間 (%1)"
 
 #, fuzzy
 #~ msgid ""

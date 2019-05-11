@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: storage\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-05-04 02:29+0000\n"
+"POT-Creation-Date: 2019-05-11 02:29+0000\n"
 "PO-Revision-Date: 2011-01-09 10:18+0100\n"
 "Last-Translator: Jean Cayron <jean.cayron@gmail.com>\n"
 "Language-Team: Walloon <linux@walon.org>\n"
@@ -25,6 +25,16 @@ msgstr ""
 #. TRANSLATORS: Error message.
 #: src/lib/y2partitioner/actions/add_bcache.rb:61
 msgid "There are not enough suitable unused devices to create a bcache."
+msgstr ""
+
+#. TRANSLATORS: wizard title when creating a new Btrfs filesystem.
+#: src/lib/y2partitioner/actions/add_btrfs.rb:84
+msgid "Add Btrfs"
+msgstr ""
+
+#. TRANSLATORS: error message
+#: src/lib/y2partitioner/actions/add_btrfs.rb:92
+msgid "There are not enough suitable unused devices to create a Btrfs."
 msgstr ""
 
 #. TRANSLATORS: %s is a volume group name (e.g. "system")
@@ -185,13 +195,13 @@ msgid ""
 msgstr "groupe no"
 
 #. TRANSLATORS: dialog title when creating an LVM volume group
-#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:79
+#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:83
 msgid "Add Volume Group"
 msgstr "Radjouter on groupe di volumes"
 
 #. TRANSLATORS: dialog title when resizing an LVM volume group, where %s is replaced
 #. by a device name (e.g., /dev/vg0)
-#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:83
+#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:87
 #, fuzzy
 msgid "Resize Volume Group %s"
 msgstr "Groupe "
@@ -199,7 +209,7 @@ msgstr "Groupe "
 #. Error message to show when the given volume group name is empty
 #.
 #. @return [String]
-#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:297
+#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:294
 #, fuzzy
 msgid "Enter a name for the volume group."
 msgstr "groupe?"
@@ -208,7 +218,7 @@ msgstr "groupe?"
 #. characters
 #.
 #. @return [String]
-#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:315
+#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:312
 #, fuzzy
 msgid ""
 "The name for the volume group contains illegal characters. Allowed\n"
@@ -216,7 +226,7 @@ msgid ""
 msgstr "Li no d' coxhlaedje ni pout esse pu long k' 32 caracteres"
 
 #. TRANSLATORS: %{vg_name} is replaced by the name of the volume group
-#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:338
+#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:335
 #, fuzzy
 msgid ""
 "The volume group name \"%{vg_name}\" conflicts\n"
@@ -228,7 +238,7 @@ msgstr "groupe no ni sårént aler eshonne dins"
 #. @see #invalid_extent_size?
 #.
 #. @return [String]
-#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:363
+#: src/lib/y2partitioner/actions/controllers/lvm_vg.rb:360
 #, fuzzy
 msgid ""
 "The data entered is invalid. Insert a physical extent size larger than 1 "
@@ -238,7 +248,7 @@ msgstr "grandeu dins oudonbén"
 
 #. TRANSLATORS: dialog title when creating a MD RAID.
 #. %s is a device name like /dev/md0
-#: src/lib/y2partitioner/actions/controllers/md.rb:194
+#: src/lib/y2partitioner/actions/controllers/md.rb:198
 #, fuzzy
 #| msgid "Add RAID %1"
 msgid "Add RAID %s"
@@ -246,7 +256,7 @@ msgstr "Radjouter RAID %1"
 
 #. TRANSLATORS: dialog title when editing the devices of a Software RAID.
 #. %s is a device name (e.g., /dev/md0)
-#: src/lib/y2partitioner/actions/controllers/md.rb:198
+#: src/lib/y2partitioner/actions/controllers/md.rb:202
 #, fuzzy
 #| msgid "Edit RAID %1"
 msgid "Edit devices of RAID %s"
@@ -324,6 +334,19 @@ msgid ""
 "The caching set will be also deleted.\n"
 "\n"
 msgstr ""
+
+#. @see DeleteDevice#simple_confirm_text
+#.
+#. @note The implementation in the base class relies on the #display_name
+#. method of the device, which returns nil for regular (non multi-device)
+#. filesystems.
+#.
+#. @return [String]
+#: src/lib/y2partitioner/actions/delete_btrfs.rb:53
+#, fuzzy
+#| msgid "Really delete the selected option?"
+msgid "Really delete the filesystem?"
+msgstr "Vormint disfacer l' tchuze tchoezeye?"
 
 #. Confirmation to display when the device is part of another one(s)
 #.
@@ -528,7 +551,7 @@ msgstr "Éndjin: %1"
 #. TRANSLATORS: %{name} is replaced by a device name (e.g., /dev/sda1)
 #. and %{users} is replaced by a comma-separated list of name devices
 #. (devices using the first one).
-#: src/lib/y2partitioner/actions/edit_blk_device.rb:132
+#: src/lib/y2partitioner/actions/edit_blk_device.rb:133
 #, fuzzy
 #| msgid ""
 #| "The partition %1 is in use. It cannot be\n"
@@ -542,7 +565,23 @@ msgstr ""
 " candjeye. Po candjî l' grandeu d' %1, fijhoz k' ele ni soeye nén eployeye."
 
 #. TRANSLATORS: %{name} is replaced by a device name (e.g., /dev/sda1).
-#: src/lib/y2partitioner/actions/edit_blk_device.rb:147
+#. Since device names can be rather long, make sure the lines
+#. containing %{name} are sorter than the others.
+#: src/lib/y2partitioner/actions/edit_blk_device.rb:151
+msgid ""
+"The device %{name} belongs to a Btrfs.\n"
+"It cannot be edited.\n"
+"\n"
+"To modify the settings of the Btrfs, edit the filesystem itself\n"
+"instead of its individual block devices.\n"
+"\n"
+"To use %{name} for other purpose, make sure it does not\n"
+"belong to the Btrfs filesystem, either deleting the filesystem or\n"
+"removing %{name} from it."
+msgstr ""
+
+#. TRANSLATORS: %{name} is replaced by a device name (e.g., /dev/sda1).
+#: src/lib/y2partitioner/actions/edit_blk_device.rb:170
 #, fuzzy
 #| msgid ""
 #| "The partition %1 is in use. It cannot be\n"
@@ -556,7 +595,7 @@ msgstr ""
 " candjeye. Po candjî l' grandeu d' %1, fijhoz k' ele ni soeye nén eployeye."
 
 #. TRANSLATORS: Error message when trying to edit an extented partition
-#: src/lib/y2partitioner/actions/edit_blk_device.rb:161
+#: src/lib/y2partitioner/actions/edit_blk_device.rb:184
 #, fuzzy
 #| msgid "An extended partition cannot be edited."
 msgid "An extended partition cannot be edited"
@@ -564,7 +603,7 @@ msgstr "Ene sitindowe pårticion n' sait nén esse candjeye."
 
 #. TRANSLATORS: Error message when trying to edit an LVM thin pool. %{name} is
 #. replaced by a logical volume name (e.g., /dev/system/lv1)
-#: src/lib/y2partitioner/actions/edit_blk_device.rb:172
+#: src/lib/y2partitioner/actions/edit_blk_device.rb:195
 #, fuzzy
 #| msgid ""
 #| "The DM %1 is in use. It cannot be\n"
@@ -583,6 +622,24 @@ msgstr ""
 #| msgid "Edit DM %1"
 msgid "Edit Btrfs %{basename}"
 msgstr "Candjî DM %1"
+
+#. Wizard title
+#.
+#. @return [String]
+#: src/lib/y2partitioner/actions/edit_btrfs_devices.rb:77
+#, fuzzy
+#| msgid "Edit DM %1"
+msgid "Edit devices of Btrfs %{name}"
+msgstr "Candjî DM %1"
+
+#. TRANSLATORS: error message, where %{name} is replaced by a device base name (e.g., sda1)
+#: src/lib/y2partitioner/actions/edit_btrfs_devices.rb:113
+#, fuzzy
+msgid ""
+"The Btrfs %{name} is already created on disk and its used devices\n"
+"cannot be modified. To modify the used devices, remove the Btrfs\n"
+"and create it again."
+msgstr "metou Nonna A eyet"
 
 #. TRANSLATORS: error message, %{name} is replaced by a device name (e.g., /dev/md1)
 #: src/lib/y2partitioner/actions/edit_md_devices.rb:102
@@ -673,16 +730,17 @@ msgstr ""
 "sront pierdous si vs moussîz foû do pårtixheu avou %1.\n"
 "Cwiter podbon ?"
 
-#. TRANSLATORS: %{name} is replaced by a device name (e.g., /dev/sda1).
-#. and %{users} is replaced by a comma-separated list of name devices
-#. (devices using the first one).
-#: src/lib/y2partitioner/actions/resize_blk_device.rb:115
+#. TRANSLATORS: %{name} is replaced by a device name (e.g., /dev/sda1) and %{users} is replaced
+#. by a list of name devices (devices using the first one).
+#: src/lib/y2partitioner/actions/resize_blk_device.rb:114
 #, fuzzy
 #| msgid ""
 #| "The partition %1 is in use. It cannot be\n"
 #| "resized. To resize %1, make sure it is not used."
 msgid ""
-"The device %{name} is in use (%{users}).\n"
+"The device %{name} is being used by:\n"
+"%{users}\n"
+"\n"
 "It cannot be resized.\n"
 "To resize %{name}, make sure it is not used."
 msgstr ""
@@ -765,14 +823,14 @@ msgid "Bcache Device"
 msgstr "Ricorwaitî éndjins"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/dialogs/bcache.rb:198
+#: src/lib/y2partitioner/dialogs/bcache.rb:196
 #, fuzzy
 #| msgid "Device: %1"
 msgid "Backing Device"
 msgstr "Éndjin: %1"
 
 #. TRANSLATORS: %{label} is replaced by the label of the option to select a backing device.
-#: src/lib/y2partitioner/dialogs/bcache.rb:210
+#: src/lib/y2partitioner/dialogs/bcache.rb:208
 msgid ""
 "<p><b>%{label}</b> is the device that will be used as backing device for "
 "bcache.It will define the size of the resulting bcache device. The device "
@@ -780,17 +838,17 @@ msgid ""
 msgstr ""
 
 #. Value can be an empty string if there is no items
-#: src/lib/y2partitioner/dialogs/bcache.rb:237
+#: src/lib/y2partitioner/dialogs/bcache.rb:235
 msgid "Backing and Caching devices cannot be identical."
 msgstr ""
 
-#: src/lib/y2partitioner/dialogs/bcache.rb:238
+#: src/lib/y2partitioner/dialogs/bcache.rb:236
 msgid "Cannot Create Bcache"
 msgstr ""
 
 #. @macro seeAbstractWidget
 #. TRANSLATORS: table column label.
-#: src/lib/y2partitioner/dialogs/bcache.rb:259
+#: src/lib/y2partitioner/dialogs/bcache.rb:257
 #: src/lib/y2partitioner/widgets/pages/bcaches.rb:214
 #, fuzzy
 #| msgid "Device: %1"
@@ -798,7 +856,7 @@ msgid "Caching Device"
 msgstr "Éndjin: %1"
 
 #. TRANSLATORS: %{label} is replaced by the label of the option to select a caching device.
-#: src/lib/y2partitioner/dialogs/bcache.rb:273
+#: src/lib/y2partitioner/dialogs/bcache.rb:271
 msgid ""
 "<p><b>%{label}</b> is the device that will be used as caching device for "
 "bcache.It should be faster and usually is smaller than the backing device, "
@@ -808,17 +866,17 @@ msgid ""
 "devices without a cache. You can add a caching device later.</p>"
 msgstr ""
 
-#: src/lib/y2partitioner/dialogs/bcache.rb:291
+#: src/lib/y2partitioner/dialogs/bcache.rb:289
 msgid "Without caching"
 msgstr ""
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/dialogs/bcache.rb:321
+#: src/lib/y2partitioner/dialogs/bcache.rb:319
 msgid "Cache Mode"
 msgstr ""
 
 #. TRANSLATORS: %{label} is replaced by the label of the option to select a cache mode.
-#: src/lib/y2partitioner/dialogs/bcache.rb:337
+#: src/lib/y2partitioner/dialogs/bcache.rb:335
 msgid ""
 "<p><b>%{label}</b> is the operating mode for bcache. There are currently "
 "four supported modes.<ul> <li><i>Writethrough</i> reading operations are "
@@ -1759,6 +1817,15 @@ msgstr "Manaedjmint des volumes"
 msgid "Bcache"
 msgstr ""
 
+#. Title of the Btrfs section
+#.
+#. @note See note on {.md_raids_label} about why this looks misplaced.
+#.
+#. @return [String]
+#: src/lib/y2partitioner/ui_state.rb:91
+msgid "Btrfs"
+msgstr ""
+
 #. TRANSLATORS: button label to add a new Bcache device
 #: src/lib/y2partitioner/widgets/bcache_add_button.rb:41
 msgid "Add Bcache..."
@@ -1778,7 +1845,9 @@ msgstr "Candjmints :"
 #. @macro seeAbstractWidget
 #. @macro seeAbstractWidget
 #. @macro seeAbstractWidget
+#. @macro seeAbstractWidget
 #: src/lib/y2partitioner/widgets/bcache_modify_button.rb:39
+#: src/lib/y2partitioner/widgets/btrfs_modify_button.rb:38
 #: src/lib/y2partitioner/widgets/disk_modify_button.rb:38
 #: src/lib/y2partitioner/widgets/lvm_lv_modify_button.rb:38
 #: src/lib/y2partitioner/widgets/lvm_vg_modify_button.rb:37
@@ -2053,8 +2122,9 @@ msgstr ""
 #. @param device [Y2Storage::LvmPv]
 #. @return [String]
 #: src/lib/y2partitioner/widgets/blk_devices_table.rb:342
-msgid "Orphan PV"
-msgstr ""
+#, fuzzy
+msgid "Unused LVM PV"
+msgstr "Plake nén eployeye (%1)"
 
 #: src/lib/y2partitioner/widgets/blk_devices_table.rb:343
 msgid "PV of LVM"
@@ -2089,8 +2159,116 @@ msgstr "Ricorwaitî éndjins"
 msgid "Part of %s"
 msgstr "Pårticion : %1"
 
+#. TRANSLATORS: button label to add a new Bcache device
+#: src/lib/y2partitioner/widgets/btrfs_add_button.rb:41
+#, fuzzy
+#| msgid "Add RAID..."
+msgid "Add Btrfs..."
+msgstr "Radjouter RAID..."
+
+#. TRANSLATORS: widget label
+#: src/lib/y2partitioner/widgets/btrfs_data_raid_level.rb:42
+#, fuzzy
+#| msgid "RAID Type"
+msgid "RAID Level"
+msgstr "Sôre di RAID"
+
+#. TRANSLATORS: widget help, where %{label} is replaced by the label of the widget.
+#: src/lib/y2partitioner/widgets/btrfs_data_raid_level.rb:49
+msgid "<p><b>%{label}:</b> RAID level for the Btrfs data.</p>"
+msgstr ""
+
+#. TRANSLATORS: help text
+#: src/lib/y2partitioner/widgets/btrfs_devices.rb:114
+msgid ""
+"<h4><b>Btrfs RAID levels</b></h4><p>Btrfs supports the following RAID levels "
+"for both, data and metadata:<ul><li><b>DUP:</b> stores two copies of each "
+"piece of data on the same device. This is similar to RAID1, and protects "
+"against block-level errors on the device, but does not provide any "
+"guarantees if the device fails. Only one device must be be selected to use "
+"DUP.</li><li><b>SINGLE:</b> stores a single copy of each piece of data. "
+"Btrfs requires a minimum of one device to use SINGLE.</li><li><b>RAID0:</b> "
+"provides no form of error recovery, but stripes a single copy of data across "
+"multiple devices for performance purpose. Btrfs requires a minimum of two "
+"devices to use RAID0.</li><li><b>RAID1:</b> stores two complete copies of "
+"each piece of data. Each copy is stored on a different device. Btrfs "
+"requires a minimum of two devices to use RAID1.</li><li><b>RAID10:</b> "
+"stores two complete copies of each piece of data, and also stripes each copy "
+"across multiple devices for performance. Btrfs requires a minimum of five "
+"devices to use RAID10</li></ul></p>"
+msgstr ""
+
+#. TRANSLATORS: help text
+#: src/lib/y2partitioner/widgets/btrfs_devices.rb:151
+msgid ""
+"<p>When the default RAID level is used, Btrfs will select a RAID level "
+"depending on whether the filesystem is being created on top of multiple "
+"devices or using only one device. For a single-device Btrfs, the tool also "
+"will distinguish between rotational or not-rotational devices to choose the "
+"default value.</p>"
+msgstr ""
+
+#. TRANSLATORS: error message
+#: src/lib/y2partitioner/widgets/btrfs_devices.rb:171
+msgid "RAID levels do not match the amount of selected devices."
+msgstr ""
+
+#. TRANSLATORS: error message
+#: src/lib/y2partitioner/widgets/btrfs_devices.rb:174
+msgid "The RAID level does not match the amount of selected devices."
+msgstr ""
+
+#. TRANSLATORS: error message
+#: src/lib/y2partitioner/widgets/btrfs_devices.rb:177
+msgid "The metadata RAID level does not match the amount of selected devices."
+msgstr ""
+
+#. TRANSLATORS: error message, where %{error_by} is replaced by an initial sentence.
+#: src/lib/y2partitioner/widgets/btrfs_devices.rb:182
+msgid ""
+"%{error_by}\n"
+"Modify the list of devices or adjust the RAID levels."
+msgstr ""
+
+#. TRANSLATORS: error message, where %{data} is replaced by "data" or "metadata" and %{levels} is
+#. replaced by a list of raid levels separated by comma (e.g., "RAID1, RAID10").
+#: src/lib/y2partitioner/widgets/btrfs_devices.rb:220
+msgid ""
+"According to the selected devices, only the following %{data}\n"
+"RAID levels can be used: %{levels}."
+msgstr ""
+
+#. TRANSLATORS: help text, where %{label} is a widget label
+#: src/lib/y2partitioner/widgets/btrfs_devices_selector.rb:109
+#, fuzzy
+msgid ""
+"<p><b>%{label}</b> Unused devices that can be used for a Btrfs filesystem.</"
+"p>"
+msgstr ""
+"<p>\n"
+"Tchoezixhoz l' sôre di cwåte a -z apontyî.\n"
+"</p>\n"
+
+#. TRANSLATORS: help text, where %{label} is a widget label
+#: src/lib/y2partitioner/widgets/btrfs_devices_selector.rb:120
+msgid "<p><b>%{label}</b> Devices selected to be part of the Btrfs.</p>"
+msgstr ""
+
+#. TRANSLATORS: Error message when no device is selected
+#. TRANSLATORS: Error message when no device is selected
+#: src/lib/y2partitioner/widgets/btrfs_devices_selector.rb:132
+#: src/lib/y2partitioner/widgets/lvm_vg_devices_selector.rb:123
+#, fuzzy
+msgid "Select at least one device."
+msgstr "Tchoezixhoz on éndjin."
+
 #. TRANSLATORS: label of a table column
 #: src/lib/y2partitioner/widgets/btrfs_filesystems_table.rb:55
+msgid "Id"
+msgstr ""
+
+#. TRANSLATORS: label of a table column
+#: src/lib/y2partitioner/widgets/btrfs_filesystems_table.rb:71
 #, fuzzy
 #| msgid "Device"
 msgid "Devices"
@@ -2098,11 +2276,42 @@ msgstr "Éndjin"
 
 #. TRANSLATORS: label of a table column
 #. TRANSLATORS: table column label.
-#: src/lib/y2partitioner/widgets/btrfs_filesystems_table.rb:71
+#: src/lib/y2partitioner/widgets/btrfs_filesystems_table.rb:79
 #: src/lib/y2partitioner/widgets/pages/bcaches.rb:222
 #: src/lib/y2storage/filesystems/mount_by_type.rb:56
 msgid "UUID"
 msgstr "UUID"
+
+#. TRANSLATORS: widget label
+#: src/lib/y2partitioner/widgets/btrfs_metadata_raid_level.rb:40
+#, fuzzy
+#| msgid "RAID Type"
+msgid "RAID Level for Metadata"
+msgstr "Sôre di RAID"
+
+#. TRANSLATORS: widget help, where %{label} is replaced by the label of the widget.
+#: src/lib/y2partitioner/widgets/btrfs_metadata_raid_level.rb:47
+msgid "<p><b>%{label}:</b> RAID level for the Btrfs metadata.</p>"
+msgstr ""
+
+#. @see DeviceMenuButton#actions
+#.
+#. @see Actions::EditBtrfs
+#. @see Actions::EditBtrfsDevices
+#.
+#. @return [Array<Hash>]
+#: src/lib/y2partitioner/widgets/btrfs_modify_button.rb:53
+#, fuzzy
+#| msgid "Edit..."
+msgid "Edit Btrfs..."
+msgstr "Candjî..."
+
+#: src/lib/y2partitioner/widgets/btrfs_modify_button.rb:58
+#: src/lib/y2partitioner/widgets/md_modify_button.rb:60
+#, fuzzy
+#| msgid "&Used Devices"
+msgid "Change Used Devices..."
+msgstr "Éndjins &eployîs"
 
 #. FIXME: The help handle does not work without wizard
 #.
@@ -2355,28 +2564,28 @@ msgstr "Sistinme di fitchî:"
 
 #. TRANSLATORS: Filesystem type information, where %s is replaced by
 #. a filesystem type (e.g., VFAT, BTRFS)
-#: src/lib/y2partitioner/widgets/description_section/filesystem.rb:61
+#: src/lib/y2partitioner/widgets/description_section/filesystem.rb:70
 #, fuzzy
 #| msgid "File System: %1"
 msgid "File System: %s"
 msgstr "Sistinme di fitchî: %1"
 
 #. TRANSLATORS: Mount point information, where %s is replaced by a mount point
-#: src/lib/y2partitioner/widgets/description_section/filesystem.rb:72
+#: src/lib/y2partitioner/widgets/description_section/filesystem.rb:81
 #, fuzzy
 #| msgid "Mount Point: %1"
 msgid "Mount Point: %s"
 msgstr "Pont d' montaedje: %1"
 
 #. TRANSLATORS: note appended to mount point if mount point is not now mounted
-#: src/lib/y2partitioner/widgets/description_section/filesystem.rb:74
+#: src/lib/y2partitioner/widgets/description_section/filesystem.rb:83
 #, fuzzy
 #| msgid "Do not mount partition"
 msgid " (not mounted)"
 msgstr "En nén monter l' pårticion"
 
 #. TRANSLATORS: Mount by information, where %s is replaced by a "mount by" option
-#: src/lib/y2partitioner/widgets/description_section/filesystem.rb:84
+#: src/lib/y2partitioner/widgets/description_section/filesystem.rb:93
 #, fuzzy
 #| msgid "Mount By: %1"
 msgid "Mount By: %s"
@@ -2384,7 +2593,7 @@ msgstr "Monter pa: %1"
 
 #. TRANSLATORS: Filesystem label information, where %s is replaced by the
 #. filesystem label
-#: src/lib/y2partitioner/widgets/description_section/filesystem.rb:95
+#: src/lib/y2partitioner/widgets/description_section/filesystem.rb:104
 #, fuzzy
 #| msgid "Label: %1"
 msgid "Label: %s"
@@ -2392,11 +2601,25 @@ msgstr "Etikete: %1"
 
 #. TRANSLATORS: Filesystem UUID information, where %s is replaced by the
 #. filesystem UUID
-#: src/lib/y2partitioner/widgets/description_section/filesystem.rb:106
+#: src/lib/y2partitioner/widgets/description_section/filesystem.rb:115
 #, fuzzy
 #| msgid "UUID: %1"
 msgid "UUID: %s"
 msgstr "UUID: %1"
+
+#. TRANSLATORS: Btrfs data information, where %s is replaced by a RAID level (e.g., RAID0).
+#: src/lib/y2partitioner/widgets/description_section/filesystem.rb:125
+#, fuzzy
+#| msgid "RAID Type"
+msgid "RAID Level: %s"
+msgstr "Sôre di RAID"
+
+#. TRANSLATORS: Btrfs metadata information, where %s is replaced by a RAID level (e.g., RAID0).
+#: src/lib/y2partitioner/widgets/description_section/filesystem.rb:135
+#, fuzzy
+#| msgid "Metadata: %1"
+msgid "Metadata RAID Level: %s"
+msgstr "Meta-dnêyes: %1"
 
 #. TRANSLATORS: title for section about LVM LV details
 #. TRANSLATORS: title for section about LVM VG details
@@ -2475,7 +2698,7 @@ msgid "No device selected"
 msgstr "Nol éndjin DM di tchoezi."
 
 #. TRANSLATORS: label for button to delete a device
-#: src/lib/y2partitioner/widgets/device_delete_button.rb:42
+#: src/lib/y2partitioner/widgets/device_delete_button.rb:43
 msgid "Delete"
 msgstr "Disfacer"
 
@@ -2527,42 +2750,42 @@ msgid ""
 msgstr "Li grandeu d' ene sitindowe pårticion n' sait nén esse candjeye."
 
 #. TRANSLATORS: %s is a disk size. E.g. "10.5 GiB"
-#: src/lib/y2partitioner/widgets/devices_selection.rb:124
+#: src/lib/y2partitioner/widgets/devices_selection.rb:125
 #, fuzzy
 msgid "Resulting size: %s"
 msgstr "grandeu "
 
 #. TRANSLATORS: %s is a disk size. E.g. "10.5 GiB"
-#: src/lib/y2partitioner/widgets/devices_selection.rb:128
+#: src/lib/y2partitioner/widgets/devices_selection.rb:131
 #, fuzzy
 msgid "Total size: %s"
 msgstr "Tot. grandeu d' l' aberwetaedje: "
 
-#: src/lib/y2partitioner/widgets/devices_selection.rb:135
+#: src/lib/y2partitioner/widgets/devices_selection.rb:139
 msgid "Selected Devices:"
 msgstr "Éndjins tchoezis :"
 
-#: src/lib/y2partitioner/widgets/devices_selection.rb:139
+#: src/lib/y2partitioner/widgets/devices_selection.rb:143
 msgid "Available Devices:"
 msgstr "Éndjins k' i gn a :"
 
 #. push button text
-#: src/lib/y2partitioner/widgets/devices_selection.rb:159
+#: src/lib/y2partitioner/widgets/devices_selection.rb:163
 msgid "Add"
 msgstr "Radjouter"
 
 #. push button text
-#: src/lib/y2partitioner/widgets/devices_selection.rb:165
+#: src/lib/y2partitioner/widgets/devices_selection.rb:169
 msgid "Add All"
 msgstr "Radjouter totafwait"
 
 #. push button text
-#: src/lib/y2partitioner/widgets/devices_selection.rb:172
+#: src/lib/y2partitioner/widgets/devices_selection.rb:176
 msgid "Remove"
 msgstr "Oister"
 
 #. push button text
-#: src/lib/y2partitioner/widgets/devices_selection.rb:178
+#: src/lib/y2partitioner/widgets/devices_selection.rb:182
 msgid "Remove All"
 msgstr "Oister totafwait"
 
@@ -3192,7 +3415,7 @@ msgstr ""
 "<p><b> Éndjin raecene</b> defini l' éndjin a dner å nawea come éndjin "
 "raecene.</p>"
 
-#: src/lib/y2partitioner/widgets/help.rb:30
+#: src/lib/y2partitioner/widgets/help.rb:31
 #, fuzzy
 msgid ""
 "<b>Sector Size</b> shows the size of the\n"
@@ -3201,7 +3424,7 @@ msgstr ""
 "<p><b> Éndjin raecene</b> defini l' éndjin a dner å nawea come éndjin "
 "raecene.</p>"
 
-#: src/lib/y2partitioner/widgets/help.rb:32
+#: src/lib/y2partitioner/widgets/help.rb:34
 #, fuzzy
 msgid ""
 "<b>Device</b> shows the kernel name of the\n"
@@ -3210,20 +3433,20 @@ msgstr ""
 "<p><b> Éndjin raecene</b> defini l' éndjin a dner å nawea come éndjin "
 "raecene.</p>"
 
-#: src/lib/y2partitioner/widgets/help.rb:34
+#: src/lib/y2partitioner/widgets/help.rb:36
 msgid ""
 "<b>Partition Table</b> shows the partition table\n"
 "type of the disk, e.g <tt>MS-DOS</tt> or <tt>GPT</tt>."
 msgstr ""
 
-#: src/lib/y2partitioner/widgets/help.rb:37
+#: src/lib/y2partitioner/widgets/help.rb:39
 #, fuzzy
 msgid ""
 "<b>Encrypted</b> shows whether the device is\n"
 "encrypted."
 msgstr "<b>Vindeu</b> mostere li vindeu d' l' éndjin."
 
-#: src/lib/y2partitioner/widgets/help.rb:39
+#: src/lib/y2partitioner/widgets/help.rb:41
 #, fuzzy
 msgid ""
 "<b>End</b> shows the end block of\n"
@@ -3232,25 +3455,25 @@ msgstr ""
 "<p><b> Éndjin raecene</b> defini l' éndjin a dner å nawea come éndjin "
 "raecene.</p>"
 
-#: src/lib/y2partitioner/widgets/help.rb:41
+#: src/lib/y2partitioner/widgets/help.rb:43
 msgid ""
 "<b>LUN</b> shows the Logical Unit Number for\n"
 "Fibre Channel disks."
 msgstr ""
 
-#: src/lib/y2partitioner/widgets/help.rb:43
+#: src/lib/y2partitioner/widgets/help.rb:46
 msgid ""
 "<b>Port ID</b> shows the port id for Fibre\n"
 "Channel disks."
 msgstr ""
 
-#: src/lib/y2partitioner/widgets/help.rb:45
+#: src/lib/y2partitioner/widgets/help.rb:48
 msgid ""
 "<b>WWPN</b> shows the World Wide Port Name for\n"
 "Fibre Channel disks."
 msgstr ""
 
-#: src/lib/y2partitioner/widgets/help.rb:48
+#: src/lib/y2partitioner/widgets/help.rb:51
 #, fuzzy
 msgid ""
 "<b>File Path</b> shows the path of the file for\n"
@@ -3259,7 +3482,7 @@ msgstr ""
 "<p><b> Éndjin raecene</b> defini l' éndjin a dner å nawea come éndjin "
 "raecene.</p>"
 
-#: src/lib/y2partitioner/widgets/help.rb:51
+#: src/lib/y2partitioner/widgets/help.rb:54
 #, fuzzy
 msgid ""
 "<b>Format</b> shows some flags: <tt>F</tt>\n"
@@ -3269,19 +3492,19 @@ msgstr ""
 "<tt></tt>\n"
 "</p>"
 
-#: src/lib/y2partitioner/widgets/help.rb:54
+#: src/lib/y2partitioner/widgets/help.rb:57
 #, fuzzy
 #| msgid "<b>Vendor</b> shows the device vendor."
 msgid "<b>Partition ID</b> shows the partition id."
 msgstr "<b>Vindeu</b> mostere li vindeu d' l' éndjin."
 
-#: src/lib/y2partitioner/widgets/help.rb:56
+#: src/lib/y2partitioner/widgets/help.rb:59
 #, fuzzy
 #| msgid "<b>Vendor</b> shows the device vendor."
 msgid "<b>FS Type</b> shows the file system type."
 msgstr "<b>Vindeu</b> mostere li vindeu d' l' éndjin."
 
-#: src/lib/y2partitioner/widgets/help.rb:58
+#: src/lib/y2partitioner/widgets/help.rb:61
 #, fuzzy
 #| msgid "<b>Vendor</b> shows the device vendor."
 msgid ""
@@ -3289,20 +3512,20 @@ msgid ""
 "system."
 msgstr "<b>Vindeu</b> mostere li vindeu d' l' éndjin."
 
-#: src/lib/y2partitioner/widgets/help.rb:60
+#: src/lib/y2partitioner/widgets/help.rb:63
 #, fuzzy
 msgid ""
 "<b>Metadata</b> shows the LVM metadata type for\n"
 "volume groups."
 msgstr "<p>Intrez l' no eyet l' modêye do prodût d' rawete.</p>"
 
-#: src/lib/y2partitioner/widgets/help.rb:62
+#: src/lib/y2partitioner/widgets/help.rb:66
 #, fuzzy
 #| msgid "<b>Vendor</b> shows the device vendor."
 msgid "<b>Model</b> shows the device model."
 msgstr "<b>Vindeu</b> mostere li vindeu d' l' éndjin."
 
-#: src/lib/y2partitioner/widgets/help.rb:64
+#: src/lib/y2partitioner/widgets/help.rb:68
 #, fuzzy
 msgid ""
 "<b>Mount by</b> indicates how the file system\n"
@@ -3314,7 +3537,7 @@ msgstr ""
 "<b> Monter</b> Nawea No Etikete I Éndjin ID eyet Éndjin Tchimin\n"
 "</p>"
 
-#: src/lib/y2partitioner/widgets/help.rb:68
+#: src/lib/y2partitioner/widgets/help.rb:73
 #, fuzzy
 #| msgid "<b>Vendor</b> shows the device vendor."
 msgid ""
@@ -3322,7 +3545,7 @@ msgid ""
 "is mounted."
 msgstr "<b>Vindeu</b> mostere li vindeu d' l' éndjin."
 
-#: src/lib/y2partitioner/widgets/help.rb:70
+#: src/lib/y2partitioner/widgets/help.rb:75
 #, fuzzy
 msgid ""
 "<b>Number of Cylinders</b> shows how many\n"
@@ -3331,38 +3554,38 @@ msgstr ""
 "<p><b> Éndjin raecene</b> defini l' éndjin a dner å nawea come éndjin "
 "raecene.</p>"
 
-#: src/lib/y2partitioner/widgets/help.rb:73
+#: src/lib/y2partitioner/widgets/help.rb:78
 msgid ""
 "<b>Parity Algorithm</b> shows the parity\n"
 "algorithm for RAID devices with RAID type 5, 6 or 10."
 msgstr ""
 
-#: src/lib/y2partitioner/widgets/help.rb:76
+#: src/lib/y2partitioner/widgets/help.rb:81
 #, fuzzy
 msgid ""
 "<b>PE Size</b> shows the physical extent size\n"
 "for LVM volume groups."
 msgstr "<p>Intrez l' no eyet l' modêye do prodût d' rawete.</p>"
 
-#: src/lib/y2partitioner/widgets/help.rb:79
+#: src/lib/y2partitioner/widgets/help.rb:84
 #, fuzzy
 msgid "<b>RAID Version</b> shows the RAID version."
 msgstr "<b>Vindeu</b> mostere li vindeu d' l' éndjin."
 
-#: src/lib/y2partitioner/widgets/help.rb:81
+#: src/lib/y2partitioner/widgets/help.rb:86
 msgid ""
 "<b>RAID Type</b> shows the RAID type, also\n"
 "called RAID level, for RAID devices."
 msgstr ""
 
-#: src/lib/y2partitioner/widgets/help.rb:84
+#: src/lib/y2partitioner/widgets/help.rb:89
 #, fuzzy
 msgid "<b>Size</b> shows the size of the device."
 msgstr ""
 "<p><b> Éndjin raecene</b> defini l' éndjin a dner å nawea come éndjin "
 "raecene.</p>"
 
-#: src/lib/y2partitioner/widgets/help.rb:86
+#: src/lib/y2partitioner/widgets/help.rb:91
 #, fuzzy
 msgid ""
 "<b>Start</b> shows the start block\n"
@@ -3371,31 +3594,31 @@ msgstr ""
 "<p><b> Éndjin raecene</b> defini l' éndjin a dner å nawea come éndjin "
 "raecene.</p>"
 
-#: src/lib/y2partitioner/widgets/help.rb:88
+#: src/lib/y2partitioner/widgets/help.rb:93
 msgid ""
 "<b>Stripes</b> shows the stripe number for LVM\n"
-"logical volumes and, if greater than one, the stripe size in parenthesis.\n"
+"logical volumes and, if greater than one, the stripe size in parenthesis."
 msgstr ""
 
-#: src/lib/y2partitioner/widgets/help.rb:91
+#: src/lib/y2partitioner/widgets/help.rb:97
 msgid ""
 "<b>Type</b> gives a general overview about the\n"
 "device type."
 msgstr ""
 
-#: src/lib/y2partitioner/widgets/help.rb:93
+#: src/lib/y2partitioner/widgets/help.rb:99
 msgid ""
 "<b>Device ID</b> shows the persistent device\n"
 "IDs. This field can be empty."
 msgstr ""
 
-#: src/lib/y2partitioner/widgets/help.rb:96
+#: src/lib/y2partitioner/widgets/help.rb:102
 msgid ""
 "<b>Device Path</b> shows the persistent device\n"
 "path. This field can be empty."
 msgstr ""
 
-#: src/lib/y2partitioner/widgets/help.rb:99
+#: src/lib/y2partitioner/widgets/help.rb:105
 #, fuzzy
 #| msgid ""
 #| "<b>Used By</b> shows if a device is used by\n"
@@ -3411,7 +3634,7 @@ msgstr ""
 "est pår normå\n"
 " ki cisse colone soeye vude."
 
-#: src/lib/y2partitioner/widgets/help.rb:102
+#: src/lib/y2partitioner/widgets/help.rb:108
 msgid ""
 "<b>UUID</b> shows the Universally Unique\n"
 "Identifier of the file system."
@@ -3419,11 +3642,11 @@ msgstr ""
 "<b>UUID</b> mostere l' Idintifieu Unike\n"
 " Univiersiel do sistinme di fitchî."
 
-#: src/lib/y2partitioner/widgets/help.rb:105
+#: src/lib/y2partitioner/widgets/help.rb:111
 msgid "<b>Vendor</b> shows the device vendor."
 msgstr "<b>Vindeu</b> mostere li vindeu d' l' éndjin."
 
-#: src/lib/y2partitioner/widgets/help.rb:107
+#: src/lib/y2partitioner/widgets/help.rb:113
 #, fuzzy
 msgid ""
 "<b>Backing Device</b> shows the device used as backing device for bcache."
@@ -3431,35 +3654,44 @@ msgstr ""
 "<p><b> Éndjin raecene</b> defini l' éndjin a dner å nawea come éndjin "
 "raecene.</p>"
 
-#: src/lib/y2partitioner/widgets/help.rb:110
+#: src/lib/y2partitioner/widgets/help.rb:116
 msgid ""
 "<b>Caching UUID</b> shows the UUID of the used caching set. This field is "
 "empty if no caching is used."
 msgstr ""
 
-#: src/lib/y2partitioner/widgets/help.rb:113
+#: src/lib/y2partitioner/widgets/help.rb:119
 msgid ""
 "<b>Caching Device</b> shows the device used for caching. This field is empty "
 "if no caching is used."
 msgstr ""
 
-#: src/lib/y2partitioner/widgets/help.rb:116
+#: src/lib/y2partitioner/widgets/help.rb:122
 msgid ""
 "<b>Cache Mode</b> shows the operating mode for bcache. Currently there are "
 "four supported modes: Writethrough, Writeback, Writearound and None."
 msgstr ""
 
-#: src/lib/y2partitioner/widgets/help.rb:119
+#: src/lib/y2partitioner/widgets/help.rb:126
 #, fuzzy
 msgid ""
-"<b>Btrfs Devices</b> shows the kernel name of the devices used by a Btrfs "
-"file system."
+"<b>Devices</b> shows the kernel name of the devices used by a Btrfs file "
+"system."
 msgstr ""
 "<p><b> Éndjin raecene</b> defini l' éndjin a dner å nawea come éndjin "
 "raecene.</p>"
 
+#: src/lib/y2partitioner/widgets/help.rb:128
+msgid "<b>Metadata RAID Level</b> shows the RAID level for the Btrfs metadata."
+msgstr ""
+
+#: src/lib/y2partitioner/widgets/help.rb:131
+#, fuzzy
+msgid "<b>Data RAID Level</b> shows the RAID level for the Btrfs data."
+msgstr "<b>Vindeu</b> mostere li vindeu d' l' éndjin."
+
 #. help texts that are appended to the common help only in Mode.normal
-#: src/lib/y2partitioner/widgets/help.rb:125
+#: src/lib/y2partitioner/widgets/help.rb:136
 msgid ""
 "A question mark (?) indicates that\n"
 "the file system is not listed in <tt>/etc/fstab</tt>. It is either mounted\n"
@@ -3468,7 +3700,7 @@ msgid ""
 "YaST will not update <tt>/etc/fstab</tt>.\n"
 msgstr ""
 
-#: src/lib/y2partitioner/widgets/help.rb:130
+#: src/lib/y2partitioner/widgets/help.rb:141
 #, fuzzy
 msgid ""
 "An asterisk (*) after the mount point\n"
@@ -3584,12 +3816,6 @@ msgid ""
 "from. If needed, you can always add more physical volumes later.</p>"
 msgstr ""
 
-#. TRANSLATORS: Error message when no device is selected
-#: src/lib/y2partitioner/widgets/lvm_vg_devices_selector.rb:123
-#, fuzzy
-msgid "Select at least one device."
-msgstr "Tchoezixhoz on éndjin."
-
 #. TRANSLATORS: Error message when the resulting volume group size is not
 #. enough. %s is replaced by a size (e.g., 4 GiB).
 #: src/lib/y2partitioner/widgets/lvm_vg_devices_selector.rb:139
@@ -3632,7 +3858,7 @@ msgstr "Volume &fizike"
 #. volumes of an LVM VG
 #. TRANSLATORS: label for button to edit used devices
 #: src/lib/y2partitioner/widgets/lvm_vg_resize_button.rb:39
-#: src/lib/y2partitioner/widgets/used_devices_edit_button.rb:40
+#: src/lib/y2partitioner/widgets/used_devices_edit_button.rb:41
 #, fuzzy
 #| msgid "Changes:"
 msgid "Change..."
@@ -3697,12 +3923,6 @@ msgstr ""
 #, fuzzy
 msgid "Edit RAID..."
 msgstr "Candjî"
-
-#: src/lib/y2partitioner/widgets/md_modify_button.rb:60
-#, fuzzy
-#| msgid "&Used Devices"
-msgid "Change Used Devices..."
-msgstr "Éndjins &eployîs"
 
 #. help text, richtext format
 #: src/lib/y2partitioner/widgets/mkfs_optiondata.rb:57
@@ -3927,7 +4147,7 @@ msgstr "Ricorwaitî éndjins"
 #. @macro seeAbstractWidget
 #. @macro seeAbstractWidget
 #: src/lib/y2partitioner/widgets/pages/bcache.rb:88
-#: src/lib/y2partitioner/widgets/pages/btrfs.rb:132
+#: src/lib/y2partitioner/widgets/pages/btrfs.rb:127
 #: src/lib/y2partitioner/widgets/pages/disk.rb:129
 #: src/lib/y2partitioner/widgets/pages/lvm_vg.rb:94
 #: src/lib/y2partitioner/widgets/pages/md_raid.rb:95
@@ -3955,13 +4175,8 @@ msgstr "Eployî pa"
 
 #. TRANSLATORS: BTRFS page title, where %{basename} is replaced by the device
 #. basename (e.g., sda1).
-#: src/lib/y2partitioner/widgets/pages/btrfs.rb:91
+#: src/lib/y2partitioner/widgets/pages/btrfs.rb:93
 msgid "Btrfs %{basename}"
-msgstr ""
-
-#. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/pages/btrfs_filesystems.rb:48
-msgid "Btrfs"
 msgstr ""
 
 #. @macro seeAbstractWidget
@@ -4485,12 +4700,12 @@ msgid "A drive of type '%{type}' is not supported in this architecture"
 msgstr ""
 
 #. TRANSLATORS: status when cache set is not attached to any bcache
-#: src/lib/y2storage/bcache_cset.rb:69
+#: src/lib/y2storage/bcache_cset.rb:71
 msgid "Cache set (not attached)"
 msgstr ""
 
 #. TRANSLATORS: %s contain list of devices for which cache act as cache.
-#: src/lib/y2storage/bcache_cset.rb:72
+#: src/lib/y2storage/bcache_cset.rb:74
 msgid "Cache set (%s)"
 msgstr ""
 
@@ -4598,6 +4813,68 @@ msgid ""
 "Looks like the system is going to be installed on an LDL device.\n"
 "Booting from such device is not supported."
 msgstr ""
+
+#. Class to represent all the possible Btrfs RAID levels
+#.
+#. This is a wrapper for the Storage::BtrfsRaidLevel enum
+#. Class to represent all the possible MD levels
+#.
+#. This is a wrapper for the Storage::MdLevel enum
+#: src/lib/y2storage/btrfs_raid_level.rb:39 src/lib/y2storage/md_level.rb:36
+#: src/lib/y2storage/partition_id.rb:56
+#, fuzzy
+#| msgid "unknown"
+msgid "Unknown"
+msgstr "nén cnoxhou"
+
+#. TODO: should be tested by some real OPS guy, I (JR) pick human wording from `man mdadm`
+#: src/lib/y2storage/btrfs_raid_level.rb:40
+#: src/lib/y2storage/clients/partitions_proposal.rb:160
+#: src/lib/y2storage/md_parity.rb:37
+#, fuzzy
+#| msgid "Default Mount by"
+msgid "Default"
+msgstr "Prémetou monté pa"
+
+#. TRANSLATORS: this is one of the RAID modes used by Btrfs, likely to be left as-is
+#: src/lib/y2storage/btrfs_raid_level.rb:42
+msgid "SINGLE"
+msgstr ""
+
+#. TRANSLATORS: this is one of the RAID modes used by Btrfs, likely to be left as-is
+#: src/lib/y2storage/btrfs_raid_level.rb:44
+msgid "DUP"
+msgstr ""
+
+#: src/lib/y2storage/btrfs_raid_level.rb:45 src/lib/y2storage/md_level.rb:37
+#, fuzzy
+#| msgid "RAID"
+msgid "RAID0"
+msgstr "RAID"
+
+#: src/lib/y2storage/btrfs_raid_level.rb:46 src/lib/y2storage/md_level.rb:38
+#, fuzzy
+#| msgid "RAID"
+msgid "RAID1"
+msgstr "RAID"
+
+#: src/lib/y2storage/btrfs_raid_level.rb:47 src/lib/y2storage/md_level.rb:40
+#, fuzzy
+#| msgid "RAID"
+msgid "RAID5"
+msgstr "RAID"
+
+#: src/lib/y2storage/btrfs_raid_level.rb:48 src/lib/y2storage/md_level.rb:41
+#, fuzzy
+#| msgid "RAID"
+msgid "RAID6"
+msgstr "RAID"
+
+#: src/lib/y2storage/btrfs_raid_level.rb:49 src/lib/y2storage/md_level.rb:42
+#, fuzzy
+#| msgid "RAID"
+msgid "RAID10"
+msgstr "RAID"
 
 #. TRANSLATORS: operation mode for cache. If you are not sure how to translate keep it as it is.
 #: src/lib/y2storage/cache_mode.rb:37
@@ -4795,14 +5072,6 @@ msgstr "&Intrer l' sicret:"
 #| msgid "Custom Size"
 msgid "Custom"
 msgstr "Grandeu da vosse"
-
-#. TODO: should be tested by some real OPS guy, I (JR) pick human wording from `man mdadm`
-#: src/lib/y2storage/clients/partitions_proposal.rb:160
-#: src/lib/y2storage/md_parity.rb:37
-#, fuzzy
-#| msgid "Default Mount by"
-msgid "Default"
-msgstr "Prémetou monté pa"
 
 #. TRANSLATORS: %{name} is the name of an LVM Volume Group (e.g., /dev/vg1)
 #: src/lib/y2storage/devicegraph_sanitizer.rb:144
@@ -5382,6 +5651,18 @@ msgstr ""
 "0..9, a..z, A..Z, et les caracteres « @#* ,.;:._-+!$%&/|?{[()]}^\\<> ».\n"
 "Sayîz co on côp."
 
+#. TRANSLATORS: block device basename for a multi-device filesystem, where %{basename} is replaced
+#. by the basename of the first block device (e.g., "(sda1...)").
+#: src/lib/y2storage/filesystems/blk_filesystem.rb:136
+msgid "(%{basename}\\u2026)"
+msgstr ""
+
+#. TRANSLATORS: display name when the Btrfs is multidevice, where %{num_devices} is replaced by
+#. a number (e.g., "2") and %{name} is replaced by a device representation (e.g., "(sda1...)").
+#: src/lib/y2storage/filesystems/btrfs.rb:498
+msgid "Btrfs over %{num_devices} devices %{name}"
+msgstr ""
+
 #. Hash with the properties for each mount by type.
 #.
 #. Keys are the symbols representing the types and values are hashes that
@@ -5403,49 +5684,18 @@ msgstr "Etikete do volume"
 msgid "Device Path"
 msgstr "Tchimin di l' éndjin"
 
-#. Class to represent all the possible MD levels
-#.
-#. This is a wrapper for the Storage::MdLevel enum
-#: src/lib/y2storage/md_level.rb:36 src/lib/y2storage/partition_id.rb:56
+#. TRANSLATORS: display name when the PV has no associated VG, where %{device} is replaced by a
+#. device name (e.g., "/dev/sda1").
+#: src/lib/y2storage/lvm_pv.rb:80
 #, fuzzy
-#| msgid "unknown"
-msgid "Unknown"
-msgstr "nén cnoxhou"
-
-#: src/lib/y2storage/md_level.rb:37
-#, fuzzy
-#| msgid "RAID"
-msgid "RAID0"
-msgstr "RAID"
-
-#: src/lib/y2storage/md_level.rb:38
-#, fuzzy
-#| msgid "RAID"
-msgid "RAID1"
-msgstr "RAID"
+#| msgid "Unused Devices"
+msgid "Unused LVM PV on %{device}"
+msgstr "Éndjins nén eployîs"
 
 #: src/lib/y2storage/md_level.rb:39
 #, fuzzy
 #| msgid "RAID"
 msgid "RAID4"
-msgstr "RAID"
-
-#: src/lib/y2storage/md_level.rb:40
-#, fuzzy
-#| msgid "RAID"
-msgid "RAID5"
-msgstr "RAID"
-
-#: src/lib/y2storage/md_level.rb:41
-#, fuzzy
-#| msgid "RAID"
-msgid "RAID6"
-msgstr "RAID"
-
-#: src/lib/y2storage/md_level.rb:42
-#, fuzzy
-#| msgid "RAID"
-msgid "RAID10"
 msgstr "RAID"
 
 #: src/lib/y2storage/md_level.rb:43
@@ -5931,9 +6181,6 @@ msgstr "nén cnoxhou"
 
 #~ msgid "Device Mapper"
 #~ msgstr "Mapeu d' éndjin"
-
-#~ msgid "Unused Devices"
-#~ msgstr "Éndjins nén eployîs"
 
 #, fuzzy
 #~| msgid "Export Graph..."
@@ -7580,13 +7827,6 @@ msgstr "nén cnoxhou"
 #~ " Atôtchî l' apontiaedje Multipath podbon ?"
 
 #, fuzzy
-#~ msgid "<p>Change the devices that are used by the Btrfs volume.</p>"
-#~ msgstr ""
-#~ "<p>\n"
-#~ "Tchoezixhoz l' sôre di cwåte a -z apontyî.\n"
-#~ "</p>\n"
-
-#, fuzzy
 #~| msgid "Unused Devices"
 #~ msgid "Unused Devices:"
 #~ msgstr "Éndjins nén eployîs"
@@ -8948,9 +9188,6 @@ msgstr "nén cnoxhou"
 #~ msgid "Bus: %1"
 #~ msgstr "Bus: %1"
 
-#~ msgid "Metadata: %1"
-#~ msgstr "Meta-dnêyes: %1"
-
 #~ msgid "PE Size: %1"
 #~ msgstr "Grandeu PE: %1"
 
@@ -9209,11 +9446,6 @@ msgstr "nén cnoxhou"
 #~| msgid "Device Name"
 #~ msgid "Block Device Name"
 #~ msgstr "No d' l' éndjin"
-
-#, fuzzy
-#~| msgid "RAID Type"
-#~ msgid "RAID Level"
-#~ msgstr "Sôre di RAID"
 
 #~ msgid "Log"
 #~ msgstr "Djournå"
@@ -10896,10 +11128,6 @@ msgstr "nén cnoxhou"
 #~ "Plake nén\n"
 #~ "eployeye\n"
 #~ "%1 "
-
-#, fuzzy
-#~ msgid "Unused Disk: "
-#~ msgstr "Plake nén eployeye (%1)"
 
 #, fuzzy
 #~ msgid ""
