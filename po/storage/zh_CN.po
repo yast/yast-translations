@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: storage\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-05-11 02:29+0000\n"
-"PO-Revision-Date: 2019-05-16 14:47+0000\n"
+"PO-Revision-Date: 2019-05-21 15:54+0000\n"
 "Last-Translator: Marguerite Su <i@marguerite.su>\n"
 "Language-Team: Chinese (China) <https://l10n.opensuse.org/projects/"
 "yast-storage/master/zh_CN/>\n"
@@ -2008,6 +2008,13 @@ msgid ""
 "across multiple devices for performance. Btrfs requires a minimum of five "
 "devices to use RAID10</li></ul></p>"
 msgstr ""
+"<h4><b>Btrfs RAID 级别</b></h4><p>Btrfs 针对数据和元数据支持以下 RAID "
+"级别：<ul><li><b>DUP:</b> 在同一个设备上将每份数据都存储为两份。这与 RAID1 "
+"很相似，可以防止该设备出现块级别的错误，但没有对设备整体故障提供任何保障。只有一个设备就可以使用 UDP。</li><li><b>SINGLE:</b> "
+"每份数据只存储一个拷贝。Btrfs 要求至少一个设备即可使用 SINGLE。</li><li><b>RAID0:</b> "
+"不提供任何错误恢复，但将一份数据跨多个设备存储以提升性能。Btrfs 需要至少两个设备才能使用 RAID0。</li><li><b>RAID1:</b> "
+"将每份数据均存储为两个完整拷贝。每个拷贝存储在不同设备上。Btrfs 要求至少两个设备才能使用 RAID1。</li><li><b>RAID10:</b>"
+" 将每份数据存储为两个完整拷贝，并将每个拷贝跨多个设备存储以提升性能。Btrfs 需要最少五个设备才能使用 RAID10</li></ul></p>"
 
 #. TRANSLATORS: help text
 #: src/lib/y2partitioner/widgets/btrfs_devices.rb:151
@@ -2018,21 +2025,23 @@ msgid ""
 "will distinguish between rotational or not-rotational devices to choose the "
 "default value.</p>"
 msgstr ""
+"<p>当使用默认 RAID 级别时，Btrfs 将根据文件系统创建在多个设备还是单一设备上来选择一个 RAID 级别。对于单设备 "
+"Btrfs，该工具也会区别机械回转设备和固态设备来选择默认值。</p>"
 
 #. TRANSLATORS: error message
 #: src/lib/y2partitioner/widgets/btrfs_devices.rb:171
 msgid "RAID levels do not match the amount of selected devices."
-msgstr ""
+msgstr "RAID 级别不匹配所选设备数量。"
 
 #. TRANSLATORS: error message
 #: src/lib/y2partitioner/widgets/btrfs_devices.rb:174
 msgid "The RAID level does not match the amount of selected devices."
-msgstr ""
+msgstr "RAID 级别不匹配所选设备数量。"
 
 #. TRANSLATORS: error message
 #: src/lib/y2partitioner/widgets/btrfs_devices.rb:177
 msgid "The metadata RAID level does not match the amount of selected devices."
-msgstr ""
+msgstr "元数据 RAID 级别不匹配所选设备数量。"
 
 #. TRANSLATORS: error message, where %{error_by} is replaced by an initial sentence.
 #: src/lib/y2partitioner/widgets/btrfs_devices.rb:182
@@ -2040,6 +2049,8 @@ msgid ""
 "%{error_by}\n"
 "Modify the list of devices or adjust the RAID levels."
 msgstr ""
+"%{error_by}\n"
+"请修改设备列表或调整 RAID 级别。"
 
 #. TRANSLATORS: error message, where %{data} is replaced by "data" or "metadata" and %{levels} is
 #. replaced by a list of raid levels separated by comma (e.g., "RAID1, RAID10").
@@ -2047,21 +2058,19 @@ msgstr ""
 msgid ""
 "According to the selected devices, only the following %{data}\n"
 "RAID levels can be used: %{levels}."
-msgstr ""
+msgstr "根据所选设备情况，只可以使用以下 %{data} RAID 级别：%{levels}。"
 
 #. TRANSLATORS: help text, where %{label} is a widget label
 #: src/lib/y2partitioner/widgets/btrfs_devices_selector.rb:109
-#, fuzzy
-#| msgid "<p>Change the devices that are used by the Btrfs volume.</p>"
 msgid ""
 "<p><b>%{label}</b> Unused devices that can be used for a Btrfs filesystem.</"
 "p>"
-msgstr "<p>变更 Btrfs 卷使用的设备。</p>"
+msgstr "<p><b>%{label}</b> 可用作 Btrfs 文件系统的未使用设备。</p>"
 
 #. TRANSLATORS: help text, where %{label} is a widget label
 #: src/lib/y2partitioner/widgets/btrfs_devices_selector.rb:120
 msgid "<p><b>%{label}</b> Devices selected to be part of the Btrfs.</p>"
-msgstr ""
+msgstr "<p><b>%{label}</b> 已选作 Btrfs 一部分的设备。</p>"
 
 #. TRANSLATORS: Error message when no device is selected
 #. TRANSLATORS: Error message when no device is selected
@@ -2073,7 +2082,7 @@ msgstr "至少选择一个设备。"
 #. TRANSLATORS: label of a table column
 #: src/lib/y2partitioner/widgets/btrfs_filesystems_table.rb:55
 msgid "Id"
-msgstr ""
+msgstr "ID"
 
 #. TRANSLATORS: label of a table column
 #: src/lib/y2partitioner/widgets/btrfs_filesystems_table.rb:71
@@ -2090,15 +2099,13 @@ msgstr "UUID"
 
 #. TRANSLATORS: widget label
 #: src/lib/y2partitioner/widgets/btrfs_metadata_raid_level.rb:40
-#, fuzzy
-#| msgid "RAID Level"
 msgid "RAID Level for Metadata"
-msgstr "RAID 级别"
+msgstr "元数据 RAID 级别"
 
 #. TRANSLATORS: widget help, where %{label} is replaced by the label of the widget.
 #: src/lib/y2partitioner/widgets/btrfs_metadata_raid_level.rb:47
 msgid "<p><b>%{label}:</b> RAID level for the Btrfs metadata.</p>"
-msgstr ""
+msgstr "<p><b>%{label}:</b> Btrfs 元数据 RAID 级别。</p>"
 
 #. @see DeviceMenuButton#actions
 #.
@@ -2107,10 +2114,8 @@ msgstr ""
 #.
 #. @return [Array<Hash>]
 #: src/lib/y2partitioner/widgets/btrfs_modify_button.rb:53
-#, fuzzy
-#| msgid "Edit..."
 msgid "Edit Btrfs..."
-msgstr "编辑..."
+msgstr "编辑 Btrfs..."
 
 #: src/lib/y2partitioner/widgets/btrfs_modify_button.rb:58
 #: src/lib/y2partitioner/widgets/md_modify_button.rb:60
@@ -2371,17 +2376,13 @@ msgstr "UUID：%s"
 
 #. TRANSLATORS: Btrfs data information, where %s is replaced by a RAID level (e.g., RAID0).
 #: src/lib/y2partitioner/widgets/description_section/filesystem.rb:125
-#, fuzzy
-#| msgid "RAID Level"
 msgid "RAID Level: %s"
-msgstr "RAID 级别"
+msgstr "RAID 级别：%s"
 
 #. TRANSLATORS: Btrfs metadata information, where %s is replaced by a RAID level (e.g., RAID0).
 #: src/lib/y2partitioner/widgets/description_section/filesystem.rb:135
-#, fuzzy
-#| msgid "Metadata: %1"
 msgid "Metadata RAID Level: %s"
-msgstr "元数据：%1"
+msgstr "元数据 RAID 级别：%s"
 
 #. TRANSLATORS: title for section about LVM LV details
 #. TRANSLATORS: title for section about LVM VG details
@@ -3236,17 +3237,10 @@ msgid ""
 msgstr "<b>起始</b> 显示分区的起始块。"
 
 #: src/lib/y2partitioner/widgets/help.rb:93
-#, fuzzy
-#| msgid ""
-#| "<b>Stripes</b> shows the stripe number for LVM\n"
-#| "logical volumes and, if greater than one, the stripe size in "
-#| "parenthesis.\n"
 msgid ""
 "<b>Stripes</b> shows the stripe number for LVM\n"
 "logical volumes and, if greater than one, the stripe size in parenthesis."
-msgstr ""
-"<b>条带</b>显示 LVM 逻辑卷条带数量，如果大于 1，\n"
-"则在括号中显示条带大小。\n"
+msgstr "<b>条带</b>显示 LVM 逻辑卷条带数量，如果大于一，则在括号中显示条带大小。"
 
 #: src/lib/y2partitioner/widgets/help.rb:97
 msgid ""
@@ -3318,13 +3312,11 @@ msgstr "<b>Btrfs 设备</b>显示 Btrfs 文件系统所用设备的内核名称�
 
 #: src/lib/y2partitioner/widgets/help.rb:128
 msgid "<b>Metadata RAID Level</b> shows the RAID level for the Btrfs metadata."
-msgstr ""
+msgstr "<b>元数据 RAID 级别</b>显示 Btrfs 元数据的 RAID 级别。"
 
 #: src/lib/y2partitioner/widgets/help.rb:131
-#, fuzzy
-#| msgid "<b>RAID Version</b> shows the RAID version."
 msgid "<b>Data RAID Level</b> shows the RAID level for the Btrfs data."
-msgstr "<b>RAID 版本</b>显示 RAID 版本。"
+msgstr "<b>数据 RAID 级别</b>显示 Btrfs 数据的 RAID 级别。"
 
 #. help texts that are appended to the common help only in Mode.normal
 #: src/lib/y2partitioner/widgets/help.rb:136
@@ -4403,12 +4395,12 @@ msgstr "默认"
 #. TRANSLATORS: this is one of the RAID modes used by Btrfs, likely to be left as-is
 #: src/lib/y2storage/btrfs_raid_level.rb:42
 msgid "SINGLE"
-msgstr ""
+msgstr "SINGLE"
 
 #. TRANSLATORS: this is one of the RAID modes used by Btrfs, likely to be left as-is
 #: src/lib/y2storage/btrfs_raid_level.rb:44
 msgid "DUP"
-msgstr ""
+msgstr "DUP"
 
 #: src/lib/y2storage/btrfs_raid_level.rb:45 src/lib/y2storage/md_level.rb:37
 msgid "RAID0"
@@ -5167,13 +5159,13 @@ msgstr ""
 #. by the basename of the first block device (e.g., "(sda1...)").
 #: src/lib/y2storage/filesystems/blk_filesystem.rb:136
 msgid "(%{basename}\\u2026)"
-msgstr ""
+msgstr "(%{basename}\\u2026)"
 
 #. TRANSLATORS: display name when the Btrfs is multidevice, where %{num_devices} is replaced by
 #. a number (e.g., "2") and %{name} is replaced by a device representation (e.g., "(sda1...)").
 #: src/lib/y2storage/filesystems/btrfs.rb:498
 msgid "Btrfs over %{num_devices} devices %{name}"
-msgstr ""
+msgstr "Btrfs 位于 %{num_devices} 个设备上 %{name}"
 
 #. Hash with the properties for each mount by type.
 #.
@@ -5199,10 +5191,8 @@ msgstr "设备路径"
 #. TRANSLATORS: display name when the PV has no associated VG, where %{device} is replaced by a
 #. device name (e.g., "/dev/sda1").
 #: src/lib/y2storage/lvm_pv.rb:80
-#, fuzzy
-#| msgid "Unused Devices"
 msgid "Unused LVM PV on %{device}"
-msgstr "未使用的设备"
+msgstr "%{device} 上未使用的 LVM 物理卷"
 
 #: src/lib/y2storage/md_level.rb:39
 msgid "RAID4"
