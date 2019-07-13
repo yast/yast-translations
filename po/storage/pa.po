@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: storage-ng.pa\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-11 02:29+0000\n"
+"POT-Creation-Date: 2019-07-13 02:29+0000\n"
 "PO-Revision-Date: 2008-11-10 23:28+0530\n"
 "Last-Translator: KDB <brar.kd@gmail.com>\n"
 "Language-Team: Panjabi <punjabi-l10n@list.sf.net>\n"
@@ -2990,7 +2990,7 @@ msgstr "ਚੋਣ(&p)..."
 #. @return [WidgetTerm]
 #: src/lib/y2partitioner/widgets/format_and_mount.rb:511
 #: src/lib/y2storage/dialogs/guided_setup/select_filesystem/legacy.rb:71
-#: src/lib/y2storage/dialogs/guided_setup/select_filesystem/volume_widget.rb:227
+#: src/lib/y2storage/dialogs/guided_setup/select_filesystem/volume_widget.rb:295
 msgid "Enable Snapshots"
 msgstr ""
 
@@ -5122,8 +5122,10 @@ msgstr ""
 #. the default interface. If that number is exceeded an alternative
 #. interface with scroll is displayed.
 #. @see GuidedSetup::Base
+#. Before skipping, settings should be assigned.
 #: src/lib/y2storage/dialogs/guided_setup/select_disks.rb:56
-#: src/lib/y2storage/dialogs/guided_setup/select_root_disk.rb:61
+#: src/lib/y2storage/dialogs/guided_setup/select_root_disk.rb:62
+#: src/lib/y2storage/dialogs/guided_setup/select_volumes_disks.rb:49
 #, fuzzy
 #| msgid "Hard Disks"
 msgid "Select Hard Disk(s)"
@@ -5164,12 +5166,10 @@ msgstr "ਕੋਈ ਡਿਸਕ ਨਹੀਂ ਚੁਣੀ।"
 msgid "Filesystem Options"
 msgstr "ਫਾਇਲ ਸਿਸਟਮ ਚੋਣਾਂ:"
 
-#: src/lib/y2storage/dialogs/guided_setup/select_filesystem/base.rb:45
-msgid "Select the filesystem type for each of the volumes."
-msgstr ""
-
-#: src/lib/y2storage/dialogs/guided_setup/select_filesystem/base.rb:49
-msgid "Select the filesystem type for each of the partitions."
+#: src/lib/y2storage/dialogs/guided_setup/select_filesystem/base.rb:41
+msgid ""
+"Select the filesystem type for each LVM Volume Group, LVM Logical Volume, "
+"and/or partition."
 msgstr ""
 
 #. Dialog to select filesystems.
@@ -5184,7 +5184,7 @@ msgstr "ਫਾਇਲ ਸਿਸਟਮ ਚੋਣਾਂ:"
 
 #. @see #proposed_term
 #: src/lib/y2storage/dialogs/guided_setup/select_filesystem/legacy.rb:80
-#: src/lib/y2storage/dialogs/guided_setup/select_filesystem/volume_widget.rb:200
+#: src/lib/y2storage/dialogs/guided_setup/select_filesystem/volume_widget.rb:265
 #, fuzzy
 #| msgid "Propose Separate &Home Partition"
 msgid "Propose Separate Home Partition"
@@ -5196,114 +5196,175 @@ msgstr "ਵੱਖਰੇ ਹੋਮ ਪਾਰਟੀਸ਼ਨ ਲਈ ਸੁਝਾ�
 msgid "File System for Home Partition"
 msgstr "ਵੱਖਰੇ ਹੋਮ ਪਾਰਟੀਸ਼ਨ ਲਈ ਸੁਝਾਅ(&H)"
 
-#. TRANSLATORS: "Volume" refers to an LVM logical volume.
-#: src/lib/y2storage/dialogs/guided_setup/select_filesystem/volume_widget.rb:133
-msgid "Settings for the Root Volume"
+#. @see #header_term
+#: src/lib/y2storage/dialogs/guided_setup/select_filesystem/volume_widget.rb:148
+#, fuzzy
+#| msgid "File system options:"
+msgid "Settings for the Root LVM Logical Volume"
+msgstr "ਫਾਇਲ ਸਿਸਟਮ ਚੋਣਾਂ:"
+
+#: src/lib/y2storage/dialogs/guided_setup/select_filesystem/volume_widget.rb:150
+#, fuzzy
+#| msgid "Propose Separate &Home Partition"
+msgid "Settings for the Home LVM Logical Volume"
+msgstr "ਵੱਖਰੇ ਹੋਮ ਪਾਰਟੀਸ਼ਨ ਲਈ ਸੁਝਾਅ(&H)"
+
+#: src/lib/y2storage/dialogs/guided_setup/select_filesystem/volume_widget.rb:152
+#, fuzzy
+#| msgid "Deleting raid partition %1$s"
+msgid "Settings for Swap LVM Logical Volume"
+msgstr "ਰੇਡ ਪਾਰਟੀਸ਼ਨ %1$s ਹਟਾਇਆ ਜਾ ਰਿਹਾ ਹੈ"
+
+#. TRANSLATORS: "Additional" implies it will be created but not mounted
+#: src/lib/y2storage/dialogs/guided_setup/select_filesystem/volume_widget.rb:155
+#, fuzzy
+msgid "Settings for Additional LVM Logical Volume"
+msgstr "ਲਾਜ਼ੀਕਲ ਵਾਲੀਅਮ ਬਣਾਓ"
+
+#. TRANSLATORS: %{mount_point} refers to the mount point (e.g. /var/lib).
+#: src/lib/y2storage/dialogs/guided_setup/select_filesystem/volume_widget.rb:159
+msgid "Settings for the %{mount_point} LVM Logical Volume"
 msgstr ""
 
-#. TRANSLATORS: "Volume" refers to an LVM logical volume.
-#: src/lib/y2storage/dialogs/guided_setup/select_filesystem/volume_widget.rb:136
-msgid "Settings for the Home Volume"
+#. TRANSLATORS: the text refers to an LVM Volume Group.
+#: src/lib/y2storage/dialogs/guided_setup/select_filesystem/volume_widget.rb:170
+#, fuzzy
+#| msgid "File system options:"
+msgid "Settings for the Root LVM Volume Group"
+msgstr "ਫਾਇਲ ਸਿਸਟਮ ਚੋਣਾਂ:"
+
+#. TRANSLATORS: the text refers to an LVM Volume Group.
+#: src/lib/y2storage/dialogs/guided_setup/select_filesystem/volume_widget.rb:173
+#, fuzzy
+#| msgid "Propose Separate &Home Partition"
+msgid "Settings for the Home LVM Volume Group"
+msgstr "ਵੱਖਰੇ ਹੋਮ ਪਾਰਟੀਸ਼ਨ ਲਈ ਸੁਝਾਅ(&H)"
+
+#. TRANSLATORS: the text refers to an LVM Volume Group.
+#: src/lib/y2storage/dialogs/guided_setup/select_filesystem/volume_widget.rb:176
+#, fuzzy
+#| msgid "Deleting raid partition %1$s"
+msgid "Settings for Swap LVM Volume Group"
+msgstr "ਰੇਡ ਪਾਰਟੀਸ਼ਨ %1$s ਹਟਾਇਆ ਜਾ ਰਿਹਾ ਹੈ"
+
+#. TRANSLATORS: the text refers to an LVM Volume Group. "Additional" implies it will be
+#. created but not mounted
+#: src/lib/y2storage/dialogs/guided_setup/select_filesystem/volume_widget.rb:180
+msgid "Settings for Additional LVM Volume Group"
 msgstr ""
 
-#. TRANSLATORS: "Volume" refers to an LVM logical volume.
-#: src/lib/y2storage/dialogs/guided_setup/select_filesystem/volume_widget.rb:139
-msgid "Settings for Swap Volume"
-msgstr ""
-
-#. TRANSLATORS: "Volume" refers to an LVM logical volume and
-#. "Additional" implies it will be created but not mounted
-#: src/lib/y2storage/dialogs/guided_setup/select_filesystem/volume_widget.rb:143
-msgid "Settings for Additional Volume"
-msgstr ""
-
-#. TRANSLATORS: "Volume" refers to a LVM logical volume. %s is a mount point.
-#: src/lib/y2storage/dialogs/guided_setup/select_filesystem/volume_widget.rb:146
-msgid "Settings for the %s Volume"
+#. TRANSLATORS: %{mount_point} refers to the mount point (e.g. /var/lib).
+#: src/lib/y2storage/dialogs/guided_setup/select_filesystem/volume_widget.rb:184
+msgid "Settings for the %{mount_point} LVM Volume Group"
 msgstr ""
 
 #. @see #header_term
-#: src/lib/y2storage/dialogs/guided_setup/select_filesystem/volume_widget.rb:154
+#: src/lib/y2storage/dialogs/guided_setup/select_filesystem/volume_widget.rb:194
 #, fuzzy
 #| msgid "File system options:"
 msgid "Settings for the Root Partition"
 msgstr "ਫਾਇਲ ਸਿਸਟਮ ਚੋਣਾਂ:"
 
-#: src/lib/y2storage/dialogs/guided_setup/select_filesystem/volume_widget.rb:156
+#: src/lib/y2storage/dialogs/guided_setup/select_filesystem/volume_widget.rb:196
 #, fuzzy
 #| msgid "Propose Separate &Home Partition"
 msgid "Settings for the Home Partition"
 msgstr "ਵੱਖਰੇ ਹੋਮ ਪਾਰਟੀਸ਼ਨ ਲਈ ਸੁਝਾਅ(&H)"
 
-#: src/lib/y2storage/dialogs/guided_setup/select_filesystem/volume_widget.rb:158
+#: src/lib/y2storage/dialogs/guided_setup/select_filesystem/volume_widget.rb:198
 #, fuzzy
 #| msgid "Deleting raid partition %1$s"
 msgid "Settings for Swap Partition"
 msgstr "ਰੇਡ ਪਾਰਟੀਸ਼ਨ %1$s ਹਟਾਇਆ ਜਾ ਰਿਹਾ ਹੈ"
 
 #. TRANSLATORS: "Additional" because it will be created but not mounted
-#: src/lib/y2storage/dialogs/guided_setup/select_filesystem/volume_widget.rb:161
+#: src/lib/y2storage/dialogs/guided_setup/select_filesystem/volume_widget.rb:201
 msgid "Settings for Additional Partition"
 msgstr ""
 
-#. TRANSLATORS: %s is a mount point (e.g. /var/lib)
-#: src/lib/y2storage/dialogs/guided_setup/select_filesystem/volume_widget.rb:164
+#. TRANSLATORS: %{mount_point} is the mount point (e.g. /var/lib)
+#: src/lib/y2storage/dialogs/guided_setup/select_filesystem/volume_widget.rb:205
 #, fuzzy
-msgid "Settings for the %s Partition"
-msgstr "ਮਾਹਰ ਪਾਰਟੀਸ਼ਨਰ"
+#| msgid "File system options:"
+msgid "Settings for the %{mount_point} Partition"
+msgstr "ਫਾਇਲ ਸਿਸਟਮ ਚੋਣਾਂ:"
 
-#. TRANSLATORS: "Volume" refers to a LVM logical volume.
-#: src/lib/y2storage/dialogs/guided_setup/select_filesystem/volume_widget.rb:182
+#. @see #proposed_term
+#: src/lib/y2storage/dialogs/guided_setup/select_filesystem/volume_widget.rb:227
 #, fuzzy
 #| msgid "Propose Separate &Home Partition"
-msgid "Propose Separate Home Volume"
+msgid "Propose Separate Home LVM Logical Volume"
 msgstr "ਵੱਖਰੇ ਹੋਮ ਪਾਰਟੀਸ਼ਨ ਲਈ ਸੁਝਾਅ(&H)"
 
-#. TRANSLATORS: "Volume" refers to a LVM logical volume.
-#: src/lib/y2storage/dialogs/guided_setup/select_filesystem/volume_widget.rb:185
+#: src/lib/y2storage/dialogs/guided_setup/select_filesystem/volume_widget.rb:229
 #, fuzzy
 #| msgid "Propose Separate &Home Partition"
-msgid "Propose Separate Swap Volume"
+msgid "Propose Separate Swap LVM Logical Volume"
 msgstr "ਵੱਖਰੇ ਹੋਮ ਪਾਰਟੀਸ਼ਨ ਲਈ ਸੁਝਾਅ(&H)"
 
-#. TRANSLATORS: "Volume" refers to an LVM logical volume and
-#. "Additional" implies it will be created but not mounted
-#: src/lib/y2storage/dialogs/guided_setup/select_filesystem/volume_widget.rb:189
+#. TRANSLATORS: "Additional" implies it will be created but not mounted
+#: src/lib/y2storage/dialogs/guided_setup/select_filesystem/volume_widget.rb:232
 #, fuzzy
-msgid "Propose Additional Volume"
+msgid "Propose Additional LVM Logical Volume"
 msgstr "ਲਾਜ਼ੀਕਲ ਵਾਲੀਅਮ(&L)"
 
-#. TRANSLATORS: "Volume" refers to a LVM logical volume. %s is a mount point.
-#: src/lib/y2storage/dialogs/guided_setup/select_filesystem/volume_widget.rb:192
+#. TRANSLATORS: %{mount_point} refers to the mount point (e.g. /var/lib).
+#: src/lib/y2storage/dialogs/guided_setup/select_filesystem/volume_widget.rb:236
 #, fuzzy
 #| msgid "Propose Separate &Home Partition"
-msgid "Propose Separate %s Volume"
+msgid "Propose Separate %{mount_point} LVM Logical Volume"
 msgstr "ਵੱਖਰੇ ਹੋਮ ਪਾਰਟੀਸ਼ਨ ਲਈ ਸੁਝਾਅ(&H)"
 
-#: src/lib/y2storage/dialogs/guided_setup/select_filesystem/volume_widget.rb:202
+#. @see #proposed_term
+#: src/lib/y2storage/dialogs/guided_setup/select_filesystem/volume_widget.rb:246
+#, fuzzy
+#| msgid "Propose Separate &Home Partition"
+msgid "Propose Separate Home LVM Volume Group"
+msgstr "ਵੱਖਰੇ ਹੋਮ ਪਾਰਟੀਸ਼ਨ ਲਈ ਸੁਝਾਅ(&H)"
+
+#: src/lib/y2storage/dialogs/guided_setup/select_filesystem/volume_widget.rb:248
+#, fuzzy
+#| msgid "Propose Separate &Home Partition"
+msgid "Propose Separate Swap LVM Volume Group"
+msgstr "ਵੱਖਰੇ ਹੋਮ ਪਾਰਟੀਸ਼ਨ ਲਈ ਸੁਝਾਅ(&H)"
+
+#. TRANSLATORS: "Additional" implies it will be created but not mounted
+#: src/lib/y2storage/dialogs/guided_setup/select_filesystem/volume_widget.rb:251
+#, fuzzy
+msgid "Propose Additional LVM Volume Group"
+msgstr "ਲਾਜ਼ੀਕਲ ਵਾਲੀਅਮ(&L)"
+
+#. TRANSLATORS: %{mount_point} refers to the mount point (e.g. /var/lib).
+#: src/lib/y2storage/dialogs/guided_setup/select_filesystem/volume_widget.rb:255
+#, fuzzy
+#| msgid "Propose Separate &Home Partition"
+msgid "Propose Separate %{mount_point} LVM Volume Group"
+msgstr "ਵੱਖਰੇ ਹੋਮ ਪਾਰਟੀਸ਼ਨ ਲਈ ਸੁਝਾਅ(&H)"
+
+#: src/lib/y2storage/dialogs/guided_setup/select_filesystem/volume_widget.rb:267
 #, fuzzy
 #| msgid "Propose Separate &Home Partition"
 msgid "Propose Separate Swap Partition"
 msgstr "ਵੱਖਰੇ ਹੋਮ ਪਾਰਟੀਸ਼ਨ ਲਈ ਸੁਝਾਅ(&H)"
 
 #. TRANSLATORS: "Additional" because it will be created but not mounted
-#: src/lib/y2storage/dialogs/guided_setup/select_filesystem/volume_widget.rb:205
+#: src/lib/y2storage/dialogs/guided_setup/select_filesystem/volume_widget.rb:270
 #, fuzzy
 #| msgid "Propose Separate &Home Partition"
 msgid "Propose Additional Partition"
 msgstr "ਵੱਖਰੇ ਹੋਮ ਪਾਰਟੀਸ਼ਨ ਲਈ ਸੁਝਾਅ(&H)"
 
-#. TRANSLATORS: %s is a mount point (e.g. /var/lib)
-#: src/lib/y2storage/dialogs/guided_setup/select_filesystem/volume_widget.rb:208
+#. TRANSLATORS: %{mount_point} is the mount point (e.g. /var/lib)
+#: src/lib/y2storage/dialogs/guided_setup/select_filesystem/volume_widget.rb:274
 #, fuzzy
 #| msgid "Propose Separate &Home Partition"
-msgid "Propose Separate %s Partition"
+msgid "Propose Separate %{mount_point} Partition"
 msgstr "ਵੱਖਰੇ ਹੋਮ ਪਾਰਟੀਸ਼ਨ ਲਈ ਸੁਝਾਅ(&H)"
 
 #. Return a widget term for the volume's filesystem type.
 #.
 #. @return [WidgetTerm]
-#: src/lib/y2storage/dialogs/guided_setup/select_filesystem/volume_widget.rb:220
+#: src/lib/y2storage/dialogs/guided_setup/select_filesystem/volume_widget.rb:288
 #, fuzzy
 #| msgid "File System:"
 msgid "File System Type"
@@ -5312,44 +5373,70 @@ msgstr "ਫਾਇਲ ਸਿਸਟਮ:"
 #. Check box for enlarging to RAM size
 #.
 #. @return [WidgetTerm]
-#: src/lib/y2storage/dialogs/guided_setup/select_filesystem/volume_widget.rb:235
+#: src/lib/y2storage/dialogs/guided_setup/select_filesystem/volume_widget.rb:303
 msgid "Enlarge to RAM Size for Suspend"
 msgstr ""
 
-#: src/lib/y2storage/dialogs/guided_setup/select_filesystem/volume_widget.rb:237
+#: src/lib/y2storage/dialogs/guided_setup/select_filesystem/volume_widget.rb:305
 msgid "Enlarge to RAM size"
 msgstr ""
 
+#. @see GuidedSetup::Base
+#: src/lib/y2storage/dialogs/guided_setup/select_partition_actions.rb:54
+#, fuzzy
+msgid "Select Partition(s) Actions"
+msgstr "ਪਾਰਟੀਸ਼ਨ ਸ਼ਾਮਲ(&P)"
+
+#. TRANSLATORS: label for the widget that allows to enable the disk encryption
+#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:35
+#, fuzzy
+msgid "Enable Disk Encryption"
+msgstr "ਇਕਰਿਪਸ਼ਨ(&E)"
+
+#. TRANSLATORS: label for the widget that allows to use separated volume groups
+#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:37
+msgid "Use Separate LVM Volume Groups for Some Special Paths"
+msgstr ""
+
 #. @return [EncryptPasswordChecker]
-#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:67
+#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:77
 #, fuzzy
 #| msgid "Partitioning"
 msgid "Partitioning Scheme"
 msgstr "ਪਾਰਟੀਸ਼ਨਿੰਗ"
 
-#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:73
+#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:93
+#, fuzzy
+#| msgid "Volume Management"
+msgid "Enable Logical Volume Management (LVM) for the Base System"
+msgstr "ਵਾਲੀਅਮ ਪਰਬੰਧ"
+
+#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:95
 #, fuzzy
 #| msgid "Volume Management"
 msgid "Enable Logical Volume Management (LVM)"
 msgstr "ਵਾਲੀਅਮ ਪਰਬੰਧ"
 
-#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:75
-#, fuzzy
-msgid "Enable Disk Encryption"
-msgstr "ਇਕਰਿਪਸ਼ਨ(&E)"
+#. TRANSLATORS: %{widget_label} refers to the label of the widget. %{paths} is a
+#. comma separated list of paths
+#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:116
+msgid ""
+"%{widget_label}\n"
+"(%{paths})"
+msgstr ""
 
-#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:80
+#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:133
 msgid "Password"
 msgstr "ਪਾਸਵਰਡ"
 
-#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:86
+#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:139
 #, fuzzy
 #| msgid "Enter Provider Password"
 msgid "Verify Password"
 msgstr "ਪਰੋਵਾਇਡਰ ਪਾਸਵਰਡ ਦਿਓ"
 
 #. TRANSLATORS: Help text for the partitioning scheme (LVM / encryption)
-#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:112
+#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:174
 msgid ""
 "<p>Select the partitioning scheme:</p><p><ul><li>Plain partitions (no LVM), "
 "the simple traditional way</li><li>LVM (Logical Volume Management): <p>This "
@@ -5360,18 +5447,78 @@ msgid ""
 "storage pools. You can create LVs (logical volumes) to create filesystems "
 "(Btrfs, Ext2/3/4, XFS) on.</p><p>In this <i>Guided Setup</i>, all this is "
 "done for you for the standard filesystem layout if you check <b>Enable LVM</"
-"b>.</li></ul></p><p><b>Enable Disk Encryption</b> (with or without LVM) adds "
-"a LUKS  disk encryption layer to the partitioning setup. Notice that you "
-"will have to enter the correct password each time you boot the system. </"
+"b>.</li></ul></p><p><b>%{disk_encryption_label}</b> (with or without LVM) "
+"adds a LUKS  disk encryption layer to the partitioning setup. Notice that "
+"you will have to enter the correct password each time you boot the system. </"
 "p><p><i>If you lose the password, there is no way to recover it, so make "
 "sure not to lose it!</i></p>"
 msgstr ""
 
+#. TRANSLATORS: %{widget_label} refers to the label of the described widget
+#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:214
+msgid ""
+"<p><b>%{widget_label}:</b> indicates to the <i>Guided Setup</i> that you "
+"want to put some of those special paths in an isolated Volume Group.</p>"
+msgstr ""
+
 #. User has the last word to decide whether to use a weak password.
-#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:174
+#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:247
 #, fuzzy
 msgid "Really use this password?"
 msgstr "ਯਕੀਨਨ ਇਹ ਮਾਰਗ ਵਰਤੋ?"
+
+#. TRANSLATORS: Help text for guided storage setup
+#: src/lib/y2storage/dialogs/guided_setup/select_volumes_disks.rb:72
+msgid ""
+"Select the desired disk to allocate each volume, volume group, and/or "
+"partition."
+msgstr ""
+
+#. Widget term for the title of the volume in case it's always
+#. proposed
+#.
+#. @return [Yast::Term]
+#: src/lib/y2storage/dialogs/guided_setup/widgets/disk_selector.rb:122
+msgid "Disk for the system LVM"
+msgstr ""
+
+#. TRANSLATORS: %{vg_name} is the volume group name (e.g. vg-spacewalk)
+#: src/lib/y2storage/dialogs/guided_setup/widgets/disk_selector.rb:125
+msgid "Disk for %{vg_name} Volume Group"
+msgstr ""
+
+#. @see #header_term
+#: src/lib/y2storage/dialogs/guided_setup/widgets/disk_selector.rb:139
+#, fuzzy
+#| msgid "File system options:"
+msgid "Disk for the Root Partition"
+msgstr "ਫਾਇਲ ਸਿਸਟਮ ਚੋਣਾਂ:"
+
+#: src/lib/y2storage/dialogs/guided_setup/widgets/disk_selector.rb:141
+#, fuzzy
+#| msgid "Propose Separate &Home Partition"
+msgid "Disk for the Home Partition"
+msgstr "ਵੱਖਰੇ ਹੋਮ ਪਾਰਟੀਸ਼ਨ ਲਈ ਸੁਝਾਅ(&H)"
+
+#: src/lib/y2storage/dialogs/guided_setup/widgets/disk_selector.rb:143
+#, fuzzy
+#| msgid "Deleting raid partition %1$s"
+msgid "Disk for Swap Partition"
+msgstr "ਰੇਡ ਪਾਰਟੀਸ਼ਨ %1$s ਹਟਾਇਆ ਜਾ ਰਿਹਾ ਹੈ"
+
+#. TRANSLATORS: "Additional" because it will be created but not mounted
+#: src/lib/y2storage/dialogs/guided_setup/widgets/disk_selector.rb:146
+#, fuzzy
+#| msgid "Propose Separate &Home Partition"
+msgid "Disk for Additional Partition"
+msgstr "ਵੱਖਰੇ ਹੋਮ ਪਾਰਟੀਸ਼ਨ ਲਈ ਸੁਝਾਅ(&H)"
+
+#. TRANSLATORS: %{mount_point} is a mount point (e.g. /var/lib)
+#: src/lib/y2storage/dialogs/guided_setup/widgets/disk_selector.rb:149
+#, fuzzy
+#| msgid "File system options:"
+msgid "Disk for the %{mount_point} Partition"
+msgstr "ਫਾਇਲ ਸਿਸਟਮ ਚੋਣਾਂ:"
 
 #. @see Widgets::Base
 #: src/lib/y2storage/dialogs/guided_setup/widgets/linux_partition_actions.rb:53
@@ -5982,6 +6129,10 @@ msgstr ""
 #: src/lib/y2storage/resize_info.rb:108
 msgid "Unknown reason"
 msgstr ""
+
+#, fuzzy
+#~ msgid "Settings for the %s Partition"
+#~ msgstr "ਮਾਹਰ ਪਾਰਟੀਸ਼ਨਰ"
 
 #~ msgid "FS Type"
 #~ msgstr "FS ਟਾਈਪ"
@@ -10123,10 +10274,6 @@ msgstr ""
 
 #~ msgid "New Partition Size (in %1)"
 #~ msgstr "ਨਵਾਂ ਪਾਰਟੀਸ਼ਨ ਸਾਈਜ਼ (%1 ਵਿੱਚ)"
-
-#, fuzzy
-#~ msgid "Space on Logical Volume "
-#~ msgstr "ਲਾਜ਼ੀਕਲ ਵਾਲੀਅਮ ਬਣਾਓ"
 
 #, fuzzy
 #~ msgid "LV Size Restrictions"
