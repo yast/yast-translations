@@ -23,7 +23,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: storage\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-10-02 02:29+0000\n"
+"POT-Creation-Date: 2019-10-03 02:29+0000\n"
 "PO-Revision-Date: 2019-04-30 03:39+0000\n"
 "Last-Translator: Ioannes Andreas <ioannes@disroot.org>\n"
 "Language-Team: Spanish <https://l10n.opensuse.org/projects/yast-storage/"
@@ -675,7 +675,7 @@ msgstr "Editar el dispositivo %s"
 #. TRANSLATORS: %{name} is replaced by a device name (e.g., /dev/sda1)
 #. and %{users} is replaced by a comma-separated list of name devices
 #. (devices using the first one).
-#: src/lib/y2partitioner/actions/edit_blk_device.rb:135
+#: src/lib/y2partitioner/actions/edit_blk_device.rb:136
 msgid ""
 "The device %{name} is in use (%{users}).\n"
 "It cannot be edited.\n"
@@ -688,7 +688,7 @@ msgstr ""
 #. TRANSLATORS: %{name} is replaced by a device name (e.g., /dev/sda1).
 #. Since device names can be rather long, make sure the lines
 #. containing %{name} are sorter than the others.
-#: src/lib/y2partitioner/actions/edit_blk_device.rb:153
+#: src/lib/y2partitioner/actions/edit_blk_device.rb:155
 msgid ""
 "The device %{name} belongs to a Btrfs.\n"
 "It cannot be edited.\n"
@@ -702,7 +702,22 @@ msgid ""
 msgstr ""
 
 #. TRANSLATORS: %{name} is replaced by a device name (e.g., /dev/sda1).
-#: src/lib/y2partitioner/actions/edit_blk_device.rb:172
+#. Since device names can be rather long, make sure the lines
+#. containing %{name} are sorter than the others.
+#: src/lib/y2partitioner/actions/edit_blk_device.rb:177
+#, fuzzy
+#| msgid ""
+#| "The volume %{name} is a thin pool.\n"
+#| "It cannot be edited."
+msgid ""
+"The device %{name} belongs to a multi-device filesystem.\n"
+"It cannot be edited."
+msgstr ""
+"El volumen %{name} está en un depósito flexible.\n"
+"No puede editarse."
+
+#. TRANSLATORS: %{name} is replaced by a device name (e.g., /dev/sda1).
+#: src/lib/y2partitioner/actions/edit_blk_device.rb:191
 msgid ""
 "The device %{name} contains partitions.\n"
 "It cannot be edited directly.\n"
@@ -717,13 +732,13 @@ msgstr ""
 # clients/inst_custom_part.ycp:2232
 # clients/inst_custom_part.ycp:2244
 #. TRANSLATORS: Error message when trying to edit an extented partition
-#: src/lib/y2partitioner/actions/edit_blk_device.rb:186
+#: src/lib/y2partitioner/actions/edit_blk_device.rb:205
 msgid "An extended partition cannot be edited"
 msgstr "Las particiones extendidas no se pueden editar"
 
 #. TRANSLATORS: Error message when trying to edit an LVM thin pool. %{name} is
 #. replaced by a logical volume name (e.g., /dev/system/lv1)
-#: src/lib/y2partitioner/actions/edit_blk_device.rb:197
+#: src/lib/y2partitioner/actions/edit_blk_device.rb:216
 msgid ""
 "The volume %{name} is a thin pool.\n"
 "It cannot be edited."
@@ -2342,7 +2357,7 @@ msgid "End"
 msgstr "Fin"
 
 #. TRANSLATORS: fs_type is the filesystem type. I.e., BtrFS
-#. device_name is the base name of the block device. I.e., sda or sda1+
+#. device_name is the base name of the block device. I.e., sda or sda1...
 #: src/lib/y2partitioner/widgets/blk_devices_table.rb:152
 #, fuzzy
 #| msgid "%{fs_type}: %{info}"
@@ -2398,7 +2413,7 @@ msgstr "&Particiones"
 
 #. TRANSLATORS: %{fs_type} is the filesystem type. I.e., FAT, Ext4, etc
 #. %{device_label} is the device label. I.e., Partition, Disk, etc
-#: src/lib/y2partitioner/widgets/blk_devices_table.rb:302
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:320
 #, fuzzy
 #| msgid "%{fs_type}: %{info}"
 msgid "%{fs_type} %{device_label}"
@@ -2408,28 +2423,37 @@ msgstr "%{fs_type}: %{info}"
 #.
 #. @param device [Y2Storage::LvmPv]
 #. @return [String]
-#: src/lib/y2partitioner/widgets/blk_devices_table.rb:346
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:364
 msgid "Unused LVM PV"
 msgstr ""
 
-#: src/lib/y2partitioner/widgets/blk_devices_table.rb:347
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:365
 msgid "PV of LVM"
 msgstr ""
 
 #. TRANSLATORS: %s is the volume group name. E.g., "vg0"
-#: src/lib/y2partitioner/widgets/blk_devices_table.rb:350
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:368
 msgid "PV of %s"
 msgstr ""
 
-#. TRANSLATORS: %s is a device base name. E.g., sda1+
-#: src/lib/y2partitioner/widgets/blk_devices_table.rb:359
+#. TRANSLATORS: %{fs_name} is the filesystem name. E.g., Btrfs, Ext4, etc.
+#. %{data_device_name} is the data device name. E.g., sda1
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:381
 #, fuzzy
-#| msgid "Edit Btrfs %1"
-msgid "Part of Btrfs %s"
-msgstr "Editar Btrfs %1"
+#| msgid "%{fs_type}: %{info}"
+msgid "%{fs_type} Journal (%{data_device_name})"
+msgstr "%{fs_type}: %{info}"
+
+#. TRANSLATORS: %{fs_name} is the filesystem name. E.g., Btrfs, Ext4, etc.
+#. %{blk_device_name} is a device base name. E.g., sda1...
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:395
+#, fuzzy
+#| msgid "%{fs_type}: %{info}"
+msgid "Part of %{fs_name} %{blk_device_name}"
+msgstr "%{fs_type}: %{info}"
 
 #. TRANSLATORS: an special type of device
-#: src/lib/y2partitioner/widgets/blk_devices_table.rb:367
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:406
 #, fuzzy
 #| msgid "Bcache Device"
 msgid "Bcache cache"
@@ -2439,7 +2463,7 @@ msgstr "Dispositivo de bcache"
 #.
 #. @param ancestor_device [Y2Storage::BlkDevice]
 #. @return [String]
-#: src/lib/y2partitioner/widgets/blk_devices_table.rb:375
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:414
 #, fuzzy
 #| msgid "Partition: %s"
 msgid "Part of %s"
@@ -2881,7 +2905,7 @@ msgstr "Sistema de archivos:"
 
 #. TRANSLATORS: Filesystem type information, where %s is replaced by
 #. a filesystem type (e.g., VFAT, BTRFS)
-#: src/lib/y2partitioner/widgets/description_section/filesystem.rb:68
+#: src/lib/y2partitioner/widgets/description_section/filesystem.rb:77
 msgid "File System: %s"
 msgstr "Sistema de archivos: %s"
 
@@ -2889,12 +2913,12 @@ msgstr "Sistema de archivos: %s"
 # include/partitioning/custom_part_dialogs.ycp:517
 # include/partitioning/custom_part_dialogs.ycp:629
 #. TRANSLATORS: Mount point information, where %s is replaced by a mount point
-#: src/lib/y2partitioner/widgets/description_section/filesystem.rb:79
+#: src/lib/y2partitioner/widgets/description_section/filesystem.rb:88
 msgid "Mount Point: %s"
 msgstr "Punto de montaje: %s"
 
 #. TRANSLATORS: note appended to mount point if mount point is not now mounted
-#: src/lib/y2partitioner/widgets/description_section/filesystem.rb:81
+#: src/lib/y2partitioner/widgets/description_section/filesystem.rb:90
 msgid " (not mounted)"
 msgstr " (no montada)"
 
@@ -2902,7 +2926,7 @@ msgstr " (no montada)"
 # clients/inst_custom_part.ycp:2319
 # clients/inst_custom_part.ycp:2333
 #. TRANSLATORS: Mount by information, where %s is replaced by a "mount by" option
-#: src/lib/y2partitioner/widgets/description_section/filesystem.rb:91
+#: src/lib/y2partitioner/widgets/description_section/filesystem.rb:100
 msgid "Mount By: %s"
 msgstr "Montado por: %s"
 
@@ -2910,7 +2934,7 @@ msgstr "Montado por: %s"
 # include/lilo/widgets.ycp:60
 #. TRANSLATORS: Filesystem label information, where %s is replaced by the
 #. filesystem label
-#: src/lib/y2partitioner/widgets/description_section/filesystem.rb:102
+#: src/lib/y2partitioner/widgets/description_section/filesystem.rb:111
 msgid "Label: %s"
 msgstr "Etiqueta: %s"
 
@@ -2919,7 +2943,7 @@ msgstr "Etiqueta: %s"
 # clients/inst_custom_part.ycp:2339
 #. TRANSLATORS: Filesystem UUID information, where %s is replaced by the
 #. filesystem UUID
-#: src/lib/y2partitioner/widgets/description_section/filesystem.rb:113
+#: src/lib/y2partitioner/widgets/description_section/filesystem.rb:122
 msgid "UUID: %s"
 msgstr "UUID: %s"
 
@@ -2927,18 +2951,30 @@ msgstr "UUID: %s"
 # include/partitioning/custom_part_dialogs.ycp:431
 # include/partitioning/custom_part_dialogs.ycp:543
 #. TRANSLATORS: Btrfs data information, where %s is replaced by a RAID level (e.g., RAID0).
-#: src/lib/y2partitioner/widgets/description_section/filesystem.rb:123
+#: src/lib/y2partitioner/widgets/description_section/filesystem.rb:132
 #, fuzzy
 #| msgid "RAID Type"
 msgid "RAID Level: %s"
 msgstr "Tipo de RAID"
 
 #. TRANSLATORS: Btrfs metadata information, where %s is replaced by a RAID level (e.g., RAID0).
-#: src/lib/y2partitioner/widgets/description_section/filesystem.rb:133
+#: src/lib/y2partitioner/widgets/description_section/filesystem.rb:142
 #, fuzzy
 #| msgid "Metadata: %1"
 msgid "Metadata RAID Level: %s"
 msgstr "Metadatos: %1"
+
+# include/partitioning/lvm_ui_lib.ycp:351
+# include/partitioning/lvm_ui_lib.ycp:351
+# include/partitioning/lvm_ui_lib.ycp:377
+#. Information about journal
+#.
+#. @return [String]
+#: src/lib/y2partitioner/widgets/description_section/filesystem.rb:167
+#, fuzzy
+#| msgid "Device: %s"
+msgid "Journal Device: %s"
+msgstr "Dispositivo: %s"
 
 #. TRANSLATORS: title for section about LVM LV details
 #. TRANSLATORS: title for section about LVM VG details
@@ -3796,7 +3832,7 @@ msgid "/etc/fstab found on %{device_name} contains:"
 msgstr "El /etc/fstab encontrado en %{device_name} contiene:"
 
 #. helptexts for table column and overview entry
-#: src/lib/y2partitioner/widgets/help.rb:17
+#: src/lib/y2partitioner/widgets/help.rb:18
 msgid ""
 "<b>BIOS ID</b> shows the BIOS ID of the hard\n"
 "disk. This field can be empty."
@@ -3804,7 +3840,7 @@ msgstr ""
 "<b>ID del BIOS</b> muestra el ID del BIOS del disco\n"
 "duro. Este campo puede estar vacío."
 
-#: src/lib/y2partitioner/widgets/help.rb:20
+#: src/lib/y2partitioner/widgets/help.rb:21
 msgid ""
 "<b>Bus</b> shows how the device is connected to\n"
 "the system. This field can be empty, e.g. for multipath disks."
@@ -3812,7 +3848,7 @@ msgstr ""
 "<b>Bus</b> muestra cómo se conecta el dispositivo al\n"
 "sistema. Este campo puede estar vacío, por ejemplo, para discos multipath."
 
-#: src/lib/y2partitioner/widgets/help.rb:23
+#: src/lib/y2partitioner/widgets/help.rb:24
 msgid ""
 "<b>Chunk Size</b> shows the chunk size for RAID\n"
 "devices."
@@ -3820,7 +3856,7 @@ msgstr ""
 "<b>Tamaño de porción</b> muestra el tamaño de porción \n"
 "de los dispositivos RAID."
 
-#: src/lib/y2partitioner/widgets/help.rb:25
+#: src/lib/y2partitioner/widgets/help.rb:26
 msgid ""
 "<b>Cylinder Size</b> shows the size of the\n"
 "cylinders of the hard disk."
@@ -3828,12 +3864,12 @@ msgstr ""
 "<b>Tamaño de cilindro</b> muestra el tamaño\n"
 "de los cilindros del disco duro."
 
-#: src/lib/y2partitioner/widgets/help.rb:28
+#: src/lib/y2partitioner/widgets/help.rb:29
 msgid "<b>Number of Sectors</b> shows how many sectors the hard disk has."
 msgstr ""
 "<b>Número de sectores</b> muestra cuántos sectores tiene el disco duro."
 
-#: src/lib/y2partitioner/widgets/help.rb:31
+#: src/lib/y2partitioner/widgets/help.rb:32
 msgid ""
 "<b>Sector Size</b> shows the size of the\n"
 "sectors of the hard disk."
@@ -3841,7 +3877,7 @@ msgstr ""
 "<b>Tamaño de sector</b> muestra el tamaño de\n"
 "los sectores en el disco duro."
 
-#: src/lib/y2partitioner/widgets/help.rb:34
+#: src/lib/y2partitioner/widgets/help.rb:35
 msgid ""
 "<b>Device</b> shows the kernel name of the\n"
 "device."
@@ -3849,7 +3885,7 @@ msgstr ""
 "<b>Dispositivo</b> muestra el nombre del núcleo\n"
 "del dispositivo."
 
-#: src/lib/y2partitioner/widgets/help.rb:36
+#: src/lib/y2partitioner/widgets/help.rb:37
 msgid ""
 "<b>Partition Table</b> shows the partition table\n"
 "type of the disk, e.g <tt>MS-DOS</tt> or <tt>GPT</tt>."
@@ -3857,7 +3893,7 @@ msgstr ""
 "<b>Tabla de particiones</b> muestra el tipo de tabla de\n"
 "particiones del disco, por ejemplo, <tt>MSDOS</tt> o <tt>GPT</tt>."
 
-#: src/lib/y2partitioner/widgets/help.rb:39
+#: src/lib/y2partitioner/widgets/help.rb:40
 msgid ""
 "<b>Encrypted</b> shows whether the device is\n"
 "encrypted."
@@ -3865,7 +3901,7 @@ msgstr ""
 "<b>Cifrado</b> muestra si el dispositivo está\n"
 "cifrado."
 
-#: src/lib/y2partitioner/widgets/help.rb:41
+#: src/lib/y2partitioner/widgets/help.rb:42
 msgid ""
 "<b>End</b> shows the end block of\n"
 "the partition."
@@ -3873,7 +3909,7 @@ msgstr ""
 "<b>Final</b> muestra el bloque final de la\n"
 "partición."
 
-#: src/lib/y2partitioner/widgets/help.rb:43
+#: src/lib/y2partitioner/widgets/help.rb:44
 msgid ""
 "<b>LUN</b> shows the Logical Unit Number for\n"
 "Fibre Channel disks."
@@ -3881,7 +3917,7 @@ msgstr ""
 "<b>LUN</b> muestra el número de unidad lógica de\n"
 "los discos Fibre Channel."
 
-#: src/lib/y2partitioner/widgets/help.rb:46
+#: src/lib/y2partitioner/widgets/help.rb:47
 msgid ""
 "<b>Port ID</b> shows the port id for Fibre\n"
 "Channel disks."
@@ -3889,7 +3925,7 @@ msgstr ""
 "<b>ID de puerto</b> muestra el ID de puerto de\n"
 "los discos Fibre Channel."
 
-#: src/lib/y2partitioner/widgets/help.rb:48
+#: src/lib/y2partitioner/widgets/help.rb:49
 msgid ""
 "<b>WWPN</b> shows the World Wide Port Name for\n"
 "Fibre Channel disks."
@@ -3897,7 +3933,7 @@ msgstr ""
 "<b>WWPN</b> muestra el nombre de puerto mundial de \n"
 "los discos Fibre Channel."
 
-#: src/lib/y2partitioner/widgets/help.rb:51
+#: src/lib/y2partitioner/widgets/help.rb:52
 msgid ""
 "<b>File Path</b> shows the path of the file for\n"
 "an encrypted loop device."
@@ -3905,7 +3941,7 @@ msgstr ""
 "<b>Vía de archivo</b> muestra la vía de archivo\n"
 "de un dispositivo de bucle cifrado."
 
-#: src/lib/y2partitioner/widgets/help.rb:54
+#: src/lib/y2partitioner/widgets/help.rb:55
 msgid ""
 "<b>Format</b> shows some flags: <tt>F</tt>\n"
 "means the device is selected to be formatted."
@@ -3913,16 +3949,16 @@ msgstr ""
 "<b>Formato</b> muestra algunos indicadores: <tt>F</tt>\n"
 "significa que el dispositivo está seleccionado para formatearlo."
 
-#: src/lib/y2partitioner/widgets/help.rb:57
+#: src/lib/y2partitioner/widgets/help.rb:58
 msgid "<b>Partition ID</b> shows the partition id."
 msgstr "<b>ID de partición</b> muestra el identificador de la partición."
 
-#: src/lib/y2partitioner/widgets/help.rb:59
+#: src/lib/y2partitioner/widgets/help.rb:60
 msgid "<b>FS Type</b> shows the file system type."
 msgstr ""
 "<b>Tipo de sistema de archivos</b> muestra el tipo de sistema de archivos."
 
-#: src/lib/y2partitioner/widgets/help.rb:61
+#: src/lib/y2partitioner/widgets/help.rb:62
 msgid ""
 "<b>Label</b> shows the label of the file\n"
 "system."
@@ -3930,7 +3966,7 @@ msgstr ""
 "<b>Etiqueta</b> muestra la etiqueta del\n"
 "sistema de archivos."
 
-#: src/lib/y2partitioner/widgets/help.rb:63
+#: src/lib/y2partitioner/widgets/help.rb:64
 msgid ""
 "<b>Metadata</b> shows the LVM metadata type for\n"
 "volume groups."
@@ -3938,11 +3974,11 @@ msgstr ""
 "<b>Metadatos</b> muestra el tipo de metadatos\n"
 "LVM de los grupos de volúmenes."
 
-#: src/lib/y2partitioner/widgets/help.rb:66
+#: src/lib/y2partitioner/widgets/help.rb:67
 msgid "<b>Model</b> shows the device model."
 msgstr "<b>Modelo</b> muestra el modelo del dispositivo."
 
-#: src/lib/y2partitioner/widgets/help.rb:68
+#: src/lib/y2partitioner/widgets/help.rb:69
 msgid ""
 "<b>Mount by</b> indicates how the file system\n"
 "is mounted: (Kernel) by kernel name, (Label) by file system label, (UUID) "
@@ -3955,7 +3991,7 @@ msgstr ""
 "el UUID del sistema de archivos, (ID) por el identificador del dispositivo y "
 "(Path) por la ruta del dispositivo.\n"
 
-#: src/lib/y2partitioner/widgets/help.rb:73
+#: src/lib/y2partitioner/widgets/help.rb:74
 msgid ""
 "<b>Mount Point</b> shows where the file system\n"
 "is mounted."
@@ -3963,7 +3999,7 @@ msgstr ""
 "<b>Punto de montaje</b> muestra dónde se monta\n"
 "el sistema de archivos."
 
-#: src/lib/y2partitioner/widgets/help.rb:75
+#: src/lib/y2partitioner/widgets/help.rb:76
 msgid ""
 "<b>Number of Cylinders</b> shows how many\n"
 "cylinders the hard disk has."
@@ -3971,7 +4007,7 @@ msgstr ""
 "<b>Número de cilindros</b> muestra cuántos\n"
 "cilindros tiene el disco duro."
 
-#: src/lib/y2partitioner/widgets/help.rb:78
+#: src/lib/y2partitioner/widgets/help.rb:79
 msgid ""
 "<b>Parity Algorithm</b> shows the parity\n"
 "algorithm for RAID devices with RAID type 5, 6 or 10."
@@ -3979,7 +4015,7 @@ msgstr ""
 "<b>Algoritmo de paridad</b> muestra el\n"
 "algoritmo de paridad para los dispositivos RAID tipo 5, 6 o 10."
 
-#: src/lib/y2partitioner/widgets/help.rb:81
+#: src/lib/y2partitioner/widgets/help.rb:82
 msgid ""
 "<b>PE Size</b> shows the physical extent size\n"
 "for LVM volume groups."
@@ -3987,11 +4023,11 @@ msgstr ""
 "<b>Tamaño de PE</b> muestra el tamaño de la extensión física\n"
 "de los grupos de volúmenes LVM."
 
-#: src/lib/y2partitioner/widgets/help.rb:84
+#: src/lib/y2partitioner/widgets/help.rb:85
 msgid "<b>RAID Version</b> shows the RAID version."
 msgstr "<b>Versión de RAID</b> muestra la versión de RAID."
 
-#: src/lib/y2partitioner/widgets/help.rb:86
+#: src/lib/y2partitioner/widgets/help.rb:87
 msgid ""
 "<b>RAID Type</b> shows the RAID type, also\n"
 "called RAID level, for RAID devices."
@@ -3999,20 +4035,20 @@ msgstr ""
 "<b>Tipo RAID</b> muestra el tipo de RAID, también\n"
 "llamado \"nivel RAID\", de los dispositivos RAID."
 
-#: src/lib/y2partitioner/widgets/help.rb:89
+#: src/lib/y2partitioner/widgets/help.rb:90
 msgid "<b>Size</b> shows the size of the device."
 msgstr "<b>Tamaño</b> muestra el tamaño del dispositivo."
 
 # include/partitioning/custom_part_helptexts.ycp:104
 # include/partitioning/custom_part_helptexts.ycp:104
 # include/partitioning/custom_part_helptexts.ycp:120
-#: src/lib/y2partitioner/widgets/help.rb:91
+#: src/lib/y2partitioner/widgets/help.rb:92
 msgid ""
 "<b>Start</b> shows the start block\n"
 "of the partition."
 msgstr "<b>Inicial</b> muestra el primer bloque de la partición."
 
-#: src/lib/y2partitioner/widgets/help.rb:93
+#: src/lib/y2partitioner/widgets/help.rb:94
 #, fuzzy
 #| msgid ""
 #| "<b>Stripes</b> shows the stripe number for LVM\n"
@@ -4026,7 +4062,7 @@ msgstr ""
 "LVM y, si es mayor que uno, se indica entre paréntesis el tamaño del "
 "segmento.\n"
 
-#: src/lib/y2partitioner/widgets/help.rb:97
+#: src/lib/y2partitioner/widgets/help.rb:98
 msgid ""
 "<b>Type</b> gives a general overview about the\n"
 "device type."
@@ -4034,7 +4070,7 @@ msgstr ""
 "<b>Tipo</b> muestra una descripción general sobre el\n"
 "tipo de dispositivo."
 
-#: src/lib/y2partitioner/widgets/help.rb:99
+#: src/lib/y2partitioner/widgets/help.rb:100
 msgid ""
 "<b>Device ID</b> shows the persistent device\n"
 "IDs. This field can be empty."
@@ -4042,7 +4078,7 @@ msgstr ""
 "<b>ID de dispositivo</b> muestra el identificador persistente\n"
 "del dispositivo. Este campo no puede estar vacío."
 
-#: src/lib/y2partitioner/widgets/help.rb:102
+#: src/lib/y2partitioner/widgets/help.rb:103
 msgid ""
 "<b>Device Path</b> shows the persistent device\n"
 "path. This field can be empty."
@@ -4050,7 +4086,7 @@ msgstr ""
 "<b>Vía del dispositivo</b> muestra la vía persistente\n"
 "del dispositivo. Este campo puede estar vacío."
 
-#: src/lib/y2partitioner/widgets/help.rb:105
+#: src/lib/y2partitioner/widgets/help.rb:106
 msgid ""
 "<b>Used By</b> shows if a device is used by\n"
 "e.g. RAID or LVM. If not, this column is empty."
@@ -4059,7 +4095,7 @@ msgstr ""
 "utilizado, por ejemplo, por un sistema RAID o LVM.\n"
 "En caso contrario, esta columna estará vacía."
 
-#: src/lib/y2partitioner/widgets/help.rb:108
+#: src/lib/y2partitioner/widgets/help.rb:109
 msgid ""
 "<b>UUID</b> shows the Universally Unique\n"
 "Identifier of the file system."
@@ -4067,18 +4103,18 @@ msgstr ""
 "<b>UUID</b> muestra el identificador exclusivo universal\n"
 "del sistema de archivos."
 
-#: src/lib/y2partitioner/widgets/help.rb:111
+#: src/lib/y2partitioner/widgets/help.rb:112
 msgid "<b>Vendor</b> shows the device vendor."
 msgstr "<b>Proveedor</b> muestra el proveedor del dispositivo."
 
-#: src/lib/y2partitioner/widgets/help.rb:113
+#: src/lib/y2partitioner/widgets/help.rb:114
 msgid ""
 "<b>Backing Device</b> shows the device used as backing device for bcache."
 msgstr ""
 "<b>Dispositivo de respaldo</b> muestra el dispositivo usado como respaldo "
 "para el bcache."
 
-#: src/lib/y2partitioner/widgets/help.rb:116
+#: src/lib/y2partitioner/widgets/help.rb:117
 msgid ""
 "<b>Caching UUID</b> shows the UUID of the used caching set. This field is "
 "empty if no caching is used."
@@ -4086,7 +4122,7 @@ msgstr ""
 "<b>UUID de la caché</b> muestra el UUID del conjunto de caché usado. Este "
 "campo está vacío si no se usa almacenamiento en caché."
 
-#: src/lib/y2partitioner/widgets/help.rb:119
+#: src/lib/y2partitioner/widgets/help.rb:120
 msgid ""
 "<b>Caching Device</b> shows the device used for caching. This field is empty "
 "if no caching is used."
@@ -4094,7 +4130,7 @@ msgstr ""
 "<b>Dispositivo para caché</b> muestra el dispositivo usado para almacenar en "
 "caché. Este campo está vacío si no se usa almacenamiento en caché."
 
-#: src/lib/y2partitioner/widgets/help.rb:122
+#: src/lib/y2partitioner/widgets/help.rb:123
 msgid ""
 "<b>Cache Mode</b> shows the operating mode for bcache. Currently there are "
 "four supported modes: Writethrough, Writeback, Writearound and None."
@@ -4102,7 +4138,16 @@ msgstr ""
 "<b>Modo de caché</b> muestra el modo operativo de bcache. Actualmente se "
 "admiten cuatro modos: writethrough, writeback, writearound y ninguno."
 
-#: src/lib/y2partitioner/widgets/help.rb:126
+#: src/lib/y2partitioner/widgets/help.rb:127
+#, fuzzy
+#| msgid ""
+#| "<b>Backing Device</b> shows the device used as backing device for bcache."
+msgid "<b>Journal Device</b> shows the device holding the external journal."
+msgstr ""
+"<b>Dispositivo de respaldo</b> muestra el dispositivo usado como respaldo "
+"para el bcache."
+
+#: src/lib/y2partitioner/widgets/help.rb:130
 #, fuzzy
 #| msgid ""
 #| "<b>Btrfs Devices</b> shows the kernel name of the devices used by a Btrfs "
@@ -4114,18 +4159,18 @@ msgstr ""
 "<b>Dispositivos Btrfs</b> muestra el nombre del núcleo de los dispositivos "
 "usados por un sistema Btrfs."
 
-#: src/lib/y2partitioner/widgets/help.rb:128
+#: src/lib/y2partitioner/widgets/help.rb:133
 msgid "<b>Metadata RAID Level</b> shows the RAID level for the Btrfs metadata."
 msgstr ""
 
-#: src/lib/y2partitioner/widgets/help.rb:131
+#: src/lib/y2partitioner/widgets/help.rb:136
 #, fuzzy
 #| msgid "<b>RAID Version</b> shows the RAID version."
 msgid "<b>Data RAID Level</b> shows the RAID level for the Btrfs data."
 msgstr "<b>Versión de RAID</b> muestra la versión de RAID."
 
 #. help texts that are appended to the common help only in Mode.normal
-#: src/lib/y2partitioner/widgets/help.rb:136
+#: src/lib/y2partitioner/widgets/help.rb:141
 msgid ""
 "A question mark (?) indicates that\n"
 "the file system is not listed in <tt>/etc/fstab</tt>. It is either mounted\n"
@@ -4140,7 +4185,7 @@ msgstr ""
 "preferencias\n"
 "de este volumen, YaST no actualizará <tt>/etc/fstab</tt>.\n"
 
-#: src/lib/y2partitioner/widgets/help.rb:141
+#: src/lib/y2partitioner/widgets/help.rb:146
 msgid ""
 "An asterisk (*) after the mount point\n"
 "indicates a file system that is currently not mounted (for example, because "
@@ -7010,6 +7055,11 @@ msgstr "El volumen lógico ligero LVM tiene el tamaño máximo."
 #: src/lib/y2storage/resize_info.rb:108
 msgid "Unknown reason"
 msgstr "Motivo desconocido"
+
+#, fuzzy
+#~| msgid "Edit Btrfs %1"
+#~ msgid "Part of Btrfs %s"
+#~ msgstr "Editar Btrfs %1"
 
 # include/partitioning/custom_part_helptexts.ycp:84
 #~ msgid ""

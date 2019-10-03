@@ -18,7 +18,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: storage\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-10-02 02:29+0000\n"
+"POT-Creation-Date: 2019-10-03 02:29+0000\n"
 "PO-Revision-Date: 2019-03-21 11:20+0000\n"
 "Last-Translator: Robert Taisz <robert.taisz@emerald.hu>\n"
 "Language-Team: Hungarian <https://l10n.opensuse.org/projects/yast-storage/"
@@ -592,7 +592,7 @@ msgstr "%s eszköz szerkesztése"
 #. TRANSLATORS: %{name} is replaced by a device name (e.g., /dev/sda1)
 #. and %{users} is replaced by a comma-separated list of name devices
 #. (devices using the first one).
-#: src/lib/y2partitioner/actions/edit_blk_device.rb:135
+#: src/lib/y2partitioner/actions/edit_blk_device.rb:136
 msgid ""
 "The device %{name} is in use (%{users}).\n"
 "It cannot be edited.\n"
@@ -606,7 +606,7 @@ msgstr ""
 #. TRANSLATORS: %{name} is replaced by a device name (e.g., /dev/sda1).
 #. Since device names can be rather long, make sure the lines
 #. containing %{name} are sorter than the others.
-#: src/lib/y2partitioner/actions/edit_blk_device.rb:153
+#: src/lib/y2partitioner/actions/edit_blk_device.rb:155
 msgid ""
 "The device %{name} belongs to a Btrfs.\n"
 "It cannot be edited.\n"
@@ -620,7 +620,22 @@ msgid ""
 msgstr ""
 
 #. TRANSLATORS: %{name} is replaced by a device name (e.g., /dev/sda1).
-#: src/lib/y2partitioner/actions/edit_blk_device.rb:172
+#. Since device names can be rather long, make sure the lines
+#. containing %{name} are sorter than the others.
+#: src/lib/y2partitioner/actions/edit_blk_device.rb:177
+#, fuzzy
+#| msgid ""
+#| "The volume %{name} is a thin pool.\n"
+#| "It cannot be edited."
+msgid ""
+"The device %{name} belongs to a multi-device filesystem.\n"
+"It cannot be edited."
+msgstr ""
+"A(z) %{name} kötet egy vékony tároló.\n"
+"Nem szerkeszthető."
+
+#. TRANSLATORS: %{name} is replaced by a device name (e.g., /dev/sda1).
+#: src/lib/y2partitioner/actions/edit_blk_device.rb:191
 msgid ""
 "The device %{name} contains partitions.\n"
 "It cannot be edited directly.\n"
@@ -631,13 +646,13 @@ msgstr ""
 "A(z) %{name} szerkesztése előtt törölje az összes partícióját."
 
 #. TRANSLATORS: Error message when trying to edit an extented partition
-#: src/lib/y2partitioner/actions/edit_blk_device.rb:186
+#: src/lib/y2partitioner/actions/edit_blk_device.rb:205
 msgid "An extended partition cannot be edited"
 msgstr "Kiterjesztett partíció nem szerkeszthető."
 
 #. TRANSLATORS: Error message when trying to edit an LVM thin pool. %{name} is
 #. replaced by a logical volume name (e.g., /dev/system/lv1)
-#: src/lib/y2partitioner/actions/edit_blk_device.rb:197
+#: src/lib/y2partitioner/actions/edit_blk_device.rb:216
 msgid ""
 "The volume %{name} is a thin pool.\n"
 "It cannot be edited."
@@ -2085,7 +2100,7 @@ msgid "End"
 msgstr "Befejező"
 
 #. TRANSLATORS: fs_type is the filesystem type. I.e., BtrFS
-#. device_name is the base name of the block device. I.e., sda or sda1+
+#. device_name is the base name of the block device. I.e., sda or sda1...
 #: src/lib/y2partitioner/widgets/blk_devices_table.rb:152
 msgid "%{fs_type} %{device_name}"
 msgstr ""
@@ -2141,7 +2156,7 @@ msgstr "&Partíciók"
 
 #. TRANSLATORS: %{fs_type} is the filesystem type. I.e., FAT, Ext4, etc
 #. %{device_label} is the device label. I.e., Partition, Disk, etc
-#: src/lib/y2partitioner/widgets/blk_devices_table.rb:302
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:320
 msgid "%{fs_type} %{device_label}"
 msgstr ""
 
@@ -2149,28 +2164,33 @@ msgstr ""
 #.
 #. @param device [Y2Storage::LvmPv]
 #. @return [String]
-#: src/lib/y2partitioner/widgets/blk_devices_table.rb:346
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:364
 msgid "Unused LVM PV"
 msgstr ""
 
-#: src/lib/y2partitioner/widgets/blk_devices_table.rb:347
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:365
 msgid "PV of LVM"
 msgstr ""
 
 #. TRANSLATORS: %s is the volume group name. E.g., "vg0"
-#: src/lib/y2partitioner/widgets/blk_devices_table.rb:350
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:368
 msgid "PV of %s"
 msgstr ""
 
-#. TRANSLATORS: %s is a device base name. E.g., sda1+
-#: src/lib/y2partitioner/widgets/blk_devices_table.rb:359
-#, fuzzy
-#| msgid "Edit Btrfs %1"
-msgid "Part of Btrfs %s"
-msgstr "%1 Btrfs szerkesztése"
+#. TRANSLATORS: %{fs_name} is the filesystem name. E.g., Btrfs, Ext4, etc.
+#. %{data_device_name} is the data device name. E.g., sda1
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:381
+msgid "%{fs_type} Journal (%{data_device_name})"
+msgstr ""
+
+#. TRANSLATORS: %{fs_name} is the filesystem name. E.g., Btrfs, Ext4, etc.
+#. %{blk_device_name} is a device base name. E.g., sda1...
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:395
+msgid "Part of %{fs_name} %{blk_device_name}"
+msgstr ""
 
 #. TRANSLATORS: an special type of device
-#: src/lib/y2partitioner/widgets/blk_devices_table.rb:367
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:406
 #, fuzzy
 #| msgid "Bcache Device"
 msgid "Bcache cache"
@@ -2181,7 +2201,7 @@ msgstr "Bcache eszköz"
 #.
 #. @param ancestor_device [Y2Storage::BlkDevice]
 #. @return [String]
-#: src/lib/y2partitioner/widgets/blk_devices_table.rb:375
+#: src/lib/y2partitioner/widgets/blk_devices_table.rb:414
 #, fuzzy
 #| msgid "Partition: %s"
 msgid "Part of %s"
@@ -2596,26 +2616,26 @@ msgstr "Fájlrendszer:"
 
 #. TRANSLATORS: Filesystem type information, where %s is replaced by
 #. a filesystem type (e.g., VFAT, BTRFS)
-#: src/lib/y2partitioner/widgets/description_section/filesystem.rb:68
+#: src/lib/y2partitioner/widgets/description_section/filesystem.rb:77
 msgid "File System: %s"
 msgstr "Fájlrendszer: %s"
 
 # modules/inst_custom_part.ycp:301 modules/inst_custom_part.ycp:370
 #. TRANSLATORS: Mount point information, where %s is replaced by a mount point
-#: src/lib/y2partitioner/widgets/description_section/filesystem.rb:79
+#: src/lib/y2partitioner/widgets/description_section/filesystem.rb:88
 msgid "Mount Point: %s"
 msgstr "Csatlakoztatási pont: %s"
 
 # modules/inst_sw_single.ycp:665
 # clients/inst_sw_single.ycp:1349
 #. TRANSLATORS: note appended to mount point if mount point is not now mounted
-#: src/lib/y2partitioner/widgets/description_section/filesystem.rb:81
+#: src/lib/y2partitioner/widgets/description_section/filesystem.rb:90
 msgid " (not mounted)"
 msgstr " (nincs csatlakoztatva)"
 
 # modules/inst_custom_part.ycp:495
 #. TRANSLATORS: Mount by information, where %s is replaced by a "mount by" option
-#: src/lib/y2partitioner/widgets/description_section/filesystem.rb:91
+#: src/lib/y2partitioner/widgets/description_section/filesystem.rb:100
 #, fuzzy
 #| msgid "Mount by: %1"
 msgid "Mount By: %s"
@@ -2623,13 +2643,13 @@ msgstr "Csatolva: %1"
 
 #. TRANSLATORS: Filesystem label information, where %s is replaced by the
 #. filesystem label
-#: src/lib/y2partitioner/widgets/description_section/filesystem.rb:102
+#: src/lib/y2partitioner/widgets/description_section/filesystem.rb:111
 msgid "Label: %s"
 msgstr "Címke: %s"
 
 #. TRANSLATORS: Filesystem UUID information, where %s is replaced by the
 #. filesystem UUID
-#: src/lib/y2partitioner/widgets/description_section/filesystem.rb:113
+#: src/lib/y2partitioner/widgets/description_section/filesystem.rb:122
 #, fuzzy
 #| msgid "UUID: %1"
 msgid "UUID: %s"
@@ -2637,18 +2657,28 @@ msgstr "UUID: %1"
 
 # modules/inst_custom_part.ycp:274 modules/inst_custom_part.ycp:495
 #. TRANSLATORS: Btrfs data information, where %s is replaced by a RAID level (e.g., RAID0).
-#: src/lib/y2partitioner/widgets/description_section/filesystem.rb:123
+#: src/lib/y2partitioner/widgets/description_section/filesystem.rb:132
 #, fuzzy
 #| msgid "RAID Type"
 msgid "RAID Level: %s"
 msgstr "RAID-típus"
 
 #. TRANSLATORS: Btrfs metadata information, where %s is replaced by a RAID level (e.g., RAID0).
-#: src/lib/y2partitioner/widgets/description_section/filesystem.rb:133
+#: src/lib/y2partitioner/widgets/description_section/filesystem.rb:142
 #, fuzzy
 #| msgid "Metadata: %1"
 msgid "Metadata RAID Level: %s"
 msgstr "Metaadat: %1"
+
+# modules/inst_custom_part.ycp:491
+#. Information about journal
+#.
+#. @return [String]
+#: src/lib/y2partitioner/widgets/description_section/filesystem.rb:167
+#, fuzzy
+#| msgid "Device: %s"
+msgid "Journal Device: %s"
+msgstr "Eszköz: %s"
 
 #. TRANSLATORS: title for section about LVM LV details
 #. TRANSLATORS: title for section about LVM VG details
@@ -3435,7 +3465,7 @@ msgid "/etc/fstab found on %{device_name} contains:"
 msgstr "/etc/fstab található a(z) %{device_name} eszközön:"
 
 #. helptexts for table column and overview entry
-#: src/lib/y2partitioner/widgets/help.rb:17
+#: src/lib/y2partitioner/widgets/help.rb:18
 msgid ""
 "<b>BIOS ID</b> shows the BIOS ID of the hard\n"
 "disk. This field can be empty."
@@ -3443,7 +3473,7 @@ msgstr ""
 "A <b>BIOS ID</b> a merevlemez BIOS-azonosítóját jeleníti meg. A mező lehet "
 "üres is."
 
-#: src/lib/y2partitioner/widgets/help.rb:20
+#: src/lib/y2partitioner/widgets/help.rb:21
 msgid ""
 "<b>Bus</b> shows how the device is connected to\n"
 "the system. This field can be empty, e.g. for multipath disks."
@@ -3452,37 +3482,37 @@ msgstr ""
 "rendszerhez. \n"
 "Ez a mező lehet üres, például a többutas lemezeknél."
 
-#: src/lib/y2partitioner/widgets/help.rb:23
+#: src/lib/y2partitioner/widgets/help.rb:24
 msgid ""
 "<b>Chunk Size</b> shows the chunk size for RAID\n"
 "devices."
 msgstr "Az <b>Adattömb mérete</b> tartalmazza a RAID-eszközök adattömbméretét."
 
-#: src/lib/y2partitioner/widgets/help.rb:25
+#: src/lib/y2partitioner/widgets/help.rb:26
 msgid ""
 "<b>Cylinder Size</b> shows the size of the\n"
 "cylinders of the hard disk."
 msgstr "A <b>Cilinderméret</b> jeleníti meg a merevlemez cilinderméretét."
 
-#: src/lib/y2partitioner/widgets/help.rb:28
+#: src/lib/y2partitioner/widgets/help.rb:29
 msgid "<b>Number of Sectors</b> shows how many sectors the hard disk has."
 msgstr ""
 "A <b>Szektorszám</b> jelzi, hogy hány szektor található a merevlemezen."
 
-#: src/lib/y2partitioner/widgets/help.rb:31
+#: src/lib/y2partitioner/widgets/help.rb:32
 msgid ""
 "<b>Sector Size</b> shows the size of the\n"
 "sectors of the hard disk."
 msgstr ""
 "A <b>Szektorméret</b> mutatja meg a merevlemezen található szektorok méretét."
 
-#: src/lib/y2partitioner/widgets/help.rb:34
+#: src/lib/y2partitioner/widgets/help.rb:35
 msgid ""
 "<b>Device</b> shows the kernel name of the\n"
 "device."
 msgstr "Az <b>Eszköz</b> jeleníti meg meg az eszköz kernelnevét."
 
-#: src/lib/y2partitioner/widgets/help.rb:36
+#: src/lib/y2partitioner/widgets/help.rb:37
 msgid ""
 "<b>Partition Table</b> shows the partition table\n"
 "type of the disk, e.g <tt>MS-DOS</tt> or <tt>GPT</tt>."
@@ -3490,7 +3520,7 @@ msgstr ""
 "A <b>Partíciós tábla</b> mező jeleníti meg a lemez\n"
 "partícióstábla-típusát, pl. <tt>MSDOS</tt> vagy <tt>GPT</tt>."
 
-#: src/lib/y2partitioner/widgets/help.rb:39
+#: src/lib/y2partitioner/widgets/help.rb:40
 msgid ""
 "<b>Encrypted</b> shows whether the device is\n"
 "encrypted."
@@ -3498,20 +3528,20 @@ msgstr ""
 "A <b>Titkosított</b> beállítás jelzi, hogy az eszköz\n"
 "titkosítva van-e."
 
-#: src/lib/y2partitioner/widgets/help.rb:41
+#: src/lib/y2partitioner/widgets/help.rb:42
 msgid ""
 "<b>End</b> shows the end block of\n"
 "the partition."
 msgstr "Az <b>Utolsó</b> jelzi a partíció utolsó blokkját."
 
-#: src/lib/y2partitioner/widgets/help.rb:43
+#: src/lib/y2partitioner/widgets/help.rb:44
 msgid ""
 "<b>LUN</b> shows the Logical Unit Number for\n"
 "Fibre Channel disks."
 msgstr ""
 "A <b>LUN</b> mező jeleníti meg a Fibre Channel-lemezek logikaiegység-számát."
 
-#: src/lib/y2partitioner/widgets/help.rb:46
+#: src/lib/y2partitioner/widgets/help.rb:47
 msgid ""
 "<b>Port ID</b> shows the port id for Fibre\n"
 "Channel disks."
@@ -3519,14 +3549,14 @@ msgstr ""
 "A <b>Portazonosító</b> mező tartalmazza a Fibre Channel-lemezek "
 "portazonosítóját."
 
-#: src/lib/y2partitioner/widgets/help.rb:48
+#: src/lib/y2partitioner/widgets/help.rb:49
 msgid ""
 "<b>WWPN</b> shows the World Wide Port Name for\n"
 "Fibre Channel disks."
 msgstr ""
 "A <b>WWPN</b> mező tartalmazza a Fibre Channel-lemezek World Wide Port-nevét."
 
-#: src/lib/y2partitioner/widgets/help.rb:51
+#: src/lib/y2partitioner/widgets/help.rb:52
 msgid ""
 "<b>File Path</b> shows the path of the file for\n"
 "an encrypted loop device."
@@ -3534,7 +3564,7 @@ msgstr ""
 "Az <b>Elérési út</b> mező tartalmazza a titkosított hurokeszköz fájljának "
 "elérési útját."
 
-#: src/lib/y2partitioner/widgets/help.rb:54
+#: src/lib/y2partitioner/widgets/help.rb:55
 msgid ""
 "<b>Format</b> shows some flags: <tt>F</tt>\n"
 "means the device is selected to be formatted."
@@ -3542,21 +3572,21 @@ msgstr ""
 "A <b>Formátum</b> mező jelzőket tartalmaz: az <tt>F</tt>\n"
 "azt jelenti, hogy az eszköz formázásra van kijelölve."
 
-#: src/lib/y2partitioner/widgets/help.rb:57
+#: src/lib/y2partitioner/widgets/help.rb:58
 msgid "<b>Partition ID</b> shows the partition id."
 msgstr "A <b>Partíció azonosítója</b> jeleníti meg a partíció azonosítóját."
 
-#: src/lib/y2partitioner/widgets/help.rb:59
+#: src/lib/y2partitioner/widgets/help.rb:60
 msgid "<b>FS Type</b> shows the file system type."
 msgstr "Az <b>FR-típus</b> a fájlrendszer típusát mutatja."
 
-#: src/lib/y2partitioner/widgets/help.rb:61
+#: src/lib/y2partitioner/widgets/help.rb:62
 msgid ""
 "<b>Label</b> shows the label of the file\n"
 "system."
 msgstr "A <b>Címke</b> mező a fájlrendszer címkéjét jeleníti meg."
 
-#: src/lib/y2partitioner/widgets/help.rb:63
+#: src/lib/y2partitioner/widgets/help.rb:64
 msgid ""
 "<b>Metadata</b> shows the LVM metadata type for\n"
 "volume groups."
@@ -3564,11 +3594,11 @@ msgstr ""
 "A <b>Metaadat</b> mező a kötetcsoportok\n"
 "LVM-metaadatainak típusát tartalmazza."
 
-#: src/lib/y2partitioner/widgets/help.rb:66
+#: src/lib/y2partitioner/widgets/help.rb:67
 msgid "<b>Model</b> shows the device model."
 msgstr "A <b>Model</b> az eszköz típusát mutatja."
 
-#: src/lib/y2partitioner/widgets/help.rb:68
+#: src/lib/y2partitioner/widgets/help.rb:69
 msgid ""
 "<b>Mount by</b> indicates how the file system\n"
 "is mounted: (Kernel) by kernel name, (Label) by file system label, (UUID) "
@@ -3581,7 +3611,7 @@ msgstr ""
 "azonosítója alapján, \n"
 "(ID) - eszközazonosító alapján, (Elérési út) - eszköz elérési útja alapján.\n"
 
-#: src/lib/y2partitioner/widgets/help.rb:73
+#: src/lib/y2partitioner/widgets/help.rb:74
 msgid ""
 "<b>Mount Point</b> shows where the file system\n"
 "is mounted."
@@ -3589,13 +3619,13 @@ msgstr ""
 "A <b>Csatlakoztatási pont</b> beállítás azt jelzi, hogy a fájlrendszer\n"
 "hova van csatlakoztatva."
 
-#: src/lib/y2partitioner/widgets/help.rb:75
+#: src/lib/y2partitioner/widgets/help.rb:76
 msgid ""
 "<b>Number of Cylinders</b> shows how many\n"
 "cylinders the hard disk has."
 msgstr "A <b>Cilinderszám</b> mező tartalmazza a merevlemez cilinderszámár."
 
-#: src/lib/y2partitioner/widgets/help.rb:78
+#: src/lib/y2partitioner/widgets/help.rb:79
 msgid ""
 "<b>Parity Algorithm</b> shows the parity\n"
 "algorithm for RAID devices with RAID type 5, 6 or 10."
@@ -3603,7 +3633,7 @@ msgstr ""
 "A <b>Paritásalgoritmus</b> mutatja meg\n"
 "a RAID5, 6 vagy 10 RAID-eszközök paritásalgoritmusát."
 
-#: src/lib/y2partitioner/widgets/help.rb:81
+#: src/lib/y2partitioner/widgets/help.rb:82
 msgid ""
 "<b>PE Size</b> shows the physical extent size\n"
 "for LVM volume groups."
@@ -3611,11 +3641,11 @@ msgstr ""
 "A <b>FE-méret</b> megmutatja\n"
 "az LVM kötetcsoportok fizikai egységének méretét."
 
-#: src/lib/y2partitioner/widgets/help.rb:84
+#: src/lib/y2partitioner/widgets/help.rb:85
 msgid "<b>RAID Version</b> shows the RAID version."
 msgstr "A <b>RAID-verzió</b> a RAID verzióját mutatja."
 
-#: src/lib/y2partitioner/widgets/help.rb:86
+#: src/lib/y2partitioner/widgets/help.rb:87
 msgid ""
 "<b>RAID Type</b> shows the RAID type, also\n"
 "called RAID level, for RAID devices."
@@ -3623,12 +3653,12 @@ msgstr ""
 "A <b>RAID-típus</b> mező a RAID-eszközök\n"
 "RAID-típusát (más néven RAID-szintjét) jeleníti meg."
 
-#: src/lib/y2partitioner/widgets/help.rb:89
+#: src/lib/y2partitioner/widgets/help.rb:90
 msgid "<b>Size</b> shows the size of the device."
 msgstr "A <b>Méret</b> az eszköz méretét jeleníti meg."
 
 # modules/inst_custom_part.ycp:260
-#: src/lib/y2partitioner/widgets/help.rb:91
+#: src/lib/y2partitioner/widgets/help.rb:92
 msgid ""
 "<b>Start</b> shows the start block\n"
 "of the partition."
@@ -3636,7 +3666,7 @@ msgstr ""
 "A <b>Kezdő</b> a partíció\n"
 "kezdő blokkját jelöli."
 
-#: src/lib/y2partitioner/widgets/help.rb:93
+#: src/lib/y2partitioner/widgets/help.rb:94
 #, fuzzy
 #| msgid ""
 #| "<b>Stripes</b> shows the stripe number for LVM\n"
@@ -3649,13 +3679,13 @@ msgstr ""
 "A <b>Sávok</b> érték az LVM logikai kötetek sávjainak számát jelöli, \n"
 "és amennyiben ez nagyobb egynél, zárójelben a sáv méretét.\n"
 
-#: src/lib/y2partitioner/widgets/help.rb:97
+#: src/lib/y2partitioner/widgets/help.rb:98
 msgid ""
 "<b>Type</b> gives a general overview about the\n"
 "device type."
 msgstr "A <b>Típus</b> mező általános áttekintést ad az eszköz típusáról."
 
-#: src/lib/y2partitioner/widgets/help.rb:99
+#: src/lib/y2partitioner/widgets/help.rb:100
 msgid ""
 "<b>Device ID</b> shows the persistent device\n"
 "IDs. This field can be empty."
@@ -3663,7 +3693,7 @@ msgstr ""
 "Az <b>Eszköz azonosítója</b> az eszköz állandó\n"
 "azonosítóját mutatja. Ez a mező üres is lehet."
 
-#: src/lib/y2partitioner/widgets/help.rb:102
+#: src/lib/y2partitioner/widgets/help.rb:103
 msgid ""
 "<b>Device Path</b> shows the persistent device\n"
 "path. This field can be empty."
@@ -3671,7 +3701,7 @@ msgstr ""
 "Az <b>Eszközútvonal</b> az eszköz állandó útvonalát jeleníti meg.\n"
 "Ez a mező üres is lehet."
 
-#: src/lib/y2partitioner/widgets/help.rb:105
+#: src/lib/y2partitioner/widgets/help.rb:106
 msgid ""
 "<b>Used By</b> shows if a device is used by\n"
 "e.g. RAID or LVM. If not, this column is empty."
@@ -3679,24 +3709,24 @@ msgstr ""
 "A <b>Használja</b> azt jelzi, hogy az eszközt LVM vagy RAID használja.\n"
 "Ellenkező esetben ez az oszlop üres."
 
-#: src/lib/y2partitioner/widgets/help.rb:108
+#: src/lib/y2partitioner/widgets/help.rb:109
 msgid ""
 "<b>UUID</b> shows the Universally Unique\n"
 "Identifier of the file system."
 msgstr "Az <b>UUID</b> az eszköz univerzális egyedi azonosítóját mutatja meg."
 
-#: src/lib/y2partitioner/widgets/help.rb:111
+#: src/lib/y2partitioner/widgets/help.rb:112
 msgid "<b>Vendor</b> shows the device vendor."
 msgstr "A <b>Gyártó</b> az eszköz gyártóját mutatja meg."
 
-#: src/lib/y2partitioner/widgets/help.rb:113
+#: src/lib/y2partitioner/widgets/help.rb:114
 msgid ""
 "<b>Backing Device</b> shows the device used as backing device for bcache."
 msgstr ""
 "A <b>Háttértár eszköz</b> mező jeleníti meg a bcache háttértár eszközeként "
 "használt eszközt."
 
-#: src/lib/y2partitioner/widgets/help.rb:116
+#: src/lib/y2partitioner/widgets/help.rb:117
 msgid ""
 "<b>Caching UUID</b> shows the UUID of the used caching set. This field is "
 "empty if no caching is used."
@@ -3704,7 +3734,7 @@ msgstr ""
 "A <b>Gyorsítótárazó UUID</b> mező jelenti meg a használót gyorsítótárazó "
 "készlet UUID-azonosítóját. A mező üres, ha nincs gyorsítótárazás."
 
-#: src/lib/y2partitioner/widgets/help.rb:119
+#: src/lib/y2partitioner/widgets/help.rb:120
 msgid ""
 "<b>Caching Device</b> shows the device used for caching. This field is empty "
 "if no caching is used."
@@ -3712,7 +3742,7 @@ msgstr ""
 "A <b>Gyorsítótárazó eszköz</b> mezőben látható a gyorsítótárazáshoz használt "
 "eszköz. A mező üres, ha nincs beállítva a gyorsítótárazás."
 
-#: src/lib/y2partitioner/widgets/help.rb:122
+#: src/lib/y2partitioner/widgets/help.rb:123
 msgid ""
 "<b>Cache Mode</b> shows the operating mode for bcache. Currently there are "
 "four supported modes: Writethrough, Writeback, Writearound and None."
@@ -3721,7 +3751,16 @@ msgstr ""
 "Jelenleg négy támogatott módja van: Azonnali írás, Visszaírás, Megkerülő "
 "írás és Nincs."
 
-#: src/lib/y2partitioner/widgets/help.rb:126
+#: src/lib/y2partitioner/widgets/help.rb:127
+#, fuzzy
+#| msgid ""
+#| "<b>Backing Device</b> shows the device used as backing device for bcache."
+msgid "<b>Journal Device</b> shows the device holding the external journal."
+msgstr ""
+"A <b>Háttértár eszköz</b> mező jeleníti meg a bcache háttértár eszközeként "
+"használt eszközt."
+
+#: src/lib/y2partitioner/widgets/help.rb:130
 #, fuzzy
 #| msgid ""
 #| "<b>Device</b> shows the kernel name of the\n"
@@ -3731,18 +3770,18 @@ msgid ""
 "system."
 msgstr "Az <b>Eszköz</b> jeleníti meg meg az eszköz kernelnevét."
 
-#: src/lib/y2partitioner/widgets/help.rb:128
+#: src/lib/y2partitioner/widgets/help.rb:133
 msgid "<b>Metadata RAID Level</b> shows the RAID level for the Btrfs metadata."
 msgstr ""
 
-#: src/lib/y2partitioner/widgets/help.rb:131
+#: src/lib/y2partitioner/widgets/help.rb:136
 #, fuzzy
 #| msgid "<b>RAID Version</b> shows the RAID version."
 msgid "<b>Data RAID Level</b> shows the RAID level for the Btrfs data."
 msgstr "A <b>RAID-verzió</b> a RAID verzióját mutatja."
 
 #. help texts that are appended to the common help only in Mode.normal
-#: src/lib/y2partitioner/widgets/help.rb:136
+#: src/lib/y2partitioner/widgets/help.rb:141
 msgid ""
 "A question mark (?) indicates that\n"
 "the file system is not listed in <tt>/etc/fstab</tt>. It is either mounted\n"
@@ -3755,7 +3794,7 @@ msgstr ""
 "vagy más automatikus felcsatolt rendszerrel. A kötet beállításainak\n"
 " módosításakor a YaST nem fogja frissíteni az <tt>/etc/fstab</tt> fájlt.\n"
 
-#: src/lib/y2partitioner/widgets/help.rb:141
+#: src/lib/y2partitioner/widgets/help.rb:146
 msgid ""
 "An asterisk (*) after the mount point\n"
 "indicates a file system that is currently not mounted (for example, because "
@@ -6417,6 +6456,11 @@ msgstr "Az LVM vékony logikai kötet már elérte a maximális lehetséges mér
 #: src/lib/y2storage/resize_info.rb:108
 msgid "Unknown reason"
 msgstr "Ismeretlen ok"
+
+#, fuzzy
+#~| msgid "Edit Btrfs %1"
+#~ msgid "Part of Btrfs %s"
+#~ msgstr "%1 Btrfs szerkesztése"
 
 #~ msgid ""
 #~ "<p>\n"
