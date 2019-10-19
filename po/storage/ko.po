@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: storage-ng.ko\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-10-18 02:29+0000\n"
+"POT-Creation-Date: 2019-10-19 02:29+0000\n"
 "PO-Revision-Date: 2019-03-21 11:20+0000\n"
 "Last-Translator: Hwajin Kim <hwajin.kim@e4net.net>\n"
 "Language-Team: Korean <https://l10n.opensuse.org/projects/yast-storage/"
@@ -2297,7 +2297,7 @@ msgstr "장치"
 #. TRANSLATORS: table column label.
 #: src/lib/y2partitioner/widgets/btrfs_filesystems_table.rb:77
 #: src/lib/y2partitioner/widgets/pages/bcaches.rb:220
-#: src/lib/y2storage/filesystems/mount_by_type.rb:54
+#: src/lib/y2storage/filesystems/mount_by_type.rb:63
 msgid "UUID"
 msgstr "UUID"
 
@@ -2868,19 +2868,26 @@ msgid ""
 "boot and it will not support Hibernation to hard disk. The swap device is re-"
 "encrypted during every boot, and its previous content is destroyed. You "
 "should disable Hibernation through your respective DE Power Management "
-"Utility and set it to Shutdown on Critical to avoid Data Loss!</p><p>Please, "
-"make sure your swap device is mounted by a stable name that is not subject "
-"to change on every reboot. For example, for a swap partition use the udev "
-"device id instead of the partition device name. Otherwise a wrong device "
-"could be encrypted instead of your swap! In that regard, note both the file "
-"system label and the UUID change every time the swap is re-encrypted, so "
-"they are not valid options to mount a randomly encrypted swap device.</p>"
+"Utility and set it to Shutdown on Critical to avoid Data Loss!</p><p>Note "
+"both the file system label and the UUID change every time the swap is re-"
+"encrypted, so they are not valid options to mount a randomly encrypted swap "
+"device.</p><p>It's also important to make sure the swap device is referenced "
+"in the /etc/crypttab file by a stable name that is not subject to change on "
+"every reboot. For example, for a swap partition it is safer to use the udev "
+"device id or path instead of the partition device name, since that device "
+"name may be assigned to a different partition during the next boot. If that "
+"happens, a wrong device could be encrypted instead of your swap!</p><p>YaST "
+"tries to use stable names in /etc/crypttab, unless it is configured to "
+"always use device names (see the Settings section of the Partitioner). But "
+"for some devices finding a fully stable name may not be possible. Please, "
+"only use encryption with volatile keys if you are sure about the "
+"implications.</p>"
 msgstr ""
 
 #. TRANSLATORS: help text for encryption method with protected keys for z Systems. See
 #. https://www.ibm.com/support/knowledgecenter/en/linuxonibm/com.ibm.linux.z.lxdc/
 #. lxdc_swapdisks_scenario.html
-#: src/lib/y2partitioner/widgets/encrypt.rb:228
+#: src/lib/y2partitioner/widgets/encrypt.rb:234
 msgid ""
 "<p><b>%{label}</b>: this encryption method uses a volatile protected AES key "
 "(without requiring a cryptographic co-processor) to encrypt a swap device. "
@@ -2891,7 +2898,7 @@ msgstr ""
 #. TRANSLATORS: help for encryption method with secure keys for z Systems. See
 #. https://www.ibm.com/support/knowledgecenter/en/linuxonibm/com.ibm.linux.z.lxdc/
 #. lxdc_swapdisks_scenario.html
-#: src/lib/y2partitioner/widgets/encrypt.rb:248
+#: src/lib/y2partitioner/widgets/encrypt.rb:254
 msgid ""
 "<p><b>%{label}</b>: this encryption method uses a volatile secure AES key "
 "(generated from a cryptographic co-processor) for encrypting a swap device. "
@@ -2910,7 +2917,11 @@ msgstr "암호화 비밀번호"
 #: src/lib/y2partitioner/widgets/encrypt_method_options.rb:102
 msgid ""
 "Be careful: the system cannot hibernate when\n"
-"encrypting swap with randomly generated keys. \n"
+"encrypting swap with randomly generated keys.\n"
+"\n"
+"Moreover, using this with some kinds of devices\n"
+"may imply a certain risk of loosing data.\n"
+"\n"
 "Please, read Help for more information."
 msgstr ""
 
@@ -2976,7 +2987,7 @@ msgstr "장치를 탑재하지 않음"
 #. is given.
 #. TRANSLATORS: Error messagge when the label is not given.
 #: src/lib/y2partitioner/widgets/format_and_mount.rb:277
-#: src/lib/y2partitioner/widgets/fstab_options.rb:291
+#: src/lib/y2partitioner/widgets/fstab_options.rb:303
 msgid "Provide a volume label to mount by label."
 msgstr "레이블로 마운트하기 위해 볼륨 레이블을 적어주십시오."
 
@@ -3124,67 +3135,62 @@ msgid "Partition &ID:"
 msgstr "파티션 ID(&I):"
 
 # button text
-#. Push button that launch a dialog to set the fstab options
-#: src/lib/y2partitioner/widgets/fstab_options.rb:150
+#. @macro seeAbstractWidget
+#: src/lib/y2partitioner/widgets/fstab_options.rb:154
 msgid "Fstab Options..."
 msgstr "Fstab 옵션..."
 
 # label text
-#. Constructor
-#.
-#. @param controller [Actions::Controllers:Filesystem]
-#. @param parent_widget [Widgets::FstabOptions]
-#: src/lib/y2partitioner/widgets/fstab_options.rb:252
-#: src/lib/y2partitioner/widgets/fstab_options.rb:391
+#. @macro seeAbstractWidget
+#: src/lib/y2partitioner/widgets/fstab_options.rb:262
+#: src/lib/y2partitioner/widgets/fstab_options.rb:403
 msgid "Volume &Label"
 msgstr "볼륨 레이블(&L)"
 
 # popup text
 #. TRANSLATORS: Error message when the given label is already in use.
-#: src/lib/y2partitioner/widgets/fstab_options.rb:306
+#: src/lib/y2partitioner/widgets/fstab_options.rb:318
 msgid "This volume label is already in use. Select a different one."
 msgstr "이 볼륨 레이블은 이미 사용 중입니다. 다른 레이블을 사용하십시오."
 
 # label text
-#. Group of radio buttons to select the type of identifier to be used for
-#. mouth the specific device (UUID, Label, Path...)
-#: src/lib/y2partitioner/widgets/fstab_options.rb:367
+#. @macro seeAbstractWidget
+#: src/lib/y2partitioner/widgets/fstab_options.rb:380
 msgid "Mount in /etc/fstab By"
 msgstr "/etc/fstab에 마운트"
 
 # label text
-#. TODO: If some day we get more a more sophisticated UI for editing
-#. subvolumes, don't always simply overwrite the subvolumes' mount_by
-#. with whatever is set here - ask the user if this is desired.
-#: src/lib/y2partitioner/widgets/fstab_options.rb:390
+#. @macro seeCustomWidget
+#: src/lib/y2partitioner/widgets/fstab_options.rb:402
 msgid "&Device Name"
 msgstr "장치 이름(&D)"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:392
+#: src/lib/y2partitioner/widgets/fstab_options.rb:404
 msgid "&UUID"
 msgstr "&UUID"
 
 # table column headings
-#: src/lib/y2partitioner/widgets/fstab_options.rb:396
+#: src/lib/y2partitioner/widgets/fstab_options.rb:408
 msgid "Device &ID"
 msgstr "장치 ID(&I)"
 
 # table column headings
-#: src/lib/y2partitioner/widgets/fstab_options.rb:397
+#: src/lib/y2partitioner/widgets/fstab_options.rb:409
 msgid "Device &Path"
 msgstr "장치 경로(&P)"
 
-#. CheckBox to disable the automount option when starting up
-#: src/lib/y2partitioner/widgets/fstab_options.rb:476
+#. @macro seeAbstractWidget
+#: src/lib/y2partitioner/widgets/fstab_options.rb:497
 msgid "Do Not Mount at System &Start-up"
 msgstr "시스템이 시작할때 마운트를 하지 않습니다(&S)"
 
-#. CheckBox to enable the read only option ("ro")
-#: src/lib/y2partitioner/widgets/fstab_options.rb:486
+#. @macro seeAbstractWidget
+#: src/lib/y2partitioner/widgets/fstab_options.rb:510
 msgid "Mount &Read-Only"
 msgstr "읽기 전용 마운트(&R)"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:490
+#. @macro seeAbstractWidget
+#: src/lib/y2partitioner/widgets/fstab_options.rb:515
 msgid ""
 "<p><b>Mount Read-Only:</b>\n"
 "Writing to the file system is not possible. Default is false. During "
@@ -3195,12 +3201,13 @@ msgstr ""
 "파일 시스템에 쓸 수 없습니다. 기본값은 false입니다. 설치 중\n"
 "파일 시스템은 항상 읽기/쓰기로 마운트됩니다.</p>"
 
-#. CheckBox to enable the noatime option
-#: src/lib/y2partitioner/widgets/fstab_options.rb:501
+#. @macro seeAbstractWidget
+#: src/lib/y2partitioner/widgets/fstab_options.rb:528
 msgid "No &Access Time"
 msgstr "액세스 시간 없음(&A)"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:505
+#. @macro seeAbstractWidget
+#: src/lib/y2partitioner/widgets/fstab_options.rb:533
 msgid ""
 "<p><b>No Access Time:</b>\n"
 "Access times are not updated when a file is read. Default is false.</p>\n"
@@ -3209,13 +3216,13 @@ msgstr ""
 "파일을 읽을 때 액세스 시간이 업데이트되지 않습니다. 기본값은 false입니다.</"
 "p>\n"
 
-#. CheckBox to enable the user option which means allow to mount the
-#. filesystem by an ordinary user
-#: src/lib/y2partitioner/widgets/fstab_options.rb:516
+#. @macro seeAbstractWidget
+#: src/lib/y2partitioner/widgets/fstab_options.rb:546
 msgid "Mountable by User"
 msgstr "사용자가 마운트 가능"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:520
+#. @macro seeAbstractWidget
+#: src/lib/y2partitioner/widgets/fstab_options.rb:551
 msgid ""
 "<p><b>Mountable by User:</b>\n"
 "The file system may be mounted by an ordinary user. Default is false.</p>\n"
@@ -3224,12 +3231,13 @@ msgstr ""
 "일반 사용자가 파일 시스템을 마운트 할수 있습니다. 기본값은 불가입니다.</p>\n"
 
 # yes-no popup
-#. CheckBox to enable the use of user quotas
-#: src/lib/y2partitioner/widgets/fstab_options.rb:531
+#. @macro seeAbstractWidget
+#: src/lib/y2partitioner/widgets/fstab_options.rb:565
 msgid "Enable &Quota Support"
 msgstr "할당량 지원 활성화(&Q)"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:535
+#. @macro seeAbstractWidget
+#: src/lib/y2partitioner/widgets/fstab_options.rb:570
 msgid ""
 "<p><b>Enable Quota Support:</b>\n"
 "The file system is mounted with user quotas enabled.\n"
@@ -3239,12 +3247,13 @@ msgstr ""
 "파일 시스템은 사용자 할당량을 활성화한 상태로 마운트됩니다.\n"
 "기본값은 false입니다.</p>"
 
-#. CheckBox to enable access control lists (acl)
-#: src/lib/y2partitioner/widgets/fstab_options.rb:575
+#. @macro seeAbstractWidget
+#: src/lib/y2partitioner/widgets/fstab_options.rb:615
 msgid "&Access Control Lists (ACL)"
 msgstr "ACL(액세스 제어 목록)(&A)"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:579
+#. @macro seeAbstractWidget
+#: src/lib/y2partitioner/widgets/fstab_options.rb:620
 msgid ""
 "<p><b>Access Control Lists (acl):</b>\n"
 "Enable POSIX access control lists and thus more fine-grained user "
@@ -3254,12 +3263,13 @@ msgstr ""
 "POSIX 액세스 제어 목록을 활성화하여 파일 시스템에서 사용자 권한을 더 세밀하"
 "게 사용할 수 있습니다. 맨 5 acl도 참조하십시오.\n"
 
-#. CheckBox to enable extended user attributes (user_xattr)
-#: src/lib/y2partitioner/widgets/fstab_options.rb:592
+#. @macro seeAbstractWidget
+#: src/lib/y2partitioner/widgets/fstab_options.rb:635
 msgid "&Extended User Attributes"
 msgstr "확장된 사용자 속성(&E)"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:596
+#. @macro seeAbstractWidget
+#: src/lib/y2partitioner/widgets/fstab_options.rb:640
 msgid ""
 "<p><b>Extended User Attributes (user_xattr):</b>\n"
 "Enable extended attributes (name:value pairs) on files and directories.\n"
@@ -3269,26 +3279,25 @@ msgstr ""
 "파일 및 디렉토리에서 확장된 속성(이름:값 쌍)을 활성화합니다.\n"
 "ACL로 확장한 것입니다. 맨 7 xattr도 참조하십시오.\n"
 
-#. ComboBox to specify the journal mode to use by the filesystem
-#: src/lib/y2partitioner/widgets/fstab_options.rb:693
+#. @macro seeAbstractWidget
+#: src/lib/y2partitioner/widgets/fstab_options.rb:739
 msgid "Data &Journaling Mode"
 msgstr "데이터 저널링 모드(&J)"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:702
+#: src/lib/y2partitioner/widgets/fstab_options.rb:748
 msgid "journal"
 msgstr "저널"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:703
+#: src/lib/y2partitioner/widgets/fstab_options.rb:749
 msgid "ordered"
 msgstr "순서대로"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:704
+#: src/lib/y2partitioner/widgets/fstab_options.rb:750
 msgid "writeback"
 msgstr "다시쓰기"
 
-#. journal options tend to break remounting root rw (bsc#1077859).
-#. See also root_fstab_options() in lib/y2storage/filesystems/type.rb
-#: src/lib/y2partitioner/widgets/fstab_options.rb:715
+#. @macro seeAbstractWidget
+#: src/lib/y2partitioner/widgets/fstab_options.rb:762
 msgid ""
 "<p><b>Data Journaling Mode:</b>\n"
 "Specifies the journaling mode for file data.\n"
@@ -3309,22 +3318,13 @@ msgstr ""
 "<tt>writeback</tt> -- 데이터 순서가 유지되지 않습니다. 성능에 영향을 미치지 "
 "않습니다.</p>\n"
 
-#. An input field that allows to set other options that are not handled by
-#. specific widgets.
-#: src/lib/y2partitioner/widgets/fstab_options.rb:744
+#. @macro seeAbstractWidget
+#: src/lib/y2partitioner/widgets/fstab_options.rb:793
 msgid "Arbitrary Option &Value"
 msgstr "임의 옵션 값(&V)"
 
-#. Intentionally NOT filtering out only unhandled options: When the user
-#. adds anything here that also has a corresponding checkbox or combo
-#. box in this same dialog, the value here will win, and when entering
-#. this dialog again the dedicated widget will take the value from
-#. there, and it will be filtered out in this arbitrary options widget.
-#.
-#. So, when a user insists in adding "noauto,user" here, it is applied
-#. correctly, but when entering the dialog again, the checkboxes pick up
-#. those values and they won't show up in this field anymore.
-#: src/lib/y2partitioner/widgets/fstab_options.rb:769
+#. @macro seeAbstractWidget
+#: src/lib/y2partitioner/widgets/fstab_options.rb:821
 msgid ""
 "<p><b>Arbitrary Option Value:</b> Enter any other mount options here, "
 "separated with commas. Notice that this does not do any checking, so be "
@@ -3333,12 +3333,13 @@ msgstr ""
 "<p><b>임의 옵션 값:</b> 여기 다른 마운트 옵션을 쉼표로 구분하여 입력하십시"
 "오. 검사를 수행하지 않으므로 여기 입력하는 내용에 주의하십시오!</p>"
 
-#. Swap priority
-#: src/lib/y2partitioner/widgets/fstab_options.rb:848
+#. @macro seeAbstractWidget
+#: src/lib/y2partitioner/widgets/fstab_options.rb:905
 msgid "Swap &Priority"
 msgstr "스왑 우선순위(&p)"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:857
+#. @macro seeAbstractWidget
+#: src/lib/y2partitioner/widgets/fstab_options.rb:916
 msgid ""
 "<p><b>Swap Priority:</b>\n"
 "Enter the swap priority. Higher numbers mean higher priority.</p>\n"
@@ -3346,14 +3347,14 @@ msgstr ""
 "<p><b>스왑 우선순위:</b>\n"
 "스왑 우선순위를 입력해 주세요. 높은 숫자가 높은 우선순위를 의미합니다.</p>\n"
 
-#. "iocharset=utf8" breaks VFAT case insensitivity (bsc#1080731).
-#. See also boot_fstab_options() in lib/y2storage/filesystems/type.rb
-#: src/lib/y2partitioner/widgets/fstab_options.rb:890
+#. @macro seeAbstractWidget
+#: src/lib/y2partitioner/widgets/fstab_options.rb:953
 msgid "Char&set for File Names"
 msgstr "파일이름을 위한 문자셋(&S)"
 
 # help text, richtext format
-#: src/lib/y2partitioner/widgets/fstab_options.rb:894
+#. @macro seeAbstractWidget
+#: src/lib/y2partitioner/widgets/fstab_options.rb:958
 msgid ""
 "<p><b>Charset for File Names:</b>\n"
 "Set the charset used for display of file names in Windows partitions.</p>\n"
@@ -3361,13 +3362,14 @@ msgstr ""
 "<p><b>파일이름을 위한 문자셋:</b>\n"
 "윈도우 파티션의 파일이름을 표시하기 위해 사용될 문자셋을 설정하십시오.</p>\n"
 
-#. VFAT Codepage
-#: src/lib/y2partitioner/widgets/fstab_options.rb:910
+#. @macro seeAbstractWidget
+#: src/lib/y2partitioner/widgets/fstab_options.rb:977
 msgid "Code&page for Short FAT Names"
 msgstr "간단한 FAT 이름을 위한 코드페이지(&P)"
 
 # help text, richtext format
-#: src/lib/y2partitioner/widgets/fstab_options.rb:914
+#. @macro seeAbstractWidget
+#: src/lib/y2partitioner/widgets/fstab_options.rb:982
 msgid ""
 "<p><b>Codepage for Short FAT Names:</b>\n"
 "This codepage is used for converting to shortname characters on FAT file "
@@ -4355,7 +4357,8 @@ msgstr "설정"
 msgid "Default Mount by"
 msgstr "기본 마운트 방법"
 
-#: src/lib/y2partitioner/widgets/pages/settings.rb:76
+#. @macro seeAbstractWidget
+#: src/lib/y2partitioner/widgets/pages/settings.rb:77
 msgid ""
 "<p><b>Default Mount by:</b> This is the method how newly created filesystems "
 "are mounted.</p>"
@@ -5947,17 +5950,17 @@ msgstr "암호화"
 
 #. Encryption swap method (see {Swap}) for z Systems to encrypt a device by using protected keys
 #: src/lib/y2storage/encryption_method/protected_swap.rb:37
-msgid "Volatile Encryption with Protected Key"
+msgid "Encryption with Volatile Protected Key"
 msgstr ""
 
 #. Encryption swap method (see {Swap}) to encrypt a device by using a random password
 #: src/lib/y2storage/encryption_method/random_swap.rb:31
-msgid "Volatile Encryption with Random Key"
+msgid "Encryption with Volatile Random Key"
 msgstr ""
 
 #. Encryption swap process (see {Swap}) for z Systems to encrypt a device by using secure keys
 #: src/lib/y2storage/encryption_method/secure_swap.rb:38
-msgid "Volatile Encryption with Secure Key"
+msgid "Encryption with Volatile Secure Key"
 msgstr ""
 
 #. Class to represent all the possible encryption types implemented by libstorage
@@ -6026,13 +6029,13 @@ msgstr "암호화"
 
 #. TRANSLATORS: block device basename for a multi-device filesystem, where %{basename} is replaced
 #. by the basename of the first block device (e.g., "(sda1...)").
-#: src/lib/y2storage/filesystems/blk_filesystem.rb:134
+#: src/lib/y2storage/filesystems/blk_filesystem.rb:137
 msgid "(%{basename}\\u2026)"
 msgstr ""
 
 #. TRANSLATORS: display name when the Btrfs is multidevice, where %{num_devices} is replaced by
 #. a number (e.g., "2") and %{name} is replaced by a device representation (e.g., "(sda1...)").
-#: src/lib/y2storage/filesystems/btrfs.rb:504
+#: src/lib/y2storage/filesystems/btrfs.rb:506
 msgid "Btrfs over %{num_devices} devices %{name}"
 msgstr ""
 
@@ -6042,24 +6045,25 @@ msgstr ""
 #. Keys are the symbols representing the types and values are hashes that
 #. can contain:
 #. - `:name` for human string
-#: src/lib/y2storage/filesystems/mount_by_type.rb:42
+#. - `:stability` to rate how stable is the corresponding name
+#: src/lib/y2storage/filesystems/mount_by_type.rb:47
 msgid "Device Name"
 msgstr "장치 이름"
-
-# table column headings
-#: src/lib/y2storage/filesystems/mount_by_type.rb:45
-msgid "Device ID"
-msgstr "장치 ID"
-
-# label text
-#: src/lib/y2storage/filesystems/mount_by_type.rb:48
-msgid "Volume Label"
-msgstr "볼륨 레이블"
 
 # table column headings
 #: src/lib/y2storage/filesystems/mount_by_type.rb:51
 msgid "Device Path"
 msgstr "장치 경로"
+
+# table column headings
+#: src/lib/y2storage/filesystems/mount_by_type.rb:55
+msgid "Device ID"
+msgstr "장치 ID"
+
+# label text
+#: src/lib/y2storage/filesystems/mount_by_type.rb:59
+msgid "Volume Label"
+msgstr "볼륨 레이블"
 
 #. TRANSLATORS: display name when the PV has no associated VG, where %{device} is replaced by a
 #. device name (e.g., "/dev/sda1").

@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: storage\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-10-18 02:29+0000\n"
+"POT-Creation-Date: 2019-10-19 02:29+0000\n"
 "PO-Revision-Date: 2006-11-03 14:26\n"
 "Last-Translator: Novell Language <language@novell.com>\n"
 "Language-Team: Novell Language <language@novell.com>\n"
@@ -2355,7 +2355,7 @@ msgstr "Toestel"
 #. TRANSLATORS: table column label.
 #: src/lib/y2partitioner/widgets/btrfs_filesystems_table.rb:77
 #: src/lib/y2partitioner/widgets/pages/bcaches.rb:220
-#: src/lib/y2storage/filesystems/mount_by_type.rb:54
+#: src/lib/y2storage/filesystems/mount_by_type.rb:63
 #, fuzzy
 msgid "UUID"
 msgstr "ID"
@@ -2937,19 +2937,26 @@ msgid ""
 "boot and it will not support Hibernation to hard disk. The swap device is re-"
 "encrypted during every boot, and its previous content is destroyed. You "
 "should disable Hibernation through your respective DE Power Management "
-"Utility and set it to Shutdown on Critical to avoid Data Loss!</p><p>Please, "
-"make sure your swap device is mounted by a stable name that is not subject "
-"to change on every reboot. For example, for a swap partition use the udev "
-"device id instead of the partition device name. Otherwise a wrong device "
-"could be encrypted instead of your swap! In that regard, note both the file "
-"system label and the UUID change every time the swap is re-encrypted, so "
-"they are not valid options to mount a randomly encrypted swap device.</p>"
+"Utility and set it to Shutdown on Critical to avoid Data Loss!</p><p>Note "
+"both the file system label and the UUID change every time the swap is re-"
+"encrypted, so they are not valid options to mount a randomly encrypted swap "
+"device.</p><p>It's also important to make sure the swap device is referenced "
+"in the /etc/crypttab file by a stable name that is not subject to change on "
+"every reboot. For example, for a swap partition it is safer to use the udev "
+"device id or path instead of the partition device name, since that device "
+"name may be assigned to a different partition during the next boot. If that "
+"happens, a wrong device could be encrypted instead of your swap!</p><p>YaST "
+"tries to use stable names in /etc/crypttab, unless it is configured to "
+"always use device names (see the Settings section of the Partitioner). But "
+"for some devices finding a fully stable name may not be possible. Please, "
+"only use encryption with volatile keys if you are sure about the "
+"implications.</p>"
 msgstr ""
 
 #. TRANSLATORS: help text for encryption method with protected keys for z Systems. See
 #. https://www.ibm.com/support/knowledgecenter/en/linuxonibm/com.ibm.linux.z.lxdc/
 #. lxdc_swapdisks_scenario.html
-#: src/lib/y2partitioner/widgets/encrypt.rb:228
+#: src/lib/y2partitioner/widgets/encrypt.rb:234
 msgid ""
 "<p><b>%{label}</b>: this encryption method uses a volatile protected AES key "
 "(without requiring a cryptographic co-processor) to encrypt a swap device. "
@@ -2960,7 +2967,7 @@ msgstr ""
 #. TRANSLATORS: help for encryption method with secure keys for z Systems. See
 #. https://www.ibm.com/support/knowledgecenter/en/linuxonibm/com.ibm.linux.z.lxdc/
 #. lxdc_swapdisks_scenario.html
-#: src/lib/y2partitioner/widgets/encrypt.rb:248
+#: src/lib/y2partitioner/widgets/encrypt.rb:254
 msgid ""
 "<p><b>%{label}</b>: this encryption method uses a volatile secure AES key "
 "(generated from a cryptographic co-processor) for encrypting a swap device. "
@@ -2979,7 +2986,11 @@ msgstr "Voer enkripteringsleutel in"
 #: src/lib/y2partitioner/widgets/encrypt_method_options.rb:102
 msgid ""
 "Be careful: the system cannot hibernate when\n"
-"encrypting swap with randomly generated keys. \n"
+"encrypting swap with randomly generated keys.\n"
+"\n"
+"Moreover, using this with some kinds of devices\n"
+"may imply a certain risk of loosing data.\n"
+"\n"
 "Please, read Help for more information."
 msgstr ""
 
@@ -3048,7 +3059,7 @@ msgstr "Skyf na partisie"
 #. is given.
 #. TRANSLATORS: Error messagge when the label is not given.
 #: src/lib/y2partitioner/widgets/format_and_mount.rb:277
-#: src/lib/y2partitioner/widgets/fstab_options.rb:291
+#: src/lib/y2partitioner/widgets/fstab_options.rb:303
 msgid "Provide a volume label to mount by label."
 msgstr "Verskaf ’n volume-etiket om volgens etiket te heg."
 
@@ -3222,69 +3233,64 @@ msgstr "Blok&grootte in grepe"
 msgid "Partition &ID:"
 msgstr "Partisie 2"
 
-#. Push button that launch a dialog to set the fstab options
-#: src/lib/y2partitioner/widgets/fstab_options.rb:150
+#. @macro seeAbstractWidget
+#: src/lib/y2partitioner/widgets/fstab_options.rb:154
 #, fuzzy
 msgid "Fstab Options..."
 msgstr "Fs&tab-opsies"
 
-#. Constructor
-#.
-#. @param controller [Actions::Controllers:Filesystem]
-#. @param parent_widget [Widgets::FstabOptions]
-#: src/lib/y2partitioner/widgets/fstab_options.rb:252
-#: src/lib/y2partitioner/widgets/fstab_options.rb:391
+#. @macro seeAbstractWidget
+#: src/lib/y2partitioner/widgets/fstab_options.rb:262
+#: src/lib/y2partitioner/widgets/fstab_options.rb:403
 msgid "Volume &Label"
 msgstr "Volume-&etiket"
 
 #. TRANSLATORS: Error message when the given label is already in use.
-#: src/lib/y2partitioner/widgets/fstab_options.rb:306
+#: src/lib/y2partitioner/widgets/fstab_options.rb:318
 #, fuzzy
 #| msgid "This volume label is already in use. Select a different one."
 msgid "This volume label is already in use. Select a different one."
 msgstr "Hierdie volume-etiket is reeds in gebruik. Kies ’n ander een."
 
-#. Group of radio buttons to select the type of identifier to be used for
-#. mouth the specific device (UUID, Label, Path...)
-#: src/lib/y2partitioner/widgets/fstab_options.rb:367
+#. @macro seeAbstractWidget
+#: src/lib/y2partitioner/widgets/fstab_options.rb:380
 #, fuzzy
 #| msgid "Mount in /etc/fstab by"
 msgid "Mount in /etc/fstab By"
 msgstr "Heg in /etc/fstab deur"
 
-#. TODO: If some day we get more a more sophisticated UI for editing
-#. subvolumes, don't always simply overwrite the subvolumes' mount_by
-#. with whatever is set here - ask the user if this is desired.
-#: src/lib/y2partitioner/widgets/fstab_options.rb:390
+#. @macro seeCustomWidget
+#: src/lib/y2partitioner/widgets/fstab_options.rb:402
 msgid "&Device Name"
 msgstr "&Toestelnaam"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:392
+#: src/lib/y2partitioner/widgets/fstab_options.rb:404
 #, fuzzy
 msgid "&UUID"
 msgstr "ID"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:396
+#: src/lib/y2partitioner/widgets/fstab_options.rb:408
 msgid "Device &ID"
 msgstr "Toestel-&ID"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:397
+#: src/lib/y2partitioner/widgets/fstab_options.rb:409
 msgid "Device &Path"
 msgstr "Toestel&pad"
 
-#. CheckBox to disable the automount option when starting up
-#: src/lib/y2partitioner/widgets/fstab_options.rb:476
+#. @macro seeAbstractWidget
+#: src/lib/y2partitioner/widgets/fstab_options.rb:497
 msgid "Do Not Mount at System &Start-up"
 msgstr "Moenie heg tydens stelsel&begin nie"
 
-#. CheckBox to enable the read only option ("ro")
-#: src/lib/y2partitioner/widgets/fstab_options.rb:486
+#. @macro seeAbstractWidget
+#: src/lib/y2partitioner/widgets/fstab_options.rb:510
 #, fuzzy
 #| msgid "Mount &read-only"
 msgid "Mount &Read-Only"
 msgstr "Heg &slegs-lees"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:490
+#. @macro seeAbstractWidget
+#: src/lib/y2partitioner/widgets/fstab_options.rb:515
 #, fuzzy
 msgid ""
 "<p><b>Mount Read-Only:</b>\n"
@@ -3296,14 +3302,15 @@ msgstr ""
 "Geen skryfbare toegang tot die lêerstelsel is moontlik nie. Verstek is vals."
 "</p>\n"
 
-#. CheckBox to enable the noatime option
-#: src/lib/y2partitioner/widgets/fstab_options.rb:501
+#. @macro seeAbstractWidget
+#: src/lib/y2partitioner/widgets/fstab_options.rb:528
 #, fuzzy
 #| msgid "No &access time"
 msgid "No &Access Time"
 msgstr "Geen &toegangstyd nie"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:505
+#. @macro seeAbstractWidget
+#: src/lib/y2partitioner/widgets/fstab_options.rb:533
 #, fuzzy
 #| msgid ""
 #| "<p><b>No access time:</b>\n"
@@ -3316,15 +3323,15 @@ msgstr ""
 "Toegangstye word nie bygewerk wanneer ’n lêer gelees word nie. Verstek is "
 "vals.</p>"
 
-#. CheckBox to enable the user option which means allow to mount the
-#. filesystem by an ordinary user
-#: src/lib/y2partitioner/widgets/fstab_options.rb:516
+#. @macro seeAbstractWidget
+#: src/lib/y2partitioner/widgets/fstab_options.rb:546
 #, fuzzy
 #| msgid "Mountable by &user"
 msgid "Mountable by User"
 msgstr "Hegbaar deur &gebruiker"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:520
+#. @macro seeAbstractWidget
+#: src/lib/y2partitioner/widgets/fstab_options.rb:551
 msgid ""
 "<p><b>Mountable by User:</b>\n"
 "The file system may be mounted by an ordinary user. Default is false.</p>\n"
@@ -3333,13 +3340,14 @@ msgstr ""
 "Die lêerstelsel kan dalk deur ’n gewone gebruiker geheg word. Verstek is "
 "vals.</p>\n"
 
-#. CheckBox to enable the use of user quotas
-#: src/lib/y2partitioner/widgets/fstab_options.rb:531
+#. @macro seeAbstractWidget
+#: src/lib/y2partitioner/widgets/fstab_options.rb:565
 #, fuzzy
 msgid "Enable &Quota Support"
 msgstr "Ontsper &Laag 2-ondersteuning"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:535
+#. @macro seeAbstractWidget
+#: src/lib/y2partitioner/widgets/fstab_options.rb:570
 #, fuzzy
 msgid ""
 "<p><b>Enable Quota Support:</b>\n"
@@ -3350,12 +3358,13 @@ msgstr ""
 "Die lêerstelsel kan dalk deur ’n gewone gebruiker geheg word. Verstek is "
 "vals.</p>\n"
 
-#. CheckBox to enable access control lists (acl)
-#: src/lib/y2partitioner/widgets/fstab_options.rb:575
+#. @macro seeAbstractWidget
+#: src/lib/y2partitioner/widgets/fstab_options.rb:615
 msgid "&Access Control Lists (ACL)"
 msgstr "&Toegangbeheerlyste (Access Control Lists, ACL)"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:579
+#. @macro seeAbstractWidget
+#: src/lib/y2partitioner/widgets/fstab_options.rb:620
 #, fuzzy
 #| msgid ""
 #| "<p><b>Access Control Lists (ACL):</b>\n"
@@ -3368,40 +3377,40 @@ msgstr ""
 "<p><b>Toegangbeheerlyste (Access Control Lists, ACL):</b>\n"
 "Ontsper toegangbeheerlyste op die lêerstelsel.</p>\n"
 
-#. CheckBox to enable extended user attributes (user_xattr)
-#: src/lib/y2partitioner/widgets/fstab_options.rb:592
+#. @macro seeAbstractWidget
+#: src/lib/y2partitioner/widgets/fstab_options.rb:635
 msgid "&Extended User Attributes"
 msgstr "&Uitgebreide gebruikereienskappe"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:596
+#. @macro seeAbstractWidget
+#: src/lib/y2partitioner/widgets/fstab_options.rb:640
 msgid ""
 "<p><b>Extended User Attributes (user_xattr):</b>\n"
 "Enable extended attributes (name:value pairs) on files and directories.\n"
 "This is an extension to ACLs. See also man 7 xattr.\n"
 msgstr ""
 
-#. ComboBox to specify the journal mode to use by the filesystem
-#: src/lib/y2partitioner/widgets/fstab_options.rb:693
+#. @macro seeAbstractWidget
+#: src/lib/y2partitioner/widgets/fstab_options.rb:739
 msgid "Data &Journaling Mode"
 msgstr "Data&joernaalmodus"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:702
+#: src/lib/y2partitioner/widgets/fstab_options.rb:748
 #, fuzzy
 #| msgid "Disk Journal"
 msgid "journal"
 msgstr "Skyfjoernaal"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:703
+#: src/lib/y2partitioner/widgets/fstab_options.rb:749
 msgid "ordered"
 msgstr ""
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:704
+#: src/lib/y2partitioner/widgets/fstab_options.rb:750
 msgid "writeback"
 msgstr ""
 
-#. journal options tend to break remounting root rw (bsc#1077859).
-#. See also root_fstab_options() in lib/y2storage/filesystems/type.rb
-#: src/lib/y2partitioner/widgets/fstab_options.rb:715
+#. @macro seeAbstractWidget
+#: src/lib/y2partitioner/widgets/fstab_options.rb:762
 #, fuzzy
 msgid ""
 "<p><b>Data Journaling Mode:</b>\n"
@@ -3423,36 +3432,28 @@ msgstr ""
 " voordat die metadata daarvan in die joernaal opgeneem word.\n"
 " <tt>terugskryf</tt> -- Data-ordening word nie bewaar nie.</p>\n"
 
-#. An input field that allows to set other options that are not handled by
-#. specific widgets.
-#: src/lib/y2partitioner/widgets/fstab_options.rb:744
+#. @macro seeAbstractWidget
+#: src/lib/y2partitioner/widgets/fstab_options.rb:793
 #, fuzzy
 #| msgid "Arbitrary option &value"
 msgid "Arbitrary Option &Value"
 msgstr "Willekeurige opsie&waarde"
 
-#. Intentionally NOT filtering out only unhandled options: When the user
-#. adds anything here that also has a corresponding checkbox or combo
-#. box in this same dialog, the value here will win, and when entering
-#. this dialog again the dedicated widget will take the value from
-#. there, and it will be filtered out in this arbitrary options widget.
-#.
-#. So, when a user insists in adding "noauto,user" here, it is applied
-#. correctly, but when entering the dialog again, the checkboxes pick up
-#. those values and they won't show up in this field anymore.
-#: src/lib/y2partitioner/widgets/fstab_options.rb:769
+#. @macro seeAbstractWidget
+#: src/lib/y2partitioner/widgets/fstab_options.rb:821
 msgid ""
 "<p><b>Arbitrary Option Value:</b> Enter any other mount options here, "
 "separated with commas. Notice that this does not do any checking, so be "
 "careful what you enter here!</p>"
 msgstr ""
 
-#. Swap priority
-#: src/lib/y2partitioner/widgets/fstab_options.rb:848
+#. @macro seeAbstractWidget
+#: src/lib/y2partitioner/widgets/fstab_options.rb:905
 msgid "Swap &Priority"
 msgstr "Omruil&voorkeur"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:857
+#. @macro seeAbstractWidget
+#: src/lib/y2partitioner/widgets/fstab_options.rb:916
 msgid ""
 "<p><b>Swap Priority:</b>\n"
 "Enter the swap priority. Higher numbers mean higher priority.</p>\n"
@@ -3460,15 +3461,15 @@ msgstr ""
 "<p><b>Omruilvoorkeur:</b>\n"
 "Voer die omruilvoorkeur in. Hoër getalle beteken hoër voorkeur.</p>\n"
 
-#. "iocharset=utf8" breaks VFAT case insensitivity (bsc#1080731).
-#. See also boot_fstab_options() in lib/y2storage/filesystems/type.rb
-#: src/lib/y2partitioner/widgets/fstab_options.rb:890
+#. @macro seeAbstractWidget
+#: src/lib/y2partitioner/widgets/fstab_options.rb:953
 #, fuzzy
 #| msgid "Char&set for file names"
 msgid "Char&set for File Names"
 msgstr "Kar&akterstel vir lêername"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:894
+#. @macro seeAbstractWidget
+#: src/lib/y2partitioner/widgets/fstab_options.rb:958
 msgid ""
 "<p><b>Charset for File Names:</b>\n"
 "Set the charset used for display of file names in Windows partitions.</p>\n"
@@ -3477,14 +3478,15 @@ msgstr ""
 "Stel die karakterstel wat vir die vertoning van lêername in Windows-"
 "partisies gebruik word.</p>\n"
 
-#. VFAT Codepage
-#: src/lib/y2partitioner/widgets/fstab_options.rb:910
+#. @macro seeAbstractWidget
+#: src/lib/y2partitioner/widgets/fstab_options.rb:977
 #, fuzzy
 #| msgid "Code&page for short FAT names"
 msgid "Code&page for Short FAT Names"
 msgstr "Kode&blad vir kort FAT-name"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:914
+#. @macro seeAbstractWidget
+#: src/lib/y2partitioner/widgets/fstab_options.rb:982
 msgid ""
 "<p><b>Codepage for Short FAT Names:</b>\n"
 "This codepage is used for converting to shortname characters on FAT file "
@@ -4502,7 +4504,8 @@ msgstr "Instellings"
 msgid "Default Mount by"
 msgstr "Verstekdomein"
 
-#: src/lib/y2partitioner/widgets/pages/settings.rb:76
+#. @macro seeAbstractWidget
+#: src/lib/y2partitioner/widgets/pages/settings.rb:77
 msgid ""
 "<p><b>Default Mount by:</b> This is the method how newly created filesystems "
 "are mounted.</p>"
@@ -6026,17 +6029,17 @@ msgstr "&Enkriptering"
 
 #. Encryption swap method (see {Swap}) for z Systems to encrypt a device by using protected keys
 #: src/lib/y2storage/encryption_method/protected_swap.rb:37
-msgid "Volatile Encryption with Protected Key"
+msgid "Encryption with Volatile Protected Key"
 msgstr ""
 
 #. Encryption swap method (see {Swap}) to encrypt a device by using a random password
 #: src/lib/y2storage/encryption_method/random_swap.rb:31
-msgid "Volatile Encryption with Random Key"
+msgid "Encryption with Volatile Random Key"
 msgstr ""
 
 #. Encryption swap process (see {Swap}) for z Systems to encrypt a device by using secure keys
 #: src/lib/y2storage/encryption_method/secure_swap.rb:38
-msgid "Volatile Encryption with Secure Key"
+msgid "Encryption with Volatile Secure Key"
 msgstr ""
 
 #. Class to represent all the possible encryption types implemented by libstorage
@@ -6101,13 +6104,13 @@ msgstr "&Enkriptering"
 
 #. TRANSLATORS: block device basename for a multi-device filesystem, where %{basename} is replaced
 #. by the basename of the first block device (e.g., "(sda1...)").
-#: src/lib/y2storage/filesystems/blk_filesystem.rb:134
+#: src/lib/y2storage/filesystems/blk_filesystem.rb:137
 msgid "(%{basename}\\u2026)"
 msgstr ""
 
 #. TRANSLATORS: display name when the Btrfs is multidevice, where %{num_devices} is replaced by
 #. a number (e.g., "2") and %{name} is replaced by a device representation (e.g., "(sda1...)").
-#: src/lib/y2storage/filesystems/btrfs.rb:504
+#: src/lib/y2storage/filesystems/btrfs.rb:506
 msgid "Btrfs over %{num_devices} devices %{name}"
 msgstr ""
 
@@ -6116,22 +6119,23 @@ msgstr ""
 #. Keys are the symbols representing the types and values are hashes that
 #. can contain:
 #. - `:name` for human string
-#: src/lib/y2storage/filesystems/mount_by_type.rb:42
+#. - `:stability` to rate how stable is the corresponding name
+#: src/lib/y2storage/filesystems/mount_by_type.rb:47
 msgid "Device Name"
 msgstr "Toestelnaam"
-
-#: src/lib/y2storage/filesystems/mount_by_type.rb:45
-msgid "Device ID"
-msgstr "Toestel-ID"
-
-#: src/lib/y2storage/filesystems/mount_by_type.rb:48
-#, fuzzy
-msgid "Volume Label"
-msgstr "Volume-&etiket"
 
 #: src/lib/y2storage/filesystems/mount_by_type.rb:51
 msgid "Device Path"
 msgstr "Toestelpad"
+
+#: src/lib/y2storage/filesystems/mount_by_type.rb:55
+msgid "Device ID"
+msgstr "Toestel-ID"
+
+#: src/lib/y2storage/filesystems/mount_by_type.rb:59
+#, fuzzy
+msgid "Volume Label"
+msgstr "Volume-&etiket"
 
 #. TRANSLATORS: display name when the PV has no associated VG, where %{device} is replaced by a
 #. device name (e.g., "/dev/sda1").
