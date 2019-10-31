@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: storage\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-10-22 02:29+0000\n"
+"POT-Creation-Date: 2019-10-31 02:29+0000\n"
 "PO-Revision-Date: 2019-10-25 00:53+0000\n"
 "Last-Translator: Yasuhiko Kamata <belphegor@belbel.or.jp>\n"
 "Language-Team: Japanese <https://l10n.opensuse.org/projects/yast-storage/"
@@ -2824,16 +2824,25 @@ msgid ""
 "only use encryption with volatile keys if you are sure about the "
 "implications.</p>"
 msgstr ""
-"<p><b>%{label}</b>: この暗号化方式では、起動時に乱数から生成した鍵を使用するため、ハードディスクへのハイバネーション (休止状態) を"
-"使用することができなくなります。また、スワップデバイスは起動ごとに暗号化をやり直すため、以前に保存されていた内容は消去されることになります。お使いのデスク"
-"トップ環境で提供されている電源管理ユーティリティを利用して、ハイバネーション機能の無効化を行なう必要があるほか、バッテリー容量の残りが少ないような場合には"
-"、自動的にシャットダウンするような設定を行なう必要があります!</p><p>なお、ファイルシステムのラベルと UUID についても、スワップの暗号化がやり"
-"直されるたびに変化してしまうことに注意してください。これらは乱数で暗号化されたスワップデバイスをマウントするには適しません。</p><p>このほか /"
-"etc/crypttab ファイル内には、システムの起動のたびに変化することのない形式で、暗号化スワップデバイスの設定を記述する必要もあります。たとえば "
-"udev デバイス ID のほか、デバイス名の代わりにデバイスパスを使用してもかまいません。デバイス名を使用してしまうと、次回の起動時に別のデバイスを参照"
-"してしまい、スワップデバイスではないパーティションが暗号化されスワップとして使用されてしまいます!</p><p>YaST "
-"では、常にデバイス名を使用するように指定していない限り、 /etc/crypttab 内に変化することのない安定した名前を書き込みます。ただし、デバイスに"
-"よっては変化しない名前を指定するのは困難である場合もあります。これらの影響を考慮し、問題がないと確信した場合にのみ、この機能をお使いください。</p>"
+"<p><b>%{label}</b>: この暗号化方式では、起動時に乱数から生成した鍵を使用する"
+"ため、ハードディスクへのハイバネーション (休止状態) を使用することができなく"
+"なります。また、スワップデバイスは起動ごとに暗号化をやり直すため、以前に保存"
+"されていた内容は消去されることになります。お使いのデスクトップ環境で提供され"
+"ている電源管理ユーティリティを利用して、ハイバネーション機能の無効化を行なう"
+"必要があるほか、バッテリー容量の残りが少ないような場合には、自動的にシャット"
+"ダウンするような設定を行なう必要があります!</p><p>なお、ファイルシステムのラ"
+"ベルと UUID についても、スワップの暗号化がやり直されるたびに変化してしまうこ"
+"とに注意してください。これらは乱数で暗号化されたスワップデバイスをマウントす"
+"るには適しません。</p><p>このほか /etc/crypttab ファイル内には、システムの起"
+"動のたびに変化することのない形式で、暗号化スワップデバイスの設定を記述する必"
+"要もあります。たとえば udev デバイス ID のほか、デバイス名の代わりにデバイス"
+"パスを使用してもかまいません。デバイス名を使用してしまうと、次回の起動時に別"
+"のデバイスを参照してしまい、スワップデバイスではないパーティションが暗号化さ"
+"れスワップとして使用されてしまいます!</p><p>YaST では、常にデバイス名を使用す"
+"るように指定していない限り、 /etc/crypttab 内に変化することのない安定した名前"
+"を書き込みます。ただし、デバイスによっては変化しない名前を指定するのは困難で"
+"ある場合もあります。これらの影響を考慮し、問題がないと確信した場合にのみ、こ"
+"の機能をお使いください。</p>"
 
 #. TRANSLATORS: help text for encryption method with protected keys for z Systems. See
 #. https://www.ibm.com/support/knowledgecenter/en/linuxonibm/com.ibm.linux.z.lxdc/
@@ -4571,6 +4580,24 @@ msgstr ""
 #: src/lib/y2storage/autoinst_issues/exception.rb:61
 msgid "A problem ocurred while creating the partitioning plan: %s"
 msgstr "パーティション設定のプラン作成時に問題が発生しました: %s"
+
+#. TRANSLATORS: 'crypt_method' is the name of the method to encrypt the device (like
+#. 'luks1' or 'random_swap').
+#: src/lib/y2storage/autoinst_issues/invalid_encryption.rb:75
+msgid "Encryption method '%{crypt_method}' is not available in this system."
+msgstr ""
+
+#. TRANSLATORS: 'crypt_method' is the name of the method to encrypt the device (like
+#. 'luks1' or 'random_swap').
+#: src/lib/y2storage/autoinst_issues/invalid_encryption.rb:82
+msgid "'%{crypt_method}' is not a known encryption method."
+msgstr ""
+
+#. TRANSLATORS: 'crypt_method' is the name of the method to encrypt the device (like
+#. 'luks1' or 'random_swap').
+#: src/lib/y2storage/autoinst_issues/invalid_encryption.rb:89
+msgid "'%{crypt_method}' is not a suitable method to encrypt the device."
+msgstr ""
 
 #. TRANSLATORS: 'value' is a generic value (number or string) 'attr' is an AutoYaST element
 #. name; 'new_value_message' is a short explanation about what should be done with the value.
