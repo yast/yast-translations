@@ -59,12 +59,11 @@ function weblate_create_project() {
 #		"name":"$NAME",
 #		"slug":"$SLUG",
 #		"web":"$WEB",
-#		"push_on_commit":"true",
 #	}
 #EOF
 	weblate_django_shell <<EOF
 from weblate.trans.models.project import Project
-project = Project(name="$NAME",slug="$SLUG",web="$WEB",push_on_commit=True)
+project = Project(name="$NAME",slug="$SLUG",web="$WEB")
 project.save()
 EOF
 }
@@ -119,10 +118,15 @@ function weblate_create_component() {
 	fi
 	weblate_django_shell <<EOF
 from weblate.trans.models.project import Project
-from weblate.trans.models.subproject import SubProject
+from weblate.trans.models.component import Component
 project = Project.objects.get(name="$PROJECT_NAME")
-component = SubProject(name="$3",slug="$SLUG",project=project,vcs="git",repo="$REPO"$PUSH,repoweb="https://github.com/$WEB_PART/blob/%(branch)s/%(file)s#L%(line)s",branch="$3",filemask="po/$1/*.po",new_base="po/$1/$1.pot",file_format="po",new_lang="add")
+component = Component(name="$3",slug="$SLUG",project=project,vcs="git",repo="$REPO"$PUSH,repoweb="https://github.com/$WEB_PART/blob/%(branch)s/%(file)s#L%(line)s",branch="$3",filemask="po/$1/*.po",new_base="po/$1/$1.pot",file_format="po",new_lang="add")
 component.save()
+# YaST only
+from weblate.trans.models.componentlist import ComponentList
+componentlist = ComponentList.objects.get(name="YaST master")
+componentlist.components.add(component)
+componentlist.save()
 EOF
 }
 
