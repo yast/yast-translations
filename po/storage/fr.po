@@ -17,7 +17,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: storage\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-11-27 02:29+0000\n"
+"POT-Creation-Date: 2019-12-13 02:29+0000\n"
 "PO-Revision-Date: 2019-11-01 20:53+0000\n"
 "Last-Translator: Antoine Belvire <antoine.belvire@opensuse.org>\n"
 "Language-Team: French <https://l10n.opensuse.org/projects/yast-storage/"
@@ -5402,13 +5402,23 @@ msgstr "Aucun"
 #. @param looks_like_real_multipath [Boolean] true if the system seems to
 #. contain a Multipath
 #. @return [Boolean]
-#: src/lib/y2storage/callbacks/activate.rb:52
+#: src/lib/y2storage/callbacks/activate.rb:55
 msgid ""
 "The system seems to have multipath hardware.\n"
 "Do you want to activate multipath?"
 msgstr ""
 "Le système semble avoir un matériel multipath.\n"
 "Voulez-vous activer le multipath ?"
+
+#. Error popup when the LUKS could not be activated
+#.
+#. @param attempt [Numeric] current attempt
+#: src/lib/y2storage/callbacks/activate.rb:90
+msgid ""
+"The encrypted volume could not be activated (attempt number %{attempt}).\n"
+"\n"
+"Please, make sure you are entering the correct password."
+msgstr ""
 
 #. Callback to ask the user whether to retry or abort when the storage lock
 #. cannot be acquired.
@@ -5661,7 +5671,10 @@ msgid ""
 msgstr ""
 
 # TLABEL partitioning_2002_01_04_0147__397
-#. Dialog to manage luks activation callbacks
+#. Constructor
+#.
+#. @param info [Storage::LuksInfo]
+#. @param attempt [Numeric]
 #: src/lib/y2storage/dialogs/callbacks/activate_luks.rb:64
 msgid "Encrypted Volume Activation"
 msgstr "Activation des volumes chiffrés"
@@ -5683,7 +5696,20 @@ msgstr ""
 "Le périphérique suivant contient une signature de chiffrement\n"
 "mais le mot de passe n'est pas encore connu."
 
-#: src/lib/y2storage/dialogs/callbacks/activate_luks.rb:110
+# TLABEL hwinfo_2002_01_04_0147__8
+#. TRANSLATORS: %{name} is replaced by a device name (e.g., /dev/sda1)
+#: src/lib/y2storage/dialogs/callbacks/activate_luks.rb:107
+#, fuzzy
+#| msgid "Device Name"
+msgid "Device Name: %{name}"
+msgstr "Nom du périphérique"
+
+#. TRANSLATORS: %{uuid} is replaced by a device UUID (e.g., 111-2222-33333)
+#: src/lib/y2storage/dialogs/callbacks/activate_luks.rb:109
+msgid "LUKS UUID: %{uuid}"
+msgstr ""
+
+#: src/lib/y2storage/dialogs/callbacks/activate_luks.rb:113
 msgid ""
 "The password is needed if the device contains a system to be\n"
 "updated or belongs to an LVM to be used during installation."

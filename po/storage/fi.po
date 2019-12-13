@@ -23,7 +23,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: storage-ng.fi\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-11-27 02:29+0000\n"
+"POT-Creation-Date: 2019-12-13 02:29+0000\n"
 "PO-Revision-Date: 2019-11-28 23:54+0000\n"
 "Last-Translator: Kimmo Kujansuu <mrkujansuu@gmail.com>\n"
 "Language-Team: Finnish <https://l10n.opensuse.org/projects/yast-storage/"
@@ -4529,7 +4529,8 @@ msgstr "välimuistilaite"
 #. 'role' is the kind of device (e.g., 'caching device').
 #: src/lib/y2storage/autoinst_issues/multiple_bcache_members.rb:69
 msgid "%{bcache_name}: only one %{role} can be specified per bcache."
-msgstr "%{bcache_name}: Vain yksi %{role} voidaan määrittää välimuistia kohden."
+msgstr ""
+"%{bcache_name}: Vain yksi %{role} voidaan määrittää välimuistia kohden."
 
 #. TRANSLATORS: kernel device name (eg. '/dev/sda1')
 #: src/lib/y2storage/autoinst_issues/no_disk.rb:50
@@ -4836,10 +4837,20 @@ msgstr "Ei mitään"
 #. @param looks_like_real_multipath [Boolean] true if the system seems to
 #. contain a Multipath
 #. @return [Boolean]
-#: src/lib/y2storage/callbacks/activate.rb:52
+#: src/lib/y2storage/callbacks/activate.rb:55
 msgid ""
 "The system seems to have multipath hardware.\n"
 "Do you want to activate multipath?"
+msgstr ""
+
+#. Error popup when the LUKS could not be activated
+#.
+#. @param attempt [Numeric] current attempt
+#: src/lib/y2storage/callbacks/activate.rb:90
+msgid ""
+"The encrypted volume could not be activated (attempt number %{attempt}).\n"
+"\n"
+"Please, make sure you are entering the correct password."
 msgstr ""
 
 #. Callback to ask the user whether to retry or abort when the storage lock
@@ -5073,7 +5084,10 @@ msgstr ""
 "Jos olet suorittanut tilannevedoksen palautuksen, käynnistä järjestelmä "
 "uudelleen ennen kuin jatkat."
 
-#. Dialog to manage luks activation callbacks
+#. Constructor
+#.
+#. @param info [Storage::LuksInfo]
+#. @param attempt [Numeric]
 #: src/lib/y2storage/dialogs/callbacks/activate_luks.rb:64
 msgid "Encrypted Volume Activation"
 msgstr "Salattujen taltioryhmien käyttöönotto"
@@ -5094,7 +5108,19 @@ msgstr ""
 "Seuraavalla laitteella on salausallekirjoitus, mutta sen salasanaa\n"
 "ei vielä tiedetä."
 
-#: src/lib/y2storage/dialogs/callbacks/activate_luks.rb:110
+#. TRANSLATORS: %{name} is replaced by a device name (e.g., /dev/sda1)
+#: src/lib/y2storage/dialogs/callbacks/activate_luks.rb:107
+#, fuzzy
+#| msgid "Device Name"
+msgid "Device Name: %{name}"
+msgstr "Laitenimi"
+
+#. TRANSLATORS: %{uuid} is replaced by a device UUID (e.g., 111-2222-33333)
+#: src/lib/y2storage/dialogs/callbacks/activate_luks.rb:109
+msgid "LUKS UUID: %{uuid}"
+msgstr ""
+
+#: src/lib/y2storage/dialogs/callbacks/activate_luks.rb:113
 msgid ""
 "The password is needed if the device contains a system to be\n"
 "updated or belongs to an LVM to be used during installation."
@@ -5144,11 +5170,11 @@ msgid ""
 msgstr ""
 "<p>Valitse levyt, joihin haluat asentaa. </p><p>Myöhemmin valintaikkunoissa "
 "voit valita, mitä näistä levyistä käytetään root tiedostojärjestelmään ja "
-"mitä tehdään olemassa oleville Linux-, Windows- tai muille osioille ("
-"säilyttää, poistaa tai koon muuttaminen).</p><p>Kuinka montaa tässä "
-"valitsemaasi levyä todella käytetään, riippuu valitsemastasi skenaariosta ("
-"LVM, erillinen koti osio tai ilman sitä jne.).</p><p> Levyjä, joita tässä ei "
-"valita, pysyvät kokonaan koskemattomina</p>"
+"mitä tehdään olemassa oleville Linux-, Windows- tai muille osioille "
+"(säilyttää, poistaa tai koon muuttaminen).</p><p>Kuinka montaa tässä "
+"valitsemaasi levyä todella käytetään, riippuu valitsemastasi skenaariosta "
+"(LVM, erillinen koti osio tai ilman sitä jne.).</p><p> Levyjä, joita tässä "
+"ei valita, pysyvät kokonaan koskemattomina</p>"
 
 #: src/lib/y2storage/dialogs/guided_setup/select_disks.rb:105
 msgid "At least one disk must be selected"
@@ -5397,17 +5423,16 @@ msgstr ""
 "yksinkertainen ja perinteinen tapa</li><li>LVM (Looginen aseman hallinta): "
 "<p>Tämä on joustavampi tapa hallita levytilaa. </p><p>Voit levittää "
 "yksittäisiä tiedostojärjestelmiä useille levyille ja lisätä (tai tietyssä "
-"määrin poistaa) levyjä myöhemmin tarvittaessa. </p><p>Voit määrittää PV:t ("
-"fyysiset levyt) osioista tai kokonaisista levyistä ja yhdistää ne VG:ksi "
-"(Levyryhmäksi), jotka toimivat tallennuryhmänä. Voit luoda LV-tiedostoja ("
-"loogisia levyjä) tiedostojärjestelmien (Btrfs, Ext2/3/4, XFS) "
-"luomiseksi.</p><p>Tässä <i>Ohjattu asennus</i>, tämä kaikki tehdään sinulle "
-"vakio tiedostojärjestelmän asettelun mukaan, jos tarkistat <b>Käytä "
-"LVM</b>.</li></ul></p><p><b>%{disk_encryption_label}</b> (LVM:n kanssa tai "
-"ilman) lisää LUKS-levyn salaus osiointiasetuksiin. Huomaa, että joudut "
-"syöttämään oikean salasanan joka kerta, kun käynnistät tietokoneen. "
-"</p><p><i>Jos kadotat salasanan, sitä ei voi palauttaa, joten muista "
-"salasanasi!</i></p>"
+"määrin poistaa) levyjä myöhemmin tarvittaessa. </p><p>Voit määrittää PV:t "
+"(fyysiset levyt) osioista tai kokonaisista levyistä ja yhdistää ne VG:ksi "
+"(Levyryhmäksi), jotka toimivat tallennuryhmänä. Voit luoda LV-tiedostoja "
+"(loogisia levyjä) tiedostojärjestelmien (Btrfs, Ext2/3/4, XFS) luomiseksi.</"
+"p><p>Tässä <i>Ohjattu asennus</i>, tämä kaikki tehdään sinulle vakio "
+"tiedostojärjestelmän asettelun mukaan, jos tarkistat <b>Käytä LVM</b>.</li></"
+"ul></p><p><b>%{disk_encryption_label}</b> (LVM:n kanssa tai ilman) lisää "
+"LUKS-levyn salaus osiointiasetuksiin. Huomaa, että joudut syöttämään oikean "
+"salasanan joka kerta, kun käynnistät tietokoneen. </p><p><i>Jos kadotat "
+"salasanan, sitä ei voi palauttaa, joten muista salasanasi!</i></p>"
 
 #. TRANSLATORS: %{widget_label} refers to the label of the described widget
 #: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:214
@@ -5501,9 +5526,8 @@ msgid ""
 "if not needed (always remove)</li></ul></p>"
 msgstr ""
 "<p>Voit valita, mitä tehdään olemassa oleville osioille:</p><p><ul><li>Älä "
-"muuta (pidä niitä sellaisina kuin ne ovat)</li><li>Poista "
-"tarvittaessa</li><li>Poista, vaikka sitä ei tarvita (poista "
-"aina)</li></ul></p>"
+"muuta (pidä niitä sellaisina kuin ne ovat)</li><li>Poista tarvittaessa</"
+"li><li>Poista, vaikka sitä ei tarvita (poista aina)</li></ul></p>"
 
 #: src/lib/y2storage/dialogs/guided_setup/widgets/partition_actions.rb:110
 msgid ""
