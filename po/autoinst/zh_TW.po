@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: autoinst\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-12-07 02:28+0000\n"
+"POT-Creation-Date: 2019-12-14 02:28+0000\n"
 "PO-Revision-Date: 2019-01-31 14:22+0000\n"
 "Last-Translator: Emily Dong <Emily.Dong@excel-gits.com>\n"
 "Language-Team: Chinese (Taiwan) <https://l10n.opensuse.org/projects/yast-"
@@ -61,9 +61,9 @@ msgstr "AutoYast"
 #. @return [Symbol] :abort if profile could not be read; :found when it was loaded;
 #. :not_found if it does not exist
 #. Now check if there any classes defined in theis pre final control file
-#: src/clients/autoyast.rb:108 src/clients/inst_autoinit.rb:258
-#: src/lib/autoinstall/autosetup_helpers.rb:56
+#: src/clients/autoyast.rb:108 src/lib/autoinstall/autosetup_helpers.rb:56
 #: src/lib/autoinstall/clients/ayast_setup.rb:110
+#: src/lib/autoinstall/clients/inst_autoinit.rb:199
 #: src/modules/AutoInstallRules.rb:954
 msgid ""
 "Error while parsing the control file.\n"
@@ -416,13 +416,6 @@ msgstr ""
 "執行影像程序檔失敗：\n"
 "%1"
 
-#. File:  clients/inst_autoinit.ycp
-#. Package:  Auto-installation
-#. Summary:  Parses XML Profile for automatic installation
-#. Authors:  Anas Nashif <nashif@suse.de>
-#.
-#. $Id$
-#.
 #. File:  clients/autoinst_post.ycp
 #. Package:  Auto-installation
 #. Author:      Anas Nashif <nashif@suse.de>
@@ -430,7 +423,8 @@ msgstr ""
 #. the system as described in the profile file.
 #.
 #. $Id$
-#: src/clients/inst_autoinit.rb:44 src/clients/inst_autopost.rb:45
+#: src/clients/inst_autopost.rb:45
+#: src/lib/autoinstall/clients/inst_autoinit.rb:44
 msgid ""
 "<p>\n"
 "Please wait while the system is prepared for autoinstallation.</p>\n"
@@ -438,84 +432,14 @@ msgstr ""
 "<p>\n"
 "正在準備系統以進行自動安裝，請稍候。</p>\n"
 
-#: src/clients/inst_autoinit.rb:48
-msgid "Probe hardware"
-msgstr "查探硬體"
-
-#: src/clients/inst_autoinit.rb:49
-msgid "Retrieve & Read Control File"
-msgstr "取回並讀取控制檔案"
-
-#: src/clients/inst_autoinit.rb:50
-msgid "Parse control file"
-msgstr "分析控制檔案"
-
-#. Checking profile for unsupported sections.
-#: src/clients/inst_autoinit.rb:51 src/clients/inst_autoinit.rb:273
-msgid "Initial Configuration"
-msgstr "啟始組態"
-
-#: src/clients/inst_autoinit.rb:56 src/clients/inst_autopost.rb:62
-msgid "Preparing System for Automatic Installation"
-msgstr "正在準備系統，以進行自動安裝"
-
-#. progress bar length
-#: src/clients/inst_autoinit.rb:64
-msgid "Preprobing stage"
-msgstr "預先查探階段"
-
-#: src/clients/inst_autoinit.rb:75
-msgid "Probing hardware..."
-msgstr "正在查探硬體..."
-
-#. check that the registration section is defined and registration is enabled
-#: src/clients/inst_autoinit.rb:105
-msgid ""
-"Registration is mandatory when using the online installation medium. Ensure "
-"that system is registered before running upgrade and enable registration in "
-"the AutoYaST profile or use full installation medium if system is not "
-"registered."
-msgstr ""
-
-#: src/clients/inst_autoinit.rb:110
-msgid ""
-"Registration is mandatory when using the online installation medium. Enable "
-"registration in the AutoYaST profile or use full installation medium."
-msgstr ""
-
-#. duplicite code, but for offline medium we need to do it before system is initialized as
-#. we get need product for initialize libzypp, but for others we need first init libzypp
-#. to get available products.
-#. initialize addons and the workflow manager
-#: src/clients/inst_autoinit.rb:128 src/clients/inst_autoinit.rb:176
-msgid ""
-"None or wrong base product has been defined in the AutoYaST configuration "
-"file. Please check the <b>products</b> entry in the <b>software</b> section."
-"<br><br>Following base products are available:<br>"
-msgstr ""
-"AutoYaST 組態檔案中未定義基礎產品或定義了錯誤的基礎產品。請檢查 <b>software</"
-"b> 區段中的 <b>products</b> 項目。<br><br>以下基礎產品可用：<br>"
-
-#. TRANSLATORS: Error message, %s is replaced by newline-separated
-#. list of unsupported sections of the profile
-#. Do not translate words in brackets
-#: src/clients/inst_autoinit.rb:203
-msgid ""
-"These sections of AutoYaST profile are not supported anymore:<br><br>"
-"%s<br><br>Please, use, e.g., &lt;scripts/&gt; or &lt;files/&gt; to change "
-"the configuration."
-msgstr ""
-"不再支援 AutoYaST 設定檔的以下區段：<br><br>%s<br><br>請使用 &lt;scripts/"
-"&gt; 或 &lt;files/&gt; 等標記變更組態。"
-
-#. Set reporting behaviour to default, changed later if required
-#: src/clients/inst_autoinit.rb:253
-msgid "Parsing control file"
-msgstr "正在分析控制檔案"
-
 #: src/clients/inst_autopost.rb:48
 msgid "Install required packages"
 msgstr "安裝必要的套件"
+
+#: src/clients/inst_autopost.rb:62
+#: src/lib/autoinstall/clients/inst_autoinit.rb:55
+msgid "Preparing System for Automatic Installation"
+msgstr "正在準備系統，以進行自動安裝"
 
 #. progress bar length
 #: src/clients/inst_autopost.rb:70
@@ -1043,35 +967,6 @@ msgstr "磁碟區群組裝置名稱"
 #: src/include/autoinstall/ask.rb:530
 msgid "A user defined script is running. This may take a while."
 msgstr "正在執行使用者定義的程序檔。這可能需要一些時間。"
-
-#. Shows a dialog when 'control file' can't be found
-#. @param [String] original Original value
-#. @return [String] new value
-#: src/include/autoinstall/autoinst_dialogs.rb:19
-msgid ""
-"<p>\n"
-"A profile for this machine could not be found or retrieved.\n"
-"Check that you entered the correct location\n"
-"on the command line and try again. Because of this error, you\n"
-"can only enter a URL to a profile and not to a directory. If you\n"
-"are using rules or host name-based control files, restart the\n"
-"installation process and make sure the control files are accessible.</p>\n"
-msgstr ""
-"<p>\n"
-"找不到或無法取回此機器的設定檔。\n"
-"請檢查您已在指令行輸入正確的位置後，\n"
-"再試一次。因為此錯誤，所以\n"
-"只可輸入設定檔的 URL，而不是輸入目錄的位置。若\n"
-"正在使用規則或以主機名稱為基礎的控制檔案，請重新啟動\n"
-"安裝程序，並請確定可存取控制檔案。</p>\n"
-
-#: src/include/autoinstall/autoinst_dialogs.rb:28
-msgid "System Profile Location"
-msgstr "系統設定檔位置"
-
-#: src/include/autoinstall/autoinst_dialogs.rb:43
-msgid "&Profile Location:"
-msgstr "設定檔位置(&P)："
 
 #. class_dialog_contents()
 #. @return [Yast::Term]
@@ -2244,6 +2139,116 @@ msgstr "讀取 AutoYaST 組態檔案時偵測到重要問題："
 msgid "Path to AutoYaST profile must be set."
 msgstr "必須設定指向 AutoYaST 設定檔的路徑。"
 
+#: src/lib/autoinstall/clients/inst_autoinit.rb:48
+msgid "Probe hardware"
+msgstr "查探硬體"
+
+#: src/lib/autoinstall/clients/inst_autoinit.rb:49
+msgid "Retrieve & Read Control File"
+msgstr "取回並讀取控制檔案"
+
+#: src/lib/autoinstall/clients/inst_autoinit.rb:50
+msgid "Parse control file"
+msgstr "分析控制檔案"
+
+#. Checking profile for unsupported sections.
+#: src/lib/autoinstall/clients/inst_autoinit.rb:51
+#: src/lib/autoinstall/clients/inst_autoinit.rb:214
+msgid "Initial Configuration"
+msgstr "啟始組態"
+
+#. progress bar length
+#: src/lib/autoinstall/clients/inst_autoinit.rb:63
+msgid "Preprobing stage"
+msgstr "預先查探階段"
+
+#: src/lib/autoinstall/clients/inst_autoinit.rb:69
+msgid "Probing hardware..."
+msgstr "正在查探硬體..."
+
+#. offline registration need here to init software management according to picked product
+#. or autoupgrade without scc
+#: src/lib/autoinstall/clients/inst_autoinit.rb:117
+#: src/lib/autoinstall/clients/inst_autoinit.rb:364
+msgid ""
+"None or wrong base product has been defined in the AutoYaST configuration "
+"file. Please check the <b>products</b> entry in the <b>software</b> section."
+"<br><br>Following base products are available:<br>"
+msgstr ""
+"AutoYaST 組態檔案中未定義基礎產品或定義了錯誤的基礎產品。請檢查 <b>software</"
+"b> 區段中的 <b>products</b> 項目。<br><br>以下基礎產品可用：<br>"
+
+#. TRANSLATORS: Error message, %s is replaced by newline-separated
+#. list of unsupported sections of the profile
+#. Do not translate words in brackets
+#: src/lib/autoinstall/clients/inst_autoinit.rb:145
+msgid ""
+"These sections of AutoYaST profile are not supported anymore:<br><br>"
+"%s<br><br>Please, use, e.g., &lt;scripts/&gt; or &lt;files/&gt; to change "
+"the configuration."
+msgstr ""
+"不再支援 AutoYaST 設定檔的以下區段：<br><br>%s<br><br>請使用 &lt;scripts/"
+"&gt; 或 &lt;files/&gt; 等標記變更組態。"
+
+#. Set reporting behaviour to default, changed later if required
+#: src/lib/autoinstall/clients/inst_autoinit.rb:195
+msgid "Parsing control file"
+msgstr "正在分析控制檔案"
+
+#. Shows a dialog when 'control file' can't be found
+#. @param [String] original Original value
+#. @return [String] new value
+#: src/lib/autoinstall/clients/inst_autoinit.rb:238
+msgid ""
+"<p>\n"
+"A profile for this machine could not be found or retrieved.\n"
+"Check that you entered the correct location\n"
+"on the command line and try again. Because of this error, you\n"
+"can only enter a URL to a profile and not to a directory. If you\n"
+"are using rules or host name-based control files, restart the\n"
+"installation process and make sure the control files are accessible.</p>\n"
+msgstr ""
+"<p>\n"
+"找不到或無法取回此機器的設定檔。\n"
+"請檢查您已在指令行輸入正確的位置後，\n"
+"再試一次。因為此錯誤，所以\n"
+"只可輸入設定檔的 URL，而不是輸入目錄的位置。若\n"
+"正在使用規則或以主機名稱為基礎的控制檔案，請重新啟動\n"
+"安裝程序，並請確定可存取控制檔案。</p>\n"
+
+#: src/lib/autoinstall/clients/inst_autoinit.rb:247
+msgid "System Profile Location"
+msgstr "系統設定檔位置"
+
+#: src/lib/autoinstall/clients/inst_autoinit.rb:262
+msgid "&Profile Location:"
+msgstr "設定檔位置(&P)："
+
+#. check that the registration section is defined and registration is enabled
+#: src/lib/autoinstall/clients/inst_autoinit.rb:315
+msgid ""
+"Registration is mandatory when using the online installation medium. Enable "
+"registration in the AutoYaST profile or use full installation medium."
+msgstr ""
+
+#. report error only for installation or if autoupgrade contain addon with relative url.
+#. This way autoupgrade for Full medium on registered system
+#. can autoupgrade with empty profile.
+#: src/lib/autoinstall/clients/inst_autoinit.rb:358
+#, fuzzy
+#| msgid ""
+#| "None or wrong base product has been defined in the AutoYaST configuration "
+#| "file. Please check the <b>products</b> entry in the <b>software</b> "
+#| "section.<br><br>Following base products are available:<br>"
+msgid ""
+"None or wrong base product has been defined in the AutoYaST configuration "
+"file. It needs to be specified as base for addons that use relurl scheme."
+"Please check the <b>products</b> entry in the <b>software</b> section."
+"<br><br>Following base products are available:<br>"
+msgstr ""
+"AutoYaST 組態檔案中未定義基礎產品或定義了錯誤的基礎產品。請檢查 <b>software</"
+"b> 區段中的 <b>products</b> 項目。<br><br>以下基礎產品可用：<br>"
+
 #. Dialog content when some disks are available
 #.
 #. @return [Yast::Term] Dialog content
@@ -2781,18 +2786,18 @@ msgstr "可在 %s 中查看詳細資料。"
 
 #. Handle /etc/fstab usage
 #. @return [Boolean]
-#: src/modules/AutoinstStorage.rb:194
+#: src/modules/AutoinstStorage.rb:192
 msgid "Evaluating root partition. One moment please..."
 msgstr "正在評估根分割區。請稍候..."
 
 #. a popup
-#: src/modules/AutoinstStorage.rb:202
+#: src/modules/AutoinstStorage.rb:200
 msgid "No Linux root partition found."
 msgstr "找不到 Linux 根分割區。"
 
 #. We must only change RootPart::selectedRootPartition if booting
 #. is inevitable.
-#: src/modules/AutoinstStorage.rb:215
+#: src/modules/AutoinstStorage.rb:213
 msgid ""
 "Multiple root partitions found, but you did not configure\n"
 "which root partition should be used.  Automatic installation not possible.\n"
@@ -2801,7 +2806,7 @@ msgstr ""
 "應使用哪個根分割區。無法使用自動安裝。\n"
 
 #. On non-fatal issues, obey report settings for warnings
-#: src/modules/AutoinstStorage.rb:298
+#: src/modules/AutoinstStorage.rb:296
 msgid "Partitioning issues"
 msgstr "磁碟分割問題"
 
@@ -2829,23 +2834,23 @@ msgstr "無法將區段 %1 寫入檔案 %2。"
 #. Read XML into  YCP data
 #. @param file [String] path to file
 #. @return [Boolean]
-#: src/modules/Profile.rb:674 src/modules/ProfileLocation.rb:120
+#: src/modules/Profile.rb:674 src/modules/ProfileLocation.rb:119
 msgid "Encrypted AutoYaST profile. Enter the correct password."
 msgstr "加密的 AutoYaST 設定檔。輸入正確的密碼。"
 
 #. autoyast=label://my_home//autoinst.xml in linuxrc:
 #. AY is searching for a partition with the label "my_home". This partition
 #. will be mounted and the autoinst.xml will be used for installation.
-#: src/modules/ProfileLocation.rb:86
+#: src/modules/ProfileLocation.rb:85
 msgid "label not found while looking for autoyast profile"
 msgstr "尋找 autoyast 設定檔時找不到標籤"
 
 #. autoyast hit an error while fetching it's config file
-#: src/modules/ProfileLocation.rb:109
+#: src/modules/ProfileLocation.rb:108
 msgid "An error occurred while fetching the profile:\n"
 msgstr "取得設定檔時發生錯誤：\n"
 
-#: src/modules/ProfileLocation.rb:123
+#: src/modules/ProfileLocation.rb:122
 msgid "&OK"
 msgstr "確定(&O)"
 
