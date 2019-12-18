@@ -11,7 +11,7 @@ function weblate_django_shell() {
 	fi
 	# For debugging, uncomment cat and comment out weblate-ssh
 	#cat
-	weblate-ssh 'su -l -s /usr/bin/python wwwrun /usr/share/weblate/manage.py shell'
+	weblate-ssh 'su -l -s /usr/bin/python3 wwwrun /usr/share/weblate/manage.py shell'
 }
 
 # Warning: weblate_manage() does not escape arguments. Do not use spaces!
