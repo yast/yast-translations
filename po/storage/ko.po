@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: storage-ng.ko\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-22 02:30+0000\n"
+"POT-Creation-Date: 2020-01-25 02:29+0000\n"
 "PO-Revision-Date: 2019-03-21 11:20+0000\n"
 "Last-Translator: Hwajin Kim <hwajin.kim@e4net.net>\n"
 "Language-Team: Korean <https://l10n.opensuse.org/projects/yast-storage/"
@@ -2308,6 +2308,7 @@ msgstr "장치"
 #. TRANSLATORS: label of a table column
 #. TRANSLATORS: table column label.
 #: src/lib/y2partitioner/widgets/btrfs_filesystems_table.rb:77
+#: src/lib/y2partitioner/widgets/fstab_options.rb:405
 #: src/lib/y2partitioner/widgets/pages/bcaches.rb:220
 #: src/lib/y2storage/filesystems/mount_by_type.rb:63
 msgid "UUID"
@@ -2999,7 +3000,7 @@ msgstr "장치를 탑재하지 않음"
 #. is given.
 #. TRANSLATORS: Error messagge when the label is not given.
 #: src/lib/y2partitioner/widgets/format_and_mount.rb:277
-#: src/lib/y2partitioner/widgets/fstab_options.rb:303
+#: src/lib/y2partitioner/widgets/fstab_options.rb:302
 msgid "Provide a volume label to mount by label."
 msgstr "레이블로 마운트하기 위해 볼륨 레이블을 적어주십시오."
 
@@ -3154,55 +3155,67 @@ msgstr "Fstab 옵션..."
 
 # label text
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:262
-#: src/lib/y2partitioner/widgets/fstab_options.rb:403
+#: src/lib/y2partitioner/widgets/fstab_options.rb:261
 msgid "Volume &Label"
 msgstr "볼륨 레이블(&L)"
 
 # popup text
 #. TRANSLATORS: Error message when the given label is already in use.
-#: src/lib/y2partitioner/widgets/fstab_options.rb:318
+#: src/lib/y2partitioner/widgets/fstab_options.rb:317
 msgid "This volume label is already in use. Select a different one."
 msgstr "이 볼륨 레이블은 이미 사용 중입니다. 다른 레이블을 사용하십시오."
 
 # label text
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:380
+#: src/lib/y2partitioner/widgets/fstab_options.rb:379
 msgid "Mount in /etc/fstab By"
 msgstr "/etc/fstab에 마운트"
 
-# label text
-#. @macro seeCustomWidget
+# tree node string
+#. CWM does not support symbols for entries in ComboBoxes
+#. contrary to libyui. Otherwise a few conversations between
+#. string and symbol below could be avoided.
+#. Hash with the properties for each mount by type.
+#.
+#. Keys are the symbols representing the types and values are hashes that
+#. can contain:
+#. - `:name` for human string
+#. - `:stability` to rate how stable is the corresponding name
 #: src/lib/y2partitioner/widgets/fstab_options.rb:402
-msgid "&Device Name"
-msgstr "장치 이름(&D)"
+#: src/lib/y2storage/filesystems/mount_by_type.rb:47
+msgid "Device Name"
+msgstr "장치 이름"
 
+# table column headings
+#: src/lib/y2partitioner/widgets/fstab_options.rb:403
+#: src/lib/y2storage/filesystems/mount_by_type.rb:55
+msgid "Device ID"
+msgstr "장치 ID"
+
+# table column headings
 #: src/lib/y2partitioner/widgets/fstab_options.rb:404
-msgid "&UUID"
-msgstr "&UUID"
+#: src/lib/y2storage/filesystems/mount_by_type.rb:51
+msgid "Device Path"
+msgstr "장치 경로"
 
-# table column headings
-#: src/lib/y2partitioner/widgets/fstab_options.rb:408
-msgid "Device &ID"
-msgstr "장치 ID(&I)"
-
-# table column headings
-#: src/lib/y2partitioner/widgets/fstab_options.rb:409
-msgid "Device &Path"
-msgstr "장치 경로(&P)"
+# label text
+#: src/lib/y2partitioner/widgets/fstab_options.rb:406
+#: src/lib/y2storage/filesystems/mount_by_type.rb:59
+msgid "Volume Label"
+msgstr "볼륨 레이블"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:497
+#: src/lib/y2partitioner/widgets/fstab_options.rb:477
 msgid "Do Not Mount at System &Start-up"
 msgstr "시스템이 시작할때 마운트를 하지 않습니다(&S)"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:510
+#: src/lib/y2partitioner/widgets/fstab_options.rb:490
 msgid "Mount &Read-Only"
 msgstr "읽기 전용 마운트(&R)"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:515
+#: src/lib/y2partitioner/widgets/fstab_options.rb:495
 msgid ""
 "<p><b>Mount Read-Only:</b>\n"
 "Writing to the file system is not possible. Default is false. During "
@@ -3214,27 +3227,12 @@ msgstr ""
 "파일 시스템은 항상 읽기/쓰기로 마운트됩니다.</p>"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:528
-msgid "No &Access Time"
-msgstr "액세스 시간 없음(&A)"
-
-#. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:533
-msgid ""
-"<p><b>No Access Time:</b>\n"
-"Access times are not updated when a file is read. Default is false.</p>\n"
-msgstr ""
-"<p><b>액세스 시간 없음:</b>\n"
-"파일을 읽을 때 액세스 시간이 업데이트되지 않습니다. 기본값은 false입니다.</"
-"p>\n"
-
-#. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:546
+#: src/lib/y2partitioner/widgets/fstab_options.rb:509
 msgid "Mountable by User"
 msgstr "사용자가 마운트 가능"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:551
+#: src/lib/y2partitioner/widgets/fstab_options.rb:514
 msgid ""
 "<p><b>Mountable by User:</b>\n"
 "The file system may be mounted by an ordinary user. Default is false.</p>\n"
@@ -3244,12 +3242,12 @@ msgstr ""
 
 # yes-no popup
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:565
+#: src/lib/y2partitioner/widgets/fstab_options.rb:528
 msgid "Enable &Quota Support"
 msgstr "할당량 지원 활성화(&Q)"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:570
+#: src/lib/y2partitioner/widgets/fstab_options.rb:533
 msgid ""
 "<p><b>Enable Quota Support:</b>\n"
 "The file system is mounted with user quotas enabled.\n"
@@ -3260,56 +3258,24 @@ msgstr ""
 "기본값은 false입니다.</p>"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:615
-msgid "&Access Control Lists (ACL)"
-msgstr "ACL(액세스 제어 목록)(&A)"
-
-#. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:620
-msgid ""
-"<p><b>Access Control Lists (acl):</b>\n"
-"Enable POSIX access control lists and thus more fine-grained user "
-"permissions on the file system. See also man 5 acl.\n"
-msgstr ""
-"<p><b>액세스 제어 목록(acl):</b>\n"
-"POSIX 액세스 제어 목록을 활성화하여 파일 시스템에서 사용자 권한을 더 세밀하"
-"게 사용할 수 있습니다. 맨 5 acl도 참조하십시오.\n"
-
-#. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:635
-msgid "&Extended User Attributes"
-msgstr "확장된 사용자 속성(&E)"
-
-#. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:640
-msgid ""
-"<p><b>Extended User Attributes (user_xattr):</b>\n"
-"Enable extended attributes (name:value pairs) on files and directories.\n"
-"This is an extension to ACLs. See also man 7 xattr.\n"
-msgstr ""
-"<p><b>확장된 사용자 속성(user_xattr):</b>\n"
-"파일 및 디렉토리에서 확장된 속성(이름:값 쌍)을 활성화합니다.\n"
-"ACL로 확장한 것입니다. 맨 7 xattr도 참조하십시오.\n"
-
-#. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:739
+#: src/lib/y2partitioner/widgets/fstab_options.rb:643
 msgid "Data &Journaling Mode"
 msgstr "데이터 저널링 모드(&J)"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:748
+#: src/lib/y2partitioner/widgets/fstab_options.rb:652
 msgid "journal"
 msgstr "저널"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:749
+#: src/lib/y2partitioner/widgets/fstab_options.rb:653
 msgid "ordered"
 msgstr "순서대로"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:750
+#: src/lib/y2partitioner/widgets/fstab_options.rb:654
 msgid "writeback"
 msgstr "다시쓰기"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:762
+#: src/lib/y2partitioner/widgets/fstab_options.rb:666
 msgid ""
 "<p><b>Data Journaling Mode:</b>\n"
 "Specifies the journaling mode for file data.\n"
@@ -3331,12 +3297,12 @@ msgstr ""
 "않습니다.</p>\n"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:793
+#: src/lib/y2partitioner/widgets/fstab_options.rb:697
 msgid "Arbitrary Option &Value"
 msgstr "임의 옵션 값(&V)"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:821
+#: src/lib/y2partitioner/widgets/fstab_options.rb:725
 msgid ""
 "<p><b>Arbitrary Option Value:</b> Enter any other mount options here, "
 "separated with commas. Notice that this does not do any checking, so be "
@@ -3346,12 +3312,12 @@ msgstr ""
 "오. 검사를 수행하지 않으므로 여기 입력하는 내용에 주의하십시오!</p>"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:905
+#: src/lib/y2partitioner/widgets/fstab_options.rb:809
 msgid "Swap &Priority"
 msgstr "스왑 우선순위(&p)"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:916
+#: src/lib/y2partitioner/widgets/fstab_options.rb:820
 msgid ""
 "<p><b>Swap Priority:</b>\n"
 "Enter the swap priority. Higher numbers mean higher priority.</p>\n"
@@ -3360,13 +3326,13 @@ msgstr ""
 "스왑 우선순위를 입력해 주세요. 높은 숫자가 높은 우선순위를 의미합니다.</p>\n"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:953
+#: src/lib/y2partitioner/widgets/fstab_options.rb:857
 msgid "Char&set for File Names"
 msgstr "파일이름을 위한 문자셋(&S)"
 
 # help text, richtext format
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:958
+#: src/lib/y2partitioner/widgets/fstab_options.rb:862
 msgid ""
 "<p><b>Charset for File Names:</b>\n"
 "Set the charset used for display of file names in Windows partitions.</p>\n"
@@ -3375,13 +3341,13 @@ msgstr ""
 "윈도우 파티션의 파일이름을 표시하기 위해 사용될 문자셋을 설정하십시오.</p>\n"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:977
+#: src/lib/y2partitioner/widgets/fstab_options.rb:881
 msgid "Code&page for Short FAT Names"
 msgstr "간단한 FAT 이름을 위한 코드페이지(&P)"
 
 # help text, richtext format
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:982
+#: src/lib/y2partitioner/widgets/fstab_options.rb:886
 msgid ""
 "<p><b>Codepage for Short FAT Names:</b>\n"
 "This codepage is used for converting to shortname characters on FAT file "
@@ -6144,32 +6110,6 @@ msgstr ""
 msgid "Btrfs over %{num_devices} devices %{name}"
 msgstr ""
 
-# tree node string
-#. Hash with the properties for each mount by type.
-#.
-#. Keys are the symbols representing the types and values are hashes that
-#. can contain:
-#. - `:name` for human string
-#. - `:stability` to rate how stable is the corresponding name
-#: src/lib/y2storage/filesystems/mount_by_type.rb:47
-msgid "Device Name"
-msgstr "장치 이름"
-
-# table column headings
-#: src/lib/y2storage/filesystems/mount_by_type.rb:51
-msgid "Device Path"
-msgstr "장치 경로"
-
-# table column headings
-#: src/lib/y2storage/filesystems/mount_by_type.rb:55
-msgid "Device ID"
-msgstr "장치 ID"
-
-# label text
-#: src/lib/y2storage/filesystems/mount_by_type.rb:59
-msgid "Volume Label"
-msgstr "볼륨 레이블"
-
 #. TRANSLATORS: display name when the PV has no associated VG, where %{device} is replaced by a
 #. device name (e.g., "/dev/sda1").
 #: src/lib/y2storage/lvm_pv.rb:78
@@ -6394,6 +6334,56 @@ msgstr "암호화 비밀번호 입력"
 #: src/lib/y2storage/resize_info.rb:109
 msgid "Unknown reason"
 msgstr "알 수 없는 이유"
+
+# label text
+#~ msgid "&Device Name"
+#~ msgstr "장치 이름(&D)"
+
+#~ msgid "&UUID"
+#~ msgstr "&UUID"
+
+# table column headings
+#~ msgid "Device &ID"
+#~ msgstr "장치 ID(&I)"
+
+# table column headings
+#~ msgid "Device &Path"
+#~ msgstr "장치 경로(&P)"
+
+#~ msgid "No &Access Time"
+#~ msgstr "액세스 시간 없음(&A)"
+
+#~ msgid ""
+#~ "<p><b>No Access Time:</b>\n"
+#~ "Access times are not updated when a file is read. Default is false.</p>\n"
+#~ msgstr ""
+#~ "<p><b>액세스 시간 없음:</b>\n"
+#~ "파일을 읽을 때 액세스 시간이 업데이트되지 않습니다. 기본값은 false입니다."
+#~ "</p>\n"
+
+#~ msgid "&Access Control Lists (ACL)"
+#~ msgstr "ACL(액세스 제어 목록)(&A)"
+
+#~ msgid ""
+#~ "<p><b>Access Control Lists (acl):</b>\n"
+#~ "Enable POSIX access control lists and thus more fine-grained user "
+#~ "permissions on the file system. See also man 5 acl.\n"
+#~ msgstr ""
+#~ "<p><b>액세스 제어 목록(acl):</b>\n"
+#~ "POSIX 액세스 제어 목록을 활성화하여 파일 시스템에서 사용자 권한을 더 세밀"
+#~ "하게 사용할 수 있습니다. 맨 5 acl도 참조하십시오.\n"
+
+#~ msgid "&Extended User Attributes"
+#~ msgstr "확장된 사용자 속성(&E)"
+
+#~ msgid ""
+#~ "<p><b>Extended User Attributes (user_xattr):</b>\n"
+#~ "Enable extended attributes (name:value pairs) on files and directories.\n"
+#~ "This is an extension to ACLs. See also man 7 xattr.\n"
+#~ msgstr ""
+#~ "<p><b>확장된 사용자 속성(user_xattr):</b>\n"
+#~ "파일 및 디렉토리에서 확장된 속성(이름:값 쌍)을 활성화합니다.\n"
+#~ "ACL로 확장한 것입니다. 맨 7 xattr도 참조하십시오.\n"
 
 #~ msgid ""
 #~ "<p><b>Server:</b> Host name or IP address of the NFS server.</"

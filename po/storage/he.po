@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: YaST (@memory@)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-22 02:30+0000\n"
+"POT-Creation-Date: 2020-01-25 02:29+0000\n"
 "PO-Revision-Date: 2013-05-29 21:56+0200\n"
 "Last-Translator: Eliran Itzhak <eliran@bigfoot.com>\n"
 "Language-Team: Hebrew <i18n@suse.de>\n"
@@ -2539,6 +2539,7 @@ msgstr "התקן"
 #. TRANSLATORS: label of a table column
 #. TRANSLATORS: table column label.
 #: src/lib/y2partitioner/widgets/btrfs_filesystems_table.rb:77
+#: src/lib/y2partitioner/widgets/fstab_options.rb:405
 #: src/lib/y2partitioner/widgets/pages/bcaches.rb:220
 #: src/lib/y2storage/filesystems/mount_by_type.rb:63
 #, fuzzy
@@ -3287,7 +3288,7 @@ msgstr "מחיצה"
 #. is given.
 #. TRANSLATORS: Error messagge when the label is not given.
 #: src/lib/y2partitioner/widgets/format_and_mount.rb:277
-#: src/lib/y2partitioner/widgets/fstab_options.rb:303
+#: src/lib/y2partitioner/widgets/fstab_options.rb:302
 #, fuzzy
 msgid "Provide a volume label to mount by label."
 msgstr "אנא הקישו תווית כדי לטעון לפי תווית"
@@ -3488,14 +3489,13 @@ msgstr "אפשרויות &Fstab"
 
 #  label text
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:262
-#: src/lib/y2partitioner/widgets/fstab_options.rb:403
+#: src/lib/y2partitioner/widgets/fstab_options.rb:261
 msgid "Volume &Label"
 msgstr "&תוית הכרך"
 
 #  popup text
 #. TRANSLATORS: Error message when the given label is already in use.
-#: src/lib/y2partitioner/widgets/fstab_options.rb:318
+#: src/lib/y2partitioner/widgets/fstab_options.rb:317
 #, fuzzy
 #| msgid "This volume label is already in use. Select a different one."
 msgid "This volume label is already in use. Select a different one."
@@ -3503,46 +3503,58 @@ msgstr "תווית הכרך שסופקה כבר בשימוש. נא לבחור א
 
 #  label text
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:380
+#: src/lib/y2partitioner/widgets/fstab_options.rb:379
 #, fuzzy
 #| msgid "Mount in /etc/fstab by"
 msgid "Mount in /etc/fstab By"
 msgstr "עגון ב /etc/fstab ע\"י"
 
 #  label text
-#. @macro seeCustomWidget
+#. CWM does not support symbols for entries in ComboBoxes
+#. contrary to libyui. Otherwise a few conversations between
+#. string and symbol below could be avoided.
+#. Hash with the properties for each mount by type.
+#.
+#. Keys are the symbols representing the types and values are hashes that
+#. can contain:
+#. - `:name` for human string
+#. - `:stability` to rate how stable is the corresponding name
 #: src/lib/y2partitioner/widgets/fstab_options.rb:402
+#: src/lib/y2storage/filesystems/mount_by_type.rb:47
 #, fuzzy
-msgid "&Device Name"
+msgid "Device Name"
 msgstr "&שם התקן"
 
-#  label text
+#  table column headings
+#: src/lib/y2partitioner/widgets/fstab_options.rb:403
+#: src/lib/y2storage/filesystems/mount_by_type.rb:55
+#, fuzzy
+msgid "Device ID"
+msgstr "התקן"
+
+#  table column headings
 #: src/lib/y2partitioner/widgets/fstab_options.rb:404
+#: src/lib/y2storage/filesystems/mount_by_type.rb:51
 #, fuzzy
-msgid "&UUID"
-msgstr "R&AID:"
-
-#  table column headings
-#: src/lib/y2partitioner/widgets/fstab_options.rb:408
-#, fuzzy
-msgid "Device &ID"
+msgid "Device Path"
 msgstr "התקן"
 
-#  table column headings
-#: src/lib/y2partitioner/widgets/fstab_options.rb:409
+#  label text
+#: src/lib/y2partitioner/widgets/fstab_options.rb:406
+#: src/lib/y2storage/filesystems/mount_by_type.rb:59
 #, fuzzy
-msgid "Device &Path"
-msgstr "התקן"
+msgid "Volume Label"
+msgstr "&תוית הכרך"
 
 #  button text
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:497
+#: src/lib/y2partitioner/widgets/fstab_options.rb:477
 msgid "Do Not Mount at System &Start-up"
 msgstr "לא לע&גון בזמן איתחול המערכת"
 
 #  button text
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:510
+#: src/lib/y2partitioner/widgets/fstab_options.rb:490
 #, fuzzy
 #| msgid "Mount &read-only"
 msgid "Mount &Read-Only"
@@ -3550,7 +3562,7 @@ msgstr "עגינה ל&קריאה בלבד"
 
 #  help text, richtext format
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:515
+#: src/lib/y2partitioner/widgets/fstab_options.rb:495
 #, fuzzy
 msgid ""
 "<p><b>Mount Read-Only:</b>\n"
@@ -3563,29 +3575,7 @@ msgstr ""
 
 #  button text
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:528
-#, fuzzy
-#| msgid "No &access time"
-msgid "No &Access Time"
-msgstr "אין &זמן גישה"
-
-#  help text, richtext format
-#. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:533
-#, fuzzy
-#| msgid ""
-#| "<p><b>No access time:</b>\n"
-#| "Access times are not updated when a file is read. Default is false.</p>"
-msgid ""
-"<p><b>No Access Time:</b>\n"
-"Access times are not updated when a file is read. Default is false.</p>\n"
-msgstr ""
-"<p><b>אין זמן גישה:</b>\n"
-"זמני גישה לא עודכנו כשהקובץ נקרא.ברירת המחדל שלילית.</p>"
-
-#  button text
-#. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:546
+#: src/lib/y2partitioner/widgets/fstab_options.rb:509
 #, fuzzy
 #| msgid "Mountable by &user"
 msgid "Mountable by User"
@@ -3593,7 +3583,7 @@ msgstr "מעוגן ע\"י המ&שתמש"
 
 #  help text, richtext format
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:551
+#: src/lib/y2partitioner/widgets/fstab_options.rb:514
 msgid ""
 "<p><b>Mountable by User:</b>\n"
 "The file system may be mounted by an ordinary user. Default is false.</p>\n"
@@ -3603,13 +3593,13 @@ msgstr ""
 "ברירת המחדל היא לא.</p>\n"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:565
+#: src/lib/y2partitioner/widgets/fstab_options.rb:528
 msgid "Enable &Quota Support"
 msgstr ""
 
 #  help text, richtext format
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:570
+#: src/lib/y2partitioner/widgets/fstab_options.rb:533
 #, fuzzy
 msgid ""
 "<p><b>Enable Quota Support:</b>\n"
@@ -3620,62 +3610,27 @@ msgstr ""
 "מערכת הקבצים עשוייה להיות מעוגנת ע\"י המשתמש.\n"
 "ברירת המחדל היא לא.</p>\n"
 
-#  button text
-#. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:615
-msgid "&Access Control Lists (ACL)"
-msgstr "&רשימת בקרת גישה"
-
-#  help text, richtext format
-#. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:620
-#, fuzzy
-#| msgid ""
-#| "<p><b>Access Control Lists (ACL):</b>\n"
-#| "Enable access control lists on the file system.</p>\n"
-msgid ""
-"<p><b>Access Control Lists (acl):</b>\n"
-"Enable POSIX access control lists and thus more fine-grained user "
-"permissions on the file system. See also man 5 acl.\n"
-msgstr ""
-"<p><b>רשימת בקרת גישה (ACL):</b>\n"
-"אפשר רשימות בקרת גישה על מערכת זו.</p>\n"
-
-#  button text
-#. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:635
-msgid "&Extended User Attributes"
-msgstr "מאפייני משתמש מ&ורחבים"
-
-#. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:640
-msgid ""
-"<p><b>Extended User Attributes (user_xattr):</b>\n"
-"Enable extended attributes (name:value pairs) on files and directories.\n"
-"This is an extension to ACLs. See also man 7 xattr.\n"
-msgstr ""
-
 #  label text
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:739
+#: src/lib/y2partitioner/widgets/fstab_options.rb:643
 msgid "Data &Journaling Mode"
 msgstr "מידע ומצב &Journaling"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:748
+#: src/lib/y2partitioner/widgets/fstab_options.rb:652
 msgid "journal"
 msgstr ""
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:749
+#: src/lib/y2partitioner/widgets/fstab_options.rb:653
 msgid "ordered"
 msgstr ""
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:750
+#: src/lib/y2partitioner/widgets/fstab_options.rb:654
 msgid "writeback"
 msgstr ""
 
 #  help text, richtext format
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:762
+#: src/lib/y2partitioner/widgets/fstab_options.rb:666
 #, fuzzy
 msgid ""
 "<p><b>Data Journaling Mode:</b>\n"
@@ -3698,13 +3653,13 @@ msgstr ""
 
 #  label text
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:793
+#: src/lib/y2partitioner/widgets/fstab_options.rb:697
 #, fuzzy
 msgid "Arbitrary Option &Value"
 msgstr "אפשרות שרירותית ו&ערך"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:821
+#: src/lib/y2partitioner/widgets/fstab_options.rb:725
 msgid ""
 "<p><b>Arbitrary Option Value:</b> Enter any other mount options here, "
 "separated with commas. Notice that this does not do any checking, so be "
@@ -3713,13 +3668,13 @@ msgstr ""
 
 #  label text
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:905
+#: src/lib/y2partitioner/widgets/fstab_options.rb:809
 msgid "Swap &Priority"
 msgstr "עדי&פות Swap"
 
 #  help text, richtext format
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:916
+#: src/lib/y2partitioner/widgets/fstab_options.rb:820
 msgid ""
 "<p><b>Swap Priority:</b>\n"
 "Enter the swap priority. Higher numbers mean higher priority.</p>\n"
@@ -3729,7 +3684,7 @@ msgstr ""
 
 #  label text
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:953
+#: src/lib/y2partitioner/widgets/fstab_options.rb:857
 #, fuzzy
 #| msgid "Char&set for file names"
 msgid "Char&set for File Names"
@@ -3737,7 +3692,7 @@ msgstr "קידוד &שפה עבור שמות קבצים"
 
 #  help text, richtext format
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:958
+#: src/lib/y2partitioner/widgets/fstab_options.rb:862
 msgid ""
 "<p><b>Charset for File Names:</b>\n"
 "Set the charset used for display of file names in Windows partitions.</p>\n"
@@ -3747,7 +3702,7 @@ msgstr ""
 
 #  label text
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:977
+#: src/lib/y2partitioner/widgets/fstab_options.rb:881
 #, fuzzy
 #| msgid "Code&page for short FAT names"
 msgid "Code&page for Short FAT Names"
@@ -3755,7 +3710,7 @@ msgstr "קידו&ד שפה עבור שמות קבצים קצרים FAT"
 
 #  help text, richtext format
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:982
+#: src/lib/y2partitioner/widgets/fstab_options.rb:886
 msgid ""
 "<p><b>Codepage for Short FAT Names:</b>\n"
 "This codepage is used for converting to shortname characters on FAT file "
@@ -6597,36 +6552,6 @@ msgstr ""
 msgid "Btrfs over %{num_devices} devices %{name}"
 msgstr ""
 
-#  label text
-#. Hash with the properties for each mount by type.
-#.
-#. Keys are the symbols representing the types and values are hashes that
-#. can contain:
-#. - `:name` for human string
-#. - `:stability` to rate how stable is the corresponding name
-#: src/lib/y2storage/filesystems/mount_by_type.rb:47
-#, fuzzy
-msgid "Device Name"
-msgstr "&שם התקן"
-
-#  table column headings
-#: src/lib/y2storage/filesystems/mount_by_type.rb:51
-#, fuzzy
-msgid "Device Path"
-msgstr "התקן"
-
-#  table column headings
-#: src/lib/y2storage/filesystems/mount_by_type.rb:55
-#, fuzzy
-msgid "Device ID"
-msgstr "התקן"
-
-#  label text
-#: src/lib/y2storage/filesystems/mount_by_type.rb:59
-#, fuzzy
-msgid "Volume Label"
-msgstr "&תוית הכרך"
-
 #  label text, %1 is replaced by a unit value ("MB")
 #. TRANSLATORS: display name when the PV has no associated VG, where %{device} is replaced by a
 #. device name (e.g., "/dev/sda1").
@@ -6890,6 +6815,65 @@ msgstr "הקישו את סיסמת הספק"
 #| msgid "unknown"
 msgid "Unknown reason"
 msgstr "לא ידוע"
+
+#  label text
+#, fuzzy
+#~ msgid "&Device Name"
+#~ msgstr "&שם התקן"
+
+#  label text
+#, fuzzy
+#~ msgid "&UUID"
+#~ msgstr "R&AID:"
+
+#  table column headings
+#, fuzzy
+#~ msgid "Device &ID"
+#~ msgstr "התקן"
+
+#  table column headings
+#, fuzzy
+#~ msgid "Device &Path"
+#~ msgstr "התקן"
+
+#  button text
+#, fuzzy
+#~| msgid "No &access time"
+#~ msgid "No &Access Time"
+#~ msgstr "אין &זמן גישה"
+
+#  help text, richtext format
+#, fuzzy
+#~| msgid ""
+#~| "<p><b>No access time:</b>\n"
+#~| "Access times are not updated when a file is read. Default is false.</p>"
+#~ msgid ""
+#~ "<p><b>No Access Time:</b>\n"
+#~ "Access times are not updated when a file is read. Default is false.</p>\n"
+#~ msgstr ""
+#~ "<p><b>אין זמן גישה:</b>\n"
+#~ "זמני גישה לא עודכנו כשהקובץ נקרא.ברירת המחדל שלילית.</p>"
+
+#  button text
+#~ msgid "&Access Control Lists (ACL)"
+#~ msgstr "&רשימת בקרת גישה"
+
+#  help text, richtext format
+#, fuzzy
+#~| msgid ""
+#~| "<p><b>Access Control Lists (ACL):</b>\n"
+#~| "Enable access control lists on the file system.</p>\n"
+#~ msgid ""
+#~ "<p><b>Access Control Lists (acl):</b>\n"
+#~ "Enable POSIX access control lists and thus more fine-grained user "
+#~ "permissions on the file system. See also man 5 acl.\n"
+#~ msgstr ""
+#~ "<p><b>רשימת בקרת גישה (ACL):</b>\n"
+#~ "אפשר רשימות בקרת גישה על מערכת זו.</p>\n"
+
+#  button text
+#~ msgid "&Extended User Attributes"
+#~ msgstr "מאפייני משתמש מ&ורחבים"
 
 #  button text
 #, fuzzy

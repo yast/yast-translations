@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: @PACKAGE@\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-22 02:30+0000\n"
+"POT-Creation-Date: 2020-01-25 02:29+0000\n"
 "PO-Revision-Date: 2005-08-11 20:37+0200\n"
 "Last-Translator: nynorsk <i18n@suse.de>\n"
 "Language-Team:  nn <i18n@suse.de>\n"
@@ -2332,6 +2332,7 @@ msgstr "Eining"
 #. TRANSLATORS: label of a table column
 #. TRANSLATORS: table column label.
 #: src/lib/y2partitioner/widgets/btrfs_filesystems_table.rb:77
+#: src/lib/y2partitioner/widgets/fstab_options.rb:405
 #: src/lib/y2partitioner/widgets/pages/bcaches.rb:220
 #: src/lib/y2storage/filesystems/mount_by_type.rb:63
 #, fuzzy
@@ -3037,7 +3038,7 @@ msgstr "Ikkje monter partisjonen"
 #. is given.
 #. TRANSLATORS: Error messagge when the label is not given.
 #: src/lib/y2partitioner/widgets/format_and_mount.rb:277
-#: src/lib/y2partitioner/widgets/fstab_options.rb:303
+#: src/lib/y2partitioner/widgets/fstab_options.rb:302
 #, fuzzy
 msgid "Provide a volume label to mount by label."
 msgstr "Angje ein volumbetegnelse for å montera med nemning."
@@ -3202,59 +3203,70 @@ msgid "Fstab Options..."
 msgstr "Fs&tab-val …"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:262
-#: src/lib/y2partitioner/widgets/fstab_options.rb:403
+#: src/lib/y2partitioner/widgets/fstab_options.rb:261
 #, fuzzy
 msgid "Volume &Label"
 msgstr "Volum&nemning"
 
 #. TRANSLATORS: Error message when the given label is already in use.
-#: src/lib/y2partitioner/widgets/fstab_options.rb:318
+#: src/lib/y2partitioner/widgets/fstab_options.rb:317
 #, fuzzy
 msgid "This volume label is already in use. Select a different one."
 msgstr "Denne volumbetegnelsen er allereie i bruk. Vel ein annan."
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:380
+#: src/lib/y2partitioner/widgets/fstab_options.rb:379
 #, fuzzy
 msgid "Mount in /etc/fstab By"
 msgstr "Monter i /etc/fstab med"
 
-#. @macro seeCustomWidget
+#. CWM does not support symbols for entries in ComboBoxes
+#. contrary to libyui. Otherwise a few conversations between
+#. string and symbol below could be avoided.
+#. Hash with the properties for each mount by type.
+#.
+#. Keys are the symbols representing the types and values are hashes that
+#. can contain:
+#. - `:name` for human string
+#. - `:stability` to rate how stable is the corresponding name
 #: src/lib/y2partitioner/widgets/fstab_options.rb:402
+#: src/lib/y2storage/filesystems/mount_by_type.rb:47
 #, fuzzy
-msgid "&Device Name"
+msgid "Device Name"
 msgstr "Enhetsnavn"
 
+#: src/lib/y2partitioner/widgets/fstab_options.rb:403
+#: src/lib/y2storage/filesystems/mount_by_type.rb:55
+#, fuzzy
+msgid "Device ID"
+msgstr "IDA til-Eining"
+
 #: src/lib/y2partitioner/widgets/fstab_options.rb:404
+#: src/lib/y2storage/filesystems/mount_by_type.rb:51
 #, fuzzy
-msgid "&UUID"
-msgstr "UUID"
+msgid "Device Path"
+msgstr "Enhetsfilsti"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:408
+#: src/lib/y2partitioner/widgets/fstab_options.rb:406
+#: src/lib/y2storage/filesystems/mount_by_type.rb:59
 #, fuzzy
-msgid "Device &ID"
-msgstr "IDA til-&Eining"
-
-#: src/lib/y2partitioner/widgets/fstab_options.rb:409
-#, fuzzy
-msgid "Device &Path"
-msgstr "Eining si&filsti"
+msgid "Volume Label"
+msgstr "Volumbetegnelse"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:497
+#: src/lib/y2partitioner/widgets/fstab_options.rb:477
 #, fuzzy
 msgid "Do Not Mount at System &Start-up"
 msgstr "Ikkje monter ved &oppstart"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:510
+#: src/lib/y2partitioner/widgets/fstab_options.rb:490
 #, fuzzy
 msgid "Mount &Read-Only"
 msgstr "Monter &som skrivebeskyttet"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:515
+#: src/lib/y2partitioner/widgets/fstab_options.rb:495
 #, fuzzy
 msgid ""
 "<p><b>Mount Read-Only:</b>\n"
@@ -3266,30 +3278,13 @@ msgstr ""
 "Ingen data kan verta til skrive filsystemet. Standardverdien er 'nei'.</p>\n"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:528
-#, fuzzy
-msgid "No &Access Time"
-msgstr "Ingen &tilgangstid"
-
-#. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:533
-#, fuzzy
-msgid ""
-"<p><b>No Access Time:</b>\n"
-"Access times are not updated when a file is read. Default is false.</p>\n"
-msgstr ""
-"<p><b>Ingen tilgangstid:</b>\n"
-"Tilgangstidene vert ikkje oppdaterte når ei fil vert lesen. Standardverdien "
-"er \"Nei\".</p>"
-
-#. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:546
+#: src/lib/y2partitioner/widgets/fstab_options.rb:509
 #, fuzzy
 msgid "Mountable by User"
 msgstr "Kan monterast av &brukar"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:551
+#: src/lib/y2partitioner/widgets/fstab_options.rb:514
 #, fuzzy
 msgid ""
 "<p><b>Mountable by User:</b>\n"
@@ -3299,13 +3294,13 @@ msgstr ""
 "Filsystemet kan monterast av vanleg brukar. Standardverdien er \"Nei\".</p>\n"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:565
+#: src/lib/y2partitioner/widgets/fstab_options.rb:528
 #, fuzzy
 msgid "Enable &Quota Support"
 msgstr "Aktiver disk&kvoter"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:570
+#: src/lib/y2partitioner/widgets/fstab_options.rb:533
 #, fuzzy
 msgid ""
 "<p><b>Enable Quota Support:</b>\n"
@@ -3317,57 +3312,26 @@ msgstr ""
 "Standard er deaktivert.</p>\n"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:615
-#, fuzzy
-msgid "&Access Control Lists (ACL)"
-msgstr "&Tilgangskontrollister (ACL)"
-
-#. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:620
-#, fuzzy
-msgid ""
-"<p><b>Access Control Lists (acl):</b>\n"
-"Enable POSIX access control lists and thus more fine-grained user "
-"permissions on the file system. See also man 5 acl.\n"
-msgstr ""
-"<p><b>Tilgangskontrollister  (ACL):</b>\n"
-"Aktivar tilgangskontrollister for filsystemet.</p>\n"
-
-#. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:635
-#, fuzzy
-msgid "&Extended User Attributes"
-msgstr "&Utvida brukerattributter"
-
-#. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:640
-msgid ""
-"<p><b>Extended User Attributes (user_xattr):</b>\n"
-"Enable extended attributes (name:value pairs) on files and directories.\n"
-"This is an extension to ACLs. See also man 7 xattr.\n"
-msgstr ""
-
-#. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:739
+#: src/lib/y2partitioner/widgets/fstab_options.rb:643
 #, fuzzy
 msgid "Data &Journaling Mode"
 msgstr "Data&indekseringsmodus"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:748
+#: src/lib/y2partitioner/widgets/fstab_options.rb:652
 #, fuzzy
 msgid "journal"
 msgstr "I&ngen journal"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:749
+#: src/lib/y2partitioner/widgets/fstab_options.rb:653
 msgid "ordered"
 msgstr ""
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:750
+#: src/lib/y2partitioner/widgets/fstab_options.rb:654
 msgid "writeback"
 msgstr ""
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:762
+#: src/lib/y2partitioner/widgets/fstab_options.rb:666
 #, fuzzy
 msgid ""
 "<p><b>Data Journaling Mode:</b>\n"
@@ -3390,13 +3354,13 @@ msgstr ""
 "ytelsespåvirkning.</p>\n"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:793
+#: src/lib/y2partitioner/widgets/fstab_options.rb:697
 #, fuzzy
 msgid "Arbitrary Option &Value"
 msgstr "Tilfeldig alternativt&verd"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:821
+#: src/lib/y2partitioner/widgets/fstab_options.rb:725
 msgid ""
 "<p><b>Arbitrary Option Value:</b> Enter any other mount options here, "
 "separated with commas. Notice that this does not do any checking, so be "
@@ -3404,13 +3368,13 @@ msgid ""
 msgstr ""
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:905
+#: src/lib/y2partitioner/widgets/fstab_options.rb:809
 #, fuzzy
 msgid "Swap &Priority"
 msgstr "Veksleminne&prioritet"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:916
+#: src/lib/y2partitioner/widgets/fstab_options.rb:820
 #, fuzzy
 msgid ""
 "<p><b>Swap Priority:</b>\n"
@@ -3420,13 +3384,13 @@ msgstr ""
 "Angje veksleminneprioriteten. Eit høgare tal gjev høgare prioritet.</p>\n"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:953
+#: src/lib/y2partitioner/widgets/fstab_options.rb:857
 #, fuzzy
 msgid "Char&set for File Names"
 msgstr "Teikn&sett for filnavn"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:958
+#: src/lib/y2partitioner/widgets/fstab_options.rb:862
 #, fuzzy
 msgid ""
 "<p><b>Charset for File Names:</b>\n"
@@ -3437,13 +3401,13 @@ msgstr ""
 "partisjoner.</p>\n"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:977
+#: src/lib/y2partitioner/widgets/fstab_options.rb:881
 #, fuzzy
 msgid "Code&page for Short FAT Names"
 msgstr "Teikn&sett for korta FAT-namn"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:982
+#: src/lib/y2partitioner/widgets/fstab_options.rb:886
 #, fuzzy
 msgid ""
 "<p><b>Codepage for Short FAT Names:</b>\n"
@@ -6126,32 +6090,6 @@ msgstr ""
 msgid "Btrfs over %{num_devices} devices %{name}"
 msgstr ""
 
-#. Hash with the properties for each mount by type.
-#.
-#. Keys are the symbols representing the types and values are hashes that
-#. can contain:
-#. - `:name` for human string
-#. - `:stability` to rate how stable is the corresponding name
-#: src/lib/y2storage/filesystems/mount_by_type.rb:47
-#, fuzzy
-msgid "Device Name"
-msgstr "Enhetsnavn"
-
-#: src/lib/y2storage/filesystems/mount_by_type.rb:51
-#, fuzzy
-msgid "Device Path"
-msgstr "Enhetsfilsti"
-
-#: src/lib/y2storage/filesystems/mount_by_type.rb:55
-#, fuzzy
-msgid "Device ID"
-msgstr "IDA til-Eining"
-
-#: src/lib/y2storage/filesystems/mount_by_type.rb:59
-#, fuzzy
-msgid "Volume Label"
-msgstr "Volumbetegnelse"
-
 #. TRANSLATORS: display name when the PV has no associated VG, where %{device} is replaced by a
 #. device name (e.g., "/dev/sda1").
 #: src/lib/y2storage/lvm_pv.rb:78
@@ -6385,6 +6323,52 @@ msgstr "Angje krypteringspassord"
 #: src/lib/y2storage/resize_info.rb:109
 msgid "Unknown reason"
 msgstr ""
+
+#, fuzzy
+#~ msgid "&Device Name"
+#~ msgstr "Enhetsnavn"
+
+#, fuzzy
+#~ msgid "&UUID"
+#~ msgstr "UUID"
+
+#, fuzzy
+#~ msgid "Device &ID"
+#~ msgstr "IDA til-&Eining"
+
+#, fuzzy
+#~ msgid "Device &Path"
+#~ msgstr "Eining si&filsti"
+
+#, fuzzy
+#~ msgid "No &Access Time"
+#~ msgstr "Ingen &tilgangstid"
+
+#, fuzzy
+#~ msgid ""
+#~ "<p><b>No Access Time:</b>\n"
+#~ "Access times are not updated when a file is read. Default is false.</p>\n"
+#~ msgstr ""
+#~ "<p><b>Ingen tilgangstid:</b>\n"
+#~ "Tilgangstidene vert ikkje oppdaterte når ei fil vert lesen. "
+#~ "Standardverdien er \"Nei\".</p>"
+
+#, fuzzy
+#~ msgid "&Access Control Lists (ACL)"
+#~ msgstr "&Tilgangskontrollister (ACL)"
+
+#, fuzzy
+#~ msgid ""
+#~ "<p><b>Access Control Lists (acl):</b>\n"
+#~ "Enable POSIX access control lists and thus more fine-grained user "
+#~ "permissions on the file system. See also man 5 acl.\n"
+#~ msgstr ""
+#~ "<p><b>Tilgangskontrollister  (ACL):</b>\n"
+#~ "Aktivar tilgangskontrollister for filsystemet.</p>\n"
+
+#, fuzzy
+#~ msgid "&Extended User Attributes"
+#~ msgstr "&Utvida brukerattributter"
 
 #, fuzzy
 #~ msgid "BIOS Boot"

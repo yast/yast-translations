@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: YaST (@memory@)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-22 02:30+0000\n"
+"POT-Creation-Date: 2020-01-25 02:29+0000\n"
 "PO-Revision-Date: 2020-01-15 22:54+0000\n"
 "Last-Translator: Aulona Kolicaj <kolicajaulona@gmail.com>\n"
 "Language-Team: Albanian <https://l10n.opensuse.org/projects/yast-storage/"
@@ -2028,6 +2028,7 @@ msgstr ""
 #. TRANSLATORS: label of a table column
 #. TRANSLATORS: table column label.
 #: src/lib/y2partitioner/widgets/btrfs_filesystems_table.rb:77
+#: src/lib/y2partitioner/widgets/fstab_options.rb:405
 #: src/lib/y2partitioner/widgets/pages/bcaches.rb:220
 #: src/lib/y2storage/filesystems/mount_by_type.rb:63
 msgid "UUID"
@@ -2625,7 +2626,7 @@ msgstr ""
 #. is given.
 #. TRANSLATORS: Error messagge when the label is not given.
 #: src/lib/y2partitioner/widgets/format_and_mount.rb:277
-#: src/lib/y2partitioner/widgets/fstab_options.rb:303
+#: src/lib/y2partitioner/widgets/fstab_options.rb:302
 msgid "Provide a volume label to mount by label."
 msgstr ""
 
@@ -2760,50 +2761,61 @@ msgid "Fstab Options..."
 msgstr ""
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:262
-#: src/lib/y2partitioner/widgets/fstab_options.rb:403
+#: src/lib/y2partitioner/widgets/fstab_options.rb:261
 msgid "Volume &Label"
 msgstr ""
 
 #. TRANSLATORS: Error message when the given label is already in use.
-#: src/lib/y2partitioner/widgets/fstab_options.rb:318
+#: src/lib/y2partitioner/widgets/fstab_options.rb:317
 msgid "This volume label is already in use. Select a different one."
 msgstr ""
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:380
+#: src/lib/y2partitioner/widgets/fstab_options.rb:379
 msgid "Mount in /etc/fstab By"
 msgstr ""
 
-#. @macro seeCustomWidget
+#. CWM does not support symbols for entries in ComboBoxes
+#. contrary to libyui. Otherwise a few conversations between
+#. string and symbol below could be avoided.
+#. Hash with the properties for each mount by type.
+#.
+#. Keys are the symbols representing the types and values are hashes that
+#. can contain:
+#. - `:name` for human string
+#. - `:stability` to rate how stable is the corresponding name
 #: src/lib/y2partitioner/widgets/fstab_options.rb:402
-msgid "&Device Name"
+#: src/lib/y2storage/filesystems/mount_by_type.rb:47
+msgid "Device Name"
+msgstr ""
+
+#: src/lib/y2partitioner/widgets/fstab_options.rb:403
+#: src/lib/y2storage/filesystems/mount_by_type.rb:55
+msgid "Device ID"
 msgstr ""
 
 #: src/lib/y2partitioner/widgets/fstab_options.rb:404
-msgid "&UUID"
+#: src/lib/y2storage/filesystems/mount_by_type.rb:51
+msgid "Device Path"
 msgstr ""
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:408
-msgid "Device &ID"
-msgstr ""
-
-#: src/lib/y2partitioner/widgets/fstab_options.rb:409
-msgid "Device &Path"
+#: src/lib/y2partitioner/widgets/fstab_options.rb:406
+#: src/lib/y2storage/filesystems/mount_by_type.rb:59
+msgid "Volume Label"
 msgstr ""
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:497
+#: src/lib/y2partitioner/widgets/fstab_options.rb:477
 msgid "Do Not Mount at System &Start-up"
 msgstr ""
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:510
+#: src/lib/y2partitioner/widgets/fstab_options.rb:490
 msgid "Mount &Read-Only"
 msgstr ""
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:515
+#: src/lib/y2partitioner/widgets/fstab_options.rb:495
 msgid ""
 "<p><b>Mount Read-Only:</b>\n"
 "Writing to the file system is not possible. Default is false. During "
@@ -2812,36 +2824,24 @@ msgid ""
 msgstr ""
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:528
-msgid "No &Access Time"
-msgstr ""
-
-#. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:533
-msgid ""
-"<p><b>No Access Time:</b>\n"
-"Access times are not updated when a file is read. Default is false.</p>\n"
-msgstr ""
-
-#. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:546
+#: src/lib/y2partitioner/widgets/fstab_options.rb:509
 msgid "Mountable by User"
 msgstr ""
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:551
+#: src/lib/y2partitioner/widgets/fstab_options.rb:514
 msgid ""
 "<p><b>Mountable by User:</b>\n"
 "The file system may be mounted by an ordinary user. Default is false.</p>\n"
 msgstr ""
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:565
+#: src/lib/y2partitioner/widgets/fstab_options.rb:528
 msgid "Enable &Quota Support"
 msgstr ""
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:570
+#: src/lib/y2partitioner/widgets/fstab_options.rb:533
 msgid ""
 "<p><b>Enable Quota Support:</b>\n"
 "The file system is mounted with user quotas enabled.\n"
@@ -2849,50 +2849,24 @@ msgid ""
 msgstr ""
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:615
-msgid "&Access Control Lists (ACL)"
-msgstr ""
-
-#. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:620
-msgid ""
-"<p><b>Access Control Lists (acl):</b>\n"
-"Enable POSIX access control lists and thus more fine-grained user "
-"permissions on the file system. See also man 5 acl.\n"
-msgstr ""
-
-#. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:635
-msgid "&Extended User Attributes"
-msgstr ""
-
-#. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:640
-msgid ""
-"<p><b>Extended User Attributes (user_xattr):</b>\n"
-"Enable extended attributes (name:value pairs) on files and directories.\n"
-"This is an extension to ACLs. See also man 7 xattr.\n"
-msgstr ""
-
-#. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:739
+#: src/lib/y2partitioner/widgets/fstab_options.rb:643
 msgid "Data &Journaling Mode"
 msgstr ""
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:748
+#: src/lib/y2partitioner/widgets/fstab_options.rb:652
 msgid "journal"
 msgstr ""
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:749
+#: src/lib/y2partitioner/widgets/fstab_options.rb:653
 msgid "ordered"
 msgstr ""
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:750
+#: src/lib/y2partitioner/widgets/fstab_options.rb:654
 msgid "writeback"
 msgstr ""
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:762
+#: src/lib/y2partitioner/widgets/fstab_options.rb:666
 msgid ""
 "<p><b>Data Journaling Mode:</b>\n"
 "Specifies the journaling mode for file data.\n"
@@ -2906,12 +2880,12 @@ msgid ""
 msgstr ""
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:793
+#: src/lib/y2partitioner/widgets/fstab_options.rb:697
 msgid "Arbitrary Option &Value"
 msgstr ""
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:821
+#: src/lib/y2partitioner/widgets/fstab_options.rb:725
 msgid ""
 "<p><b>Arbitrary Option Value:</b> Enter any other mount options here, "
 "separated with commas. Notice that this does not do any checking, so be "
@@ -2919,36 +2893,36 @@ msgid ""
 msgstr ""
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:905
+#: src/lib/y2partitioner/widgets/fstab_options.rb:809
 msgid "Swap &Priority"
 msgstr ""
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:916
+#: src/lib/y2partitioner/widgets/fstab_options.rb:820
 msgid ""
 "<p><b>Swap Priority:</b>\n"
 "Enter the swap priority. Higher numbers mean higher priority.</p>\n"
 msgstr ""
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:953
+#: src/lib/y2partitioner/widgets/fstab_options.rb:857
 msgid "Char&set for File Names"
 msgstr ""
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:958
+#: src/lib/y2partitioner/widgets/fstab_options.rb:862
 msgid ""
 "<p><b>Charset for File Names:</b>\n"
 "Set the charset used for display of file names in Windows partitions.</p>\n"
 msgstr ""
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:977
+#: src/lib/y2partitioner/widgets/fstab_options.rb:881
 msgid "Code&page for Short FAT Names"
 msgstr ""
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:982
+#: src/lib/y2partitioner/widgets/fstab_options.rb:886
 msgid ""
 "<p><b>Codepage for Short FAT Names:</b>\n"
 "This codepage is used for converting to shortname characters on FAT file "
@@ -5287,28 +5261,6 @@ msgstr ""
 #. a number (e.g., "2") and %{name} is replaced by a device representation (e.g., "(sda1...)").
 #: src/lib/y2storage/filesystems/btrfs.rb:506
 msgid "Btrfs over %{num_devices} devices %{name}"
-msgstr ""
-
-#. Hash with the properties for each mount by type.
-#.
-#. Keys are the symbols representing the types and values are hashes that
-#. can contain:
-#. - `:name` for human string
-#. - `:stability` to rate how stable is the corresponding name
-#: src/lib/y2storage/filesystems/mount_by_type.rb:47
-msgid "Device Name"
-msgstr ""
-
-#: src/lib/y2storage/filesystems/mount_by_type.rb:51
-msgid "Device Path"
-msgstr ""
-
-#: src/lib/y2storage/filesystems/mount_by_type.rb:55
-msgid "Device ID"
-msgstr ""
-
-#: src/lib/y2storage/filesystems/mount_by_type.rb:59
-msgid "Volume Label"
 msgstr ""
 
 #. TRANSLATORS: display name when the PV has no associated VG, where %{device} is replaced by a

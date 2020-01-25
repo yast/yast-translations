@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-22 02:30+0000\n"
+"POT-Creation-Date: 2020-01-25 02:29+0000\n"
 "PO-Revision-Date: 2020-01-22 17:54+0000\n"
 "Last-Translator: Ferdinand Galko <galko.ferdinand@gmail.com>\n"
 "Language-Team: Slovak <https://l10n.opensuse.org/projects/yast-storage/"
@@ -2250,6 +2250,7 @@ msgstr "Zariadenia"
 #. TRANSLATORS: label of a table column
 #. TRANSLATORS: table column label.
 #: src/lib/y2partitioner/widgets/btrfs_filesystems_table.rb:77
+#: src/lib/y2partitioner/widgets/fstab_options.rb:405
 #: src/lib/y2partitioner/widgets/pages/bcaches.rb:220
 #: src/lib/y2storage/filesystems/mount_by_type.rb:63
 msgid "UUID"
@@ -2930,7 +2931,7 @@ msgstr "Nepripojiť zariadenie"
 #. is given.
 #. TRANSLATORS: Error messagge when the label is not given.
 #: src/lib/y2partitioner/widgets/format_and_mount.rb:277
-#: src/lib/y2partitioner/widgets/fstab_options.rb:303
+#: src/lib/y2partitioner/widgets/fstab_options.rb:302
 msgid "Provide a volume label to mount by label."
 msgstr "Musíte zadať menovku zväzku, ak ho chcete pripojiť podľa menovky."
 
@@ -3079,50 +3080,61 @@ msgid "Fstab Options..."
 msgstr "Možnosti fstab..."
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:262
-#: src/lib/y2partitioner/widgets/fstab_options.rb:403
+#: src/lib/y2partitioner/widgets/fstab_options.rb:261
 msgid "Volume &Label"
 msgstr "&Menovka zväzku"
 
 #. TRANSLATORS: Error message when the given label is already in use.
-#: src/lib/y2partitioner/widgets/fstab_options.rb:318
+#: src/lib/y2partitioner/widgets/fstab_options.rb:317
 msgid "This volume label is already in use. Select a different one."
 msgstr "Táto menovka zväzku sa už používa. Vyberte si inú."
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:380
+#: src/lib/y2partitioner/widgets/fstab_options.rb:379
 msgid "Mount in /etc/fstab By"
 msgstr "Pripojiť v /etc/fstab podľa"
 
-#. @macro seeCustomWidget
+#. CWM does not support symbols for entries in ComboBoxes
+#. contrary to libyui. Otherwise a few conversations between
+#. string and symbol below could be avoided.
+#. Hash with the properties for each mount by type.
+#.
+#. Keys are the symbols representing the types and values are hashes that
+#. can contain:
+#. - `:name` for human string
+#. - `:stability` to rate how stable is the corresponding name
 #: src/lib/y2partitioner/widgets/fstab_options.rb:402
-msgid "&Device Name"
-msgstr "Názov &zariadenia"
+#: src/lib/y2storage/filesystems/mount_by_type.rb:47
+msgid "Device Name"
+msgstr "Názov zariadenia"
+
+#: src/lib/y2partitioner/widgets/fstab_options.rb:403
+#: src/lib/y2storage/filesystems/mount_by_type.rb:55
+msgid "Device ID"
+msgstr "ID zariadenia"
 
 #: src/lib/y2partitioner/widgets/fstab_options.rb:404
-msgid "&UUID"
-msgstr "&UUID"
-
-#: src/lib/y2partitioner/widgets/fstab_options.rb:408
-msgid "Device &ID"
-msgstr "&ID zariadenia"
-
-#: src/lib/y2partitioner/widgets/fstab_options.rb:409
-msgid "Device &Path"
+#: src/lib/y2storage/filesystems/mount_by_type.rb:51
+msgid "Device Path"
 msgstr "Cesta k zariadeniu"
 
+#: src/lib/y2partitioner/widgets/fstab_options.rb:406
+#: src/lib/y2storage/filesystems/mount_by_type.rb:59
+msgid "Volume Label"
+msgstr "Menovka zväzku"
+
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:497
+#: src/lib/y2partitioner/widgets/fstab_options.rb:477
 msgid "Do Not Mount at System &Start-up"
 msgstr "Nepripojiť pri š&tarte systému"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:510
+#: src/lib/y2partitioner/widgets/fstab_options.rb:490
 msgid "Mount &Read-Only"
 msgstr "&Pripojiť iba na čítanie"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:515
+#: src/lib/y2partitioner/widgets/fstab_options.rb:495
 msgid ""
 "<p><b>Mount Read-Only:</b>\n"
 "Writing to the file system is not possible. Default is false. During "
@@ -3135,27 +3147,12 @@ msgstr ""
 "Počas inštalácie je súborový systém vždy pripojený na čítanie a zápis.</p>"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:528
-msgid "No &Access Time"
-msgstr "Žiadny &prístupový čas"
-
-#. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:533
-msgid ""
-"<p><b>No Access Time:</b>\n"
-"Access times are not updated when a file is read. Default is false.</p>\n"
-msgstr ""
-"<p><b>Žiadny prístupový čas:</b>\n"
-"Prístupové časy sa nezaktualizujú pri čítaní súboru. V predvolenom nastavení "
-"to nie je pravda.</p>\n"
-
-#. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:546
+#: src/lib/y2partitioner/widgets/fstab_options.rb:509
 msgid "Mountable by User"
 msgstr "Môže pripojiť používateľ"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:551
+#: src/lib/y2partitioner/widgets/fstab_options.rb:514
 msgid ""
 "<p><b>Mountable by User:</b>\n"
 "The file system may be mounted by an ordinary user. Default is false.</p>\n"
@@ -3165,12 +3162,12 @@ msgstr ""
 "</p>\n"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:565
+#: src/lib/y2partitioner/widgets/fstab_options.rb:528
 msgid "Enable &Quota Support"
 msgstr "Zapnúť podporu &kvóty"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:570
+#: src/lib/y2partitioner/widgets/fstab_options.rb:533
 msgid ""
 "<p><b>Enable Quota Support:</b>\n"
 "The file system is mounted with user quotas enabled.\n"
@@ -3181,56 +3178,24 @@ msgstr ""
 "Štandardne nie je zapnutá.</p>"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:615
-msgid "&Access Control Lists (ACL)"
-msgstr "Zoznamy prístupových &práv (ACL)"
-
-#. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:620
-msgid ""
-"<p><b>Access Control Lists (acl):</b>\n"
-"Enable POSIX access control lists and thus more fine-grained user "
-"permissions on the file system. See also man 5 acl.\n"
-msgstr ""
-"<p><b>Zoznamy prístupových práv (acl):</b>\n"
-"Povoliť zoznamy prístupových práv POSIX a tým aj jemnejšie používateľské "
-"práva na súborovom systéme. Pozrite si tiež man 5 acl.\n"
-
-#. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:635
-msgid "&Extended User Attributes"
-msgstr "&Rozšírené používateľské atribúty"
-
-#. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:640
-msgid ""
-"<p><b>Extended User Attributes (user_xattr):</b>\n"
-"Enable extended attributes (name:value pairs) on files and directories.\n"
-"This is an extension to ACLs. See also man 7 xattr.\n"
-msgstr ""
-"<p><b>Rozšírené používateľské atribúty (user_xattr):</b>\n"
-"Povoliť rozšírené atribúty (name:value pairs) na súboroch a adresároch.\n"
-"Toto je rozšírenie pre ACL. Pozrite si tiež man 7 xattr.\n"
-
-#. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:739
+#: src/lib/y2partitioner/widgets/fstab_options.rb:643
 msgid "Data &Journaling Mode"
 msgstr "&Režim žurnálovania dát"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:748
+#: src/lib/y2partitioner/widgets/fstab_options.rb:652
 msgid "journal"
 msgstr "žurnál"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:749
+#: src/lib/y2partitioner/widgets/fstab_options.rb:653
 msgid "ordered"
 msgstr "ordered"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:750
+#: src/lib/y2partitioner/widgets/fstab_options.rb:654
 msgid "writeback"
 msgstr "writeback"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:762
+#: src/lib/y2partitioner/widgets/fstab_options.rb:666
 msgid ""
 "<p><b>Data Journaling Mode:</b>\n"
 "Specifies the journaling mode for file data.\n"
@@ -3253,12 +3218,12 @@ msgstr ""
 "</p>\n"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:793
+#: src/lib/y2partitioner/widgets/fstab_options.rb:697
 msgid "Arbitrary Option &Value"
 msgstr "&Hodnota doplňujúcich volieb"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:821
+#: src/lib/y2partitioner/widgets/fstab_options.rb:725
 msgid ""
 "<p><b>Arbitrary Option Value:</b> Enter any other mount options here, "
 "separated with commas. Notice that this does not do any checking, so be "
@@ -3269,12 +3234,12 @@ msgstr ""
 "dávajte pozor, čo tu zadáte!</p>"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:905
+#: src/lib/y2partitioner/widgets/fstab_options.rb:809
 msgid "Swap &Priority"
 msgstr "&Priorita odkladacieho priestoru"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:916
+#: src/lib/y2partitioner/widgets/fstab_options.rb:820
 msgid ""
 "<p><b>Swap Priority:</b>\n"
 "Enter the swap priority. Higher numbers mean higher priority.</p>\n"
@@ -3284,12 +3249,12 @@ msgstr ""
 "prioritu.</p>\n"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:953
+#: src/lib/y2partitioner/widgets/fstab_options.rb:857
 msgid "Char&set for File Names"
 msgstr "Znaková &sada pre mená súborov"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:958
+#: src/lib/y2partitioner/widgets/fstab_options.rb:862
 msgid ""
 "<p><b>Charset for File Names:</b>\n"
 "Set the charset used for display of file names in Windows partitions.</p>\n"
@@ -3298,12 +3263,12 @@ msgstr ""
 "Nastavte znakovú sadu pre zobrazenie mien súborov z oddielov Windows.</p>\n"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:977
+#: src/lib/y2partitioner/widgets/fstab_options.rb:881
 msgid "Code&page for Short FAT Names"
 msgstr "&Kódová stránka pre krátke mená FAT"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:982
+#: src/lib/y2partitioner/widgets/fstab_options.rb:886
 msgid ""
 "<p><b>Codepage for Short FAT Names:</b>\n"
 "This codepage is used for converting to shortname characters on FAT file "
@@ -5951,28 +5916,6 @@ msgstr "(%{basename}\\u2026)"
 msgid "Btrfs over %{num_devices} devices %{name}"
 msgstr "Btrfs nad %{num_devices} zariadenia %{name}"
 
-#. Hash with the properties for each mount by type.
-#.
-#. Keys are the symbols representing the types and values are hashes that
-#. can contain:
-#. - `:name` for human string
-#. - `:stability` to rate how stable is the corresponding name
-#: src/lib/y2storage/filesystems/mount_by_type.rb:47
-msgid "Device Name"
-msgstr "Názov zariadenia"
-
-#: src/lib/y2storage/filesystems/mount_by_type.rb:51
-msgid "Device Path"
-msgstr "Cesta k zariadeniu"
-
-#: src/lib/y2storage/filesystems/mount_by_type.rb:55
-msgid "Device ID"
-msgstr "ID zariadenia"
-
-#: src/lib/y2storage/filesystems/mount_by_type.rb:59
-msgid "Volume Label"
-msgstr "Menovka zväzku"
-
 #. TRANSLATORS: display name when the PV has no associated VG, where %{device} is replaced by a
 #. device name (e.g., "/dev/sda1").
 #: src/lib/y2storage/lvm_pv.rb:78
@@ -6188,6 +6131,53 @@ msgstr "Je vyžadované šifrovacie heslo."
 #: src/lib/y2storage/resize_info.rb:109
 msgid "Unknown reason"
 msgstr "Neznámy dôvod"
+
+#~ msgid "&Device Name"
+#~ msgstr "Názov &zariadenia"
+
+#~ msgid "&UUID"
+#~ msgstr "&UUID"
+
+#~ msgid "Device &ID"
+#~ msgstr "&ID zariadenia"
+
+#~ msgid "Device &Path"
+#~ msgstr "Cesta k zariadeniu"
+
+#~ msgid "No &Access Time"
+#~ msgstr "Žiadny &prístupový čas"
+
+#~ msgid ""
+#~ "<p><b>No Access Time:</b>\n"
+#~ "Access times are not updated when a file is read. Default is false.</p>\n"
+#~ msgstr ""
+#~ "<p><b>Žiadny prístupový čas:</b>\n"
+#~ "Prístupové časy sa nezaktualizujú pri čítaní súboru. V predvolenom "
+#~ "nastavení to nie je pravda.</p>\n"
+
+#~ msgid "&Access Control Lists (ACL)"
+#~ msgstr "Zoznamy prístupových &práv (ACL)"
+
+#~ msgid ""
+#~ "<p><b>Access Control Lists (acl):</b>\n"
+#~ "Enable POSIX access control lists and thus more fine-grained user "
+#~ "permissions on the file system. See also man 5 acl.\n"
+#~ msgstr ""
+#~ "<p><b>Zoznamy prístupových práv (acl):</b>\n"
+#~ "Povoliť zoznamy prístupových práv POSIX a tým aj jemnejšie používateľské "
+#~ "práva na súborovom systéme. Pozrite si tiež man 5 acl.\n"
+
+#~ msgid "&Extended User Attributes"
+#~ msgstr "&Rozšírené používateľské atribúty"
+
+#~ msgid ""
+#~ "<p><b>Extended User Attributes (user_xattr):</b>\n"
+#~ "Enable extended attributes (name:value pairs) on files and directories.\n"
+#~ "This is an extension to ACLs. See also man 7 xattr.\n"
+#~ msgstr ""
+#~ "<p><b>Rozšírené používateľské atribúty (user_xattr):</b>\n"
+#~ "Povoliť rozšírené atribúty (name:value pairs) na súboroch a adresároch.\n"
+#~ "Toto je rozšírenie pre ACL. Pozrite si tiež man 7 xattr.\n"
 
 #~ msgid ""
 #~ "<p><b>Server:</b> Host name or IP address of the NFS server.</"

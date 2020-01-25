@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: @PACKAGE@\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-22 02:30+0000\n"
+"POT-Creation-Date: 2020-01-25 02:29+0000\n"
 "PO-Revision-Date: 2005-07-29 15:37+0530\n"
 "Last-Translator: Priyavert Sharma<priyavert.sharma@agreeya.com>\n"
 "Language-Team: AgreeYa Solutions <linux_team@agreeya.com>\n"
@@ -2364,6 +2364,7 @@ msgstr "ডিভাইস"
 #. TRANSLATORS: label of a table column
 #. TRANSLATORS: table column label.
 #: src/lib/y2partitioner/widgets/btrfs_filesystems_table.rb:77
+#: src/lib/y2partitioner/widgets/fstab_options.rb:405
 #: src/lib/y2partitioner/widgets/pages/bcaches.rb:220
 #: src/lib/y2storage/filesystems/mount_by_type.rb:63
 #, fuzzy
@@ -3080,7 +3081,7 @@ msgstr "পার্টিশানের ডিস্ক"
 #. is given.
 #. TRANSLATORS: Error messagge when the label is not given.
 #: src/lib/y2partitioner/widgets/format_and_mount.rb:277
-#: src/lib/y2partitioner/widgets/fstab_options.rb:303
+#: src/lib/y2partitioner/widgets/fstab_options.rb:302
 msgid "Provide a volume label to mount by label."
 msgstr "লেবেলের দ্বারা মাউন্ট করার জন্য একটি ভলিউম লেবেল সরবরাহ করুন।"
 
@@ -3258,57 +3259,68 @@ msgid "Fstab Options..."
 msgstr "Fs&tab বিকল্পগুলি"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:262
-#: src/lib/y2partitioner/widgets/fstab_options.rb:403
+#: src/lib/y2partitioner/widgets/fstab_options.rb:261
 msgid "Volume &Label"
 msgstr " ভলিউম লেবেল"
 
 #. TRANSLATORS: Error message when the given label is already in use.
-#: src/lib/y2partitioner/widgets/fstab_options.rb:318
+#: src/lib/y2partitioner/widgets/fstab_options.rb:317
 #, fuzzy
 #| msgid "This volume label is already in use. Select a different one."
 msgid "This volume label is already in use. Select a different one."
 msgstr "এই ভলিউম লেবেলটি ইতিমধ্যেই ব্যবহার করা হচ্ছে। ভিন্ন একটি নির্বাচন করুন।"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:380
+#: src/lib/y2partitioner/widgets/fstab_options.rb:379
 #, fuzzy
 #| msgid "Mount in /etc/fstab by"
 msgid "Mount in /etc/fstab By"
 msgstr " এর দ্বারা /etc/fstab -এ মাউন্ট করুন "
 
-#. @macro seeCustomWidget
+#. CWM does not support symbols for entries in ComboBoxes
+#. contrary to libyui. Otherwise a few conversations between
+#. string and symbol below could be avoided.
+#. Hash with the properties for each mount by type.
+#.
+#. Keys are the symbols representing the types and values are hashes that
+#. can contain:
+#. - `:name` for human string
+#. - `:stability` to rate how stable is the corresponding name
 #: src/lib/y2partitioner/widgets/fstab_options.rb:402
-msgid "&Device Name"
-msgstr "সার্ভিসের &নাম"
+#: src/lib/y2storage/filesystems/mount_by_type.rb:47
+msgid "Device Name"
+msgstr "উপকরণের নাম"
+
+#: src/lib/y2partitioner/widgets/fstab_options.rb:403
+#: src/lib/y2storage/filesystems/mount_by_type.rb:55
+msgid "Device ID"
+msgstr "ডিভাইস ID"
 
 #: src/lib/y2partitioner/widgets/fstab_options.rb:404
+#: src/lib/y2storage/filesystems/mount_by_type.rb:51
+msgid "Device Path"
+msgstr "ডিভাইসের পথ"
+
+#: src/lib/y2partitioner/widgets/fstab_options.rb:406
+#: src/lib/y2storage/filesystems/mount_by_type.rb:59
 #, fuzzy
-msgid "&UUID"
-msgstr "ID"
-
-#: src/lib/y2partitioner/widgets/fstab_options.rb:408
-msgid "Device &ID"
-msgstr "ডিভাইস &ID"
-
-#: src/lib/y2partitioner/widgets/fstab_options.rb:409
-msgid "Device &Path"
-msgstr "ডিভাইসের &পথ"
+msgid "Volume Label"
+msgstr " ভলিউম লেবেল"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:497
+#: src/lib/y2partitioner/widgets/fstab_options.rb:477
 msgid "Do Not Mount at System &Start-up"
 msgstr "সিস্টেম শুরু হওয়ার সময়ে মাউন্ট করবেন না"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:510
+#: src/lib/y2partitioner/widgets/fstab_options.rb:490
 #, fuzzy
 #| msgid "Mount &read-only"
 msgid "Mount &Read-Only"
 msgstr "শুধু-পাঠ্য মাউন্ট করুন"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:515
+#: src/lib/y2partitioner/widgets/fstab_options.rb:495
 #, fuzzy
 msgid ""
 "<p><b>Mount Read-Only:</b>\n"
@@ -3320,34 +3332,14 @@ msgstr ""
 "ফাইল সিস্টেমে কোন লেখার যোগ্য সুযোগ দেওয়া সম্ভব নয়। ডিফল্ট হল মিথ্যা।</p>\n"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:528
-#, fuzzy
-#| msgid "No &access time"
-msgid "No &Access Time"
-msgstr "অ্যাক্সেস সময় নেই"
-
-#. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:533
-#, fuzzy
-#| msgid ""
-#| "<p><b>No access time:</b>\n"
-#| "Access times are not updated when a file is read. Default is false.</p>"
-msgid ""
-"<p><b>No Access Time:</b>\n"
-"Access times are not updated when a file is read. Default is false.</p>\n"
-msgstr ""
-"<p><b>অ্যাক্সেস সময় নেই:</b>\n"
-"কোন ফাইল পড়ার সময়ে অ্যাক্সেস সময় আপডেট করা হয় না। ডিফল্ট হল মিথ্যা।</p>"
-
-#. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:546
+#: src/lib/y2partitioner/widgets/fstab_options.rb:509
 #, fuzzy
 #| msgid "Mountable by &user"
 msgid "Mountable by User"
 msgstr "ব্যবহারকারী দ্বারা মাউন্ট-যোগ্য"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:551
+#: src/lib/y2partitioner/widgets/fstab_options.rb:514
 msgid ""
 "<p><b>Mountable by User:</b>\n"
 "The file system may be mounted by an ordinary user. Default is false.</p>\n"
@@ -3357,13 +3349,13 @@ msgstr ""
 "মিথ্যা।</p>\n"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:565
+#: src/lib/y2partitioner/widgets/fstab_options.rb:528
 #, fuzzy
 msgid "Enable &Quota Support"
 msgstr "সক্ষম &লেয়ার 2 সমর্থন"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:570
+#: src/lib/y2partitioner/widgets/fstab_options.rb:533
 #, fuzzy
 #| msgid ""
 #| "<p><b>Mountable by User:</b>\n"
@@ -3379,58 +3371,26 @@ msgstr ""
 "মিথ্যা।</p>\n"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:615
-msgid "&Access Control Lists (ACL)"
-msgstr "অ্যাক্সেস কন্ট্রোল লিস্ট (ACL)"
-
-#. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:620
-#, fuzzy
-#| msgid ""
-#| "<p><b>Access Control Lists (ACL):</b>\n"
-#| "Enable access control lists on the file system.</p>\n"
-msgid ""
-"<p><b>Access Control Lists (acl):</b>\n"
-"Enable POSIX access control lists and thus more fine-grained user "
-"permissions on the file system. See also man 5 acl.\n"
-msgstr ""
-"<p><b>অ্যাক্সেস কন্ট্রোল লিস্ট  (ACL):</b>\n"
-"ফাইল সিস্টেমে অ্যাক্সেস কন্ট্রোল লিস্ট সক্রিয় করুন।</p>\n"
-
-#. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:635
-msgid "&Extended User Attributes"
-msgstr "পরিবর্ধিত ব্যবহারকারী বৈশিষ্ট্য"
-
-#. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:640
-msgid ""
-"<p><b>Extended User Attributes (user_xattr):</b>\n"
-"Enable extended attributes (name:value pairs) on files and directories.\n"
-"This is an extension to ACLs. See also man 7 xattr.\n"
-msgstr ""
-
-#. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:739
+#: src/lib/y2partitioner/widgets/fstab_options.rb:643
 msgid "Data &Journaling Mode"
 msgstr "ডেটা জার্নালিং মোড"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:748
+#: src/lib/y2partitioner/widgets/fstab_options.rb:652
 #, fuzzy
 #| msgid "Disk Journal"
 msgid "journal"
 msgstr "ডিস্ক জার্নাল"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:749
+#: src/lib/y2partitioner/widgets/fstab_options.rb:653
 msgid "ordered"
 msgstr ""
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:750
+#: src/lib/y2partitioner/widgets/fstab_options.rb:654
 msgid "writeback"
 msgstr ""
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:762
+#: src/lib/y2partitioner/widgets/fstab_options.rb:666
 #, fuzzy
 msgid ""
 "<p><b>Data Journaling Mode:</b>\n"
@@ -3452,14 +3412,14 @@ msgstr ""
 "<tt>রাইটব্যাক</tt> -- ডেটা অর্ডার করা সংরক্ষণ করা হয় না।</p>\n"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:793
+#: src/lib/y2partitioner/widgets/fstab_options.rb:697
 #, fuzzy
 #| msgid "Arbitrary option &value"
 msgid "Arbitrary Option &Value"
 msgstr "অবাধ বিকল্প মান"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:821
+#: src/lib/y2partitioner/widgets/fstab_options.rb:725
 msgid ""
 "<p><b>Arbitrary Option Value:</b> Enter any other mount options here, "
 "separated with commas. Notice that this does not do any checking, so be "
@@ -3467,12 +3427,12 @@ msgid ""
 msgstr ""
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:905
+#: src/lib/y2partitioner/widgets/fstab_options.rb:809
 msgid "Swap &Priority"
 msgstr "পালটাপালটির অগ্রাধিকার"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:916
+#: src/lib/y2partitioner/widgets/fstab_options.rb:820
 msgid ""
 "<p><b>Swap Priority:</b>\n"
 "Enter the swap priority. Higher numbers mean higher priority.</p>\n"
@@ -3481,14 +3441,14 @@ msgstr ""
 "পালটাপালটির অগ্রাধিকার প্রবিষ্ট করুন। বেশি সংখ্যার অর্থ হল উচ্চ অগ্রাধিকার।</p>\n"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:953
+#: src/lib/y2partitioner/widgets/fstab_options.rb:857
 #, fuzzy
 #| msgid "Char&set for file names"
 msgid "Char&set for File Names"
 msgstr "ফাইলের নামের জন্যে অক্ষরের সেট"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:958
+#: src/lib/y2partitioner/widgets/fstab_options.rb:862
 msgid ""
 "<p><b>Charset for File Names:</b>\n"
 "Set the charset used for display of file names in Windows partitions.</p>\n"
@@ -3497,14 +3457,14 @@ msgstr ""
 "Windows পার্টিশনে ফাইলের নাম প্রদর্শনের জন্যে ব্যবহৃত অক্ষরের সেট নির্দিষ্ট করুন।</p>\n"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:977
+#: src/lib/y2partitioner/widgets/fstab_options.rb:881
 #, fuzzy
 #| msgid "Code&page for short FAT names"
 msgid "Code&page for Short FAT Names"
 msgstr "সংক্ষিপ্ত FAT নামের জন্যে কোডপেজ"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:982
+#: src/lib/y2partitioner/widgets/fstab_options.rb:886
 msgid ""
 "<p><b>Codepage for Short FAT Names:</b>\n"
 "This codepage is used for converting to shortname characters on FAT file "
@@ -6229,29 +6189,6 @@ msgstr ""
 msgid "Btrfs over %{num_devices} devices %{name}"
 msgstr ""
 
-#. Hash with the properties for each mount by type.
-#.
-#. Keys are the symbols representing the types and values are hashes that
-#. can contain:
-#. - `:name` for human string
-#. - `:stability` to rate how stable is the corresponding name
-#: src/lib/y2storage/filesystems/mount_by_type.rb:47
-msgid "Device Name"
-msgstr "উপকরণের নাম"
-
-#: src/lib/y2storage/filesystems/mount_by_type.rb:51
-msgid "Device Path"
-msgstr "ডিভাইসের পথ"
-
-#: src/lib/y2storage/filesystems/mount_by_type.rb:55
-msgid "Device ID"
-msgstr "ডিভাইস ID"
-
-#: src/lib/y2storage/filesystems/mount_by_type.rb:59
-#, fuzzy
-msgid "Volume Label"
-msgstr " ভলিউম লেবেল"
-
 #. TRANSLATORS: display name when the PV has no associated VG, where %{device} is replaced by a
 #. device name (e.g., "/dev/sda1").
 #: src/lib/y2storage/lvm_pv.rb:78
@@ -6491,6 +6428,53 @@ msgstr "এনক্রিপশন কি এন্টার করুন"
 #| msgid "unknown"
 msgid "Unknown reason"
 msgstr "অজানা"
+
+#~ msgid "&Device Name"
+#~ msgstr "সার্ভিসের &নাম"
+
+#, fuzzy
+#~ msgid "&UUID"
+#~ msgstr "ID"
+
+#~ msgid "Device &ID"
+#~ msgstr "ডিভাইস &ID"
+
+#~ msgid "Device &Path"
+#~ msgstr "ডিভাইসের &পথ"
+
+#, fuzzy
+#~| msgid "No &access time"
+#~ msgid "No &Access Time"
+#~ msgstr "অ্যাক্সেস সময় নেই"
+
+#, fuzzy
+#~| msgid ""
+#~| "<p><b>No access time:</b>\n"
+#~| "Access times are not updated when a file is read. Default is false.</p>"
+#~ msgid ""
+#~ "<p><b>No Access Time:</b>\n"
+#~ "Access times are not updated when a file is read. Default is false.</p>\n"
+#~ msgstr ""
+#~ "<p><b>অ্যাক্সেস সময় নেই:</b>\n"
+#~ "কোন ফাইল পড়ার সময়ে অ্যাক্সেস সময় আপডেট করা হয় না। ডিফল্ট হল মিথ্যা।</p>"
+
+#~ msgid "&Access Control Lists (ACL)"
+#~ msgstr "অ্যাক্সেস কন্ট্রোল লিস্ট (ACL)"
+
+#, fuzzy
+#~| msgid ""
+#~| "<p><b>Access Control Lists (ACL):</b>\n"
+#~| "Enable access control lists on the file system.</p>\n"
+#~ msgid ""
+#~ "<p><b>Access Control Lists (acl):</b>\n"
+#~ "Enable POSIX access control lists and thus more fine-grained user "
+#~ "permissions on the file system. See also man 5 acl.\n"
+#~ msgstr ""
+#~ "<p><b>অ্যাক্সেস কন্ট্রোল লিস্ট  (ACL):</b>\n"
+#~ "ফাইল সিস্টেমে অ্যাক্সেস কন্ট্রোল লিস্ট সক্রিয় করুন।</p>\n"
+
+#~ msgid "&Extended User Attributes"
+#~ msgstr "পরিবর্ধিত ব্যবহারকারী বৈশিষ্ট্য"
 
 #, fuzzy
 #~ msgid "BIOS Boot"

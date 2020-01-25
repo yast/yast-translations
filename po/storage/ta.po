@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: @PACKAGE@\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-22 02:30+0000\n"
+"POT-Creation-Date: 2020-01-25 02:29+0000\n"
 "PO-Revision-Date: 2005-07-29 15:37+0530\n"
 "Last-Translator: Priyavert Sharma<priyavert.sharma@agreeya.com>\n"
 "Language-Team: AgreeYa Solutions <linux_team@agreeya.com>\n"
@@ -2361,6 +2361,7 @@ msgstr "கருவிகள்"
 #. TRANSLATORS: label of a table column
 #. TRANSLATORS: table column label.
 #: src/lib/y2partitioner/widgets/btrfs_filesystems_table.rb:77
+#: src/lib/y2partitioner/widgets/fstab_options.rb:405
 #: src/lib/y2partitioner/widgets/pages/bcaches.rb:220
 #: src/lib/y2storage/filesystems/mount_by_type.rb:63
 #, fuzzy
@@ -3073,7 +3074,7 @@ msgstr " பகுதி பிரிப்பு செய்ய வேண்�
 #. is given.
 #. TRANSLATORS: Error messagge when the label is not given.
 #: src/lib/y2partitioner/widgets/format_and_mount.rb:277
-#: src/lib/y2partitioner/widgets/fstab_options.rb:303
+#: src/lib/y2partitioner/widgets/fstab_options.rb:302
 msgid "Provide a volume label to mount by label."
 msgstr "விளக்கச்சீட்டின் மூலம் ஏற்றுவதற்கு ஒரு அளவு விளக்கச்சீட்டை அளிக்கவும்."
 
@@ -3253,57 +3254,68 @@ msgid "Fstab Options..."
 msgstr "Fs&tab விருப்பத்தேர்வுகள்"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:262
-#: src/lib/y2partitioner/widgets/fstab_options.rb:403
+#: src/lib/y2partitioner/widgets/fstab_options.rb:261
 msgid "Volume &Label"
 msgstr "அளவு &விளக்கச்சீட்டு"
 
 #. TRANSLATORS: Error message when the given label is already in use.
-#: src/lib/y2partitioner/widgets/fstab_options.rb:318
+#: src/lib/y2partitioner/widgets/fstab_options.rb:317
 #, fuzzy
 #| msgid "This volume label is already in use. Select a different one."
 msgid "This volume label is already in use. Select a different one."
 msgstr "அளவு விளக்கச்சீட்டு ஏற்கனவே பயன்பாட்டில் உள்ளது. வேறொன்றைத் தேர்ந்தெடுக்கவும்."
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:380
+#: src/lib/y2partitioner/widgets/fstab_options.rb:379
 #, fuzzy
 #| msgid "Mount in /etc/fstab by"
 msgid "Mount in /etc/fstab By"
 msgstr "மூலம் /etc/fstabல்  ஏற்றவும்;"
 
-#. @macro seeCustomWidget
+#. CWM does not support symbols for entries in ComboBoxes
+#. contrary to libyui. Otherwise a few conversations between
+#. string and symbol below could be avoided.
+#. Hash with the properties for each mount by type.
+#.
+#. Keys are the symbols representing the types and values are hashes that
+#. can contain:
+#. - `:name` for human string
+#. - `:stability` to rate how stable is the corresponding name
 #: src/lib/y2partitioner/widgets/fstab_options.rb:402
-msgid "&Device Name"
-msgstr "கருவியின் பெயர்"
+#: src/lib/y2storage/filesystems/mount_by_type.rb:47
+msgid "Device Name"
+msgstr "சாதனத்தின் பெயர்"
+
+#: src/lib/y2partitioner/widgets/fstab_options.rb:403
+#: src/lib/y2storage/filesystems/mount_by_type.rb:55
+msgid "Device ID"
+msgstr "சாதனத்தின் அடையாள எண்"
 
 #: src/lib/y2partitioner/widgets/fstab_options.rb:404
+#: src/lib/y2storage/filesystems/mount_by_type.rb:51
+msgid "Device Path"
+msgstr " இயக்கக பாதை "
+
+#: src/lib/y2partitioner/widgets/fstab_options.rb:406
+#: src/lib/y2storage/filesystems/mount_by_type.rb:59
 #, fuzzy
-msgid "&UUID"
-msgstr "ID"
-
-#: src/lib/y2partitioner/widgets/fstab_options.rb:408
-msgid "Device &ID"
-msgstr "சாதன &அடையாளம்"
-
-#: src/lib/y2partitioner/widgets/fstab_options.rb:409
-msgid "Device &Path"
-msgstr "சாதன &பாதை"
+msgid "Volume Label"
+msgstr "அளவு &விளக்கச்சீட்டு"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:497
+#: src/lib/y2partitioner/widgets/fstab_options.rb:477
 msgid "Do Not Mount at System &Start-up"
 msgstr "சிஸ்டம் துவங்கும் போது பொருத்தாதே"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:510
+#: src/lib/y2partitioner/widgets/fstab_options.rb:490
 #, fuzzy
 #| msgid "Mount &read-only"
 msgid "Mount &Read-Only"
 msgstr "படிக்க மட்டும் வசதியைப் பொருத்துதல் "
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:515
+#: src/lib/y2partitioner/widgets/fstab_options.rb:495
 #, fuzzy
 msgid ""
 "<p><b>Mount Read-Only:</b>\n"
@@ -3316,35 +3328,14 @@ msgstr ""
 "</p>\n"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:528
-#, fuzzy
-#| msgid "No &access time"
-msgid "No &Access Time"
-msgstr " அணுகும் நேரம் இல்லை "
-
-#. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:533
-#, fuzzy
-#| msgid ""
-#| "<p><b>No access time:</b>\n"
-#| "Access times are not updated when a file is read. Default is false.</p>"
-msgid ""
-"<p><b>No Access Time:</b>\n"
-"Access times are not updated when a file is read. Default is false.</p>\n"
-msgstr ""
-"<p><b> அணுகும் நேரம் இல்லை:</b>\n"
-"கோப்பில் படிக்கும் வசதி மட்டும் இருந்தால் அணுகும் நேரம் இற்றைப்படுத்தப்படுவதில்லை. "
-"முன்னிருப்பு தவறு \t\tஎன்றிருக்கும்.</p>"
-
-#. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:546
+#: src/lib/y2partitioner/widgets/fstab_options.rb:509
 #, fuzzy
 #| msgid "Mountable by &user"
 msgid "Mountable by User"
 msgstr "பயனரால் பொருத்தக் கூடியது"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:551
+#: src/lib/y2partitioner/widgets/fstab_options.rb:514
 msgid ""
 "<p><b>Mountable by User:</b>\n"
 "The file system may be mounted by an ordinary user. Default is false.</p>\n"
@@ -3354,13 +3345,13 @@ msgstr ""
 "என்றிருக்கும்.</p>\n"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:565
+#: src/lib/y2partitioner/widgets/fstab_options.rb:528
 #, fuzzy
 msgid "Enable &Quota Support"
 msgstr "லேயர் 2 ஒத்துழைப்பை செயலாக்கு"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:570
+#: src/lib/y2partitioner/widgets/fstab_options.rb:533
 #, fuzzy
 #| msgid ""
 #| "<p><b>Mountable by User:</b>\n"
@@ -3376,58 +3367,26 @@ msgstr ""
 "என்றிருக்கும்.</p>\n"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:615
-msgid "&Access Control Lists (ACL)"
-msgstr "அணுகும் கட்டுப்பாட்டு பட்டியல் (ACL)"
-
-#. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:620
-#, fuzzy
-#| msgid ""
-#| "<p><b>Access Control Lists (ACL):</b>\n"
-#| "Enable access control lists on the file system.</p>\n"
-msgid ""
-"<p><b>Access Control Lists (acl):</b>\n"
-"Enable POSIX access control lists and thus more fine-grained user "
-"permissions on the file system. See also man 5 acl.\n"
-msgstr ""
-"<p><b> அணுகும் கட்டுப்பாட்டு பட்டியல் (ACL):</b>\n"
-"கோப்பு அமைப்புமுறையில் அணுகும் கட்டுப்பாட்டு பட்டியலைச் செயல்பட செய்.</p>\n"
-
-#. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:635
-msgid "&Extended User Attributes"
-msgstr " பயனரின் விரிவான தன்மைகள்"
-
-#. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:640
-msgid ""
-"<p><b>Extended User Attributes (user_xattr):</b>\n"
-"Enable extended attributes (name:value pairs) on files and directories.\n"
-"This is an extension to ACLs. See also man 7 xattr.\n"
-msgstr ""
-
-#. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:739
+#: src/lib/y2partitioner/widgets/fstab_options.rb:643
 msgid "Data &Journaling Mode"
 msgstr "தரவு இதழ்தல் நிலை"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:748
+#: src/lib/y2partitioner/widgets/fstab_options.rb:652
 #, fuzzy
 #| msgid "Disk Journal"
 msgid "journal"
 msgstr "வட்டு இதழ்"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:749
+#: src/lib/y2partitioner/widgets/fstab_options.rb:653
 msgid "ordered"
 msgstr ""
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:750
+#: src/lib/y2partitioner/widgets/fstab_options.rb:654
 msgid "writeback"
 msgstr ""
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:762
+#: src/lib/y2partitioner/widgets/fstab_options.rb:666
 #, fuzzy
 msgid ""
 "<p><b>Data Journaling Mode:</b>\n"
@@ -3451,14 +3410,14 @@ msgstr ""
 "<tt>பின்னால்எழுது</tt> -- தரவு வரிசைப்படுத்தல் என்பது இருக்காது.</p>\n"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:793
+#: src/lib/y2partitioner/widgets/fstab_options.rb:697
 #, fuzzy
 #| msgid "Arbitrary option &value"
 msgid "Arbitrary Option &Value"
 msgstr "தன்மைகளுக்கு உரிய மதிப்பு வசதி"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:821
+#: src/lib/y2partitioner/widgets/fstab_options.rb:725
 msgid ""
 "<p><b>Arbitrary Option Value:</b> Enter any other mount options here, "
 "separated with commas. Notice that this does not do any checking, so be "
@@ -3466,12 +3425,12 @@ msgid ""
 msgstr ""
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:905
+#: src/lib/y2partitioner/widgets/fstab_options.rb:809
 msgid "Swap &Priority"
 msgstr "பரிமாற்ற &முன்னுரிமை"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:916
+#: src/lib/y2partitioner/widgets/fstab_options.rb:820
 msgid ""
 "<p><b>Swap Priority:</b>\n"
 "Enter the swap priority. Higher numbers mean higher priority.</p>\n"
@@ -3481,14 +3440,14 @@ msgstr ""
 "உயர்ந்தமுன்னுரிமையை குறிக்கின்றன.</p>\n"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:953
+#: src/lib/y2partitioner/widgets/fstab_options.rb:857
 #, fuzzy
 #| msgid "Char&set for file names"
 msgid "Char&set for File Names"
 msgstr " கோப்பு பெயர்களுக்கு கேர்செட் அமைத்தல் "
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:958
+#: src/lib/y2partitioner/widgets/fstab_options.rb:862
 msgid ""
 "<p><b>Charset for File Names:</b>\n"
 "Set the charset used for display of file names in Windows partitions.</p>\n"
@@ -3497,14 +3456,14 @@ msgstr ""
 " விண்டோஸ் பகுதி பிரிப்பில் கோப்பு பெயர்களுக்கு கேர்செட் அமைக்கவும். </p>\n"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:977
+#: src/lib/y2partitioner/widgets/fstab_options.rb:881
 #, fuzzy
 #| msgid "Code&page for short FAT names"
 msgid "Code&page for Short FAT Names"
 msgstr " FAT பெயர்களுக்குக்கான கோட்பேஜ் "
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:982
+#: src/lib/y2partitioner/widgets/fstab_options.rb:886
 msgid ""
 "<p><b>Codepage for Short FAT Names:</b>\n"
 "This codepage is used for converting to shortname characters on FAT file "
@@ -6230,29 +6189,6 @@ msgstr ""
 msgid "Btrfs over %{num_devices} devices %{name}"
 msgstr ""
 
-#. Hash with the properties for each mount by type.
-#.
-#. Keys are the symbols representing the types and values are hashes that
-#. can contain:
-#. - `:name` for human string
-#. - `:stability` to rate how stable is the corresponding name
-#: src/lib/y2storage/filesystems/mount_by_type.rb:47
-msgid "Device Name"
-msgstr "சாதனத்தின் பெயர்"
-
-#: src/lib/y2storage/filesystems/mount_by_type.rb:51
-msgid "Device Path"
-msgstr " இயக்கக பாதை "
-
-#: src/lib/y2storage/filesystems/mount_by_type.rb:55
-msgid "Device ID"
-msgstr "சாதனத்தின் அடையாள எண்"
-
-#: src/lib/y2storage/filesystems/mount_by_type.rb:59
-#, fuzzy
-msgid "Volume Label"
-msgstr "அளவு &விளக்கச்சீட்டு"
-
 #. TRANSLATORS: display name when the PV has no associated VG, where %{device} is replaced by a
 #. device name (e.g., "/dev/sda1").
 #: src/lib/y2storage/lvm_pv.rb:78
@@ -6495,6 +6431,54 @@ msgstr " குறியீட்டு சாவியை எழுதுக"
 #| msgid "unknown"
 msgid "Unknown reason"
 msgstr " இனம் தெரியாதது"
+
+#~ msgid "&Device Name"
+#~ msgstr "கருவியின் பெயர்"
+
+#, fuzzy
+#~ msgid "&UUID"
+#~ msgstr "ID"
+
+#~ msgid "Device &ID"
+#~ msgstr "சாதன &அடையாளம்"
+
+#~ msgid "Device &Path"
+#~ msgstr "சாதன &பாதை"
+
+#, fuzzy
+#~| msgid "No &access time"
+#~ msgid "No &Access Time"
+#~ msgstr " அணுகும் நேரம் இல்லை "
+
+#, fuzzy
+#~| msgid ""
+#~| "<p><b>No access time:</b>\n"
+#~| "Access times are not updated when a file is read. Default is false.</p>"
+#~ msgid ""
+#~ "<p><b>No Access Time:</b>\n"
+#~ "Access times are not updated when a file is read. Default is false.</p>\n"
+#~ msgstr ""
+#~ "<p><b> அணுகும் நேரம் இல்லை:</b>\n"
+#~ "கோப்பில் படிக்கும் வசதி மட்டும் இருந்தால் அணுகும் நேரம் இற்றைப்படுத்தப்படுவதில்லை. "
+#~ "முன்னிருப்பு தவறு \t\tஎன்றிருக்கும்.</p>"
+
+#~ msgid "&Access Control Lists (ACL)"
+#~ msgstr "அணுகும் கட்டுப்பாட்டு பட்டியல் (ACL)"
+
+#, fuzzy
+#~| msgid ""
+#~| "<p><b>Access Control Lists (ACL):</b>\n"
+#~| "Enable access control lists on the file system.</p>\n"
+#~ msgid ""
+#~ "<p><b>Access Control Lists (acl):</b>\n"
+#~ "Enable POSIX access control lists and thus more fine-grained user "
+#~ "permissions on the file system. See also man 5 acl.\n"
+#~ msgstr ""
+#~ "<p><b> அணுகும் கட்டுப்பாட்டு பட்டியல் (ACL):</b>\n"
+#~ "கோப்பு அமைப்புமுறையில் அணுகும் கட்டுப்பாட்டு பட்டியலைச் செயல்பட செய்.</p>\n"
+
+#~ msgid "&Extended User Attributes"
+#~ msgstr " பயனரின் விரிவான தன்மைகள்"
 
 #, fuzzy
 #~ msgid "BIOS Boot"

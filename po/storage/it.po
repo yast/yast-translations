@@ -21,7 +21,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: storage\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-22 02:30+0000\n"
+"POT-Creation-Date: 2020-01-25 02:29+0000\n"
 "PO-Revision-Date: 2019-04-30 03:39+0000\n"
 "Last-Translator: Alessio Adamo <alessio.adamo@gmail.com>\n"
 "Language-Team: Italian <https://l10n.opensuse.org/projects/yast-storage/"
@@ -2415,6 +2415,7 @@ msgstr "Dispositivi"
 #. TRANSLATORS: label of a table column
 #. TRANSLATORS: table column label.
 #: src/lib/y2partitioner/widgets/btrfs_filesystems_table.rb:77
+#: src/lib/y2partitioner/widgets/fstab_options.rb:405
 #: src/lib/y2partitioner/widgets/pages/bcaches.rb:220
 #: src/lib/y2storage/filesystems/mount_by_type.rb:63
 msgid "UUID"
@@ -3126,7 +3127,7 @@ msgstr "Non montare il dispositivo"
 #. is given.
 #. TRANSLATORS: Error messagge when the label is not given.
 #: src/lib/y2partitioner/widgets/format_and_mount.rb:277
-#: src/lib/y2partitioner/widgets/fstab_options.rb:303
+#: src/lib/y2partitioner/widgets/fstab_options.rb:302
 msgid "Provide a volume label to mount by label."
 msgstr "Fornire un'etichetta di volume per montare in base all'etichetta."
 
@@ -3280,56 +3281,67 @@ msgid "Fstab Options..."
 msgstr "Opzioni di Fstab..."
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:262
-#: src/lib/y2partitioner/widgets/fstab_options.rb:403
+#: src/lib/y2partitioner/widgets/fstab_options.rb:261
 msgid "Volume &Label"
 msgstr "&Etichetta volume"
 
 # #-#-#-#-#  storage.it.po (storage)  #-#-#-#-#
 # TLABEL modules/inst_custom_part.ycp:1101
 #. TRANSLATORS: Error message when the given label is already in use.
-#: src/lib/y2partitioner/widgets/fstab_options.rb:318
+#: src/lib/y2partitioner/widgets/fstab_options.rb:317
 msgid "This volume label is already in use. Select a different one."
 msgstr "Questa etichetta di volume è già in uso. Selezionarne un'altra."
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:380
+#: src/lib/y2partitioner/widgets/fstab_options.rb:379
 msgid "Mount in /etc/fstab By"
 msgstr "Monta in /etc/fstab con"
 
-#. @macro seeCustomWidget
+#. CWM does not support symbols for entries in ComboBoxes
+#. contrary to libyui. Otherwise a few conversations between
+#. string and symbol below could be avoided.
+#. Hash with the properties for each mount by type.
+#.
+#. Keys are the symbols representing the types and values are hashes that
+#. can contain:
+#. - `:name` for human string
+#. - `:stability` to rate how stable is the corresponding name
 #: src/lib/y2partitioner/widgets/fstab_options.rb:402
-msgid "&Device Name"
-msgstr "Nome &dispositivo"
+#: src/lib/y2storage/filesystems/mount_by_type.rb:47
+msgid "Device Name"
+msgstr "Nome dispositivo"
 
+# #-#-#-#-#  storage.it.po (storage)  #-#-#-#-#
+# TLABEL modules/inst_custom_part.ycp:2168
+#: src/lib/y2partitioner/widgets/fstab_options.rb:403
+#: src/lib/y2storage/filesystems/mount_by_type.rb:55
+msgid "Device ID"
+msgstr "ID dispositivo"
+
+# #-#-#-#-#  storage.it.po (storage)  #-#-#-#-#
+# TLABEL modules/inst_custom_part.ycp:2168
 #: src/lib/y2partitioner/widgets/fstab_options.rb:404
-msgid "&UUID"
-msgstr "&UUID"
+#: src/lib/y2storage/filesystems/mount_by_type.rb:51
+msgid "Device Path"
+msgstr "Percorso dispositivo"
 
-# #-#-#-#-#  storage.it.po (storage)  #-#-#-#-#
-# TLABEL modules/inst_custom_part.ycp:2168
-#: src/lib/y2partitioner/widgets/fstab_options.rb:408
-msgid "Device &ID"
-msgstr "ID di&spositivo"
-
-# #-#-#-#-#  storage.it.po (storage)  #-#-#-#-#
-# TLABEL modules/inst_custom_part.ycp:2168
-#: src/lib/y2partitioner/widgets/fstab_options.rb:409
-msgid "Device &Path"
-msgstr "Pe&rcorso dispositivo"
+#: src/lib/y2partitioner/widgets/fstab_options.rb:406
+#: src/lib/y2storage/filesystems/mount_by_type.rb:59
+msgid "Volume Label"
+msgstr "Etichetta volume"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:497
+#: src/lib/y2partitioner/widgets/fstab_options.rb:477
 msgid "Do Not Mount at System &Start-up"
 msgstr "Non montare all'&avvio del sistema"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:510
+#: src/lib/y2partitioner/widgets/fstab_options.rb:490
 msgid "Mount &Read-Only"
 msgstr "Monta in sola &lettura"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:515
+#: src/lib/y2partitioner/widgets/fstab_options.rb:495
 msgid ""
 "<p><b>Mount Read-Only:</b>\n"
 "Writing to the file system is not possible. Default is false. During "
@@ -3342,27 +3354,12 @@ msgstr ""
 "il file system è sempre montato in modalità di lettura e scrittura.</p>"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:528
-msgid "No &Access Time"
-msgstr "Nessun tempo di &accesso"
-
-#. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:533
-msgid ""
-"<p><b>No Access Time:</b>\n"
-"Access times are not updated when a file is read. Default is false.</p>\n"
-msgstr ""
-"<p><b>Nessun tempo di accesso:</b>\n"
-"i tempi di accesso non vengono aggiornati alla lettura di un file. Per "
-"impostazione predefinita, questa opzione è impostata su falso.</p>\n"
-
-#. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:546
+#: src/lib/y2partitioner/widgets/fstab_options.rb:509
 msgid "Mountable by User"
 msgstr "Montabile dall'utente"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:551
+#: src/lib/y2partitioner/widgets/fstab_options.rb:514
 msgid ""
 "<p><b>Mountable by User:</b>\n"
 "The file system may be mounted by an ordinary user. Default is false.</p>\n"
@@ -3372,12 +3369,12 @@ msgstr ""
 "predefinito è 'falso'.</p>\n"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:565
+#: src/lib/y2partitioner/widgets/fstab_options.rb:528
 msgid "Enable &Quota Support"
 msgstr "Abilita supporto &quota"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:570
+#: src/lib/y2partitioner/widgets/fstab_options.rb:533
 msgid ""
 "<p><b>Enable Quota Support:</b>\n"
 "The file system is mounted with user quotas enabled.\n"
@@ -3388,58 +3385,24 @@ msgstr ""
 "Il valore predefinito è 'falso'.</p>"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:615
-msgid "&Access Control Lists (ACL)"
-msgstr "&Elenchi di controllo dell'accesso (ACL)"
-
-#. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:620
-msgid ""
-"<p><b>Access Control Lists (acl):</b>\n"
-"Enable POSIX access control lists and thus more fine-grained user "
-"permissions on the file system. See also man 5 acl.\n"
-msgstr ""
-"<p><b>Elenchi di controllo dell'accesso (ACL):</b>\n"
-"Abilita gli elenchi di controllo dell'accesso POSIX e di conseguenza più "
-"permessi utenti dettagliati sul file system. Vedere anche man 5 acl.</p>\n"
-
-# #-#-#-#-#  storage.it.po (storage)  #-#-#-#-#
-# TLABEL modules/inst_custom_part.ycp:1838
-#. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:635
-msgid "&Extended User Attributes"
-msgstr "Attributi &estesi dell'utente"
-
-#. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:640
-msgid ""
-"<p><b>Extended User Attributes (user_xattr):</b>\n"
-"Enable extended attributes (name:value pairs) on files and directories.\n"
-"This is an extension to ACLs. See also man 7 xattr.\n"
-msgstr ""
-"<p><b>Attributi utente estesi (user_xattr):</b>\n"
-"abilita gli attributi estesi (nome:coppia di valori) in file e directory.\n"
-"Questa è un'estensione agli ACL. Vedere anche man 7 xattr.\n"
-
-#. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:739
+#: src/lib/y2partitioner/widgets/fstab_options.rb:643
 msgid "Data &Journaling Mode"
 msgstr "Modalità &journalling dei dati"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:748
+#: src/lib/y2partitioner/widgets/fstab_options.rb:652
 msgid "journal"
 msgstr "journal"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:749
+#: src/lib/y2partitioner/widgets/fstab_options.rb:653
 msgid "ordered"
 msgstr "ordered"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:750
+#: src/lib/y2partitioner/widgets/fstab_options.rb:654
 msgid "writeback"
 msgstr "writeback"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:762
+#: src/lib/y2partitioner/widgets/fstab_options.rb:666
 msgid ""
 "<p><b>Data Journaling Mode:</b>\n"
 "Specifies the journaling mode for file data.\n"
@@ -3464,12 +3427,12 @@ msgstr ""
 "impatto sulle prestazioni.</p>\n"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:793
+#: src/lib/y2partitioner/widgets/fstab_options.rb:697
 msgid "Arbitrary Option &Value"
 msgstr "&Valore opzioni arbitrarie"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:821
+#: src/lib/y2partitioner/widgets/fstab_options.rb:725
 msgid ""
 "<p><b>Arbitrary Option Value:</b> Enter any other mount options here, "
 "separated with commas. Notice that this does not do any checking, so be "
@@ -3480,12 +3443,12 @@ msgstr ""
 "verifica, pertanto prestare attenzione ai valori che vengono immessi.</p>"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:905
+#: src/lib/y2partitioner/widgets/fstab_options.rb:809
 msgid "Swap &Priority"
 msgstr "&Priorità swap"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:916
+#: src/lib/y2partitioner/widgets/fstab_options.rb:820
 msgid ""
 "<p><b>Swap Priority:</b>\n"
 "Enter the swap priority. Higher numbers mean higher priority.</p>\n"
@@ -3495,12 +3458,12 @@ msgstr ""
 "p>\n"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:953
+#: src/lib/y2partitioner/widgets/fstab_options.rb:857
 msgid "Char&set for File Names"
 msgstr "&Set di caratteri per nomi di file"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:958
+#: src/lib/y2partitioner/widgets/fstab_options.rb:862
 msgid ""
 "<p><b>Charset for File Names:</b>\n"
 "Set the charset used for display of file names in Windows partitions.</p>\n"
@@ -3510,12 +3473,12 @@ msgstr ""
 "nelle partizioni Windows.</p>\n"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:977
+#: src/lib/y2partitioner/widgets/fstab_options.rb:881
 msgid "Code&page for Short FAT Names"
 msgstr "&Tabella di codici per nomi FAT brevi"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:982
+#: src/lib/y2partitioner/widgets/fstab_options.rb:886
 msgid ""
 "<p><b>Codepage for Short FAT Names:</b>\n"
 "This codepage is used for converting to shortname characters on FAT file "
@@ -6388,32 +6351,6 @@ msgstr ""
 msgid "Btrfs over %{num_devices} devices %{name}"
 msgstr ""
 
-#. Hash with the properties for each mount by type.
-#.
-#. Keys are the symbols representing the types and values are hashes that
-#. can contain:
-#. - `:name` for human string
-#. - `:stability` to rate how stable is the corresponding name
-#: src/lib/y2storage/filesystems/mount_by_type.rb:47
-msgid "Device Name"
-msgstr "Nome dispositivo"
-
-# #-#-#-#-#  storage.it.po (storage)  #-#-#-#-#
-# TLABEL modules/inst_custom_part.ycp:2168
-#: src/lib/y2storage/filesystems/mount_by_type.rb:51
-msgid "Device Path"
-msgstr "Percorso dispositivo"
-
-# #-#-#-#-#  storage.it.po (storage)  #-#-#-#-#
-# TLABEL modules/inst_custom_part.ycp:2168
-#: src/lib/y2storage/filesystems/mount_by_type.rb:55
-msgid "Device ID"
-msgstr "ID dispositivo"
-
-#: src/lib/y2storage/filesystems/mount_by_type.rb:59
-msgid "Volume Label"
-msgstr "Etichetta volume"
-
 #. TRANSLATORS: display name when the PV has no associated VG, where %{device} is replaced by a
 #. device name (e.g., "/dev/sda1").
 #: src/lib/y2storage/lvm_pv.rb:78
@@ -6658,6 +6595,60 @@ msgstr "Immettere la password di cifratura"
 #: src/lib/y2storage/resize_info.rb:109
 msgid "Unknown reason"
 msgstr "Ragione sconosciuta"
+
+#~ msgid "&Device Name"
+#~ msgstr "Nome &dispositivo"
+
+#~ msgid "&UUID"
+#~ msgstr "&UUID"
+
+# #-#-#-#-#  storage.it.po (storage)  #-#-#-#-#
+# TLABEL modules/inst_custom_part.ycp:2168
+#~ msgid "Device &ID"
+#~ msgstr "ID di&spositivo"
+
+# #-#-#-#-#  storage.it.po (storage)  #-#-#-#-#
+# TLABEL modules/inst_custom_part.ycp:2168
+#~ msgid "Device &Path"
+#~ msgstr "Pe&rcorso dispositivo"
+
+#~ msgid "No &Access Time"
+#~ msgstr "Nessun tempo di &accesso"
+
+#~ msgid ""
+#~ "<p><b>No Access Time:</b>\n"
+#~ "Access times are not updated when a file is read. Default is false.</p>\n"
+#~ msgstr ""
+#~ "<p><b>Nessun tempo di accesso:</b>\n"
+#~ "i tempi di accesso non vengono aggiornati alla lettura di un file. Per "
+#~ "impostazione predefinita, questa opzione è impostata su falso.</p>\n"
+
+#~ msgid "&Access Control Lists (ACL)"
+#~ msgstr "&Elenchi di controllo dell'accesso (ACL)"
+
+#~ msgid ""
+#~ "<p><b>Access Control Lists (acl):</b>\n"
+#~ "Enable POSIX access control lists and thus more fine-grained user "
+#~ "permissions on the file system. See also man 5 acl.\n"
+#~ msgstr ""
+#~ "<p><b>Elenchi di controllo dell'accesso (ACL):</b>\n"
+#~ "Abilita gli elenchi di controllo dell'accesso POSIX e di conseguenza più "
+#~ "permessi utenti dettagliati sul file system. Vedere anche man 5 acl.</p>\n"
+
+# #-#-#-#-#  storage.it.po (storage)  #-#-#-#-#
+# TLABEL modules/inst_custom_part.ycp:1838
+#~ msgid "&Extended User Attributes"
+#~ msgstr "Attributi &estesi dell'utente"
+
+#~ msgid ""
+#~ "<p><b>Extended User Attributes (user_xattr):</b>\n"
+#~ "Enable extended attributes (name:value pairs) on files and directories.\n"
+#~ "This is an extension to ACLs. See also man 7 xattr.\n"
+#~ msgstr ""
+#~ "<p><b>Attributi utente estesi (user_xattr):</b>\n"
+#~ "abilita gli attributi estesi (nome:coppia di valori) in file e "
+#~ "directory.\n"
+#~ "Questa è un'estensione agli ACL. Vedere anche man 7 xattr.\n"
 
 #~ msgid ""
 #~ "<p><b>Server:</b> Host name or IP address of the NFS server.</"
