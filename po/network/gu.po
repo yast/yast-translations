@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: YaST (@memory@)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-18 02:28+0000\n"
+"POT-Creation-Date: 2020-01-31 02:28+0000\n"
 "PO-Revision-Date: 2005-07-29 15:37+0530\n"
 "Last-Translator: Priyavert Sharma<priyavert.sharma@agreeya.com>\n"
 "Language-Team: AgreeYa Solutions<linux_team@agreeya.com>\n"
@@ -299,8 +299,9 @@ msgstr ""
 #. Or indicate that NetworkManager takes over.
 #. @param [Hash] devmap device map
 #. @return textual device protocol
+#. first is ID in table
 #: src/include/network/complex.rb:79
-#: src/lib/y2network/widgets/interfaces_table.rb:107
+#: src/lib/y2network/widgets/interfaces_table.rb:117
 msgid "Not configured"
 msgstr "કોન્ફીગર કરાયેલ નહીં"
 
@@ -680,7 +681,7 @@ msgstr ""
 #. returns true if items were disabled
 #. Workaround for usage in old CWM which also cache content of cwm items
 #: src/include/network/routines.rb:700
-#: src/lib/y2network/widgets/interfaces_table.rb:75
+#: src/lib/y2network/widgets/interfaces_table.rb:70
 msgid ""
 "Network is currently handled by NetworkManager\n"
 "or completely disabled. YaST is unable to configure some options."
@@ -868,7 +869,7 @@ msgstr "કરેન્ટ હોસ્ટ્સ"
 #. Table header label
 #: src/include/network/services/host.rb:141
 #: src/lib/y2network/widgets/additional_addresses.rb:54
-#: src/lib/y2network/widgets/interfaces_table.rb:41
+#: src/lib/y2network/widgets/interfaces_table.rb:42
 msgid "IP Address"
 msgstr "IP એડ્રેસ"
 
@@ -1168,7 +1169,7 @@ msgid "Netmask"
 msgstr "નેટમાસ્ક"
 
 #: src/lib/y2network/clients/routing.rb:113
-#: src/lib/y2network/widgets/interfaces_table.rb:42
+#: src/lib/y2network/widgets/interfaces_table.rb:43
 #: src/lib/y2network/widgets/routing_table.rb:41
 msgid "Device"
 msgstr "ડિવાઇસ"
@@ -1372,19 +1373,17 @@ msgstr "S/390 ડિવાઇસ સેટીંગ્સ"
 #. Constructor
 #.
 #. @param activator [Y2Network::S390DeviceActivator]
-#: src/lib/y2network/dialogs/s390_device_activation.rb:70
+#: src/lib/y2network/dialogs/s390_device_activation.rb:75
 msgid "S/390 Network Card Configuration"
 msgstr "S/390 નેટવર્ક કાર્ડ કોન્ફીગરેશન"
 
-#. TODO: Refresh the list of interfaces in yast_config. Take into
-#. account that the interface in yast_config does not have a name so
-#. the builder.interface is probably nil and should be obtained
-#. through the busid.
-#: src/lib/y2network/dialogs/s390_device_activation.rb:88
+#. TRANSLATORS: s390 group device activation error report. %s are the
+#. details of the error
+#: src/lib/y2network/dialogs/s390_device_activation.rb:113
 #, fuzzy
 msgid ""
-"An error occurred while creating device.\n"
-"See YaST log for details."
+"An error occurred while activating the device.<br/><br/><b>Details:<b/><br/>"
+"%s"
 msgstr " પ્રિન્ટર ડેટાબેઝ બનાવતા ભૂલ થઈ છે."
 
 #. @param settings [InterfaceConfigBuilder] object holding interface configuration
@@ -1812,6 +1811,21 @@ msgstr "નીચે (&D)"
 #| msgid "Off"
 msgid "off"
 msgstr "ઓફ"
+
+#. Constructor
+#.
+#. @param name [String] name of device to describe
+#. @param config [Y2Network::Config]
+#: src/lib/y2network/presenters/s390_group_device_summary.rb:56
+#, fuzzy
+msgid ""
+"The device is not enable. Press <b>Edit</b>\n"
+"to enable it.\n"
+msgstr ""
+"<P>જો સાઉન્ડ કાર્ડ હજી કન્ફિગર ન થયું હોય, તો <B>સાઉન્ડ કાર્ડને કન્ફિગર કરો</B> દબાવો "
+"અને\n"
+" સાઉન્ડ કન્ફિગરેશન મોડ્યુલ શરૂ કરો.\n"
+"</P>"
 
 #. Auto start mode
 #.
@@ -2653,22 +2667,27 @@ msgstr ""
 #.
 #. To contact SUSE LLC about this file by physical or electronic mail, you may
 #. find current contact information at www.suse.com.
-#: src/lib/y2network/widgets/interfaces_table.rb:40
+#: src/lib/y2network/widgets/interfaces_table.rb:41
 msgid "Name"
 msgstr "નામ"
 
-#: src/lib/y2network/widgets/interfaces_table.rb:43
+#: src/lib/y2network/widgets/interfaces_table.rb:44
 msgid "Note"
 msgstr ""
 
 #. switch to global tab
-#: src/lib/y2network/widgets/interfaces_table.rb:99
+#: src/lib/y2network/widgets/interfaces_table.rb:94
 msgid "enslaved in %s"
 msgstr ""
 
-#: src/lib/y2network/widgets/interfaces_table.rb:101
+#: src/lib/y2network/widgets/interfaces_table.rb:96
 msgid "parent: %s"
 msgstr ""
+
+#: src/lib/y2network/widgets/interfaces_table.rb:102
+#, fuzzy
+msgid "Not activated"
+msgstr "(અસુરક્ષિત"
 
 #. Copyright (c) [2019] SUSE LLC
 #.
@@ -2926,19 +2945,19 @@ msgid "&S/390"
 msgstr "&S/390"
 
 #. @see CWM::AbstractWidget
-#: src/lib/y2network/widgets/s390_channels.rb:75
+#: src/lib/y2network/widgets/s390_channels.rb:76
 #, fuzzy
 msgid "&Read Channel"
 msgstr " ચેનલ "
 
 #. @see CWM::AbstractWidget
-#: src/lib/y2network/widgets/s390_channels.rb:106
+#: src/lib/y2network/widgets/s390_channels.rb:108
 #, fuzzy
 msgid "&Write Channel"
 msgstr "&હવે ચેન્જીસ લખો"
 
 #. @see CWM::AbstractWidget
-#: src/lib/y2network/widgets/s390_channels.rb:137
+#: src/lib/y2network/widgets/s390_channels.rb:140
 #, fuzzy
 msgid "Control Channel"
 msgstr "કન્ટ્રોલ ફાઇલ બદલાઇ છે."

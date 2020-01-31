@@ -17,7 +17,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: network\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-18 02:28+0000\n"
+"POT-Creation-Date: 2020-01-31 02:28+0000\n"
 "PO-Revision-Date: 2019-11-01 20:53+0000\n"
 "Last-Translator: Antoine Belvire <antoine.belvire@opensuse.org>\n"
 "Language-Team: French <https://l10n.opensuse.org/projects/yast-network/"
@@ -321,8 +321,9 @@ msgstr ""
 #. Or indicate that NetworkManager takes over.
 #. @param [Hash] devmap device map
 #. @return textual device protocol
+#. first is ID in table
 #: src/include/network/complex.rb:79
-#: src/lib/y2network/widgets/interfaces_table.rb:107
+#: src/lib/y2network/widgets/interfaces_table.rb:117
 msgid "Not configured"
 msgstr "Non configuré"
 
@@ -769,7 +770,7 @@ msgstr ""
 #. returns true if items were disabled
 #. Workaround for usage in old CWM which also cache content of cwm items
 #: src/include/network/routines.rb:700
-#: src/lib/y2network/widgets/interfaces_table.rb:75
+#: src/lib/y2network/widgets/interfaces_table.rb:70
 msgid ""
 "Network is currently handled by NetworkManager\n"
 "or completely disabled. YaST is unable to configure some options."
@@ -983,7 +984,7 @@ msgstr "Hôtes actuels"
 #. Table header label
 #: src/include/network/services/host.rb:141
 #: src/lib/y2network/widgets/additional_addresses.rb:54
-#: src/lib/y2network/widgets/interfaces_table.rb:41
+#: src/lib/y2network/widgets/interfaces_table.rb:42
 msgid "IP Address"
 msgstr "Adresse IP"
 
@@ -1294,7 +1295,7 @@ msgstr "Masque réseau"
 # 2001-01-29 11:13:40 CET -ke-
 # TLABEL modules/inst_custom_part.ycp:2168
 #: src/lib/y2network/clients/routing.rb:113
-#: src/lib/y2network/widgets/interfaces_table.rb:42
+#: src/lib/y2network/widgets/interfaces_table.rb:43
 #: src/lib/y2network/widgets/routing_table.rb:41
 msgid "Device"
 msgstr "Périphérique"
@@ -1501,19 +1502,21 @@ msgstr "Paramètres de périphérique S/390"
 #. Constructor
 #.
 #. @param activator [Y2Network::S390DeviceActivator]
-#: src/lib/y2network/dialogs/s390_device_activation.rb:70
+#: src/lib/y2network/dialogs/s390_device_activation.rb:75
 msgid "S/390 Network Card Configuration"
 msgstr "Configuration de la carte réseau S/390"
 
 # TLABEL autoinst_2002_08_07_0216__237
-#. TODO: Refresh the list of interfaces in yast_config. Take into
-#. account that the interface in yast_config does not have a name so
-#. the builder.interface is probably nil and should be obtained
-#. through the busid.
-#: src/lib/y2network/dialogs/s390_device_activation.rb:88
+#. TRANSLATORS: s390 group device activation error report. %s are the
+#. details of the error
+#: src/lib/y2network/dialogs/s390_device_activation.rb:113
+#, fuzzy
+#| msgid ""
+#| "An error occurred while creating device.\n"
+#| "See YaST log for details."
 msgid ""
-"An error occurred while creating device.\n"
-"See YaST log for details."
+"An error occurred while activating the device.<br/><br/><b>Details:<b/><br/>"
+"%s"
 msgstr ""
 "Une erreur s'est produite lors de la création du périphérique.\n"
 "Reportez vous aux logs de YaST pour plus de détails."
@@ -1949,6 +1952,22 @@ msgstr "Descendre"
 #| msgid "Off"
 msgid "off"
 msgstr "Arrêt"
+
+#. Constructor
+#.
+#. @param name [String] name of device to describe
+#. @param config [Y2Network::Config]
+#: src/lib/y2network/presenters/s390_group_device_summary.rb:56
+#, fuzzy
+#| msgid ""
+#| "The device is not configured. Press <b>Edit</b>\n"
+#| "to configure.\n"
+msgid ""
+"The device is not enable. Press <b>Edit</b>\n"
+"to enable it.\n"
+msgstr ""
+"Le périphérique n'est pas configuré. Cliquez sur <b>Modifier</b>\n"
+"pour le configurer.\n"
 
 #. Auto start mode
 #.
@@ -2852,22 +2871,28 @@ msgstr ""
 #.
 #. To contact SUSE LLC about this file by physical or electronic mail, you may
 #. find current contact information at www.suse.com.
-#: src/lib/y2network/widgets/interfaces_table.rb:40
+#: src/lib/y2network/widgets/interfaces_table.rb:41
 msgid "Name"
 msgstr "Nom"
 
-#: src/lib/y2network/widgets/interfaces_table.rb:43
+#: src/lib/y2network/widgets/interfaces_table.rb:44
 msgid "Note"
 msgstr "Remarque"
 
 #. switch to global tab
-#: src/lib/y2network/widgets/interfaces_table.rb:99
+#: src/lib/y2network/widgets/interfaces_table.rb:94
 msgid "enslaved in %s"
 msgstr "asservi dans %s"
 
-#: src/lib/y2network/widgets/interfaces_table.rb:101
+#: src/lib/y2network/widgets/interfaces_table.rb:96
 msgid "parent: %s"
 msgstr "parent : %s"
+
+#: src/lib/y2network/widgets/interfaces_table.rb:102
+#, fuzzy
+#| msgid "Not connected"
+msgid "Not activated"
+msgstr "Non connecté"
 
 # TLABEL network_2002_08_07_0216__161
 #. Copyright (c) [2019] SUSE LLC
@@ -3154,18 +3179,18 @@ msgid "&S/390"
 msgstr "&S/390"
 
 #. @see CWM::AbstractWidget
-#: src/lib/y2network/widgets/s390_channels.rb:75
+#: src/lib/y2network/widgets/s390_channels.rb:76
 msgid "&Read Channel"
 msgstr "Canal de lectu&re"
 
 #. @see CWM::AbstractWidget
-#: src/lib/y2network/widgets/s390_channels.rb:106
+#: src/lib/y2network/widgets/s390_channels.rb:108
 msgid "&Write Channel"
 msgstr "Canal d'é&criture"
 
 # TLABEL autoinst_2002_08_07_0216__211
 #. @see CWM::AbstractWidget
-#: src/lib/y2network/widgets/s390_channels.rb:137
+#: src/lib/y2network/widgets/s390_channels.rb:140
 msgid "Control Channel"
 msgstr "Canal de contrôle"
 

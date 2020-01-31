@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: network.km\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-18 02:28+0000\n"
+"POT-Creation-Date: 2020-01-31 02:28+0000\n"
 "PO-Revision-Date: 2012-06-04 15:27+0700\n"
 "Last-Translator: Khoem Sokhem <khoemsokhem@khmeros.info>\n"
 "Language-Team: Khmer <support@khmeros.info>\n"
@@ -294,8 +294,9 @@ msgstr ""
 #. Or indicate that NetworkManager takes over.
 #. @param [Hash] devmap device map
 #. @return textual device protocol
+#. first is ID in table
 #: src/include/network/complex.rb:79
-#: src/lib/y2network/widgets/interfaces_table.rb:107
+#: src/lib/y2network/widgets/interfaces_table.rb:117
 msgid "Not configured"
 msgstr "មិន​បាន​កំណត់​រចនាសម្ព័ន្ធ"
 
@@ -710,7 +711,7 @@ msgstr ""
 #. returns true if items were disabled
 #. Workaround for usage in old CWM which also cache content of cwm items
 #: src/include/network/routines.rb:700
-#: src/lib/y2network/widgets/interfaces_table.rb:75
+#: src/lib/y2network/widgets/interfaces_table.rb:70
 msgid ""
 "Network is currently handled by NetworkManager\n"
 "or completely disabled. YaST is unable to configure some options."
@@ -894,7 +895,7 @@ msgstr "ម៉ាស៊ីនបច្ចុប្បន្ន"
 #. Table header label
 #: src/include/network/services/host.rb:141
 #: src/lib/y2network/widgets/additional_addresses.rb:54
-#: src/lib/y2network/widgets/interfaces_table.rb:41
+#: src/lib/y2network/widgets/interfaces_table.rb:42
 msgid "IP Address"
 msgstr "អាសយដ្ឋាន IP"
 
@@ -1201,7 +1202,7 @@ msgid "Netmask"
 msgstr "របាំង​បណ្តាញ"
 
 #: src/lib/y2network/clients/routing.rb:113
-#: src/lib/y2network/widgets/interfaces_table.rb:42
+#: src/lib/y2network/widgets/interfaces_table.rb:43
 #: src/lib/y2network/widgets/routing_table.rb:41
 msgid "Device"
 msgstr "ឧបករណ៍"
@@ -1402,18 +1403,20 @@ msgstr "ការ​កំណត់​ឧបករណ៍ S/390"
 #. Constructor
 #.
 #. @param activator [Y2Network::S390DeviceActivator]
-#: src/lib/y2network/dialogs/s390_device_activation.rb:70
+#: src/lib/y2network/dialogs/s390_device_activation.rb:75
 msgid "S/390 Network Card Configuration"
 msgstr "ការ​កំណត់​រចនាសម្ព័ន្ធ​កាត​បណ្ដាញ S/390"
 
-#. TODO: Refresh the list of interfaces in yast_config. Take into
-#. account that the interface in yast_config does not have a name so
-#. the builder.interface is probably nil and should be obtained
-#. through the busid.
-#: src/lib/y2network/dialogs/s390_device_activation.rb:88
+#. TRANSLATORS: s390 group device activation error report. %s are the
+#. details of the error
+#: src/lib/y2network/dialogs/s390_device_activation.rb:113
+#, fuzzy
+#| msgid ""
+#| "An error occurred while creating device.\n"
+#| "See YaST log for details."
 msgid ""
-"An error occurred while creating device.\n"
-"See YaST log for details."
+"An error occurred while activating the device.<br/><br/><b>Details:<b/><br/>"
+"%s"
 msgstr ""
 "កំហុស​បាន​កើត​ឡើង​ ខណៈ​ពេល​បង្កើត​ឧបករណ៍ ។\n"
 "សូម​មើល​កំណត់ហេតុ​របស់ YaST សម្រាប់​សេចក្ដី​លម្អិត ។"
@@ -1848,6 +1851,22 @@ msgstr "ចុះក្រោម"
 #| msgid "Off"
 msgid "off"
 msgstr "បិទ"
+
+#. Constructor
+#.
+#. @param name [String] name of device to describe
+#. @param config [Y2Network::Config]
+#: src/lib/y2network/presenters/s390_group_device_summary.rb:56
+#, fuzzy
+#| msgid ""
+#| "<p>The device is not configured. Press <b>Edit</b>\n"
+#| "to configure.</p>\n"
+msgid ""
+"The device is not enable. Press <b>Edit</b>\n"
+"to enable it.\n"
+msgstr ""
+"<p>ឧបករណ៍​មិន​ត្រូវ​បានកំណត់​រចនាសម្ព័ន្ធ​ទេ ។ ចុច <b>កែសម្រួល</b>\n"
+"ដើម្បី​កំណត់​រចនាសម្ព័ន្ធ ។</p>\n"
 
 #. Auto start mode
 #.
@@ -2724,24 +2743,30 @@ msgstr ""
 #.
 #. To contact SUSE LLC about this file by physical or electronic mail, you may
 #. find current contact information at www.suse.com.
-#: src/lib/y2network/widgets/interfaces_table.rb:40
+#: src/lib/y2network/widgets/interfaces_table.rb:41
 msgid "Name"
 msgstr "ឈ្មោះ"
 
-#: src/lib/y2network/widgets/interfaces_table.rb:43
+#: src/lib/y2network/widgets/interfaces_table.rb:44
 #, fuzzy
 #| msgid "Note:"
 msgid "Note"
 msgstr "ចំណាំ ៖"
 
 #. switch to global tab
-#: src/lib/y2network/widgets/interfaces_table.rb:99
+#: src/lib/y2network/widgets/interfaces_table.rb:94
 msgid "enslaved in %s"
 msgstr ""
 
-#: src/lib/y2network/widgets/interfaces_table.rb:101
+#: src/lib/y2network/widgets/interfaces_table.rb:96
 msgid "parent: %s"
 msgstr ""
+
+#: src/lib/y2network/widgets/interfaces_table.rb:102
+#, fuzzy
+#| msgid "Not connected"
+msgid "Not activated"
+msgstr "មិន​បានតភ្ជាប់"
 
 #. Copyright (c) [2019] SUSE LLC
 #.
@@ -3023,21 +3048,21 @@ msgid "&S/390"
 msgstr "&S/390"
 
 #. @see CWM::AbstractWidget
-#: src/lib/y2network/widgets/s390_channels.rb:75
+#: src/lib/y2network/widgets/s390_channels.rb:76
 #, fuzzy
 #| msgid "Read Channel"
 msgid "&Read Channel"
 msgstr "អាន​ឆានែល"
 
 #. @see CWM::AbstractWidget
-#: src/lib/y2network/widgets/s390_channels.rb:106
+#: src/lib/y2network/widgets/s390_channels.rb:108
 #, fuzzy
 #| msgid "Write Channel"
 msgid "&Write Channel"
 msgstr "សរសេរ​ឆានែល"
 
 #. @see CWM::AbstractWidget
-#: src/lib/y2network/widgets/s390_channels.rb:137
+#: src/lib/y2network/widgets/s390_channels.rb:140
 msgid "Control Channel"
 msgstr "ត្រួតពិនិត្យ​ឆានែល"
 
