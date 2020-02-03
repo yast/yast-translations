@@ -92,6 +92,7 @@ Y2M=$YAST_CHECKOUT/meta/y2m
 
 cd $YAST_CHECKOUT
 
+rm -f */*.pot
 $Y2M read-only ALL
 $Y2M pull
 
@@ -104,7 +105,6 @@ for DIR in * ; do
 		continue
 	fi
 	pushd $DIR >/dev/null
-	rm -f *.pot
 	$Y2MAKEPOT
 	for POT in *.pot ; do
 		DOMAIN=${POT%.pot}

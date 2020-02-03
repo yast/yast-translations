@@ -29,7 +29,6 @@ function make_pot {
 
     pushd $MODULE_DIR
 
-    rm -f *.pot
     # ignore errors, stopping here would skip the other packages
     $Y2MAKEPOT || FAILED_PACKAGES="$FAILED_PACKAGES $MODULE_DIR"
 
@@ -68,6 +67,7 @@ function strip_POT_dates {
 rm -rf $TRANPARTS
 
 # Create POT files for (nearly) all subdirectories
+rm -f */*.pot
 for DIR in * ; do
     [ -d "$DIR" ] || continue
     [ "$DIR" != 'translations' ] || continue
