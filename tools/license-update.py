@@ -55,6 +55,8 @@ for pot_file in pots:
     print('        "' + spec_license + '" partial license')
     if not spec_license in prjlicenses:
       prjlicenses.append(spec_license)
+  if len(prjlicenses) == 0:
+    continue
   if len(prjlicenses) == 1:
     final_license = prjlicenses[0]
   else:
