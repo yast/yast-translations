@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: YaST (@memory@)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-31 02:28+0000\n"
+"POT-Creation-Date: 2020-02-13 02:28+0000\n"
 "PO-Revision-Date: 2005-07-29 15:37+0530\n"
 "Last-Translator: Priyavert Sharma<priyavert.sharma@agreeya.com>\n"
 "Language-Team: AgreeYa Solutions<linux_team@agreeya.com>\n"
@@ -806,28 +806,28 @@ msgid "yes: any"
 msgstr ""
 
 #. translators: label is in form yes: <device name>
-#: src/include/network/services/dns.rb:392
+#: src/include/network/services/dns.rb:391
 msgid "yes: %s"
 msgstr ""
 
 #. Popup::Error text
-#: src/include/network/services/dns.rb:460
+#: src/include/network/services/dns.rb:459
 msgid "The search list can have at most %1 domains."
 msgstr "સર્ટ લિસ્ટ %1 પાસે અધકતમ %1 ડોમેન્સ હોઇ શકે."
 
 #. Popup::Error text
-#: src/include/network/services/dns.rb:466
+#: src/include/network/services/dns.rb:465
 msgid "The search list can have at most %1 characters."
 msgstr "સર્ટ લિસ્ટ %1 પાસે અધકતમ %1 કેરેક્ટર્સ હોઇ શકે"
 
 #. Popup::Error text
-#: src/include/network/services/dns.rb:475
+#: src/include/network/services/dns.rb:474
 msgid "The search domain '%1' is invalid."
 msgstr "સર્ચ ડોમેન %1 ઇનવેલીડ છે."
 
 #. Standalone dialog only - embedded one is handled separately
 #. via CWMTab
-#: src/include/network/services/dns.rb:611
+#: src/include/network/services/dns.rb:610
 msgid "Hostname and Name Server Configuration"
 msgstr "હોસ્ટનેમ અને નેમ સર્વર કોન્ફીગરેશન"
 
@@ -999,6 +999,7 @@ msgstr "અલાઇસ નેમ \"%1\" ઇનવેલીડ છે."
 #.
 #. Routing configuration dialogs
 #: src/include/network/services/routing.rb:55
+#: src/lib/y2network/presenters/proposal_summary.rb:51
 msgid "Routing"
 msgstr "રાઉટીંગ"
 
@@ -1096,43 +1097,6 @@ msgid ""
 "Because of the bridged network, YaST2 needs to restart the network to apply "
 "the settings."
 msgstr ""
-
-#. TRANSLATORS: informs that multiple interfaces are configured
-#: src/lib/network/lan_items_summary.rb:96
-#, fuzzy
-#| msgid "&Select Interface"
-msgid "Multiple Interfaces"
-msgstr "&ઈન્ટરફેસ પસંદ કરો"
-
-#. TRANSLATORS: %s is the list of interfaces configured by DHCP
-#: src/lib/network/lan_items_summary.rb:121
-#, fuzzy
-#| msgid "Configured with %1"
-msgid "Configured with DHCP: %s"
-msgstr "કોન્ફીગર્ડ વિથ %1"
-
-#. TRANSLATORS: %s is the list of interfaces configured by DHCP
-#: src/lib/network/lan_items_summary.rb:129
-#, fuzzy
-#| msgid "List only configured cards"
-msgid "Statically configured: %s"
-msgstr "માત્ર કોન્ફીગર કરાયેલ કાર્ડસની સૂચી બનાવો"
-
-#. Return a summary of the configured bridge interfaces
-#.
-#. @return [String] bridge configured interfaces summary
-#: src/lib/network/lan_items_summary.rb:137
-#, fuzzy
-msgid "Bridges: %s"
-msgstr "મોડેમ ડિવાઇસ"
-
-#. Return a summary of the configured bonding interfaces
-#.
-#. @return [String] bonding configured interfaces summary
-#: src/lib/network/lan_items_summary.rb:147
-#, fuzzy
-msgid "Bonds: %s"
-msgstr "પોલેન્ડ"
 
 #. Copyright (c) [2019] SUSE LLC
 #.
@@ -1666,25 +1630,24 @@ msgstr "અજાણ્યું"
 
 #. Constructor
 #.
-#. @param dns [Y2Network::DNS]
-#. @param hostname [Y2Network::Hostname]
-#: src/lib/y2network/presenters/dns_summary.rb:66
+#. @param config [Y2Network::Config]
+#: src/lib/y2network/presenters/dns_summary.rb:71
 msgid "Hostname: Set by DHCP"
 msgstr "હોસ્ટનેમઃ DHCP દ્વારા સેટ"
 
-#: src/lib/y2network/presenters/dns_summary.rb:68
+#: src/lib/y2network/presenters/dns_summary.rb:73
 #, fuzzy
 #| msgid "Hostname: %1"
 msgid "Hostname: %s"
 msgstr "હોસ્ટનેમઃ %1"
 
-#: src/lib/y2network/presenters/dns_summary.rb:75
+#: src/lib/y2network/presenters/dns_summary.rb:80
 #, fuzzy
 #| msgid "Name Servers: %1"
 msgid "Name Servers: %s"
 msgstr "નેમ સર્વર્સઃ %1"
 
-#: src/lib/y2network/presenters/dns_summary.rb:82
+#: src/lib/y2network/presenters/dns_summary.rb:87
 #, fuzzy
 #| msgid "Search List: %1"
 msgid "Search List: %s"
@@ -1774,6 +1737,65 @@ msgstr ""
 "અને\n"
 " સાઉન્ડ કન્ફિગરેશન મોડ્યુલ શરૂ કરો.\n"
 "</P>"
+
+#. Generates a one line text summary for the configured interfaces.
+#.
+#. @example with one configured interface
+#. presenter.one_line_text
+#. => "DHCP / eth1"
+#.
+#. @example with many configured interfaces
+#. presenter.one_line_text
+#. => "Multiple Interfaces"
+#.
+#. @return [String] summary in just one line and in plain text
+#: src/lib/y2network/presenters/interfaces_summary.rb:89
+#, fuzzy
+#| msgid "&Select Interface"
+msgid "Multiple Interfaces"
+msgstr "&ઈન્ટરફેસ પસંદ કરો"
+
+#. TRANSLATORS: %s is the list of interfaces configured by DHCP
+#: src/lib/y2network/presenters/interfaces_summary.rb:121
+#, fuzzy
+#| msgid "Configured with %1"
+msgid "Configured with DHCP: %s"
+msgstr "કોન્ફીગર્ડ વિથ %1"
+
+#. TRANSLATORS: %s is the list of interfaces configured statically
+#: src/lib/y2network/presenters/interfaces_summary.rb:129
+#, fuzzy
+#| msgid "List only configured cards"
+msgid "Statically configured: %s"
+msgstr "માત્ર કોન્ફીગર કરાયેલ કાર્ડસની સૂચી બનાવો"
+
+#. TRANSLATORS: %s is a list of bridge interface names and their ports
+#. like 'br0 (eth0, eth1)'
+#: src/lib/y2network/presenters/interfaces_summary.rb:138
+#, fuzzy
+msgid "Bridges: %s"
+msgstr "મોડેમ ડિવાઇસ"
+
+#. TRANSLATORS: %s is the list of bonding interface names and their
+#. slaves like 'bond0 (br0, eth2)'
+#: src/lib/y2network/presenters/interfaces_summary.rb:149
+#, fuzzy
+msgid "Bonds: %s"
+msgstr "પોલેન્ડ"
+
+#. Network proposal RichText format summary
+#.
+#. @return [String]
+#: src/lib/y2network/presenters/proposal_summary.rb:49
+#, fuzzy
+#| msgid "&Interface"
+msgid "Interfaces"
+msgstr "&ઈન્ટરફેસીસ"
+
+#: src/lib/y2network/presenters/proposal_summary.rb:50
+#, fuzzy
+msgid "Hostname / DNS"
+msgstr "હોસ્ટનેમ"
 
 #. Returns the summary of network configuration settings in text form
 #.
@@ -3684,91 +3706,91 @@ msgid "Updating /etc/hosts ..."
 msgstr "પેકેજીસ અપડેટ કરી રહયું છે..."
 
 #. Progress stage 1/7
-#: src/modules/Lan.rb:236
+#: src/modules/Lan.rb:234
 msgid "Detect network devices"
 msgstr "નેટવર્ક ડિવાઇસ ડિટેક્ટ કરો"
 
 #. Progress stage 2/7
-#: src/modules/Lan.rb:238
+#: src/modules/Lan.rb:236
 msgid "Read driver information"
 msgstr "ડ્રાઇવર માહિતી વાંચો"
 
 #. Progress stage 3/7 - multiple devices may be present, really plural
-#: src/modules/Lan.rb:240
+#: src/modules/Lan.rb:238
 msgid "Read device configuration"
 msgstr "ડિવાઇસ કોન્ફીગરેશન વાંચો"
 
 #. Progress stage 4/7
-#: src/modules/Lan.rb:242
+#: src/modules/Lan.rb:240
 msgid "Read network configuration"
 msgstr "નેટવર્ક કોન્ફીગરેશન વાંચો"
 
 #. Progress stage 5/7
-#: src/modules/Lan.rb:244
+#: src/modules/Lan.rb:242
 msgid "Read installation information"
 msgstr "ઇન્સ્ટોલેશન માહિતી વાંચો"
 
 #. Progress stage 6/7
-#: src/modules/Lan.rb:246
+#: src/modules/Lan.rb:244
 msgid "Read routing configuration"
 msgstr "રાઉટીંગ કોન્ફીગરેશન વાંચો"
 
 #. Progress stage 7/7
-#: src/modules/Lan.rb:248
+#: src/modules/Lan.rb:246
 msgid "Detect current status"
 msgstr "હાલનું સ્ટેટસ ડિટેક્ટ કરો"
 
-#: src/modules/Lan.rb:251
+#: src/modules/Lan.rb:249
 msgid "Read firewall configuration"
 msgstr "ફાયરવાલ કોન્ફીગરેશન વાંચો"
 
 #. Read dialog caption
-#: src/modules/Lan.rb:266
+#: src/modules/Lan.rb:264
 msgid "Initializing Network Configuration"
 msgstr "નેટવર્ક કોન્ફીગરેશન શરૂ કરી રહયું છે"
 
 #. 1000; /* TESTING
-#: src/modules/Lan.rb:284
+#: src/modules/Lan.rb:282
 #, fuzzy
 msgid "Detecting ndiswrapper..."
 msgstr "હાર્ડવેર શોધાઈ રહ્યું છે..."
 
 #. modprobe ndiswrapper before hwinfo when needed (#343893)
-#: src/modules/Lan.rb:303
+#: src/modules/Lan.rb:301
 msgid ""
 "Detected a ndiswrapper configuration,\n"
 "but the kernel module was not modprobed.\n"
 "Do you want to modprobe ndiswrapper?\n"
 msgstr ""
 
-#: src/modules/Lan.rb:311
+#: src/modules/Lan.rb:309
 msgid ""
 "ndiswrapper kernel module has not been loaded.\n"
 "Check configuration manually.\n"
 msgstr ""
 
-#: src/modules/Lan.rb:324
+#: src/modules/Lan.rb:322
 msgid "Detecting network devices..."
 msgstr "નેટવર્ક ડિવાઇસ ડિટેક્ટ કરી રહયું છે..."
 
 #. Dont read hardware data in config mode
-#: src/modules/Lan.rb:332
+#: src/modules/Lan.rb:330
 msgid "Reading device configuration..."
 msgstr "ડિવાઇસ કોન્ફીગરેશન વાંચી રહયું છે..."
 
-#: src/modules/Lan.rb:339
+#: src/modules/Lan.rb:337
 msgid "Reading network configuration..."
 msgstr "નેટવર્ક કોન્ફીગરેશન વાંચી રહયું છે..."
 
-#: src/modules/Lan.rb:352
+#: src/modules/Lan.rb:350
 msgid "Detecting current status..."
 msgstr "હાલનું સ્ટેટસ ડિટેક્ટ કરી રહયું છે..."
 
-#: src/modules/Lan.rb:359
+#: src/modules/Lan.rb:357
 msgid "Reading firewall configuration..."
 msgstr "ફાયરવાલ કોન્ફીગરેશન વાંચી રહયું છે..."
 
-#: src/modules/Lan.rb:366
+#: src/modules/Lan.rb:364
 msgid ""
 "Network configuration is corrupted.\n"
 "If you continue resulting configuration can be malformed.\n"
@@ -3778,116 +3800,116 @@ msgstr ""
 
 #. Final progress step
 #. Final progress step
-#: src/modules/Lan.rb:374 src/modules/Lan.rb:576
+#: src/modules/Lan.rb:372 src/modules/Lan.rb:574
 msgid "Finished"
 msgstr "સમાપ્ત"
 
 #. (a specialization used when a parameterless function is needed)
 #. @return [Boolean] true on success
-#: src/modules/Lan.rb:402
+#: src/modules/Lan.rb:400
 #, fuzzy
 #| msgid "To apply changes a reboot is necessary."
 msgid "To apply this change, a reboot is needed."
 msgstr "ફેરફારો લાગુ કરવા ફરીથી બૂટ કરવું જરૂરી છે."
 
 #. Write dialog caption
-#: src/modules/Lan.rb:446
+#: src/modules/Lan.rb:444
 msgid "Saving Network Configuration"
 msgstr "નેટવર્ક કોન્ફીગરેશન સેવ કરી રહયું છે"
 
 #. Progress stage 2
-#: src/modules/Lan.rb:453
+#: src/modules/Lan.rb:451
 msgid "Write drivers information"
 msgstr "ડ્રાઇવર્સ માહિતી લખો"
 
 #. Progress stage 3 - multiple devices may be present,really plural
-#: src/modules/Lan.rb:455
+#: src/modules/Lan.rb:453
 msgid "Write device configuration"
 msgstr "ડિવાઇસ કોન્ફીગરેશન લખો"
 
 #. Progress stage 4
-#: src/modules/Lan.rb:457
+#: src/modules/Lan.rb:455
 msgid "Write network configuration"
 msgstr "નેટવર્ક કોન્ફીગરેશન લખો"
 
 #. Progress stage 5
-#: src/modules/Lan.rb:459
+#: src/modules/Lan.rb:457
 msgid "Write routing configuration"
 msgstr "રાઉટીંગ કોન્ફીગરેશન લખો"
 
 #. Progress stage 6
-#: src/modules/Lan.rb:461
+#: src/modules/Lan.rb:459
 msgid "Write hostname and DNS configuration"
 msgstr "હોસ્ટનેમ અને DNS કોન્ફીગરેશન લખો"
 
 #. Progress stage 7
-#: src/modules/Lan.rb:463
+#: src/modules/Lan.rb:461
 msgid "Set up network services"
 msgstr "નેટવર્ક સેવાઓ ગોઠવો"
 
 #. Progress stage 8
-#: src/modules/Lan.rb:467
+#: src/modules/Lan.rb:465
 #, fuzzy
 msgid "Writing firewall configuration"
 msgstr "ફાયરવોલ કન્ફિગ્યુરેશન લખી રહેલ છે."
 
 #. Progress stage 9
-#: src/modules/Lan.rb:470
+#: src/modules/Lan.rb:468
 msgid "Activate network services"
 msgstr "નેટવર્ક સેવાઓ એક્ટીવેટ કરો"
 
 #. Progress stage 10
-#: src/modules/Lan.rb:472
+#: src/modules/Lan.rb:470
 msgid "Update configuration"
 msgstr "અપડેટ કોન્ફીગરેશન"
 
 #. Progress step 2
-#: src/modules/Lan.rb:486
+#: src/modules/Lan.rb:484
 msgid "Writing /etc/modprobe.conf..."
 msgstr "etc/modprobe.conf લખી રહયું છે..."
 
 #. Progress step 3 - multiple devices may be present, really plural
-#: src/modules/Lan.rb:492
+#: src/modules/Lan.rb:490
 msgid "Writing device configuration..."
 msgstr "ડિવાઇસ માહિતી લખી રહયું છે..."
 
 #. Progress step 4
-#: src/modules/Lan.rb:498
+#: src/modules/Lan.rb:496
 msgid "Writing network configuration..."
 msgstr "નેટવર્ક માહિતી લખી રહયું છે..."
 
 #. Progress step 5
-#: src/modules/Lan.rb:505
+#: src/modules/Lan.rb:503
 msgid "Writing routing configuration..."
 msgstr "રાઉટીંગ કોન્ફીગરેશન લખી રહયું છે..."
 
 #. Progress step 6
-#: src/modules/Lan.rb:516
+#: src/modules/Lan.rb:514
 msgid "Writing hostname and DNS configuration..."
 msgstr "હોસ્ટનેમ અને DNS કોન્ફીગરેશન લખી રહયું છે..."
 
 #. Progress step 7
-#: src/modules/Lan.rb:528
+#: src/modules/Lan.rb:526
 msgid "Setting up network services..."
 msgstr "નેટવર્ક સેવાઓ ગોઠવી રહયું છે..."
 
 #. Progress step 7
-#: src/modules/Lan.rb:536
+#: src/modules/Lan.rb:534
 #, fuzzy
 msgid "Writing firewall configuration..."
 msgstr "ફાયરવોલ કન્ફિગ્યુરેશન લખી રહેલ છે."
 
 #. Progress step 9
-#: src/modules/Lan.rb:545
+#: src/modules/Lan.rb:543
 msgid "Activating network services..."
 msgstr "નેટવર્ક સેવાઓ એક્ટીવેટ કરી રહયું છે..."
 
 #. Progress step 10
-#: src/modules/Lan.rb:555
+#: src/modules/Lan.rb:553
 msgid "Updating configuration..."
 msgstr "કોન્ફીગરેશન અપડેટ કરી રહયું છે..."
 
-#: src/modules/Lan.rb:572
+#: src/modules/Lan.rb:570
 #, fuzzy
 msgid "No network running"
 msgstr " નેટવર્ક સેટિન્ગ્સ વાંચો "
@@ -3900,17 +3922,17 @@ msgstr " નેટવર્ક સેટિન્ગ્સ વાંચો "
 #.
 #. @param [Hash] dev_map a device's sysconfig map (in form "option" => "value")
 #. @return [Array] list of strings, one string is intended for one "bullet"
-#: src/modules/LanItems.rb:439
+#: src/modules/LanItems.rb:427
 #, fuzzy
 msgid "IP address assigned using"
 msgstr "DHCP વાપરીને IP એડ્રેસ સોંપાયું"
 
-#: src/modules/LanItems.rb:443
+#: src/modules/LanItems.rb:431
 #, fuzzy
 msgid "IP address: %s/%s"
 msgstr "IPv4 સરનામું"
 
-#: src/modules/LanItems.rb:446
+#: src/modules/LanItems.rb:434
 #, fuzzy
 #| msgid "IP address: %1, subnet mask %2"
 msgid "IP address: %s, subnet mask %s"
@@ -5640,9 +5662,6 @@ msgstr "IP સરનામુ: %1, સબનેટ માસ્ક %2"
 
 #~ msgid "Select the item to delete."
 #~ msgstr "ડીલીટ કરવા માટે આઇટમ પસંદ કરો."
-
-#~ msgid "&Interface"
-#~ msgstr "&ઈન્ટરફેસીસ"
 
 #~ msgid "&Provider"
 #~ msgstr "&પ્રોવાઇડર"

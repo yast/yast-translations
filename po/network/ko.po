@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: network.ko\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-31 02:28+0000\n"
+"POT-Creation-Date: 2020-02-13 02:28+0000\n"
 "PO-Revision-Date: 2019-03-21 11:20+0000\n"
 "Last-Translator: Hwajin Kim <hwajin.kim@e4net.net>\n"
 "Language-Team: Korean <https://l10n.opensuse.org/projects/yast-network/"
@@ -889,30 +889,30 @@ msgid "yes: any"
 msgstr "예: 모두"
 
 #. translators: label is in form yes: <device name>
-#: src/include/network/services/dns.rb:392
+#: src/include/network/services/dns.rb:391
 msgid "yes: %s"
 msgstr "예: %s"
 
 #. Popup::Error text
-#: src/include/network/services/dns.rb:460
+#: src/include/network/services/dns.rb:459
 msgid "The search list can have at most %1 domains."
 msgstr "검색 목록에는 최대 %1개 도메인이 표시됩니다."
 
 #  popup text
 #. Popup::Error text
-#: src/include/network/services/dns.rb:466
+#: src/include/network/services/dns.rb:465
 msgid "The search list can have at most %1 characters."
 msgstr "검색 목록에는 최대 %1개 문자가 표시됩니다."
 
 #. Popup::Error text
-#: src/include/network/services/dns.rb:475
+#: src/include/network/services/dns.rb:474
 msgid "The search domain '%1' is invalid."
 msgstr "'%1' 검색 도메인이 잘못되었습니다."
 
 #  DNS dialog caption
 #. Standalone dialog only - embedded one is handled separately
 #. via CWMTab
-#: src/include/network/services/dns.rb:611
+#: src/include/network/services/dns.rb:610
 msgid "Hostname and Name Server Configuration"
 msgstr "호스트 이름 및 이름 서버 구성"
 
@@ -1091,6 +1091,7 @@ msgstr "별칭 이름\"%1\"은(는) 올바르지 않습니다."
 #.
 #. Routing configuration dialogs
 #: src/include/network/services/routing.rb:55
+#: src/lib/y2network/presenters/proposal_summary.rb:51
 msgid "Routing"
 msgstr "라우팅"
 
@@ -1189,39 +1190,6 @@ msgid ""
 msgstr ""
 "브리지 네트워크 때문에 YaST2에서 설정을 적용하려면 네트워크를 다시 시작해야 "
 "합니다."
-
-# src/isdn/complex.ycp:111
-#. TRANSLATORS: informs that multiple interfaces are configured
-#: src/lib/network/lan_items_summary.rb:96
-msgid "Multiple Interfaces"
-msgstr "다중 인터페이스"
-
-# src/config/proxy.y2cc:21
-#  Network card status (%1 is protocol)
-#. TRANSLATORS: %s is the list of interfaces configured by DHCP
-#: src/lib/network/lan_items_summary.rb:121
-msgid "Configured with DHCP: %s"
-msgstr "DHCP로 구성됨: %s"
-
-#  Commandline option help
-#. TRANSLATORS: %s is the list of interfaces configured by DHCP
-#: src/lib/network/lan_items_summary.rb:129
-msgid "Statically configured: %s"
-msgstr "정적으로 구성: %s"
-
-#. Return a summary of the configured bridge interfaces
-#.
-#. @return [String] bridge configured interfaces summary
-#: src/lib/network/lan_items_summary.rb:137
-msgid "Bridges: %s"
-msgstr "브리지: %s"
-
-#. Return a summary of the configured bonding interfaces
-#.
-#. @return [String] bonding configured interfaces summary
-#: src/lib/network/lan_items_summary.rb:147
-msgid "Bonds: %s"
-msgstr "결합: %s"
 
 #  Table header 1/4
 #. Copyright (c) [2019] SUSE LLC
@@ -1788,14 +1756,13 @@ msgstr "알수없음"
 #  Summary text
 #. Constructor
 #.
-#. @param dns [Y2Network::DNS]
-#. @param hostname [Y2Network::Hostname]
-#: src/lib/y2network/presenters/dns_summary.rb:66
+#. @param config [Y2Network::Config]
+#: src/lib/y2network/presenters/dns_summary.rb:71
 msgid "Hostname: Set by DHCP"
 msgstr "호스트 이름: DHCP에 의해 설정됨"
 
 #  Summary text
-#: src/lib/y2network/presenters/dns_summary.rb:68
+#: src/lib/y2network/presenters/dns_summary.rb:73
 #, fuzzy
 #| msgid "Hostname: %1"
 msgid "Hostname: %s"
@@ -1803,13 +1770,13 @@ msgstr "호스트 이름: %1"
 
 # src/dsl/dialogs.ycp:321 src/services/dns.ycp:158
 #  Summary text
-#: src/lib/y2network/presenters/dns_summary.rb:75
+#: src/lib/y2network/presenters/dns_summary.rb:80
 #, fuzzy
 #| msgid "Name Servers: %1"
 msgid "Name Servers: %s"
 msgstr "이름 서버들: %1"
 
-#: src/lib/y2network/presenters/dns_summary.rb:82
+#: src/lib/y2network/presenters/dns_summary.rb:87
 #, fuzzy
 #| msgid "Search List: %1"
 msgid "Search List: %s"
@@ -1897,6 +1864,65 @@ msgid ""
 msgstr ""
 "장치가 구성되지 않았습니다. <b>편집</b>을\n"
 "눌러 구성하십시오.\n"
+
+# src/isdn/complex.ycp:111
+#. Generates a one line text summary for the configured interfaces.
+#.
+#. @example with one configured interface
+#. presenter.one_line_text
+#. => "DHCP / eth1"
+#.
+#. @example with many configured interfaces
+#. presenter.one_line_text
+#. => "Multiple Interfaces"
+#.
+#. @return [String] summary in just one line and in plain text
+#: src/lib/y2network/presenters/interfaces_summary.rb:89
+msgid "Multiple Interfaces"
+msgstr "다중 인터페이스"
+
+# src/config/proxy.y2cc:21
+#  Network card status (%1 is protocol)
+#. TRANSLATORS: %s is the list of interfaces configured by DHCP
+#: src/lib/y2network/presenters/interfaces_summary.rb:121
+msgid "Configured with DHCP: %s"
+msgstr "DHCP로 구성됨: %s"
+
+#  Commandline option help
+#. TRANSLATORS: %s is the list of interfaces configured statically
+#: src/lib/y2network/presenters/interfaces_summary.rb:129
+msgid "Statically configured: %s"
+msgstr "정적으로 구성: %s"
+
+#. TRANSLATORS: %s is a list of bridge interface names and their ports
+#. like 'br0 (eth0, eth1)'
+#: src/lib/y2network/presenters/interfaces_summary.rb:138
+msgid "Bridges: %s"
+msgstr "브리지: %s"
+
+#. TRANSLATORS: %s is the list of bonding interface names and their
+#. slaves like 'bond0 (br0, eth2)'
+#: src/lib/y2network/presenters/interfaces_summary.rb:149
+msgid "Bonds: %s"
+msgstr "결합: %s"
+
+# src/isdn/complex.ycp:111
+#. Network proposal RichText format summary
+#.
+#. @return [String]
+#: src/lib/y2network/presenters/proposal_summary.rb:49
+#, fuzzy
+#| msgid "&Interface"
+msgid "Interfaces"
+msgstr "인터페이스(&I)"
+
+# src/config/dns.y2cc:11
+#  text entry
+#: src/lib/y2network/presenters/proposal_summary.rb:50
+#, fuzzy
+#| msgid "Hostname/DNS"
+msgid "Hostname / DNS"
+msgstr "호스트 이름/DNS"
 
 #. Returns the summary of network configuration settings in text form
 #.
@@ -3904,61 +3930,61 @@ msgid "Updating /etc/hosts ..."
 msgstr "/etc/hosts 업데이트 중..."
 
 #. Progress stage 1/7
-#: src/modules/Lan.rb:236
+#: src/modules/Lan.rb:234
 msgid "Detect network devices"
 msgstr "네트워크 장치 검색"
 
 #  Progress stage 2/9
 #. Progress stage 2/7
-#: src/modules/Lan.rb:238
+#: src/modules/Lan.rb:236
 msgid "Read driver information"
 msgstr "드라이버 정보 읽기"
 
 # src/config/lan.y2cc:11
 #. Progress stage 3/7 - multiple devices may be present, really plural
-#: src/modules/Lan.rb:240
+#: src/modules/Lan.rb:238
 msgid "Read device configuration"
 msgstr "장치 구성 읽기"
 
 # src/config/lan.y2cc:11
 #. Progress stage 4/7
-#: src/modules/Lan.rb:242
+#: src/modules/Lan.rb:240
 msgid "Read network configuration"
 msgstr "네트워크 구성 읽기"
 
 #. Progress stage 5/7
-#: src/modules/Lan.rb:244
+#: src/modules/Lan.rb:242
 msgid "Read installation information"
 msgstr "설치 정보 읽기"
 
 # src/clients/lan_auto.ycp:58
 #. Progress stage 6/7
-#: src/modules/Lan.rb:246
+#: src/modules/Lan.rb:244
 msgid "Read routing configuration"
 msgstr "라우팅 구성 읽기"
 
 #. Progress stage 7/7
-#: src/modules/Lan.rb:248
+#: src/modules/Lan.rb:246
 msgid "Detect current status"
 msgstr "현재 상태 검색"
 
-#: src/modules/Lan.rb:251
+#: src/modules/Lan.rb:249
 msgid "Read firewall configuration"
 msgstr "방화벽 설정 불러오기"
 
 # src/clients/lan_auto.ycp:63
 #. Read dialog caption
-#: src/modules/Lan.rb:266
+#: src/modules/Lan.rb:264
 msgid "Initializing Network Configuration"
 msgstr "네트워크 구성 초기화"
 
 #. 1000; /* TESTING
-#: src/modules/Lan.rb:284
+#: src/modules/Lan.rb:282
 msgid "Detecting ndiswrapper..."
 msgstr "ndiswrapper를 검색하는 중입니다."
 
 #. modprobe ndiswrapper before hwinfo when needed (#343893)
-#: src/modules/Lan.rb:303
+#: src/modules/Lan.rb:301
 msgid ""
 "Detected a ndiswrapper configuration,\n"
 "but the kernel module was not modprobed.\n"
@@ -3968,7 +3994,7 @@ msgstr ""
 "커널 모듈이 modprobe되지 않았습니다.\n"
 "ndiswrapper를 modprobe하시겠습니까?\n"
 
-#: src/modules/Lan.rb:311
+#: src/modules/Lan.rb:309
 msgid ""
 "ndiswrapper kernel module has not been loaded.\n"
 "Check configuration manually.\n"
@@ -3976,30 +4002,30 @@ msgstr ""
 "ndiswrapper 커널 모듈이 로드되지 않았습니다.\n"
 "수동으로 구성을 확인하십시오.\n"
 
-#: src/modules/Lan.rb:324
+#: src/modules/Lan.rb:322
 msgid "Detecting network devices..."
 msgstr "네트워크 장치 검색 중…"
 
 # src/clients/lan_auto.ycp:58
 #. Dont read hardware data in config mode
-#: src/modules/Lan.rb:332
+#: src/modules/Lan.rb:330
 msgid "Reading device configuration..."
 msgstr "장치 설정 불어오는 중..."
 
 # src/config/lan.y2cc:11
-#: src/modules/Lan.rb:339
+#: src/modules/Lan.rb:337
 msgid "Reading network configuration..."
 msgstr "네트워크 설정 불러오는 중..."
 
-#: src/modules/Lan.rb:352
+#: src/modules/Lan.rb:350
 msgid "Detecting current status..."
 msgstr "현재 상태 검색 중..."
 
-#: src/modules/Lan.rb:359
+#: src/modules/Lan.rb:357
 msgid "Reading firewall configuration..."
 msgstr "방화벽 설정 불러오는 중..."
 
-#: src/modules/Lan.rb:366
+#: src/modules/Lan.rb:364
 msgid ""
 "Network configuration is corrupted.\n"
 "If you continue resulting configuration can be malformed.\n"
@@ -4016,135 +4042,135 @@ msgstr ""
 # src/modules/Modem.ycp:158
 #. Final progress step
 #. Final progress step
-#: src/modules/Lan.rb:374 src/modules/Lan.rb:576
+#: src/modules/Lan.rb:372 src/modules/Lan.rb:574
 msgid "Finished"
 msgstr "완료"
 
 #. (a specialization used when a parameterless function is needed)
 #. @return [Boolean] true on success
-#: src/modules/Lan.rb:402
+#: src/modules/Lan.rb:400
 msgid "To apply this change, a reboot is needed."
 msgstr "이 변경사항을 적용하려면 재부팅해야 합니다."
 
 # src/clients/lan_auto.ycp:63
 #. Write dialog caption
-#: src/modules/Lan.rb:446
+#: src/modules/Lan.rb:444
 msgid "Saving Network Configuration"
 msgstr "네트워크 구성 저장"
 
 #. Progress stage 2
-#: src/modules/Lan.rb:453
+#: src/modules/Lan.rb:451
 msgid "Write drivers information"
 msgstr "드라이버 정보 저장"
 
 # src/config/modem.y2cc:11 src/modem/complex.ycp:96 src/modem/wizards.ycp:65
 # src/modem/wizards.ycp:84
 #. Progress stage 3 - multiple devices may be present,really plural
-#: src/modules/Lan.rb:455
+#: src/modules/Lan.rb:453
 msgid "Write device configuration"
 msgstr "장치 설정 쓰기"
 
 # src/config/lan.y2cc:11
 #. Progress stage 4
-#: src/modules/Lan.rb:457
+#: src/modules/Lan.rb:455
 msgid "Write network configuration"
 msgstr "네트워크 설정 쓰기"
 
 # src/config/modem.y2cc:11 src/modem/complex.ycp:96 src/modem/wizards.ycp:65
 # src/modem/wizards.ycp:84
 #. Progress stage 5
-#: src/modules/Lan.rb:459
+#: src/modules/Lan.rb:457
 msgid "Write routing configuration"
 msgstr "라우팅 설정 저장"
 
 # src/config/dns.y2cc:21
 #  Progress stage 6/10
 #. Progress stage 6
-#: src/modules/Lan.rb:461
+#: src/modules/Lan.rb:459
 msgid "Write hostname and DNS configuration"
 msgstr "호스트 이름 및 DNS 구성 쓰기"
 
 # src/isdn/interface.ycp:87
 #. Progress stage 7
-#: src/modules/Lan.rb:463
+#: src/modules/Lan.rb:461
 msgid "Set up network services"
 msgstr "네트워크 서비스 설정"
 
 #  menubutton item
 #. Progress stage 8
-#: src/modules/Lan.rb:467
+#: src/modules/Lan.rb:465
 msgid "Writing firewall configuration"
 msgstr "방화벽 구성 기록 중"
 
 # src/isdn/interface.ycp:87
 #. Progress stage 9
-#: src/modules/Lan.rb:470
+#: src/modules/Lan.rb:468
 msgid "Activate network services"
 msgstr "네트워크 서비스 활성화"
 
 #. Progress stage 10
-#: src/modules/Lan.rb:472
+#: src/modules/Lan.rb:470
 msgid "Update configuration"
 msgstr "설정 업데이트"
 
 #  Progress step 2/10
 #. Progress step 2
-#: src/modules/Lan.rb:486
+#: src/modules/Lan.rb:484
 msgid "Writing /etc/modprobe.conf..."
 msgstr "/etc/modprobe.conf를 쓰는 중..."
 
 # src/config/dsl.y2cc:11 src/dsl/complex.ycp:73 src/dsl/dialogs.ycp:172
 # src/dsl/wizards.ycp:61 src/dsl/wizards.ycp:80
 #. Progress step 3 - multiple devices may be present, really plural
-#: src/modules/Lan.rb:492
+#: src/modules/Lan.rb:490
 msgid "Writing device configuration..."
 msgstr "장치 설정 쓰기중..."
 
 # src/config/lan.y2cc:11
 #. Progress step 4
-#: src/modules/Lan.rb:498
+#: src/modules/Lan.rb:496
 msgid "Writing network configuration..."
 msgstr "네트워크 설정 쓰기중..."
 
 # src/config/modem.y2cc:11 src/modem/complex.ycp:96 src/modem/wizards.ycp:65
 # src/modem/wizards.ycp:84
 #. Progress step 5
-#: src/modules/Lan.rb:505
+#: src/modules/Lan.rb:503
 msgid "Writing routing configuration..."
 msgstr "라우팅 설정 저장중..."
 
 # src/config/dns.y2cc:21
 #  Progress step 6/10
 #. Progress step 6
-#: src/modules/Lan.rb:516
+#: src/modules/Lan.rb:514
 msgid "Writing hostname and DNS configuration..."
 msgstr "호스트 이름 및 DNS 구성 쓰는 중..."
 
 # src/isdn/interface.ycp:87
 #. Progress step 7
-#: src/modules/Lan.rb:528
+#: src/modules/Lan.rb:526
 msgid "Setting up network services..."
 msgstr "네트워크 서비스 설정 중..."
 
 #  menubutton item
 #. Progress step 7
-#: src/modules/Lan.rb:536
+#: src/modules/Lan.rb:534
 msgid "Writing firewall configuration..."
 msgstr "방화벽 구성 기록 중..."
 
 # src/isdn/interface.ycp:87
 #. Progress step 9
-#: src/modules/Lan.rb:545
+#: src/modules/Lan.rb:543
 msgid "Activating network services..."
 msgstr "네트워크 서비스 활성화중..."
 
 #. Progress step 10
-#: src/modules/Lan.rb:555
+#: src/modules/Lan.rb:553
 msgid "Updating configuration..."
 msgstr "구성 업데이트 중..."
 
 #  screen title for uml options
-#: src/modules/Lan.rb:572
+#: src/modules/Lan.rb:570
 msgid "No network running"
 msgstr "실행 중인 네트워크 없음"
 
@@ -4158,15 +4184,15 @@ msgstr "실행 중인 네트워크 없음"
 #.
 #. @param [Hash] dev_map a device's sysconfig map (in form "option" => "value")
 #. @return [Array] list of strings, one string is intended for one "bullet"
-#: src/modules/LanItems.rb:439
+#: src/modules/LanItems.rb:427
 msgid "IP address assigned using"
 msgstr "할당된 IP 주소 사용 중"
 
-#: src/modules/LanItems.rb:443
+#: src/modules/LanItems.rb:431
 msgid "IP address: %s/%s"
 msgstr "IP 주소: %s/%s"
 
-#: src/modules/LanItems.rb:446
+#: src/modules/LanItems.rb:434
 msgid "IP address: %s, subnet mask %s"
 msgstr "IP 주소: %s, 서브넷 마스크 %s"
 
@@ -6381,10 +6407,6 @@ msgstr "IP 주소: %s, 서브넷 마스크 %s"
 # src/isdn/complex.ycp:100
 #~ msgid "Select the item to delete."
 #~ msgstr "삭제할 아이템을 선택하세요."
-
-# src/isdn/complex.ycp:111
-#~ msgid "&Interface"
-#~ msgstr "인터페이스(&I)"
 
 # src/isdn/complex.ycp:114 src/provider/dialogs.ycp:189
 #~ msgid "&Provider"

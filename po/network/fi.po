@@ -25,7 +25,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: network.fi\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-31 02:28+0000\n"
+"POT-Creation-Date: 2020-02-13 02:28+0000\n"
 "PO-Revision-Date: 2020-02-11 23:54+0000\n"
 "Last-Translator: Kimmo Kujansuu <mrkujansuu@gmail.com>\n"
 "Language-Team: Finnish <https://l10n.opensuse.org/projects/yast-network/"
@@ -837,28 +837,28 @@ msgid "yes: any"
 msgstr "kyllä: mikä tahansa"
 
 #. translators: label is in form yes: <device name>
-#: src/include/network/services/dns.rb:392
+#: src/include/network/services/dns.rb:391
 msgid "yes: %s"
 msgstr "kyllä: %s"
 
 #. Popup::Error text
-#: src/include/network/services/dns.rb:460
+#: src/include/network/services/dns.rb:459
 msgid "The search list can have at most %1 domains."
 msgstr "Hakulistalla voi olla enintään %1 toimialuetta."
 
 #. Popup::Error text
-#: src/include/network/services/dns.rb:466
+#: src/include/network/services/dns.rb:465
 msgid "The search list can have at most %1 characters."
 msgstr "Hakulista voi olla enintään %1 merkkiä pitkä."
 
 #. Popup::Error text
-#: src/include/network/services/dns.rb:475
+#: src/include/network/services/dns.rb:474
 msgid "The search domain '%1' is invalid."
 msgstr "Hakutoimialue ”%1” on virheellinen."
 
 #. Standalone dialog only - embedded one is handled separately
 #. via CWMTab
-#: src/include/network/services/dns.rb:611
+#: src/include/network/services/dns.rb:610
 msgid "Hostname and Name Server Configuration"
 msgstr "Konenimi ja nimipalvelimen määritykset"
 
@@ -1030,6 +1030,7 @@ msgstr "Alias-nimi \"%1\" ei kelpaa."
 #.
 #. Routing configuration dialogs
 #: src/include/network/services/routing.rb:55
+#: src/lib/y2network/presenters/proposal_summary.rb:51
 msgid "Routing"
 msgstr "Reititys"
 
@@ -1121,35 +1122,6 @@ msgid ""
 msgstr ""
 "Sillatun verkon vuoksi YaST:in täytyy käynnistää verkko uudelleen asetusten "
 "käyttöön ottamiseksi."
-
-#. TRANSLATORS: informs that multiple interfaces are configured
-#: src/lib/network/lan_items_summary.rb:96
-msgid "Multiple Interfaces"
-msgstr "Useampi liitäntä"
-
-#. TRANSLATORS: %s is the list of interfaces configured by DHCP
-#: src/lib/network/lan_items_summary.rb:121
-msgid "Configured with DHCP: %s"
-msgstr "Määritetty DHCP:llä: %s"
-
-#. TRANSLATORS: %s is the list of interfaces configured by DHCP
-#: src/lib/network/lan_items_summary.rb:129
-msgid "Statically configured: %s"
-msgstr "Määritetty staattisesti: %s"
-
-#. Return a summary of the configured bridge interfaces
-#.
-#. @return [String] bridge configured interfaces summary
-#: src/lib/network/lan_items_summary.rb:137
-msgid "Bridges: %s"
-msgstr "Sillat: %s"
-
-#. Return a summary of the configured bonding interfaces
-#.
-#. @return [String] bonding configured interfaces summary
-#: src/lib/network/lan_items_summary.rb:147
-msgid "Bonds: %s"
-msgstr "Sidokset: %s"
 
 #. Copyright (c) [2019] SUSE LLC
 #.
@@ -1643,21 +1615,20 @@ msgstr "Tuntematon"
 
 #. Constructor
 #.
-#. @param dns [Y2Network::DNS]
-#. @param hostname [Y2Network::Hostname]
-#: src/lib/y2network/presenters/dns_summary.rb:66
+#. @param config [Y2Network::Config]
+#: src/lib/y2network/presenters/dns_summary.rb:71
 msgid "Hostname: Set by DHCP"
 msgstr "Konenimi: DHCP asettaa"
 
-#: src/lib/y2network/presenters/dns_summary.rb:68
+#: src/lib/y2network/presenters/dns_summary.rb:73
 msgid "Hostname: %s"
 msgstr "Konenimi: %s"
 
-#: src/lib/y2network/presenters/dns_summary.rb:75
+#: src/lib/y2network/presenters/dns_summary.rb:80
 msgid "Name Servers: %s"
 msgstr "Nimipalvelimet: %s"
 
-#: src/lib/y2network/presenters/dns_summary.rb:82
+#: src/lib/y2network/presenters/dns_summary.rb:87
 msgid "Search List: %s"
 msgstr "Hakuluettelo: %s"
 
@@ -1726,6 +1697,58 @@ msgid ""
 msgstr ""
 "Laitetta ei ole määritetty. Napsauta <b>Muokkaa</b>\n"
 "määrittääksesi laitteen.\n"
+
+#. Generates a one line text summary for the configured interfaces.
+#.
+#. @example with one configured interface
+#. presenter.one_line_text
+#. => "DHCP / eth1"
+#.
+#. @example with many configured interfaces
+#. presenter.one_line_text
+#. => "Multiple Interfaces"
+#.
+#. @return [String] summary in just one line and in plain text
+#: src/lib/y2network/presenters/interfaces_summary.rb:89
+msgid "Multiple Interfaces"
+msgstr "Useampi liitäntä"
+
+#. TRANSLATORS: %s is the list of interfaces configured by DHCP
+#: src/lib/y2network/presenters/interfaces_summary.rb:121
+msgid "Configured with DHCP: %s"
+msgstr "Määritetty DHCP:llä: %s"
+
+#. TRANSLATORS: %s is the list of interfaces configured statically
+#: src/lib/y2network/presenters/interfaces_summary.rb:129
+msgid "Statically configured: %s"
+msgstr "Määritetty staattisesti: %s"
+
+#. TRANSLATORS: %s is a list of bridge interface names and their ports
+#. like 'br0 (eth0, eth1)'
+#: src/lib/y2network/presenters/interfaces_summary.rb:138
+msgid "Bridges: %s"
+msgstr "Sillat: %s"
+
+#. TRANSLATORS: %s is the list of bonding interface names and their
+#. slaves like 'bond0 (br0, eth2)'
+#: src/lib/y2network/presenters/interfaces_summary.rb:149
+msgid "Bonds: %s"
+msgstr "Sidokset: %s"
+
+#. Network proposal RichText format summary
+#.
+#. @return [String]
+#: src/lib/y2network/presenters/proposal_summary.rb:49
+#, fuzzy
+#| msgid "&Interface"
+msgid "Interfaces"
+msgstr "&Liitäntä"
+
+#: src/lib/y2network/presenters/proposal_summary.rb:50
+#, fuzzy
+#| msgid "Hostname/DNS"
+msgid "Hostname / DNS"
+msgstr "Konenimi/DNS"
 
 #. Returns the summary of network configuration settings in text form
 #.
@@ -3605,56 +3628,56 @@ msgid "Updating /etc/hosts ..."
 msgstr "Päivitetään /etc/hosts..."
 
 #. Progress stage 1/7
-#: src/modules/Lan.rb:236
+#: src/modules/Lan.rb:234
 msgid "Detect network devices"
 msgstr "Tunnista verkkolaitteet"
 
 #. Progress stage 2/7
-#: src/modules/Lan.rb:238
+#: src/modules/Lan.rb:236
 msgid "Read driver information"
 msgstr "Lue ohjaintiedot"
 
 #. Progress stage 3/7 - multiple devices may be present, really plural
-#: src/modules/Lan.rb:240
+#: src/modules/Lan.rb:238
 msgid "Read device configuration"
 msgstr "Lue laitemääritykset"
 
 #. Progress stage 4/7
-#: src/modules/Lan.rb:242
+#: src/modules/Lan.rb:240
 msgid "Read network configuration"
 msgstr "Lue verkkomääritykset"
 
 #. Progress stage 5/7
-#: src/modules/Lan.rb:244
+#: src/modules/Lan.rb:242
 msgid "Read installation information"
 msgstr "Lue asennustiedot"
 
 #. Progress stage 6/7
-#: src/modules/Lan.rb:246
+#: src/modules/Lan.rb:244
 msgid "Read routing configuration"
 msgstr "Lue reititysmääritykset"
 
 #. Progress stage 7/7
-#: src/modules/Lan.rb:248
+#: src/modules/Lan.rb:246
 msgid "Detect current status"
 msgstr "Tunnista nykyinen tila"
 
-#: src/modules/Lan.rb:251
+#: src/modules/Lan.rb:249
 msgid "Read firewall configuration"
 msgstr "Lue palomuurin määritykset"
 
 #. Read dialog caption
-#: src/modules/Lan.rb:266
+#: src/modules/Lan.rb:264
 msgid "Initializing Network Configuration"
 msgstr "Valmistellaan verkkomääritystä"
 
 #. 1000; /* TESTING
-#: src/modules/Lan.rb:284
+#: src/modules/Lan.rb:282
 msgid "Detecting ndiswrapper..."
 msgstr "Tunnistetaan ndiswrapper..."
 
 #. modprobe ndiswrapper before hwinfo when needed (#343893)
-#: src/modules/Lan.rb:303
+#: src/modules/Lan.rb:301
 msgid ""
 "Detected a ndiswrapper configuration,\n"
 "but the kernel module was not modprobed.\n"
@@ -3664,7 +3687,7 @@ msgstr ""
 "mutta ytimen moduulia ei ole ladattu (modprobed).\n"
 "Ladataanko ydinmoduuli (modprobe ndiswrapper)?\n"
 
-#: src/modules/Lan.rb:311
+#: src/modules/Lan.rb:309
 msgid ""
 "ndiswrapper kernel module has not been loaded.\n"
 "Check configuration manually.\n"
@@ -3672,28 +3695,28 @@ msgstr ""
 "Ytimen moduulia ndiswrapper ei ladattu.\n"
 "Tarkista määritys manuaalisesti.\n"
 
-#: src/modules/Lan.rb:324
+#: src/modules/Lan.rb:322
 msgid "Detecting network devices..."
 msgstr "Tunnistetaan verkkolaitteet..."
 
 #. Dont read hardware data in config mode
-#: src/modules/Lan.rb:332
+#: src/modules/Lan.rb:330
 msgid "Reading device configuration..."
 msgstr "Luetaan laitemääritykset..."
 
-#: src/modules/Lan.rb:339
+#: src/modules/Lan.rb:337
 msgid "Reading network configuration..."
 msgstr "Luetaan verkkomääritykset..."
 
-#: src/modules/Lan.rb:352
+#: src/modules/Lan.rb:350
 msgid "Detecting current status..."
 msgstr "Tunnistetaan nykyinen tila..."
 
-#: src/modules/Lan.rb:359
+#: src/modules/Lan.rb:357
 msgid "Reading firewall configuration..."
 msgstr "Luetaan palomuurin asetukset..."
 
-#: src/modules/Lan.rb:366
+#: src/modules/Lan.rb:364
 msgid ""
 "Network configuration is corrupted.\n"
 "If you continue resulting configuration can be malformed.\n"
@@ -3707,112 +3730,112 @@ msgstr ""
 
 #. Final progress step
 #. Final progress step
-#: src/modules/Lan.rb:374 src/modules/Lan.rb:576
+#: src/modules/Lan.rb:372 src/modules/Lan.rb:574
 msgid "Finished"
 msgstr "Valmis"
 
 #. (a specialization used when a parameterless function is needed)
 #. @return [Boolean] true on success
-#: src/modules/Lan.rb:402
+#: src/modules/Lan.rb:400
 msgid "To apply this change, a reboot is needed."
 msgstr "Tämän muutoksen käyttöönottoon tarvitaan uudelleenkäynnistys."
 
 #. Write dialog caption
-#: src/modules/Lan.rb:446
+#: src/modules/Lan.rb:444
 msgid "Saving Network Configuration"
 msgstr "Tallennetaan verkkomääritykset"
 
 #. Progress stage 2
-#: src/modules/Lan.rb:453
+#: src/modules/Lan.rb:451
 msgid "Write drivers information"
 msgstr "Kirjoita ohjaintiedot"
 
 #. Progress stage 3 - multiple devices may be present,really plural
-#: src/modules/Lan.rb:455
+#: src/modules/Lan.rb:453
 msgid "Write device configuration"
 msgstr "Kirjoita laitemääritykset"
 
 #. Progress stage 4
-#: src/modules/Lan.rb:457
+#: src/modules/Lan.rb:455
 msgid "Write network configuration"
 msgstr "Kirjoita verkkomääritykset"
 
 #. Progress stage 5
-#: src/modules/Lan.rb:459
+#: src/modules/Lan.rb:457
 msgid "Write routing configuration"
 msgstr "Kirjoita reititysmääritykset"
 
 #. Progress stage 6
-#: src/modules/Lan.rb:461
+#: src/modules/Lan.rb:459
 msgid "Write hostname and DNS configuration"
 msgstr "Kirjoita konenimi ja DNS-määritykset"
 
 #. Progress stage 7
-#: src/modules/Lan.rb:463
+#: src/modules/Lan.rb:461
 msgid "Set up network services"
 msgstr "Aseta verkkopalvelut"
 
 #. Progress stage 8
-#: src/modules/Lan.rb:467
+#: src/modules/Lan.rb:465
 msgid "Writing firewall configuration"
 msgstr "Kirjoitetaan palomuurimääritystä"
 
 #. Progress stage 9
-#: src/modules/Lan.rb:470
+#: src/modules/Lan.rb:468
 msgid "Activate network services"
 msgstr "Ota verkkopalvelut käyttöön"
 
 #. Progress stage 10
-#: src/modules/Lan.rb:472
+#: src/modules/Lan.rb:470
 msgid "Update configuration"
 msgstr "Päivitä määritys"
 
 #. Progress step 2
-#: src/modules/Lan.rb:486
+#: src/modules/Lan.rb:484
 msgid "Writing /etc/modprobe.conf..."
 msgstr "Kirjoitetaan /etc/modprobe.conf..."
 
 #. Progress step 3 - multiple devices may be present, really plural
-#: src/modules/Lan.rb:492
+#: src/modules/Lan.rb:490
 msgid "Writing device configuration..."
 msgstr "Kirjoitetaan laitemääritykset..."
 
 #. Progress step 4
-#: src/modules/Lan.rb:498
+#: src/modules/Lan.rb:496
 msgid "Writing network configuration..."
 msgstr "Kirjoitetaan verkkomääritykset..."
 
 #. Progress step 5
-#: src/modules/Lan.rb:505
+#: src/modules/Lan.rb:503
 msgid "Writing routing configuration..."
 msgstr "Kirjoitetaan reititysmääritykset..."
 
 #. Progress step 6
-#: src/modules/Lan.rb:516
+#: src/modules/Lan.rb:514
 msgid "Writing hostname and DNS configuration..."
 msgstr "Kirjoitetaan konenimi ja DNS-määritykset..."
 
 #. Progress step 7
-#: src/modules/Lan.rb:528
+#: src/modules/Lan.rb:526
 msgid "Setting up network services..."
 msgstr "Asetetaan verkkopalvelut..."
 
 #. Progress step 7
-#: src/modules/Lan.rb:536
+#: src/modules/Lan.rb:534
 msgid "Writing firewall configuration..."
 msgstr "Kirjoitetaan palomuurimääritystä…"
 
 #. Progress step 9
-#: src/modules/Lan.rb:545
+#: src/modules/Lan.rb:543
 msgid "Activating network services..."
 msgstr "Otetaan verkkopalvelut käyttöön..."
 
 #. Progress step 10
-#: src/modules/Lan.rb:555
+#: src/modules/Lan.rb:553
 msgid "Updating configuration..."
 msgstr "Päivitetään määritys..."
 
-#: src/modules/Lan.rb:572
+#: src/modules/Lan.rb:570
 msgid "No network running"
 msgstr "Verkko ei ole toiminnassa"
 
@@ -3824,15 +3847,15 @@ msgstr "Verkko ei ole toiminnassa"
 #.
 #. @param [Hash] dev_map a device's sysconfig map (in form "option" => "value")
 #. @return [Array] list of strings, one string is intended for one "bullet"
-#: src/modules/LanItems.rb:439
+#: src/modules/LanItems.rb:427
 msgid "IP address assigned using"
 msgstr "IP-osoite haetaan käyttämällä"
 
-#: src/modules/LanItems.rb:443
+#: src/modules/LanItems.rb:431
 msgid "IP address: %s/%s"
 msgstr "IP-osoite: %s/%s"
 
-#: src/modules/LanItems.rb:446
+#: src/modules/LanItems.rb:434
 msgid "IP address: %s, subnet mask %s"
 msgstr "IP-osoite: %s, aliverkon peite %s"
 
@@ -5814,9 +5837,6 @@ msgstr "IP-osoite: %s, aliverkon peite %s"
 
 #~ msgid "Select the item to delete."
 #~ msgstr "Valitse poistettava merkintä."
-
-#~ msgid "&Interface"
-#~ msgstr "&Liitäntä"
 
 #~ msgid "&Provider"
 #~ msgstr "&Palveluntarjoaja"

@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: YaST2 (network)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-31 02:28+0000\n"
+"POT-Creation-Date: 2020-02-13 02:28+0000\n"
 "PO-Revision-Date: 2004-04-27 15:29+0100\n"
 "Last-Translator: Rade Radenkovic <rrade@tesla.rcub.bg.ac.yu>\n"
 "Language-Team: Serbian <i18n@suse.de>\n"
@@ -873,23 +873,23 @@ msgid "yes: any"
 msgstr ""
 
 #. translators: label is in form yes: <device name>
-#: src/include/network/services/dns.rb:392
+#: src/include/network/services/dns.rb:391
 msgid "yes: %s"
 msgstr ""
 
 #. Popup::Error text
-#: src/include/network/services/dns.rb:460
+#: src/include/network/services/dns.rb:459
 msgid "The search list can have at most %1 domains."
 msgstr ""
 
 #. Popup::Error text
-#: src/include/network/services/dns.rb:466
+#: src/include/network/services/dns.rb:465
 msgid "The search list can have at most %1 characters."
 msgstr ""
 
 #  Popup::Error text
 #. Popup::Error text
-#: src/include/network/services/dns.rb:475
+#: src/include/network/services/dns.rb:474
 #, fuzzy
 msgid "The search domain '%1' is invalid."
 msgstr "Domen primarne pretrage je netačan"
@@ -897,7 +897,7 @@ msgstr "Domen primarne pretrage je netačan"
 #  DNS dialog caption
 #. Standalone dialog only - embedded one is handled separately
 #. via CWMTab
-#: src/include/network/services/dns.rb:611
+#: src/include/network/services/dns.rb:610
 #, fuzzy
 msgid "Hostname and Name Server Configuration"
 msgstr "Podešavanje imena host računara i servera imena"
@@ -1094,6 +1094,7 @@ msgstr "Ime alijasa \"%1\"  je nepravilno."
 #.
 #. Routing configuration dialogs
 #: src/include/network/services/routing.rb:55
+#: src/lib/y2network/presenters/proposal_summary.rb:51
 #, fuzzy
 #| msgid "R&outing"
 msgid "Routing"
@@ -1201,47 +1202,6 @@ msgstr "&Podešavanje mrežne kartice"
 msgid ""
 "Because of the bridged network, YaST2 needs to restart the network to apply "
 "the settings."
-msgstr ""
-
-#  popup title to select a interface for an edit/delete operation
-#. TRANSLATORS: informs that multiple interfaces are configured
-#: src/lib/network/lan_items_summary.rb:96
-#, fuzzy
-#| msgid "&Select Interface"
-msgid "Multiple Interfaces"
-msgstr "&Izaberite interfejs"
-
-#  Network card status (%1 is protocol)
-#. TRANSLATORS: %s is the list of interfaces configured by DHCP
-#: src/lib/network/lan_items_summary.rb:121
-#, fuzzy
-#| msgid "Configured with %1"
-msgid "Configured with DHCP: %s"
-msgstr "Podešeno sa %1"
-
-#  Commandline option help
-#  Commandline option help
-#. TRANSLATORS: %s is the list of interfaces configured by DHCP
-#: src/lib/network/lan_items_summary.rb:129
-#, fuzzy
-#| msgid "List only configured cards"
-msgid "Statically configured: %s"
-msgstr "Izlistaj samo podešene kartice"
-
-#  Label text
-#. Return a summary of the configured bridge interfaces
-#.
-#. @return [String] bridge configured interfaces summary
-#: src/lib/network/lan_items_summary.rb:137
-#, fuzzy
-msgid "Bridges: %s"
-msgstr "Modem uređaj:"
-
-#. Return a summary of the configured bonding interfaces
-#.
-#. @return [String] bonding configured interfaces summary
-#: src/lib/network/lan_items_summary.rb:147
-msgid "Bonds: %s"
 msgstr ""
 
 #  Table header 1/4
@@ -1854,28 +1814,27 @@ msgstr "nepoznato"
 #  Summary text
 #. Constructor
 #.
-#. @param dns [Y2Network::DNS]
-#. @param hostname [Y2Network::Hostname]
-#: src/lib/y2network/presenters/dns_summary.rb:66
+#. @param config [Y2Network::Config]
+#: src/lib/y2network/presenters/dns_summary.rb:71
 #, fuzzy
 msgid "Hostname: Set by DHCP"
 msgstr "Ime računara: podešeno preko DHCP"
 
 #  Summary text
-#: src/lib/y2network/presenters/dns_summary.rb:68
+#: src/lib/y2network/presenters/dns_summary.rb:73
 #, fuzzy
 msgid "Hostname: %s"
 msgstr "Ime host-a: %1"
 
 #  Summary text
-#: src/lib/y2network/presenters/dns_summary.rb:75
+#: src/lib/y2network/presenters/dns_summary.rb:80
 #, fuzzy
 #| msgid "Name Servers: %1"
 msgid "Name Servers: %s"
 msgstr "Serveri naziva: %1"
 
 #  Summary text
-#: src/lib/y2network/presenters/dns_summary.rb:82
+#: src/lib/y2network/presenters/dns_summary.rb:87
 #, fuzzy
 #| msgid "Search List: %1"
 msgid "Search List: %s"
@@ -1960,6 +1919,71 @@ msgid ""
 "The device is not configured. Press <b>Edit</b>\n"
 "to configure.\n"
 msgstr ""
+
+#  popup title to select a interface for an edit/delete operation
+#. Generates a one line text summary for the configured interfaces.
+#.
+#. @example with one configured interface
+#. presenter.one_line_text
+#. => "DHCP / eth1"
+#.
+#. @example with many configured interfaces
+#. presenter.one_line_text
+#. => "Multiple Interfaces"
+#.
+#. @return [String] summary in just one line and in plain text
+#: src/lib/y2network/presenters/interfaces_summary.rb:89
+#, fuzzy
+#| msgid "&Select Interface"
+msgid "Multiple Interfaces"
+msgstr "&Izaberite interfejs"
+
+#  Network card status (%1 is protocol)
+#. TRANSLATORS: %s is the list of interfaces configured by DHCP
+#: src/lib/y2network/presenters/interfaces_summary.rb:121
+#, fuzzy
+#| msgid "Configured with %1"
+msgid "Configured with DHCP: %s"
+msgstr "Podešeno sa %1"
+
+#  Commandline option help
+#  Commandline option help
+#. TRANSLATORS: %s is the list of interfaces configured statically
+#: src/lib/y2network/presenters/interfaces_summary.rb:129
+#, fuzzy
+#| msgid "List only configured cards"
+msgid "Statically configured: %s"
+msgstr "Izlistaj samo podešene kartice"
+
+#  Label text
+#. TRANSLATORS: %s is a list of bridge interface names and their ports
+#. like 'br0 (eth0, eth1)'
+#: src/lib/y2network/presenters/interfaces_summary.rb:138
+#, fuzzy
+msgid "Bridges: %s"
+msgstr "Modem uređaj:"
+
+#. TRANSLATORS: %s is the list of bonding interface names and their
+#. slaves like 'bond0 (br0, eth2)'
+#: src/lib/y2network/presenters/interfaces_summary.rb:149
+msgid "Bonds: %s"
+msgstr ""
+
+#  PushButton label
+#. Network proposal RichText format summary
+#.
+#. @return [String]
+#: src/lib/y2network/presenters/proposal_summary.rb:49
+#, fuzzy
+#| msgid "&Interface"
+msgid "Interfaces"
+msgstr "&Mreža"
+
+#  Table header label
+#: src/lib/y2network/presenters/proposal_summary.rb:50
+#, fuzzy
+msgid "Hostname / DNS"
+msgstr "Imena servera"
 
 #  Table header 2/4
 #. Returns the summary of network configuration settings in text form
@@ -3964,107 +3988,107 @@ msgstr ""
 
 #  Progress stage 1/9
 #. Progress stage 1/7
-#: src/modules/Lan.rb:236
+#: src/modules/Lan.rb:234
 msgid "Detect network devices"
 msgstr "Pronalaženje mrežnih uređaja"
 
 #  Progress stage 2/9
 #. Progress stage 2/7
-#: src/modules/Lan.rb:238
+#: src/modules/Lan.rb:236
 msgid "Read driver information"
 msgstr "Čitanje informacija u upravljačkim programima"
 
 #  Progress stage 3/9 - multiple devices may be present, really plural
 #. Progress stage 3/7 - multiple devices may be present, really plural
-#: src/modules/Lan.rb:240
+#: src/modules/Lan.rb:238
 msgid "Read device configuration"
 msgstr "Čitanje informacija o uređaju"
 
 #  Progress stage 4/9
 #. Progress stage 4/7
-#: src/modules/Lan.rb:242
+#: src/modules/Lan.rb:240
 msgid "Read network configuration"
 msgstr "Čitanje podešavanja mreža"
 
 #  Progress stage 7/9
 #. Progress stage 5/7
-#: src/modules/Lan.rb:244
+#: src/modules/Lan.rb:242
 msgid "Read installation information"
 msgstr "Čitanje instalacionih informacija"
 
 #  Progress stage 5/9
 #. Progress stage 6/7
-#: src/modules/Lan.rb:246
+#: src/modules/Lan.rb:244
 msgid "Read routing configuration"
 msgstr "Čitanje podešavanja rutiranja"
 
 #  Progress stage 9/9
 #. Progress stage 7/7
-#: src/modules/Lan.rb:248
+#: src/modules/Lan.rb:246
 msgid "Detect current status"
 msgstr "Prepoznavanje trenutnog statusa"
 
 #  Progress stage 3/5
-#: src/modules/Lan.rb:251
+#: src/modules/Lan.rb:249
 msgid "Read firewall configuration"
 msgstr "Čitanje podešavanja zaštitnog zida"
 
 #  Read dialog caption
 #. Read dialog caption
-#: src/modules/Lan.rb:266
+#: src/modules/Lan.rb:264
 #, fuzzy
 msgid "Initializing Network Configuration"
 msgstr "Pokretanje podešavanja mreže"
 
 #  Popup text
 #. 1000; /* TESTING
-#: src/modules/Lan.rb:284
+#: src/modules/Lan.rb:282
 #, fuzzy
 #| msgid "Detecting modems..."
 msgid "Detecting ndiswrapper..."
 msgstr "Pronalaženje modema..."
 
 #. modprobe ndiswrapper before hwinfo when needed (#343893)
-#: src/modules/Lan.rb:303
+#: src/modules/Lan.rb:301
 msgid ""
 "Detected a ndiswrapper configuration,\n"
 "but the kernel module was not modprobed.\n"
 "Do you want to modprobe ndiswrapper?\n"
 msgstr ""
 
-#: src/modules/Lan.rb:311
+#: src/modules/Lan.rb:309
 msgid ""
 "ndiswrapper kernel module has not been loaded.\n"
 "Check configuration manually.\n"
 msgstr ""
 
 #  Progress step 1/9
-#: src/modules/Lan.rb:324
+#: src/modules/Lan.rb:322
 msgid "Detecting network devices..."
 msgstr "Pronalaženje mrežnih uređaja..."
 
 #  Progress step 3/9 - multiple devices may be present, really plural
 #. Dont read hardware data in config mode
-#: src/modules/Lan.rb:332
+#: src/modules/Lan.rb:330
 msgid "Reading device configuration..."
 msgstr "Čitanje podešavanja uređaja..."
 
 #  Progress step 4/9
-#: src/modules/Lan.rb:339
+#: src/modules/Lan.rb:337
 msgid "Reading network configuration..."
 msgstr "Čitanje mrežnog podešavanja..."
 
 #  Progress step 9/9
-#: src/modules/Lan.rb:352
+#: src/modules/Lan.rb:350
 msgid "Detecting current status..."
 msgstr "Prepoznajem trenutni status..."
 
 #  Progress step 3/5
-#: src/modules/Lan.rb:359
+#: src/modules/Lan.rb:357
 msgid "Reading firewall configuration..."
 msgstr "Čitanje podešavanja zaštitnog zida..."
 
-#: src/modules/Lan.rb:366
+#: src/modules/Lan.rb:364
 msgid ""
 "Network configuration is corrupted.\n"
 "If you continue resulting configuration can be malformed.\n"
@@ -4075,63 +4099,63 @@ msgstr ""
 #  Final progress step
 #. Final progress step
 #. Final progress step
-#: src/modules/Lan.rb:374 src/modules/Lan.rb:576
+#: src/modules/Lan.rb:372 src/modules/Lan.rb:574
 msgid "Finished"
 msgstr "&Završeno"
 
 #. (a specialization used when a parameterless function is needed)
 #. @return [Boolean] true on success
-#: src/modules/Lan.rb:402
+#: src/modules/Lan.rb:400
 msgid "To apply this change, a reboot is needed."
 msgstr ""
 
 #  Write dialog caption
 #. Write dialog caption
-#: src/modules/Lan.rb:446
+#: src/modules/Lan.rb:444
 #, fuzzy
 msgid "Saving Network Configuration"
 msgstr "Snimanje podešavanja mreže"
 
 #  Progress stage 2/10
 #. Progress stage 2
-#: src/modules/Lan.rb:453
+#: src/modules/Lan.rb:451
 msgid "Write drivers information"
 msgstr "Snimanje informacija o upravljačkim programima"
 
 #  Progress stage 3/10 - multiple devices may be present,really plural
 #. Progress stage 3 - multiple devices may be present,really plural
-#: src/modules/Lan.rb:455
+#: src/modules/Lan.rb:453
 msgid "Write device configuration"
 msgstr "Snimanje podešavanja uređaja"
 
 #  Progress stage 4/10
 #. Progress stage 4
-#: src/modules/Lan.rb:457
+#: src/modules/Lan.rb:455
 msgid "Write network configuration"
 msgstr "Snimanje podešavanja mreže"
 
 #  Progress stage 5/10
 #. Progress stage 5
-#: src/modules/Lan.rb:459
+#: src/modules/Lan.rb:457
 msgid "Write routing configuration"
 msgstr "Snimanje podešavanja rutiranja"
 
 #  Progress stage 6/10
 #. Progress stage 6
-#: src/modules/Lan.rb:461
+#: src/modules/Lan.rb:459
 #, fuzzy
 msgid "Write hostname and DNS configuration"
 msgstr "Snimanje imena servera i DNS podešavanja"
 
 #  Progress stage 5/7
 #. Progress stage 7
-#: src/modules/Lan.rb:463
+#: src/modules/Lan.rb:461
 msgid "Set up network services"
 msgstr "&Podešavanje mrežnih servisa"
 
 #  Progress step 3/5
 #. Progress stage 8
-#: src/modules/Lan.rb:467
+#: src/modules/Lan.rb:465
 #, fuzzy
 #| msgid "Reading firewall configuration..."
 msgid "Writing firewall configuration"
@@ -4139,13 +4163,13 @@ msgstr "Čitanje podešavanja zaštitnog zida..."
 
 #  Progress stage 9/10
 #. Progress stage 9
-#: src/modules/Lan.rb:470
+#: src/modules/Lan.rb:468
 msgid "Activate network services"
 msgstr "Aktiviranje mrežnih servisa"
 
 #  Proxy dialog caption
 #. Progress stage 10
-#: src/modules/Lan.rb:472
+#: src/modules/Lan.rb:470
 #, fuzzy
 #| msgid "Proxy Configuration"
 msgid "Update configuration"
@@ -4153,45 +4177,45 @@ msgstr "Podešavanje proxy-a"
 
 #  Progress step 2/10
 #. Progress step 2
-#: src/modules/Lan.rb:486
+#: src/modules/Lan.rb:484
 msgid "Writing /etc/modprobe.conf..."
 msgstr "Snimanje fajla /etc/modprobe.conf..."
 
 #  Progress step 3/10 - multiple devices may be present, really plural
 #. Progress step 3 - multiple devices may be present, really plural
-#: src/modules/Lan.rb:492
+#: src/modules/Lan.rb:490
 msgid "Writing device configuration..."
 msgstr "Snimanje podešavanja uređaja..."
 
 #  Progress step 4/10
 #  Progress step 4/10
 #. Progress step 4
-#: src/modules/Lan.rb:498
+#: src/modules/Lan.rb:496
 msgid "Writing network configuration..."
 msgstr "Snimanje podešavanja mreže"
 
 #  Progress step 5/10
 #. Progress step 5
-#: src/modules/Lan.rb:505
+#: src/modules/Lan.rb:503
 msgid "Writing routing configuration..."
 msgstr "Snimanje podešavanja rutiranja..."
 
 #  Progress step 6/10
 #. Progress step 6
-#: src/modules/Lan.rb:516
+#: src/modules/Lan.rb:514
 #, fuzzy
 msgid "Writing hostname and DNS configuration..."
 msgstr "Snimanje imena servera i DNS podešavanja..."
 
 #  Progress step 5/7
 #. Progress step 7
-#: src/modules/Lan.rb:528
+#: src/modules/Lan.rb:526
 msgid "Setting up network services..."
 msgstr "Podešavanje mrežnih servisa..."
 
 #  Progress step 3/5
 #. Progress step 7
-#: src/modules/Lan.rb:536
+#: src/modules/Lan.rb:534
 #, fuzzy
 #| msgid "Reading firewall configuration..."
 msgid "Writing firewall configuration..."
@@ -4199,13 +4223,13 @@ msgstr "Čitanje podešavanja zaštitnog zida..."
 
 #  Progress step 9/10
 #. Progress step 9
-#: src/modules/Lan.rb:545
+#: src/modules/Lan.rb:543
 msgid "Activating network services..."
 msgstr "Aktiviranje mrežnih servisa..."
 
 #  Progress step 1/7
 #. Progress step 10
-#: src/modules/Lan.rb:555
+#: src/modules/Lan.rb:553
 #, fuzzy
 #| msgid "Writing configuration..."
 msgid "Updating configuration..."
@@ -4213,7 +4237,7 @@ msgstr "Snimanje podešavanja..."
 
 #  steps for the ISDN writing current setup progress screen with start
 #  step 1/13
-#: src/modules/Lan.rb:572
+#: src/modules/Lan.rb:570
 #, fuzzy
 #| msgid "Stop ISDN networking"
 msgid "No network running"
@@ -4231,13 +4255,13 @@ msgstr "Zaustavljanje ISDN umrežavanja"
 #.
 #. @param [Hash] dev_map a device's sysconfig map (in form "option" => "value")
 #. @return [Array] list of strings, one string is intended for one "bullet"
-#: src/modules/LanItems.rb:439
+#: src/modules/LanItems.rb:427
 #, fuzzy
 msgid "IP address assigned using"
 msgstr "Podešavanje IP adrese"
 
 #  text entry label
-#: src/modules/LanItems.rb:443
+#: src/modules/LanItems.rb:431
 #, fuzzy
 msgid "IP address: %s/%s"
 msgstr "MAC Adresa"
@@ -4246,7 +4270,7 @@ msgstr "MAC Adresa"
 #  DIALOG TEXTS and  DIALOG CONTENTS
 #  IP details dialog caption
 #  Frame label
-#: src/modules/LanItems.rb:446
+#: src/modules/LanItems.rb:434
 #, fuzzy
 msgid "IP address: %s, subnet mask %s"
 msgstr "Podešavanje IP adrese"
@@ -5903,10 +5927,6 @@ msgstr "Podešavanje IP adrese"
 #  popup text to select between Interface or Provider
 #~ msgid "Select the item to delete."
 #~ msgstr "Izaberite objekat za brisanje."
-
-#  PushButton label
-#~ msgid "&Interface"
-#~ msgstr "&Mreža"
 
 #  PushButton label
 #~ msgid "&Provider"

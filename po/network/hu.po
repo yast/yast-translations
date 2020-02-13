@@ -18,7 +18,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: network\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-31 02:28+0000\n"
+"POT-Creation-Date: 2020-02-13 02:28+0000\n"
 "PO-Revision-Date: 2019-03-20 02:39+0000\n"
 "Last-Translator: Robert Taisz <robert.taisz@emerald.hu>\n"
 "Language-Team: Hungarian <https://l10n.opensuse.org/projects/yast-network/"
@@ -903,22 +903,22 @@ msgid "yes: any"
 msgstr "igen: bármelyik"
 
 #. translators: label is in form yes: <device name>
-#: src/include/network/services/dns.rb:392
+#: src/include/network/services/dns.rb:391
 msgid "yes: %s"
 msgstr "igen: %s"
 
 #. Popup::Error text
-#: src/include/network/services/dns.rb:460
+#: src/include/network/services/dns.rb:459
 msgid "The search list can have at most %1 domains."
 msgstr "A keresési listában legfeljebb %1 tartomány lehet."
 
 #. Popup::Error text
-#: src/include/network/services/dns.rb:466
+#: src/include/network/services/dns.rb:465
 msgid "The search list can have at most %1 characters."
 msgstr "A keresési lista legfeljebb %1 karakter hosszú lehet."
 
 #. Popup::Error text
-#: src/include/network/services/dns.rb:475
+#: src/include/network/services/dns.rb:474
 msgid "The search domain '%1' is invalid."
 msgstr "A(z) '%1' keresési tartomány érvénytelen."
 
@@ -926,7 +926,7 @@ msgstr "A(z) '%1' keresési tartomány érvénytelen."
 # clients/lan_dns.ycp:301
 #. Standalone dialog only - embedded one is handled separately
 #. via CWMTab
-#: src/include/network/services/dns.rb:611
+#: src/include/network/services/dns.rb:610
 msgid "Hostname and Name Server Configuration"
 msgstr "Kiszolgálónév- és névkiszolgáló-beállítások"
 
@@ -1109,6 +1109,7 @@ msgstr "A(z) \"%1\" álnév nem érvényes."
 #.
 #. Routing configuration dialogs
 #: src/include/network/services/routing.rb:55
+#: src/lib/y2network/presenters/proposal_summary.rb:51
 msgid "Routing"
 msgstr "Útválasztás"
 
@@ -1207,37 +1208,6 @@ msgid ""
 msgstr ""
 "A hálózati hidas hálózat miatt a YaST2 rendszernek újra kell indítania a "
 "hálózatot a beállítások alkalmazásához."
-
-# clients/lan_manual.ycp:85 clients/lan_manual.ycp:305
-#. TRANSLATORS: informs that multiple interfaces are configured
-#: src/lib/network/lan_items_summary.rb:96
-msgid "Multiple Interfaces"
-msgstr "Több csatoló"
-
-# clients/lan_complex.ycp:347
-#. TRANSLATORS: %s is the list of interfaces configured by DHCP
-#: src/lib/network/lan_items_summary.rb:121
-msgid "Configured with DHCP: %s"
-msgstr "DHCP-vel konfigurálva: %s"
-
-#. TRANSLATORS: %s is the list of interfaces configured by DHCP
-#: src/lib/network/lan_items_summary.rb:129
-msgid "Statically configured: %s"
-msgstr "Statikusan konfigurálva: %s"
-
-#. Return a summary of the configured bridge interfaces
-#.
-#. @return [String] bridge configured interfaces summary
-#: src/lib/network/lan_items_summary.rb:137
-msgid "Bridges: %s"
-msgstr "Hidak: %s"
-
-#. Return a summary of the configured bonding interfaces
-#.
-#. @return [String] bonding configured interfaces summary
-#: src/lib/network/lan_items_summary.rb:147
-msgid "Bonds: %s"
-msgstr "Nyalábolt: %s"
 
 # clients/lan_route.ycp:92 clients/lan_route.ycp:312
 #. Copyright (c) [2019] SUSE LLC
@@ -1790,13 +1760,12 @@ msgstr "Ismeretlen"
 
 #. Constructor
 #.
-#. @param dns [Y2Network::DNS]
-#. @param hostname [Y2Network::Hostname]
-#: src/lib/y2network/presenters/dns_summary.rb:66
+#. @param config [Y2Network::Config]
+#: src/lib/y2network/presenters/dns_summary.rb:71
 msgid "Hostname: Set by DHCP"
 msgstr "Gépnév: DHCP állítja be"
 
-#: src/lib/y2network/presenters/dns_summary.rb:68
+#: src/lib/y2network/presenters/dns_summary.rb:73
 #, fuzzy
 #| msgid "Hostname: %1"
 msgid "Hostname: %s"
@@ -1804,13 +1773,13 @@ msgstr "Gépnév: %1"
 
 # /usr/lib/YaST2/clients/lan_dns.ycp:92
 # clients/lan_dns.ycp:279
-#: src/lib/y2network/presenters/dns_summary.rb:75
+#: src/lib/y2network/presenters/dns_summary.rb:80
 #, fuzzy
 #| msgid "Name Servers: %1"
 msgid "Name Servers: %s"
 msgstr "Névkiszolgálók: %1"
 
-#: src/lib/y2network/presenters/dns_summary.rb:82
+#: src/lib/y2network/presenters/dns_summary.rb:87
 #, fuzzy
 #| msgid "Search List: %1"
 msgid "Search List: %s"
@@ -1895,6 +1864,63 @@ msgstr ""
 "Az eszköz nincs konfigurálva. A konfiguráláshoz kattintson a <b>Szerkesztés</"
 "b>\n"
 "lehetőségre.\n"
+
+# clients/lan_manual.ycp:85 clients/lan_manual.ycp:305
+#. Generates a one line text summary for the configured interfaces.
+#.
+#. @example with one configured interface
+#. presenter.one_line_text
+#. => "DHCP / eth1"
+#.
+#. @example with many configured interfaces
+#. presenter.one_line_text
+#. => "Multiple Interfaces"
+#.
+#. @return [String] summary in just one line and in plain text
+#: src/lib/y2network/presenters/interfaces_summary.rb:89
+msgid "Multiple Interfaces"
+msgstr "Több csatoló"
+
+# clients/lan_complex.ycp:347
+#. TRANSLATORS: %s is the list of interfaces configured by DHCP
+#: src/lib/y2network/presenters/interfaces_summary.rb:121
+msgid "Configured with DHCP: %s"
+msgstr "DHCP-vel konfigurálva: %s"
+
+#. TRANSLATORS: %s is the list of interfaces configured statically
+#: src/lib/y2network/presenters/interfaces_summary.rb:129
+msgid "Statically configured: %s"
+msgstr "Statikusan konfigurálva: %s"
+
+#. TRANSLATORS: %s is a list of bridge interface names and their ports
+#. like 'br0 (eth0, eth1)'
+#: src/lib/y2network/presenters/interfaces_summary.rb:138
+msgid "Bridges: %s"
+msgstr "Hidak: %s"
+
+#. TRANSLATORS: %s is the list of bonding interface names and their
+#. slaves like 'bond0 (br0, eth2)'
+#: src/lib/y2network/presenters/interfaces_summary.rb:149
+msgid "Bonds: %s"
+msgstr "Nyalábolt: %s"
+
+# clients/lan_manual.ycp:85 clients/lan_manual.ycp:305
+#. Network proposal RichText format summary
+#.
+#. @return [String]
+#: src/lib/y2network/presenters/proposal_summary.rb:49
+#, fuzzy
+#| msgid "&Interface"
+msgid "Interfaces"
+msgstr "&Csatoló"
+
+# /usr/lib/YaST2/clients/lan_dns.ycp:85
+# clients/lan_dns.ycp:269
+#: src/lib/y2network/presenters/proposal_summary.rb:50
+#, fuzzy
+#| msgid "Hostname/DNS"
+msgid "Hostname / DNS"
+msgstr "Gépnév/DNS"
 
 #. Returns the summary of network configuration settings in text form
 #.
@@ -3872,13 +3898,13 @@ msgid "Updating /etc/hosts ..."
 msgstr "Az /etc/hosts fájl frissítése..."
 
 #. Progress stage 1/7
-#: src/modules/Lan.rb:236
+#: src/modules/Lan.rb:234
 msgid "Detect network devices"
 msgstr "Hálózati eszközök keresése"
 
 # clients/printconf.ycp:323
 #. Progress stage 2/7
-#: src/modules/Lan.rb:238
+#: src/modules/Lan.rb:236
 msgid "Read driver information"
 msgstr "Meghajtóinformációk olvasása"
 
@@ -3886,7 +3912,7 @@ msgstr "Meghajtóinformációk olvasása"
 # modules/dialup/dialup.ycp:259
 # clients/lan_route.ycp:319
 #. Progress stage 3/7 - multiple devices may be present, really plural
-#: src/modules/Lan.rb:240
+#: src/modules/Lan.rb:238
 msgid "Read device configuration"
 msgstr "Eszközbeállítások beolvasása"
 
@@ -3897,13 +3923,13 @@ msgstr "Eszközbeállítások beolvasása"
 # /usr/lib/YaST2/clients/lan_finish.ycp:281
 # clients/lan_manual.ycp:117
 #. Progress stage 4/7
-#: src/modules/Lan.rb:242
+#: src/modules/Lan.rb:240
 msgid "Read network configuration"
 msgstr "Hálózati beállítások beolvasása"
 
 # clients/printconf_ask_remote.ycp:236
 #. Progress stage 5/7
-#: src/modules/Lan.rb:244
+#: src/modules/Lan.rb:242
 msgid "Read installation information"
 msgstr "Telepítési információk beolvasása"
 
@@ -3911,7 +3937,7 @@ msgstr "Telepítési információk beolvasása"
 # modules/dialup/dialup.ycp:259
 # clients/lan_route.ycp:319
 #. Progress stage 6/7
-#: src/modules/Lan.rb:246
+#: src/modules/Lan.rb:244
 msgid "Read routing configuration"
 msgstr "A jelenlegi útválasztás beolvasása"
 
@@ -3920,11 +3946,11 @@ msgstr "A jelenlegi útválasztás beolvasása"
 # modules/printconf/printconf_filter.ycp:121
 # clients/printconf_filter.ycp:194 clients/printconf_filter.ycp:239
 #. Progress stage 7/7
-#: src/modules/Lan.rb:248
+#: src/modules/Lan.rb:246
 msgid "Detect current status"
 msgstr "Jelenlegi állapot meghatározása"
 
-#: src/modules/Lan.rb:251
+#: src/modules/Lan.rb:249
 msgid "Read firewall configuration"
 msgstr "Tűzfalbeállítások beolvasása"
 
@@ -3935,18 +3961,18 @@ msgstr "Tűzfalbeállítások beolvasása"
 # /usr/lib/YaST2/clients/lan_finish.ycp:281
 # clients/lan_manual.ycp:117
 #. Read dialog caption
-#: src/modules/Lan.rb:266
+#: src/modules/Lan.rb:264
 msgid "Initializing Network Configuration"
 msgstr "Hálózati konfiguráció előkészítése"
 
 # clients/lan_manual.ycp:213 clients/lan_manual.ycp:228 clients/lan_manual.ycp:263
 #. 1000; /* TESTING
-#: src/modules/Lan.rb:284
+#: src/modules/Lan.rb:282
 msgid "Detecting ndiswrapper..."
 msgstr "Ndiswrapper keresése…"
 
 #. modprobe ndiswrapper before hwinfo when needed (#343893)
-#: src/modules/Lan.rb:303
+#: src/modules/Lan.rb:301
 msgid ""
 "Detected a ndiswrapper configuration,\n"
 "but the kernel module was not modprobed.\n"
@@ -3956,7 +3982,7 @@ msgstr ""
 "kernelmodul nincs betöltve.\n"
 "Betölti az ndiswrapper modult?\n"
 
-#: src/modules/Lan.rb:311
+#: src/modules/Lan.rb:309
 msgid ""
 "ndiswrapper kernel module has not been loaded.\n"
 "Check configuration manually.\n"
@@ -3964,7 +3990,7 @@ msgstr ""
 "Az ndiswrapper kernelmodul nincs betöltve.\n"
 "Ellenőrizze kézzel a beállításokat.\n"
 
-#: src/modules/Lan.rb:324
+#: src/modules/Lan.rb:322
 msgid "Detecting network devices..."
 msgstr "Hálózati eszközök keresése..."
 
@@ -3972,7 +3998,7 @@ msgstr "Hálózati eszközök keresése..."
 # modules/dialup/dialup.ycp:259
 # clients/lan_route.ycp:319
 #. Dont read hardware data in config mode
-#: src/modules/Lan.rb:332
+#: src/modules/Lan.rb:330
 msgid "Reading device configuration..."
 msgstr "Eszközbeállítások beolvasása..."
 
@@ -3982,19 +4008,19 @@ msgstr "Eszközbeállítások beolvasása..."
 # /usr/lib/YaST2/clients/lan_finish.ycp:239
 # /usr/lib/YaST2/clients/lan_finish.ycp:281
 # clients/lan_manual.ycp:117
-#: src/modules/Lan.rb:339
+#: src/modules/Lan.rb:337
 msgid "Reading network configuration..."
 msgstr "Hálózati beállítások beolvasása..."
 
-#: src/modules/Lan.rb:352
+#: src/modules/Lan.rb:350
 msgid "Detecting current status..."
 msgstr "Jelenlegi állapot meghatározása..."
 
-#: src/modules/Lan.rb:359
+#: src/modules/Lan.rb:357
 msgid "Reading firewall configuration..."
 msgstr "Tűzfalbeállítások beolvasása…"
 
-#: src/modules/Lan.rb:366
+#: src/modules/Lan.rb:364
 msgid ""
 "Network configuration is corrupted.\n"
 "If you continue resulting configuration can be malformed.\n"
@@ -4009,13 +4035,13 @@ msgstr ""
 # /usr/lib/YaST2/clients/lan_inetd_custom.ycp:801
 #. Final progress step
 #. Final progress step
-#: src/modules/Lan.rb:374 src/modules/Lan.rb:576
+#: src/modules/Lan.rb:372 src/modules/Lan.rb:574
 msgid "Finished"
 msgstr "Befejeződött"
 
 #. (a specialization used when a parameterless function is needed)
 #. @return [Boolean] true on success
-#: src/modules/Lan.rb:402
+#: src/modules/Lan.rb:400
 msgid "To apply this change, a reboot is needed."
 msgstr "A változások érvényre juttatásához újraindítás szükséges."
 
@@ -4026,20 +4052,20 @@ msgstr "A változások érvényre juttatásához újraindítás szükséges."
 # /usr/lib/YaST2/clients/lan_finish.ycp:281
 # clients/lan_manual.ycp:117
 #. Write dialog caption
-#: src/modules/Lan.rb:446
+#: src/modules/Lan.rb:444
 msgid "Saving Network Configuration"
 msgstr "Hálózati beállítások mentése"
 
 # clients/printconf.ycp:323
 #. Progress stage 2
-#: src/modules/Lan.rb:453
+#: src/modules/Lan.rb:451
 msgid "Write drivers information"
 msgstr "Illesztőprogram-adatok mentése"
 
 # modules/dialup/dialup.ycp:231 modules/dialup/dialup.ycp:246
 # modules/dialup/dialup.ycp:259
 #. Progress stage 3 - multiple devices may be present,really plural
-#: src/modules/Lan.rb:455
+#: src/modules/Lan.rb:453
 msgid "Write device configuration"
 msgstr "Eszközbeállítások kiírása"
 
@@ -4050,39 +4076,39 @@ msgstr "Eszközbeállítások kiírása"
 # /usr/lib/YaST2/clients/lan_finish.ycp:281
 # clients/lan_manual.ycp:117
 #. Progress stage 4
-#: src/modules/Lan.rb:457
+#: src/modules/Lan.rb:455
 msgid "Write network configuration"
 msgstr "Hálózati beállítások kiírása"
 
 #. Progress stage 5
-#: src/modules/Lan.rb:459
+#: src/modules/Lan.rb:457
 msgid "Write routing configuration"
 msgstr "Útválasztás mentése"
 
 # /usr/lib/YaST2/clients/lan_dns.ycp:114
 # clients/lan_dns.ycp:301
 #. Progress stage 6
-#: src/modules/Lan.rb:461
+#: src/modules/Lan.rb:459
 msgid "Write hostname and DNS configuration"
 msgstr "Kiszolgálónév- és névkiszolgáló-beállítások mentése"
 
 #. Progress stage 7
-#: src/modules/Lan.rb:463
+#: src/modules/Lan.rb:461
 msgid "Set up network services"
 msgstr "Hálózati szolgáltatások indítása"
 
 #. Progress stage 8
-#: src/modules/Lan.rb:467
+#: src/modules/Lan.rb:465
 msgid "Writing firewall configuration"
 msgstr "Tűzfalbeállítások kiírása"
 
 #. Progress stage 9
-#: src/modules/Lan.rb:470
+#: src/modules/Lan.rb:468
 msgid "Activate network services"
 msgstr "Hálózati szolgáltatások aktiválása"
 
 #. Progress stage 10
-#: src/modules/Lan.rb:472
+#: src/modules/Lan.rb:470
 msgid "Update configuration"
 msgstr "Beállítások frissítése"
 
@@ -4090,12 +4116,12 @@ msgstr "Beállítások frissítése"
 # /usr/lib/YaST2/clients/lan_finish.ycp:253
 # clients/lan_write.ycp:234
 #. Progress step 2
-#: src/modules/Lan.rb:486
+#: src/modules/Lan.rb:484
 msgid "Writing /etc/modprobe.conf..."
 msgstr "Az /etc/modprobe.conf fájl mentése..."
 
 #. Progress step 3 - multiple devices may be present, really plural
-#: src/modules/Lan.rb:492
+#: src/modules/Lan.rb:490
 msgid "Writing device configuration..."
 msgstr "Eszközbeállítások mentése..."
 
@@ -4106,42 +4132,42 @@ msgstr "Eszközbeállítások mentése..."
 # /usr/lib/YaST2/clients/lan_finish.ycp:281
 # clients/lan_manual.ycp:117
 #. Progress step 4
-#: src/modules/Lan.rb:498
+#: src/modules/Lan.rb:496
 msgid "Writing network configuration..."
 msgstr "Hálózati beállítások mentése..."
 
 #. Progress step 5
-#: src/modules/Lan.rb:505
+#: src/modules/Lan.rb:503
 msgid "Writing routing configuration..."
 msgstr "Útválasztási beállítások mentése..."
 
 #. Progress step 6
-#: src/modules/Lan.rb:516
+#: src/modules/Lan.rb:514
 msgid "Writing hostname and DNS configuration..."
 msgstr "Kiszolgálónév és DNS-beállítások mentése..."
 
 # clients/lan_manual.ycp:213 clients/lan_manual.ycp:228 clients/lan_manual.ycp:263
 #. Progress step 7
-#: src/modules/Lan.rb:528
+#: src/modules/Lan.rb:526
 msgid "Setting up network services..."
 msgstr "Hálózati szolgáltatások beállítása..."
 
 #. Progress step 7
-#: src/modules/Lan.rb:536
+#: src/modules/Lan.rb:534
 msgid "Writing firewall configuration..."
 msgstr "Tűzfalbeállítások kiírása..."
 
 #. Progress step 9
-#: src/modules/Lan.rb:545
+#: src/modules/Lan.rb:543
 msgid "Activating network services..."
 msgstr "Hálózati szolgáltatások aktiválása…"
 
 #. Progress step 10
-#: src/modules/Lan.rb:555
+#: src/modules/Lan.rb:553
 msgid "Updating configuration..."
 msgstr "Beállítások frissítése..."
 
-#: src/modules/Lan.rb:572
+#: src/modules/Lan.rb:570
 msgid "No network running"
 msgstr "Hálózati szolgáltatás nem fut"
 
@@ -4155,15 +4181,15 @@ msgstr "Hálózati szolgáltatás nem fut"
 #.
 #. @param [Hash] dev_map a device's sysconfig map (in form "option" => "value")
 #. @return [Array] list of strings, one string is intended for one "bullet"
-#: src/modules/LanItems.rb:439
+#: src/modules/LanItems.rb:427
 msgid "IP address assigned using"
 msgstr "IP-cím kiosztásra került"
 
-#: src/modules/LanItems.rb:443
+#: src/modules/LanItems.rb:431
 msgid "IP address: %s/%s"
 msgstr "IP-cím: %s/%s"
 
-#: src/modules/LanItems.rb:446
+#: src/modules/LanItems.rb:434
 msgid "IP address: %s, subnet mask %s"
 msgstr "IP-cím: %s, alhálózati maszk: %s"
 
@@ -6430,10 +6456,6 @@ msgstr "IP-cím: %s, alhálózati maszk: %s"
 
 #~ msgid "Select the item to delete."
 #~ msgstr "Válassza ki a törlendő elemet."
-
-# clients/lan_manual.ycp:85 clients/lan_manual.ycp:305
-#~ msgid "&Interface"
-#~ msgstr "&Csatoló"
 
 #~ msgid "&Provider"
 #~ msgstr "&Szolgáltató"

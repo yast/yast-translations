@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: network\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-31 02:28+0000\n"
+"POT-Creation-Date: 2020-02-13 02:28+0000\n"
 "PO-Revision-Date: 2009-10-08 12:56+0200\n"
 "Last-Translator: Olav Pettershagen <olav.pet@gmail.com>\n"
 "Language-Team: Norwegian Bokmål <opensuse-translation@opensuse.org>\n"
@@ -827,28 +827,28 @@ msgid "yes: any"
 msgstr ""
 
 #. translators: label is in form yes: <device name>
-#: src/include/network/services/dns.rb:392
+#: src/include/network/services/dns.rb:391
 msgid "yes: %s"
 msgstr ""
 
 #. Popup::Error text
-#: src/include/network/services/dns.rb:460
+#: src/include/network/services/dns.rb:459
 msgid "The search list can have at most %1 domains."
 msgstr "Søkelisten kan ha maksimalt %1 domener."
 
 #. Popup::Error text
-#: src/include/network/services/dns.rb:466
+#: src/include/network/services/dns.rb:465
 msgid "The search list can have at most %1 characters."
 msgstr "Søkelisten kan ha maksimalt %1 tegn."
 
 #. Popup::Error text
-#: src/include/network/services/dns.rb:475
+#: src/include/network/services/dns.rb:474
 msgid "The search domain '%1' is invalid."
 msgstr "Søkedomenet '%1' er ugyldig."
 
 #. Standalone dialog only - embedded one is handled separately
 #. via CWMTab
-#: src/include/network/services/dns.rb:611
+#: src/include/network/services/dns.rb:610
 msgid "Hostname and Name Server Configuration"
 msgstr "Vertsnavn- og navneserveroppsett"
 
@@ -1020,6 +1020,7 @@ msgstr "Aliasnavnet \"%1\" er ugyldig."
 #.
 #. Routing configuration dialogs
 #: src/include/network/services/routing.rb:55
+#: src/lib/y2network/presenters/proposal_summary.rb:51
 msgid "Routing"
 msgstr "Ruting"
 
@@ -1120,45 +1121,6 @@ msgid ""
 msgstr ""
 "På grunn av nettverksbroen må YaST2 starte nettverket på nytt for å aktivere "
 "innstillingene."
-
-#. TRANSLATORS: informs that multiple interfaces are configured
-#: src/lib/network/lan_items_summary.rb:96
-#, fuzzy
-#| msgid "&Select Interface"
-msgid "Multiple Interfaces"
-msgstr "&Velg grensesnitt"
-
-#. TRANSLATORS: %s is the list of interfaces configured by DHCP
-#: src/lib/network/lan_items_summary.rb:121
-#, fuzzy
-#| msgid "Configured with %1"
-msgid "Configured with DHCP: %s"
-msgstr "Satt opp med %1"
-
-#. TRANSLATORS: %s is the list of interfaces configured by DHCP
-#: src/lib/network/lan_items_summary.rb:129
-#, fuzzy
-#| msgid "List only configured cards"
-msgid "Statically configured: %s"
-msgstr "Vis bare oppsatte kort"
-
-#. Return a summary of the configured bridge interfaces
-#.
-#. @return [String] bridge configured interfaces summary
-#: src/lib/network/lan_items_summary.rb:137
-#, fuzzy
-#| msgid "Bridged Devices"
-msgid "Bridges: %s"
-msgstr "Bro-enheter"
-
-#. Return a summary of the configured bonding interfaces
-#.
-#. @return [String] bonding configured interfaces summary
-#: src/lib/network/lan_items_summary.rb:147
-#, fuzzy
-#| msgid "Bond Slaves"
-msgid "Bonds: %s"
-msgstr "Bond-slaver"
 
 #. Copyright (c) [2019] SUSE LLC
 #.
@@ -1708,25 +1670,24 @@ msgstr "Ukjent"
 
 #. Constructor
 #.
-#. @param dns [Y2Network::DNS]
-#. @param hostname [Y2Network::Hostname]
-#: src/lib/y2network/presenters/dns_summary.rb:66
+#. @param config [Y2Network::Config]
+#: src/lib/y2network/presenters/dns_summary.rb:71
 msgid "Hostname: Set by DHCP"
 msgstr "Vertsnavn: Definert av DHCP"
 
-#: src/lib/y2network/presenters/dns_summary.rb:68
+#: src/lib/y2network/presenters/dns_summary.rb:73
 #, fuzzy
 #| msgid "Hostname: %1"
 msgid "Hostname: %s"
 msgstr "Vertsnavn: %1"
 
-#: src/lib/y2network/presenters/dns_summary.rb:75
+#: src/lib/y2network/presenters/dns_summary.rb:80
 #, fuzzy
 #| msgid "Name Servers: %1"
 msgid "Name Servers: %s"
 msgstr "Navneservere: %1"
 
-#: src/lib/y2network/presenters/dns_summary.rb:82
+#: src/lib/y2network/presenters/dns_summary.rb:87
 #, fuzzy
 #| msgid "Search List: %1"
 msgid "Search List: %s"
@@ -1813,6 +1774,68 @@ msgid ""
 msgstr ""
 "<p>Enheten er ikke satt opp. Klikk <b>Rediger</b>\n"
 "for å gå til oppsett.</p>\n"
+
+#. Generates a one line text summary for the configured interfaces.
+#.
+#. @example with one configured interface
+#. presenter.one_line_text
+#. => "DHCP / eth1"
+#.
+#. @example with many configured interfaces
+#. presenter.one_line_text
+#. => "Multiple Interfaces"
+#.
+#. @return [String] summary in just one line and in plain text
+#: src/lib/y2network/presenters/interfaces_summary.rb:89
+#, fuzzy
+#| msgid "&Select Interface"
+msgid "Multiple Interfaces"
+msgstr "&Velg grensesnitt"
+
+#. TRANSLATORS: %s is the list of interfaces configured by DHCP
+#: src/lib/y2network/presenters/interfaces_summary.rb:121
+#, fuzzy
+#| msgid "Configured with %1"
+msgid "Configured with DHCP: %s"
+msgstr "Satt opp med %1"
+
+#. TRANSLATORS: %s is the list of interfaces configured statically
+#: src/lib/y2network/presenters/interfaces_summary.rb:129
+#, fuzzy
+#| msgid "List only configured cards"
+msgid "Statically configured: %s"
+msgstr "Vis bare oppsatte kort"
+
+#. TRANSLATORS: %s is a list of bridge interface names and their ports
+#. like 'br0 (eth0, eth1)'
+#: src/lib/y2network/presenters/interfaces_summary.rb:138
+#, fuzzy
+#| msgid "Bridged Devices"
+msgid "Bridges: %s"
+msgstr "Bro-enheter"
+
+#. TRANSLATORS: %s is the list of bonding interface names and their
+#. slaves like 'bond0 (br0, eth2)'
+#: src/lib/y2network/presenters/interfaces_summary.rb:149
+#, fuzzy
+#| msgid "Bond Slaves"
+msgid "Bonds: %s"
+msgstr "Bond-slaver"
+
+#. Network proposal RichText format summary
+#.
+#. @return [String]
+#: src/lib/y2network/presenters/proposal_summary.rb:49
+#, fuzzy
+#| msgid "&Interface"
+msgid "Interfaces"
+msgstr "&Grensesnitt"
+
+#: src/lib/y2network/presenters/proposal_summary.rb:50
+#, fuzzy
+#| msgid "Hostname/DNS"
+msgid "Hostname / DNS"
+msgstr "Vertsnavn/DNS"
 
 #. Returns the summary of network configuration settings in text form
 #.
@@ -3810,56 +3833,56 @@ msgid "Updating /etc/hosts ..."
 msgstr "Oppdaterer /etc/hosts..."
 
 #. Progress stage 1/7
-#: src/modules/Lan.rb:236
+#: src/modules/Lan.rb:234
 msgid "Detect network devices"
 msgstr "Søk etter nettverksenheter"
 
 #. Progress stage 2/7
-#: src/modules/Lan.rb:238
+#: src/modules/Lan.rb:236
 msgid "Read driver information"
 msgstr "Les driverinformasjon"
 
 #. Progress stage 3/7 - multiple devices may be present, really plural
-#: src/modules/Lan.rb:240
+#: src/modules/Lan.rb:238
 msgid "Read device configuration"
 msgstr "Les enhetsoppsett"
 
 #. Progress stage 4/7
-#: src/modules/Lan.rb:242
+#: src/modules/Lan.rb:240
 msgid "Read network configuration"
 msgstr "Les nettverksoppsett"
 
 #. Progress stage 5/7
-#: src/modules/Lan.rb:244
+#: src/modules/Lan.rb:242
 msgid "Read installation information"
 msgstr "Les installasjonsinformasjon"
 
 #. Progress stage 6/7
-#: src/modules/Lan.rb:246
+#: src/modules/Lan.rb:244
 msgid "Read routing configuration"
 msgstr "Les rutingoppsett"
 
 #. Progress stage 7/7
-#: src/modules/Lan.rb:248
+#: src/modules/Lan.rb:246
 msgid "Detect current status"
 msgstr "Søk etter gjeldende status"
 
-#: src/modules/Lan.rb:251
+#: src/modules/Lan.rb:249
 msgid "Read firewall configuration"
 msgstr "Les brannmuroppsett"
 
 #. Read dialog caption
-#: src/modules/Lan.rb:266
+#: src/modules/Lan.rb:264
 msgid "Initializing Network Configuration"
 msgstr "Initialiserer nettverksoppsett"
 
 #. 1000; /* TESTING
-#: src/modules/Lan.rb:284
+#: src/modules/Lan.rb:282
 msgid "Detecting ndiswrapper..."
 msgstr "Søker etter ndiswrapper..."
 
 #. modprobe ndiswrapper before hwinfo when needed (#343893)
-#: src/modules/Lan.rb:303
+#: src/modules/Lan.rb:301
 msgid ""
 "Detected a ndiswrapper configuration,\n"
 "but the kernel module was not modprobed.\n"
@@ -3869,7 +3892,7 @@ msgstr ""
 "men det ble ikke kjørt modprobe for kjernemodulen.\n"
 "Vil du kjøre modprobe for ndiswrapper?\n"
 
-#: src/modules/Lan.rb:311
+#: src/modules/Lan.rb:309
 msgid ""
 "ndiswrapper kernel module has not been loaded.\n"
 "Check configuration manually.\n"
@@ -3877,28 +3900,28 @@ msgstr ""
 "Kjernemodulen ndiswrapper ble ikke lastet.\n"
 "Kontroller oppsettet manuelt.\n"
 
-#: src/modules/Lan.rb:324
+#: src/modules/Lan.rb:322
 msgid "Detecting network devices..."
 msgstr "Søker etter nettverksenheter..."
 
 #. Dont read hardware data in config mode
-#: src/modules/Lan.rb:332
+#: src/modules/Lan.rb:330
 msgid "Reading device configuration..."
 msgstr "Leser enhetsoppsett..."
 
-#: src/modules/Lan.rb:339
+#: src/modules/Lan.rb:337
 msgid "Reading network configuration..."
 msgstr "Leser nettverksoppsett..."
 
-#: src/modules/Lan.rb:352
+#: src/modules/Lan.rb:350
 msgid "Detecting current status..."
 msgstr "Søker etter gjeldende status..."
 
-#: src/modules/Lan.rb:359
+#: src/modules/Lan.rb:357
 msgid "Reading firewall configuration..."
 msgstr "Leser brannmuroppsett..."
 
-#: src/modules/Lan.rb:366
+#: src/modules/Lan.rb:364
 msgid ""
 "Network configuration is corrupted.\n"
 "If you continue resulting configuration can be malformed.\n"
@@ -3908,116 +3931,116 @@ msgstr ""
 
 #. Final progress step
 #. Final progress step
-#: src/modules/Lan.rb:374 src/modules/Lan.rb:576
+#: src/modules/Lan.rb:372 src/modules/Lan.rb:574
 msgid "Finished"
 msgstr "Fullført"
 
 #. (a specialization used when a parameterless function is needed)
 #. @return [Boolean] true on success
-#: src/modules/Lan.rb:402
+#: src/modules/Lan.rb:400
 msgid "To apply this change, a reboot is needed."
 msgstr "Start maskinen på nytt for å aktivere denne endringen."
 
 #. Write dialog caption
-#: src/modules/Lan.rb:446
+#: src/modules/Lan.rb:444
 msgid "Saving Network Configuration"
 msgstr "Lagrer nettverksoppsett"
 
 #. Progress stage 2
-#: src/modules/Lan.rb:453
+#: src/modules/Lan.rb:451
 msgid "Write drivers information"
 msgstr "Lagre driverinformasjon"
 
 #. Progress stage 3 - multiple devices may be present,really plural
-#: src/modules/Lan.rb:455
+#: src/modules/Lan.rb:453
 msgid "Write device configuration"
 msgstr "Lagre enhetsoppsett"
 
 #. Progress stage 4
-#: src/modules/Lan.rb:457
+#: src/modules/Lan.rb:455
 msgid "Write network configuration"
 msgstr "Lagre nettverksoppsett"
 
 #. Progress stage 5
-#: src/modules/Lan.rb:459
+#: src/modules/Lan.rb:457
 msgid "Write routing configuration"
 msgstr "Lagre rutingoppsett"
 
 #. Progress stage 6
-#: src/modules/Lan.rb:461
+#: src/modules/Lan.rb:459
 msgid "Write hostname and DNS configuration"
 msgstr "Lagre vertsnavn og DNS-oppsett"
 
 #. Progress stage 7
-#: src/modules/Lan.rb:463
+#: src/modules/Lan.rb:461
 msgid "Set up network services"
 msgstr "Sett opp nettverkstjenester"
 
 #. Progress stage 8
-#: src/modules/Lan.rb:467
+#: src/modules/Lan.rb:465
 #, fuzzy
 #| msgid "Writing Firewall Configuration..."
 msgid "Writing firewall configuration"
 msgstr "Lagrer brannmurkonfigurasjon..."
 
 #. Progress stage 9
-#: src/modules/Lan.rb:470
+#: src/modules/Lan.rb:468
 msgid "Activate network services"
 msgstr "Aktiver nettverkstjenester"
 
 #. Progress stage 10
-#: src/modules/Lan.rb:472
+#: src/modules/Lan.rb:470
 msgid "Update configuration"
 msgstr "Oppdater konfigurasjon"
 
 #. Progress step 2
-#: src/modules/Lan.rb:486
+#: src/modules/Lan.rb:484
 msgid "Writing /etc/modprobe.conf..."
 msgstr "Lagrer /etc/modprobe.conf..."
 
 #. Progress step 3 - multiple devices may be present, really plural
-#: src/modules/Lan.rb:492
+#: src/modules/Lan.rb:490
 msgid "Writing device configuration..."
 msgstr "Lagrer enhetsoppsett..."
 
 #. Progress step 4
-#: src/modules/Lan.rb:498
+#: src/modules/Lan.rb:496
 msgid "Writing network configuration..."
 msgstr "Lagrer nettverksoppsett..."
 
 #. Progress step 5
-#: src/modules/Lan.rb:505
+#: src/modules/Lan.rb:503
 msgid "Writing routing configuration..."
 msgstr "Lagrer rutinginformasjon..."
 
 #. Progress step 6
-#: src/modules/Lan.rb:516
+#: src/modules/Lan.rb:514
 msgid "Writing hostname and DNS configuration..."
 msgstr "Lagrer vertsnavn og DNS-oppsett..."
 
 #. Progress step 7
-#: src/modules/Lan.rb:528
+#: src/modules/Lan.rb:526
 msgid "Setting up network services..."
 msgstr "Setter opp nettverkstjenester..."
 
 #. Progress step 7
-#: src/modules/Lan.rb:536
+#: src/modules/Lan.rb:534
 #, fuzzy
 #| msgid "Writing Firewall Configuration..."
 msgid "Writing firewall configuration..."
 msgstr "Lagrer brannmurkonfigurasjon..."
 
 #. Progress step 9
-#: src/modules/Lan.rb:545
+#: src/modules/Lan.rb:543
 msgid "Activating network services..."
 msgstr "Aktiverer nettverkstjenester..."
 
 #. Progress step 10
-#: src/modules/Lan.rb:555
+#: src/modules/Lan.rb:553
 msgid "Updating configuration..."
 msgstr "Oppdaterer konfigurasjon..."
 
-#: src/modules/Lan.rb:572
+#: src/modules/Lan.rb:570
 msgid "No network running"
 msgstr "Ingen nettverk er aktivert"
 
@@ -4029,17 +4052,17 @@ msgstr "Ingen nettverk er aktivert"
 #.
 #. @param [Hash] dev_map a device's sysconfig map (in form "option" => "value")
 #. @return [Array] list of strings, one string is intended for one "bullet"
-#: src/modules/LanItems.rb:439
+#: src/modules/LanItems.rb:427
 msgid "IP address assigned using"
 msgstr "IP-adresse tildelt via"
 
-#: src/modules/LanItems.rb:443
+#: src/modules/LanItems.rb:431
 #, fuzzy
 #| msgid "IP address: %1/%2"
 msgid "IP address: %s/%s"
 msgstr "IP-adresse: %1/%2"
 
-#: src/modules/LanItems.rb:446
+#: src/modules/LanItems.rb:434
 #, fuzzy
 #| msgid "IP address: %1, subnet mask %2"
 msgid "IP address: %s, subnet mask %s"
@@ -6044,9 +6067,6 @@ msgstr "IP-adresse %1, nettverksmaske %2"
 
 #~ msgid "Select the item to delete."
 #~ msgstr "Velg hva du vil slette."
-
-#~ msgid "&Interface"
-#~ msgstr "&Grensesnitt"
 
 #~ msgid "&Provider"
 #~ msgstr "&Tjenesteleverandør"
