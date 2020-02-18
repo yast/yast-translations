@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: storage\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-02-13 02:29+0000\n"
-"PO-Revision-Date: 2020-02-17 11:54+0000\n"
+"PO-Revision-Date: 2020-02-18 07:44+0000\n"
 "Last-Translator: Emily Dong <Emily.Dong@excel-gits.com>\n"
 "Language-Team: Chinese (Taiwan) <https://l10n.opensuse.org/projects/"
 "yast-storage/master/zh_TW/>\n"
@@ -154,19 +154,19 @@ msgstr "輸入的區域無效，請增加大小或對齊啟始位置。"
 #, fuzzy
 #| msgid "Encryption password for %s"
 msgid "Encryption for %s"
-msgstr "%s 的加密密碼"
+msgstr "%s 的加密"
 
 #: src/lib/y2partitioner/actions/controllers/encryption.rb:134
 #, fuzzy
 #| msgid "Encryption"
 msgid "Modify encryption of %s"
-msgstr "加密"
+msgstr "修改 %s 的加密"
 
 #: src/lib/y2partitioner/actions/controllers/encryption.rb:136
 #, fuzzy
 #| msgid "Encrypted: %1"
 msgid "Encrypt %s"
-msgstr "已加密：%1"
+msgstr "加密 %s"
 
 #. TRANSLATORS: %{mount_points} is replaced by a list of mount points, please
 #. do not modify it.
@@ -2118,6 +2118,14 @@ msgid ""
 "across multiple devices for performance. Btrfs requires a minimum of five "
 "devices to use RAID10</li></ul></p>"
 msgstr ""
+"<h4><b>Btrfs RAID 層級</b></h4><p>Btrfs 針對資料和中繼資料支援以下 RAID "
+"層級：<ul><li><b>DUP：</b>在同一部裝置上將每份資料都儲存為兩份。這與 RAID1 "
+"很相似，可以防止該裝置出現區塊層級的錯誤，但沒有對裝置整體故障提供任何保障。只有一部裝置就可以使用 UDP。</li><li><b>SINGLE：</b>"
+" 每份資料只儲存一個副本。Btrfs 要求至少一部裝置即可使用 "
+"SINGLE。</li><li><b>RAID0：</b>不提供任何錯誤復原，但將一份資料跨多部裝置儲存以提升效能。Btrfs 需要至少兩部裝置才能使用 "
+"RAID0。</li><li><b>RAID1：</b>將每份資料均儲存為兩個完整副本。每個副本儲存在不同裝置上。Btrfs 要求至少兩部裝置才能使用 "
+"RAID1。</li><li><b>RAID10：</b>將每份資料儲存為兩個完整副本，並將每個副本跨多部裝置儲存以提升效能。Btrfs "
+"需要最少五部裝置才能使用 RAID10</li></ul></p>"
 
 #. TRANSLATORS: help text
 #: src/lib/y2partitioner/widgets/btrfs_devices.rb:149
@@ -2128,21 +2136,23 @@ msgid ""
 "will distinguish between rotational or not-rotational devices to choose the "
 "default value.</p>"
 msgstr ""
+"<p>當使用預設 RAID 層級時，Btrfs 將依據檔案系統是建立在多部裝置上還是僅使用一部裝置，來選取一個 RAID 層級。對於單裝置 "
+"Btrfs，該工具也會區別旋轉裝置和非旋轉裝置來選擇預設值。</p>"
 
 #. TRANSLATORS: error message
 #: src/lib/y2partitioner/widgets/btrfs_devices.rb:169
 msgid "RAID levels do not match the amount of selected devices."
-msgstr ""
+msgstr "RAID 層級與所選裝置的數量不符。"
 
 #. TRANSLATORS: error message
 #: src/lib/y2partitioner/widgets/btrfs_devices.rb:172
 msgid "The RAID level does not match the amount of selected devices."
-msgstr ""
+msgstr "該 RAID 層級與所選裝置的數量不符。"
 
 #. TRANSLATORS: error message
 #: src/lib/y2partitioner/widgets/btrfs_devices.rb:175
 msgid "The metadata RAID level does not match the amount of selected devices."
-msgstr ""
+msgstr "該中繼資料 RAID 層級與所選裝置的數量不符。"
 
 #. TRANSLATORS: error message, where %{error_by} is replaced by an initial sentence.
 #: src/lib/y2partitioner/widgets/btrfs_devices.rb:180
@@ -2150,6 +2160,8 @@ msgid ""
 "%{error_by}\n"
 "Modify the list of devices or adjust the RAID levels."
 msgstr ""
+"%{error_by}\n"
+"請修改裝置清單或調整 RAID 層級。"
 
 #. TRANSLATORS: error message, where %{data} is replaced by "data" or "metadata" and %{levels} is
 #. replaced by a list of raid levels separated by comma (e.g., "RAID1, RAID10").
@@ -2158,6 +2170,8 @@ msgid ""
 "According to the selected devices, only the following %{data}\n"
 "RAID levels can be used: %{levels}."
 msgstr ""
+"根據所選裝置，只能使用以下 %{data}\n"
+"RAID 層級：%{levels}。"
 
 #. TRANSLATORS: help text, where %{label} is a widget label
 #: src/lib/y2partitioner/widgets/btrfs_devices_selector.rb:107
@@ -2171,7 +2185,7 @@ msgstr "<p>變更 Btrfs 磁碟區使用的裝置。</p>"
 #. TRANSLATORS: help text, where %{label} is a widget label
 #: src/lib/y2partitioner/widgets/btrfs_devices_selector.rb:118
 msgid "<p><b>%{label}</b> Devices selected to be part of the Btrfs.</p>"
-msgstr ""
+msgstr "<p><b>%{label}</b> 選取用於組成 Btrfs 的一部分的裝置。</p>"
 
 #. TRANSLATORS: Error message when no device is selected
 #. TRANSLATORS: Error message when no device is selected
@@ -2183,7 +2197,7 @@ msgstr "請至少選取一個裝置。"
 #. TRANSLATORS: label of a table column
 #: src/lib/y2partitioner/widgets/btrfs_filesystems_table.rb:53
 msgid "Id"
-msgstr ""
+msgstr "ID"
 
 #. TRANSLATORS: label of a table column
 #: src/lib/y2partitioner/widgets/btrfs_filesystems_table.rb:69
@@ -2209,7 +2223,7 @@ msgstr "RAID 等級"
 #. TRANSLATORS: widget help, where %{label} is replaced by the label of the widget.
 #: src/lib/y2partitioner/widgets/btrfs_metadata_raid_level.rb:45
 msgid "<p><b>%{label}:</b> RAID level for the Btrfs metadata.</p>"
-msgstr ""
+msgstr "<p><b>%{label}：</b>Btrfs 中繼資料的 RAID 層級。</p>"
 
 #. @see DeviceMenuButton#actions
 #.
@@ -2680,7 +2694,7 @@ msgstr "編輯硬碟..."
 #. @macro seeCustomWidget
 #: src/lib/y2partitioner/widgets/encrypt.rb:93
 msgid "<p>%{header}</p><ul>%{content}</ul>"
-msgstr ""
+msgstr "<p>%{header}</p><ul>%{content}</ul>"
 
 #. The introductory help text
 #.
@@ -2703,6 +2717,8 @@ msgid ""
 "<p><b>%{label}</b>: allows to encrypt the device using LUKS1 (Linux Unified "
 "Key Setup). You have to provide the encryption password.</p>"
 msgstr ""
+"<p><b>%{label}</b>：可用於透過 LUKS1 (Linux Unified Key Setup，Linux 統一金鑰設定) "
+"加密裝置。您必須提供加密密碼。</p>"
 
 #. TRANSLATORS: Pervasive encryption terminology. For the English version see
 #. https://www.ibm.com/support/knowledgecenter/linuxonibm/liaaf/lnz_r_crypt.html
@@ -2716,6 +2732,9 @@ msgid ""
 "provide an encryption password that will be used to protect the access to "
 "that master key.</p>"
 msgstr ""
+"<p><b>%{label}</b>: 用於透過 LUKS2 加密裝置，並使用由 Crypto Express 加密副處理器在 CCA 模式下處理得到的主"
+"要安全金鑰。</p><p>如果加密系統中已經有一個與此磁碟區關聯的安全金鑰，則使用該金鑰。否則，將產生一個新的安全金鑰，並將其註冊到系統中。您需要提供一個"
+"用來保護對該主要金鑰的存取的加密密碼。</p>"
 
 #. TRANSLATORS: help text for Random Swap encryption method.
 #: src/lib/y2partitioner/widgets/encrypt.rb:201
@@ -2739,6 +2758,13 @@ msgid ""
 "only use encryption with volatile keys if you are sure about the "
 "implications.</p>"
 msgstr ""
+"<p><b>%{label}</b>：此加密方式使用在系統開機時隨機產生的金鑰，且不支援休眠到硬碟。每次開機均會重新加密交換裝置，且之前的內容會損毀。您應"
+"當透過相應的直流電源管理公用程式停用休眠，並將其設定為「極低電量時關機」來防止資料遺失！</p><p>請注意，每次重新加密交換裝置後，其檔案系統的標籤和 "
+"UUID 均會變更，因此你不應當透過指定檔案系統標籤和 UUID 的方式來掛接隨機加密的交換裝置。</p><p>另外，請確定在 /etc/"
+"crypttab 檔案中指定了該交換裝置的穩定名稱，且該名稱不會在每次系統重新開機時變更。例如，對於交換分割區，更安全的做法是使用 udev 的裝置 "
+"id 或者路徑，而不是分割區的裝置名稱，因為該裝置名稱在下次開機時可能會指定給其他分割區。如果出現這樣的情況，就會加密錯誤的裝置，而不是您的交換裝置！</"
+"p><p>YaST 會嘗試在 /etc/crypttab 中使用穩定的名稱，除非它設定為一律使用裝置名稱 (請參閱「磁碟分割程式」的「設定」區段)。但是，"
+"對於某些裝置，可能找不到其完全穩定的名稱。如果您完全理解上述隨機加密方法可能產生的影響，應當僅使用可變金鑰進行加密。</p>"
 
 #. TRANSLATORS: help text for encryption method with protected keys for z Systems. See
 #. https://www.ibm.com/support/knowledgecenter/en/linuxonibm/com.ibm.linux.z.lxdc/
@@ -2750,6 +2776,8 @@ msgid ""
 "This is an improvement over %{random_swap_label} method and all "
 "considerations for such method still apply.</p>"
 msgstr ""
+"<p><b>%{label}</b>：此加密方式使用可變型受保護 AES 金鑰來加密交換裝置 (不需要加密副處理器)。這種方式改進了 "
+"%{random_swap_label} 方式，並且針對後者的所有考慮均繼續適用。</p>"
 
 #. TRANSLATORS: help for encryption method with secure keys for z Systems. See
 #. https://www.ibm.com/support/knowledgecenter/en/linuxonibm/com.ibm.linux.z.lxdc/
@@ -2761,6 +2789,8 @@ msgid ""
 "This is an improvement over %{random_swap_label} method and all "
 "considerations for such method still apply.</p>"
 msgstr ""
+"<p><b>%{label}</b>：此加密方式使用可變型安全 AES 金鑰 (透過加密副處理器產生) 來加密交換裝置。這種方式改進了 "
+"%{random_swap_label} 方式，並且針對後者的所有考慮均繼續適用。</p>"
 
 #. @macro seeAbstractWidget
 #: src/lib/y2partitioner/widgets/encrypt_method.rb:49
@@ -2780,6 +2810,13 @@ msgid ""
 "\n"
 "Please, read Help for more information."
 msgstr ""
+"注意：使用隨機產生的金鑰加密交換裝置時，\n"
+"系統不能休眠。\n"
+"\n"
+"此外，使用此方式加密某些類型的裝置可能\n"
+"會產生一定程度的資料遺失風險。\n"
+"\n"
+"請閱讀「說明」以獲取詳細資訊。"
 
 #. @macro seeCustomWidget
 #: src/lib/y2partitioner/widgets/encrypt_password.rb:72
@@ -3534,7 +3571,7 @@ msgstr "<b>「Btrfs 裝置」</b>顯示 Btrfs 檔案系統使用的裝置核心�
 
 #: src/lib/y2partitioner/widgets/help.rb:152
 msgid "<b>Metadata RAID Level</b> shows the RAID level for the Btrfs metadata."
-msgstr ""
+msgstr "<b>中繼資料 RAID 層級</b>顯示 Btrfs 中繼資料的 RAID 層級。"
 
 #: src/lib/y2partitioner/widgets/help.rb:155
 #, fuzzy
@@ -3554,7 +3591,7 @@ msgstr ""
 
 #: src/lib/y2partitioner/widgets/help.rb:159
 msgid "<b>Remote Directory</b> the directory on the NFS server."
-msgstr ""
+msgstr "<b>遠端目錄</b> NFS 伺服器上的目錄。"
 
 #: src/lib/y2partitioner/widgets/help.rb:161
 #, fuzzy
@@ -3576,7 +3613,7 @@ msgstr "<b>「FS 類型」</b>顯示檔案系統類型。"
 
 #: src/lib/y2partitioner/widgets/help.rb:166
 msgid "<b>Options</b> Mount options. See also \"man 5 nfs\"."
-msgstr ""
+msgstr "<b>選項</b>掛接選項。另請參閱「man 5 nfs」。"
 
 #: src/lib/y2partitioner/widgets/help.rb:169
 msgid ""
@@ -3916,7 +3953,7 @@ msgstr ""
 
 #: src/lib/y2partitioner/widgets/mkfs_optiondata.rb:188
 msgid "Block size bigger than page size."
-msgstr ""
+msgstr "區塊大小大於頁面大小。"
 
 #. help text, richtext format
 #: src/lib/y2partitioner/widgets/mkfs_optiondata.rb:193
@@ -4401,19 +4438,19 @@ msgstr "建立分割計畫時出現問題：%s"
 #. 'luks1' or 'random_swap').
 #: src/lib/y2storage/autoinst_issues/invalid_encryption.rb:75
 msgid "Encryption method '%{crypt_method}' is not available in this system."
-msgstr ""
+msgstr "此系統上無法使用加密方式「%{crypt_method}」。"
 
 #. TRANSLATORS: 'crypt_method' is the name of the method to encrypt the device (like
 #. 'luks1' or 'random_swap').
 #: src/lib/y2storage/autoinst_issues/invalid_encryption.rb:82
 msgid "'%{crypt_method}' is not a known encryption method."
-msgstr ""
+msgstr "「%{crypt_method}」不是已知的加密方式。"
 
 #. TRANSLATORS: 'crypt_method' is the name of the method to encrypt the device (like
 #. 'luks1' or 'random_swap').
 #: src/lib/y2storage/autoinst_issues/invalid_encryption.rb:89
 msgid "'%{crypt_method}' is not a suitable method to encrypt the device."
-msgstr ""
+msgstr "「%{crypt_method}」加密方式不適合用來加密該裝置。"
 
 #. TRANSLATORS: 'value' is a generic value (number or string) 'attr' is an AutoYaST element
 #. name; 'new_value_message' is a short explanation about what should be done with the value.
@@ -4589,7 +4626,7 @@ msgstr "快取集 (%s)"
 msgid ""
 "The boot loader cannot access the file system mounted at /boot. Only LUKS1 "
 "encryption is supported."
-msgstr ""
+msgstr "開機載入程式無法存取在 /boot 中掛接的檔案系統。僅支援 LUKS1 加密。"
 
 #. All fatal boot errors detected in the setup, for example, when a / partition
 #. is missing
@@ -4725,12 +4762,12 @@ msgstr "預設"
 #. TRANSLATORS: this is one of the RAID modes used by Btrfs, likely to be left as-is
 #: src/lib/y2storage/btrfs_raid_level.rb:40
 msgid "SINGLE"
-msgstr ""
+msgstr "SINGLE"
 
 #. TRANSLATORS: this is one of the RAID modes used by Btrfs, likely to be left as-is
 #: src/lib/y2storage/btrfs_raid_level.rb:42
 msgid "DUP"
-msgstr ""
+msgstr "DUP"
 
 #: src/lib/y2storage/btrfs_raid_level.rb:43 src/lib/y2storage/md_level.rb:35
 msgid "RAID0"
@@ -4809,6 +4846,9 @@ msgid ""
 "\n"
 "Please, make sure you are entering the correct password."
 msgstr ""
+"無法啟用加密的磁碟區 (嘗試次數 %{attempt})。\n"
+"\n"
+"請確定您輸入了正確的密碼。"
 
 #. Callback to ask the user whether to retry or abort when the storage lock
 #. cannot be acquired.
@@ -5036,6 +5076,9 @@ msgid ""
 "If you have executed a snapshot rollback, please reboot your system before "
 "continuing."
 msgstr ""
+"\n"
+"\n"
+"如果您已執行快照復原，請先將系統重新開機再繼續。"
 
 #. Constructor
 #.
@@ -5069,7 +5112,7 @@ msgstr "設備名稱"
 #. TRANSLATORS: %{uuid} is replaced by a device UUID (e.g., 111-2222-33333)
 #: src/lib/y2storage/dialogs/callbacks/activate_luks.rb:109
 msgid "LUKS UUID: %{uuid}"
-msgstr ""
+msgstr "LUKS UUID：%{uuid}"
 
 #: src/lib/y2storage/dialogs/callbacks/activate_luks.rb:113
 msgid ""
@@ -5361,7 +5404,7 @@ msgstr "啟用磁碟加密"
 #. TRANSLATORS: label for the widget that allows to use separated volume groups
 #: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:37
 msgid "Use Separate LVM Volume Groups for Some Special Paths"
-msgstr ""
+msgstr "對某些特殊路徑使用不同的 LVM 磁碟區群組"
 
 #. @return [EncryptPasswordChecker]
 #: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:77
@@ -5385,6 +5428,8 @@ msgid ""
 "%{widget_label}\n"
 "(%{paths})"
 msgstr ""
+"%{widget_label}\n"
+"(%{paths})"
 
 #: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:133
 msgid "Password"
@@ -5445,7 +5490,7 @@ msgstr ""
 msgid ""
 "<p><b>%{widget_label}:</b> indicates to the <i>Guided Setup</i> that you "
 "want to put some of those special paths in an isolated Volume Group.</p>"
-msgstr ""
+msgstr "<p><b>%{widget_label}：</b>在<i>引導設定</i>中表示您想將某些特殊路徑放到隔離的磁碟區群組中。</p>"
 
 #. User has the last word to decide whether to use a weak password.
 #: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:247
@@ -5457,7 +5502,7 @@ msgstr "確定要使用此密碼嗎？"
 msgid ""
 "Select the desired disk to allocate each volume, volume group, and/or "
 "partition."
-msgstr ""
+msgstr "選取所需磁碟以配置每個磁碟區、磁碟區群組和/或分割區。"
 
 #. Widget term for the title of the volume in case it's always
 #. proposed
@@ -5465,7 +5510,7 @@ msgstr ""
 #. @return [Yast::Term]
 #: src/lib/y2storage/dialogs/guided_setup/widgets/disk_selector.rb:122
 msgid "Disk for the system LVM"
-msgstr ""
+msgstr "系統 LVM 的磁碟"
 
 #. TRANSLATORS: %{vg_name} is the volume group name (e.g. vg-spacewalk)
 #: src/lib/y2storage/dialogs/guided_setup/widgets/disk_selector.rb:125
@@ -5541,6 +5586,8 @@ msgid ""
 "modify (keep them as they are)</li><li>Remove if needed</li><li>Remove even "
 "if not needed (always remove)</li></ul></p>"
 msgstr ""
+"<p>您可以選擇如何處理現有分割區：</p><p><ul><li>不修改 (原封不動)</li><li>視需要移除</li><li>不需要也移除 "
+"(一律移除)</li></ul></p>"
 
 #: src/lib/y2storage/dialogs/guided_setup/widgets/partition_actions.rb:110
 #, fuzzy
@@ -5766,7 +5813,7 @@ msgstr ""
 #. device using LUKS1
 #: src/lib/y2storage/encryption_method/luks1.rb:30
 msgid "Regular LUKS1"
-msgstr ""
+msgstr "一般 LUKS1"
 
 #. Cipher used for pervasive encryption
 #: src/lib/y2storage/encryption_method/pervasive_luks2.rb:36
@@ -5778,17 +5825,17 @@ msgstr "加密"
 #. Encryption swap method (see {Swap}) for z Systems to encrypt a device by using protected keys
 #: src/lib/y2storage/encryption_method/protected_swap.rb:37
 msgid "Encryption with Volatile Protected Key"
-msgstr ""
+msgstr "使用可變受保護金鑰加密"
 
 #. Encryption swap method (see {Swap}) to encrypt a device by using a random password
 #: src/lib/y2storage/encryption_method/random_swap.rb:31
 msgid "Encryption with Volatile Random Key"
-msgstr ""
+msgstr "使用可變隨機金鑰加密"
 
 #. Encryption swap process (see {Swap}) for z Systems to encrypt a device by using secure keys
 #: src/lib/y2storage/encryption_method/secure_swap.rb:38
 msgid "Encryption with Volatile Secure Key"
-msgstr ""
+msgstr "使用可變安全金鑰加密"
 
 #. Class to represent all the possible encryption types implemented by libstorage
 #.
@@ -5828,23 +5875,23 @@ msgstr "加密"
 
 #: src/lib/y2storage/encryption_type.rb:58
 msgid "Twofish"
-msgstr ""
+msgstr "Twofish"
 
 #: src/lib/y2storage/encryption_type.rb:59
 msgid "Old Twofish (loop_fish2)"
-msgstr ""
+msgstr "舊版 Twofish (loop_fish2)"
 
 #: src/lib/y2storage/encryption_type.rb:60
 msgid "Old Twofish (loop_fish2) 256-bit"
-msgstr ""
+msgstr "舊版 Twofish (loop_fish2) 256 位元"
 
 #: src/lib/y2storage/encryption_type.rb:61
 msgid "LUKS1"
-msgstr ""
+msgstr "LUKS1"
 
 #: src/lib/y2storage/encryption_type.rb:62
 msgid "LUKS2"
-msgstr ""
+msgstr "LUKS2"
 
 #: src/lib/y2storage/encryption_type.rb:63
 #, fuzzy
@@ -5864,7 +5911,7 @@ msgstr "Btrfs %{basename}"
 #. a number (e.g., "2") and %{name} is replaced by a device representation (e.g., "(sda1...)").
 #: src/lib/y2storage/filesystems/btrfs.rb:506
 msgid "Btrfs over %{num_devices} devices %{name}"
-msgstr ""
+msgstr "Btrfs 部署在 %{num_devices} 部裝置 %{name} 上"
 
 #. TRANSLATORS: display name when the PV has no associated VG, where %{device} is replaced by a
 #. device name (e.g., "/dev/sda1").
