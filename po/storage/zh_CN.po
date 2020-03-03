@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: storage\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-02-21 02:29+0000\n"
+"POT-Creation-Date: 2020-03-03 02:29+0000\n"
 "PO-Revision-Date: 2020-02-17 02:54+0000\n"
 "Last-Translator: Grace Yu <grace.yu@excel-gits.com>\n"
 "Language-Team: Chinese (China) <https://l10n.opensuse.org/projects/yast-"
@@ -150,15 +150,15 @@ msgstr "输入了无效的区域，请增加尺寸或对齐起始位置。"
 #. Title to display in the dialog during the process
 #.
 #. @return [String]
-#: src/lib/y2partitioner/actions/controllers/encryption.rb:132
+#: src/lib/y2partitioner/actions/controllers/encryption.rb:185
 msgid "Encryption for %s"
 msgstr "正在加密 %s"
 
-#: src/lib/y2partitioner/actions/controllers/encryption.rb:134
+#: src/lib/y2partitioner/actions/controllers/encryption.rb:187
 msgid "Modify encryption of %s"
 msgstr "修改 %s 的加密方式"
 
-#: src/lib/y2partitioner/actions/controllers/encryption.rb:136
+#: src/lib/y2partitioner/actions/controllers/encryption.rb:189
 msgid "Encrypt %s"
 msgstr "加密 %s"
 
@@ -1722,6 +1722,13 @@ msgid ""
 "The system cannot be installed because the following errors were found:\n"
 msgstr "系统无法安装，因为发现以下错误：\n"
 
+#. @return [String]
+#: src/lib/y2partitioner/widgets/apqn_selector.rb:41
+#, fuzzy
+#| msgid "Available Size:"
+msgid "Available APQNs:"
+msgstr "可用大小："
+
 #. TRANSLATORS: button label to add a new Bcache device
 #: src/lib/y2partitioner/widgets/bcache_add_button.rb:39
 msgid "Add Bcache..."
@@ -2649,6 +2656,15 @@ msgstr ""
 #. TRANSLATORS: Pervasive encryption terminology. For the English version see
 #. https://www.ibm.com/support/knowledgecenter/linuxonibm/liaaf/lnz_r_crypt.html
 #: src/lib/y2partitioner/widgets/encrypt.rb:183
+#, fuzzy
+#| msgid ""
+#| "<p><b>%{label}</b>: allows to encrypt the device using LUKS2 with a "
+#| "master secure key processed by a Crypto Express cryptographic coprocessor "
+#| "configured in CCA mode.</p><p>If the cryptographic system already "
+#| "contains a secure key associated to this volume, that key will be used. "
+#| "Otherwise, a new secure key will be generated and registered in the "
+#| "system. You need to provide an encryption password that will be used to "
+#| "protect the access to that master key.</p>"
 msgid ""
 "<p><b>%{label}</b>: allows to encrypt the device using LUKS2 with a master "
 "secure key processed by a Crypto Express cryptographic coprocessor "
@@ -2656,7 +2672,8 @@ msgid ""
 "secure key associated to this volume, that key will be used. Otherwise, a "
 "new secure key will be generated and registered in the system. You need to "
 "provide an encryption password that will be used to protect the access to "
-"that master key.</p>"
+"that master key. Moreover, when there are several APQNs in the system, you "
+"can select which ones to use.</p>"
 msgstr ""
 "<p><b>%{label}</b>: 用 LUKS2 加密设备，使用由 Crypto Express 加密协处理器在 "
 "CCA 模式下处理得到的主安全密钥。</p><p>如果加密系统中已经有一个与该卷关联的安"
@@ -2664,7 +2681,7 @@ msgstr ""
 "要提供一个用来保护该主密钥的加密密码。</p>"
 
 #. TRANSLATORS: help text for Random Swap encryption method.
-#: src/lib/y2partitioner/widgets/encrypt.rb:201
+#: src/lib/y2partitioner/widgets/encrypt.rb:202
 msgid ""
 "<p><b>%{label}</b>: this encryption method uses randomly generated keys at "
 "boot and it will not support Hibernation to hard disk. The swap device is re-"
@@ -2702,7 +2719,7 @@ msgstr ""
 #. TRANSLATORS: help text for encryption method with protected keys for z Systems. See
 #. https://www.ibm.com/support/knowledgecenter/en/linuxonibm/com.ibm.linux.z.lxdc/
 #. lxdc_swapdisks_scenario.html
-#: src/lib/y2partitioner/widgets/encrypt.rb:234
+#: src/lib/y2partitioner/widgets/encrypt.rb:235
 msgid ""
 "<p><b>%{label}</b>: this encryption method uses a volatile protected AES key "
 "(without requiring a cryptographic co-processor) to encrypt a swap device. "
@@ -2716,7 +2733,7 @@ msgstr ""
 #. TRANSLATORS: help for encryption method with secure keys for z Systems. See
 #. https://www.ibm.com/support/knowledgecenter/en/linuxonibm/com.ibm.linux.z.lxdc/
 #. lxdc_swapdisks_scenario.html
-#: src/lib/y2partitioner/widgets/encrypt.rb:254
+#: src/lib/y2partitioner/widgets/encrypt.rb:255
 msgid ""
 "<p><b>%{label}</b>: this encryption method uses a volatile secure AES key "
 "(generated from a cryptographic co-processor) for encrypting a swap device. "
@@ -2733,7 +2750,7 @@ msgid "Encryption method"
 msgstr "加密方式"
 
 #. @macro seeCustomWidget
-#: src/lib/y2partitioner/widgets/encrypt_method_options.rb:103
+#: src/lib/y2partitioner/widgets/encrypt_method_options.rb:107
 msgid ""
 "Be careful: the system cannot hibernate when\n"
 "encrypting swap with randomly generated keys.\n"
@@ -2750,6 +2767,31 @@ msgstr ""
 "的风险。\n"
 "\n"
 "请务必阅读“帮助”，以了解更多信息。"
+
+#. Checks whether the secure key can be generated
+#.
+#. An error is reported to the user when the secure key cannot be generated.
+#.
+#. @return [Boolean]
+#: src/lib/y2partitioner/widgets/encrypt_method_options.rb:241
+#, fuzzy
+#| msgid "This device cannot be resized:"
+msgid "The secure key cannot be generated.\n"
+msgstr "此设备无法调整大小："
+
+#: src/lib/y2partitioner/widgets/encrypt_method_options.rb:244
+msgid ""
+"Make sure that all selected APQNs are configured with the same master key."
+msgstr ""
+
+#: src/lib/y2partitioner/widgets/encrypt_method_options.rb:246
+msgid "Make sure that the selected APQN is configured with a master key."
+msgstr ""
+
+#: src/lib/y2partitioner/widgets/encrypt_method_options.rb:248
+msgid ""
+"Make sure that all available APQNs are configured with the same master key."
+msgstr ""
 
 #. @macro seeCustomWidget
 #: src/lib/y2partitioner/widgets/encrypt_password.rb:72
@@ -5587,7 +5629,7 @@ msgid "Regular LUKS1"
 msgstr "常规 LUKS1"
 
 #. Cipher used for pervasive encryption
-#: src/lib/y2storage/encryption_method/pervasive_luks2.rb:36
+#: src/lib/y2storage/encryption_method/pervasive_luks2.rb:37
 msgid "Pervasive Volume Encryption"
 msgstr "普遍加密（Pervasive Volume Encryption）"
 
@@ -11773,9 +11815,6 @@ msgstr "未知原因"
 
 #~ msgid "A&dd group"
 #~ msgstr "添加组(&D)"
-
-#~ msgid "Available Size:"
-#~ msgstr "可用大小："
 
 #~ msgid "V&olume Group"
 #~ msgstr "卷组(&O)"

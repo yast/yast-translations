@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: storage-ng.ko\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-02-21 02:29+0000\n"
+"POT-Creation-Date: 2020-03-03 02:29+0000\n"
 "PO-Revision-Date: 2019-03-21 11:20+0000\n"
 "Last-Translator: Hwajin Kim <hwajin.kim@e4net.net>\n"
 "Language-Team: Korean <https://l10n.opensuse.org/projects/yast-storage/"
@@ -164,20 +164,20 @@ msgstr "입력한 지역이 잘못되었습니다. 크기를 늘리거나 시작
 #. Title to display in the dialog during the process
 #.
 #. @return [String]
-#: src/lib/y2partitioner/actions/controllers/encryption.rb:132
+#: src/lib/y2partitioner/actions/controllers/encryption.rb:185
 #, fuzzy
 #| msgid "Encryption password for %s"
 msgid "Encryption for %s"
 msgstr "%s에 대한 암호화 비밀번호"
 
 # Text entry label
-#: src/lib/y2partitioner/actions/controllers/encryption.rb:134
+#: src/lib/y2partitioner/actions/controllers/encryption.rb:187
 #, fuzzy
 #| msgid "Encryption"
 msgid "Modify encryption of %s"
 msgstr "암호화"
 
-#: src/lib/y2partitioner/actions/controllers/encryption.rb:136
+#: src/lib/y2partitioner/actions/controllers/encryption.rb:189
 #, fuzzy
 #| msgid "Encrypted: %1"
 msgid "Encrypt %s"
@@ -1841,6 +1841,14 @@ msgid ""
 "The system cannot be installed because the following errors were found:\n"
 msgstr "다음 오류가 발견되어 시스템이 제대로 작동하지 않습니다.\n"
 
+# Headline
+#. @return [String]
+#: src/lib/y2partitioner/widgets/apqn_selector.rb:41
+#, fuzzy
+#| msgid "Available Devices:"
+msgid "Available APQNs:"
+msgstr "사용 가능한 장치:"
+
 #. TRANSLATORS: button label to add a new Bcache device
 #: src/lib/y2partitioner/widgets/bcache_add_button.rb:39
 msgid "Add Bcache..."
@@ -2856,11 +2864,12 @@ msgid ""
 "secure key associated to this volume, that key will be used. Otherwise, a "
 "new secure key will be generated and registered in the system. You need to "
 "provide an encryption password that will be used to protect the access to "
-"that master key.</p>"
+"that master key. Moreover, when there are several APQNs in the system, you "
+"can select which ones to use.</p>"
 msgstr ""
 
 #. TRANSLATORS: help text for Random Swap encryption method.
-#: src/lib/y2partitioner/widgets/encrypt.rb:201
+#: src/lib/y2partitioner/widgets/encrypt.rb:202
 msgid ""
 "<p><b>%{label}</b>: this encryption method uses randomly generated keys at "
 "boot and it will not support Hibernation to hard disk. The swap device is re-"
@@ -2885,7 +2894,7 @@ msgstr ""
 #. TRANSLATORS: help text for encryption method with protected keys for z Systems. See
 #. https://www.ibm.com/support/knowledgecenter/en/linuxonibm/com.ibm.linux.z.lxdc/
 #. lxdc_swapdisks_scenario.html
-#: src/lib/y2partitioner/widgets/encrypt.rb:234
+#: src/lib/y2partitioner/widgets/encrypt.rb:235
 msgid ""
 "<p><b>%{label}</b>: this encryption method uses a volatile protected AES key "
 "(without requiring a cryptographic co-processor) to encrypt a swap device. "
@@ -2896,7 +2905,7 @@ msgstr ""
 #. TRANSLATORS: help for encryption method with secure keys for z Systems. See
 #. https://www.ibm.com/support/knowledgecenter/en/linuxonibm/com.ibm.linux.z.lxdc/
 #. lxdc_swapdisks_scenario.html
-#: src/lib/y2partitioner/widgets/encrypt.rb:254
+#: src/lib/y2partitioner/widgets/encrypt.rb:255
 msgid ""
 "<p><b>%{label}</b>: this encryption method uses a volatile secure AES key "
 "(generated from a cryptographic co-processor) for encrypting a swap device. "
@@ -2912,7 +2921,7 @@ msgid "Encryption method"
 msgstr "암호화 비밀번호"
 
 #. @macro seeCustomWidget
-#: src/lib/y2partitioner/widgets/encrypt_method_options.rb:103
+#: src/lib/y2partitioner/widgets/encrypt_method_options.rb:107
 msgid ""
 "Be careful: the system cannot hibernate when\n"
 "encrypting swap with randomly generated keys.\n"
@@ -2921,6 +2930,31 @@ msgid ""
 "may imply a certain risk of loosing data.\n"
 "\n"
 "Please, read Help for more information."
+msgstr ""
+
+#. Checks whether the secure key can be generated
+#.
+#. An error is reported to the user when the secure key cannot be generated.
+#.
+#. @return [Boolean]
+#: src/lib/y2partitioner/widgets/encrypt_method_options.rb:241
+#, fuzzy
+#| msgid "This device cannot be resized:"
+msgid "The secure key cannot be generated.\n"
+msgstr "이 장치는 크기를 조정할 수 없습니다."
+
+#: src/lib/y2partitioner/widgets/encrypt_method_options.rb:244
+msgid ""
+"Make sure that all selected APQNs are configured with the same master key."
+msgstr ""
+
+#: src/lib/y2partitioner/widgets/encrypt_method_options.rb:246
+msgid "Make sure that the selected APQN is configured with a master key."
+msgstr ""
+
+#: src/lib/y2partitioner/widgets/encrypt_method_options.rb:248
+msgid ""
+"Make sure that all available APQNs are configured with the same master key."
 msgstr ""
 
 #. @macro seeCustomWidget
@@ -6060,7 +6094,7 @@ msgstr ""
 
 # Text entry label
 #. Cipher used for pervasive encryption
-#: src/lib/y2storage/encryption_method/pervasive_luks2.rb:36
+#: src/lib/y2storage/encryption_method/pervasive_luks2.rb:37
 #, fuzzy
 #| msgid "Encryption"
 msgid "Pervasive Volume Encryption"
