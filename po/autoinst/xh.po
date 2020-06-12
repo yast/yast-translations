@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: autoinst\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-06-10 02:27+0000\n"
+"POT-Creation-Date: 2020-06-12 02:27+0000\n"
 "PO-Revision-Date: 2006-11-03 14:26\n"
 "Last-Translator: Novell Language <language@novell.com>\n"
 "Language-Team: Novell Language <language@novell.com>\n"
@@ -158,7 +158,7 @@ msgstr ""
 
 #. OPEN
 #: src/clients/files_auto.rb:265 src/include/autoinstall/conftree.rb:589
-#: src/include/autoinstall/script_dialogs.rb:371
+#: src/include/autoinstall/script_dialogs.rb:382
 msgid "Select a file to load."
 msgstr "Khetha ifayili yokulayisha."
 
@@ -271,12 +271,12 @@ msgstr "Kwenziwa ubumbeko %1"
 msgid "Not Configuring %1"
 msgstr "Akwenziwa Lubumbeko %1"
 
-#. online update
-#: src/clients/inst_autoconfigure.rb:289
+#. wonderful API without defaults
+#: src/clients/inst_autoconfigure.rb:288
 msgid "Executing Post-Scripts"
 msgstr "Kuqhutywa Izikripti Zamva"
 
-#: src/clients/inst_autoconfigure.rb:292
+#: src/clients/inst_autoconfigure.rb:291
 #, fuzzy
 #| msgid "Init Scripts"
 msgid "Writing Init-Scripts"
@@ -284,19 +284,19 @@ msgstr "Izikripti ze-Init"
 
 #. Do not restart NetworkManager* services
 #. bnc#955260
-#: src/clients/inst_autoconfigure.rb:316
+#: src/clients/inst_autoconfigure.rb:315
 #, fuzzy
 #| msgid "Restarting services"
 msgid "Restarting all running services"
 msgstr "Kuqaliswa iinkonzo kwakhona"
 
 #. Filtering out all services which must not to be restarted
-#: src/clients/inst_autoconfigure.rb:338
+#: src/clients/inst_autoconfigure.rb:337
 msgid "Activating systemd default target"
 msgstr ""
 
 #. Just in case, remove this file to avoid reconfiguring...
-#: src/clients/inst_autoconfigure.rb:352
+#: src/clients/inst_autoconfigure.rb:351
 msgid "Finishing Configuration"
 msgstr "Kugqitywa Ukwenziwa Kobumbeko"
 
@@ -304,7 +304,7 @@ msgstr "Kugqitywa Ukwenziwa Kobumbeko"
 #. Uses global variable 'current_step'.
 #.
 #. @param [String] step_descr description of the step.
-#: src/clients/inst_autoconfigure.rb:414
+#: src/clients/inst_autoconfigure.rb:413
 #, fuzzy, ycp-format
 msgid "Processing resource %1"
 msgstr "Kucikidwa umthombo %1"
@@ -1222,12 +1222,12 @@ msgid "OK"
 msgstr "&KULUNGILE"
 
 #: src/include/autoinstall/dialogs.rb:278
-#: src/include/autoinstall/script_dialogs.rb:244
+#: src/include/autoinstall/script_dialogs.rb:255
 msgid "Error"
 msgstr "Imposiso"
 
 #: src/include/autoinstall/dialogs.rb:279
-#: src/include/autoinstall/script_dialogs.rb:239
+#: src/include/autoinstall/script_dialogs.rb:250
 msgid "Warning"
 msgstr "Isilumkiso"
 
@@ -1683,21 +1683,20 @@ msgstr ""
 " njengokulungiselela.\n"
 " </p>\n"
 
-#. Script Configuration
-#. @return  script configuration dialog
-#: src/include/autoinstall/script_dialogs.rb:28
+#. init scripts does not have interpreter. Is it correct?
+#: src/include/autoinstall/script_dialogs.rb:29
 msgid "Available Scripts"
 msgstr "Izikripti Ezikhoyo"
 
-#: src/include/autoinstall/script_dialogs.rb:32
+#: src/include/autoinstall/script_dialogs.rb:33
 msgid "Script Name"
 msgstr "Igama Lesikripti"
 
-#: src/include/autoinstall/script_dialogs.rb:32
+#: src/include/autoinstall/script_dialogs.rb:33
 msgid "Type"
 msgstr "Uhlobo"
 
-#: src/include/autoinstall/script_dialogs.rb:32
+#: src/include/autoinstall/script_dialogs.rb:33
 msgid "Interpreter"
 msgstr "Itoliki"
 
@@ -1850,75 +1849,106 @@ msgstr "Umhleli Weskripti"
 msgid "&File Name"
 msgstr "&Igama Lefayili"
 
-#: src/include/autoinstall/script_dialogs.rb:152
+#: src/include/autoinstall/script_dialogs.rb:153
 msgid "&Interpreter"
 msgstr "&Itoliki"
 
-#: src/include/autoinstall/script_dialogs.rb:156
+#: src/include/autoinstall/script_dialogs.rb:157
 msgid "Perl"
 msgstr "i-Perl"
 
-#: src/include/autoinstall/script_dialogs.rb:161
+#: src/include/autoinstall/script_dialogs.rb:162
 msgid "Shell"
 msgstr "Itoliki yemiyalelo"
 
-#: src/include/autoinstall/script_dialogs.rb:166
+#: src/include/autoinstall/script_dialogs.rb:167
 msgid "Python"
 msgstr "i-Python"
 
-#: src/include/autoinstall/script_dialogs.rb:174
+#: src/include/autoinstall/script_dialogs.rb:175
 msgid "&Type"
 msgstr "&Uhlobo"
 
+#. TRANSLATORS: Pre installation script type
+#. TODO: move to script class
+#: src/include/autoinstall/script_dialogs.rb:180
+#: src/modules/AutoinstScripts.rb:228
+msgid "Pre"
+msgstr "Phambi"
+
+#. TRANSLATORS: Post partitioning installation script type
+#: src/include/autoinstall/script_dialogs.rb:186
+#, fuzzy
+msgid "PostPartitioning"
+msgstr "Ukwahlula"
+
+#. TRANSLATORS: Change root installation script type
+#: src/include/autoinstall/script_dialogs.rb:192
+#: src/modules/AutoinstScripts.rb:234
+msgid "Chroot"
+msgstr "i-Chroot"
+
+#. TRANSLATORS: Post installation script type
+#: src/include/autoinstall/script_dialogs.rb:198
+#: src/modules/AutoinstScripts.rb:230
+msgid "Post"
+msgstr "Emva"
+
+#. TRANSLATORS: Init system post installation script type
+#: src/include/autoinstall/script_dialogs.rb:204
+#: src/modules/AutoinstScripts.rb:232
+msgid "Init"
+msgstr "i-Init"
+
 #. a checkbox where you can choose if you want to see script-feedback output or not
-#: src/include/autoinstall/script_dialogs.rb:206
+#: src/include/autoinstall/script_dialogs.rb:217
 msgid "&Feedback"
 msgstr "&Ingxelo yomsebenzisi"
 
 #. a checkbox where you can choose if you want to see script-debug output or not
-#: src/include/autoinstall/script_dialogs.rb:212
+#: src/include/autoinstall/script_dialogs.rb:223
 msgid "&Debug"
 msgstr "&Cokisa"
 
-#: src/include/autoinstall/script_dialogs.rb:217
+#: src/include/autoinstall/script_dialogs.rb:228
 #, fuzzy
 msgid "&Chrooted"
 msgstr "i-Chroot"
 
 #. a checkbox where you can choose if you want to see script-feedback output or not
-#: src/include/autoinstall/script_dialogs.rb:225
+#: src/include/autoinstall/script_dialogs.rb:236
 #, fuzzy
 msgid "&Feedback Type"
 msgstr "&Ingxelo yomsebenzisi"
 
-#: src/include/autoinstall/script_dialogs.rb:229
+#: src/include/autoinstall/script_dialogs.rb:240
 msgid "none"
 msgstr "akukho nanye"
 
-#: src/include/autoinstall/script_dialogs.rb:234
+#: src/include/autoinstall/script_dialogs.rb:245
 #, fuzzy
 msgid "Message"
 msgstr "Imiyalezo"
 
-#: src/include/autoinstall/script_dialogs.rb:255
+#: src/include/autoinstall/script_dialogs.rb:266
 msgid "Text of the notification popup"
 msgstr ""
 
-#: src/include/autoinstall/script_dialogs.rb:263
+#: src/include/autoinstall/script_dialogs.rb:274
 #, fuzzy
 #| msgid "Printer &Location"
 msgid "Script Location"
 msgstr "Indawo &ye-Printer"
 
-#: src/include/autoinstall/script_dialogs.rb:271
+#: src/include/autoinstall/script_dialogs.rb:282
 msgid "S&cript Source"
 msgstr "Umthombo We&sikripti"
 
-#: src/include/autoinstall/script_dialogs.rb:278
+#: src/include/autoinstall/script_dialogs.rb:289
 msgid "&Load new source"
 msgstr "&Layisha umthombo omtsha"
 
-#: src/include/autoinstall/script_dialogs.rb:347
+#: src/include/autoinstall/script_dialogs.rb:358
 #, fuzzy
 #| msgid ""
 #| "Provide at least the script\n"
@@ -1932,7 +1962,7 @@ msgstr ""
 
 #. Main dialog
 #. @return [Symbol]
-#: src/include/autoinstall/script_dialogs.rb:438
+#: src/include/autoinstall/script_dialogs.rb:449
 msgid ""
 "<p>\n"
 "By adding scripts to the autoinstallation process, customize the "
@@ -1945,12 +1975,12 @@ msgstr ""
 " ukwenzela iimfuno zakho uze ulawule kumabakala ahlukahlukeneyo okuhlohla.</"
 "p>\n"
 
-#: src/include/autoinstall/script_dialogs.rb:444
+#: src/include/autoinstall/script_dialogs.rb:455
 msgid "User Script Management"
 msgstr "Ukuphathwa Kwesikrpti Somsebenzisi"
 
-#: src/include/autoinstall/script_dialogs.rb:464
-#: src/include/autoinstall/script_dialogs.rb:472
+#: src/include/autoinstall/script_dialogs.rb:475
+#: src/include/autoinstall/script_dialogs.rb:483
 msgid "Select a script first."
 msgstr "Khetha isikhululo kuqala."
 
@@ -2985,64 +3015,51 @@ msgid_plural "%s drives in total"
 msgstr[0] ""
 msgstr[1] ""
 
+#. check it only because after pre scripts it is reimport, resulting in multiple warnings
+#. so show warning only once
+#: src/modules/AutoinstScripts.rb:148
+msgid "Following scripts will overwrite each other:"
+msgstr ""
+
 #. Return Summary
 #. @return [String] summary
-#: src/modules/AutoinstScripts.rb:328
+#: src/modules/AutoinstScripts.rb:163
 msgid "Preinstallation Scripts"
 msgstr "Izikripti Zaphambi Kokuhlohla"
 
-#: src/modules/AutoinstScripts.rb:341
+#: src/modules/AutoinstScripts.rb:164
 msgid "Postinstallation Scripts"
 msgstr "Izikripti Zasemva Kokuhlohla"
 
-#: src/modules/AutoinstScripts.rb:354
+#: src/modules/AutoinstScripts.rb:165
 msgid "Chroot Scripts"
 msgstr "Izikripti ze-Chroot"
 
-#: src/modules/AutoinstScripts.rb:367
+#: src/modules/AutoinstScripts.rb:166
 msgid "Init Scripts"
 msgstr "Izikripti ze-Init"
 
-#: src/modules/AutoinstScripts.rb:380
+#: src/modules/AutoinstScripts.rb:167
 #, fuzzy
 msgid "Postpartitioning Scripts"
 msgstr "Izikripti Zasemva Kokuhlohla"
 
-#. return type of script as formatted string
-#. @param type [String] script type
-#. @return [String] type as translated string
-#: src/modules/AutoinstScripts.rb:462
-msgid "Pre"
-msgstr "Phambi"
-
-#: src/modules/AutoinstScripts.rb:464
-msgid "Post"
-msgstr "Emva"
-
-#: src/modules/AutoinstScripts.rb:466
-msgid "Init"
-msgstr "i-Init"
-
-#: src/modules/AutoinstScripts.rb:468
-msgid "Chroot"
-msgstr "i-Chroot"
-
-#: src/modules/AutoinstScripts.rb:470
+#: src/modules/AutoinstScripts.rb:236
 #, fuzzy
 msgid "Postpartitioning"
 msgstr "Ukwahlula"
 
-#: src/modules/AutoinstScripts.rb:473
+#: src/modules/AutoinstScripts.rb:239
 msgid "Unknown"
 msgstr "Akwaziwa"
 
-#. Execute pre scripts
-#. @param type [String] type of script
-#. @param special [Boolean] if script should be executed in chroot env.
-#. @return [Boolean] true on success
-#: src/modules/AutoinstScripts.rb:733
+#. show warning if script return non-zero and no feedback is want
+#: src/modules/AutoinstScripts.rb:292
+#, perl-brace-format
 msgid ""
-"Element param-list does not have config-type list specified. Skipping it."
+"User script %{script_name} failed.\n"
+"Details:\n"
+"%{output}"
 msgstr ""
 
 #. 4 means "already exists"

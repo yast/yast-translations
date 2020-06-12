@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: autoinst.ko\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-06-10 02:27+0000\n"
+"POT-Creation-Date: 2020-06-12 02:27+0000\n"
 "PO-Revision-Date: 2019-01-31 14:22+0000\n"
 "Last-Translator: Hwajin Kim <hwajin.kim@e4net.net>\n"
 "Language-Team: Korean <https://l10n.opensuse.org/projects/yast-autoinst/"
@@ -158,7 +158,7 @@ msgstr ""
 
 #. OPEN
 #: src/clients/files_auto.rb:265 src/include/autoinstall/conftree.rb:589
-#: src/include/autoinstall/script_dialogs.rb:371
+#: src/include/autoinstall/script_dialogs.rb:382
 msgid "Select a file to load."
 msgstr "로드할 파일을 선택합니다."
 
@@ -274,30 +274,30 @@ msgstr "%1 구성"
 msgid "Not Configuring %1"
 msgstr "%1 구성 안 함"
 
-#. online update
-#: src/clients/inst_autoconfigure.rb:289
+#. wonderful API without defaults
+#: src/clients/inst_autoconfigure.rb:288
 msgid "Executing Post-Scripts"
 msgstr "후행-스크립트 실행 중"
 
-#: src/clients/inst_autoconfigure.rb:292
+#: src/clients/inst_autoconfigure.rb:291
 msgid "Writing Init-Scripts"
 msgstr "초기 스크립트 작성 중"
 
 #. Do not restart NetworkManager* services
 #. bnc#955260
-#: src/clients/inst_autoconfigure.rb:316
+#: src/clients/inst_autoconfigure.rb:315
 msgid "Restarting all running services"
 msgstr "실행 중인 모든 서비스 다시 시작"
 
 #. Filtering out all services which must not to be restarted
-#: src/clients/inst_autoconfigure.rb:338
+#: src/clients/inst_autoconfigure.rb:337
 msgid "Activating systemd default target"
 msgstr "시스템 기본 대상 활성화"
 
 # src/config/dsl.y2cc:11 src/dsl/complex.ycp:73 src/dsl/dialogs.ycp:172
 # src/dsl/wizards.ycp:61 src/dsl/wizards.ycp:80
 #. Just in case, remove this file to avoid reconfiguring...
-#: src/clients/inst_autoconfigure.rb:352
+#: src/clients/inst_autoconfigure.rb:351
 msgid "Finishing Configuration"
 msgstr "설정 완료 중"
 
@@ -305,7 +305,7 @@ msgstr "설정 완료 중"
 #. Uses global variable 'current_step'.
 #.
 #. @param [String] step_descr description of the step.
-#: src/clients/inst_autoconfigure.rb:414
+#: src/clients/inst_autoconfigure.rb:413
 #, ycp-format
 msgid "Processing resource %1"
 msgstr "%1 리소스 처리"
@@ -1190,7 +1190,7 @@ msgid "OK"
 msgstr "확인"
 
 #: src/include/autoinstall/dialogs.rb:278
-#: src/include/autoinstall/script_dialogs.rb:244
+#: src/include/autoinstall/script_dialogs.rb:255
 msgid "Error"
 msgstr "오류"
 
@@ -1209,7 +1209,7 @@ msgstr "오류"
 #  the computer system has a 64bit (x86-64) bit processor but
 #  the user booted from a 32bit installation medium
 #: src/include/autoinstall/dialogs.rb:279
-#: src/include/autoinstall/script_dialogs.rb:239
+#: src/include/autoinstall/script_dialogs.rb:250
 msgid "Warning"
 msgstr "경고"
 
@@ -1643,21 +1643,20 @@ msgstr ""
 "오직 포맷되지 않은 준비된 LVM과 RAID 파티션만을 생성할 수 있습니다.\n"
 "</p>\n"
 
-#. Script Configuration
-#. @return  script configuration dialog
-#: src/include/autoinstall/script_dialogs.rb:28
+#. init scripts does not have interpreter. Is it correct?
+#: src/include/autoinstall/script_dialogs.rb:29
 msgid "Available Scripts"
 msgstr "사용가능한 스크립트"
 
-#: src/include/autoinstall/script_dialogs.rb:32
+#: src/include/autoinstall/script_dialogs.rb:33
 msgid "Script Name"
 msgstr "스크립트 이름"
 
-#: src/include/autoinstall/script_dialogs.rb:32
+#: src/include/autoinstall/script_dialogs.rb:33
 msgid "Type"
 msgstr "유형"
 
-#: src/include/autoinstall/script_dialogs.rb:32
+#: src/include/autoinstall/script_dialogs.rb:33
 msgid "Interpreter"
 msgstr "해석기"
 
@@ -1792,70 +1791,102 @@ msgstr "스크립트 편집기"
 msgid "&File Name"
 msgstr "파일 이름(&F)"
 
-#: src/include/autoinstall/script_dialogs.rb:152
+#: src/include/autoinstall/script_dialogs.rb:153
 msgid "&Interpreter"
 msgstr "해석기(&I)"
 
-#: src/include/autoinstall/script_dialogs.rb:156
+#: src/include/autoinstall/script_dialogs.rb:157
 msgid "Perl"
 msgstr "Perl"
 
-#: src/include/autoinstall/script_dialogs.rb:161
+#: src/include/autoinstall/script_dialogs.rb:162
 msgid "Shell"
 msgstr "셸"
 
-#: src/include/autoinstall/script_dialogs.rb:166
+#: src/include/autoinstall/script_dialogs.rb:167
 msgid "Python"
 msgstr "Python"
 
-#: src/include/autoinstall/script_dialogs.rb:174
+#: src/include/autoinstall/script_dialogs.rb:175
 msgid "&Type"
 msgstr "유형(&T)"
 
+#. TRANSLATORS: Pre installation script type
+#. TODO: move to script class
+#: src/include/autoinstall/script_dialogs.rb:180
+#: src/modules/AutoinstScripts.rb:228
+msgid "Pre"
+msgstr "Pre"
+
+#. TRANSLATORS: Post partitioning installation script type
+#: src/include/autoinstall/script_dialogs.rb:186
+#, fuzzy
+#| msgid "Postpartitioning"
+msgid "PostPartitioning"
+msgstr "포스트 파티셔닝 중"
+
+#. TRANSLATORS: Change root installation script type
+#: src/include/autoinstall/script_dialogs.rb:192
+#: src/modules/AutoinstScripts.rb:234
+msgid "Chroot"
+msgstr "Chroot"
+
+#. TRANSLATORS: Post installation script type
+#: src/include/autoinstall/script_dialogs.rb:198
+#: src/modules/AutoinstScripts.rb:230
+msgid "Post"
+msgstr "Post"
+
+#. TRANSLATORS: Init system post installation script type
+#: src/include/autoinstall/script_dialogs.rb:204
+#: src/modules/AutoinstScripts.rb:232
+msgid "Init"
+msgstr "Init"
+
 #. a checkbox where you can choose if you want to see script-feedback output or not
-#: src/include/autoinstall/script_dialogs.rb:206
+#: src/include/autoinstall/script_dialogs.rb:217
 msgid "&Feedback"
 msgstr "피드백(&F)"
 
 #. a checkbox where you can choose if you want to see script-debug output or not
-#: src/include/autoinstall/script_dialogs.rb:212
+#: src/include/autoinstall/script_dialogs.rb:223
 msgid "&Debug"
 msgstr "디버그(&D)"
 
-#: src/include/autoinstall/script_dialogs.rb:217
+#: src/include/autoinstall/script_dialogs.rb:228
 msgid "&Chrooted"
 msgstr "Chrooted(&C)"
 
 #. a checkbox where you can choose if you want to see script-feedback output or not
-#: src/include/autoinstall/script_dialogs.rb:225
+#: src/include/autoinstall/script_dialogs.rb:236
 msgid "&Feedback Type"
 msgstr "피드백 유형(&F)"
 
-#: src/include/autoinstall/script_dialogs.rb:229
+#: src/include/autoinstall/script_dialogs.rb:240
 msgid "none"
 msgstr "없음"
 
-#: src/include/autoinstall/script_dialogs.rb:234
+#: src/include/autoinstall/script_dialogs.rb:245
 msgid "Message"
 msgstr "메시지"
 
-#: src/include/autoinstall/script_dialogs.rb:255
+#: src/include/autoinstall/script_dialogs.rb:266
 msgid "Text of the notification popup"
 msgstr "알람 팝업 텍스트"
 
-#: src/include/autoinstall/script_dialogs.rb:263
+#: src/include/autoinstall/script_dialogs.rb:274
 msgid "Script Location"
 msgstr "스크립트 위치"
 
-#: src/include/autoinstall/script_dialogs.rb:271
+#: src/include/autoinstall/script_dialogs.rb:282
 msgid "S&cript Source"
 msgstr "스크립트 소스(&C)"
 
-#: src/include/autoinstall/script_dialogs.rb:278
+#: src/include/autoinstall/script_dialogs.rb:289
 msgid "&Load new source"
 msgstr "새로운 소스를 불러옵니다.(&L)"
 
-#: src/include/autoinstall/script_dialogs.rb:347
+#: src/include/autoinstall/script_dialogs.rb:358
 msgid ""
 "Provide at least the script\n"
 "name and the location or content of the script.\n"
@@ -1865,7 +1896,7 @@ msgstr ""
 
 #. Main dialog
 #. @return [Symbol]
-#: src/include/autoinstall/script_dialogs.rb:438
+#: src/include/autoinstall/script_dialogs.rb:449
 msgid ""
 "<p>\n"
 "By adding scripts to the autoinstallation process, customize the "
@@ -1876,12 +1907,12 @@ msgstr ""
 "자동 설치 과정에 스크립트를 추가하여 사용자의 요구와\n"
 "설치의 다른 단계를 제어하면서 설치를 사용자 정의할 수 있습니다.</p>\n"
 
-#: src/include/autoinstall/script_dialogs.rb:444
+#: src/include/autoinstall/script_dialogs.rb:455
 msgid "User Script Management"
 msgstr "사용자 스크립트 관리"
 
-#: src/include/autoinstall/script_dialogs.rb:464
-#: src/include/autoinstall/script_dialogs.rb:472
+#: src/include/autoinstall/script_dialogs.rb:475
+#: src/include/autoinstall/script_dialogs.rb:483
 msgid "Select a script first."
 msgstr "먼저 스크립트를 선택하십시오."
 
@@ -2921,62 +2952,49 @@ msgid "%s drive in total"
 msgid_plural "%s drives in total"
 msgstr[0] "총 %s개 드라이브"
 
+#. check it only because after pre scripts it is reimport, resulting in multiple warnings
+#. so show warning only once
+#: src/modules/AutoinstScripts.rb:148
+msgid "Following scripts will overwrite each other:"
+msgstr ""
+
 #. Return Summary
 #. @return [String] summary
-#: src/modules/AutoinstScripts.rb:328
+#: src/modules/AutoinstScripts.rb:163
 msgid "Preinstallation Scripts"
 msgstr "사전 설치 스크립트"
 
-#: src/modules/AutoinstScripts.rb:341
+#: src/modules/AutoinstScripts.rb:164
 msgid "Postinstallation Scripts"
 msgstr "사후 설치 스크립트"
 
-#: src/modules/AutoinstScripts.rb:354
+#: src/modules/AutoinstScripts.rb:165
 msgid "Chroot Scripts"
 msgstr "Chroot 스크립트"
 
-#: src/modules/AutoinstScripts.rb:367
+#: src/modules/AutoinstScripts.rb:166
 msgid "Init Scripts"
 msgstr "초기 스크립트"
 
-#: src/modules/AutoinstScripts.rb:380
+#: src/modules/AutoinstScripts.rb:167
 msgid "Postpartitioning Scripts"
 msgstr "스크립트 포스트 파티셔닝 중"
 
-#. return type of script as formatted string
-#. @param type [String] script type
-#. @return [String] type as translated string
-#: src/modules/AutoinstScripts.rb:462
-msgid "Pre"
-msgstr "Pre"
-
-#: src/modules/AutoinstScripts.rb:464
-msgid "Post"
-msgstr "Post"
-
-#: src/modules/AutoinstScripts.rb:466
-msgid "Init"
-msgstr "Init"
-
-#: src/modules/AutoinstScripts.rb:468
-msgid "Chroot"
-msgstr "Chroot"
-
-#: src/modules/AutoinstScripts.rb:470
+#: src/modules/AutoinstScripts.rb:236
 msgid "Postpartitioning"
 msgstr "포스트 파티셔닝 중"
 
-#: src/modules/AutoinstScripts.rb:473
+#: src/modules/AutoinstScripts.rb:239
 msgid "Unknown"
 msgstr "알 수 없음"
 
-#. Execute pre scripts
-#. @param type [String] type of script
-#. @param special [Boolean] if script should be executed in chroot env.
-#. @return [Boolean] true on success
-#: src/modules/AutoinstScripts.rb:733
+#. show warning if script return non-zero and no feedback is want
+#: src/modules/AutoinstScripts.rb:292
+#, perl-brace-format
 msgid ""
-"Element param-list does not have config-type list specified. Skipping it."
+"User script %{script_name} failed.\n"
+"Details:\n"
+"%{output}"
 msgstr ""
 
 #. 4 means "already exists"

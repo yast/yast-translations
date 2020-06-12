@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: autoinst.lt\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-06-10 02:27+0000\n"
+"POT-Creation-Date: 2020-06-12 02:27+0000\n"
 "PO-Revision-Date: 2017-08-20 07:20+0000\n"
 "Last-Translator: Mindaugas Baranauskas <opensuse.lietuviu.kalba@gmail.com>\n"
 "Language-Team: Lithuanian <https://l10n.opensuse.org/projects/yast-autoinst/"
@@ -160,7 +160,7 @@ msgstr ""
 
 #. OPEN
 #: src/clients/files_auto.rb:265 src/include/autoinstall/conftree.rb:589
-#: src/include/autoinstall/script_dialogs.rb:371
+#: src/include/autoinstall/script_dialogs.rb:382
 msgid "Select a file to load."
 msgstr "Pasirinkite profilį, kurį įkelsite."
 
@@ -279,12 +279,12 @@ msgstr "Konfigūruojama %1"
 msgid "Not Configuring %1"
 msgstr "Nekonfigūruojama %1"
 
-#. online update
-#: src/clients/inst_autoconfigure.rb:289
+#. wonderful API without defaults
+#: src/clients/inst_autoconfigure.rb:288
 msgid "Executing Post-Scripts"
 msgstr "Paleidžiami užbaigiamieji scenarijai"
 
-#: src/clients/inst_autoconfigure.rb:292
+#: src/clients/inst_autoconfigure.rb:291
 #, fuzzy
 #| msgid "Init Scripts"
 msgid "Writing Init-Scripts"
@@ -292,17 +292,17 @@ msgstr "Init scenarijai"
 
 #. Do not restart NetworkManager* services
 #. bnc#955260
-#: src/clients/inst_autoconfigure.rb:316
+#: src/clients/inst_autoconfigure.rb:315
 msgid "Restarting all running services"
 msgstr "Iš naujo paleidžiamos visos paleistos paslaugos"
 
 #. Filtering out all services which must not to be restarted
-#: src/clients/inst_autoconfigure.rb:338
+#: src/clients/inst_autoconfigure.rb:337
 msgid "Activating systemd default target"
 msgstr "Aktyvuojamos visos systemd numatytosios paskirtys"
 
 #. Just in case, remove this file to avoid reconfiguring...
-#: src/clients/inst_autoconfigure.rb:352
+#: src/clients/inst_autoconfigure.rb:351
 msgid "Finishing Configuration"
 msgstr "Užbaigiama konfigūracija"
 
@@ -310,7 +310,7 @@ msgstr "Užbaigiama konfigūracija"
 #. Uses global variable 'current_step'.
 #.
 #. @param [String] step_descr description of the step.
-#: src/clients/inst_autoconfigure.rb:414
+#: src/clients/inst_autoconfigure.rb:413
 #, ycp-format
 msgid "Processing resource %1"
 msgstr "Apdorojamas išteklius %1"
@@ -1190,12 +1190,12 @@ msgid "OK"
 msgstr "Gerai"
 
 #: src/include/autoinstall/dialogs.rb:278
-#: src/include/autoinstall/script_dialogs.rb:244
+#: src/include/autoinstall/script_dialogs.rb:255
 msgid "Error"
 msgstr "Klaida"
 
 #: src/include/autoinstall/dialogs.rb:279
-#: src/include/autoinstall/script_dialogs.rb:239
+#: src/include/autoinstall/script_dialogs.rb:250
 msgid "Warning"
 msgstr "Įspėjimas"
 
@@ -1620,21 +1620,20 @@ msgstr ""
 "skaidinius.\n"
 "</p>\n"
 
-#. Script Configuration
-#. @return  script configuration dialog
-#: src/include/autoinstall/script_dialogs.rb:28
+#. init scripts does not have interpreter. Is it correct?
+#: src/include/autoinstall/script_dialogs.rb:29
 msgid "Available Scripts"
 msgstr "Prieinami scenarijai"
 
-#: src/include/autoinstall/script_dialogs.rb:32
+#: src/include/autoinstall/script_dialogs.rb:33
 msgid "Script Name"
 msgstr "Scenarijaus pavadinimas"
 
-#: src/include/autoinstall/script_dialogs.rb:32
+#: src/include/autoinstall/script_dialogs.rb:33
 msgid "Type"
 msgstr "Tipas"
 
-#: src/include/autoinstall/script_dialogs.rb:32
+#: src/include/autoinstall/script_dialogs.rb:33
 msgid "Interpreter"
 msgstr "Interpretatorius"
 
@@ -1770,70 +1769,102 @@ msgstr "Scenarijų redaktorius"
 msgid "&File Name"
 msgstr "&Rinkmenos pavadinimas"
 
-#: src/include/autoinstall/script_dialogs.rb:152
+#: src/include/autoinstall/script_dialogs.rb:153
 msgid "&Interpreter"
 msgstr "&Interpretatorius"
 
-#: src/include/autoinstall/script_dialogs.rb:156
+#: src/include/autoinstall/script_dialogs.rb:157
 msgid "Perl"
 msgstr "Perl"
 
-#: src/include/autoinstall/script_dialogs.rb:161
+#: src/include/autoinstall/script_dialogs.rb:162
 msgid "Shell"
 msgstr "Apvalkalas"
 
-#: src/include/autoinstall/script_dialogs.rb:166
+#: src/include/autoinstall/script_dialogs.rb:167
 msgid "Python"
 msgstr "Python"
 
-#: src/include/autoinstall/script_dialogs.rb:174
+#: src/include/autoinstall/script_dialogs.rb:175
 msgid "&Type"
 msgstr "&Tipas"
 
+#. TRANSLATORS: Pre installation script type
+#. TODO: move to script class
+#: src/include/autoinstall/script_dialogs.rb:180
+#: src/modules/AutoinstScripts.rb:228
+msgid "Pre"
+msgstr "Iki"
+
+#. TRANSLATORS: Post partitioning installation script type
+#: src/include/autoinstall/script_dialogs.rb:186
+#, fuzzy
+#| msgid "Postpartitioning"
+msgid "PostPartitioning"
+msgstr "Po skaidymo"
+
+#. TRANSLATORS: Change root installation script type
+#: src/include/autoinstall/script_dialogs.rb:192
+#: src/modules/AutoinstScripts.rb:234
+msgid "Chroot"
+msgstr "Chroot"
+
+#. TRANSLATORS: Post installation script type
+#: src/include/autoinstall/script_dialogs.rb:198
+#: src/modules/AutoinstScripts.rb:230
+msgid "Post"
+msgstr "Po"
+
+#. TRANSLATORS: Init system post installation script type
+#: src/include/autoinstall/script_dialogs.rb:204
+#: src/modules/AutoinstScripts.rb:232
+msgid "Init"
+msgstr "Init"
+
 #. a checkbox where you can choose if you want to see script-feedback output or not
-#: src/include/autoinstall/script_dialogs.rb:206
+#: src/include/autoinstall/script_dialogs.rb:217
 msgid "&Feedback"
 msgstr "&Grįžtamasis ryšys"
 
 #. a checkbox where you can choose if you want to see script-debug output or not
-#: src/include/autoinstall/script_dialogs.rb:212
+#: src/include/autoinstall/script_dialogs.rb:223
 msgid "&Debug"
 msgstr "&Derinimas"
 
-#: src/include/autoinstall/script_dialogs.rb:217
+#: src/include/autoinstall/script_dialogs.rb:228
 msgid "&Chrooted"
 msgstr "&Chroot"
 
 #. a checkbox where you can choose if you want to see script-feedback output or not
-#: src/include/autoinstall/script_dialogs.rb:225
+#: src/include/autoinstall/script_dialogs.rb:236
 msgid "&Feedback Type"
 msgstr "&Grįžtamojo ryšio tipas"
 
-#: src/include/autoinstall/script_dialogs.rb:229
+#: src/include/autoinstall/script_dialogs.rb:240
 msgid "none"
 msgstr "nieko"
 
-#: src/include/autoinstall/script_dialogs.rb:234
+#: src/include/autoinstall/script_dialogs.rb:245
 msgid "Message"
 msgstr "Pranešimas"
 
-#: src/include/autoinstall/script_dialogs.rb:255
+#: src/include/autoinstall/script_dialogs.rb:266
 msgid "Text of the notification popup"
 msgstr "Iškylančiame lange pasirodantis tekstas"
 
-#: src/include/autoinstall/script_dialogs.rb:263
+#: src/include/autoinstall/script_dialogs.rb:274
 msgid "Script Location"
 msgstr "Scenarijaus vieta"
 
-#: src/include/autoinstall/script_dialogs.rb:271
+#: src/include/autoinstall/script_dialogs.rb:282
 msgid "S&cript Source"
 msgstr "S&cenarijų šaltinis"
 
-#: src/include/autoinstall/script_dialogs.rb:278
+#: src/include/autoinstall/script_dialogs.rb:289
 msgid "&Load new source"
 msgstr "Į&kelti naują šaltinį"
 
-#: src/include/autoinstall/script_dialogs.rb:347
+#: src/include/autoinstall/script_dialogs.rb:358
 msgid ""
 "Provide at least the script\n"
 "name and the location or content of the script.\n"
@@ -1843,7 +1874,7 @@ msgstr ""
 
 #. Main dialog
 #. @return [Symbol]
-#: src/include/autoinstall/script_dialogs.rb:438
+#: src/include/autoinstall/script_dialogs.rb:449
 msgid ""
 "<p>\n"
 "By adding scripts to the autoinstallation process, customize the "
@@ -1855,12 +1886,12 @@ msgstr ""
 "poreikiams,\n"
 "įtraukdami scenarijus į automatinio diegimo procesą.</p>\n"
 
-#: src/include/autoinstall/script_dialogs.rb:444
+#: src/include/autoinstall/script_dialogs.rb:455
 msgid "User Script Management"
 msgstr "Naudotojo scenarijų tvarkymas"
 
-#: src/include/autoinstall/script_dialogs.rb:464
-#: src/include/autoinstall/script_dialogs.rb:472
+#: src/include/autoinstall/script_dialogs.rb:475
+#: src/include/autoinstall/script_dialogs.rb:483
 msgid "Select a script first."
 msgstr "Pirma turite pasirinkti scenarijų."
 
@@ -2882,62 +2913,49 @@ msgstr[1] "Iš viso %s diskai"
 msgstr[2] "Iš viso %s diskų"
 msgstr[3] "Iš viso %s diskas"
 
+#. check it only because after pre scripts it is reimport, resulting in multiple warnings
+#. so show warning only once
+#: src/modules/AutoinstScripts.rb:148
+msgid "Following scripts will overwrite each other:"
+msgstr ""
+
 #. Return Summary
 #. @return [String] summary
-#: src/modules/AutoinstScripts.rb:328
+#: src/modules/AutoinstScripts.rb:163
 msgid "Preinstallation Scripts"
 msgstr "Paruošiamieji scenarijai diegimui"
 
-#: src/modules/AutoinstScripts.rb:341
+#: src/modules/AutoinstScripts.rb:164
 msgid "Postinstallation Scripts"
 msgstr "Užbaigiamieji scenarijai"
 
-#: src/modules/AutoinstScripts.rb:354
+#: src/modules/AutoinstScripts.rb:165
 msgid "Chroot Scripts"
 msgstr "Chroot scenarijai"
 
-#: src/modules/AutoinstScripts.rb:367
+#: src/modules/AutoinstScripts.rb:166
 msgid "Init Scripts"
 msgstr "Init scenarijai"
 
-#: src/modules/AutoinstScripts.rb:380
+#: src/modules/AutoinstScripts.rb:167
 msgid "Postpartitioning Scripts"
 msgstr "Scenarijai po diskų skaidymo"
 
-#. return type of script as formatted string
-#. @param type [String] script type
-#. @return [String] type as translated string
-#: src/modules/AutoinstScripts.rb:462
-msgid "Pre"
-msgstr "Iki"
-
-#: src/modules/AutoinstScripts.rb:464
-msgid "Post"
-msgstr "Po"
-
-#: src/modules/AutoinstScripts.rb:466
-msgid "Init"
-msgstr "Init"
-
-#: src/modules/AutoinstScripts.rb:468
-msgid "Chroot"
-msgstr "Chroot"
-
-#: src/modules/AutoinstScripts.rb:470
+#: src/modules/AutoinstScripts.rb:236
 msgid "Postpartitioning"
 msgstr "Po skaidymo"
 
-#: src/modules/AutoinstScripts.rb:473
+#: src/modules/AutoinstScripts.rb:239
 msgid "Unknown"
 msgstr "Nežinoma"
 
-#. Execute pre scripts
-#. @param type [String] type of script
-#. @param special [Boolean] if script should be executed in chroot env.
-#. @return [Boolean] true on success
-#: src/modules/AutoinstScripts.rb:733
+#. show warning if script return non-zero and no feedback is want
+#: src/modules/AutoinstScripts.rb:292
+#, perl-brace-format
 msgid ""
-"Element param-list does not have config-type list specified. Skipping it."
+"User script %{script_name} failed.\n"
+"Details:\n"
+"%{output}"
 msgstr ""
 
 #. 4 means "already exists"

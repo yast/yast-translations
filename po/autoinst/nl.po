@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: autoinst.nl\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-06-10 02:27+0000\n"
+"POT-Creation-Date: 2020-06-12 02:27+0000\n"
 "PO-Revision-Date: 2020-02-18 17:55+0000\n"
 "Last-Translator: Freek de Kruijf <freek@opensuse.org>\n"
 "Language-Team: Dutch <https://l10n.opensuse.org/projects/yast-autoinst/"
@@ -167,7 +167,7 @@ msgstr ""
 
 #. OPEN
 #: src/clients/files_auto.rb:265 src/include/autoinstall/conftree.rb:589
-#: src/include/autoinstall/script_dialogs.rb:371
+#: src/include/autoinstall/script_dialogs.rb:382
 msgid "Select a file to load."
 msgstr "Selecteer het te laden bestand."
 
@@ -287,28 +287,28 @@ msgstr "%1 wordt niet geconfigureerd"
 
 # ik zoek een bruikbare NL term voor post installation scripts
 # vegelijk pre-installatiescripts
-#. online update
-#: src/clients/inst_autoconfigure.rb:289
+#. wonderful API without defaults
+#: src/clients/inst_autoconfigure.rb:288
 msgid "Executing Post-Scripts"
 msgstr "De PostScripts worden uitgevoerd"
 
-#: src/clients/inst_autoconfigure.rb:292
+#: src/clients/inst_autoconfigure.rb:291
 msgid "Writing Init-Scripts"
 msgstr "Init-scripts worden geschreven"
 
 #. Do not restart NetworkManager* services
 #. bnc#955260
-#: src/clients/inst_autoconfigure.rb:316
+#: src/clients/inst_autoconfigure.rb:315
 msgid "Restarting all running services"
 msgstr "Alle actieve services worden herstart"
 
 #. Filtering out all services which must not to be restarted
-#: src/clients/inst_autoconfigure.rb:338
+#: src/clients/inst_autoconfigure.rb:337
 msgid "Activating systemd default target"
 msgstr "Standaarddoel van systemd wordt geactiveerd"
 
 #. Just in case, remove this file to avoid reconfiguring...
-#: src/clients/inst_autoconfigure.rb:352
+#: src/clients/inst_autoconfigure.rb:351
 msgid "Finishing Configuration"
 msgstr "De configuratie wordt afgerond"
 
@@ -316,7 +316,7 @@ msgstr "De configuratie wordt afgerond"
 #. Uses global variable 'current_step'.
 #.
 #. @param [String] step_descr description of the step.
-#: src/clients/inst_autoconfigure.rb:414
+#: src/clients/inst_autoconfigure.rb:413
 #, ycp-format
 msgid "Processing resource %1"
 msgstr "Verwerken van hulpbron %1"
@@ -1231,12 +1231,12 @@ msgid "OK"
 msgstr "Oké"
 
 #: src/include/autoinstall/dialogs.rb:278
-#: src/include/autoinstall/script_dialogs.rb:244
+#: src/include/autoinstall/script_dialogs.rb:255
 msgid "Error"
 msgstr "Fout"
 
 #: src/include/autoinstall/dialogs.rb:279
-#: src/include/autoinstall/script_dialogs.rb:239
+#: src/include/autoinstall/script_dialogs.rb:250
 msgid "Warning"
 msgstr "Waarschuwing"
 
@@ -1667,21 +1667,20 @@ msgstr ""
 "niet-geformatteerde LVM- en RAID-partities aanmaken.\n"
 "</p>\n"
 
-#. Script Configuration
-#. @return  script configuration dialog
-#: src/include/autoinstall/script_dialogs.rb:28
+#. init scripts does not have interpreter. Is it correct?
+#: src/include/autoinstall/script_dialogs.rb:29
 msgid "Available Scripts"
 msgstr "Beschikbare scripts"
 
-#: src/include/autoinstall/script_dialogs.rb:32
+#: src/include/autoinstall/script_dialogs.rb:33
 msgid "Script Name"
 msgstr "Scriptnaam"
 
-#: src/include/autoinstall/script_dialogs.rb:32
+#: src/include/autoinstall/script_dialogs.rb:33
 msgid "Type"
 msgstr "Type"
 
-#: src/include/autoinstall/script_dialogs.rb:32
+#: src/include/autoinstall/script_dialogs.rb:33
 msgid "Interpreter"
 msgstr "Interpretator"
 
@@ -1821,70 +1820,103 @@ msgstr "Scriptbewerker"
 msgid "&File Name"
 msgstr "&Bestandsnaam"
 
-#: src/include/autoinstall/script_dialogs.rb:152
+#: src/include/autoinstall/script_dialogs.rb:153
 msgid "&Interpreter"
 msgstr "&Interpretator"
 
-#: src/include/autoinstall/script_dialogs.rb:156
+#: src/include/autoinstall/script_dialogs.rb:157
 msgid "Perl"
 msgstr "Perl"
 
-#: src/include/autoinstall/script_dialogs.rb:161
+#: src/include/autoinstall/script_dialogs.rb:162
 msgid "Shell"
 msgstr "Shell"
 
-#: src/include/autoinstall/script_dialogs.rb:166
+#: src/include/autoinstall/script_dialogs.rb:167
 msgid "Python"
 msgstr "Python"
 
-#: src/include/autoinstall/script_dialogs.rb:174
+#: src/include/autoinstall/script_dialogs.rb:175
 msgid "&Type"
 msgstr "&Type"
 
+#. TRANSLATORS: Pre installation script type
+#. TODO: move to script class
+#: src/include/autoinstall/script_dialogs.rb:180
+#: src/modules/AutoinstScripts.rb:228
+msgid "Pre"
+msgstr "Pre"
+
+#. TRANSLATORS: Post partitioning installation script type
+#: src/include/autoinstall/script_dialogs.rb:186
+#, fuzzy
+#| msgid "Postpartitioning"
+msgid "PostPartitioning"
+msgstr "Post-partitionering"
+
+#. TRANSLATORS: Change root installation script type
+#: src/include/autoinstall/script_dialogs.rb:192
+#: src/modules/AutoinstScripts.rb:234
+msgid "Chroot"
+msgstr "Chroot"
+
+#. TRANSLATORS: Post installation script type
+#: src/include/autoinstall/script_dialogs.rb:198
+#: src/modules/AutoinstScripts.rb:230
+msgid "Post"
+msgstr "Post"
+
+# /usr/lib/YaST2/clients/dialup_dev_cfg.ycp:327
+#. TRANSLATORS: Init system post installation script type
+#: src/include/autoinstall/script_dialogs.rb:204
+#: src/modules/AutoinstScripts.rb:232
+msgid "Init"
+msgstr "Init"
+
 #. a checkbox where you can choose if you want to see script-feedback output or not
-#: src/include/autoinstall/script_dialogs.rb:206
+#: src/include/autoinstall/script_dialogs.rb:217
 msgid "&Feedback"
 msgstr "&Feedback"
 
 #. a checkbox where you can choose if you want to see script-debug output or not
-#: src/include/autoinstall/script_dialogs.rb:212
+#: src/include/autoinstall/script_dialogs.rb:223
 msgid "&Debug"
 msgstr "&Debug"
 
-#: src/include/autoinstall/script_dialogs.rb:217
+#: src/include/autoinstall/script_dialogs.rb:228
 msgid "&Chrooted"
 msgstr "&Chrooted"
 
 #. a checkbox where you can choose if you want to see script-feedback output or not
-#: src/include/autoinstall/script_dialogs.rb:225
+#: src/include/autoinstall/script_dialogs.rb:236
 msgid "&Feedback Type"
 msgstr "&Feedbacktype"
 
-#: src/include/autoinstall/script_dialogs.rb:229
+#: src/include/autoinstall/script_dialogs.rb:240
 msgid "none"
 msgstr "geen"
 
-#: src/include/autoinstall/script_dialogs.rb:234
+#: src/include/autoinstall/script_dialogs.rb:245
 msgid "Message"
 msgstr "Bericht"
 
-#: src/include/autoinstall/script_dialogs.rb:255
+#: src/include/autoinstall/script_dialogs.rb:266
 msgid "Text of the notification popup"
 msgstr "Tekst in de popup van de melding"
 
-#: src/include/autoinstall/script_dialogs.rb:263
+#: src/include/autoinstall/script_dialogs.rb:274
 msgid "Script Location"
 msgstr "Locatie van script"
 
-#: src/include/autoinstall/script_dialogs.rb:271
+#: src/include/autoinstall/script_dialogs.rb:282
 msgid "S&cript Source"
 msgstr "S&criptbron"
 
-#: src/include/autoinstall/script_dialogs.rb:278
+#: src/include/autoinstall/script_dialogs.rb:289
 msgid "&Load new source"
 msgstr "Nieuwe bron &laden"
 
-#: src/include/autoinstall/script_dialogs.rb:347
+#: src/include/autoinstall/script_dialogs.rb:358
 msgid ""
 "Provide at least the script\n"
 "name and the location or content of the script.\n"
@@ -1894,7 +1926,7 @@ msgstr ""
 
 #. Main dialog
 #. @return [Symbol]
-#: src/include/autoinstall/script_dialogs.rb:438
+#: src/include/autoinstall/script_dialogs.rb:449
 msgid ""
 "<p>\n"
 "By adding scripts to the autoinstallation process, customize the "
@@ -1907,12 +1939,12 @@ msgstr ""
 "aanpassen en de controle bij de verschillende stappen van de installatie "
 "overnemen.</p>\n"
 
-#: src/include/autoinstall/script_dialogs.rb:444
+#: src/include/autoinstall/script_dialogs.rb:455
 msgid "User Script Management"
 msgstr "Beheer van gebruikerscripts"
 
-#: src/include/autoinstall/script_dialogs.rb:464
-#: src/include/autoinstall/script_dialogs.rb:472
+#: src/include/autoinstall/script_dialogs.rb:475
+#: src/include/autoinstall/script_dialogs.rb:483
 msgid "Select a script first."
 msgstr "Selecteer eerst een script."
 
@@ -2944,66 +2976,50 @@ msgid_plural "%s drives in total"
 msgstr[0] "%s station in totaal"
 msgstr[1] "%s stations in totaal"
 
+#. check it only because after pre scripts it is reimport, resulting in multiple warnings
+#. so show warning only once
+#: src/modules/AutoinstScripts.rb:148
+msgid "Following scripts will overwrite each other:"
+msgstr ""
+
 #. Return Summary
 #. @return [String] summary
-#: src/modules/AutoinstScripts.rb:328
+#: src/modules/AutoinstScripts.rb:163
 msgid "Preinstallation Scripts"
 msgstr "Pre-installatiescripts"
 
-#: src/modules/AutoinstScripts.rb:341
+#: src/modules/AutoinstScripts.rb:164
 msgid "Postinstallation Scripts"
 msgstr "Post-installatiescripts"
 
-#: src/modules/AutoinstScripts.rb:354
+#: src/modules/AutoinstScripts.rb:165
 msgid "Chroot Scripts"
 msgstr "'Chroot'-scripts"
 
-#: src/modules/AutoinstScripts.rb:367
+#: src/modules/AutoinstScripts.rb:166
 msgid "Init Scripts"
 msgstr "Init-scripts"
 
-#: src/modules/AutoinstScripts.rb:380
+#: src/modules/AutoinstScripts.rb:167
 msgid "Postpartitioning Scripts"
 msgstr "Post-partitioneringsscripts"
 
-#. return type of script as formatted string
-#. @param type [String] script type
-#. @return [String] type as translated string
-#: src/modules/AutoinstScripts.rb:462
-msgid "Pre"
-msgstr "Pre"
-
-#: src/modules/AutoinstScripts.rb:464
-msgid "Post"
-msgstr "Post"
-
-# /usr/lib/YaST2/clients/dialup_dev_cfg.ycp:327
-#: src/modules/AutoinstScripts.rb:466
-msgid "Init"
-msgstr "Init"
-
-#: src/modules/AutoinstScripts.rb:468
-msgid "Chroot"
-msgstr "Chroot"
-
-#: src/modules/AutoinstScripts.rb:470
+#: src/modules/AutoinstScripts.rb:236
 msgid "Postpartitioning"
 msgstr "Post-partitionering"
 
-#: src/modules/AutoinstScripts.rb:473
+#: src/modules/AutoinstScripts.rb:239
 msgid "Unknown"
 msgstr "Onbekend"
 
-#. Execute pre scripts
-#. @param type [String] type of script
-#. @param special [Boolean] if script should be executed in chroot env.
-#. @return [Boolean] true on success
-#: src/modules/AutoinstScripts.rb:733
+#. show warning if script return non-zero and no feedback is want
+#: src/modules/AutoinstScripts.rb:292
+#, perl-brace-format
 msgid ""
-"Element param-list does not have config-type list specified. Skipping it."
+"User script %{script_name} failed.\n"
+"Details:\n"
+"%{output}"
 msgstr ""
-"Parameterlijst van element heeft geen config-typelijst gespecificeerd. Wordt "
-"overgeslagen."
 
 #. 4 means "already exists"
 #. Add add-ons
@@ -3259,6 +3275,12 @@ msgstr "Fout opgetreden tijdens het ophalen van het profiel:\n"
 #: src/modules/ProfileLocation.rb:122
 msgid "&OK"
 msgstr "&OK"
+
+#~ msgid ""
+#~ "Element param-list does not have config-type list specified. Skipping it."
+#~ msgstr ""
+#~ "Parameterlijst van element heeft geen config-typelijst gespecificeerd. "
+#~ "Wordt overgeslagen."
 
 #~ msgid ""
 #~ "Invalid value '%{value}' for attribute '%{attribute}': %{description}"
