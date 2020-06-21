@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: autoinst.ru\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-06-12 02:27+0000\n"
+"POT-Creation-Date: 2020-06-21 02:27+0000\n"
 "PO-Revision-Date: 2019-01-31 14:22+0000\n"
 "Last-Translator: Nikita Maynagashev <maynagashev@palex.ru>\n"
 "Language-Team: Russian <https://l10n.opensuse.org/projects/yast-autoinst/"
@@ -915,9 +915,8 @@ msgstr "Сохранить как..."
 msgid "File %1 was saved successfully."
 msgstr "Файл %1 был успешно сохранен."
 
-#. Profile::checkProfile();
 #: src/include/autoinstall/conftree.rb:46
-#: src/include/autoinstall/conftree.rb:690
+#: src/include/autoinstall/conftree.rb:689
 msgid "An error occurred while saving the file."
 msgstr "Ошибка при сохранении файла."
 
@@ -955,6 +954,7 @@ msgstr "Очисти&ть"
 #. @param [String] module_name The module to summarize.
 #. @return The `VBox widget.
 #: src/include/autoinstall/conftree.rb:186
+#: src/lib/autoinstall/xml_checks.rb:116
 msgid "Details"
 msgstr "Подробная информация"
 
@@ -1068,23 +1068,23 @@ msgid "An error occurred while opening/parsing the XML file."
 msgstr "Произошла ошибка при открытии/анализе синтаксиса XML-файла."
 
 #. NEW
-#: src/include/autoinstall/conftree.rb:708
+#: src/include/autoinstall/conftree.rb:707
 msgid "Available Modules"
 msgstr "Доступные модули"
 
 #. FIXME: sucks sucks sucks sucks sucks
-#: src/include/autoinstall/conftree.rb:723
+#: src/include/autoinstall/conftree.rb:722
 msgid ""
 "Do you really want to apply the settings of the profile to your current "
 "system?"
 msgstr "Применить параметры профиля к текущей системе?"
 
 #. EXIT
-#: src/include/autoinstall/conftree.rb:764
+#: src/include/autoinstall/conftree.rb:763
 msgid "Control file changed."
 msgstr "Файл управления изменен."
 
-#: src/include/autoinstall/conftree.rb:765
+#: src/include/autoinstall/conftree.rb:764
 #, ycp-format
 msgid "Save the changes to %1?"
 msgstr "Сохранить изменения в %1?"
@@ -1195,11 +1195,7 @@ msgstr "Предупреждение"
 #. _("Checking XML with DTD validation..."),
 #. "/usr/bin/xmllint --noout --valid"
 #. ],
-#. this function is a replacement for this code:
-#. list<any> l = [ "key1",0,"key3" ];
-#. m[ l ] = v;
-#. @return [Hash]
-#: src/include/autoinstall/dialogs.rb:293 src/modules/Profile.rb:742
+#: src/include/autoinstall/dialogs.rb:293
 msgid "Checking XML with RNG validation..."
 msgstr "Проверка XML с RNG-валидацией…"
 
@@ -1210,7 +1206,7 @@ msgid "Section %1: "
 msgstr "Секция %1: "
 
 #. jing validation -- validates complete xml profile
-#: src/include/autoinstall/dialogs.rb:346 src/modules/Profile.rb:754
+#: src/include/autoinstall/dialogs.rb:346
 msgid "Checking XML with RNC validation..."
 msgstr "Проверка XML с RNC-валидацией…"
 
@@ -1906,10 +1902,10 @@ msgstr "Конфигурация автоматической установки
 #. @return [Symbol] :abort if profile could not be read; :found when it was loaded;
 #. :not_found if it does not exist
 #. Now check if there any classes defined in theis pre final control file
-#: src/lib/autoinstall/autosetup_helpers.rb:56
+#: src/lib/autoinstall/autosetup_helpers.rb:59
 #: src/lib/autoinstall/clients/ayast_setup.rb:99
 #: src/lib/autoinstall/clients/inst_autoinit.rb:201
-#: src/modules/AutoInstallRules.rb:954
+#: src/modules/AutoInstallRules.rb:961
 msgid ""
 "Error while parsing the control file.\n"
 "Check the log files for more details or fix the\n"
@@ -2613,6 +2609,49 @@ msgstr ""
 msgid "UUID"
 msgstr "UUID"
 
+#. TRANSLATORS: Error message
+#: src/lib/autoinstall/xml_checks.rb:48
+#, fuzzy
+#| msgid "Path to AutoYaST profile must be set."
+msgid "The AutoYaST profile is not a valid XML document."
+msgstr "Должен быть задан путь к профилю AutoYaST."
+
+#. TRANSLATORS: Error message
+#: src/lib/autoinstall/xml_checks.rb:56
+msgid "The AutoYaST pre-script generated an invalid XML document."
+msgstr ""
+
+#. TRANSLATORS: Error message
+#: src/lib/autoinstall/xml_checks.rb:64
+msgid "The AutoYaST rules file is not a valid XML document."
+msgstr ""
+
+#. TRANSLATORS: Error message
+#: src/lib/autoinstall/xml_checks.rb:73
+msgid "The AutoYaST class file is not a valid XML document."
+msgstr ""
+
+#. TRANSLATORS: Warn user about using invalid XML
+#: src/lib/autoinstall/xml_checks.rb:114
+msgid ""
+"Using an invalid XML document might result in an unexpected behavior, crash "
+"or even data loss!"
+msgstr ""
+
+#: src/lib/autoinstall/xml_checks.rb:117
+msgid "Note"
+msgstr ""
+
+#. TRANSLATORS: A hint how to check a XML file, displayed as a part of the
+#. validation error message, %{jing} and %{xmllint} are replaced by shell commands,
+#. use HTML tags and entities (non-breaking space) for formatting the message
+#: src/lib/autoinstall/xml_checks.rb:121
+#, perl-brace-format
+msgid ""
+"You can check the file manually with these commands:<br><br>&nbsp;&nbsp;"
+"%{jing}<br>&nbsp;&nbsp;%{xmllint}"
+msgstr ""
+
 #. Showing issues onetime only.
 #: src/modules/AutoInstall.rb:358
 msgid "AutoYaST configuration file check"
@@ -2620,7 +2659,7 @@ msgstr "Проверка файла настроек AutoYaST"
 
 #. Read rules file
 #. @return [void]
-#: src/modules/AutoInstallRules.rb:431
+#: src/modules/AutoInstallRules.rb:432
 msgid "Parsing the rules file failed. XML parser reports:\n"
 msgstr "Обработка файла правил не удалась. Отчет анализатора синтаксиса XML:\n"
 
@@ -2628,7 +2667,7 @@ msgstr "Обработка файла правил не удалась. Отче
 #. @param [String] result_profile the resulting control file path
 #. @return [Boolean] true on success
 #. autoyast has read the autoyast configuration file but something went wrong
-#: src/modules/AutoInstallRules.rb:902 src/modules/Profile.rb:672
+#: src/modules/AutoInstallRules.rb:909 src/modules/Profile.rb:677
 msgid ""
 "The XML parser reported an error while parsing the autoyast profile. The "
 "error message is:\n"
@@ -2637,7 +2676,7 @@ msgstr ""
 "AutoYaST. Сообщение об ошибке:\n"
 
 #. backdoor for merging problems.
-#: src/modules/AutoInstallRules.rb:1007
+#: src/modules/AutoInstallRules.rb:1014
 msgid ""
 "\n"
 "User-defined classes could not be retrieved.  Make sure all classes \n"
@@ -3159,7 +3198,7 @@ msgstr "Выполняется сбор данных конфигурации...
 #. Save YCP data into XML
 #. @param  file [String] path to file
 #. @return [Boolean] true on success
-#: src/modules/Profile.rb:390
+#: src/modules/Profile.rb:395
 msgid "Encrypted AutoYaST profile. Enter the password twice."
 msgstr "Зашифрованный профиль AutoYaST. Введите пароль дважды."
 
@@ -3167,7 +3206,7 @@ msgstr "Зашифрованный профиль AutoYaST. Введите па�
 #.
 #. @param [String] dir - directory to store section xml files in
 #. @return    - list of filenames
-#: src/modules/Profile.rb:464
+#: src/modules/Profile.rb:469
 #, ycp-format
 msgid "Could not write section %1 to file %2."
 msgstr "Невозможно записать секцию %1 в файл %2."
@@ -3175,23 +3214,23 @@ msgstr "Невозможно записать секцию %1 в файл %2."
 #. Read XML into  YCP data
 #. @param file [String] path to file
 #. @return [Boolean]
-#: src/modules/Profile.rb:627 src/modules/ProfileLocation.rb:119
+#: src/modules/Profile.rb:632 src/modules/ProfileLocation.rb:121
 msgid "Encrypted AutoYaST profile. Enter the correct password."
 msgstr "Зашифрованный профиль AutoYaST. Введите правильный пароль."
 
 #. autoyast=label://my_home//autoinst.xml in linuxrc:
 #. AY is searching for a partition with the label "my_home". This partition
 #. will be mounted and the autoinst.xml will be used for installation.
-#: src/modules/ProfileLocation.rb:85
+#: src/modules/ProfileLocation.rb:87
 msgid "label not found while looking for autoyast profile"
 msgstr "метка не найдена при поиске профиля AutoYaST"
 
 #. autoyast hit an error while fetching it's config file
-#: src/modules/ProfileLocation.rb:108
+#: src/modules/ProfileLocation.rb:110
 msgid "An error occurred while fetching the profile:\n"
 msgstr "Ошибка при получении профиля:\n"
 
-#: src/modules/ProfileLocation.rb:122
+#: src/modules/ProfileLocation.rb:124
 msgid "&OK"
 msgstr "&OK"
 
