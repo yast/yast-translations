@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: autoinst\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-09-11 02:29+0000\n"
+"POT-Creation-Date: 2020-09-12 02:27+0000\n"
 "PO-Revision-Date: 2020-02-18 11:55+0000\n"
 "Last-Translator: Grace Yu <grace.yu@excel-gits.com>\n"
 "Language-Team: Chinese (Taiwan) <https://l10n.opensuse.org/projects/yast-"
@@ -605,8 +605,8 @@ msgid "Reading configuration data"
 msgstr "正在讀取組態資料"
 
 #: src/include/autoinstall/conftree.rb:559
-#: src/lib/autoinstall/clients/autoyast.rb:157 src/modules/Profile.rb:270
-#: src/modules/Profile.rb:286
+#: src/lib/autoinstall/clients/autoyast.rb:157 src/modules/Profile.rb:272
+#: src/modules/Profile.rb:288
 msgid "This may take a while"
 msgstr "這可能需要一些時間"
 
@@ -2562,7 +2562,7 @@ msgstr "無法剖析規則檔案。XML 剖析程式報告：\n"
 #. @param [String] result_profile the resulting control file path
 #. @return [Boolean] true on success
 #. autoyast has read the autoyast configuration file but something went wrong
-#: src/modules/AutoInstallRules.rb:916 src/modules/Profile.rb:603
+#: src/modules/AutoInstallRules.rb:916 src/modules/Profile.rb:556
 msgid ""
 "The XML parser reported an error while parsing the autoyast profile. The "
 "error message is:\n"
@@ -2684,23 +2684,6 @@ msgstr ""
 "也為特殊且複雜的組態建立新的介面，包括\n"
 "分割、一般選項和軟體。</p>\n"
 
-#. Construct node name for display in tree.
-#.
-#. Constructed names are of the form:
-#. "<device name> - { drive, volgroup }
-#.
-#. @param drive [Hash{String => Object}] drive to create node name for
-#. @param enableHTML [Boolean] Use HTML tags
-#. @return the newly created node name
-#: src/modules/AutoinstDrive.rb:128
-msgid " - Drive"
-msgstr " - 磁碟機"
-
-#. volume group
-#: src/modules/AutoinstDrive.rb:132
-msgid " - Volume group"
-msgstr " - 磁碟區群組"
-
 #. Settings Summary
 #: src/modules/AutoinstFile.rb:43
 msgid "Configured Files:"
@@ -2794,26 +2777,21 @@ msgstr "無法更新系統時間。"
 msgid "The AutoYaST option <partition_alignment> is not supported anymore."
 msgstr "已不再支援 AutoYaST 選項 <partition_alignment>。"
 
-#. if no feeder (PV) was found for current volume group
-#. the next instructions taints result
-#: src/modules/AutoinstPartPlan.rb:282
-msgid "Volume group '%1' must have at least one physical volume. Provide one."
-msgstr "磁碟區群組「%1」至少要有一個實體磁碟區。請提供。"
-
 #. PUBLIC INTERFACE
 #. INTER FACE TO CONF TREE
 #. Return summary of configuration
+#.
 #. @return  [String] configuration summary dialog
-#: src/modules/AutoinstPartPlan.rb:345
+#: src/modules/AutoinstPartPlan.rb:83
 msgid "Drives"
 msgstr "磁碟機"
 
-#: src/modules/AutoinstPartPlan.rb:348
+#: src/modules/AutoinstPartPlan.rb:86
 msgid "Not yet cloned."
 msgstr "尚未複製。"
 
 #. We are counting harddisks only (type CT_DISK)
-#: src/modules/AutoinstPartPlan.rb:354
+#: src/modules/AutoinstPartPlan.rb:92
 msgid "%s drive in total"
 msgid_plural "%s drives in total"
 msgstr[0] "%s 磁碟機總計"
@@ -2951,46 +2929,50 @@ msgstr "磁碟分割問題"
 #. Sets Profile#current to exported values created from given set of modules
 #. @param target [Symbol] How much information to include in the profile (:default, :compact)
 #. @return [Hash] value set to Profile#current
-#: src/modules/Profile.rb:269 src/modules/Profile.rb:285
+#: src/modules/Profile.rb:271 src/modules/Profile.rb:287
 msgid "Collecting configuration data..."
 msgstr "正在收集組態資料..."
 
 #. Save YCP data into XML
 #. @param  file [String] path to file
 #. @return [Boolean] true on success
-#: src/modules/Profile.rb:320
-msgid "Encrypted AutoYaST profile. Enter the password twice."
-msgstr "加密的 AutoYaST 設定檔。輸入 2 次密碼。"
+#: src/modules/Profile.rb:316
+#, fuzzy
+#| msgid "Path to AutoYaST profile"
+msgid "Password for encrypted AutoYaST profile"
+msgstr "AutoYaST 設定檔路徑"
 
 #. Read XML into  YCP data
 #. @param file [String] path to file
 #. @return [Boolean]
-#: src/modules/Profile.rb:558 src/modules/ProfileLocation.rb:135
-msgid "Encrypted AutoYaST profile. Enter the correct password."
-msgstr "加密的 AutoYaST 設定檔。輸入正確的密碼。"
+#: src/modules/Profile.rb:518 src/modules/ProfileLocation.rb:132
+#, fuzzy
+#| msgid "Path to AutoYaST profile"
+msgid "Encrypted AutoYaST profile."
+msgstr "AutoYaST 設定檔路徑"
+
+#: src/modules/Profile.rb:531 src/modules/ProfileLocation.rb:144
+msgid "Decryption of profile failed."
+msgstr ""
 
 #. autoyast=label://my_home//autoinst.xml in linuxrc:
 #. AY is searching for a partition with the label "my_home". This partition
 #. will be mounted and the autoinst.xml will be used for installation.
-#: src/modules/ProfileLocation.rb:92
+#: src/modules/ProfileLocation.rb:94
 msgid "label not found while looking for autoyast profile"
 msgstr "尋找 autoyast 設定檔時找不到標籤"
 
 #. autoyast hit an error while fetching it's config file
-#: src/modules/ProfileLocation.rb:115
+#: src/modules/ProfileLocation.rb:117
 msgid "An error occurred while fetching the profile:\n"
 msgstr "取得設定檔時發生錯誤：\n"
 
 #. TRANSLATORS: %s is the filename
-#: src/modules/ProfileLocation.rb:124
+#: src/modules/ProfileLocation.rb:126
 msgid ""
 "AutoYaST file %s\n"
 "has no valid encoding or is corrupted."
 msgstr ""
-
-#: src/modules/ProfileLocation.rb:138
-msgid "&OK"
-msgstr "確定(&O)"
 
 #. @param label [String] intention of password e.g. "Encrypted autoyast profile."
 #. @param confirm [Boolean] if double password entry is required.
@@ -2998,6 +2980,25 @@ msgstr "確定(&O)"
 #: library/general/src/lib/ui/password_dialog.rb:71
 msgid "Passwords does not match."
 msgstr ""
+
+#~ msgid " - Drive"
+#~ msgstr " - 磁碟機"
+
+#~ msgid " - Volume group"
+#~ msgstr " - 磁碟區群組"
+
+#~ msgid ""
+#~ "Volume group '%1' must have at least one physical volume. Provide one."
+#~ msgstr "磁碟區群組「%1」至少要有一個實體磁碟區。請提供。"
+
+#~ msgid "Encrypted AutoYaST profile. Enter the password twice."
+#~ msgstr "加密的 AutoYaST 設定檔。輸入 2 次密碼。"
+
+#~ msgid "Encrypted AutoYaST profile. Enter the correct password."
+#~ msgstr "加密的 AutoYaST 設定檔。輸入正確的密碼。"
+
+#~ msgid "&OK"
+#~ msgstr "確定(&O)"
 
 #~ msgid ""
 #~ "<p>\n"
