@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: autoinst\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-09-19 02:27+0000\n"
+"POT-Creation-Date: 2020-09-22 02:28+0000\n"
 "PO-Revision-Date: 2020-02-18 11:55+0000\n"
 "Last-Translator: Grace Yu <grace.yu@excel-gits.com>\n"
 "Language-Team: Chinese (Taiwan) <https://l10n.opensuse.org/projects/yast-"
@@ -97,11 +97,13 @@ msgstr "找不到所需的軟體包。"
 
 #. TRANSLATOR: %s is the package name
 #: src/clients/inst_autoconfigure.rb:100
+#, c-format
 msgid "Needed package: %s"
 msgstr "所需的軟體包：%s"
 
 #. TRANSLATOR: %s is the list of package names
 #: src/clients/inst_autoconfigure.rb:103
+#, c-format
 msgid "Needed packages: %s"
 msgstr "所需的軟體包：%s"
 
@@ -109,6 +111,7 @@ msgstr "所需的軟體包：%s"
 #. list of unknown sections of the profile
 #. Do not translate words in brackets
 #: src/clients/inst_autoconfigure.rb:114
+#, c-format
 msgid ""
 "These sections of the AutoYaST profile cannot be processed on this system:"
 "<br><br>%s<br><br>Maybe they were misspelled or your profile does not "
@@ -149,6 +152,7 @@ msgstr "正在完成組態"
 #.
 #. @param [String] step_descr description of the step.
 #: src/clients/inst_autoconfigure.rb:288
+#, ycp-format
 msgid "Processing resource %1"
 msgstr "正在處理資源 %1"
 
@@ -189,6 +193,7 @@ msgstr "正在新增找到的套件..."
 
 #. Finish
 #: src/clients/inst_autopost.rb:112
+#, ycp-format
 msgid "Checking for packages required for %1..."
 msgstr "正在檢查 %1 所需要的套件..."
 
@@ -339,6 +344,7 @@ msgstr ""
 
 #. The merge operation
 #: src/include/autoinstall/classes.rb:352
+#, ycp-format
 msgid ""
 "Merge failed:\n"
 " %1"
@@ -398,6 +404,7 @@ msgstr ""
 "程序檔。</P>\n"
 
 #: src/include/autoinstall/classes.rb:510
+#, ycp-format
 msgid ""
 "Select at least %1  configurations\n"
 "to perform a merge.\n"
@@ -442,6 +449,7 @@ msgstr "另存新檔..."
 
 #: src/include/autoinstall/conftree.rb:43
 #: src/include/autoinstall/conftree.rb:631
+#, ycp-format
 msgid "File %1 was saved successfully."
 msgstr "已經成功儲存檔案 %1。"
 
@@ -587,6 +595,7 @@ msgstr "來源"
 #. Some configuration modules removes/exchange the menu bar.
 #. So we have to reset. (bnc#872711)
 #: src/include/autoinstall/conftree.rb:511
+#, ycp-format
 msgid ""
 "Do you really want to apply the settings of the module '%1' to your current "
 "system?"
@@ -600,12 +609,14 @@ msgid "Select a file to load."
 msgstr "選取要載入的檔案。"
 
 #: src/include/autoinstall/conftree.rb:558
-#: src/lib/autoinstall/clients/autoyast.rb:156
+#: src/lib/autoinstall/clients/autoyast.rb:197
+#: src/lib/autoinstall/profile_checker.rb:112
 msgid "Reading configuration data"
 msgstr "正在讀取組態資料"
 
 #: src/include/autoinstall/conftree.rb:559
-#: src/lib/autoinstall/clients/autoyast.rb:157 src/modules/Profile.rb:272
+#: src/lib/autoinstall/clients/autoyast.rb:198
+#: src/lib/autoinstall/profile_checker.rb:113 src/modules/Profile.rb:272
 #: src/modules/Profile.rb:288
 msgid "This may take a while"
 msgstr "這可能需要一些時間"
@@ -633,6 +644,7 @@ msgid "Control file changed."
 msgstr "已變更控制檔案。"
 
 #: src/include/autoinstall/conftree.rb:708
+#, ycp-format
 msgid "Save the changes to %1?"
 msgstr "要儲存 %1 的變更嗎？"
 
@@ -748,6 +760,7 @@ msgstr "正在以 RNG 驗證檢查 XML..."
 
 #. section wise validation
 #: src/include/autoinstall/dialogs.rb:314
+#, ycp-format
 msgid "Section %1: "
 msgstr "區段 %1︰"
 
@@ -1444,33 +1457,46 @@ msgid "Writing configuration files ..."
 msgstr "正在讀取組態資料..."
 
 #. This client is responsible for starting the AutoYaST UI.
-#: src/lib/autoinstall/clients/autoyast.rb:55
+#: src/lib/autoinstall/clients/autoyast.rb:56
 msgid "Error while reading configuration data."
 msgstr "讀取組態資料時發生錯誤。"
 
-#: src/lib/autoinstall/clients/autoyast.rb:64
+#: src/lib/autoinstall/clients/autoyast.rb:65
 msgid "AutoYaST"
 msgstr "AutoYast"
 
 #. Displays the list of known modules
 #.
 #. @param _options [Hash] Command line options
-#: src/lib/autoinstall/clients/autoyast.rb:135
+#: src/lib/autoinstall/clients/autoyast.rb:157
 #, fuzzy
 #| msgid "Modules"
 msgid "Module"
 msgstr "模組"
 
-#: src/lib/autoinstall/clients/autoyast.rb:135
+#: src/lib/autoinstall/clients/autoyast.rb:157
 #, fuzzy
 #| msgid "Descri&ption:"
 msgid "Description"
 msgstr "描述(&P)："
 
+#. Check if profile is valid
+#.
+#. @param options [Hash] Command line options
+#. @return [Boolean] true if profile is valid
+#: src/lib/autoinstall/clients/autoyast.rb:170
+msgid "Filename parameter is mandatory."
+msgstr ""
+
 #. Reads and imports a profile
 #.
 #. @param filename [String] Profile path
-#: src/lib/autoinstall/clients/autoyast.rb:148
+#. Reads and imports a profile
+#.
+#. @param filename [String] Profile path
+#. @return [Boolean] if import does not find any issue
+#: src/lib/autoinstall/clients/autoyast.rb:189
+#: src/lib/autoinstall/profile_checker.rb:104
 #, fuzzy
 #| msgid ""
 #| "Error while parsing the control file.\n"
@@ -1486,32 +1512,40 @@ msgstr ""
 "或修正控制檔案後再試一次。\n"
 
 #. @return [String]
-#: src/lib/autoinstall/clients/autoyast.rb:202
+#: src/lib/autoinstall/clients/autoyast.rb:243
 msgid ""
 "File specific operations (deprecated). Use 'ui' action with the 'filename' "
 "option instead."
 msgstr ""
 
 #. @return [String]
-#: src/lib/autoinstall/clients/autoyast.rb:208
+#: src/lib/autoinstall/clients/autoyast.rb:249
 msgid ""
 "Module specific operations (deprecated). Use 'ui' action instead with the "
 "'modname' option instead."
 msgstr ""
 
 #. @return [String]
-#: src/lib/autoinstall/clients/autoyast.rb:214
+#: src/lib/autoinstall/clients/autoyast.rb:255
 #, fuzzy
 #| msgid "Second Stage of AutoYaST"
 msgid "Opens the AutoYaST UI."
 msgstr "AutoYaST 的第二階段"
 
 #. @return [String]
-#: src/lib/autoinstall/clients/autoyast.rb:219
+#: src/lib/autoinstall/clients/autoyast.rb:260
 #, fuzzy
 #| msgid "known modules: %1"
 msgid "List known modules."
 msgstr "已知模組：%1"
+
+#. @return [String]
+#: src/lib/autoinstall/clients/autoyast.rb:265
+msgid ""
+"Check if profile is valid. Also evaluate profile for dynamic profiles like "
+"ERB or rules/classes. If run-scripts parameter is set to 'true' it can be "
+"used also to validate dynamic profiles generated by pre-scripts."
+msgstr ""
 
 #. IPv6 settings will be written despite the have been
 #. changed or not. So we have to read them at first.
@@ -1528,7 +1562,7 @@ msgid ""
 msgstr "基於正在執行的系統用於建立 AutoYaST 設定檔的用戶端"
 
 #: src/lib/autoinstall/clients/clone_system.rb:83
-#, fuzzy
+#, fuzzy, c-format
 #| msgid "known modules: %1"
 msgid "known modules: %s"
 msgstr "已知模組：%1"
@@ -1551,6 +1585,7 @@ msgstr ""
 #. TRANSLATORS: Warning that an already existing autoyast configuration file
 #. will be overwritten.
 #: src/lib/autoinstall/clients/clone_system.rb:136
+#, c-format
 msgid "File %s exists! Really overwrite?"
 msgstr "檔案 %s 已存在！確定要覆寫嗎？"
 
@@ -1560,6 +1595,7 @@ msgstr "正在複製系統..."
 
 #. TRANSLATORS: %s is path where profile can be found
 #: src/lib/autoinstall/clients/clone_system.rb:144
+#, c-format
 msgid "The resulting autoyast profile can be found in %s."
 msgstr "可以在 %s 中找到產生的 autoyast 設定檔。"
 
@@ -1727,6 +1763,7 @@ msgstr ""
 #. list of unsupported sections of the profile
 #. Do not translate words in brackets
 #: src/lib/autoinstall/clients/inst_autoinit.rb:203
+#, c-format
 msgid ""
 "These sections of AutoYaST profile are not supported anymore:<br><br>"
 "%s<br><br>Please, use, e.g., &lt;scripts/&gt; or &lt;files/&gt; to change "
@@ -2059,6 +2096,7 @@ msgstr "找不到磁碟。"
 
 #. TRANSLATORS: %s will be replaced by a number
 #: src/lib/autoinstall/dialogs/disk_selector.rb:157
+#, c-format
 msgid ""
 "All hard disks automatically detected on your system are shown here.\n"
 "Please, select a hard disk to be used in the #%s drive section of the\n"
@@ -2071,13 +2109,14 @@ msgstr ""
 #. the term is likely a bad idea.
 #. %{type} and %{name} are placeholders, do not translate them.
 #: src/lib/autoinstall/presenters/drive.rb:65
+#, perl-brace-format
 msgid "Drive (%{type}): %{name}"
 msgstr ""
 
 #. TRANSLATORS: 'Drive' is the name of a section of the AutoYaST profile, translating
 #. the term is likely a bad idea. %s is substituted by the type of drive.
 #: src/lib/autoinstall/presenters/drive.rb:69
-#, fuzzy
+#, fuzzy, c-format
 #| msgid "Drives"
 msgid "Drive (%s)"
 msgstr "磁碟機"
@@ -2152,17 +2191,44 @@ msgstr "裝載"
 #: src/lib/autoinstall/presenters/partition.rb:185
 #: src/lib/autoinstall/presenters/partition.rb:188
 #: src/lib/autoinstall/presenters/partition.rb:194
+#, c-format
 msgid "Part of %s"
 msgstr ""
 
 #. TRANSLATORS: %s is a placeholder for the name of a bcache device
 #: src/lib/autoinstall/presenters/partition.rb:191
+#, c-format
 msgid "Backing for %s"
 msgstr ""
 
 #: src/lib/autoinstall/presenters/partition.rb:196
 msgid "Not used"
 msgstr ""
+
+#. check profile use UI and not cmdline
+#: src/lib/autoinstall/profile_checker.rb:62
+msgid "Obtaining Profile"
+msgstr ""
+
+#: src/lib/autoinstall/profile_checker.rb:63
+#, fuzzy
+#| msgid "Path to AutoYaST profile"
+msgid "Fetching and generating final AutoYaST profile"
+msgstr "AutoYaST 設定檔路徑"
+
+#. run all scripts defined in profile
+#. @return [Boolean] true if all scripts works
+#: src/lib/autoinstall/profile_checker.rb:136
+#, fuzzy
+#| msgid "Executing Post-Scripts"
+msgid "Executing Scripts"
+msgstr "正在執行安裝後程序檔"
+
+#: src/lib/autoinstall/profile_checker.rb:137
+#, fuzzy
+#| msgid "Path to AutoYaST profile"
+msgid "Trying to run all scripts in AutoYaST profile."
+msgstr "AutoYaST 設定檔路徑"
 
 #. @macro seeAbstractWidget
 #: src/lib/autoinstall/widgets/storage/add_drive_button.rb:46
@@ -2541,13 +2607,14 @@ msgstr ""
 #. validation error message, %{jing} and %{xmllint} are replaced by shell commands,
 #. use HTML tags and entities (non-breaking space) for formatting the message
 #: src/lib/autoinstall/xml_checks.rb:176
+#, perl-brace-format
 msgid ""
 "You can check the file manually with these commands:<br><br>&nbsp;&nbsp;"
 "%{jing}<br>&nbsp;&nbsp;%{xmllint}"
 msgstr ""
 
 #. Showing issues onetime only.
-#: src/modules/AutoInstall.rb:371
+#: src/modules/AutoInstall.rb:372
 msgid "AutoYaST configuration file check"
 msgstr "AutoYaST 組態檔案檢查"
 
@@ -2597,6 +2664,7 @@ msgstr "透過 SLP 未發現「autoyast」提供者。"
 
 #. There is no profile defined/found anywhere
 #: src/modules/AutoinstConfig.rb:350
+#, perl-brace-format
 msgid ""
 "Invalid AutoYaST profile URL\n"
 "%{url}"
@@ -2611,26 +2679,32 @@ msgid "Retrieving control file from floppy."
 msgstr "正在從磁片取回控制檔案。"
 
 #: src/modules/AutoinstConfig.rb:395
+#, ycp-format
 msgid "Retrieving control file (%1) from TFTP server: %2."
 msgstr "從 TFTP 伺服器取回控制檔案 (%1)：%2。"
 
 #: src/modules/AutoinstConfig.rb:401
+#, ycp-format
 msgid "Retrieving control file (%1) from NFS server: %2."
 msgstr "從 NFS 伺服器取回控制檔案 (%1)：%2。"
 
 #: src/modules/AutoinstConfig.rb:407
+#, ycp-format
 msgid "Retrieving control file (%1) from HTTP server: %2."
 msgstr "從 HTTP 伺服器取回控制檔案 (%1)：%2。"
 
 #: src/modules/AutoinstConfig.rb:413
+#, ycp-format
 msgid "Retrieving control file (%1) from FTP server: %2."
 msgstr "從 FTP 伺服器取回控制檔案 (%1)：%2。"
 
 #: src/modules/AutoinstConfig.rb:419
+#, ycp-format
 msgid "Copying control file from file: %1."
 msgstr "從檔案複製控制檔案：%1。"
 
 #: src/modules/AutoinstConfig.rb:424
+#, ycp-format
 msgid "Copying control file from device: /dev/%1."
 msgstr "從裝置複製控制檔案：/dev/%1。"
 
@@ -2759,6 +2833,7 @@ msgstr "正在同步時間..."
 
 #. TRANSLATORS: %s is the name of the ntp server
 #: src/modules/AutoinstGeneral.rb:421
+#, c-format
 msgid "Syncing time with %s."
 msgstr "正在與 %s 同步時間。"
 
@@ -2793,6 +2868,7 @@ msgstr "尚未複製。"
 
 #. We are counting harddisks only (type CT_DISK)
 #: src/modules/AutoinstPartPlan.rb:86
+#, c-format
 msgid "%s drive in total"
 msgid_plural "%s drives in total"
 msgstr[0] "%s 磁碟機總計"
@@ -2835,6 +2911,7 @@ msgstr "未知"
 
 #. show warning if script return non-zero and no feedback is want
 #: src/modules/AutoinstScripts.rb:291
+#, perl-brace-format
 msgid ""
 "User script %{script_name} failed.\n"
 "Details:\n"
@@ -2843,41 +2920,44 @@ msgstr ""
 
 #. Summary
 #. @return Html formatted configuration summary
-#: src/modules/AutoinstSoftware.rb:314
+#: src/modules/AutoinstSoftware.rb:275
 msgid "Selected Patterns"
 msgstr "選定模式"
 
-#: src/modules/AutoinstSoftware.rb:324
+#: src/modules/AutoinstSoftware.rb:285
 msgid "Individually Selected Packages"
 msgstr "個別選取的套件"
 
-#: src/modules/AutoinstSoftware.rb:330
+#: src/modules/AutoinstSoftware.rb:291
 msgid "Packages to Remove"
 msgstr "要移除的套件"
 
-#: src/modules/AutoinstSoftware.rb:337
+#: src/modules/AutoinstSoftware.rb:298
 msgid "Force Kernel Package"
 msgstr "強制核心套件"
 
 #. set SoftLock to avoid the installation of recommended patterns (#159466)
-#: src/modules/AutoinstSoftware.rb:433
+#: src/modules/AutoinstSoftware.rb:394
+#, ycp-format
 msgid "Could not set patterns: %1."
 msgstr "無法設定模式：%1。"
 
 #. TRANSLATORS: Error message
-#: src/modules/AutoinstSoftware.rb:476
+#: src/modules/AutoinstSoftware.rb:437
 msgid ""
 "The package resolver run failed. Please check your software section in the "
 "autoyast profile."
 msgstr "套件解析程式執行失敗。 請檢查您在 autoyast 設定檔中的軟體區段。"
 
 #. TRANSLATORS: Error message, %s is replaced by "/var/log/YaST2/y2log"
-#: src/modules/AutoinstSoftware.rb:479
+#: src/modules/AutoinstSoftware.rb:440
+#, c-format
 msgid "Additional details can be found in the %s file."
 msgstr "可在 %s 中查看其他詳細資料。"
 
 #. TRANSLATORS: Warning text during the installation. %s is a list of package
-#: src/modules/AutoinstSoftware.rb:715
+#: src/modules/AutoinstSoftware.rb:676
+#, c-format
 msgid ""
 "These packages cannot be found in the software repositories:\n"
 "%s"
@@ -2886,12 +2966,14 @@ msgstr ""
 "%s"
 
 #. TRANSLATORS: Error message, %d is replaced by the amount of failed packages.
-#: src/modules/AutoinstSoftware.rb:719
+#: src/modules/AutoinstSoftware.rb:680
+#, c-format
 msgid "and %d additional packages"
 msgstr "及 %d 個其他套件"
 
 #. TRANSLATORS: Error message, %s is replaced by "/var/log/YaST2/y2log"
-#: src/modules/AutoinstSoftware.rb:721
+#: src/modules/AutoinstSoftware.rb:682
+#, c-format
 msgid "Details can be found in the %s file."
 msgstr "可在 %s 中查看詳細資料。"
 
@@ -2970,6 +3052,7 @@ msgstr "取得設定檔時發生錯誤：\n"
 
 #. TRANSLATORS: %s is the filename
 #: src/modules/ProfileLocation.rb:126
+#, c-format
 msgid ""
 "AutoYaST file %s\n"
 "has no valid encoding or is corrupted."
