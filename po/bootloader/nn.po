@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: @PACKAGE@\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-09-24 02:27+0000\n"
+"POT-Creation-Date: 2020-11-07 02:27+0000\n"
 "PO-Revision-Date: 2015-11-16 20:31+0100\n"
 "Last-Translator: Karl Ove Hufthammer <karl@huftis.org>\n"
 "Language-Team: NorwegianNynorsk <i18n-nn@lister.ping.uio.no>\n"
@@ -238,9 +238,9 @@ msgid "Boot Loader Type: %1"
 msgstr "Oppstartslastertype: %1"
 
 #: src/lib/bootloader/grub2.rb:114
-#, fuzzy, ycp-format
-msgid "Status Location: %1"
-msgstr "Status for plassering: %1"
+#, fuzzy, c-format
+msgid "Write Boot Code To: %s"
+msgstr "Skriv &generisk oppstartskode til MBR"
 
 #. part of summary, %1 is a list of hard disks device names
 #: src/lib/bootloader/grub2.rb:186
@@ -248,33 +248,33 @@ msgstr "Status for plassering: %1"
 msgid "Order of Hard Disks: %1"
 msgstr "Harddiskrekkefølge: %1"
 
-#: src/lib/bootloader/grub2.rb:195
+#: src/lib/bootloader/grub2.rb:195 src/lib/bootloader/grub2.rb:200
 #, fuzzy
 msgid " (/boot)"
 msgstr " («/boot»)"
 
 #. TRANSLATORS: MBR is acronym for Master Boot Record, if nothing locally specific
 #. is used in your language, then keep it as it is.
-#: src/lib/bootloader/grub2.rb:199
+#: src/lib/bootloader/grub2.rb:205
 #, fuzzy
 msgid " (MBR)"
 msgstr " (MBR)"
 
-#: src/lib/bootloader/grub2.rb:208
+#: src/lib/bootloader/grub2.rb:214
 #, fuzzy
 msgid ""
 "Install bootcode into MBR (<a href=\"disable_boot_mbr\">do not install</a>)"
 msgstr ""
 "Oppstart frå MBR er aktivert (<a href=\"disable_boot_mbr\">deaktiver</a>"
 
-#: src/lib/bootloader/grub2.rb:212
+#: src/lib/bootloader/grub2.rb:218
 #, fuzzy
 msgid ""
 "Do not install bootcode into MBR (<a href=\"enable_boot_mbr\">install</a>)"
 msgstr ""
 "Oppstart frå MBR er deaktivert (<a href=\"enable_boot_mbr\">aktiver</a>"
 
-#: src/lib/bootloader/grub2.rb:220
+#: src/lib/bootloader/grub2.rb:226
 #, fuzzy
 msgid ""
 "Install boot code into a partition with /boot (<a href=\"disable_boot_boot"
@@ -283,7 +283,7 @@ msgstr ""
 "Oppstart frå /boot-partisjon er aktivert (<a href=\"disable_boot_boot"
 "\">deaktiver</a>"
 
-#: src/lib/bootloader/grub2.rb:225
+#: src/lib/bootloader/grub2.rb:231
 #, fuzzy
 msgid ""
 "Do not install boot code into a partition with /boot (<a href="
@@ -292,15 +292,51 @@ msgstr ""
 "Oppstart frå /boot-partisjon er deaktivert (<a href=\"enable_boot_boot"
 "\">aktiver</a>"
 
+#: src/lib/bootloader/grub2.rb:240
+#, fuzzy
+msgid ""
+"Install boot code into a logical partition with /boot (<a href="
+"\"disable_boot_boot\">do not install</a>)"
+msgstr ""
+"Oppstart frå /boot-partisjon er aktivert (<a href=\"disable_boot_boot"
+"\">deaktiver</a>"
+
+#: src/lib/bootloader/grub2.rb:245
+#, fuzzy
+msgid ""
+"Do not install boot code into a logical partition with /boot (<a href="
+"\"enable_boot_boot\">install</a>)"
+msgstr ""
+"Oppstart frå /boot-partisjon er deaktivert (<a href=\"enable_boot_boot"
+"\">aktiver</a>"
+
+#: src/lib/bootloader/grub2.rb:254
+#, fuzzy
+msgid ""
+"Install boot code into a extended partition with /boot (<a href="
+"\"disable_boot_extended\">do not install</a>)"
+msgstr ""
+"Oppstart frå /boot-partisjon er aktivert (<a href=\"disable_boot_boot"
+"\">deaktiver</a>"
+
+#: src/lib/bootloader/grub2.rb:259
+#, fuzzy
+msgid ""
+"Do not install boot code into a extended partition with /boot (<a href="
+"\"enable_boot_extended\">install</a>)"
+msgstr ""
+"Oppstart frå /boot-partisjon er deaktivert (<a href=\"enable_boot_boot"
+"\">aktiver</a>"
+
 #. no location chosen, so warn user that it is problem unless he is sure
-#: src/lib/bootloader/grub2.rb:250
+#: src/lib/bootloader/grub2.rb:291
 msgid ""
 "Warning: No location for bootloader stage1 selected.Unless you know what you "
 "are doing please select above location."
 msgstr ""
 
 #. TRANSLATORS: title for list of location proposals
-#: src/lib/bootloader/grub2.rb:258
+#: src/lib/bootloader/grub2.rb:299
 #, fuzzy, c-format
 msgid "Change Location: %s"
 msgstr "Endre plassering: %1"
@@ -466,7 +502,7 @@ msgstr ""
 #. this deletes any internally cached values, a new proposal will
 #. not be partially based on old data now any more
 #: src/lib/bootloader/grub2_widgets.rb:309
-#: src/lib/bootloader/proposal_client.rb:153
+#: src/lib/bootloader/proposal_client.rb:155
 msgid "do not change"
 msgstr ""
 
@@ -493,7 +529,7 @@ msgid ""
 msgstr ""
 
 #: src/lib/bootloader/grub2_widgets.rb:364
-#: src/lib/bootloader/proposal_client.rb:363
+#: src/lib/bootloader/proposal_client.rb:370
 msgid ""
 "The new secure-boot enabled boot data format works only on z15 and later and "
 "only for zFCP disks.\n"
@@ -691,32 +727,42 @@ msgid "Boot Loader Location"
 msgstr "Oppstartslasterens plassering"
 
 #. Add it exactly as specified by the user
-#: src/lib/bootloader/grub2_widgets.rb:877
+#: src/lib/bootloader/grub2_widgets.rb:885
 msgid "Custom boot device have to be specied if checked"
 msgstr ""
 
-#: src/lib/bootloader/grub2_widgets.rb:905
+#: src/lib/bootloader/grub2_widgets.rb:913
 #, fuzzy
 msgid "Boo&t from Partition"
 msgstr "Star&t frå oppstartspartisjon"
 
-#: src/lib/bootloader/grub2_widgets.rb:906
+#: src/lib/bootloader/grub2_widgets.rb:915
+#, fuzzy
+msgid "Boo&t from Logical Partition"
+msgstr "Star&t frå oppstartspartisjon"
+
+#: src/lib/bootloader/grub2_widgets.rb:918
+#, fuzzy
+msgid "Boot from &Extended Partition"
+msgstr "Start frå utvid&eit partisjon"
+
+#: src/lib/bootloader/grub2_widgets.rb:920
 #, fuzzy
 msgid "Boot from &Master Boot Record"
 msgstr "Start frå &Mastar Boot Record"
 
-#: src/lib/bootloader/grub2_widgets.rb:917
+#: src/lib/bootloader/grub2_widgets.rb:931
 #, fuzzy
 msgid "C&ustom Boot Partition"
 msgstr "E&gendefinert oppstartspartisjon"
 
 #. Represents button that open Device Map edit dialog
-#: src/lib/bootloader/grub2_widgets.rb:930
+#: src/lib/bootloader/grub2_widgets.rb:944
 #, fuzzy
 msgid "&Edit Disk Boot Order"
 msgstr "Diskrekkefølge"
 
-#: src/lib/bootloader/grub2_widgets.rb:936
+#: src/lib/bootloader/grub2_widgets.rb:950
 #, fuzzy
 msgid ""
 "<p><b>Edit Disk Boot Order</b>\n"
@@ -733,19 +779,19 @@ msgstr ""
 "Nytte <b>Fjern</b> for å fjerne ein disk.</p>"
 
 #. represents Tab with kernel related configuration
-#: src/lib/bootloader/grub2_widgets.rb:957
+#: src/lib/bootloader/grub2_widgets.rb:971
 #, fuzzy
 msgid "&Kernel Parameters"
 msgstr "Ekstra kjerneparametere: %1"
 
 #. Represent tab with options related to stage1 location and bootloader type
-#: src/lib/bootloader/grub2_widgets.rb:979
+#: src/lib/bootloader/grub2_widgets.rb:993
 #, fuzzy
 msgid "Boot Co&de Options"
 msgstr "Alternativ for oppstartslaster"
 
 #. Represents bootloader specific options like its timeout, default section or password protection
-#: src/lib/bootloader/grub2_widgets.rb:1069
+#: src/lib/bootloader/grub2_widgets.rb:1083
 #, fuzzy
 msgid "Boot&loader Options"
 msgstr "Alternativ for oppstartslaster"
@@ -846,13 +892,13 @@ msgid ""
 msgstr ""
 
 #. proposal part - bootloader label
-#: src/lib/bootloader/proposal_client.rb:121
+#: src/lib/bootloader/proposal_client.rb:123
 #, fuzzy
 msgid "Booting"
 msgstr "Oppstart"
 
 #. menubutton entry
-#: src/lib/bootloader/proposal_client.rb:123
+#: src/lib/bootloader/proposal_client.rb:125
 #, fuzzy
 msgid "&Booting"
 msgstr "&Oppstart"
@@ -861,12 +907,12 @@ msgstr "&Oppstart"
 #. while calculating the proposal
 #.
 #. @return [Hash]
-#: src/lib/bootloader/proposal_client.rb:263
+#: src/lib/bootloader/proposal_client.rb:265
 msgid "Cannot detect device mounted as root. Please check partitioning."
 msgstr ""
 
 #. TRANSLATORS: %s is a string containing the technical details of the error
-#: src/lib/bootloader/proposal_client.rb:277
+#: src/lib/bootloader/proposal_client.rb:279
 #, c-format
 msgid ""
 "Error reading the bootloader configuration files. Please open the booting "
@@ -874,7 +920,7 @@ msgid ""
 msgstr ""
 
 #. warning text in the summary richtext
-#: src/lib/bootloader/proposal_client.rb:321
+#: src/lib/bootloader/proposal_client.rb:323
 #, fuzzy
 msgid ""
 "No boot loader is selected for installation. Your system might not be "
@@ -883,7 +929,7 @@ msgstr ""
 "Ingen oppstartslaster er valde for installasjon. Systemet vil kanskje ikkje "
 "kunna verta opp starta."
 
-#: src/lib/bootloader/proposal_client.rb:329
+#: src/lib/bootloader/proposal_client.rb:331
 #, fuzzy
 msgid ""
 "Because of the partitioning, the bootloader cannot be installed properly"
@@ -1064,6 +1110,10 @@ msgid ""
 msgstr ""
 
 #, fuzzy
+#~ msgid "Status Location: %1"
+#~ msgstr "Status for plassering: %1"
+
+#, fuzzy
 #~ msgid ""
 #~ "<p><b>Boot Loader Type</b><br>\n"
 #~ "To select whether to install a boot loader and which bootloader to "
@@ -1135,10 +1185,6 @@ msgstr ""
 #, fuzzy
 #~ msgid "Boo&t from Root Partition"
 #~ msgstr "Start frå rotpartisjon"
-
-#, fuzzy
-#~ msgid "Boot from &Extended Partition"
-#~ msgstr "Start frå utvid&eit partisjon"
 
 #, fuzzy
 #~ msgid "The boot device is on raid type: %1. System will not boot."
