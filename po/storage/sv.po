@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: storage\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-26 02:29+0000\n"
+"POT-Creation-Date: 2020-12-04 02:29+0000\n"
 "PO-Revision-Date: 2020-05-12 12:08+0000\n"
 "Last-Translator: Luna Jernberg <droidbittin@gmail.com>\n"
 "Language-Team: Swedish <https://l10n.opensuse.org/projects/yast-storage/"
@@ -100,6 +100,13 @@ msgstr ""
 #, perl-brace-format
 msgid "It is not possible to create a partition on %{name}."
 msgstr "Partition kan inte skapas på %{name}."
+
+#. TRANSLATORS: wizard title when creating a new Tmpfs filesystem.
+#: src/lib/y2partitioner/actions/add_tmpfs.rb:74
+#, fuzzy
+#| msgid "Add tmpfs Mount"
+msgid "Add Tmpfs"
+msgstr "Lägg till tmpfs-montering"
 
 #. Error message when the device has no partition table
 #.
@@ -484,13 +491,13 @@ msgid "Really delete the Btrfs subvolume %{path}?"
 msgstr "Verkligen ta bort undervolym %s?"
 
 #. TRANSLATORS %s is the name of the device (e.g., /dev/sda1)
-#: src/lib/y2partitioner/actions/delete_device.rb:105
+#: src/lib/y2partitioner/actions/delete_device.rb:85
 #, c-format
 msgid "Really delete %s?"
 msgstr "Verkligen ta bort %s?"
 
 #. TRANSLATORS: Note added to the dialog for trying to unmount a device
-#: src/lib/y2partitioner/actions/delete_device.rb:120
+#: src/lib/y2partitioner/actions/delete_device.rb:123
 msgid "It cannot be deleted while mounted."
 msgstr "Den kan inte tas bort när den är monterad."
 
@@ -572,6 +579,14 @@ msgstr ""
 #: src/lib/y2partitioner/actions/delete_partition.rb:58
 msgid "This is an implicit partition and cannot be deleted."
 msgstr "Detta är en underförstådd partition som inte kan raderas."
+
+#. TRANSLATORS: Message when deleting a Tmpfs filesystem, where %{mount_path} is replaced by a
+#. mount path (e.g., "/tmp").
+#: src/lib/y2partitioner/actions/delete_tmpfs.rb:47
+#, fuzzy, perl-brace-format
+#| msgid "Really delete these devices?"
+msgid "Really delete the temporary file system mounted at %{mount_path}?"
+msgstr "Vill du ta bort de här enheterna?"
 
 #. TRANSLATORS: error message, %{name} is replaced by a bcache name (e.g., /dev/bcache0)
 #: src/lib/y2partitioner/actions/edit_bcache.rb:64
@@ -801,6 +816,14 @@ msgid ""
 msgstr ""
 "RAID %{name} är partitionerad. Om du vill ändra enheter som används,\n"
 "ska du se till att %{name} inte har några partitioner."
+
+#. TRANSLATORS: wizard title when editing a tmpfs filesystem, where %s is
+#. replaced by the path where tmpfs is mounted
+#: src/lib/y2partitioner/actions/edit_tmpfs.rb:74
+#, fuzzy, c-format
+#| msgid "Edit Partition %s"
+msgid "Edit Tmpfs at %s"
+msgstr "Redigera partition %s"
 
 #. Error message when no fstab file was detected
 #.
@@ -1465,7 +1488,7 @@ msgstr "Redigera Btrfs-undervolymer"
 #. Entry data about the LVM VG name
 #.
 #. @return [String]
-#: src/lib/y2partitioner/dialogs/device_description.rb:99
+#: src/lib/y2partitioner/dialogs/device_description.rb:100
 #: src/lib/y2partitioner/widgets/blk_device_attributes.rb:44
 #: src/lib/y2partitioner/widgets/description_section/lvm_vg_device.rb:56
 #, c-format
@@ -1583,7 +1606,7 @@ msgstr ""
 #. @macro seeAbstractWidget
 #. TRANSLATORS: table header, type of disk or partition. Can be longer. E.g. "Linux swap"
 #: src/lib/y2partitioner/dialogs/lvm_lv_info.rb:120
-#: src/lib/y2partitioner/widgets/columns/type.rb:83
+#: src/lib/y2partitioner/widgets/columns/type.rb:84
 msgid "Type"
 msgstr "Typ"
 
@@ -1598,7 +1621,7 @@ msgid "Normal Volume"
 msgstr "Normal volym"
 
 #: src/lib/y2partitioner/dialogs/lvm_lv_info.rb:132
-#: src/lib/y2partitioner/widgets/columns/type.rb:61
+#: src/lib/y2partitioner/widgets/columns/type.rb:62
 msgid "Thin Pool"
 msgstr "Tunn pool"
 
@@ -2500,26 +2523,26 @@ msgstr "Början"
 #. Default labels based on the device type
 #.
 #. @see #default_label
-#: src/lib/y2partitioner/widgets/columns/type.rb:51
+#: src/lib/y2partitioner/widgets/columns/type.rb:52
 msgid "Bcache"
 msgstr "Bcache"
 
-#: src/lib/y2partitioner/widgets/columns/type.rb:52
 #: src/lib/y2partitioner/widgets/columns/type.rb:53
+#: src/lib/y2partitioner/widgets/columns/type.rb:54
 msgid "Disk"
 msgstr "Disk"
 
-#: src/lib/y2partitioner/widgets/columns/type.rb:54
+#: src/lib/y2partitioner/widgets/columns/type.rb:55
 msgid "Multipath"
 msgstr "Multisändning"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/columns/type.rb:55
+#: src/lib/y2partitioner/widgets/columns/type.rb:56
 #: src/lib/y2partitioner/widgets/pages/nfs_mounts.rb:47
 msgid "NFS"
 msgstr "NFS"
 
-#: src/lib/y2partitioner/widgets/columns/type.rb:56
+#: src/lib/y2partitioner/widgets/columns/type.rb:57
 msgid "BIOS RAID"
 msgstr "BIOS RAID"
 
@@ -2528,76 +2551,76 @@ msgstr "BIOS RAID"
 #. @see #label
 #.
 #. @return [String]
-#: src/lib/y2partitioner/widgets/columns/type.rb:57
+#: src/lib/y2partitioner/widgets/columns/type.rb:58
 #: src/lib/y2partitioner/widgets/pages/md_raids.rb:39
 msgid "RAID"
 msgstr "RAID"
 
-#: src/lib/y2partitioner/widgets/columns/type.rb:58
+#: src/lib/y2partitioner/widgets/columns/type.rb:59
 msgid "PV"
 msgstr "PV"
 
-#: src/lib/y2partitioner/widgets/columns/type.rb:59
+#: src/lib/y2partitioner/widgets/columns/type.rb:60
 msgid "LVM"
 msgstr "LVM"
 
-#: src/lib/y2partitioner/widgets/columns/type.rb:60
+#: src/lib/y2partitioner/widgets/columns/type.rb:61
 msgid "Thin LV"
 msgstr "Tunn LV"
 
-#: src/lib/y2partitioner/widgets/columns/type.rb:62
+#: src/lib/y2partitioner/widgets/columns/type.rb:63
 #, fuzzy
 #| msgid "RAID"
 msgid "RAID LV"
 msgstr "RAID"
 
-#: src/lib/y2partitioner/widgets/columns/type.rb:63
+#: src/lib/y2partitioner/widgets/columns/type.rb:64
 #, fuzzy
 #| msgid "Cache Mode"
 msgid "Cache LV"
 msgstr "Cacheläge"
 
-#: src/lib/y2partitioner/widgets/columns/type.rb:64
+#: src/lib/y2partitioner/widgets/columns/type.rb:65
 #, fuzzy
 #| msgid "Cache Mode"
 msgid "Cache Pool"
 msgstr "Cacheläge"
 
-#: src/lib/y2partitioner/widgets/columns/type.rb:65
+#: src/lib/y2partitioner/widgets/columns/type.rb:66
 #, fuzzy
 #| msgid "Writeback"
 msgid "Writecache LV"
 msgstr "Writeback"
 
-#: src/lib/y2partitioner/widgets/columns/type.rb:66
+#: src/lib/y2partitioner/widgets/columns/type.rb:67
 msgid "Snapshot LV"
 msgstr ""
 
-#: src/lib/y2partitioner/widgets/columns/type.rb:67
+#: src/lib/y2partitioner/widgets/columns/type.rb:68
 msgid "Mirror LV"
 msgstr ""
 
-#: src/lib/y2partitioner/widgets/columns/type.rb:68
+#: src/lib/y2partitioner/widgets/columns/type.rb:69
 msgid "LV"
 msgstr "LV"
 
-#: src/lib/y2partitioner/widgets/columns/type.rb:69
+#: src/lib/y2partitioner/widgets/columns/type.rb:70
 msgid "Xen"
 msgstr "Xen"
 
-#: src/lib/y2partitioner/widgets/columns/type.rb:70
+#: src/lib/y2partitioner/widgets/columns/type.rb:71
 msgid "Partition"
 msgstr "Partition"
 
-#: src/lib/y2partitioner/widgets/columns/type.rb:71
+#: src/lib/y2partitioner/widgets/columns/type.rb:72
 #, fuzzy
-#| msgid "New Subvolume"
-msgid "BtrFS Subvolume"
-msgstr "Ny undervolym"
+#| msgid "Btrfs Volumes"
+msgid "Btrfs Subvolume"
+msgstr "Btrfs-volymer"
 
 #. TRANSLATORS: %{fs_type} is the filesystem type. I.e., FAT, Ext4, etc
 #. %{device_label} is the device label. I.e., Partition, Disk, etc
-#: src/lib/y2partitioner/widgets/columns/type.rb:167
+#: src/lib/y2partitioner/widgets/columns/type.rb:168
 #, perl-brace-format
 msgid "%{fs_type} %{device_label}"
 msgstr "%{fs_type} %{device_label}"
@@ -2606,57 +2629,57 @@ msgstr "%{fs_type} %{device_label}"
 #.
 #. @param lvm_pv [Y2Storage::LvmPv]
 #. @return [String]
-#: src/lib/y2partitioner/widgets/columns/type.rb:209
+#: src/lib/y2partitioner/widgets/columns/type.rb:210
 #, fuzzy
 msgid "Unused LVM PV"
 msgstr "Oanvänd disk (%1)"
 
-#: src/lib/y2partitioner/widgets/columns/type.rb:210
+#: src/lib/y2partitioner/widgets/columns/type.rb:211
 msgid "PV of LVM"
 msgstr ""
 
 #. TRANSLATORS: %s is the volume group name. E.g., "vg0"
-#: src/lib/y2partitioner/widgets/columns/type.rb:213
+#: src/lib/y2partitioner/widgets/columns/type.rb:214
 #, c-format
 msgid "PV of %s"
 msgstr ""
 
 #. TRANSLATORS: %{origin} is replaced by an LVM logical volumme name
 #. (e.g., /dev/vg0/user-data)
-#: src/lib/y2partitioner/widgets/columns/type.rb:225
+#: src/lib/y2partitioner/widgets/columns/type.rb:226
 #, perl-brace-format
 msgid "Thin Snapshot of %{origin}"
 msgstr ""
 
 #. TRANSLATORS: %{origin} is replaced by an LVM logical volumme name
 #. (e.g., /dev/vg0/user-data)
-#: src/lib/y2partitioner/widgets/columns/type.rb:229
+#: src/lib/y2partitioner/widgets/columns/type.rb:230
 #, perl-brace-format
 msgid "Snapshot of %{origin}"
 msgstr ""
 
 #. TRANSLATORS: %{fs_type} is the filesystem type. E.g., Btrfs, Ext4, etc.
 #. %{data_device_name} is the data device name. E.g., sda1
-#: src/lib/y2partitioner/widgets/columns/type.rb:245
+#: src/lib/y2partitioner/widgets/columns/type.rb:246
 #, perl-brace-format
 msgid "%{fs_type} Journal (%{data_device_name})"
 msgstr "%{fs_type} Journal (%{data_device_name})"
 
 #. TRANSLATORS: %{fs_name} is the filesystem name. E.g., Btrfs, Ext4, etc.
 #. %{blk_device_name} is a device base name. E.g., sda1...
-#: src/lib/y2partitioner/widgets/columns/type.rb:259
+#: src/lib/y2partitioner/widgets/columns/type.rb:260
 #, perl-brace-format
 msgid "Part of %{fs_name} %{blk_device_name}"
 msgstr "Del av %{fs_name} %{blk_device_name}"
 
 #. TRANSLATORS: %{bcache} is replaced by a device name (e.g., bcache0).
-#: src/lib/y2partitioner/widgets/columns/type.rb:270
+#: src/lib/y2partitioner/widgets/columns/type.rb:271
 #, perl-brace-format
 msgid "Backing of %{bcache}"
 msgstr ""
 
 #. TRANSLATORS: an special type of device
-#: src/lib/y2partitioner/widgets/columns/type.rb:278
+#: src/lib/y2partitioner/widgets/columns/type.rb:279
 #, fuzzy
 #| msgid "Bcache cache"
 msgid "Bcache caching"
@@ -2666,7 +2689,7 @@ msgstr "Bcache cache"
 #.
 #. @param ancestor_device [Y2Storage::BlkDevice]
 #. @return [String]
-#: src/lib/y2partitioner/widgets/columns/type.rb:286
+#: src/lib/y2partitioner/widgets/columns/type.rb:287
 #, c-format
 msgid "Part of %s"
 msgstr "Del av %s"
@@ -2678,7 +2701,7 @@ msgstr "Används av"
 
 #. TRANSLATORS: label of a table column
 #: src/lib/y2partitioner/widgets/columns/uuid.rb:36
-#: src/lib/y2partitioner/widgets/fstab_options.rb:405
+#: src/lib/y2partitioner/widgets/fstab_options.rb:413
 #: src/lib/y2storage/filesystems/mount_by_type.rb:63
 msgid "UUID"
 msgstr "UUID"
@@ -2743,7 +2766,7 @@ msgstr "Bussökväg: %1"
 #. TRANSLATORS: Mount point information, where %s is replaced by a mount point (e.g., "/home")
 #. TRANSLATORS: Mount point information, where %s is replaced by a mount point
 #: src/lib/y2partitioner/widgets/description_section/btrfs_subvolume.rb:58
-#: src/lib/y2partitioner/widgets/description_section/filesystem.rb:88
+#: src/lib/y2partitioner/widgets/description_section/filesystem.rb:98
 #, c-format
 msgid "Mount Point: %s"
 msgstr "Monteringspunkt: %s"
@@ -2793,47 +2816,56 @@ msgstr "Filsystem:"
 
 #. TRANSLATORS: Filesystem type information, where %s is replaced by
 #. a filesystem type (e.g., VFAT, BTRFS)
-#: src/lib/y2partitioner/widgets/description_section/filesystem.rb:77
+#: src/lib/y2partitioner/widgets/description_section/filesystem.rb:87
 #, fuzzy, c-format
 #| msgid "Type: %1"
 msgid "Type: %s"
 msgstr "Typ: %1"
 
 #. TRANSLATORS: note appended to mount point if mount point is not now mounted
-#: src/lib/y2partitioner/widgets/description_section/filesystem.rb:90
+#: src/lib/y2partitioner/widgets/description_section/filesystem.rb:100
 msgid " (not mounted)"
 msgstr " (inte monterad)"
 
 #. TRANSLATORS: Mount by information, where %s is replaced by a "mount by" option
-#: src/lib/y2partitioner/widgets/description_section/filesystem.rb:100
+#: src/lib/y2partitioner/widgets/description_section/filesystem.rb:110
 #, fuzzy, c-format
 #| msgid "Mount by: %1"
 msgid "Mount By: %s"
 msgstr "Monterat med: %1"
 
+#. Entry data about the mount options
+#.
+#. @return [String]
+#: src/lib/y2partitioner/widgets/description_section/filesystem.rb:117
+#, fuzzy, c-format
+#| msgid "Mounting Options"
+msgid "Mount Options: %s"
+msgstr "Monteringsalternativ"
+
 #. TRANSLATORS: Filesystem label information, where %s is replaced by the
 #. filesystem label
-#: src/lib/y2partitioner/widgets/description_section/filesystem.rb:111
+#: src/lib/y2partitioner/widgets/description_section/filesystem.rb:128
 #, c-format
 msgid "Label: %s"
 msgstr "Etikett: %s"
 
 #. TRANSLATORS: Filesystem UUID information, where %s is replaced by the
 #. filesystem UUID
-#: src/lib/y2partitioner/widgets/description_section/filesystem.rb:122
+#: src/lib/y2partitioner/widgets/description_section/filesystem.rb:139
 #, c-format
 msgid "UUID: %s"
 msgstr "UUID: %s"
 
 #. TRANSLATORS: Btrfs data information, where %s is replaced by a RAID level (e.g., RAID0).
-#: src/lib/y2partitioner/widgets/description_section/filesystem.rb:132
+#: src/lib/y2partitioner/widgets/description_section/filesystem.rb:149
 #, fuzzy, c-format
 #| msgid "RAID Type"
 msgid "RAID Level: %s"
 msgstr "RAID-typ"
 
 #. TRANSLATORS: Btrfs metadata information, where %s is replaced by a RAID level (e.g., RAID0).
-#: src/lib/y2partitioner/widgets/description_section/filesystem.rb:142
+#: src/lib/y2partitioner/widgets/description_section/filesystem.rb:159
 #, fuzzy, c-format
 #| msgid "Metadata: %1"
 msgid "Metadata RAID Level: %s"
@@ -2841,7 +2873,7 @@ msgstr "Metadata: %1"
 
 #. TRANSLATORS: Information about devices used by a Btrfs filesystem, where %s is replaced by a
 #. comma separated list of device names (e.g., "/dev/sda1, /dev/sda2").
-#: src/lib/y2partitioner/widgets/description_section/filesystem.rb:153
+#: src/lib/y2partitioner/widgets/description_section/filesystem.rb:170
 #, fuzzy, c-format
 #| msgid "Unused Devices:"
 msgid "Used Devices: %s"
@@ -2850,7 +2882,7 @@ msgstr "Oanvända enheter:"
 #. Information about journal
 #.
 #. @return [String]
-#: src/lib/y2partitioner/widgets/description_section/filesystem.rb:178
+#: src/lib/y2partitioner/widgets/description_section/filesystem.rb:204
 #, c-format
 msgid "Journal Device: %s"
 msgstr "Journal enhet: %s"
@@ -2935,7 +2967,7 @@ msgstr ""
 #. TRANSLATORS: label for the button to edit a device
 #. @see Base
 #: src/lib/y2partitioner/widgets/device_edit_button.rb:31
-#: src/lib/y2partitioner/widgets/menus/modify.rb:63
+#: src/lib/y2partitioner/widgets/menus/modify.rb:65
 #, fuzzy
 #| msgid "Edit..."
 msgid "&Edit..."
@@ -3208,7 +3240,7 @@ msgstr ""
 #. TRANSLATORS: Error message when a device should be mounted by label but no label is given.
 #. TRANSLATORS: Error messagge when the label is not given.
 #: src/lib/y2partitioner/widgets/format_and_mount.rb:326
-#: src/lib/y2partitioner/widgets/fstab_options.rb:302
+#: src/lib/y2partitioner/widgets/fstab_options.rb:310
 msgid "Provide a volume label to mount by label."
 msgstr ""
 "Du måste tillhandahålla en volymetikett om du vill montera via etikett."
@@ -3353,17 +3385,17 @@ msgid "Fstab Options..."
 msgstr "Fstab-alternativ..."
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:261
+#: src/lib/y2partitioner/widgets/fstab_options.rb:269
 msgid "Volume &Label"
 msgstr "Vo&lymetikett"
 
 #. TRANSLATORS: Error message when the given label is already in use.
-#: src/lib/y2partitioner/widgets/fstab_options.rb:317
+#: src/lib/y2partitioner/widgets/fstab_options.rb:325
 msgid "This volume label is already in use. Select a different one."
 msgstr "Volymetiketten används redan. Välj en annan."
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:379
+#: src/lib/y2partitioner/widgets/fstab_options.rb:387
 msgid "Mount in /etc/fstab By"
 msgstr "Montera i /etc/fstab genom"
 
@@ -3376,38 +3408,38 @@ msgstr "Montera i /etc/fstab genom"
 #. can contain:
 #. - `:name` for human string
 #. - `:stability` to rate how stable is the corresponding name
-#: src/lib/y2partitioner/widgets/fstab_options.rb:402
+#: src/lib/y2partitioner/widgets/fstab_options.rb:410
 #: src/lib/y2storage/filesystems/mount_by_type.rb:47
 msgid "Device Name"
 msgstr "Enhetsnamn"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:403
+#: src/lib/y2partitioner/widgets/fstab_options.rb:411
 #: src/lib/y2storage/filesystems/mount_by_type.rb:55
 msgid "Device ID"
 msgstr "Enhets-ID"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:404
+#: src/lib/y2partitioner/widgets/fstab_options.rb:412
 #: src/lib/y2storage/filesystems/mount_by_type.rb:51
 msgid "Device Path"
 msgstr "Enhetssökväg"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:406
+#: src/lib/y2partitioner/widgets/fstab_options.rb:414
 #: src/lib/y2storage/filesystems/mount_by_type.rb:59
 msgid "Volume Label"
 msgstr "Volymetikett"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:477
+#: src/lib/y2partitioner/widgets/fstab_options.rb:485
 msgid "Do Not Mount at System &Start-up"
 msgstr "Montera inte vid system&start"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:490
+#: src/lib/y2partitioner/widgets/fstab_options.rb:498
 msgid "Mount &Read-Only"
 msgstr "Montera sk&rivskyddad"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:495
+#: src/lib/y2partitioner/widgets/fstab_options.rb:503
 msgid ""
 "<p><b>Mount Read-Only:</b>\n"
 "Writing to the file system is not possible. Default is false. During "
@@ -3420,12 +3452,12 @@ msgstr ""
 "monteras filsystemet alltid med läs- och skrivrättigheter.</p>"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:509
+#: src/lib/y2partitioner/widgets/fstab_options.rb:517
 msgid "Mountable by User"
 msgstr "Kan monteras av användare"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:514
+#: src/lib/y2partitioner/widgets/fstab_options.rb:522
 msgid ""
 "<p><b>Mountable by User:</b>\n"
 "The file system may be mounted by an ordinary user. Default is false.</p>\n"
@@ -3434,12 +3466,12 @@ msgstr ""
 "Filsystemet kan monteras av vanliga användare. Standard är falskt.</p>\n"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:528
+#: src/lib/y2partitioner/widgets/fstab_options.rb:536
 msgid "Enable &Quota Support"
 msgstr "Aktivera &kvotastöd"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:533
+#: src/lib/y2partitioner/widgets/fstab_options.rb:541
 msgid ""
 "<p><b>Enable Quota Support:</b>\n"
 "The file system is mounted with user quotas enabled.\n"
@@ -3450,24 +3482,24 @@ msgstr ""
 "Standard är falskt.</p>"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:643
+#: src/lib/y2partitioner/widgets/fstab_options.rb:651
 msgid "Data &Journaling Mode"
 msgstr "Läge för data&journal"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:652
+#: src/lib/y2partitioner/widgets/fstab_options.rb:660
 msgid "journal"
 msgstr "journal"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:653
+#: src/lib/y2partitioner/widgets/fstab_options.rb:661
 msgid "ordered"
 msgstr "begärd"
 
-#: src/lib/y2partitioner/widgets/fstab_options.rb:654
+#: src/lib/y2partitioner/widgets/fstab_options.rb:662
 msgid "writeback"
 msgstr "tillbakaskrivning"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:666
+#: src/lib/y2partitioner/widgets/fstab_options.rb:674
 msgid ""
 "<p><b>Data Journaling Mode:</b>\n"
 "Specifies the journaling mode for file data.\n"
@@ -3489,12 +3521,12 @@ msgstr ""
 "prestandapåverkan.</p>\n"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:697
+#: src/lib/y2partitioner/widgets/fstab_options.rb:705
 msgid "Arbitrary Option &Value"
 msgstr "Godtyckligt alternativ&värde"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:725
+#: src/lib/y2partitioner/widgets/fstab_options.rb:733
 #, fuzzy
 #| msgid ""
 #| "<p><b>Arbitrary Option Value:</b> Enter any other mount options here, "
@@ -3512,12 +3544,12 @@ msgstr ""
 "så var försiktig med vad du skriver här!</p>"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:813
+#: src/lib/y2partitioner/widgets/fstab_options.rb:822
 msgid "Swap &Priority"
 msgstr "Växlingsutrymmes&prioritet"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:824
+#: src/lib/y2partitioner/widgets/fstab_options.rb:833
 msgid ""
 "<p><b>Swap Priority:</b>\n"
 "Enter the swap priority. Higher numbers mean higher priority.</p>\n"
@@ -3526,12 +3558,36 @@ msgstr ""
 "Ange växlingsutrymmesprioritet. Högre nummer betyder högre prioritet.</p>\n"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:863
+#: src/lib/y2partitioner/widgets/fstab_options.rb:853
+#, fuzzy
+msgid "Max Size"
+msgstr "E-poststorlek"
+
+#. @macro seeAbstractWidget
+#: src/lib/y2partitioner/widgets/fstab_options.rb:868
+msgid ""
+"The size must be a number,\n"
+"optionally followed by a unit (k, m or g) or by a percent sign (%)."
+msgstr ""
+
+#. @macro seeAbstractWidget
+#: src/lib/y2partitioner/widgets/fstab_options.rb:879
+msgid ""
+"<p><b>Max Size:</b>\n"
+"Upper limit on the size of the file system. The size is given in bytes by "
+"default, optionally followed by a <b>k</b>, <b>m</b> or <b>g</b> suffix to "
+"specify KiB, MiB or GiB. The size may also have a <b>% </b> suffix to limit "
+"this instance to a percentage of physical RAM. The default, when neither "
+"this option nor nr_blocks is specified, is 50%.</p>\n"
+msgstr ""
+
+#. @macro seeAbstractWidget
+#: src/lib/y2partitioner/widgets/fstab_options.rb:921
 msgid "Char&set for File Names"
 msgstr "Teckenupp&sättning för filnamn"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:868
+#: src/lib/y2partitioner/widgets/fstab_options.rb:926
 msgid ""
 "<p><b>Charset for File Names:</b>\n"
 "Set the charset used for display of file names in Windows partitions.<br>\n"
@@ -3542,12 +3598,12 @@ msgid ""
 msgstr ""
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:893
+#: src/lib/y2partitioner/widgets/fstab_options.rb:951
 msgid "Code&page for Short FAT Names"
 msgstr "Te&ckenuppsättning för korta FAT-namn"
 
 #. @macro seeAbstractWidget
-#: src/lib/y2partitioner/widgets/fstab_options.rb:898
+#: src/lib/y2partitioner/widgets/fstab_options.rb:956
 msgid ""
 "<p><b>Codepage for Short FAT Names:</b>\n"
 "This codepage is used for converting to shortname characters on FAT file "
@@ -3567,7 +3623,7 @@ msgstr ""
 #. so only warnings there
 #. FIXME: improve Yast2::Popup to allow some text before the buttons
 #: src/lib/y2partitioner/widgets/fstab_selector.rb:70
-#: src/lib/y2partitioner/widgets/overview.rb:193
+#: src/lib/y2partitioner/widgets/overview.rb:194
 #: src/lib/y2storage/callbacks/sanitize.rb:52
 msgid "Do you want to continue?"
 msgstr "Vill du fortsätta?"
@@ -4173,28 +4229,28 @@ msgid "Bottom"
 msgstr "Nederst"
 
 #. TRANSLATORS: Partitioner menu to create new devices
-#: src/lib/y2partitioner/widgets/menus/add.rb:44
+#: src/lib/y2partitioner/widgets/menus/add.rb:45
 msgid "&Add"
 msgstr ""
 
 #. @see Base
-#: src/lib/y2partitioner/widgets/menus/add.rb:50
+#: src/lib/y2partitioner/widgets/menus/add.rb:51
 msgid "&RAID..."
 msgstr "&RAID..."
 
-#: src/lib/y2partitioner/widgets/menus/add.rb:51
+#: src/lib/y2partitioner/widgets/menus/add.rb:52
 #, fuzzy
 #| msgid "Add Volume Group..."
 msgid "LVM &Volume Group..."
 msgstr "Lägg till volymgrupp..."
 
-#: src/lib/y2partitioner/widgets/menus/add.rb:52
+#: src/lib/y2partitioner/widgets/menus/add.rb:53
 #, fuzzy
 #| msgid "Add Btrfs..."
 msgid "&Btrfs..."
 msgstr "Lägg till Btrfs..."
 
-#: src/lib/y2partitioner/widgets/menus/add.rb:53
+#: src/lib/y2partitioner/widgets/menus/add.rb:54
 #, fuzzy
 #| msgid "Add Bcache..."
 msgid "B&cache..."
@@ -4202,17 +4258,23 @@ msgstr "Lägg till Bcache..."
 
 #: src/lib/y2partitioner/widgets/menus/add.rb:55
 #, fuzzy
+#| msgid "Add Btrfs..."
+msgid "&Tmpfs..."
+msgstr "Lägg till Btrfs..."
+
+#: src/lib/y2partitioner/widgets/menus/add.rb:57
+#, fuzzy
 #| msgid "&Partitions"
 msgid "&Partition..."
 msgstr "&Partitioner"
 
-#: src/lib/y2partitioner/widgets/menus/add.rb:56
+#: src/lib/y2partitioner/widgets/menus/add.rb:58
 #, fuzzy
 #| msgid "&Logical Volumes"
 msgid "&Logical Volume..."
 msgstr "&Logiska volymer"
 
-#: src/lib/y2partitioner/widgets/menus/add.rb:57
+#: src/lib/y2partitioner/widgets/menus/add.rb:59
 #, fuzzy
 #| msgid "Edit Btrfs subvolumes"
 msgid "Btrfs &Subvolume..."
@@ -4253,39 +4315,39 @@ msgstr "Konfigurera..."
 
 #. TRANSLATORS: Partitioner menu with actions to perform on the
 #. currently selected device
-#: src/lib/y2partitioner/widgets/menus/modify.rb:57
+#: src/lib/y2partitioner/widgets/menus/modify.rb:59
 #, fuzzy
 #| msgid "Device"
 msgid "&Device"
 msgstr "Enhet"
 
-#: src/lib/y2partitioner/widgets/menus/modify.rb:64
+#: src/lib/y2partitioner/widgets/menus/modify.rb:66
 msgid "&Show Details"
 msgstr "Vi&sa detaljer"
 
-#: src/lib/y2partitioner/widgets/menus/modify.rb:65
+#: src/lib/y2partitioner/widgets/menus/modify.rb:67
 msgid "&Delete"
 msgstr "&Ta bort"
 
-#: src/lib/y2partitioner/widgets/menus/modify.rb:67
+#: src/lib/y2partitioner/widgets/menus/modify.rb:69
 #, fuzzy
 #| msgid "Resize..."
 msgid "&Resize..."
 msgstr "Ändra storlek..."
 
-#: src/lib/y2partitioner/widgets/menus/modify.rb:68
+#: src/lib/y2partitioner/widgets/menus/modify.rb:70
 #, fuzzy
 #| msgid "Move..."
 msgid "&Move..."
 msgstr "Flytta..."
 
-#: src/lib/y2partitioner/widgets/menus/modify.rb:71
+#: src/lib/y2partitioner/widgets/menus/modify.rb:73
 #, fuzzy
 #| msgid "Create New Partition Table..."
 msgid "Create New &Partition Table..."
 msgstr "Skapa ny partitionstabell..."
 
-#: src/lib/y2partitioner/widgets/menus/modify.rb:72
+#: src/lib/y2partitioner/widgets/menus/modify.rb:74
 #, fuzzy
 #| msgid "Clone Partitions to Other Devices..."
 msgid "&Clone Partitions to Another Device..."
@@ -4605,7 +4667,7 @@ msgstr "Bcache-enheter"
 #. @see #label
 #.
 #. @return [String]
-#: src/lib/y2partitioner/widgets/pages/btrfs_filesystems.rb:42
+#: src/lib/y2partitioner/widgets/pages/btrfs_filesystems.rb:41
 msgid "Btrfs"
 msgstr "Btrfs"
 
@@ -4644,6 +4706,13 @@ msgstr ""
 #| msgid "Devices"
 msgid "All Devices"
 msgstr "Enheter"
+
+#. @macro seeAbstractWidget
+#: src/lib/y2partitioner/widgets/pages/tmpfs_filesystems.rb:42
+#, fuzzy
+#| msgid "tmpfs"
+msgid "Tmpfs"
+msgstr "TMPFS"
 
 #. TRANSLATORS: label for button to add a partition
 #: src/lib/y2partitioner/widgets/partition_buttons.rb:34
@@ -4699,6 +4768,29 @@ msgstr ""
 "<p><b>Installationssammanfattning:</b> Visar de åtgärder som kommer att "
 "utföras när du avslutar partitioneringsverktyget. Hittills har inget ändrats "
 "på ditt system.</p>"
+
+#. TRANSLATORS: button label to add a new Tmpfs filesystem
+#: src/lib/y2partitioner/widgets/tmpfs_buttons.rb:36
+#, fuzzy
+#| msgid "Add Btrfs..."
+msgid "Add Tmpfs..."
+msgstr "Lägg till Btrfs..."
+
+#. @macro seeAbstractWidget
+#: src/lib/y2partitioner/widgets/tmpfs_options.rb:64
+msgid ""
+"<p>The tmpfs facility allows the creation of very fast file systems whose "
+"contents reside in virtual memory. The file system is automatically created "
+"in the moment of mounting it and the contents are lost when the file system "
+"is unmounted.</p><p>Although the file system consumes only as much memory as "
+"required by its current contents, its max size is limited automatically by "
+"the system based on the total amount of RAM. That max limit can be "
+"customized with the appropriate fstab option.</p>"
+msgstr ""
+
+#: src/lib/y2partitioner/widgets/tmpfs_options.rb:79
+msgid "Installing into a temporary file system is not supported."
+msgstr ""
 
 #. @macro seeAbstractWidget
 #: src/lib/y2partitioner/widgets/used_devices_tab.rb:42
@@ -6389,6 +6481,16 @@ msgstr "%{fs_type} %{device_name}"
 msgid "%{fs_type} %{device_name}"
 msgstr "%{fs_type} %{device_name}"
 
+#. TRANSLATORS: name used to identify a tmpfs filesystem, where %{type} is replaced by the
+#. filesystem type (i.e., Tmpfs) and %{mount_path} is replaced by the tmpfs mount path
+#. (e.g., "/tmp").
+#.
+#. Examples: "Tmpfs /tmp"
+#: src/lib/y2storage/filesystems/tmpfs.rb:83
+#, perl-brace-format
+msgid "%{type} %{mount_path}"
+msgstr ""
+
 #. TRANSLATORS: display name when the PV has no associated VG, where %{device} is replaced by a
 #. device name (e.g., "/dev/sda1").
 #: src/lib/y2storage/lvm_pv.rb:78
@@ -6625,6 +6727,11 @@ msgstr "Ange krypteringslösenord"
 #: src/lib/y2storage/resize_info.rb:110
 msgid "Unknown reason"
 msgstr "Okänd orsak"
+
+#, fuzzy
+#~| msgid "New Subvolume"
+#~ msgid "BtrFS Subvolume"
+#~ msgstr "Ny undervolym"
 
 #~ msgid "The volume group does not contain logical volumes."
 #~ msgstr "Volymgruppen innehåller inte logiska volymer."
@@ -7227,9 +7334,6 @@ msgstr "Okänd orsak"
 #~| msgid "Mountable by User"
 #~ msgid "Mountable by user"
 #~ msgstr "Kan monteras av användare"
-
-#~ msgid "tmpfs"
-#~ msgstr "TMPFS"
 
 #, fuzzy
 #~| msgid ""
@@ -9703,9 +9807,6 @@ msgstr "Okänd orsak"
 
 #~ msgid "<p>This view shows the installation summary.</p>"
 #~ msgstr "<p>I den här vyn visas installationssammanfattningen.</p>"
-
-#~ msgid "Add tmpfs Mount"
-#~ msgstr "Lägg till tmpfs-montering"
 
 #~ msgid "No tmpfs device selected."
 #~ msgstr "Ingen TMPFS-enhet har valts."
@@ -12852,10 +12953,6 @@ msgstr "Okänd orsak"
 #~ msgstr ""
 #~ "Ogiltig angiven storlek.\n"
 #~ "Ange en giltig storlek. Till exempel 500k, 40M eller 1G.\n"
-
-#, fuzzy
-#~ msgid "Manual Size"
-#~ msgstr "E-poststorlek"
 
 #~ msgid ""
 #~ "The volume group \"%1\" contains at least one logical \n"
