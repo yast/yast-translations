@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: users\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-16 02:33+0000\n"
+"POT-Creation-Date: 2021-01-20 22:42+0100\n"
 "PO-Revision-Date: 2009-11-03 21:46+0100\n"
 "Last-Translator: Jean Cayron <jean.cayron@gmail.com>\n"
 "Language-Team: Walloon <linux-wa@walon.org>\n"
@@ -20,6 +20,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: Lokalize 0.3\n"
 
+#. the command line description map
 #. translators: command line help text for Users module
 #: src/clients/groups.rb:100
 msgid "Group configuration module"
@@ -135,6 +136,7 @@ msgstr "Sicret pol sierveu LDAP"
 msgid "Do not ask for missing data; return error instead."
 msgstr "Èn nén dmander d' dinêyes mancantes ; ritourner ene aroke al plaece."
 
+#. the command line description map
 #. translators: command line help text for Users module
 #: src/clients/users.rb:102
 msgid "User configuration module"
@@ -489,6 +491,7 @@ msgstr "Doû&ce limite"
 msgid "&Hard limit"
 msgstr "Deu&re limite"
 
+#. 2 small spaces instead of one big because of ncurses:
 #. frame label
 #: src/clients/users_plugin_quota.rb:231
 #, fuzzy
@@ -711,6 +714,10 @@ msgstr ""
 "Les deus screts n' corespondèt nén.\n"
 "Sayîz co on côp."
 
+#. helper function: show a popup if existing home directory should be used
+#. and its ownership should be changed
+#. @param dir [String]
+#. @param chown_default [Boolean]
 #. popup label, %1 is path to directory
 #: src/include/users/dialogs.rb:180
 #, ycp-format
@@ -731,6 +738,7 @@ msgstr "&Candjî l' propiyetaire do ridant"
 msgid "Force Password Change"
 msgstr "Foirci l' candjmint d' sicret"
 
+#. generate contents for User Data Dialog
 #. text entry
 #. text entry
 #: src/include/users/dialogs.rb:483
@@ -1058,6 +1066,9 @@ msgstr ""
 
 #. TRANSLATORS: title of the dialog to select a public key to be used when logging
 #. via SSH
+#. Reads a key from the given directory
+#.
+#. @note Asks the user to select a file and tries to read it.
 #. TRANSLATORS: title of a dialog which allows to select a file to be used
 #. as SSH public key
 #: src/include/users/dialogs.rb:2619
@@ -1098,6 +1109,13 @@ msgstr ""
 
 #. encryption type
 #. encryption type
+#. "blowfish" is also known to UsersSimple, but it's not longer offered
+#. as a valid option. See fate#312321
+#.
+#. This code is only executed once (when the class is loaded), but YaST
+#. allows to change the language in execution time. Thus, we use N_() here
+#. to mark the code as translatable and _() in the #label method to perform
+#. the real translation on execution time.
 #. TRANSLATORS: encryption type
 #: src/include/users/helps.rb:52 src/include/users/helps.rb:54
 #: src/lib/users/encryption_method.rb:51
@@ -1426,6 +1444,9 @@ msgid ""
 "log in, check <b>Disable User Login</b>.</p>"
 msgstr "<p> A dins<b> Dismete Uzeu</b></p>"
 
+#. Help for EditGroupDialog.
+#. @param [Boolean] more if the widget with more_users will be shown
+#. @return [String] help text
 #. help text 1/6
 #: src/include/users/helps.rb:316
 #, fuzzy
@@ -1814,6 +1835,7 @@ msgid ""
 "of attributes to configure.</p>"
 msgstr ""
 
+#. tab-specific help texts
 #. help text for pwdInHistory attribute
 #: src/include/users/ldap_dialogs.rb:70
 msgid ""
@@ -2001,6 +2023,7 @@ msgstr ""
 msgid "&Minimum Password Length"
 msgstr "&Riscrire li scret"
 
+#. generate the term of password aging tab
 #. frame label
 #: src/include/users/ldap_dialogs.rb:373
 #, fuzzy
@@ -2168,6 +2191,7 @@ msgstr ""
 "Li groupe di rsoûce %1 egzistêye dedja.\n"
 "Eployîz on ôte no."
 
+#. values to MenuItem in Summary dialog
 #. the type of user set
 #: src/include/users/widgets.rb:63
 msgid "&System Users"
@@ -2199,6 +2223,7 @@ msgstr "Uzeus Sam&ba"
 msgid "&Custom"
 msgstr "A vosse &môde"
 
+#. values to Label (no shortcut sign)
 #. the type of user set
 #: src/include/users/widgets.rb:79
 msgid "System Users"
@@ -2231,6 +2256,7 @@ msgstr "Uzeus Samba"
 msgid "Custom"
 msgstr "A vosse môde"
 
+#. values to MenuItem in Summary dialog
 #. the type of group set
 #: src/include/users/widgets.rb:95
 msgid "&System Groups"
@@ -2296,6 +2322,7 @@ msgstr ""
 msgid "Samba"
 msgstr "Samba"
 
+#. auth methods and respective module calls
 #. menubutton label
 #: src/include/users/widgets.rb:149
 msgid "&NIS"
@@ -2553,6 +2580,7 @@ msgstr ""
 "<tt> uid</tt>\n"
 "<br></p>"
 
+#. max 65 with help on left side...
 #. radiobutton label
 #: src/include/users/widgets.rb:765
 msgid "Search Filter for &Users"
@@ -2668,6 +2696,7 @@ msgstr "Tchuzes d' elodjaedje do manaedjeu do håynaedje"
 msgid "&Auto Login"
 msgstr "&Oto-elodjaedje"
 
+#. move text under the checkbox
 #. textentry label
 #: src/include/users/widgets.rb:1027
 msgid "&User to Log In"
@@ -3133,6 +3162,10 @@ msgid "User and Group Administration"
 msgstr "Manaedjmint des uzeus et des groupes"
 
 #. init dialog caption
+#. Whole configuration of users/groups but without reading and writing.
+#. For use with autoinstallation.
+#. @param [String] start the first dialog
+#. @return sequence result
 #. dialog caption
 #: src/include/users/wizards.rb:261 src/include/users/wizards.rb:284
 msgid "User and Group Configuration"
@@ -3667,6 +3700,8 @@ msgstr ""
 msgid "Authorized keys will not be written."
 msgstr "Li fitchî %s n' a nén stî léjhou comifåt, dabôrd i n' sårè nén scrît."
 
+#. Return the translated name for system user
+#. TODO users are added manualy.... :-(
 #. User name for user: "root"
 #: src/modules/UsersUI.rb:44
 msgid "root"
@@ -4030,6 +4065,9 @@ msgstr "Uzeu po uuidd"
 msgid "Novell Customer Center User"
 msgstr "Uzeu do cinte cliyintele di Novell"
 
+#. Ask user for configuration type (standard or NIS)
+#. @param [String] dir string directory with NIS settings
+#. @return [Symbol] `passwd or `nis or `abort
 #. label
 #: src/modules/UsersUI.rb:343
 msgid ""
@@ -4071,6 +4109,10 @@ msgstr "Modeles di groupe"
 msgid "Multiple templates are defined as default. Select the one to read."
 msgstr "Sacwants modeles sont prémetous definis. Tchoezixhoz l' ci a lére."
 
+#. Error messages for errors detected during reading via .passwd agent
+#. @param errno [Integer] number returned by passwd-agent
+#. @param more [String] additional information
+#. @return error message
 #. error message 2/2 (= next sentence)
 #: src/modules/UsersUI.rb:492
 msgid "Correct them manually before running the YaST users module again."

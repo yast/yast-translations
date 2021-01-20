@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: @PACKAGE@\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-16 02:33+0000\n"
+"POT-Creation-Date: 2021-01-20 22:42+0100\n"
 "PO-Revision-Date: 2005-08-11 20:37+0200\n"
 "Last-Translator: nynorsk <i18n@suse.de>\n"
 "Language-Team:  nn <i18n@suse.de>\n"
@@ -19,6 +19,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Lokalize 2.0\n"
 
+#. the command line description map
 #. translators: command line help text for Users module
 #: src/clients/groups.rb:100
 #, fuzzy
@@ -153,6 +154,7 @@ msgstr "Passord for LDAP-servar"
 msgid "Do not ask for missing data; return error instead."
 msgstr "Ikkje be om manglande informasjon; vis feilmelding i staden."
 
+#. the command line description map
 #. translators: command line help text for Users module
 #: src/clients/users.rb:102
 #, fuzzy
@@ -593,6 +595,7 @@ msgstr "&Mjuk grense"
 msgid "&Hard limit"
 msgstr "&Hard grense"
 
+#. 2 small spaces instead of one big because of ncurses:
 #. frame label
 #: src/clients/users_plugin_quota.rb:231
 #, fuzzy
@@ -845,6 +848,10 @@ msgstr ""
 "Passorda er ikkje identiske.\n"
 "Prøv igjen."
 
+#. helper function: show a popup if existing home directory should be used
+#. and its ownership should be changed
+#. @param dir [String]
+#. @param chown_default [Boolean]
 #. popup label, %1 is path to directory
 #: src/include/users/dialogs.rb:180
 #, fuzzy, ycp-format
@@ -867,6 +874,7 @@ msgstr "&Endre hjemmekatalogeier"
 msgid "Force Password Change"
 msgstr "Tving passordendring"
 
+#. generate contents for User Data Dialog
 #. text entry
 #. text entry
 #: src/include/users/dialogs.rb:483
@@ -1241,6 +1249,9 @@ msgstr ""
 
 #. TRANSLATORS: title of the dialog to select a public key to be used when logging
 #. via SSH
+#. Reads a key from the given directory
+#.
+#. @note Asks the user to select a file and tries to read it.
 #. TRANSLATORS: title of a dialog which allows to select a file to be used
 #. as SSH public key
 #: src/include/users/dialogs.rb:2619
@@ -1281,6 +1292,13 @@ msgstr ""
 
 #. encryption type
 #. encryption type
+#. "blowfish" is also known to UsersSimple, but it's not longer offered
+#. as a valid option. See fate#312321
+#.
+#. This code is only executed once (when the class is loaded), but YaST
+#. allows to change the language in execution time. Thus, we use N_() here
+#. to mark the code as translatable and _() in the #label method to perform
+#. the real translation on execution time.
 #. TRANSLATORS: encryption type
 #: src/include/users/helps.rb:52 src/include/users/helps.rb:54
 #: src/lib/users/encryption_method.rb:51
@@ -1666,6 +1684,9 @@ msgstr ""
 "<p>Viss du ikkje vil tillata denne brukaren å\n"
 "logga inn, kryss av for <b>Deaktiver brukerinnlogging</b>.</p>"
 
+#. Help for EditGroupDialog.
+#. @param [Boolean] more if the widget with more_users will be shown
+#. @return [String] help text
 #. help text 1/6
 #: src/include/users/helps.rb:316
 #, fuzzy
@@ -2145,6 +2166,7 @@ msgstr ""
 "passordvarighet</b> og <b>Regel for låsing</b> for å velja kva for "
 "passordregler som skal verta opp for sette LDAP.</p>"
 
+#. tab-specific help texts
 #. help text for pwdInHistory attribute
 #: src/include/users/ldap_dialogs.rb:70
 #, fuzzy
@@ -2378,6 +2400,7 @@ msgstr "Godta berre &kontrollerte passord"
 msgid "&Minimum Password Length"
 msgstr "&Minimumslengde for passord"
 
+#. generate the term of password aging tab
 #. frame label
 #: src/include/users/ldap_dialogs.rb:373
 #, fuzzy
@@ -2552,6 +2575,7 @@ msgstr ""
 "Hjemmekatalogen (%1) finst allereie.\n"
 "Vil du bruka han likevel?"
 
+#. values to MenuItem in Summary dialog
 #. the type of user set
 #: src/include/users/widgets.rb:63
 #, fuzzy
@@ -2589,6 +2613,7 @@ msgstr "Sam&bad-brukarar"
 msgid "&Custom"
 msgstr "&Egendefinert"
 
+#. values to Label (no shortcut sign)
 #. the type of user set
 #: src/include/users/widgets.rb:79
 #, fuzzy
@@ -2627,6 +2652,7 @@ msgstr "Samba-brukarar"
 msgid "Custom"
 msgstr "Egendefinert"
 
+#. values to MenuItem in Summary dialog
 #. the type of group set
 #: src/include/users/widgets.rb:95
 #, fuzzy
@@ -2704,6 +2730,7 @@ msgstr ""
 msgid "Samba"
 msgstr "Samba"
 
+#. auth methods and respective module calls
 #. menubutton label
 #: src/include/users/widgets.rb:149
 #, fuzzy
@@ -3010,6 +3037,7 @@ msgstr ""
 "<br>\n"
 "finn du berre brukarar med brukernavn som byrjar på 'u'.</p>\n"
 
+#. max 65 with help on left side...
 #. radiobutton label
 #: src/include/users/widgets.rb:765
 #, fuzzy
@@ -3151,6 +3179,7 @@ msgstr "Innstillingar for innloggingshandsamar"
 msgid "&Auto Login"
 msgstr "&Automatisk innlogging"
 
+#. move text under the checkbox
 #. textentry label
 #: src/include/users/widgets.rb:1027
 #, fuzzy
@@ -3684,6 +3713,10 @@ msgid "User and Group Administration"
 msgstr "Administrasjon av brukarar og grupper"
 
 #. init dialog caption
+#. Whole configuration of users/groups but without reading and writing.
+#. For use with autoinstallation.
+#. @param [String] start the first dialog
+#. @return sequence result
 #. dialog caption
 #: src/include/users/wizards.rb:261 src/include/users/wizards.rb:284
 #, fuzzy
@@ -4235,6 +4268,8 @@ msgstr ""
 msgid "Authorized keys will not be written."
 msgstr "Fila %s kunne ikkje lesast riktig og vil ikkje vart lagra."
 
+#. Return the translated name for system user
+#. TODO users are added manualy.... :-(
 #. User name for user: "root"
 #: src/modules/UsersUI.rb:44
 #, fuzzy
@@ -4668,6 +4703,9 @@ msgstr "Brukar for uuidd"
 msgid "Novell Customer Center User"
 msgstr "Brukar for Novell kundesenter"
 
+#. Ask user for configuration type (standard or NIS)
+#. @param [String] dir string directory with NIS settings
+#. @return [Symbol] `passwd or `nis or `abort
 #. label
 #: src/modules/UsersUI.rb:343
 #, fuzzy
@@ -4714,6 +4752,10 @@ msgstr "Gruppemaler"
 msgid "Multiple templates are defined as default. Select the one to read."
 msgstr "Fleire malar er definert som standard. Vel henne som skal lesast."
 
+#. Error messages for errors detected during reading via .passwd agent
+#. @param errno [Integer] number returned by passwd-agent
+#. @param more [String] additional information
+#. @return error message
 #. error message 2/2 (= next sentence)
 #: src/modules/UsersUI.rb:492
 #, fuzzy
