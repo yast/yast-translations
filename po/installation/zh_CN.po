@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: installation\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-21 02:28+0000\n"
+"POT-Creation-Date: 2021-02-03 03:49+0100\n"
 "PO-Revision-Date: 2020-07-03 11:20+0000\n"
 "Last-Translator: Dingzhong Chen <wsxy162@gmail.com>\n"
 "Language-Team: Chinese (China) <https://l10n.opensuse.org/projects/yast-"
@@ -24,26 +24,29 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Weblate 3.6.1\n"
 
-#. TRANSLATORS: %s will be replaced by a package list
-#: src/modules/AutoinstFunctions.rb:58
+#: src/lib/services-manager/clients/services-manager_finish.rb:12
+msgid "Setting default target and system services ..."
+msgstr "正在设置默认目标和系统服务..."
+
+#. Proposal client for Network configuration
+#: src/lib/network/clients/network_proposal.rb:48
+#: src/lib/network/clients/network_proposal.rb:49
+msgid "Network Configuration"
+msgstr "网络配置"
+
+#. TRANSLATORS: information about the network backend in use. %s is the name of backend,
+#. example "wicked" or "NetworkManager"
+#: src/lib/network/clients/network_proposal.rb:97
 #, c-format
-msgid ""
-"AutoYaST cannot run second stage due to missing packages \n"
-"%s.\n"
-msgstr "由于缺少包 %s，AutoYaST 无法运行另一个阶段。\n"
+msgid "Using <b>%s</b>"
+msgstr "使用 <b>%s</b>"
 
-#: src/modules/AutoinstFunctions.rb:63
-msgid ""
-"The registration has failed. Please check your registration settings in the "
-"AutoYaST configuration file."
-msgstr "注册失败。请在 AutoYaST 配置文件中检查您的注册设置。"
-
-#: src/modules/AutoinstFunctions.rb:67
-msgid ""
-"You have not registered your system. Missing packages can be added by "
-"configuring the registration in the AutoYaST configuration file."
-msgstr ""
-"您尚未注册您的系统。可以通过在 AutoYaST 配置文件中配置注册来添加缺少的包。"
+#. TRANSLATORS: text of link for switch to another network backend. %s is the name of backend,
+#. example "wicked" or "NetworkManager"
+#: src/lib/network/clients/network_proposal.rb:100
+#, c-format
+msgid "switch to %s"
+msgstr "切换为 %s"
 
 #. help for the dialog - busy message
 #: src/include/installation/inst_inc_all.rb:54
@@ -887,6 +890,7 @@ msgstr "正在调用步骤 %1..."
 msgid " * %1"
 msgstr " * %1"
 
+#. --> Functions
 #. get the latest errors
 #: src/lib/installation/clients/inst_finish.rb:251
 msgid "Installation Error"
@@ -925,6 +929,8 @@ msgstr "保存配置"
 msgid "Save installation settings"
 msgstr "保存安装设置"
 
+#. bnc#860089: Save bootloader as late as possible
+#. all different (config) files need to be written and copied first
 #. progress stage
 #: src/lib/installation/clients/inst_finish.rb:477
 msgid "Install boot manager"
@@ -1140,6 +1146,7 @@ msgstr "发行说明"
 msgid "&Language"
 msgstr "语言(&L)"
 
+#. doesn't have DumpTab or too many products
 #. +2 thingies on the right
 #: src/lib/installation/clients/inst_release_notes.rb:248
 msgid "&Product"
@@ -1304,6 +1311,12 @@ msgstr ""
 "是否要检查网络配置\n"
 "并再次尝试安装更新？"
 
+#. Return a message to be shown when the updates repo could not be probed
+#.
+#. @param url [URI,String] Repository URI
+#. @return [String] Message including the repository URL
+#.
+#. @see #self_update_url
 #. Note: the proxy cannot be configured in the YaST installer yet,
 #. it needs to be set via the "proxy" boot option.
 #. TRANSLATORS: %s is an URL
@@ -1832,6 +1845,7 @@ msgstr "是否确实要将所有值都重设置为默认值？"
 msgid "You will lose all changes."
 msgstr "您将丢失所有更改。"
 
+#. User doesn't want to use any of the settings
 #. message show when user has disabled the configuration
 #: src/lib/installation/proposal_runner.rb:297
 msgid "Skipping configuration upon user request"
@@ -1851,6 +1865,7 @@ msgstr ""
 msgid "Adapting the proposal to the current settings..."
 msgstr "正在调整对当前设置的建议..."
 
+#. First run
 #. busy message;
 #. Initial contents of proposal subwindow while proposals are calculated
 #: src/lib/installation/proposal_runner.rb:445
@@ -1873,6 +1888,7 @@ msgstr ""
 "配置已保存，\n"
 "但存在错误。"
 
+#. radiobuttons
 #. Check box: Skip all the configurations in this dialog -
 #. do this later manually or not at all
 #. Translators: About 40 characters max,
@@ -1923,6 +1939,8 @@ msgstr "安装(&I)"
 msgid "Installation Overview"
 msgstr "安装概述"
 
+#. @return [String] Richtext, the complete help text: a common intro + all
+#. individual parts.
 #. General part of the help text for all types of proposals
 #: src/lib/installation/proposal_store.rb:66
 msgid ""
@@ -2073,6 +2091,12 @@ msgstr "更改系统角色可能会撤消您所做的调整。"
 msgid "Creating root filesystem snapshot..."
 msgstr "正在创建根文件系统快照..."
 
+#. Find out the name for a previous Linux installation.
+#. This uses /etc/os-release which is specified in
+#. https://www.freedesktop.org/software/systemd/man/os-release.html
+#.
+#. @param mount_point [String] Path where the original "/" is mounted
+#. @return [String] Speaking name of the Linux installation
 #. TRANSLATORS: default name for a found Linux system (we don't know if
 #. it's an openSUSE, Ubuntu...)
 #: src/lib/installation/ssh_config.rb:64
@@ -2299,33 +2323,29 @@ msgstr ""
 "安装无法自动解决包的依赖项。\n"
 "系统将为您打开软件管理器，以便手动解决依赖项。"
 
-#. Proposal client for Network configuration
-#: src/lib/network/clients/network_proposal.rb:48
-#: src/lib/network/clients/network_proposal.rb:49
-msgid "Network Configuration"
-msgstr "网络配置"
-
-#: src/lib/network/clients/network_proposal.rb:54
-msgid "preformatted_proposal"
-msgstr "预格式化的建议"
-
-#. TRANSLATORS: information about the network backend in use. %s is the name of backend,
-#. example "wicked" or "NetworkManager"
-#: src/lib/network/clients/network_proposal.rb:97
+#. TRANSLATORS: %s will be replaced by a package list
+#: src/modules/AutoinstFunctions.rb:58
 #, c-format
-msgid "Using <b>%s</b>"
-msgstr "使用 <b>%s</b>"
+msgid ""
+"AutoYaST cannot run second stage due to missing packages \n"
+"%s.\n"
+msgstr "由于缺少包 %s，AutoYaST 无法运行另一个阶段。\n"
 
-#. TRANSLATORS: text of link for switch to another network backend. %s is the name of backend,
-#. example "wicked" or "NetworkManager"
-#: src/lib/network/clients/network_proposal.rb:100
-#, c-format
-msgid "switch to %s"
-msgstr "切换为 %s"
+#: src/modules/AutoinstFunctions.rb:63
+msgid ""
+"The registration has failed. Please check your registration settings in the "
+"AutoYaST configuration file."
+msgstr "注册失败。请在 AutoYaST 配置文件中检查您的注册设置。"
 
-#: src/lib/services-manager/clients/services-manager_finish.rb:12
-msgid "Setting default target and system services ..."
-msgstr "正在设置默认目标和系统服务..."
+#: src/modules/AutoinstFunctions.rb:67
+msgid ""
+"You have not registered your system. Missing packages can be added by "
+"configuring the registration in the AutoYaST configuration file."
+msgstr ""
+"您尚未注册您的系统。可以通过在 AutoYaST 配置文件中配置注册来添加缺少的包。"
+
+#~ msgid "preformatted_proposal"
+#~ msgstr "预格式化的建议"
 
 #~ msgid ""
 #~ "Custom images deployment - this needs a URL to be configured as "

@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: installation.ko\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-21 02:28+0000\n"
+"POT-Creation-Date: 2021-02-03 03:49+0100\n"
 "PO-Revision-Date: 2019-01-31 14:22+0000\n"
 "Last-Translator: Hwajin Kim <hwajin.kim@e4net.net>\n"
 "Language-Team: Korean <https://l10n.opensuse.org/projects/yast-installation/"
@@ -19,29 +19,29 @@ msgstr ""
 "X-Poedit-Country: KOREA, REPUBLIC OF\n"
 "X-Poedit-SourceCharset: utf-8\n"
 
-#. TRANSLATORS: %s will be replaced by a package list
-#: src/modules/AutoinstFunctions.rb:58
+#: src/lib/services-manager/clients/services-manager_finish.rb:12
+msgid "Setting default target and system services ..."
+msgstr "기본 대상 및 시스템 서비스를 설정하는 중 ..."
+
+#. Proposal client for Network configuration
+#: src/lib/network/clients/network_proposal.rb:48
+#: src/lib/network/clients/network_proposal.rb:49
+msgid "Network Configuration"
+msgstr "네트워크 구성"
+
+#. TRANSLATORS: information about the network backend in use. %s is the name of backend,
+#. example "wicked" or "NetworkManager"
+#: src/lib/network/clients/network_proposal.rb:97
 #, c-format
-msgid ""
-"AutoYaST cannot run second stage due to missing packages \n"
-"%s.\n"
-msgstr ""
-"AutoYaST는 %s 패키지가 없어서 두 번째 단계를 실행할 수\n"
-"없습니다.\n"
+msgid "Using <b>%s</b>"
+msgstr "<b>%s</b> 사용"
 
-#: src/modules/AutoinstFunctions.rb:63
-msgid ""
-"The registration has failed. Please check your registration settings in the "
-"AutoYaST configuration file."
-msgstr "등록에 실패했습니다. AutoYaST 구성 파일에서 등록 설정을 확인하십시오."
-
-#: src/modules/AutoinstFunctions.rb:67
-msgid ""
-"You have not registered your system. Missing packages can be added by "
-"configuring the registration in the AutoYaST configuration file."
-msgstr ""
-"시스템을 등록하지 않았습니다. 누락된 패키지는 AutoYaST 구성 파일에 등록을 구"
-"성하여 추가할 수 있습니다."
+#. TRANSLATORS: text of link for switch to another network backend. %s is the name of backend,
+#. example "wicked" or "NetworkManager"
+#: src/lib/network/clients/network_proposal.rb:100
+#, c-format
+msgid "switch to %s"
+msgstr "%s(으)로 전환"
 
 #  progress stage title
 #. help for the dialog - busy message
@@ -916,6 +916,7 @@ msgstr "%1 단계 호출 중..."
 msgid " * %1"
 msgstr " * %1"
 
+#. --> Functions
 #. get the latest errors
 #: src/lib/installation/clients/inst_finish.rb:251
 msgid "Installation Error"
@@ -956,6 +957,8 @@ msgstr "구성 저장"
 msgid "Save installation settings"
 msgstr "설치 설정 저장"
 
+#. bnc#860089: Save bootloader as late as possible
+#. all different (config) files need to be written and copied first
 #. progress stage
 #: src/lib/installation/clients/inst_finish.rb:477
 msgid "Install boot manager"
@@ -1178,6 +1181,7 @@ msgstr "릴리스 정보"
 msgid "&Language"
 msgstr "언어(&L)"
 
+#. doesn't have DumpTab or too many products
 #. +2 thingies on the right
 #: src/lib/installation/clients/inst_release_notes.rb:248
 msgid "&Product"
@@ -1347,6 +1351,12 @@ msgstr ""
 "네트워크 구성을 확인하고 업데이트 설치를\n"
 "다시 시도하시겠습니까?"
 
+#. Return a message to be shown when the updates repo could not be probed
+#.
+#. @param url [URI,String] Repository URI
+#. @return [String] Message including the repository URL
+#.
+#. @see #self_update_url
 #. Note: the proxy cannot be configured in the YaST installer yet,
 #. it needs to be set via the "proxy" boot option.
 #. TRANSLATORS: %s is an URL
@@ -1912,6 +1922,7 @@ msgstr "정말로 기본값으로 다시 설정하겠습니까?"
 msgid "You will lose all changes."
 msgstr "모든 변경사항을 적용하지 않습니다."
 
+#. User doesn't want to use any of the settings
 #. message show when user has disabled the configuration
 #: src/lib/installation/proposal_runner.rb:297
 msgid "Skipping configuration upon user request"
@@ -1932,6 +1943,7 @@ msgstr ""
 msgid "Adapting the proposal to the current settings..."
 msgstr "제안사항을 현재 설정에 반영 중..."
 
+#. First run
 #. busy message;
 #. Initial contents of proposal subwindow while proposals are calculated
 #: src/lib/installation/proposal_runner.rb:445
@@ -1954,6 +1966,7 @@ msgstr ""
 "설정이 저장되었습니다.\n"
 "오류가 있습니다."
 
+#. radiobuttons
 #. Check box: Skip all the configurations in this dialog -
 #. do this later manually or not at all
 #. Translators: About 40 characters max,
@@ -2005,6 +2018,8 @@ msgstr "설치(&I)"
 msgid "Installation Overview"
 msgstr "설치 개요"
 
+#. @return [String] Richtext, the complete help text: a common intro + all
+#. individual parts.
 #. General part of the help text for all types of proposals
 #: src/lib/installation/proposal_store.rb:66
 msgid ""
@@ -2162,6 +2177,12 @@ msgstr "시스템 역할을 변경하면 수행한 조정이 실행 취소될 �
 msgid "Creating root filesystem snapshot..."
 msgstr "루트 파일 시스템 스냅샷 생성 중..."
 
+#. Find out the name for a previous Linux installation.
+#. This uses /etc/os-release which is specified in
+#. https://www.freedesktop.org/software/systemd/man/os-release.html
+#.
+#. @param mount_point [String] Path where the original "/" is mounted
+#. @return [String] Speaking name of the Linux installation
 #. TRANSLATORS: default name for a found Linux system (we don't know if
 #. it's an openSUSE, Ubuntu...)
 #: src/lib/installation/ssh_config.rb:64
@@ -2393,33 +2414,32 @@ msgstr ""
 "설치를 통해서는 패키지 종속성을 자동으로 해결할 수 없습니다.\n"
 "수동으로 해결할 수 있도록 소프트웨어 관리자가 열립니다."
 
-#. Proposal client for Network configuration
-#: src/lib/network/clients/network_proposal.rb:48
-#: src/lib/network/clients/network_proposal.rb:49
-msgid "Network Configuration"
-msgstr "네트워크 구성"
-
-#: src/lib/network/clients/network_proposal.rb:54
-msgid "preformatted_proposal"
-msgstr "preformatted_proposal"
-
-#. TRANSLATORS: information about the network backend in use. %s is the name of backend,
-#. example "wicked" or "NetworkManager"
-#: src/lib/network/clients/network_proposal.rb:97
+#. TRANSLATORS: %s will be replaced by a package list
+#: src/modules/AutoinstFunctions.rb:58
 #, c-format
-msgid "Using <b>%s</b>"
-msgstr "<b>%s</b> 사용"
+msgid ""
+"AutoYaST cannot run second stage due to missing packages \n"
+"%s.\n"
+msgstr ""
+"AutoYaST는 %s 패키지가 없어서 두 번째 단계를 실행할 수\n"
+"없습니다.\n"
 
-#. TRANSLATORS: text of link for switch to another network backend. %s is the name of backend,
-#. example "wicked" or "NetworkManager"
-#: src/lib/network/clients/network_proposal.rb:100
-#, c-format
-msgid "switch to %s"
-msgstr "%s(으)로 전환"
+#: src/modules/AutoinstFunctions.rb:63
+msgid ""
+"The registration has failed. Please check your registration settings in the "
+"AutoYaST configuration file."
+msgstr "등록에 실패했습니다. AutoYaST 구성 파일에서 등록 설정을 확인하십시오."
 
-#: src/lib/services-manager/clients/services-manager_finish.rb:12
-msgid "Setting default target and system services ..."
-msgstr "기본 대상 및 시스템 서비스를 설정하는 중 ..."
+#: src/modules/AutoinstFunctions.rb:67
+msgid ""
+"You have not registered your system. Missing packages can be added by "
+"configuring the registration in the AutoYaST configuration file."
+msgstr ""
+"시스템을 등록하지 않았습니다. 누락된 패키지는 AutoYaST 구성 파일에 등록을 구"
+"성하여 추가할 수 있습니다."
+
+#~ msgid "preformatted_proposal"
+#~ msgstr "preformatted_proposal"
 
 #~ msgid ""
 #~ "Custom images deployment - this needs a URL to be configured as "
