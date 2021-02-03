@@ -14,8 +14,14 @@ APIURL=
 REPO=openSUSE:Factory
 
 # This is for SLE 15 inside the intranet
-#APIURL=https://api.suse.de/
-#REPO=SUSE:SLE-15:GA
+APIURL=https://api.suse.de/
+REPO=SUSE:SLE-15:GA
+
+# Check product
+# true: check packages listed in 000product package.
+# false: Do not check 000product. List all packages in the project and inherited projects.
+CHECK_PRODUCT=true
+# TODO: CHECK_PRODUCT=false does not support check for packages introduced by online update and later inherited.
 
 set -o errexit
 shopt -s nullglob
@@ -93,7 +99,13 @@ if test -z "$YAST_CHECKOUT" ; then
 	rm -rf $OLDPWD/../yast-checkout-temp
 fi
 
-osc ${APIURL:+ -A $APIURL} ls $REPO >product-check-list-repo.lst
+if $CHECK_PRODUCT ; then
+	osc ${APIURL:+ -A $APIURL} co $REPO 000product
+	cat $REPO/000product/*.kiwi | sed -n 's:.*<repopackage name="\([^"]*\)"/>:\1:p' | sort -u >product-check-list-repo.lst
+	rm -r $REPO
+else
+	osc ${APIURL:+ -A $APIURL} ls -e $REPO >product-check-list-repo.lst
+fi
 cd $YAST_CHECKOUT
 ls -1 | grep -x -F -v yast.github.io >$OLDPWD/product-check-list-checkout.lst
 cd - >/dev/null
