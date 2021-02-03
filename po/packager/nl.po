@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: packager.nl\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-21 02:29+0000\n"
+"POT-Creation-Date: 2021-02-03 03:49+0100\n"
 "PO-Revision-Date: 2020-11-28 11:26+0000\n"
 "Last-Translator: Freek de Kruijf <freek@opensuse.org>\n"
 "Language-Team: Dutch <https://l10n.opensuse.org/projects/yast-packager/"
@@ -25,6 +25,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 3.6.1\n"
 
+#. Command line definition - minimal command line support
 #. module description
 #: src/clients/checkmedia.rb:25
 msgid "Check CD or DVD media integrity"
@@ -154,6 +155,9 @@ msgstr "Pakketinformatie wordt gelezen..."
 msgid "No Valid Installation Media"
 msgstr "Geen geldige installatiemedia"
 
+#. Fill return map.
+#.
+#. Static values do just nicely here, no need to call a function.
 #. this is a heading
 #: src/clients/media_proposal.rb:76
 msgid "Installation Media"
@@ -171,7 +175,9 @@ msgstr "&Media"
 msgid "The software proposal is reset to the default values."
 msgstr "Het softwarevoorstel is teruggezet naar de standaardwaarden."
 
+#. the proposal for the packages requires manual intervention
 #. warning text
+#. the proposal for the packages requires manual intervention
 #. warning text
 #: src/clients/software_simple_proposal.rb:46
 #: src/lib/packager/clients/software_proposal.rb:79
@@ -463,11 +469,13 @@ msgstr ""
 "Wij adviseren u om alle installatiemedia eerst te controleren om\n"
 "zo installatieproblemen te voorkomen. Druk op 'Volgende' om dit over te slaan"
 
+#. combobox label
 #. combo box
 #: src/include/checkmedia/ui.rb:339
 msgid "&CD or DVD Drive"
 msgstr "&Cd- of dvd-station"
 
+#. empty label for aligning the widgets
 #. push button label
 #: src/include/checkmedia/ui.rb:347
 msgid "&Start Check"
@@ -767,6 +775,10 @@ msgstr ""
 "Ga verder als u de rpm-pakketten die zich op de gespecificeerde\n"
 "locatie bevinden in de pakketselectie beschikbaar wilt maken.\n"
 
+#. Ask user whether to change the entered URL and try again
+#. @param url [String] repository URL
+#. @param scheme [String] scheme part of the URL
+#. @return [Boolean] true to try again
 #. TRANSLATORS: error message (1/3), %1 is repository URL
 #. Import GPG keys found in the inst-sys
 #. Pkg.SourceScan can return Array with repos or -1 if failed. So be more
@@ -876,6 +888,7 @@ msgstr "Onbekende naam van opslagruimte"
 msgid "Category: %1"
 msgstr "Categorie: %1"
 
+#. store repositories and services in the persistent libzypp storage
 #. #176013
 #: src/lib/packager/clients/repositories.rb:668
 msgid "All repositories"
@@ -1332,6 +1345,7 @@ msgstr "Configuratie van online opslagruimte wordt afgebroken"
 msgid "Are you sure you want to abort the configuration?"
 msgstr "Wilt u de configuratie afbreken?"
 
+#. Network is not running
 #. TRANSLATORS: popup header
 #: src/lib/y2packager/clients/inst_productsources.rb:323
 msgid "Network is not configured."
@@ -1350,6 +1364,7 @@ msgstr ""
 "Wilt u de internetverbinding configureren?"
 
 # /usr/lib/YaST2/clients/lan_interfaces.ycp:91
+#. TRANSLATORS: progress step
 #. TRANSLATORS: progress step
 #: src/lib/y2packager/clients/inst_productsources.rb:632
 msgid "Check network configuration"
@@ -1700,7 +1715,21 @@ msgstr "Licentieovereenkomst van %s"
 #. @see CWM::CustomWidget#contents
 #. #459391
 #. If a progress is running open another dialog
+#. Ask user to confirm license agreement
+#. @param [Array<String>] dirs - directories to look for the licenses
+#. @param [Array<String>] patterns a list of patterns for the files, regular expressions
+#. with %1 for the language
+#. @param [String] action what to do if the license is declined,
+#. can be "continue", "abort" or "halt"
+#. @param [Boolean] enable_back sets the back_button status
+#. @param [Boolean] base_product defines whether it is a base or add-on product
+#. true means base product, false add-on product
+#. @param [Boolean] require_agreement means that even if the license (or the very same license)
+#. has been already accepetd, ask user to accept it again (because of 'going back'
+#. in the installation proposal).
 #. dialog caption
+#. Displays License dialog
+#. @param licenses [ArgRef<Hash{String, String}>] a map $[ lang_code : filename ]
 #. dialog title
 #: src/lib/y2packager/dialogs/product_license_translations.rb:47
 #: src/lib/y2packager/dialogs/product_license_translations.rb:87
@@ -1790,6 +1819,9 @@ msgstr ""
 msgid "Control file %1 not found on media."
 msgstr "Controlebestand %1 niet gevonden op de media."
 
+#. Calls registration client if needed.
+#.
+#. @param [Fixnum] src_id source id
 #. FATE #305578: Add-On Product Requiring Registration
 #: src/modules/AddOnProduct.rb:822
 #, c-format
@@ -1903,6 +1935,8 @@ msgstr ""
 msgid "Cannot copy the key to the temporary directory."
 msgstr "Kan de sleutel niet naar de tijdelijke map kopiëren."
 
+#. Show a dialog with either the list of failed packages (string failed_packages) or
+#. the complete log (string full_log).
 #. button label
 #: src/modules/PackageInstallation.rb:46
 msgid "&Show Failed Packages List"
@@ -2183,6 +2217,8 @@ msgstr "<b>Waarschuwing:</b> Product <b>%s</b> wordt verwijderd."
 msgid "<b>Error:</b> Product <b>%s</b> will be automatically removed."
 msgstr "<b>Fout:</b> Product <b>%s</b> wordt automatisch verwijderd."
 
+#. Automatic product removal MUST be confirmed by user, otherwise update
+#. cannot be started.
 #. TRANSLATORS: update proposal warning, do NOT translate "-release",
 #. it is part of a package name (like "sles-release")
 #: src/modules/Packages.rb:702
@@ -2397,6 +2433,9 @@ msgstr ""
 "van de beschikbare opties. Als u niet met de licentieovereenkomst\n"
 "akkoord gaat zal de configuratie afgebroken worden.</p>\n"
 
+#. crate a label describing the license URL location
+#. @param [String] display_url URL to display
+#. return [String] translated label
 #. TRANSLATORS: %{license_url} is an URL where the displayed license can be found
 #: src/modules/ProductLicense.rb:763
 #, perl-brace-format
@@ -2494,6 +2533,7 @@ msgstr ""
 "Er is bijna geen schijfruimte meer.\n"
 "Wilt u met de installatie doorgaan?"
 
+#. at start of file providal
 #. remote
 #: src/modules/SlideShowCallbacks.rb:441
 #, ycp-format
@@ -2513,6 +2553,7 @@ msgid "Failed to apply delta RPM: %1"
 msgstr "Kon delta-RPM niet toepassen: %1"
 
 # /usr/lib/YaST2/clients/inst_config_x11.ycp:947
+#. widget ID => translatable label (needs to be translated by _())
 #. radio button
 #: src/modules/SourceDialogs.rb:24
 msgid "&Scan Using SLP..."
@@ -2612,6 +2653,7 @@ msgstr ""
 "<p>Als de opslagruimte zich op meerdere media\n"
 "bevindt, stel dan de locatie van het eerste medium van de set in.</p>\n"
 
+#. NFS editation widget
 #. text entry
 #: src/modules/SourceDialogs.rb:132
 msgid "&Server Name"
@@ -2648,6 +2690,7 @@ msgstr "(standaard)"
 msgid "URL of the Repository"
 msgstr "URL van opslagruimte"
 
+#. dialog contents for different views
 #. frame
 #: src/modules/SourceDialogs.rb:180
 msgid "P&rotocol"
@@ -2658,6 +2701,7 @@ msgstr "P&rotocol"
 msgid "&URL of the Repository"
 msgstr "&URL van opslagruimte"
 
+#. Captions for individual protocols
 #. label / dialog caption
 #. bugzilla #219759
 #. service label can be empty (not defined)
@@ -2884,6 +2928,7 @@ msgstr ""
 "enige metadata (er is dus geen productinformatie), selecteer dan optie\n"
 "<b>Gewone RPM-map</b>.</p>\n"
 
+#. combobox title
 #. `opt(`hstretch),
 #: src/modules/SourceDialogs.rb:1298
 msgid "&USB Mass Storage Device"
@@ -3199,6 +3244,7 @@ msgstr "URL-schema '%s' is niet geldig."
 msgid "Initializing Available Repositories"
 msgstr "Beschikbare opslagruimtes initialiseren"
 
+#. We do not set help text here, because it was set outside
 #. Progress stage 1/3
 #: src/modules/SourceManager.rb:100
 msgid "Read configured repositories"
@@ -3249,6 +3295,7 @@ msgstr "Opslagruimteconfiguratie opslaan"
 # /usr/lib/YaST2/clients/dialup_ISP_sel.ycp:96
 # /usr/lib/YaST2/clients/dialup_ISP_sel.ycp:184
 # /usr/lib/YaST2/clients/dialup_ISP_sel.ycp:203
+#. We do not set help text here, because it was set outside
 #. Progress stage 1/1
 #: src/modules/SourceManager.rb:175
 msgid "Write repository settings"
