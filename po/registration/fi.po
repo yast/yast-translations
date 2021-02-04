@@ -20,7 +20,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: registration.fi\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-02-03 03:49+0100\n"
+"POT-Creation-Date: 2021-02-04 02:30+0000\n"
 "PO-Revision-Date: 2020-12-27 23:27+0000\n"
 "Last-Translator: Kimmo Kujansuu <mrkujansuu@gmail.com>\n"
 "Language-Team: Finnish <https://l10n.opensuse.org/projects/yast-registration/"
@@ -39,13 +39,7 @@ msgstr ""
 msgid "Use '%s' instead of this YaST module."
 msgstr "Käytä moduulia ”%s” tämän YaST-moduulin sijasta."
 
-#. Let the user manually fix the broken repositories
-#. @return [Boolean] true if the repository manager was successfuly closed,
-#. false after pressing [Cancel]
 #. TRANSLATORS: Error message in RichText format, %s contains the details from libzypp
-#. Let the user manually fix the broken repositories
-#. @return [Boolean] true if the repository manager was successfuly closed,
-#. false after pressing [Cancel]
 #. TRANSLATORS: Error message in RichText format, %s contains the details from libzypp
 #: src/clients/registration.rb:85 src/clients/scc.rb:85
 #, c-format
@@ -126,12 +120,10 @@ msgid "Extensions and Modules"
 msgstr "Laajennukset ja moduulit"
 
 #: src/data/registration/certificate_error.erb:6
-#: src/lib/registration/ui/import_certificate_dialog.rb:112
 msgid "Secure Connection Error"
 msgstr "Salatun yhteyden virhe"
 
 #: src/data/registration/certificate_error.erb:10
-#: src/lib/registration/ui/import_certificate_dialog.rb:113
 msgid "Details:"
 msgstr "Tiedot:"
 
@@ -156,7 +148,6 @@ msgid "Run registration again"
 msgstr "Suorita rekisteröinti uudelleen"
 
 #: src/data/registration/certificate_error.erb:47
-#: src/lib/registration/ui/import_certificate_dialog.rb:114
 msgid "Failed Certificate Details"
 msgstr "Epäonnistuneen varmenteen lisätiedot"
 
@@ -255,10 +246,6 @@ msgstr "Yhdistetään rekisteröintipalvelimeen"
 #. dialog title
 #. just set an empty Wizard dialog to replace the current one after
 #. pressing "Next"
-#. display and run the dialog
-#.
-#. @param extensions_enabled [Boolean] select extension button enabled
-#. @return [Symbol] user input
 #. dialog title
 #. display and run a dialog for updating the current registration
 #. @return [Symbol] user input
@@ -346,7 +333,6 @@ msgstr "Ladataan SSL-varmennetta"
 msgid "Importing SSL Certificate"
 msgstr "Tuodaan SSL-varmennetta"
 
-#. Intentionally use blocking popup as it is fatal error that stops installation.
 #. TRANSLATORS: profile wants to do registration, but old system is not registered.
 #: src/lib/registration/clients/scc_auto.rb:410
 msgid ""
@@ -485,10 +471,6 @@ msgstr ""
 msgid "Network error, check the network configuration."
 msgstr "Verkkovirhe: tarkista verkkoasetukset."
 
-#. Add SCC synchronization hint into the text message when using the SCC
-#. registration server.
-#. @param error_msg [String] the error message from the registratino server,
-#. the hint is appended at the end
 #. TRANSLATORS: additional hint for an error message
 #: src/lib/registration/connect_helpers.rb:336
 msgid "Check that this system is known to the registration server."
@@ -693,6 +675,10 @@ msgstr "Päivitetään järjestelmään %s..."
 msgid "Synchronizing Products..."
 msgstr "Rekisteröidään tuotteita..."
 
+#. load available addons from SCC server
+#. the result is cached to avoid reloading when going back and forth in the
+#. installation workflow
+#. @return [Array<Registration::Addon>] available addons
 #. download the addons from SCC, let the user select addons to install
 #. @return [Symbol] the user input
 #: src/lib/registration/registration_ui.rb:181
@@ -702,6 +688,9 @@ msgstr "Ladataan saatavilla olevia laajennuksia ja moduuleja..."
 
 # workflow: "3D Beschleunigung aktivieren"
 # -ke-
+#. According to the official SUSE terminology, "online" refers to a running
+#. system and (offline) to a system that is not running. It's NOT about the
+#. network connectivity
 #: src/lib/registration/registration_ui.rb:196
 #: src/lib/registration/registration_ui.rb:208
 msgid "Loading Migration Products..."
@@ -709,18 +698,11 @@ msgstr "Ladataan siirtotuotteita..."
 
 # workflow: "3D Beschleunigung aktivieren"
 # -ke-
-#. Register the selected addons, asks for reg. codes if required, known_reg_codes
-#. @param selected_addons [Array<Addon>] list of addons selected for registration,
-#. successfully registered addons are removed from the list
-#. @param known_reg_codes [Hash] remembered reg. code, it's updated with the
-#. user entered values
-#. @return [Symbol]
 #. dialog title
 #: src/lib/registration/registration_ui.rb:223
 msgid "Register Extensions and Modules"
 msgstr "Rekisteröi laajennukset ja moduulit"
 
-#. display only the products which need a registration code
 #. help text
 #: src/lib/registration/registration_ui.rb:227
 msgid "<p>Extensions and Modules are being registered.</p>"
@@ -784,6 +766,7 @@ msgstr "Luetaan aktivoidut tuotteet..."
 
 # workflow: "3D Beschleunigung aktivieren"
 # -ke-
+#. then register the product(s)
 #. %s is name of given product
 #: src/lib/registration/registration_ui.rb:349
 #: src/lib/registration/registration_ui.rb:392
@@ -905,7 +888,6 @@ msgstr "Laajennuksen %s lisenssisopimus"
 msgid "Extension and Module Registration Codes"
 msgstr "Laajennuksen ja moduulin rekisteröintikoodit"
 
-#. display only the products which need a registration code
 #. help text
 #: src/lib/registration/ui/addon_reg_codes_dialog.rb:50
 msgid ""
@@ -948,8 +930,6 @@ msgstr "Tiedot (vain englanniksi)"
 msgid "Select an extension or a module to show details here"
 msgstr "Näet laajennuksen tai moduulin lisätiedot tässä valittuasi sen"
 
-#. @param [<Addon>] addon the addon
-#. @return [String] a Value for a RichText
 #. checkbox label for an unavailable extension
 #. (%s is an extension name)
 #: src/lib/registration/ui/addon_selection_base_dialog.rb:123
@@ -1308,7 +1288,6 @@ msgstr ""
 "<p>Asentaaksesi järjestelmän rekisteröitymättä, käytä tietovälinettä "
 "%{media_name} osoitteesta %{download_url}.</p>"
 
-#. these cannot be nil
 #. TRANSLATORS: a popup message (3/3) the user wants to skip the registration
 #: src/lib/registration/ui/base_system_registration_dialog.rb:451
 msgid ""
@@ -1592,9 +1571,6 @@ msgstr ""
 msgid "<p>Please use the Full medium instead of the Online.</p>"
 msgstr "<p>Käytä täyttä tietovälinettä verkkoasennustietovälineen sijaan.</p>"
 
-#. Informative message
-#. @param registered [Boolean] is the system registered?
-#. @return [String] translated message
 #. TRANSLATORS: Media based upgrade requested by user (1/3)
 #. User requested media based upgrade which does not use SCC/SMT/RMT
 #. but the downloaded media (physical DVD or shared repo on a local server).

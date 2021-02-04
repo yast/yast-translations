@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: registration\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-02-03 03:49+0100\n"
+"POT-Creation-Date: 2021-02-04 02:30+0000\n"
 "PO-Revision-Date: 2019-04-26 07:19+0000\n"
 "Last-Translator: Robert Taisz <robert.taisz@emerald.hu>\n"
 "Language-Team: Hungarian <https://l10n.opensuse.org/projects/yast-"
@@ -35,13 +35,7 @@ msgstr ""
 msgid "Use '%s' instead of this YaST module."
 msgstr "A jelen YaST-modul helyett használja a következőt: '%s'."
 
-#. Let the user manually fix the broken repositories
-#. @return [Boolean] true if the repository manager was successfuly closed,
-#. false after pressing [Cancel]
 #. TRANSLATORS: Error message in RichText format, %s contains the details from libzypp
-#. Let the user manually fix the broken repositories
-#. @return [Boolean] true if the repository manager was successfuly closed,
-#. false after pressing [Cancel]
 #. TRANSLATORS: Error message in RichText format, %s contains the details from libzypp
 #: src/clients/registration.rb:85 src/clients/scc.rb:85
 #, c-format
@@ -117,7 +111,6 @@ msgid "Extensions and Modules"
 msgstr "Bővítmények és modulok"
 
 #: src/data/registration/certificate_error.erb:6
-#: src/lib/registration/ui/import_certificate_dialog.rb:112
 msgid "Secure Connection Error"
 msgstr "Biztonságos kapcsolat hibája"
 
@@ -125,7 +118,6 @@ msgstr "Biztonságos kapcsolat hibája"
 # /usr/lib/YaST2/clients/inst_sw_select.ycp:262
 # clients/inst_sw_select.ycp:256
 #: src/data/registration/certificate_error.erb:10
-#: src/lib/registration/ui/import_certificate_dialog.rb:113
 msgid "Details:"
 msgstr "Részletek:"
 
@@ -148,7 +140,6 @@ msgid "Run registration again"
 msgstr "Regisztráció újbóli futtatása"
 
 #: src/data/registration/certificate_error.erb:47
-#: src/lib/registration/ui/import_certificate_dialog.rb:114
 msgid "Failed Certificate Details"
 msgstr "Nem megfelelő tanúsítvány adatai"
 
@@ -246,10 +237,6 @@ msgstr "Kapcsolatfelvétel a regisztrációs kiszolgálóval"
 #. dialog title
 #. just set an empty Wizard dialog to replace the current one after
 #. pressing "Next"
-#. display and run the dialog
-#.
-#. @param extensions_enabled [Boolean] select extension button enabled
-#. @return [Symbol] user input
 #. dialog title
 #. display and run a dialog for updating the current registration
 #. @return [Symbol] user input
@@ -335,7 +322,6 @@ msgstr "SSL-tanúsítvány letöltése"
 msgid "Importing SSL Certificate"
 msgstr "SSL-tanúsítvány importálása"
 
-#. Intentionally use blocking popup as it is fatal error that stops installation.
 #. TRANSLATORS: profile wants to do registration, but old system is not registered.
 #: src/lib/registration/clients/scc_auto.rb:410
 msgid ""
@@ -468,10 +454,6 @@ msgstr ""
 msgid "Network error, check the network configuration."
 msgstr "Hálózati hiba, ellenőrizze a hálózat beállításait."
 
-#. Add SCC synchronization hint into the text message when using the SCC
-#. registration server.
-#. @param error_msg [String] the error message from the registratino server,
-#. the hint is appended at the end
 #. TRANSLATORS: additional hint for an error message
 #: src/lib/registration/connect_helpers.rb:336
 msgid "Check that this system is known to the registration server."
@@ -663,6 +645,10 @@ msgstr "Frissítés: %s ..."
 msgid "Synchronizing Products..."
 msgstr "Termékek szinkronizálása..."
 
+#. load available addons from SCC server
+#. the result is cached to avoid reloading when going back and forth in the
+#. installation workflow
+#. @return [Array<Registration::Addon>] available addons
 #. download the addons from SCC, let the user select addons to install
 #. @return [Symbol] the user input
 #: src/lib/registration/registration_ui.rb:181
@@ -670,23 +656,19 @@ msgstr "Termékek szinkronizálása..."
 msgid "Loading Available Extensions and Modules..."
 msgstr "Az elérhető bővítmények és modulok betöltése folyamatban van..."
 
+#. According to the official SUSE terminology, "online" refers to a running
+#. system and (offline) to a system that is not running. It's NOT about the
+#. network connectivity
 #: src/lib/registration/registration_ui.rb:196
 #: src/lib/registration/registration_ui.rb:208
 msgid "Loading Migration Products..."
 msgstr "Migrációs termékek betöltése..."
 
-#. Register the selected addons, asks for reg. codes if required, known_reg_codes
-#. @param selected_addons [Array<Addon>] list of addons selected for registration,
-#. successfully registered addons are removed from the list
-#. @param known_reg_codes [Hash] remembered reg. code, it's updated with the
-#. user entered values
-#. @return [Symbol]
 #. dialog title
 #: src/lib/registration/registration_ui.rb:223
 msgid "Register Extensions and Modules"
 msgstr "Bővítmények és modulok regisztrálása"
 
-#. display only the products which need a registration code
 #. help text
 #: src/lib/registration/registration_ui.rb:227
 msgid "<p>Extensions and Modules are being registered.</p>"
@@ -754,6 +736,7 @@ msgstr ""
 msgid "Reading the Activated Products..."
 msgstr "Aktivált termékek beolvasása..."
 
+#. then register the product(s)
 #. %s is name of given product
 #: src/lib/registration/registration_ui.rb:349
 #: src/lib/registration/registration_ui.rb:392
@@ -876,7 +859,6 @@ msgstr "%s licencszerződés"
 msgid "Extension and Module Registration Codes"
 msgstr "Bővítmények és modulok regisztrációs kódjai"
 
-#. display only the products which need a registration code
 #. help text
 #: src/lib/registration/ui/addon_reg_codes_dialog.rb:50
 msgid ""
@@ -922,8 +904,6 @@ msgstr ""
 "Bővítmény vagy modul kiválasztásával itt jelennek meg a hozzá tartozó "
 "részletek."
 
-#. @param [<Addon>] addon the addon
-#. @return [String] a Value for a RichText
 #. checkbox label for an unavailable extension
 #. (%s is an extension name)
 #: src/lib/registration/ui/addon_selection_base_dialog.rb:123
@@ -1273,7 +1253,6 @@ msgid ""
 "%{media_name} installation media from %{download_url}.</p>"
 msgstr ""
 
-#. these cannot be nil
 #. TRANSLATORS: a popup message (3/3) the user wants to skip the registration
 #: src/lib/registration/ui/base_system_registration_dialog.rb:451
 msgid ""
@@ -1551,9 +1530,6 @@ msgstr ""
 msgid "<p>Please use the Full medium instead of the Online.</p>"
 msgstr "<p>Adja meg kézzel a telepítési adathordozót a következő lépésben.</p>"
 
-#. Informative message
-#. @param registered [Boolean] is the system registered?
-#. @return [String] translated message
 #. TRANSLATORS: Media based upgrade requested by user (1/3)
 #. User requested media based upgrade which does not use SCC/SMT/RMT
 #. but the downloaded media (physical DVD or shared repo on a local server).
