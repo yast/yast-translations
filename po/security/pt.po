@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: security.pt\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-02-04 02:30+0000\n"
+"POT-Creation-Date: 2021-02-19 02:29+0000\n"
 "PO-Revision-Date: 2020-12-18 00:27+0000\n"
 "Last-Translator: Luís Tiago Favas <al62006@utad.eu>\n"
 "Language-Team: Portuguese <https://l10n.opensuse.org/projects/yast-security/"
@@ -85,6 +85,11 @@ msgstr "Defina o número de palavras passe de utilizador a recordar"
 #: src/clients/security.rb:248
 msgid "The number of passwords to remember must be between 0 an 400."
 msgstr "O número de palavras passe a recordar deve estar entre 0 e 400."
+
+#. Checking value semantic
+#: src/clients/security_auto.rb:96
+msgid "Wrong SELinux mode. Possible values: "
+msgstr ""
 
 #. Main dialog caption
 #: src/include/security/complex.rb:58
@@ -203,7 +208,22 @@ msgstr "Configurar"
 msgid "Enabled"
 msgstr "Activado"
 
-#: src/include/security/dialogs.rb:155
+#. All known SELinux modes
+#.
+#. This is _the main_ or _base_ configuration for known SELinux modes. However, note that, for
+#. example, a permissive mode could be set by just setting the "security" module; i.e.,
+#. "security=selinux" means "enable SELinux using the permissive mode". Or even setting
+#. the enforcing param to a value equal or less than 0; i.e., "security=selinux enforcing=0".
+#.
+#. Additionally, removing the "security" from the kernel params does not mean to use none
+#. security module. Instead, it just fallback to the kernel configuration at the compile time,
+#. which in SUSE is to use AppArmor according to the CONFIG_LSM variable. So, it could be said
+#. that dropping all mode param to disabling SELinux is safe enough.
+#.
+#. To know more, please visit the LSM Usage documentation at
+#. https://www.kernel.org/doc/html/latest/admin-guide/LSM/index.html
+#. and/or grep for CONFIG_LSM in /boot/config-*
+#: src/include/security/dialogs.rb:155 src/lib/y2security/selinux.rb:377
 msgid "Disabled"
 msgstr "Desactivado"
 
@@ -1470,69 +1490,90 @@ msgstr "A inicializar..."
 msgid "Writing Security Configuration..."
 msgstr "A Escrever Configuração de Segurança..."
 
+#: src/lib/y2security/selinux.rb:378
+#, fuzzy
+#| msgid "Boot Permissions"
+msgid "Permissive"
+msgstr "Permissões de Arranque do Sistema"
+
+#: src/lib/y2security/selinux.rb:379
+msgid "Enforcing"
+msgstr ""
+
 #. Security read dialog caption
-#: src/modules/Security.rb:648
+#: src/modules/Security.rb:672
 msgid "Saving Security Configuration"
 msgstr "A Guardar Configuração de Segurança"
 
-#. Progress stage 1/4
-#: src/modules/Security.rb:657
+#. Progress stage 1/5
+#: src/modules/Security.rb:681
 msgid "Write security settings"
 msgstr "Gravar definições de segurança"
 
-#. Progress stage 2/4
-#: src/modules/Security.rb:659
+#. Progress stage 2/5
+#: src/modules/Security.rb:683
 msgid "Write shutdown settings"
 msgstr "Escrever definições de encerramento"
 
-#. Progress stage 3/4
-#: src/modules/Security.rb:661
+#. Progress stage 3/5
+#: src/modules/Security.rb:685
 msgid "Write PAM settings"
 msgstr "Gravar definições de PAM"
 
-#. Progress stage 4/4
-#: src/modules/Security.rb:663
+#. Progress stage 4/5
+#: src/modules/Security.rb:687
 msgid "Update system settings"
 msgstr "Atualizar definições de sistema"
 
-#. Progress step 1/5
-#: src/modules/Security.rb:667
+#. Progress stage 5/5
+#: src/modules/Security.rb:689
+#, fuzzy
+#| msgid "Write inittab settings"
+msgid "Write SELinux settings"
+msgstr "Gravar definições do inittab"
+
+#. Progress step 1/6
+#: src/modules/Security.rb:693
 msgid "Writing security settings..."
 msgstr "A escrever as definições de segurança..."
 
-#. Progress step 2/5
-#: src/modules/Security.rb:669
+#. Progress step 2/6
+#: src/modules/Security.rb:695
 msgid "Writing shutdown settings..."
 msgstr "A escrever as definições de encerramento..."
 
-#. Progress step 3/5
-#: src/modules/Security.rb:671
+#. Progress step 3/6
+#: src/modules/Security.rb:697
 msgid "Writing PAM settings..."
 msgstr "A escrever as definições de PAM..."
 
-#. Progress step 4/5
-#: src/modules/Security.rb:673
+#. Progress step 4/6
+#: src/modules/Security.rb:699
 msgid "Updating system settings..."
 msgstr "A atualizar as definições de sistema..."
 
-#. Progress step 5/5
-#: src/modules/Security.rb:675
+#. Progress step 5/6
+#: src/modules/Security.rb:701
+#, fuzzy
+#| msgid "Writing PAM settings..."
+msgid "Writing  settings..."
+msgstr "A escrever as definições de PAM..."
+
+#. Progress step 6/6
+#: src/modules/Security.rb:703
 msgid "Finished"
 msgstr "Terminado"
 
 #. Summary text
-#: src/modules/Security.rb:816
+#: src/modules/Security.rb:850
 msgid "Current Security Level: Custom settings"
 msgstr "Nível Actual de Segurança: Definições Personalizadas"
 
 #. Summary text
-#: src/modules/Security.rb:820
+#: src/modules/Security.rb:854
 #, ycp-format
 msgid "Current Security Level: %1"
 msgstr "Nível de Segurança Actual: %1"
-
-#~ msgid "Write inittab settings"
-#~ msgstr "Gravar definições do inittab"
 
 #~ msgid "Writing inittab settings..."
 #~ msgstr "A escrever as definições do inittab..."
