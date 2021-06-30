@@ -58,4 +58,5 @@ tools/yast-check-lcn-import.sh can be used to check consistency
 - Creating .pot files in Jenkins: Christopher Hofmann <cwh@suse.com>
 - Jenkins in general: Ladislav Slezak <lslezak@suse.com>
 
-- YaST development IRC: #yast at irc.freenode.org
+- YaST development IRC: #yast at irc.libera.chat, or use the web frontend
+  for the [#yast](https://web.libera.chat/#yast) IRC channel.
