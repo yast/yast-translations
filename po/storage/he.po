@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: YaST (@memory@)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-17 02:30+0000\n"
+"POT-Creation-Date: 2021-11-18 02:29+0000\n"
 "PO-Revision-Date: 2013-05-29 21:56+0200\n"
 "Last-Translator: Eliran Itzhak <eliran@bigfoot.com>\n"
 "Language-Team: Hebrew <i18n@suse.de>\n"
@@ -215,19 +215,19 @@ msgstr ""
 #. Title to display in the dialog during the process
 #.
 #. @return [String]
-#: src/lib/y2partitioner/actions/controllers/encryption.rb:185
+#: src/lib/y2partitioner/actions/controllers/encryption.rb:193
 #, fuzzy, c-format
 #| msgid "Enter Provider Password"
 msgid "Encryption for %s"
 msgstr "הקישו את סיסמת הספק"
 
-#: src/lib/y2partitioner/actions/controllers/encryption.rb:187
+#: src/lib/y2partitioner/actions/controllers/encryption.rb:195
 #, fuzzy, c-format
 msgid "Modify encryption of %s"
 msgstr "תיאור"
 
 #  button text
-#: src/lib/y2partitioner/actions/controllers/encryption.rb:189
+#: src/lib/y2partitioner/actions/controllers/encryption.rb:197
 #, fuzzy, c-format
 msgid "Encrypt %s"
 msgstr "ה&צפן קובץ"
@@ -2289,6 +2289,21 @@ msgstr "מחיצה &ראשית"
 msgid "Raw Volume (unformatted)"
 msgstr ""
 
+#. TRANSLATORS: name of a key derivation function used by LUKS
+#: src/lib/y2partitioner/pbkd_function.rb:43
+msgid "Argon2id"
+msgstr ""
+
+#. TRANSLATORS: name of a key derivation function used by LUKS
+#: src/lib/y2partitioner/pbkd_function.rb:45
+msgid "Argon2i"
+msgstr ""
+
+#. TRANSLATORS: name of a key derivation function used by LUKS
+#: src/lib/y2partitioner/pbkd_function.rb:47
+msgid "PBKDF2"
+msgstr ""
+
 #  Label above progress bar that indicates
 #  windows partition resizing progress.
 #  This text will be replaced with the current values
@@ -2933,11 +2948,24 @@ msgstr "התקן"
 #  header text
 #. TRANSLATORS: title for section about block device details
 #. TRANSLATORS: title for section about LVM VG details
-#: src/lib/y2partitioner/widgets/description_section/blk_device.rb:47
+#: src/lib/y2partitioner/widgets/description_section/blk_device.rb:48
 #: src/lib/y2partitioner/widgets/description_section/lvm_vg_device.rb:44
 #, fuzzy
 msgid "Device:"
 msgstr "התקן"
+
+#. TRANSLATORS: %s becomes the name of the PBKDF function used by a LUKS2 device (eg. Argon2i)
+#: src/lib/y2partitioner/widgets/description_section/blk_device.rb:107
+#, c-format
+msgid "Key Derivation Function (PBKDF): %s"
+msgstr ""
+
+#  Column header
+#. TRANSLATORS: %s is replaced by the value of the label of the LUKS2 device
+#: src/lib/y2partitioner/widgets/description_section/blk_device.rb:115
+#, fuzzy, c-format
+msgid "LUKS Label: %s"
+msgstr "תווית"
 
 #. TRANSLATORS: title for the section about Btrfs subvolume details
 #: src/lib/y2partitioner/widgets/description_section/btrfs_subvolume.rb:41
@@ -3302,8 +3330,34 @@ msgid ""
 "can select which ones to use.</p>"
 msgstr ""
 
-#. TRANSLATORS: help text for Random Swap encryption method.
+#. TRANSLATORS: help text for Regular Luks2 encryption method
 #: src/lib/y2partitioner/widgets/encrypt.rb:202
+#, perl-brace-format
+msgid ""
+"<p><b>%{label}</b>: allows to encrypt the device using LUKS2. A variant of "
+"LUKS (Linux Unified Key Setup) that uses a newer version of the header "
+"format. That allows further possibilities like setting a label to reference "
+"the LUKS device (for example, in the crypttab file). You have to provide the "
+"encryption password and the password-based key derivation function (PBKDF) "
+"that will be used to protect that passphrase.</p><p>The function to use "
+"depends on the context, the hardware capabilities and the needed level of "
+"compatibility with other system components (see below).<p><p><b>PBKDF2</b> "
+"refers to the function of that name, according to RFC2898. Is the function "
+"that LUKS1 uses.</p><p><b>Argon2id</b> and <b>Argon2i</b> refer to two "
+"variants of a function designed to be more secure and to require a lot of "
+"memory to be computed.</p><p>Argon2 is more secure so it should be used if "
+"possible. But the large amount of memory it uses (which is an intentional "
+"security feature) may result in problems in some systems. If the strength of "
+"the password can be fully assured, then using PBKDF2 may still be secure and "
+"save memory. On the other hand, Grub2 offers limited support to boot from "
+"devices encrypted with LUKS2, but only if PBKDF2 is used. So you cannot use "
+"Argon2 in a file system that contains the /boot directory. Note that some "
+"manual Grub2 configuration may be needed to boot from a LUKS2 device, even "
+"if PBKDF2 is used.</p>"
+msgstr ""
+
+#. TRANSLATORS: help text for Random Swap encryption method.
+#: src/lib/y2partitioner/widgets/encrypt.rb:234
 #, perl-brace-format
 msgid ""
 "<p><b>%{label}</b>: this encryption method uses randomly generated keys at "
@@ -3329,7 +3383,7 @@ msgstr ""
 #. TRANSLATORS: help text for encryption method with protected keys for z Systems. See
 #. https://www.ibm.com/support/knowledgecenter/en/linuxonibm/com.ibm.linux.z.lxdc/
 #. lxdc_swapdisks_scenario.html
-#: src/lib/y2partitioner/widgets/encrypt.rb:235
+#: src/lib/y2partitioner/widgets/encrypt.rb:267
 #, perl-brace-format
 msgid ""
 "<p><b>%{label}</b>: this encryption method uses a volatile protected AES key "
@@ -3341,7 +3395,7 @@ msgstr ""
 #. TRANSLATORS: help for encryption method with secure keys for z Systems. See
 #. https://www.ibm.com/support/knowledgecenter/en/linuxonibm/com.ibm.linux.z.lxdc/
 #. lxdc_swapdisks_scenario.html
-#: src/lib/y2partitioner/widgets/encrypt.rb:255
+#: src/lib/y2partitioner/widgets/encrypt.rb:287
 #, perl-brace-format
 msgid ""
 "<p><b>%{label}</b>: this encryption method uses a volatile secure AES key "
@@ -3349,6 +3403,19 @@ msgid ""
 "This is an improvement over %{random_swap_label} method and all "
 "considerations for such method still apply.</p>"
 msgstr ""
+
+#. @macro seeAbstractWidget
+#: src/lib/y2partitioner/widgets/encrypt_label.rb:42
+msgid "LUKS &Label (optional)"
+msgstr ""
+
+#  popup text
+#. TRANSLATORS: Error pop-up
+#: src/lib/y2partitioner/widgets/encrypt_label.rb:54
+#, fuzzy
+#| msgid "This volume label is already in use. Select a different one."
+msgid "This LUKS label is already in use. Select a different one."
+msgstr "תווית הכרך שסופקה כבר בשימוש. נא לבחור אחרת."
 
 #  Heading text
 #. @macro seeAbstractWidget
@@ -3359,7 +3426,7 @@ msgid "Encryption method"
 msgstr "הקישו את סיסמת הספק"
 
 #. @macro seeCustomWidget
-#: src/lib/y2partitioner/widgets/encrypt_method_options.rb:107
+#: src/lib/y2partitioner/widgets/encrypt_method_options.rb:111
 msgid ""
 "Be careful: the system cannot hibernate when\n"
 "encrypting swap with randomly generated keys.\n"
@@ -3376,21 +3443,21 @@ msgstr ""
 #. An error is reported to the user when the secure key cannot be generated.
 #.
 #. @return [Boolean]
-#: src/lib/y2partitioner/widgets/encrypt_method_options.rb:241
+#: src/lib/y2partitioner/widgets/encrypt_method_options.rb:269
 #, fuzzy
 msgid "The secure key cannot be generated.\n"
 msgstr "מחיצה מורחבת כבר קיימת."
 
-#: src/lib/y2partitioner/widgets/encrypt_method_options.rb:244
+#: src/lib/y2partitioner/widgets/encrypt_method_options.rb:272
 msgid ""
 "Make sure that all selected APQNs are configured with the same master key."
 msgstr ""
 
-#: src/lib/y2partitioner/widgets/encrypt_method_options.rb:246
+#: src/lib/y2partitioner/widgets/encrypt_method_options.rb:274
 msgid "Make sure that the selected APQN is configured with a master key."
 msgstr ""
 
-#: src/lib/y2partitioner/widgets/encrypt_method_options.rb:248
+#: src/lib/y2partitioner/widgets/encrypt_method_options.rb:276
 msgid ""
 "Make sure that all available APQNs are configured with the same master key."
 msgstr ""
@@ -5111,6 +5178,11 @@ msgstr "גודל"
 msgid "Add Partition..."
 msgstr "מחיצה"
 
+#. @macro seeAbstractWidget
+#: src/lib/y2partitioner/widgets/pbkdf_selector.rb:41
+msgid "Password-Based Key Derivation &Function (PBKDF)"
+msgstr ""
+
 #  helptext for popup create partition line 3 of 6
 #. Section of {#summary_text} about actions
 #.
@@ -6788,8 +6860,15 @@ msgstr ""
 msgid "Regular LUKS1"
 msgstr ""
 
+#. Constructor, see {Base}
+#: src/lib/y2storage/encryption_method/luks2.rb:33
+msgid "Regular LUKS2"
+msgstr ""
+
 #. Cipher used for pervasive encryption
-#: src/lib/y2storage/encryption_method/pervasive_luks2.rb:37
+#.
+#. @return [String]
+#: src/lib/y2storage/encryption_method/pervasive_luks2.rb:44
 #, fuzzy
 msgid "Pervasive Volume Encryption"
 msgstr "תיאור"

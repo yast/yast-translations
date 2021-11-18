@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: storage\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-17 02:30+0000\n"
+"POT-Creation-Date: 2021-11-18 02:29+0000\n"
 "PO-Revision-Date: 2021-04-01 05:57+0000\n"
 "Last-Translator: Grace Yu <grace.yu@excel-gits.com>\n"
 "Language-Team: Chinese (Taiwan) <https://l10n.opensuse.org/projects/yast-"
@@ -218,17 +218,17 @@ msgstr "輸入的區域無效，請增加大小或對齊啟始位置。"
 #. Title to display in the dialog during the process
 #.
 #. @return [String]
-#: src/lib/y2partitioner/actions/controllers/encryption.rb:185
+#: src/lib/y2partitioner/actions/controllers/encryption.rb:193
 #, c-format
 msgid "Encryption for %s"
 msgstr "%s 的加密"
 
-#: src/lib/y2partitioner/actions/controllers/encryption.rb:187
+#: src/lib/y2partitioner/actions/controllers/encryption.rb:195
 #, c-format
 msgid "Modify encryption of %s"
 msgstr "修改 %s 的加密"
 
-#: src/lib/y2partitioner/actions/controllers/encryption.rb:189
+#: src/lib/y2partitioner/actions/controllers/encryption.rb:197
 #, c-format
 msgid "Encrypt %s"
 msgstr "加密 %s"
@@ -2096,6 +2096,21 @@ msgstr "EFI 開機分割區"
 msgid "Raw Volume (unformatted)"
 msgstr "原始磁碟區 (未格式化)"
 
+#. TRANSLATORS: name of a key derivation function used by LUKS
+#: src/lib/y2partitioner/pbkd_function.rb:43
+msgid "Argon2id"
+msgstr ""
+
+#. TRANSLATORS: name of a key derivation function used by LUKS
+#: src/lib/y2partitioner/pbkd_function.rb:45
+msgid "Argon2i"
+msgstr ""
+
+#. TRANSLATORS: name of a key derivation function used by LUKS
+#: src/lib/y2partitioner/pbkd_function.rb:47
+msgid "PBKDF2"
+msgstr ""
+
 #. By default, (re)activation is only done during installation.
 #. In installed systems, activation is only triggered for actions that
 #. explicitly force it.
@@ -2678,10 +2693,23 @@ msgstr "快取模式：%s"
 
 #. TRANSLATORS: title for section about block device details
 #. TRANSLATORS: title for section about LVM VG details
-#: src/lib/y2partitioner/widgets/description_section/blk_device.rb:47
+#: src/lib/y2partitioner/widgets/description_section/blk_device.rb:48
 #: src/lib/y2partitioner/widgets/description_section/lvm_vg_device.rb:44
 msgid "Device:"
 msgstr "裝置："
+
+#. TRANSLATORS: %s becomes the name of the PBKDF function used by a LUKS2 device (eg. Argon2i)
+#: src/lib/y2partitioner/widgets/description_section/blk_device.rb:107
+#, c-format
+msgid "Key Derivation Function (PBKDF): %s"
+msgstr ""
+
+#. TRANSLATORS: %s is replaced by the value of the label of the LUKS2 device
+#: src/lib/y2partitioner/widgets/description_section/blk_device.rb:115
+#, fuzzy, c-format
+#| msgid "Label: %s"
+msgid "LUKS Label: %s"
+msgstr "標籤：%s"
 
 #. TRANSLATORS: title for the section about Btrfs subvolume details
 #: src/lib/y2partitioner/widgets/description_section/btrfs_subvolume.rb:41
@@ -3000,8 +3028,34 @@ msgstr ""
 "到系統中。您需要提供一個用來保護對該主要金鑰的存取的加密密碼。此外，如果系統"
 "中存在多個 APQN，您可以選擇要使用的 APQN 是哪個。</p>"
 
-#. TRANSLATORS: help text for Random Swap encryption method.
+#. TRANSLATORS: help text for Regular Luks2 encryption method
 #: src/lib/y2partitioner/widgets/encrypt.rb:202
+#, perl-brace-format
+msgid ""
+"<p><b>%{label}</b>: allows to encrypt the device using LUKS2. A variant of "
+"LUKS (Linux Unified Key Setup) that uses a newer version of the header "
+"format. That allows further possibilities like setting a label to reference "
+"the LUKS device (for example, in the crypttab file). You have to provide the "
+"encryption password and the password-based key derivation function (PBKDF) "
+"that will be used to protect that passphrase.</p><p>The function to use "
+"depends on the context, the hardware capabilities and the needed level of "
+"compatibility with other system components (see below).<p><p><b>PBKDF2</b> "
+"refers to the function of that name, according to RFC2898. Is the function "
+"that LUKS1 uses.</p><p><b>Argon2id</b> and <b>Argon2i</b> refer to two "
+"variants of a function designed to be more secure and to require a lot of "
+"memory to be computed.</p><p>Argon2 is more secure so it should be used if "
+"possible. But the large amount of memory it uses (which is an intentional "
+"security feature) may result in problems in some systems. If the strength of "
+"the password can be fully assured, then using PBKDF2 may still be secure and "
+"save memory. On the other hand, Grub2 offers limited support to boot from "
+"devices encrypted with LUKS2, but only if PBKDF2 is used. So you cannot use "
+"Argon2 in a file system that contains the /boot directory. Note that some "
+"manual Grub2 configuration may be needed to boot from a LUKS2 device, even "
+"if PBKDF2 is used.</p>"
+msgstr ""
+
+#. TRANSLATORS: help text for Random Swap encryption method.
+#: src/lib/y2partitioner/widgets/encrypt.rb:234
 #, perl-brace-format
 msgid ""
 "<p><b>%{label}</b>: this encryption method uses randomly generated keys at "
@@ -3040,7 +3094,7 @@ msgstr ""
 #. TRANSLATORS: help text for encryption method with protected keys for z Systems. See
 #. https://www.ibm.com/support/knowledgecenter/en/linuxonibm/com.ibm.linux.z.lxdc/
 #. lxdc_swapdisks_scenario.html
-#: src/lib/y2partitioner/widgets/encrypt.rb:235
+#: src/lib/y2partitioner/widgets/encrypt.rb:267
 #, perl-brace-format
 msgid ""
 "<p><b>%{label}</b>: this encryption method uses a volatile protected AES key "
@@ -3055,7 +3109,7 @@ msgstr ""
 #. TRANSLATORS: help for encryption method with secure keys for z Systems. See
 #. https://www.ibm.com/support/knowledgecenter/en/linuxonibm/com.ibm.linux.z.lxdc/
 #. lxdc_swapdisks_scenario.html
-#: src/lib/y2partitioner/widgets/encrypt.rb:255
+#: src/lib/y2partitioner/widgets/encrypt.rb:287
 #, perl-brace-format
 msgid ""
 "<p><b>%{label}</b>: this encryption method uses a volatile secure AES key "
@@ -3068,12 +3122,26 @@ msgstr ""
 "考慮均繼續適用。</p>"
 
 #. @macro seeAbstractWidget
+#: src/lib/y2partitioner/widgets/encrypt_label.rb:42
+#, fuzzy
+#| msgid "Raid &Name (optional)"
+msgid "LUKS &Label (optional)"
+msgstr "Raid 名稱 (選擇性)(&N)"
+
+#. TRANSLATORS: Error pop-up
+#: src/lib/y2partitioner/widgets/encrypt_label.rb:54
+#, fuzzy
+#| msgid "This volume label is already in use. Select a different one."
+msgid "This LUKS label is already in use. Select a different one."
+msgstr "此磁碟區標籤已被使用。請選取其他名稱。"
+
+#. @macro seeAbstractWidget
 #: src/lib/y2partitioner/widgets/encrypt_method.rb:49
 msgid "Encryption method"
 msgstr "加密方式"
 
 #. @macro seeCustomWidget
-#: src/lib/y2partitioner/widgets/encrypt_method_options.rb:107
+#: src/lib/y2partitioner/widgets/encrypt_method_options.rb:111
 msgid ""
 "Be careful: the system cannot hibernate when\n"
 "encrypting swap with randomly generated keys.\n"
@@ -3096,20 +3164,20 @@ msgstr ""
 #. An error is reported to the user when the secure key cannot be generated.
 #.
 #. @return [Boolean]
-#: src/lib/y2partitioner/widgets/encrypt_method_options.rb:241
+#: src/lib/y2partitioner/widgets/encrypt_method_options.rb:269
 msgid "The secure key cannot be generated.\n"
 msgstr "無法產生安全金鑰。\n"
 
-#: src/lib/y2partitioner/widgets/encrypt_method_options.rb:244
+#: src/lib/y2partitioner/widgets/encrypt_method_options.rb:272
 msgid ""
 "Make sure that all selected APQNs are configured with the same master key."
 msgstr "請確定所有選取的 APQN 均已設定相同的主要金鑰。"
 
-#: src/lib/y2partitioner/widgets/encrypt_method_options.rb:246
+#: src/lib/y2partitioner/widgets/encrypt_method_options.rb:274
 msgid "Make sure that the selected APQN is configured with a master key."
 msgstr "請確定所選 APQN 已設定主要金鑰。"
 
-#: src/lib/y2partitioner/widgets/encrypt_method_options.rb:248
+#: src/lib/y2partitioner/widgets/encrypt_method_options.rb:276
 msgid ""
 "Make sure that all available APQNs are configured with the same master key."
 msgstr "請確定所有可用 APQN 均已設定相同的主要金鑰。"
@@ -4652,6 +4720,11 @@ msgstr "Tmpfs"
 msgid "Add Partition..."
 msgstr "新增分割區..."
 
+#. @macro seeAbstractWidget
+#: src/lib/y2partitioner/widgets/pbkdf_selector.rb:41
+msgid "Password-Based Key Derivation &Function (PBKDF)"
+msgstr ""
+
 #. Section of {#summary_text} about actions
 #.
 #. @return [String]
@@ -6175,8 +6248,17 @@ msgstr ""
 msgid "Regular LUKS1"
 msgstr "一般 LUKS1"
 
+#. Constructor, see {Base}
+#: src/lib/y2storage/encryption_method/luks2.rb:33
+#, fuzzy
+#| msgid "Regular LUKS1"
+msgid "Regular LUKS2"
+msgstr "一般 LUKS1"
+
 #. Cipher used for pervasive encryption
-#: src/lib/y2storage/encryption_method/pervasive_luks2.rb:37
+#.
+#. @return [String]
+#: src/lib/y2storage/encryption_method/pervasive_luks2.rb:44
 msgid "Pervasive Volume Encryption"
 msgstr "普遍磁碟區加密"
 
