@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: @PACKAGE@\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-17 02:30+0000\n"
+"POT-Creation-Date: 2021-11-30 02:29+0000\n"
 "PO-Revision-Date: 2021-04-22 15:57+0000\n"
 "Last-Translator: Panwar <caspian7pena@gmail.com>\n"
 "Language-Team: Hindi <https://l10n.opensuse.org/projects/yast-update/master/"
@@ -326,13 +326,11 @@ msgstr "अज्ञात या गैर-लिनक्स"
 #. Table item (unknown architecture)
 #. Table item (unknown file system)
 #. label - name of sustem to update
-#. starts with >`<
 #. Get installed release name
 #. TRANSLATORS: label for an unknown installed system
 #: src/include/update/rootpart.rb:132 src/include/update/rootpart.rb:138
-#: src/include/update/rootpart.rb:158 src/modules/RootPart.rb:125
-#: src/modules/RootPart.rb:1037 src/modules/RootPart.rb:1043
-#: src/modules/RootPart.rb:1579
+#: src/include/update/rootpart.rb:158 src/modules/RootPart.rb:121
+#: src/modules/RootPart.rb:1356
 msgid "Unknown"
 msgstr "अज्ञात"
 
@@ -490,17 +488,17 @@ msgid "A possibly incomplete installation has been detected."
 msgstr "संभवतः एक अर्धपूर्ण इंस्टॉल की पहचान की गई।"
 
 #. label - name of sustem to update
-#: src/modules/RootPart.rb:137
+#: src/modules/RootPart.rb:133
 msgid "Unknown Linux System"
 msgstr "अज्ञात लिनक्स सिस्टम"
 
 #. label - name of sustem to update
-#: src/modules/RootPart.rb:142
+#: src/modules/RootPart.rb:138
 msgid "Non-Linux System"
 msgstr "गैर-लिनक्स सिस्टम"
 
 #. error report, %1 is device (eg. /dev/hda1)
-#: src/modules/RootPart.rb:199
+#: src/modules/RootPart.rb:195
 #, ycp-format
 msgid ""
 "Cannot unmount partition %1.\n"
@@ -516,7 +514,7 @@ msgstr ""
 "कंप्यूटर पुनः आरंभ करें।\n"
 
 #. label, %1 is partition
-#: src/modules/RootPart.rb:265
+#: src/modules/RootPart.rb:261
 #, ycp-format
 msgid "Checking partition %1"
 msgstr "विभाजन %1 जाँच जारी"
@@ -526,24 +524,24 @@ msgstr "विभाजन %1 जाँच जारी"
 #. @param string button (true)
 #. @param string button (false)
 #. @param [String] details (hidden under [Details] button; optional; to disable, use "")
-#: src/modules/RootPart.rb:299
+#: src/modules/RootPart.rb:295
 msgid "Show &Details"
 msgstr "विवरण प्रदर्शित करें (&D)"
 
 #. #176292, run fsck before jfs is mounted
-#: src/modules/RootPart.rb:382
+#: src/modules/RootPart.rb:378
 #, ycp-format
 msgid "Checking file system on %1..."
 msgstr "%1 पर फाइल सिस्टम जाँच जारी..."
 
 #. popup headline
-#: src/modules/RootPart.rb:414
+#: src/modules/RootPart.rb:410
 msgid "File System Check Failed"
 msgstr "फाइल सिस्टम जाँच विफल"
 
 #. popup question (continue/cancel dialog)
 #. %1 is a device name such as /dev/hda5
-#: src/modules/RootPart.rb:418
+#: src/modules/RootPart.rb:414
 #, ycp-format
 msgid ""
 "The file system check of device %1 has failed.\n"
@@ -552,19 +550,19 @@ msgid ""
 msgstr ""
 
 #. button
-#: src/modules/RootPart.rb:427
+#: src/modules/RootPart.rb:423
 msgid "&Skip Mounting"
 msgstr "माउंट न करें (&S)"
 
 #. TRANSLATORS: a popup headline
-#: src/modules/RootPart.rb:753
+#: src/modules/RootPart.rb:736
 msgid "Warning"
 msgstr "चेतावनी"
 
 #. TRANSLATORS: error message,
 #. %1 is replaced with the current /boot partition size
 #. %2 with the recommended size
-#: src/modules/RootPart.rb:758
+#: src/modules/RootPart.rb:741
 #, ycp-format
 msgid ""
 "Your /boot partition is too small (%1 MB).\n"
@@ -584,7 +582,7 @@ msgstr ""
 
 #. label in a popup, %1 is device (eg. /dev/hda1),
 #. %2 is output of the 'mount' command
-#: src/modules/RootPart.rb:869
+#: src/modules/RootPart.rb:905
 #, ycp-format
 msgid ""
 "The partition %1 could not be mounted.\n"
@@ -605,28 +603,35 @@ msgstr ""
 "माउंट विकल्प जाँच या निवारण हेतु माउंट विकल्प निर्दिष्ट करें पर क्लिक करें।\n"
 "अपडेट निरस्त करने हेतु रद्द करें पर क्लिक करें।\n"
 
-#. push button
-#: src/modules/RootPart.rb:887
+#: src/modules/RootPart.rb:922
 msgid "&Specify Mount Options"
 msgstr "माउंट विकल्प निर्दिष्ट करें (&S)"
 
-#. popup heading
-#: src/modules/RootPart.rb:903
+#. Displays the Mount Options dialog to the user
+#.
+#. FIXME: this dialog should live in its own class. However, extracting it to a method
+#. looks like a good compromise in the context of the PBI it has been addressed. So please,
+#. feel free to make it a first-class citizen in future changes.
+#.
+#. @param fspath [String] the filesytem path
+#. @param spec [String]
+#. @param mount_type [String]
+#.
+#. @return [Array<(String, String, String)>] an array holding the current (if the user
+#. cancels) or the new (when user accepts) values for fspath, spec, and mount_type
+#: src/modules/RootPart.rb:950
 msgid "Mount Options"
 msgstr "माउंट विकल्प"
 
-#. text entry label
-#: src/modules/RootPart.rb:906
+#: src/modules/RootPart.rb:952
 msgid "&Mount Point"
 msgstr "माउंट पॉइंट (&M)"
 
-#. tex entry label
-#: src/modules/RootPart.rb:909
+#: src/modules/RootPart.rb:954
 msgid "&Device"
 msgstr "उपकरण (&D)"
 
-#. text entry label
-#: src/modules/RootPart.rb:914
+#: src/modules/RootPart.rb:956
 msgid ""
 "&File System\n"
 "(empty for autodetection)"
@@ -634,73 +639,8 @@ msgstr ""
 "फाइल सिस्टम (&F)\n"
 "(स्वतः पहचान हेतु रिक्त)"
 
-#. TRANSLATORS: error message when /var partition cannot be mounted. %{device}
-#. is replaced by a device name (e.g., /dev/sda2) and %{error} is replaced by
-#. error details.
-#: src/modules/RootPart.rb:991
-#, perl-brace-format
-msgid ""
-"The /var partition %{device} could not be mounted.\n"
-"\n"
-"%{error}"
-msgstr ""
-"/var विभाजन %{device} माउंट करना विफल।\n"
-"\n"
-"%{error}"
-
-#. Informational text about selected partition, %x are replaced with values later
-#: src/modules/RootPart.rb:1024
-#, ycp-format
-msgid ""
-"<b>File system:</b> %1, <b>Type:</b> %2,<br>\n"
-"<b>Label:</b> %3, <b>Size:</b> %4,<br>\n"
-"<b>udev IDs:</b> %5,<br>\n"
-"<b>udev path:</b> %6"
-msgstr ""
-"<b>फाइल सिस्टम :</b> %1, <b>प्रकार :</b> %2,<br>\n"
-"<b>उपनाम :</b> %3, <b>आकार :</b> %4,<br>\n"
-"<b>udev आईडी :</b> %5,<br>\n"
-"<b>udev पथ :</b> %6"
-
-#: src/modules/RootPart.rb:1038
-msgid "None"
-msgstr "कुछ नहीं"
-
-#. a popup caption
-#: src/modules/RootPart.rb:1061
-msgid "Unable to find the /var partition automatically"
-msgstr "/var विभाजन हेतु स्वतः खोज विफल"
-
-#. a popup message
-#: src/modules/RootPart.rb:1066
-msgid ""
-"Your system uses a separate /var partition which is required for the "
-"upgrade\n"
-"process to detect the disk-naming changes. Select the /var partition "
-"manually\n"
-"to continue the upgrade process."
-msgstr ""
-"आपके सिस्टम हेतु एक पृथक /var विभाजन प्रयुक्त है, यह डिस्क-नामांकन परिवर्तनों की\n"
-"पहचान के लिए अपग्रेड प्रक्रिया हेतु आवश्यक है। कृपया अपग्रेड प्रक्रिया जारी रखने हेतु\n"
-"/var विभाजन का मैनुअल रूप से चयन करें।"
-
-#. a combo-box label
-#: src/modules/RootPart.rb:1081
-msgid "&Select /var Partition Device"
-msgstr "/var विभाजन उपकरण चयन (&S)"
-
-#. an informational rich-text widget label
-#: src/modules/RootPart.rb:1087
-msgid "Device Info"
-msgstr "उपकरण सूचना"
-
-#. Everything else failed, return error message
-#: src/modules/RootPart.rb:1183
-msgid "Unable to mount /var partition with this disk configuration.\n"
-msgstr "यह डिस्क विन्यास उपयोग कर /var विभाजन माउंट करना विफल।\n"
-
 #. popup message, %1 will be replace with the name of the logfile
-#: src/modules/RootPart.rb:1219
+#: src/modules/RootPart.rb:1003
 #, ycp-format
 msgid ""
 "Partitions could not be mounted.\n"
@@ -726,7 +666,7 @@ msgstr ""
 #. The proper encryption device could be found if there is a encrypttion device where
 #.
 #. encryption.crypttab_name  #=> "cr_home"
-#: src/modules/RootPart.rb:1269
+#: src/modules/RootPart.rb:1053
 #, ycp-format
 msgid ""
 "Some partitions in the system on %1 are mounted by kernel-device name. This "
@@ -741,7 +681,7 @@ msgstr ""
 "संरक्षित नहीं होते हैं। पुराना सिस्टम आरंभ कर विभाजनों हेतु माउंट-द्वारा\n"
 "विधि के स्थान पर अन्य विधि उपयोग करना अनुशंसित है।"
 
-#: src/modules/RootPart.rb:1286
+#: src/modules/RootPart.rb:1070
 #, ycp-format
 msgid ""
 "Some home directories in the system on %1 are encrypted. This release does "
@@ -760,13 +700,13 @@ msgstr ""
 "इसके स्थान पर आप पूरी वॉल्यूम को LUKS द्वारा एन्क्रिप्ट कर सकते हैं।"
 
 #. error message
-#: src/modules/RootPart.rb:1303
+#: src/modules/RootPart.rb:1087
 msgid "No fstab found."
 msgstr "fstab प्राप्ति विफल।"
 
 #. TRANSLATORS: Error message, where %{root} and %{tmp} are replaced by
 #. device names (e.g., /dev/sda1 and /dev/sda2).
-#: src/modules/RootPart.rb:1329
+#: src/modules/RootPart.rb:1107
 #, perl-brace-format
 msgid ""
 "The root partition in /etc/fstab has an invalid root device.\n"
@@ -776,7 +716,7 @@ msgstr ""
 "यह %{root} के रूप में माउंट है परन्तु सूचीबद्ध %{tmp} के रूप में है।"
 
 #. Removed ReiserFS support for system upgrade (fate#323394).
-#: src/modules/RootPart.rb:1348
+#: src/modules/RootPart.rb:1126
 #, ycp-format
 msgid ""
 "The mount points listed below are using legacy filesystems that are not "
@@ -794,22 +734,22 @@ msgstr ""
 
 #. Storage::ActivateEvms();
 #. prepare progress-bar
-#: src/modules/RootPart.rb:1673
+#: src/modules/RootPart.rb:1450
 msgid "Evaluating root partition. One moment please..."
 msgstr "रुट विभाजन जाँच जारी। कृपया एक क्षण प्रतीक्षा करें..."
 
 #. intermediate popup while mounting partitions
-#: src/modules/RootPart.rb:1717
+#: src/modules/RootPart.rb:1494
 msgid "Mounting partitions. One moment please..."
 msgstr "विभाजन माउंट करना जारी। कृपया एक क्षण प्रतीक्षा करें..."
 
 #. TRANSLATORS: dialog caption
-#: src/modules/RootPart.rb:1732
+#: src/modules/RootPart.rb:1509
 msgid "Searching for Available Systems"
 msgstr "उपलब्ध सिस्टम हेतु खोज जारी"
 
 #. as of bsc #1092757 snapshot descriptions are not translated
-#: src/modules/RootPart.rb:2027
+#: src/modules/RootPart.rb:1801
 msgid ""
 "A pre-update snapshot could not be created. You can continue with the \n"
 "installation, but beware that you cannot roll back to a pre-update state \n"
@@ -884,6 +824,52 @@ msgstr "सिस्टम विन्यास अपडेट करें"
 #: control/update.glade.translations.glade:9
 msgid "Configure Online Update"
 msgstr "ऑनलाइन अपडेट विन्यस्त करें"
+
+#~ msgid ""
+#~ "The /var partition %{device} could not be mounted.\n"
+#~ "\n"
+#~ "%{error}"
+#~ msgstr ""
+#~ "/var विभाजन %{device} माउंट करना विफल।\n"
+#~ "\n"
+#~ "%{error}"
+
+#~ msgid ""
+#~ "<b>File system:</b> %1, <b>Type:</b> %2,<br>\n"
+#~ "<b>Label:</b> %3, <b>Size:</b> %4,<br>\n"
+#~ "<b>udev IDs:</b> %5,<br>\n"
+#~ "<b>udev path:</b> %6"
+#~ msgstr ""
+#~ "<b>फाइल सिस्टम :</b> %1, <b>प्रकार :</b> %2,<br>\n"
+#~ "<b>उपनाम :</b> %3, <b>आकार :</b> %4,<br>\n"
+#~ "<b>udev आईडी :</b> %5,<br>\n"
+#~ "<b>udev पथ :</b> %6"
+
+#~ msgid "None"
+#~ msgstr "कुछ नहीं"
+
+#~ msgid "Unable to find the /var partition automatically"
+#~ msgstr "/var विभाजन हेतु स्वतः खोज विफल"
+
+#~ msgid ""
+#~ "Your system uses a separate /var partition which is required for the "
+#~ "upgrade\n"
+#~ "process to detect the disk-naming changes. Select the /var partition "
+#~ "manually\n"
+#~ "to continue the upgrade process."
+#~ msgstr ""
+#~ "आपके सिस्टम हेतु एक पृथक /var विभाजन प्रयुक्त है, यह डिस्क-नामांकन परिवर्तनों की\n"
+#~ "पहचान के लिए अपग्रेड प्रक्रिया हेतु आवश्यक है। कृपया अपग्रेड प्रक्रिया जारी रखने हेतु\n"
+#~ "/var विभाजन का मैनुअल रूप से चयन करें।"
+
+#~ msgid "&Select /var Partition Device"
+#~ msgstr "/var विभाजन उपकरण चयन (&S)"
+
+#~ msgid "Device Info"
+#~ msgstr "उपकरण सूचना"
+
+#~ msgid "Unable to mount /var partition with this disk configuration.\n"
+#~ msgstr "यह डिस्क विन्यास उपयोग कर /var विभाजन माउंट करना विफल।\n"
 
 #~ msgid "Update Configuration"
 #~ msgstr "नवीनीकृत सनुरुपण "

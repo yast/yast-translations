@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: @PACKAGE@\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-17 02:30+0000\n"
+"POT-Creation-Date: 2021-11-30 02:29+0000\n"
 "PO-Revision-Date: 2005-08-11 20:37+0200\n"
 "Last-Translator: nynorsk <i18n@suse.de>\n"
 "Language-Team:  nn <i18n@suse.de>\n"
@@ -369,13 +369,11 @@ msgstr "Ukjent eller ikkje Linux"
 #. Table item (unknown architecture)
 #. Table item (unknown file system)
 #. label - name of sustem to update
-#. starts with >`<
 #. Get installed release name
 #. TRANSLATORS: label for an unknown installed system
 #: src/include/update/rootpart.rb:132 src/include/update/rootpart.rb:138
-#: src/include/update/rootpart.rb:158 src/modules/RootPart.rb:125
-#: src/modules/RootPart.rb:1037 src/modules/RootPart.rb:1043
-#: src/modules/RootPart.rb:1579
+#: src/include/update/rootpart.rb:158 src/modules/RootPart.rb:121
+#: src/modules/RootPart.rb:1356
 #, fuzzy
 msgid "Unknown"
 msgstr "Ukjent"
@@ -552,19 +550,19 @@ msgid "A possibly incomplete installation has been detected."
 msgstr "Ein mogleg ufullstendig installasjon vart registrert."
 
 #. label - name of sustem to update
-#: src/modules/RootPart.rb:137
+#: src/modules/RootPart.rb:133
 #, fuzzy
 msgid "Unknown Linux System"
 msgstr "Ukjent Linux-system"
 
 #. label - name of sustem to update
-#: src/modules/RootPart.rb:142
+#: src/modules/RootPart.rb:138
 #, fuzzy
 msgid "Non-Linux System"
 msgstr "Ikkje Linux-system"
 
 #. error report, %1 is device (eg. /dev/hda1)
-#: src/modules/RootPart.rb:199
+#: src/modules/RootPart.rb:195
 #, fuzzy, ycp-format
 msgid ""
 "Cannot unmount partition %1.\n"
@@ -580,7 +578,7 @@ msgstr ""
 "eller start datamaskina på nytt.\n"
 
 #. label, %1 is partition
-#: src/modules/RootPart.rb:265
+#: src/modules/RootPart.rb:261
 #, fuzzy, ycp-format
 msgid "Checking partition %1"
 msgstr "Kontrollerer partisjonen %1"
@@ -590,26 +588,26 @@ msgstr "Kontrollerer partisjonen %1"
 #. @param string button (true)
 #. @param string button (false)
 #. @param [String] details (hidden under [Details] button; optional; to disable, use "")
-#: src/modules/RootPart.rb:299
+#: src/modules/RootPart.rb:295
 #, fuzzy
 msgid "Show &Details"
 msgstr "Vis &detaljar"
 
 #. #176292, run fsck before jfs is mounted
-#: src/modules/RootPart.rb:382
+#: src/modules/RootPart.rb:378
 #, fuzzy, ycp-format
 msgid "Checking file system on %1..."
 msgstr "Kontrollerer filsystem på %1 …"
 
 #. popup headline
-#: src/modules/RootPart.rb:414
+#: src/modules/RootPart.rb:410
 #, fuzzy
 msgid "File System Check Failed"
 msgstr "Filsystemkontroll mislukkast"
 
 #. popup question (continue/cancel dialog)
 #. %1 is a device name such as /dev/hda5
-#: src/modules/RootPart.rb:418
+#: src/modules/RootPart.rb:414
 #, fuzzy, ycp-format
 msgid ""
 "The file system check of device %1 has failed.\n"
@@ -621,13 +619,13 @@ msgstr ""
 "Vil du montera eininga likevel?"
 
 #. button
-#: src/modules/RootPart.rb:427
+#: src/modules/RootPart.rb:423
 #, fuzzy
 msgid "&Skip Mounting"
 msgstr "&Hopp over montering"
 
 #. TRANSLATORS: a popup headline
-#: src/modules/RootPart.rb:753
+#: src/modules/RootPart.rb:736
 #, fuzzy
 msgid "Warning"
 msgstr "Advarsel"
@@ -635,7 +633,7 @@ msgstr "Advarsel"
 #. TRANSLATORS: error message,
 #. %1 is replaced with the current /boot partition size
 #. %2 with the recommended size
-#: src/modules/RootPart.rb:758
+#: src/modules/RootPart.rb:741
 #, fuzzy, ycp-format
 msgid ""
 "Your /boot partition is too small (%1 MB).\n"
@@ -655,7 +653,7 @@ msgstr ""
 
 #. label in a popup, %1 is device (eg. /dev/hda1),
 #. %2 is output of the 'mount' command
-#: src/modules/RootPart.rb:869
+#: src/modules/RootPart.rb:905
 #, fuzzy, ycp-format
 msgid ""
 "The partition %1 could not be mounted.\n"
@@ -676,32 +674,39 @@ msgstr ""
 "monteringsalternativene.\n"
 "Klikk på Avbryt for å avbryta oppgraderingen."
 
-#. push button
-#: src/modules/RootPart.rb:887
+#: src/modules/RootPart.rb:922
 #, fuzzy
 msgid "&Specify Mount Options"
 msgstr "&Spesifiser monteringsalternativer"
 
-#. popup heading
-#: src/modules/RootPart.rb:903
+#. Displays the Mount Options dialog to the user
+#.
+#. FIXME: this dialog should live in its own class. However, extracting it to a method
+#. looks like a good compromise in the context of the PBI it has been addressed. So please,
+#. feel free to make it a first-class citizen in future changes.
+#.
+#. @param fspath [String] the filesytem path
+#. @param spec [String]
+#. @param mount_type [String]
+#.
+#. @return [Array<(String, String, String)>] an array holding the current (if the user
+#. cancels) or the new (when user accepts) values for fspath, spec, and mount_type
+#: src/modules/RootPart.rb:950
 #, fuzzy
 msgid "Mount Options"
 msgstr "Monteringsalternativer"
 
-#. text entry label
-#: src/modules/RootPart.rb:906
+#: src/modules/RootPart.rb:952
 #, fuzzy
 msgid "&Mount Point"
 msgstr "&Monteringspunkt"
 
-#. tex entry label
-#: src/modules/RootPart.rb:909
+#: src/modules/RootPart.rb:954
 #, fuzzy
 msgid "&Device"
 msgstr "&Eining"
 
-#. text entry label
-#: src/modules/RootPart.rb:914
+#: src/modules/RootPart.rb:956
 #, fuzzy
 msgid ""
 "&File System\n"
@@ -710,76 +715,8 @@ msgstr ""
 "&Filsystem\n"
 "(tomt for automatisk søk)"
 
-#. TRANSLATORS: error message when /var partition cannot be mounted. %{device}
-#. is replaced by a device name (e.g., /dev/sda2) and %{error} is replaced by
-#. error details.
-#: src/modules/RootPart.rb:991
-#, fuzzy, perl-brace-format
-msgid ""
-"The /var partition %{device} could not be mounted.\n"
-"\n"
-"%{error}"
-msgstr "/var-partisjonen %1 kunne ikkje monterast.\n"
-
-#. Informational text about selected partition, %x are replaced with values later
-#: src/modules/RootPart.rb:1024
-#, fuzzy, ycp-format
-msgid ""
-"<b>File system:</b> %1, <b>Type:</b> %2,<br>\n"
-"<b>Label:</b> %3, <b>Size:</b> %4,<br>\n"
-"<b>udev IDs:</b> %5,<br>\n"
-"<b>udev path:</b> %6"
-msgstr ""
-"<b>Filsystem:</b> %1, <b>Type:</b> %2,<br>\n"
-"<b>Nemning:</b> %3, <b>Storleik:</b> %4,<br>\n"
-"<b>udev-ID-er:</b> %5,<br>\n"
-"<b>udev-filsti:</b> %6"
-
-#: src/modules/RootPart.rb:1038
-#, fuzzy
-msgid "None"
-msgstr "Ingen"
-
-#. a popup caption
-#: src/modules/RootPart.rb:1061
-#, fuzzy
-msgid "Unable to find the /var partition automatically"
-msgstr "Kunne ikkje finna /var-partisjonen automatisk"
-
-#. a popup message
-#: src/modules/RootPart.rb:1066
-#, fuzzy
-msgid ""
-"Your system uses a separate /var partition which is required for the "
-"upgrade\n"
-"process to detect the disk-naming changes. Select the /var partition "
-"manually\n"
-"to continue the upgrade process."
-msgstr ""
-"Systemet treng eit separat /var-partisjon for at oppgraderingsprossessen\n"
-"skal registrera endra disknavn. Vel /var-partisjonen manuelt\n"
-"for å halda fram oppgraderingsprosessen."
-
-#. a combo-box label
-#: src/modules/RootPart.rb:1081
-#, fuzzy
-msgid "&Select /var Partition Device"
-msgstr "Vel ein /var-parti&sjonsenhet"
-
-#. an informational rich-text widget label
-#: src/modules/RootPart.rb:1087
-#, fuzzy
-msgid "Device Info"
-msgstr "Enhetsinfo"
-
-#. Everything else failed, return error message
-#: src/modules/RootPart.rb:1183
-#, fuzzy
-msgid "Unable to mount /var partition with this disk configuration.\n"
-msgstr "Kunne ikkje montera /var-partisjonen med denne diskkonfigurasjonen.\n"
-
 #. popup message, %1 will be replace with the name of the logfile
-#: src/modules/RootPart.rb:1219
+#: src/modules/RootPart.rb:1003
 #, fuzzy, ycp-format
 msgid ""
 "Partitions could not be mounted.\n"
@@ -805,7 +742,7 @@ msgstr ""
 #. The proper encryption device could be found if there is a encrypttion device where
 #.
 #. encryption.crypttab_name  #=> "cr_home"
-#: src/modules/RootPart.rb:1269
+#: src/modules/RootPart.rb:1053
 #, fuzzy, ycp-format
 msgid ""
 "Some partitions in the system on %1 are mounted by kernel-device name. This "
@@ -821,7 +758,7 @@ msgstr ""
 "konsistente. Vi rår til sterkt at du startar det gamle systemet og endrar\n"
 "«Monter med»-valet til ein annan metode for alle partisjoner."
 
-#: src/modules/RootPart.rb:1286
+#: src/modules/RootPart.rb:1070
 #, ycp-format
 msgid ""
 "Some home directories in the system on %1 are encrypted. This release does "
@@ -835,14 +772,14 @@ msgid ""
 msgstr ""
 
 #. error message
-#: src/modules/RootPart.rb:1303
+#: src/modules/RootPart.rb:1087
 #, fuzzy
 msgid "No fstab found."
 msgstr "Ingen fstab funnet."
 
 #. TRANSLATORS: Error message, where %{root} and %{tmp} are replaced by
 #. device names (e.g., /dev/sda1 and /dev/sda2).
-#: src/modules/RootPart.rb:1329
+#: src/modules/RootPart.rb:1107
 #, fuzzy, perl-brace-format
 msgid ""
 "The root partition in /etc/fstab has an invalid root device.\n"
@@ -850,7 +787,7 @@ msgid ""
 msgstr "Rotpartisjonen i /etc/fstab har ein ugyldig rotenhet.\n"
 
 #. Removed ReiserFS support for system upgrade (fate#323394).
-#: src/modules/RootPart.rb:1348
+#: src/modules/RootPart.rb:1126
 #, ycp-format
 msgid ""
 "The mount points listed below are using legacy filesystems that are not "
@@ -863,25 +800,25 @@ msgstr ""
 
 #. Storage::ActivateEvms();
 #. prepare progress-bar
-#: src/modules/RootPart.rb:1673
+#: src/modules/RootPart.rb:1450
 #, fuzzy
 msgid "Evaluating root partition. One moment please..."
 msgstr "Kontrollerer rotpartisjonen. Ein augneblunk …"
 
 #. intermediate popup while mounting partitions
-#: src/modules/RootPart.rb:1717
+#: src/modules/RootPart.rb:1494
 #, fuzzy
 msgid "Mounting partitions. One moment please..."
 msgstr "Monterer partisjoner. Ein augneblunk …"
 
 #. TRANSLATORS: dialog caption
-#: src/modules/RootPart.rb:1732
+#: src/modules/RootPart.rb:1509
 #, fuzzy
 msgid "Searching for Available Systems"
 msgstr "Søkar etter tilgjengelege system"
 
 #. as of bsc #1092757 snapshot descriptions are not translated
-#: src/modules/RootPart.rb:2027
+#: src/modules/RootPart.rb:1801
 msgid ""
 "A pre-update snapshot could not be created. You can continue with the \n"
 "installation, but beware that you cannot roll back to a pre-update state \n"
@@ -954,6 +891,58 @@ msgstr "Oppgrader systemkonfigurasjon"
 #: control/update.glade.translations.glade:9
 msgid "Configure Online Update"
 msgstr ""
+
+#, fuzzy
+#~ msgid ""
+#~ "The /var partition %{device} could not be mounted.\n"
+#~ "\n"
+#~ "%{error}"
+#~ msgstr "/var-partisjonen %1 kunne ikkje monterast.\n"
+
+#, fuzzy
+#~ msgid ""
+#~ "<b>File system:</b> %1, <b>Type:</b> %2,<br>\n"
+#~ "<b>Label:</b> %3, <b>Size:</b> %4,<br>\n"
+#~ "<b>udev IDs:</b> %5,<br>\n"
+#~ "<b>udev path:</b> %6"
+#~ msgstr ""
+#~ "<b>Filsystem:</b> %1, <b>Type:</b> %2,<br>\n"
+#~ "<b>Nemning:</b> %3, <b>Storleik:</b> %4,<br>\n"
+#~ "<b>udev-ID-er:</b> %5,<br>\n"
+#~ "<b>udev-filsti:</b> %6"
+
+#, fuzzy
+#~ msgid "None"
+#~ msgstr "Ingen"
+
+#, fuzzy
+#~ msgid "Unable to find the /var partition automatically"
+#~ msgstr "Kunne ikkje finna /var-partisjonen automatisk"
+
+#, fuzzy
+#~ msgid ""
+#~ "Your system uses a separate /var partition which is required for the "
+#~ "upgrade\n"
+#~ "process to detect the disk-naming changes. Select the /var partition "
+#~ "manually\n"
+#~ "to continue the upgrade process."
+#~ msgstr ""
+#~ "Systemet treng eit separat /var-partisjon for at oppgraderingsprossessen\n"
+#~ "skal registrera endra disknavn. Vel /var-partisjonen manuelt\n"
+#~ "for å halda fram oppgraderingsprosessen."
+
+#, fuzzy
+#~ msgid "&Select /var Partition Device"
+#~ msgstr "Vel ein /var-parti&sjonsenhet"
+
+#, fuzzy
+#~ msgid "Device Info"
+#~ msgstr "Enhetsinfo"
+
+#, fuzzy
+#~ msgid "Unable to mount /var partition with this disk configuration.\n"
+#~ msgstr ""
+#~ "Kunne ikkje montera /var-partisjonen med denne diskkonfigurasjonen.\n"
 
 #, fuzzy
 #~ msgid "Update Configuration"

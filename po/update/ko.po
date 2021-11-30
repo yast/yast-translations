@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: update.ko.po\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-17 02:30+0000\n"
+"POT-Creation-Date: 2021-11-30 02:29+0000\n"
 "PO-Revision-Date: 2021-10-29 09:12+0000\n"
 "Last-Translator: Kim Tae Kyeong <kim@taekyeong.me>\n"
 "Language-Team: Korean <https://l10n.opensuse.org/projects/yast-update/master/"
@@ -340,13 +340,11 @@ msgstr "알 수 없거나 Linux가 아님"
 #. Table item (unknown architecture)
 #. Table item (unknown file system)
 #. label - name of sustem to update
-#. starts with >`<
 #. Get installed release name
 #. TRANSLATORS: label for an unknown installed system
 #: src/include/update/rootpart.rb:132 src/include/update/rootpart.rb:138
-#: src/include/update/rootpart.rb:158 src/modules/RootPart.rb:125
-#: src/modules/RootPart.rb:1037 src/modules/RootPart.rb:1043
-#: src/modules/RootPart.rb:1579
+#: src/include/update/rootpart.rb:158 src/modules/RootPart.rb:121
+#: src/modules/RootPart.rb:1356
 msgid "Unknown"
 msgstr "알 수 없음"
 
@@ -512,18 +510,18 @@ msgid "A possibly incomplete installation has been detected."
 msgstr "완료되지 않은 설치가 감지되었습니다."
 
 #. label - name of sustem to update
-#: src/modules/RootPart.rb:137
+#: src/modules/RootPart.rb:133
 msgid "Unknown Linux System"
 msgstr "알 수 없는 Linux 시스템"
 
 #  Button that will continue with the repair
 #. label - name of sustem to update
-#: src/modules/RootPart.rb:142
+#: src/modules/RootPart.rb:138
 msgid "Non-Linux System"
 msgstr "비 Linux 시스템"
 
 #. error report, %1 is device (eg. /dev/hda1)
-#: src/modules/RootPart.rb:199
+#: src/modules/RootPart.rb:195
 #, ycp-format
 msgid ""
 "Cannot unmount partition %1.\n"
@@ -539,7 +537,7 @@ msgstr ""
 " 컴퓨터를 다시 시작하십시오.\n"
 
 #. label, %1 is partition
-#: src/modules/RootPart.rb:265
+#: src/modules/RootPart.rb:261
 #, ycp-format
 msgid "Checking partition %1"
 msgstr "파티션 %1 을 검사"
@@ -549,24 +547,24 @@ msgstr "파티션 %1 을 검사"
 #. @param string button (true)
 #. @param string button (false)
 #. @param [String] details (hidden under [Details] button; optional; to disable, use "")
-#: src/modules/RootPart.rb:299
+#: src/modules/RootPart.rb:295
 msgid "Show &Details"
 msgstr "자세히 보기(&D)"
 
 #. #176292, run fsck before jfs is mounted
-#: src/modules/RootPart.rb:382
+#: src/modules/RootPart.rb:378
 #, ycp-format
 msgid "Checking file system on %1..."
 msgstr "%1의 파일 시스템을 확인하는 중..."
 
 #. popup headline
-#: src/modules/RootPart.rb:414
+#: src/modules/RootPart.rb:410
 msgid "File System Check Failed"
 msgstr "파일 시스템 검사 실패"
 
 #. popup question (continue/cancel dialog)
 #. %1 is a device name such as /dev/hda5
-#: src/modules/RootPart.rb:418
+#: src/modules/RootPart.rb:414
 #, ycp-format
 msgid ""
 "The file system check of device %1 has failed.\n"
@@ -578,7 +576,7 @@ msgstr ""
 "계속해서 장치를 마운트하시겠습니까?\n"
 
 #. button
-#: src/modules/RootPart.rb:427
+#: src/modules/RootPart.rb:423
 msgid "&Skip Mounting"
 msgstr "탑재 건너뛰기(&S)"
 
@@ -597,14 +595,14 @@ msgstr "탑재 건너뛰기(&S)"
 #  the computer system has a 64bit (x86-64) bit processor but
 #  the user booted from a 32bit installation medium
 #. TRANSLATORS: a popup headline
-#: src/modules/RootPart.rb:753
+#: src/modules/RootPart.rb:736
 msgid "Warning"
 msgstr "경고"
 
 #. TRANSLATORS: error message,
 #. %1 is replaced with the current /boot partition size
 #. %2 with the recommended size
-#: src/modules/RootPart.rb:758
+#: src/modules/RootPart.rb:741
 #, ycp-format
 msgid ""
 "Your /boot partition is too small (%1 MB).\n"
@@ -625,7 +623,7 @@ msgstr ""
 
 #. label in a popup, %1 is device (eg. /dev/hda1),
 #. %2 is output of the 'mount' command
-#: src/modules/RootPart.rb:869
+#: src/modules/RootPart.rb:905
 #, ycp-format
 msgid ""
 "The partition %1 could not be mounted.\n"
@@ -649,30 +647,37 @@ msgstr ""
 # src/isdn/interface.ycp:242
 #  DIALOG TEXTS
 #  Connection dialog caption
-#. push button
-#: src/modules/RootPart.rb:887
+#: src/modules/RootPart.rb:922
 msgid "&Specify Mount Options"
 msgstr "마운트 옵션 지정(&S)"
 
 #  Table label for basic-options listing
-#. popup heading
-#: src/modules/RootPart.rb:903
+#. Displays the Mount Options dialog to the user
+#.
+#. FIXME: this dialog should live in its own class. However, extracting it to a method
+#. looks like a good compromise in the context of the PBI it has been addressed. So please,
+#. feel free to make it a first-class citizen in future changes.
+#.
+#. @param fspath [String] the filesytem path
+#. @param spec [String]
+#. @param mount_type [String]
+#.
+#. @return [Array<(String, String, String)>] an array holding the current (if the user
+#. cancels) or the new (when user accepts) values for fspath, spec, and mount_type
+#: src/modules/RootPart.rb:950
 msgid "Mount Options"
 msgstr "마운트 옵션"
 
 #  label text
-#. text entry label
-#: src/modules/RootPart.rb:906
+#: src/modules/RootPart.rb:952
 msgid "&Mount Point"
 msgstr "마운트 포인트(&M)"
 
-#. tex entry label
-#: src/modules/RootPart.rb:909
+#: src/modules/RootPart.rb:954
 msgid "&Device"
 msgstr "장치(&D)"
 
-#. text entry label
-#: src/modules/RootPart.rb:914
+#: src/modules/RootPart.rb:956
 msgid ""
 "&File System\n"
 "(empty for autodetection)"
@@ -680,79 +685,8 @@ msgstr ""
 "파일 시스템\n"
 "(자동 검색을 위해 비워 둠)(&F)"
 
-#  FIXME
-#  currently unused
-#. TRANSLATORS: error message when /var partition cannot be mounted. %{device}
-#. is replaced by a device name (e.g., /dev/sda2) and %{error} is replaced by
-#. error details.
-#: src/modules/RootPart.rb:991
-#, perl-brace-format
-msgid ""
-"The /var partition %{device} could not be mounted.\n"
-"\n"
-"%{error}"
-msgstr ""
-"/var 파티션 %{device}을(를) 마운트할 수 없습니다.\n"
-"\n"
-"%{error}"
-
-#. Informational text about selected partition, %x are replaced with values later
-#: src/modules/RootPart.rb:1024
-#, ycp-format
-msgid ""
-"<b>File system:</b> %1, <b>Type:</b> %2,<br>\n"
-"<b>Label:</b> %3, <b>Size:</b> %4,<br>\n"
-"<b>udev IDs:</b> %5,<br>\n"
-"<b>udev path:</b> %6"
-msgstr ""
-"<b>파일 시스템:</b> %1, <b>유형:</b> %2,<br>\n"
-"<b>레이블:</b> %3, <b>크기:</b> %4,<br>\n"
-"<b>udev ID:</b> %5,<br>\n"
-"<b>udev 경로:</b> %6"
-
-#: src/modules/RootPart.rb:1038
-msgid "None"
-msgstr "없음"
-
-#  message box
-#. a popup caption
-#: src/modules/RootPart.rb:1061
-msgid "Unable to find the /var partition automatically"
-msgstr "/var 파티션을 자동으로 찾을 수 없음"
-
-#. a popup message
-#: src/modules/RootPart.rb:1066
-msgid ""
-"Your system uses a separate /var partition which is required for the "
-"upgrade\n"
-"process to detect the disk-naming changes. Select the /var partition "
-"manually\n"
-"to continue the upgrade process."
-msgstr ""
-"시스템에서 디스크 이름 변경 사항을 감지하기 위해\n"
-"업그레이드 프로세스에 필요한 별개의 /var 파티션을 사용합니다. 업그레이드 프로"
-"세스를 계속하려면\n"
-"/var 파티션을 수동으로 선택하십시오."
-
-#. a combo-box label
-#: src/modules/RootPart.rb:1081
-msgid "&Select /var Partition Device"
-msgstr "/var 파티션 장치 선택(&S)"
-
-#  table column headings
-#. an informational rich-text widget label
-#: src/modules/RootPart.rb:1087
-msgid "Device Info"
-msgstr "장치 정보"
-
-#  message box
-#. Everything else failed, return error message
-#: src/modules/RootPart.rb:1183
-msgid "Unable to mount /var partition with this disk configuration.\n"
-msgstr "이 디스크 구성으로는 /var 파티션을 마운트할 수 없습니다.\n"
-
 #. popup message, %1 will be replace with the name of the logfile
-#: src/modules/RootPart.rb:1219
+#: src/modules/RootPart.rb:1003
 #, ycp-format
 msgid ""
 "Partitions could not be mounted.\n"
@@ -778,7 +712,7 @@ msgstr ""
 #. The proper encryption device could be found if there is a encrypttion device where
 #.
 #. encryption.crypttab_name  #=> "cr_home"
-#: src/modules/RootPart.rb:1269
+#: src/modules/RootPart.rb:1053
 #, ycp-format
 msgid ""
 "Some partitions in the system on %1 are mounted by kernel-device name. This "
@@ -794,7 +728,7 @@ msgstr ""
 "것이\n"
 "좋습니다."
 
-#: src/modules/RootPart.rb:1286
+#: src/modules/RootPart.rb:1070
 #, ycp-format
 msgid ""
 "Some home directories in the system on %1 are encrypted. This release does "
@@ -815,13 +749,13 @@ msgstr ""
 "LUKS를 통해 전체 볼륨을 암호화할 수도 있습니다."
 
 #. error message
-#: src/modules/RootPart.rb:1303
+#: src/modules/RootPart.rb:1087
 msgid "No fstab found."
 msgstr "fstab를 찾을수 없습니다."
 
 #. TRANSLATORS: Error message, where %{root} and %{tmp} are replaced by
 #. device names (e.g., /dev/sda1 and /dev/sda2).
-#: src/modules/RootPart.rb:1329
+#: src/modules/RootPart.rb:1107
 #, perl-brace-format
 msgid ""
 "The root partition in /etc/fstab has an invalid root device.\n"
@@ -831,7 +765,7 @@ msgstr ""
 "현재 %{root}(으)로 마운트되어 있지만 %{tmp}(으)로 표시됩니다."
 
 #. Removed ReiserFS support for system upgrade (fate#323394).
-#: src/modules/RootPart.rb:1348
+#: src/modules/RootPart.rb:1126
 #, ycp-format
 msgid ""
 "The mount points listed below are using legacy filesystems that are not "
@@ -851,22 +785,22 @@ msgstr ""
 
 #. Storage::ActivateEvms();
 #. prepare progress-bar
-#: src/modules/RootPart.rb:1673
+#: src/modules/RootPart.rb:1450
 msgid "Evaluating root partition. One moment please..."
 msgstr "root 파티션을 검사합니다. 잠시 기다리십시오..."
 
 #. intermediate popup while mounting partitions
-#: src/modules/RootPart.rb:1717
+#: src/modules/RootPart.rb:1494
 msgid "Mounting partitions. One moment please..."
 msgstr "파티션을 마운트합니다. 잠시 기다리십시오..."
 
 #. TRANSLATORS: dialog caption
-#: src/modules/RootPart.rb:1732
+#: src/modules/RootPart.rb:1509
 msgid "Searching for Available Systems"
 msgstr "사용 가능한 시스템 검색 중"
 
 #. as of bsc #1092757 snapshot descriptions are not translated
-#: src/modules/RootPart.rb:2027
+#: src/modules/RootPart.rb:1801
 msgid ""
 "A pre-update snapshot could not be created. You can continue with the \n"
 "installation, but beware that you cannot roll back to a pre-update state \n"
@@ -939,6 +873,58 @@ msgstr "시스템 구성 업데이트"
 #: control/update.glade.translations.glade:9
 msgid "Configure Online Update"
 msgstr "온라인 업데이트 설정"
+
+#  FIXME
+#  currently unused
+#~ msgid ""
+#~ "The /var partition %{device} could not be mounted.\n"
+#~ "\n"
+#~ "%{error}"
+#~ msgstr ""
+#~ "/var 파티션 %{device}을(를) 마운트할 수 없습니다.\n"
+#~ "\n"
+#~ "%{error}"
+
+#~ msgid ""
+#~ "<b>File system:</b> %1, <b>Type:</b> %2,<br>\n"
+#~ "<b>Label:</b> %3, <b>Size:</b> %4,<br>\n"
+#~ "<b>udev IDs:</b> %5,<br>\n"
+#~ "<b>udev path:</b> %6"
+#~ msgstr ""
+#~ "<b>파일 시스템:</b> %1, <b>유형:</b> %2,<br>\n"
+#~ "<b>레이블:</b> %3, <b>크기:</b> %4,<br>\n"
+#~ "<b>udev ID:</b> %5,<br>\n"
+#~ "<b>udev 경로:</b> %6"
+
+#~ msgid "None"
+#~ msgstr "없음"
+
+#  message box
+#~ msgid "Unable to find the /var partition automatically"
+#~ msgstr "/var 파티션을 자동으로 찾을 수 없음"
+
+#~ msgid ""
+#~ "Your system uses a separate /var partition which is required for the "
+#~ "upgrade\n"
+#~ "process to detect the disk-naming changes. Select the /var partition "
+#~ "manually\n"
+#~ "to continue the upgrade process."
+#~ msgstr ""
+#~ "시스템에서 디스크 이름 변경 사항을 감지하기 위해\n"
+#~ "업그레이드 프로세스에 필요한 별개의 /var 파티션을 사용합니다. 업그레이드 "
+#~ "프로세스를 계속하려면\n"
+#~ "/var 파티션을 수동으로 선택하십시오."
+
+#~ msgid "&Select /var Partition Device"
+#~ msgstr "/var 파티션 장치 선택(&S)"
+
+#  table column headings
+#~ msgid "Device Info"
+#~ msgstr "장치 정보"
+
+#  message box
+#~ msgid "Unable to mount /var partition with this disk configuration.\n"
+#~ msgstr "이 디스크 구성으로는 /var 파티션을 마운트할 수 없습니다.\n"
 
 #~ msgid "Update Configuration"
 #~ msgstr "업데이트 설정"

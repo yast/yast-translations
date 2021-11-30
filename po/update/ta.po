@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: YaST2 (@memory@)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-17 02:30+0000\n"
+"POT-Creation-Date: 2021-11-30 02:29+0000\n"
 "PO-Revision-Date: 2003-08-14 10:47+0200\n"
 "Last-Translator: Priyavert Sharma<priyavert.sharma@agreeya.com>\n"
 "Language-Team: AgreeYa Solutions<linux_team@agreeya.com>\n"
@@ -332,13 +332,11 @@ msgstr "தெரியாத அல்லது லினக்ஸ்-அல்
 #. Table item (unknown architecture)
 #. Table item (unknown file system)
 #. label - name of sustem to update
-#. starts with >`<
 #. Get installed release name
 #. TRANSLATORS: label for an unknown installed system
 #: src/include/update/rootpart.rb:132 src/include/update/rootpart.rb:138
-#: src/include/update/rootpart.rb:158 src/modules/RootPart.rb:125
-#: src/modules/RootPart.rb:1037 src/modules/RootPart.rb:1043
-#: src/modules/RootPart.rb:1579
+#: src/include/update/rootpart.rb:158 src/modules/RootPart.rb:121
+#: src/modules/RootPart.rb:1356
 msgid "Unknown"
 msgstr "அறிந்திராதது"
 
@@ -493,17 +491,17 @@ msgid "A possibly incomplete installation has been detected."
 msgstr ""
 
 #. label - name of sustem to update
-#: src/modules/RootPart.rb:137
+#: src/modules/RootPart.rb:133
 msgid "Unknown Linux System"
 msgstr "தெரியாத லினக்ஸ் அமைப்பு"
 
 #. label - name of sustem to update
-#: src/modules/RootPart.rb:142
+#: src/modules/RootPart.rb:138
 msgid "Non-Linux System"
 msgstr "லினக்ஸ்-அல்லாத அமைப்பு"
 
 #. error report, %1 is device (eg. /dev/hda1)
-#: src/modules/RootPart.rb:199
+#: src/modules/RootPart.rb:195
 #, ycp-format
 msgid ""
 "Cannot unmount partition %1.\n"
@@ -519,7 +517,7 @@ msgstr ""
 "துவக்கவும்.\n"
 
 #. label, %1 is partition
-#: src/modules/RootPart.rb:265
+#: src/modules/RootPart.rb:261
 #, ycp-format
 msgid "Checking partition %1"
 msgstr "%1 பிரிவு சரிபார்க்கப்படுகிறது"
@@ -529,24 +527,24 @@ msgstr "%1 பிரிவு சரிபார்க்கப்படுக�
 #. @param string button (true)
 #. @param string button (false)
 #. @param [String] details (hidden under [Details] button; optional; to disable, use "")
-#: src/modules/RootPart.rb:299
+#: src/modules/RootPart.rb:295
 msgid "Show &Details"
 msgstr "&விவரங்களைக் காட்டு"
 
 #. #176292, run fsck before jfs is mounted
-#: src/modules/RootPart.rb:382
+#: src/modules/RootPart.rb:378
 #, ycp-format
 msgid "Checking file system on %1..."
 msgstr "%1 பிரிவு சரிபார்க்கப்படுகிறது"
 
 #. popup headline
-#: src/modules/RootPart.rb:414
+#: src/modules/RootPart.rb:410
 msgid "File System Check Failed"
 msgstr ""
 
 #. popup question (continue/cancel dialog)
 #. %1 is a device name such as /dev/hda5
-#: src/modules/RootPart.rb:418
+#: src/modules/RootPart.rb:414
 #, fuzzy, ycp-format
 #| msgid ""
 #| "The file system check of device %1 has failed.\n"
@@ -562,19 +560,19 @@ msgstr ""
 "சாதனத்தை ஏற்றுவதைத் தொடர நீங்கள் விரும்புகிறீர்களா?"
 
 #. button
-#: src/modules/RootPart.rb:427
+#: src/modules/RootPart.rb:423
 msgid "&Skip Mounting"
 msgstr ""
 
 #. TRANSLATORS: a popup headline
-#: src/modules/RootPart.rb:753
+#: src/modules/RootPart.rb:736
 msgid "Warning"
 msgstr "எச்சரிக்கை"
 
 #. TRANSLATORS: error message,
 #. %1 is replaced with the current /boot partition size
 #. %2 with the recommended size
-#: src/modules/RootPart.rb:758
+#: src/modules/RootPart.rb:741
 #, ycp-format
 msgid ""
 "Your /boot partition is too small (%1 MB).\n"
@@ -588,7 +586,7 @@ msgstr ""
 
 #. label in a popup, %1 is device (eg. /dev/hda1),
 #. %2 is output of the 'mount' command
-#: src/modules/RootPart.rb:869
+#: src/modules/RootPart.rb:905
 #, fuzzy, ycp-format
 #| msgid ""
 #| "The partition %1 could not be mounted.\n"
@@ -619,28 +617,35 @@ msgstr ""
 "விருப்பத்தேர்வுகளை குறிப்பிடவும்-ஐ க்ளிக் செய்யவும். \n"
 "புதுப்பித்தலை இடையில் நிறுவுவதற்கு, ரத்து செய்யவும்-ஐ க்ளிக் செய்யவும்."
 
-#. push button
-#: src/modules/RootPart.rb:887
+#: src/modules/RootPart.rb:922
 msgid "&Specify Mount Options"
 msgstr "&ஏற்றத்திற்கான விருப்பத்தேர்வுகளை குறிப்பிடவும்"
 
-#. popup heading
-#: src/modules/RootPart.rb:903
+#. Displays the Mount Options dialog to the user
+#.
+#. FIXME: this dialog should live in its own class. However, extracting it to a method
+#. looks like a good compromise in the context of the PBI it has been addressed. So please,
+#. feel free to make it a first-class citizen in future changes.
+#.
+#. @param fspath [String] the filesytem path
+#. @param spec [String]
+#. @param mount_type [String]
+#.
+#. @return [Array<(String, String, String)>] an array holding the current (if the user
+#. cancels) or the new (when user accepts) values for fspath, spec, and mount_type
+#: src/modules/RootPart.rb:950
 msgid "Mount Options"
 msgstr "ஏற்றத்திற்கான விருப்பத்தேர்வுகள்"
 
-#. text entry label
-#: src/modules/RootPart.rb:906
+#: src/modules/RootPart.rb:952
 msgid "&Mount Point"
 msgstr "ஏற்றத்திற்கான நிலை"
 
-#. tex entry label
-#: src/modules/RootPart.rb:909
+#: src/modules/RootPart.rb:954
 msgid "&Device"
 msgstr "&சாதனம்"
 
-#. text entry label
-#: src/modules/RootPart.rb:914
+#: src/modules/RootPart.rb:956
 msgid ""
 "&File System\n"
 "(empty for autodetection)"
@@ -648,67 +653,8 @@ msgstr ""
 "&ஃபைல் முறை\n"
 "(தானியங்கு கண்டுபிடித்தலுக்காக காலி செய்யவும்)"
 
-#. TRANSLATORS: error message when /var partition cannot be mounted. %{device}
-#. is replaced by a device name (e.g., /dev/sda2) and %{error} is replaced by
-#. error details.
-#: src/modules/RootPart.rb:991
-#, fuzzy, perl-brace-format
-#| msgid "The /var partition %1 could not be mounted.\n"
-msgid ""
-"The /var partition %{device} could not be mounted.\n"
-"\n"
-"%{error}"
-msgstr "/var பிரிவு %1ஐ ஏற்ற முடியவில்லை.\n"
-
-#. Informational text about selected partition, %x are replaced with values later
-#: src/modules/RootPart.rb:1024
-#, ycp-format
-msgid ""
-"<b>File system:</b> %1, <b>Type:</b> %2,<br>\n"
-"<b>Label:</b> %3, <b>Size:</b> %4,<br>\n"
-"<b>udev IDs:</b> %5,<br>\n"
-"<b>udev path:</b> %6"
-msgstr ""
-
-#: src/modules/RootPart.rb:1038
-msgid "None"
-msgstr "இல்லை"
-
-#. a popup caption
-#: src/modules/RootPart.rb:1061
-#, fuzzy
-msgid "Unable to find the /var partition automatically"
-msgstr "இந்த டிஸ்க் உள்ளமைவுடன் /var பிரிவை ஏற்ற முடியவில்லை.\n"
-
-#. a popup message
-#: src/modules/RootPart.rb:1066
-msgid ""
-"Your system uses a separate /var partition which is required for the "
-"upgrade\n"
-"process to detect the disk-naming changes. Select the /var partition "
-"manually\n"
-"to continue the upgrade process."
-msgstr ""
-
-#. a combo-box label
-#: src/modules/RootPart.rb:1081
-#, fuzzy
-msgid "&Select /var Partition Device"
-msgstr "ஓர் ஆதார பிரிவை தேர்ந்தெடு"
-
-#. an informational rich-text widget label
-#: src/modules/RootPart.rb:1087
-#, fuzzy
-msgid "Device Info"
-msgstr "சாதனத்தின் அடையாள எண்"
-
-#. Everything else failed, return error message
-#: src/modules/RootPart.rb:1183
-msgid "Unable to mount /var partition with this disk configuration.\n"
-msgstr "இந்த டிஸ்க் உள்ளமைவுடன் /var பிரிவை ஏற்ற முடியவில்லை.\n"
-
 #. popup message, %1 will be replace with the name of the logfile
-#: src/modules/RootPart.rb:1219
+#: src/modules/RootPart.rb:1003
 #, ycp-format
 msgid ""
 "Partitions could not be mounted.\n"
@@ -734,7 +680,7 @@ msgstr ""
 #. The proper encryption device could be found if there is a encrypttion device where
 #.
 #. encryption.crypttab_name  #=> "cr_home"
-#: src/modules/RootPart.rb:1269
+#: src/modules/RootPart.rb:1053
 #, ycp-format
 msgid ""
 "Some partitions in the system on %1 are mounted by kernel-device name. This "
@@ -745,7 +691,7 @@ msgid ""
 "mount-by method to any other method for all partitions."
 msgstr ""
 
-#: src/modules/RootPart.rb:1286
+#: src/modules/RootPart.rb:1070
 #, ycp-format
 msgid ""
 "Some home directories in the system on %1 are encrypted. This release does "
@@ -759,13 +705,13 @@ msgid ""
 msgstr ""
 
 #. error message
-#: src/modules/RootPart.rb:1303
+#: src/modules/RootPart.rb:1087
 msgid "No fstab found."
 msgstr "fstab எதுவும் காணப்படவில்லை"
 
 #. TRANSLATORS: Error message, where %{root} and %{tmp} are replaced by
 #. device names (e.g., /dev/sda1 and /dev/sda2).
-#: src/modules/RootPart.rb:1329
+#: src/modules/RootPart.rb:1107
 #, fuzzy, perl-brace-format
 #| msgid "The root partition in /etc/fstab has an invalid root device.\n"
 msgid ""
@@ -774,7 +720,7 @@ msgid ""
 msgstr " /etc/fstabல் உள்ள ரூட் பிரிவு ஒரு பயனற்ற ரூட் சாதனத்தைக் கொண்டுள்ளது.\n"
 
 #. Removed ReiserFS support for system upgrade (fate#323394).
-#: src/modules/RootPart.rb:1348
+#: src/modules/RootPart.rb:1126
 #, ycp-format
 msgid ""
 "The mount points listed below are using legacy filesystems that are not "
@@ -787,24 +733,24 @@ msgstr ""
 
 #. Storage::ActivateEvms();
 #. prepare progress-bar
-#: src/modules/RootPart.rb:1673
+#: src/modules/RootPart.rb:1450
 msgid "Evaluating root partition. One moment please..."
 msgstr "ரூட் பிரிவு மதிப்பிடப்படுகிறது. தயவுசெய்து ஒரு நொடி காத்திருக்கவும்..."
 
 #. intermediate popup while mounting partitions
-#: src/modules/RootPart.rb:1717
+#: src/modules/RootPart.rb:1494
 msgid "Mounting partitions. One moment please..."
 msgstr "பிருவுகள் ஏற்றப்படுகின்றன. தயவுசெய்து ஒரு நொடி காத்திருக்கவும்..."
 
 #. TRANSLATORS: dialog caption
-#: src/modules/RootPart.rb:1732
+#: src/modules/RootPart.rb:1509
 #, fuzzy
 #| msgid "Searching for eDirectory trees"
 msgid "Searching for Available Systems"
 msgstr "eDirectory மரங்களுக்கான தேடுதல்"
 
 #. as of bsc #1092757 snapshot descriptions are not translated
-#: src/modules/RootPart.rb:2027
+#: src/modules/RootPart.rb:1801
 msgid ""
 "A pre-update snapshot could not be created. You can continue with the \n"
 "installation, but beware that you cannot roll back to a pre-update state \n"
@@ -876,6 +822,32 @@ msgstr "சிஸ்டம் உள்ளமைவை புதுப்பி�
 #: control/update.glade.translations.glade:9
 msgid "Configure Online Update"
 msgstr ""
+
+#, fuzzy
+#~| msgid "The /var partition %1 could not be mounted.\n"
+#~ msgid ""
+#~ "The /var partition %{device} could not be mounted.\n"
+#~ "\n"
+#~ "%{error}"
+#~ msgstr "/var பிரிவு %1ஐ ஏற்ற முடியவில்லை.\n"
+
+#~ msgid "None"
+#~ msgstr "இல்லை"
+
+#, fuzzy
+#~ msgid "Unable to find the /var partition automatically"
+#~ msgstr "இந்த டிஸ்க் உள்ளமைவுடன் /var பிரிவை ஏற்ற முடியவில்லை.\n"
+
+#, fuzzy
+#~ msgid "&Select /var Partition Device"
+#~ msgstr "ஓர் ஆதார பிரிவை தேர்ந்தெடு"
+
+#, fuzzy
+#~ msgid "Device Info"
+#~ msgstr "சாதனத்தின் அடையாள எண்"
+
+#~ msgid "Unable to mount /var partition with this disk configuration.\n"
+#~ msgstr "இந்த டிஸ்க் உள்ளமைவுடன் /var பிரிவை ஏற்ற முடியவில்லை.\n"
 
 #~ msgid "Update Configuration"
 #~ msgstr "உள்ளமைவை புதுப்பிக்கவும்"

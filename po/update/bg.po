@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: update\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-17 02:30+0000\n"
+"POT-Creation-Date: 2021-11-30 02:29+0000\n"
 "PO-Revision-Date: 2015-12-28 15:43+0200\n"
 "Last-Translator: Borislav Mitev <morbid_viper@tkzs.org>\n"
 "Language-Team: Bulgarian <opensuse-translation@opensuse.org>\n"
@@ -345,13 +345,11 @@ msgstr "Неизвестно или не-Линукс"
 #. Table item (unknown architecture)
 #. Table item (unknown file system)
 #. label - name of sustem to update
-#. starts with >`<
 #. Get installed release name
 #. TRANSLATORS: label for an unknown installed system
 #: src/include/update/rootpart.rb:132 src/include/update/rootpart.rb:138
-#: src/include/update/rootpart.rb:158 src/modules/RootPart.rb:125
-#: src/modules/RootPart.rb:1037 src/modules/RootPart.rb:1043
-#: src/modules/RootPart.rb:1579
+#: src/include/update/rootpart.rb:158 src/modules/RootPart.rb:121
+#: src/modules/RootPart.rb:1356
 msgid "Unknown"
 msgstr "Неизвестно"
 
@@ -511,17 +509,17 @@ msgid "A possibly incomplete installation has been detected."
 msgstr "Открита е вероятно непълна инсталация."
 
 #. label - name of sustem to update
-#: src/modules/RootPart.rb:137
+#: src/modules/RootPart.rb:133
 msgid "Unknown Linux System"
 msgstr "Неизвестна Линукс система"
 
 #. label - name of sustem to update
-#: src/modules/RootPart.rb:142
+#: src/modules/RootPart.rb:138
 msgid "Non-Linux System"
 msgstr "Не-Линукс система"
 
 #. error report, %1 is device (eg. /dev/hda1)
-#: src/modules/RootPart.rb:199
+#: src/modules/RootPart.rb:195
 #, ycp-format
 msgid ""
 "Cannot unmount partition %1.\n"
@@ -537,7 +535,7 @@ msgstr ""
 "или рестартирайте компютъра.\n"
 
 #. label, %1 is partition
-#: src/modules/RootPart.rb:265
+#: src/modules/RootPart.rb:261
 #, ycp-format
 msgid "Checking partition %1"
 msgstr "Проверява дял %1"
@@ -547,24 +545,24 @@ msgstr "Проверява дял %1"
 #. @param string button (true)
 #. @param string button (false)
 #. @param [String] details (hidden under [Details] button; optional; to disable, use "")
-#: src/modules/RootPart.rb:299
+#: src/modules/RootPart.rb:295
 msgid "Show &Details"
 msgstr "&Подробности"
 
 #. #176292, run fsck before jfs is mounted
-#: src/modules/RootPart.rb:382
+#: src/modules/RootPart.rb:378
 #, ycp-format
 msgid "Checking file system on %1..."
 msgstr "Проверка на файловата система на %1…"
 
 #. popup headline
-#: src/modules/RootPart.rb:414
+#: src/modules/RootPart.rb:410
 msgid "File System Check Failed"
 msgstr "Проверката на файловата система бе неуспешна"
 
 #. popup question (continue/cancel dialog)
 #. %1 is a device name such as /dev/hda5
-#: src/modules/RootPart.rb:418
+#: src/modules/RootPart.rb:414
 #, ycp-format
 msgid ""
 "The file system check of device %1 has failed.\n"
@@ -576,19 +574,19 @@ msgstr ""
 "Желаете ли да продължите с монтирането на устройството?\n"
 
 #. button
-#: src/modules/RootPart.rb:427
+#: src/modules/RootPart.rb:423
 msgid "&Skip Mounting"
 msgstr "&Без монтиране"
 
 #. TRANSLATORS: a popup headline
-#: src/modules/RootPart.rb:753
+#: src/modules/RootPart.rb:736
 msgid "Warning"
 msgstr "Предупреждение"
 
 #. TRANSLATORS: error message,
 #. %1 is replaced with the current /boot partition size
 #. %2 with the recommended size
-#: src/modules/RootPart.rb:758
+#: src/modules/RootPart.rb:741
 #, ycp-format
 msgid ""
 "Your /boot partition is too small (%1 MB).\n"
@@ -609,7 +607,7 @@ msgstr ""
 
 #. label in a popup, %1 is device (eg. /dev/hda1),
 #. %2 is output of the 'mount' command
-#: src/modules/RootPart.rb:869
+#: src/modules/RootPart.rb:905
 #, ycp-format
 msgid ""
 "The partition %1 could not be mounted.\n"
@@ -632,28 +630,35 @@ msgstr ""
 "„Параметри на монтирането“. За да отмените \n"
 "обновяването щракнете върху „Прекъсване“.\n"
 
-#. push button
-#: src/modules/RootPart.rb:887
+#: src/modules/RootPart.rb:922
 msgid "&Specify Mount Options"
 msgstr "&Указване на параметри на монтирането"
 
-#. popup heading
-#: src/modules/RootPart.rb:903
+#. Displays the Mount Options dialog to the user
+#.
+#. FIXME: this dialog should live in its own class. However, extracting it to a method
+#. looks like a good compromise in the context of the PBI it has been addressed. So please,
+#. feel free to make it a first-class citizen in future changes.
+#.
+#. @param fspath [String] the filesytem path
+#. @param spec [String]
+#. @param mount_type [String]
+#.
+#. @return [Array<(String, String, String)>] an array holding the current (if the user
+#. cancels) or the new (when user accepts) values for fspath, spec, and mount_type
+#: src/modules/RootPart.rb:950
 msgid "Mount Options"
 msgstr "Параметри на монтирането"
 
-#. text entry label
-#: src/modules/RootPart.rb:906
+#: src/modules/RootPart.rb:952
 msgid "&Mount Point"
 msgstr "&Път за монтиране"
 
-#. tex entry label
-#: src/modules/RootPart.rb:909
+#: src/modules/RootPart.rb:954
 msgid "&Device"
 msgstr "&Устройство"
 
-#. text entry label
-#: src/modules/RootPart.rb:914
+#: src/modules/RootPart.rb:956
 msgid ""
 "&File System\n"
 "(empty for autodetection)"
@@ -661,71 +666,8 @@ msgstr ""
 "&Файлова система\n"
 "(празно за автоматично откриване)"
 
-#. TRANSLATORS: error message when /var partition cannot be mounted. %{device}
-#. is replaced by a device name (e.g., /dev/sda2) and %{error} is replaced by
-#. error details.
-#: src/modules/RootPart.rb:991
-#, fuzzy, perl-brace-format
-#| msgid "The /var partition %1 could not be mounted.\n"
-msgid ""
-"The /var partition %{device} could not be mounted.\n"
-"\n"
-"%{error}"
-msgstr "Дялът /var %1 не може да бъде монтиран.\n"
-
-#. Informational text about selected partition, %x are replaced with values later
-#: src/modules/RootPart.rb:1024
-#, ycp-format
-msgid ""
-"<b>File system:</b> %1, <b>Type:</b> %2,<br>\n"
-"<b>Label:</b> %3, <b>Size:</b> %4,<br>\n"
-"<b>udev IDs:</b> %5,<br>\n"
-"<b>udev path:</b> %6"
-msgstr ""
-"<b>файлова система:</b> %1, <b>тип:</b> %2,<br>\n"
-"<b>етикет:</b> %3, <b>размер:</b> %4,<br>\n"
-"<b>ID за udev:</b> %5,<br>\n"
-"<b>път за udev:</b> %6"
-
-#: src/modules/RootPart.rb:1038
-msgid "None"
-msgstr "Няма"
-
-#. a popup caption
-#: src/modules/RootPart.rb:1061
-msgid "Unable to find the /var partition automatically"
-msgstr "Дялът /var не може да бъде открит автоматично"
-
-#. a popup message
-#: src/modules/RootPart.rb:1066
-msgid ""
-"Your system uses a separate /var partition which is required for the "
-"upgrade\n"
-"process to detect the disk-naming changes. Select the /var partition "
-"manually\n"
-"to continue the upgrade process."
-msgstr ""
-"Вашата система използва отделен дял за /var, който е необходим на\n"
-"процеса за надграждане за да може да открие премени по именуването\n"
-"на дисковете. За да продължи надграждането изберете ръчно дяла с /var."
-
-#. a combo-box label
-#: src/modules/RootPart.rb:1081
-msgid "&Select /var Partition Device"
-msgstr "&Избор на устройство за /var"
-
-#. an informational rich-text widget label
-#: src/modules/RootPart.rb:1087
-msgid "Device Info"
-msgstr "Инфо за устройството"
-
-#. Everything else failed, return error message
-#: src/modules/RootPart.rb:1183
-msgid "Unable to mount /var partition with this disk configuration.\n"
-msgstr "Дялът /var не може да бъде монтиран с тази настройка на диска.\n"
-
 #. popup message, %1 will be replace with the name of the logfile
-#: src/modules/RootPart.rb:1219
+#: src/modules/RootPart.rb:1003
 #, ycp-format
 msgid ""
 "Partitions could not be mounted.\n"
@@ -750,7 +692,7 @@ msgstr ""
 #. The proper encryption device could be found if there is a encrypttion device where
 #.
 #. encryption.crypttab_name  #=> "cr_home"
-#: src/modules/RootPart.rb:1269
+#: src/modules/RootPart.rb:1053
 #, ycp-format
 msgid ""
 "Some partitions in the system on %1 are mounted by kernel-device name. This "
@@ -765,7 +707,7 @@ msgstr ""
 "постоянни, за съжаление. Силно препоръчително е да се зареди старата\n"
 "система и да се промени методът за „монтиране чрез“ за всички дялове."
 
-#: src/modules/RootPart.rb:1286
+#: src/modules/RootPart.rb:1070
 #, ycp-format
 msgid ""
 "Some home directories in the system on %1 are encrypted. This release does "
@@ -779,13 +721,13 @@ msgid ""
 msgstr ""
 
 #. error message
-#: src/modules/RootPart.rb:1303
+#: src/modules/RootPart.rb:1087
 msgid "No fstab found."
 msgstr "Не е намерен fstab."
 
 #. TRANSLATORS: Error message, where %{root} and %{tmp} are replaced by
 #. device names (e.g., /dev/sda1 and /dev/sda2).
-#: src/modules/RootPart.rb:1329
+#: src/modules/RootPart.rb:1107
 #, fuzzy, perl-brace-format
 #| msgid "The root partition in /etc/fstab has an invalid root device.\n"
 msgid ""
@@ -794,7 +736,7 @@ msgid ""
 msgstr "Главния дял в /etc/fstab има невалидно коренно устройство.\n"
 
 #. Removed ReiserFS support for system upgrade (fate#323394).
-#: src/modules/RootPart.rb:1348
+#: src/modules/RootPart.rb:1126
 #, ycp-format
 msgid ""
 "The mount points listed below are using legacy filesystems that are not "
@@ -807,22 +749,22 @@ msgstr ""
 
 #. Storage::ActivateEvms();
 #. prepare progress-bar
-#: src/modules/RootPart.rb:1673
+#: src/modules/RootPart.rb:1450
 msgid "Evaluating root partition. One moment please..."
 msgstr "Преглежда root дяла. Моля, изчакайте…"
 
 #. intermediate popup while mounting partitions
-#: src/modules/RootPart.rb:1717
+#: src/modules/RootPart.rb:1494
 msgid "Mounting partitions. One moment please..."
 msgstr "Монтиране на дяловете. Моля, изчакайте…"
 
 #. TRANSLATORS: dialog caption
-#: src/modules/RootPart.rb:1732
+#: src/modules/RootPart.rb:1509
 msgid "Searching for Available Systems"
 msgstr "Проверка за налични системи"
 
 #. as of bsc #1092757 snapshot descriptions are not translated
-#: src/modules/RootPart.rb:2027
+#: src/modules/RootPart.rb:1801
 msgid ""
 "A pre-update snapshot could not be created. You can continue with the \n"
 "installation, but beware that you cannot roll back to a pre-update state \n"
@@ -894,6 +836,51 @@ msgstr "Обновяване на системната настройка"
 #: control/update.glade.translations.glade:9
 msgid "Configure Online Update"
 msgstr ""
+
+#, fuzzy
+#~| msgid "The /var partition %1 could not be mounted.\n"
+#~ msgid ""
+#~ "The /var partition %{device} could not be mounted.\n"
+#~ "\n"
+#~ "%{error}"
+#~ msgstr "Дялът /var %1 не може да бъде монтиран.\n"
+
+#~ msgid ""
+#~ "<b>File system:</b> %1, <b>Type:</b> %2,<br>\n"
+#~ "<b>Label:</b> %3, <b>Size:</b> %4,<br>\n"
+#~ "<b>udev IDs:</b> %5,<br>\n"
+#~ "<b>udev path:</b> %6"
+#~ msgstr ""
+#~ "<b>файлова система:</b> %1, <b>тип:</b> %2,<br>\n"
+#~ "<b>етикет:</b> %3, <b>размер:</b> %4,<br>\n"
+#~ "<b>ID за udev:</b> %5,<br>\n"
+#~ "<b>път за udev:</b> %6"
+
+#~ msgid "None"
+#~ msgstr "Няма"
+
+#~ msgid "Unable to find the /var partition automatically"
+#~ msgstr "Дялът /var не може да бъде открит автоматично"
+
+#~ msgid ""
+#~ "Your system uses a separate /var partition which is required for the "
+#~ "upgrade\n"
+#~ "process to detect the disk-naming changes. Select the /var partition "
+#~ "manually\n"
+#~ "to continue the upgrade process."
+#~ msgstr ""
+#~ "Вашата система използва отделен дял за /var, който е необходим на\n"
+#~ "процеса за надграждане за да може да открие премени по именуването\n"
+#~ "на дисковете. За да продължи надграждането изберете ръчно дяла с /var."
+
+#~ msgid "&Select /var Partition Device"
+#~ msgstr "&Избор на устройство за /var"
+
+#~ msgid "Device Info"
+#~ msgstr "Инфо за устройството"
+
+#~ msgid "Unable to mount /var partition with this disk configuration.\n"
+#~ msgstr "Дялът /var не може да бъде монтиран с тази настройка на диска.\n"
 
 #~ msgid "Update Configuration"
 #~ msgstr "Настройка на обновяването"
