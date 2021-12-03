@@ -19,7 +19,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: storage\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-25 02:29+0000\n"
+"POT-Creation-Date: 2021-12-03 02:30+0000\n"
 "PO-Revision-Date: 2021-05-31 22:00+0000\n"
 "Last-Translator: Aleš Kastner <alkas@volny.cz>\n"
 "Language-Team: Czech <https://l10n.opensuse.org/projects/yast-storage/master/"
@@ -2029,6 +2029,11 @@ msgstr "&Rozšířený diskový oddíl"
 msgid "&Logical Partition"
 msgstr "&Logický diskový oddíl"
 
+#. Dialog to show the probing issues detected in the system
+#: src/lib/y2partitioner/dialogs/probing_issues.rb:34
+msgid "Issues Detected in the System"
+msgstr ""
+
 #. @macro seeAbstractWidget
 #: src/lib/y2partitioner/dialogs/settings.rb:37
 msgid "Settings"
@@ -3771,7 +3776,6 @@ msgstr ""
 #. FIXME: improve Yast2::Popup to allow some text before the buttons
 #: src/lib/y2partitioner/widgets/fstab_selector.rb:70
 #: src/lib/y2partitioner/widgets/overview.rb:210
-#: src/lib/y2storage/callbacks/sanitize.rb:52
 msgid "Do you want to continue?"
 msgstr "Chcete pokračovat?"
 
@@ -4546,26 +4550,30 @@ msgid "&Finish (Save and Exit)"
 msgstr "&Dokončit (uložit a skončit)"
 
 #. TRANSLATORS: Partitioner menu with some special dialogs
-#: src/lib/y2partitioner/widgets/menus/view.rb:41
+#: src/lib/y2partitioner/widgets/menus/view.rb:43
 msgid "&View"
 msgstr "&Zobrazit"
 
 #. @see Base
-#: src/lib/y2partitioner/widgets/menus/view.rb:50
+#: src/lib/y2partitioner/widgets/menus/view.rb:52
 msgid "Device &Graphs..."
 msgstr "&Grafy zařízení..."
 
-#: src/lib/y2partitioner/widgets/menus/view.rb:56
+#: src/lib/y2partitioner/widgets/menus/view.rb:58
 msgid "Installation &Summary..."
 msgstr "&Souhrn instalace..."
 
-#: src/lib/y2partitioner/widgets/menus/view.rb:57
+#: src/lib/y2partitioner/widgets/menus/view.rb:59
 msgid "Se&ttings..."
 msgstr "Nas&tavení..."
 
-#: src/lib/y2partitioner/widgets/menus/view.rb:58
+#: src/lib/y2partitioner/widgets/menus/view.rb:60
 msgid "&Bcache Caching Sets..."
 msgstr "Kešovací sady &Bcache..."
+
+#: src/lib/y2partitioner/widgets/menus/view.rb:61
+msgid "&System Issues..."
+msgstr ""
 
 #. help text, richtext format
 #: src/lib/y2partitioner/widgets/mkfs_optiondata.rb:56
@@ -5496,7 +5504,7 @@ msgstr "Žádný"
 #. @param looks_like_real_multipath [Boolean] true if the system seems to
 #. contain a Multipath
 #. @return [Boolean]
-#: src/lib/y2storage/callbacks/activate.rb:56
+#: src/lib/y2storage/callbacks/activate.rb:75
 msgid ""
 "The system seems to have multipath hardware.\n"
 "Do you want to activate multipath?"
@@ -5507,7 +5515,7 @@ msgstr ""
 #. Error popup when the LUKS could not be activated
 #.
 #. @param attempt [Numeric] current attempt
-#: src/lib/y2storage/callbacks/activate.rb:93
+#: src/lib/y2storage/callbacks/activate.rb:112
 #, perl-brace-format
 msgid ""
 "The encrypted volume could not be activated (attempt number %{attempt}).\n"
@@ -5517,6 +5525,54 @@ msgstr ""
 "Šifrovaný svazek nebylo možno aktivovat (číslo pokusu %{attempt}).\n"
 "\n"
 "Přesvědčte se, že heslo je správné."
+
+#. Human-readable description to use if the LVM tools report that the same PV is found more than
+#. once.
+#.
+#. @return [String]
+#: src/lib/y2storage/callbacks/activate.rb:148
+msgid "The same LVM physical volume was found in several devices.\n"
+msgstr "Stejný fyzický svazek LVM byl nalezen v několika zařízeních.\n"
+
+#. The user already tried LIBSTORAGE_MULTIPATH_AUTOSTART (and is not
+#. using AutoYaST), there is nothing else we can advise.
+#: src/lib/y2storage/callbacks/activate.rb:153
+#, fuzzy
+#| msgid ""
+#| "Maybe there are multipath devices in the system but multipath support\n"
+#| "was not enabled.\n"
+#| "\n"
+msgid ""
+"Maybe there are multipath devices in the system but multipath support was "
+"not enabled.\n"
+"\n"
+msgstr ""
+"Je možné, že v systému jsou zařízení multipath, ale podpora\n"
+"funkce multipath nebyla povolena.\n"
+"\n"
+
+#: src/lib/y2storage/callbacks/activate.rb:159
+msgid "Use 'start_multipath' in the AutoYaST profile to enable multipath."
+msgstr ""
+"Použijte příkaz 'start_multipath' v profilu AutoYaST, abyste povolili funkci "
+"multipath."
+
+#: src/lib/y2storage/callbacks/activate.rb:163
+#, fuzzy
+#| msgid ""
+#| "If YaST didn't offer the opportunity to enable multipath in a previous "
+#| "step,\n"
+#| "try the 'LIBSTORAGE_MULTIPATH_AUTOSTART=ON' boot parameter.\n"
+#| "More information at https://en.opensuse.org/SDB:Linuxrc"
+msgid ""
+"If YaST didn't offer the opportunity to enable multipath in a previous step, "
+"try the 'LIBSTORAGE_MULTIPATH_AUTOSTART=ON' boot parameter.\n"
+"More information at https://en.opensuse.org/SDB:Linuxrc"
+msgstr ""
+"Pokud YaST nenabídl možnost povolit funkci multipath v některém\n"
+"z předchozích kroků, zkuste použít spouštěcí parametr "
+"'LIBSTORAGE_MULTIPATH_AUTOSTART=ON'.\n"
+"Další informace najdete na https://en.opensuse.org/SDB:Linuxrc"
 
 #. Callback to ask the user whether to retry or abort when the storage lock
 #. cannot be acquired.
@@ -5552,82 +5608,6 @@ msgstr ""
 "Před pokračováním ji musíte ukončit.\n"
 "\n"
 "Přerušit, nebo nový pokus?"
-
-#. force the UTF-8 encoding to avoid Encoding::CompatibilityError exception (bsc#1096758)
-#: src/lib/y2storage/callbacks/libstorage_callback.rb:80
-msgid "Continue despite the error?"
-msgstr "Ignorovat chybu a pokračovat?"
-
-#. Human-readable description of the problem reported by libstorage-ng,
-#. hopefully with some hint on how to resolve it or continue.
-#.
-#. A generic message is returned if no concrete problem can be identified.
-#.
-#. @see #error
-#.
-#. @param what [String] details coming from libstorage-ng
-#. @return [String]
-#: src/lib/y2storage/callbacks/libstorage_callback.rb:124
-msgid "Unexpected situation found in the system."
-msgstr "V systému byla nalezena neočekávaná situace."
-
-#. Human-readable description to use if the LVM tools report that the same
-#. PV is found more than once.
-#.
-#. @see #error_description
-#.
-#. @return [String]
-#: src/lib/y2storage/callbacks/libstorage_callback.rb:135
-msgid "The same LVM physical volume was found in several devices.\n"
-msgstr "Stejný fyzický svazek LVM byl nalezen v několika zařízeních.\n"
-
-#. The user already tried LIBSTORAGE_MULTIPATH_AUTOSTART (and is not
-#. using AutoYaST), there is nothing else we can advise.
-#: src/lib/y2storage/callbacks/libstorage_callback.rb:140
-msgid ""
-"Maybe there are multipath devices in the system but multipath support\n"
-"was not enabled.\n"
-"\n"
-msgstr ""
-"Je možné, že v systému jsou zařízení multipath, ale podpora\n"
-"funkce multipath nebyla povolena.\n"
-"\n"
-
-#: src/lib/y2storage/callbacks/libstorage_callback.rb:146
-msgid "Use 'start_multipath' in the AutoYaST profile to enable multipath."
-msgstr ""
-"Použijte příkaz 'start_multipath' v profilu AutoYaST, abyste povolili funkci "
-"multipath."
-
-#: src/lib/y2storage/callbacks/libstorage_callback.rb:150
-msgid ""
-"If YaST didn't offer the opportunity to enable multipath in a previous "
-"step,\n"
-"try the 'LIBSTORAGE_MULTIPATH_AUTOSTART=ON' boot parameter.\n"
-"More information at https://en.opensuse.org/SDB:Linuxrc"
-msgstr ""
-"Pokud YaST nenabídl možnost povolit funkci multipath v některém\n"
-"z předchozích kroků, zkuste použít spouštěcí parametr "
-"'LIBSTORAGE_MULTIPATH_AUTOSTART=ON'.\n"
-"Další informace najdete na https://en.opensuse.org/SDB:Linuxrc"
-
-#. Generate the full message for the error popup.
-#.
-#. @return [String] Full message.
-#: src/lib/y2storage/callbacks/libstorage_callback.rb:176
-#: src/lib/y2storage/dialogs/proposal.rb:320
-msgid "Click below to see more details (English only)."
-msgstr "Klikněte níže pro zobrazení více detailů (pouze anglicky)."
-
-#. Callback to report probed devicegraph errors to the user.
-#.
-#. It offers the user the possibility to sanitize the devicegraph.
-#.
-#. @param errors [Array<String>] Errors detected in probed devicegraph.
-#. @return [Boolean] true if the user decides to sanitize the devicegraph.
-#: src/lib/y2storage/callbacks/sanitize.rb:50
-msgid "The following errors were detected in the system:"
-msgstr "V systému byly nalezeny tyto chyby:"
 
 #. progress step title
 #: src/lib/y2storage/clients/finish.rb:40
@@ -5699,73 +5679,6 @@ msgstr "Současné nastavení neumožňuje nabídky"
 #: src/lib/y2storage/clients/partitions_proposal.rb:160
 msgid "Custom"
 msgstr "Vlastní"
-
-#. TRANSLATORS: %{name} is the name of an LVM Volume Group (e.g., /dev/vg1)
-#: src/lib/y2storage/devicegraph_sanitizer.rb:194
-#, perl-brace-format
-msgid ""
-"The volume group %{name} is incomplete because some physical volumes are "
-"missing.\n"
-"If you continue, the volume group will be deleted later as part of the "
-"installation\n"
-"process. Moreover, incomplete volume groups are ignored by the partitioning "
-"proposal\n"
-"and are not visible in the Expert Partitioner."
-msgstr ""
-"Skupina svazků %{name} je neúplná, protože některé fyzické svazky chybí.\n"
-"Budete-li pokračovat, bude později při instalaci skupina svazků odstraněna.\n"
-"Navíc budou v návrhu rozložení oddílů neúplné skupiny svazků ignorovány\n"
-"a nebudou viditelné při Expertním vytvoření oddílů."
-
-#. TRANSLATORS: %{name} is the name of an LVM Volume Group (e.g., /dev/vg1)
-#: src/lib/y2storage/devicegraph_sanitizer.rb:203
-#, perl-brace-format
-msgid ""
-"The volume group %{name} is incomplete because some physical volumes are "
-"missing.\n"
-"Incomplete volume groups are not visible in the Partitioner and will be "
-"deleted at the\n"
-"final step, when all the changes are performed in the system."
-msgstr ""
-"Skupina svazků %{name} je neúplná, protože některé fyzické svazky chybí.\n"
-"Neúplné skupiny svazků nejsou viditelné ve Vytváření oddílů v závěrečném "
-"kroku\n"
-"po provedení všech změn systému budou zrušeny."
-
-#. Error message for missing Bcache support on the current platform
-#.
-#. @return [String]
-#: src/lib/y2storage/devicegraph_sanitizer.rb:250
-msgid "Bcache detected, but bcache is not supported on this platform!"
-msgstr "Zjištěna bcache, ta však není touto platformou podporována!"
-
-#: src/lib/y2storage/devicegraph_sanitizer.rb:252
-msgid ""
-"This may or may not work. Use at your own risk.\n"
-"The safe way is to remove this bcache manually\n"
-"with command line tools and then restart YaST."
-msgstr ""
-"Toto může a nemusí fungovat. Použijte na vlastní riziko.\n"
-"Je bezpečné odstranit tuto bcache ručně nástroji\n"
-"příkazového řádku a pak restartovat YaST."
-
-#. Error message
-#.
-#. @return [String]
-#: src/lib/y2storage/devicegraph_sanitizer.rb:284
-msgid "The root filesystem looks like not currently mounted!"
-msgstr "Kořenový systém souborů asi není připojen!"
-
-#: src/lib/y2storage/devicegraph_sanitizer.rb:287
-msgid ""
-"\n"
-"\n"
-"If you have executed a snapshot rollback, please reboot your system before "
-"continuing."
-msgstr ""
-"\n"
-"\n"
-"Pokud jste provedli rollback snímku, rebootujte systém."
 
 #. Constructor
 #.
@@ -6428,6 +6341,14 @@ msgstr ""
 "Zobrazený údaj nemusí být přesný a pokračování\n"
 "instalace může selhat."
 
+#. Hint to use when there are details
+#.
+#. @return [String]
+#: src/lib/y2storage/dialogs/proposal.rb:320
+#: src/lib/y2storage/issues_reporter.rb:195
+msgid "Click below to see more details (English only)."
+msgstr "Klikněte níže pro zobrazení více detailů (pouze anglicky)."
+
 #. Password is considered strong when cracklib returns an empty message.
 #: src/lib/y2storage/encrypt_password_checker.rb:84
 msgid "The password is too simple:"
@@ -6585,6 +6506,77 @@ msgstr "%{fs_type} %{device_name}"
 msgid "%{type} %{mount_path}"
 msgstr "%{type} %{mount_path}"
 
+#. Builds the message
+#.
+#. @return [String]
+#: src/lib/y2storage/inactive_root_issue.rb:41
+#, fuzzy
+#| msgid "The root filesystem looks like not currently mounted!"
+msgid "The root filesystem looks like not currently mounted."
+msgstr "Kořenový systém souborů asi není připojen!"
+
+#. Builds the description
+#.
+#. @param filesystem [Filesystems::Base]
+#. @return [String, nil]
+#: src/lib/y2storage/inactive_root_issue.rb:51
+#, fuzzy
+#| msgid ""
+#| "\n"
+#| "\n"
+#| "If you have executed a snapshot rollback, please reboot your system "
+#| "before continuing."
+msgid ""
+"If you have executed a snapshot rollback, please reboot your system before "
+"continuing."
+msgstr ""
+"\n"
+"\n"
+"Pokud jste provedli rollback snímku, rebootujte systém."
+
+#. Message to show when reporting probing issues
+#.
+#. @return [String]
+#: src/lib/y2storage/issues_manager.rb:69
+msgid "Issues found while analyzing the storage devices."
+msgstr ""
+
+#. Overloads {Y2Issues::Reporter} in order to use other footer and buttons
+#.
+#. @see Y2Issues::Reporter
+#: src/lib/y2storage/issues_reporter.rb:81
+#, fuzzy
+#| msgid "Continue despite the error?"
+msgid "Continue despite the issue?"
+msgid_plural "Continue despite the issues?"
+msgstr[0] "Ignorovat chybu a pokračovat?"
+msgstr[1] "Ignorovat chybu a pokračovat?"
+msgstr[2] "Ignorovat chybu a pokračovat?"
+
+#. Description for the issue
+#.
+#. @return [String]
+#: src/lib/y2storage/issues_reporter.rb:188
+msgid "Unexpected situation found in the system."
+msgstr "V systému byla nalezena neočekávaná situace."
+
+#. Intro to use when no one is given
+#.
+#. @return [String]
+#: src/lib/y2storage/issues_reporter.rb:242
+msgid "Issues found."
+msgstr ""
+
+#. Hint to use when there are issues (the popup will contain a details button to show the details of
+#. the issues)
+#.
+#. @return [String]
+#: src/lib/y2storage/issues_reporter.rb:250
+#, fuzzy
+#| msgid "Click below to see more details (English only)."
+msgid "Click below to see more details."
+msgstr "Klikněte níže pro zobrazení více detailů (pouze anglicky)."
+
 #. TRANSLATORS: display name when the PV has no associated VG, where %{device} is replaced by a
 #. device name (e.g., "/dev/sda1").
 #: src/lib/y2storage/lvm_pv.rb:84
@@ -6672,6 +6664,55 @@ msgstr "Dvě kopie vzdálené"
 #: src/lib/y2storage/md_parity.rb:56
 msgid "Three copies far"
 msgstr "Tři kopie vzdálené"
+
+#. TRANSLATORS: %{name} is the name of an LVM Volume Group (e.g., /dev/vg1)
+#: src/lib/y2storage/missing_lvm_pv_issue.rb:47
+#, fuzzy, perl-brace-format
+#| msgid "The volume group does not contain logical volumes."
+msgid ""
+"The volume group %{name} is incomplete because some physical volumes are "
+"missing."
+msgstr "Skupina svazků neobsahuje logické svazky."
+
+#. Builds the description of the issue
+#.
+#. @return [String]
+#: src/lib/y2storage/missing_lvm_pv_issue.rb:57
+#, fuzzy
+#| msgid ""
+#| "The volume group %{name} is incomplete because some physical volumes are "
+#| "missing.\n"
+#| "If you continue, the volume group will be deleted later as part of the "
+#| "installation\n"
+#| "process. Moreover, incomplete volume groups are ignored by the "
+#| "partitioning proposal\n"
+#| "and are not visible in the Expert Partitioner."
+msgid ""
+"If you continue, the volume group will be deleted later as part of the "
+"installation process. Moreover, incomplete volume groups are ignored by the "
+"partitioning proposal and are not visible in the Expert Partitioner."
+msgstr ""
+"Skupina svazků %{name} je neúplná, protože některé fyzické svazky chybí.\n"
+"Budete-li pokračovat, bude později při instalaci skupina svazků odstraněna.\n"
+"Navíc budou v návrhu rozložení oddílů neúplné skupiny svazků ignorovány\n"
+"a nebudou viditelné při Expertním vytvoření oddílů."
+
+#: src/lib/y2storage/missing_lvm_pv_issue.rb:61
+#, fuzzy
+#| msgid ""
+#| "The volume group %{name} is incomplete because some physical volumes are "
+#| "missing.\n"
+#| "Incomplete volume groups are not visible in the Partitioner and will be "
+#| "deleted at the\n"
+#| "final step, when all the changes are performed in the system."
+msgid ""
+"Incomplete volume groups are not visible in the Partitioner and will be "
+"deleted at the final step, when all the changes are performed in the system."
+msgstr ""
+"Skupina svazků %{name} je neúplná, protože některé fyzické svazky chybí.\n"
+"Neúplné skupiny svazků nejsou viditelné ve Vytváření oddílů v závěrečném "
+"kroku\n"
+"po provedení všech změn systému budou zrušeny."
 
 #. This message is not very informative, but the Package module does
 #. not provide any more information.
@@ -6808,6 +6849,50 @@ msgstr "Požaduje se šifrovací heslo."
 msgid "Unknown reason"
 msgstr "Příčina neznámá"
 
+#. Builds message of the issue
+#.
+#. @return [String]
+#: src/lib/y2storage/unsupported_bcache_issue.rb:38
+#, fuzzy
+#| msgid "Bcache detected, but bcache is not supported on this platform!"
+msgid "Bcache detected, but bcache is not supported on this platform."
+msgstr "Zjištěna bcache, ta však není touto platformou podporována!"
+
+#. Builds description of the issue
+#.
+#. @return [String]
+#: src/lib/y2storage/unsupported_bcache_issue.rb:45
+#, fuzzy
+#| msgid ""
+#| "This may or may not work. Use at your own risk.\n"
+#| "The safe way is to remove this bcache manually\n"
+#| "with command line tools and then restart YaST."
+msgid ""
+"This may or may not work. Use at your own risk. The safe way is to remove "
+"this bcache manually with command line tools and then restart YaST."
+msgstr ""
+"Toto může a nemusí fungovat. Použijte na vlastní riziko.\n"
+"Je bezpečné odstranit tuto bcache ručně nástroji\n"
+"příkazového řádku a pak restartovat YaST."
+
+#. @return [Yast::Term]
+#: src/lib/y2storage/widgets/issues.rb:85
+msgid "Issues"
+msgstr ""
+
+#. Information of the given issue
+#.
+#. @param issue [Issue]
+#. @return [String]
+#: src/lib/y2storage/widgets/issues.rb:124
+#, fuzzy
+#| msgid "Click below to see more details (English only)."
+msgid "Technical details (English only):"
+msgstr "Klikněte níže pro zobrazení více detailů (pouze anglicky)."
+
+#~ msgid "The following errors were detected in the system:"
+#~ msgstr "V systému byly nalezeny tyto chyby:"
+
 #~ msgid "File System for Root Partition"
 #~ msgstr "Souborový systém pro kořenový oddíl"
 
@@ -6822,9 +6907,6 @@ msgstr "Příčina neznámá"
 
 #~ msgid "BtrFS Subvolume"
 #~ msgstr "Podsvazek BtrFS"
-
-#~ msgid "The volume group does not contain logical volumes."
-#~ msgstr "Skupina svazků neobsahuje logické svazky."
 
 #~ msgid "Really delete all these devices?"
 #~ msgstr "Odstranit všechna tato zařízení?"

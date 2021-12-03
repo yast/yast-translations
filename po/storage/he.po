@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: YaST (@memory@)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-25 02:29+0000\n"
+"POT-Creation-Date: 2021-12-03 02:30+0000\n"
 "PO-Revision-Date: 2013-05-29 21:56+0200\n"
 "Last-Translator: Eliran Itzhak <eliran@bigfoot.com>\n"
 "Language-Team: Hebrew <i18n@suse.de>\n"
@@ -2154,6 +2154,11 @@ msgstr "מחיצה מו&רחבת"
 msgid "&Logical Partition"
 msgstr "מחיצה &משנית"
 
+#. Dialog to show the probing issues detected in the system
+#: src/lib/y2partitioner/dialogs/probing_issues.rb:34
+msgid "Issues Detected in the System"
+msgstr ""
+
 #. @macro seeAbstractWidget
 #: src/lib/y2partitioner/dialogs/settings.rb:37
 #, fuzzy
@@ -4013,7 +4018,6 @@ msgstr ""
 #. FIXME: improve Yast2::Popup to allow some text before the buttons
 #: src/lib/y2partitioner/widgets/fstab_selector.rb:70
 #: src/lib/y2partitioner/widgets/overview.rb:210
-#: src/lib/y2storage/callbacks/sanitize.rb:52
 #, fuzzy
 #| msgid "Enter Provider Password"
 msgid "Do you want to continue?"
@@ -4778,34 +4782,38 @@ msgstr ""
 
 #  Push Button to see logs of internet test
 #. TRANSLATORS: Partitioner menu with some special dialogs
-#: src/lib/y2partitioner/widgets/menus/view.rb:41
+#: src/lib/y2partitioner/widgets/menus/view.rb:43
 #, fuzzy
 msgid "&View"
 msgstr "ה&צג יומן"
 
 #  table column headings
 #. @see Base
-#: src/lib/y2partitioner/widgets/menus/view.rb:50
+#: src/lib/y2partitioner/widgets/menus/view.rb:52
 #, fuzzy
 msgid "Device &Graphs..."
 msgstr "התקן"
 
-#: src/lib/y2partitioner/widgets/menus/view.rb:56
+#: src/lib/y2partitioner/widgets/menus/view.rb:58
 #, fuzzy
 msgid "Installation &Summary..."
 msgstr "התקנת מקור"
 
-#: src/lib/y2partitioner/widgets/menus/view.rb:57
+#: src/lib/y2partitioner/widgets/menus/view.rb:59
 #, fuzzy
 msgid "Se&ttings..."
 msgstr "הגדרות&"
 
 #  label text
-#: src/lib/y2partitioner/widgets/menus/view.rb:58
+#: src/lib/y2partitioner/widgets/menus/view.rb:60
 #, fuzzy
 #| msgid "Changes:"
 msgid "&Bcache Caching Sets..."
 msgstr "שינויים"
+
+#: src/lib/y2partitioner/widgets/menus/view.rb:61
+msgid "&System Issues..."
+msgstr ""
 
 #  help text, richtext format
 #. help text, richtext format
@@ -5815,7 +5823,7 @@ msgstr ""
 #. @param looks_like_real_multipath [Boolean] true if the system seems to
 #. contain a Multipath
 #. @return [Boolean]
-#: src/lib/y2storage/callbacks/activate.rb:56
+#: src/lib/y2storage/callbacks/activate.rb:75
 msgid ""
 "The system seems to have multipath hardware.\n"
 "Do you want to activate multipath?"
@@ -5824,12 +5832,40 @@ msgstr ""
 #. Error popup when the LUKS could not be activated
 #.
 #. @param attempt [Numeric] current attempt
-#: src/lib/y2storage/callbacks/activate.rb:93
+#: src/lib/y2storage/callbacks/activate.rb:112
 #, perl-brace-format
 msgid ""
 "The encrypted volume could not be activated (attempt number %{attempt}).\n"
 "\n"
 "Please, make sure you are entering the correct password."
+msgstr ""
+
+#. Human-readable description to use if the LVM tools report that the same PV is found more than
+#. once.
+#.
+#. @return [String]
+#: src/lib/y2storage/callbacks/activate.rb:148
+msgid "The same LVM physical volume was found in several devices.\n"
+msgstr ""
+
+#. The user already tried LIBSTORAGE_MULTIPATH_AUTOSTART (and is not
+#. using AutoYaST), there is nothing else we can advise.
+#: src/lib/y2storage/callbacks/activate.rb:153
+msgid ""
+"Maybe there are multipath devices in the system but multipath support was "
+"not enabled.\n"
+"\n"
+msgstr ""
+
+#: src/lib/y2storage/callbacks/activate.rb:159
+msgid "Use 'start_multipath' in the AutoYaST profile to enable multipath."
+msgstr ""
+
+#: src/lib/y2storage/callbacks/activate.rb:163
+msgid ""
+"If YaST didn't offer the opportunity to enable multipath in a previous step, "
+"try the 'LIBSTORAGE_MULTIPATH_AUTOSTART=ON' boot parameter.\n"
+"More information at https://en.opensuse.org/SDB:Linuxrc"
 msgstr ""
 
 #  popup text
@@ -5860,77 +5896,6 @@ msgid ""
 "You must quit that application before you can continue.\n"
 "\n"
 "Would you like to abort or try again?"
-msgstr ""
-
-#  Popup text
-#  %1 is either replaced by "logical volume" or by "partition"
-#. force the UTF-8 encoding to avoid Encoding::CompatibilityError exception (bsc#1096758)
-#: src/lib/y2storage/callbacks/libstorage_callback.rb:80
-#, fuzzy
-#| msgid "Continue resizing the %1?"
-msgid "Continue despite the error?"
-msgstr "להמשיך לשנות גודל של %1 ?"
-
-#. Human-readable description of the problem reported by libstorage-ng,
-#. hopefully with some hint on how to resolve it or continue.
-#.
-#. A generic message is returned if no concrete problem can be identified.
-#.
-#. @see #error
-#.
-#. @param what [String] details coming from libstorage-ng
-#. @return [String]
-#: src/lib/y2storage/callbacks/libstorage_callback.rb:124
-msgid "Unexpected situation found in the system."
-msgstr ""
-
-#. Human-readable description to use if the LVM tools report that the same
-#. PV is found more than once.
-#.
-#. @see #error_description
-#.
-#. @return [String]
-#: src/lib/y2storage/callbacks/libstorage_callback.rb:135
-msgid "The same LVM physical volume was found in several devices.\n"
-msgstr ""
-
-#. The user already tried LIBSTORAGE_MULTIPATH_AUTOSTART (and is not
-#. using AutoYaST), there is nothing else we can advise.
-#: src/lib/y2storage/callbacks/libstorage_callback.rb:140
-msgid ""
-"Maybe there are multipath devices in the system but multipath support\n"
-"was not enabled.\n"
-"\n"
-msgstr ""
-
-#: src/lib/y2storage/callbacks/libstorage_callback.rb:146
-msgid "Use 'start_multipath' in the AutoYaST profile to enable multipath."
-msgstr ""
-
-#: src/lib/y2storage/callbacks/libstorage_callback.rb:150
-msgid ""
-"If YaST didn't offer the opportunity to enable multipath in a previous "
-"step,\n"
-"try the 'LIBSTORAGE_MULTIPATH_AUTOSTART=ON' boot parameter.\n"
-"More information at https://en.opensuse.org/SDB:Linuxrc"
-msgstr ""
-
-#. Generate the full message for the error popup.
-#.
-#. @return [String] Full message.
-#: src/lib/y2storage/callbacks/libstorage_callback.rb:176
-#: src/lib/y2storage/dialogs/proposal.rb:320
-msgid "Click below to see more details (English only)."
-msgstr ""
-
-#. Callback to report probed devicegraph errors to the user.
-#.
-#. It offers the user the possibility to sanitize the devicegraph.
-#.
-#. @param errors [Array<String>] Errors detected in probed devicegraph.
-#. @return [Boolean] true if the user decides to sanitize the devicegraph.
-#: src/lib/y2storage/callbacks/sanitize.rb:50
-msgid "The following errors were detected in the system:"
 msgstr ""
 
 #. progress step title
@@ -6004,61 +5969,6 @@ msgstr "הקישו את סיסמת הספק"
 #, fuzzy
 msgid "Custom"
 msgstr "גודל &נתח ב KB"
-
-#. TRANSLATORS: %{name} is the name of an LVM Volume Group (e.g., /dev/vg1)
-#: src/lib/y2storage/devicegraph_sanitizer.rb:194
-#, perl-brace-format
-msgid ""
-"The volume group %{name} is incomplete because some physical volumes are "
-"missing.\n"
-"If you continue, the volume group will be deleted later as part of the "
-"installation\n"
-"process. Moreover, incomplete volume groups are ignored by the partitioning "
-"proposal\n"
-"and are not visible in the Expert Partitioner."
-msgstr ""
-
-#. TRANSLATORS: %{name} is the name of an LVM Volume Group (e.g., /dev/vg1)
-#: src/lib/y2storage/devicegraph_sanitizer.rb:203
-#, perl-brace-format
-msgid ""
-"The volume group %{name} is incomplete because some physical volumes are "
-"missing.\n"
-"Incomplete volume groups are not visible in the Partitioner and will be "
-"deleted at the\n"
-"final step, when all the changes are performed in the system."
-msgstr ""
-
-#. Error message for missing Bcache support on the current platform
-#.
-#. @return [String]
-#: src/lib/y2storage/devicegraph_sanitizer.rb:250
-msgid "Bcache detected, but bcache is not supported on this platform!"
-msgstr ""
-
-#: src/lib/y2storage/devicegraph_sanitizer.rb:252
-msgid ""
-"This may or may not work. Use at your own risk.\n"
-"The safe way is to remove this bcache manually\n"
-"with command line tools and then restart YaST."
-msgstr ""
-
-#  menu entry text
-#. Error message
-#.
-#. @return [String]
-#: src/lib/y2storage/devicegraph_sanitizer.rb:284
-#, fuzzy
-msgid "The root filesystem looks like not currently mounted!"
-msgstr "מחוק &רשימת המחיצות ואת תווית הכונן"
-
-#: src/lib/y2storage/devicegraph_sanitizer.rb:287
-msgid ""
-"\n"
-"\n"
-"If you have executed a snapshot rollback, please reboot your system before "
-"continuing."
-msgstr ""
 
 #. Constructor
 #.
@@ -6816,6 +6726,14 @@ msgid ""
 "installation may fail if you continue."
 msgstr ""
 
+#. Hint to use when there are details
+#.
+#. @return [String]
+#: src/lib/y2storage/dialogs/proposal.rb:320
+#: src/lib/y2storage/issues_reporter.rb:195
+msgid "Click below to see more details (English only)."
+msgstr ""
+
 #. Password is considered strong when cracklib returns an empty message.
 #: src/lib/y2storage/encrypt_password_checker.rb:84
 msgid "The password is too simple:"
@@ -6987,6 +6905,67 @@ msgstr ""
 msgid "%{type} %{mount_path}"
 msgstr ""
 
+#  menu entry text
+#. Builds the message
+#.
+#. @return [String]
+#: src/lib/y2storage/inactive_root_issue.rb:41
+#, fuzzy
+msgid "The root filesystem looks like not currently mounted."
+msgstr "מחוק &רשימת המחיצות ואת תווית הכונן"
+
+#. Builds the description
+#.
+#. @param filesystem [Filesystems::Base]
+#. @return [String, nil]
+#: src/lib/y2storage/inactive_root_issue.rb:51
+msgid ""
+"If you have executed a snapshot rollback, please reboot your system before "
+"continuing."
+msgstr ""
+
+#. Message to show when reporting probing issues
+#.
+#. @return [String]
+#: src/lib/y2storage/issues_manager.rb:69
+msgid "Issues found while analyzing the storage devices."
+msgstr ""
+
+#  Popup text
+#  %1 is either replaced by "logical volume" or by "partition"
+#. Overloads {Y2Issues::Reporter} in order to use other footer and buttons
+#.
+#. @see Y2Issues::Reporter
+#: src/lib/y2storage/issues_reporter.rb:81
+#, fuzzy
+#| msgid "Continue resizing the %1?"
+msgid "Continue despite the issue?"
+msgid_plural "Continue despite the issues?"
+msgstr[0] "להמשיך לשנות גודל של %1 ?"
+msgstr[1] "להמשיך לשנות גודל של %1 ?"
+
+#. Description for the issue
+#.
+#. @return [String]
+#: src/lib/y2storage/issues_reporter.rb:188
+msgid "Unexpected situation found in the system."
+msgstr ""
+
+#. Intro to use when no one is given
+#.
+#. @return [String]
+#: src/lib/y2storage/issues_reporter.rb:242
+msgid "Issues found."
+msgstr ""
+
+#. Hint to use when there are issues (the popup will contain a details button to show the details of
+#. the issues)
+#.
+#. @return [String]
+#: src/lib/y2storage/issues_reporter.rb:250
+msgid "Click below to see more details."
+msgstr ""
+
 #  label text, %1 is replaced by a unit value ("MB")
 #. TRANSLATORS: display name when the PV has no associated VG, where %{device} is replaced by a
 #. device name (e.g., "/dev/sda1").
@@ -7087,6 +7066,31 @@ msgstr ""
 
 #: src/lib/y2storage/md_parity.rb:56
 msgid "Three copies far"
+msgstr ""
+
+#  popup text
+#. TRANSLATORS: %{name} is the name of an LVM Volume Group (e.g., /dev/vg1)
+#: src/lib/y2storage/missing_lvm_pv_issue.rb:47
+#, fuzzy, perl-brace-format
+msgid ""
+"The volume group %{name} is incomplete because some physical volumes are "
+"missing."
+msgstr "האם באמת להסיר את הכרך הלוגי \"%1\"?"
+
+#. Builds the description of the issue
+#.
+#. @return [String]
+#: src/lib/y2storage/missing_lvm_pv_issue.rb:57
+msgid ""
+"If you continue, the volume group will be deleted later as part of the "
+"installation process. Moreover, incomplete volume groups are ignored by the "
+"partitioning proposal and are not visible in the Expert Partitioner."
+msgstr ""
+
+#: src/lib/y2storage/missing_lvm_pv_issue.rb:61
+msgid ""
+"Incomplete volume groups are not visible in the Partitioner and will be "
+"deleted at the final step, when all the changes are performed in the system."
 msgstr ""
 
 #. This message is not very informative, but the Package module does
@@ -7259,6 +7263,35 @@ msgstr "הקישו את סיסמת הספק"
 msgid "Unknown reason"
 msgstr "לא ידוע"
 
+#. Builds message of the issue
+#.
+#. @return [String]
+#: src/lib/y2storage/unsupported_bcache_issue.rb:38
+msgid "Bcache detected, but bcache is not supported on this platform."
+msgstr ""
+
+#. Builds description of the issue
+#.
+#. @return [String]
+#: src/lib/y2storage/unsupported_bcache_issue.rb:45
+msgid ""
+"This may or may not work. Use at your own risk. The safe way is to remove "
+"this bcache manually with command line tools and then restart YaST."
+msgstr ""
+
+#. @return [Yast::Term]
+#: src/lib/y2storage/widgets/issues.rb:85
+msgid "Issues"
+msgstr ""
+
+#. Information of the given issue
+#.
+#. @param issue [Issue]
+#. @return [String]
+#: src/lib/y2storage/widgets/issues.rb:124
+msgid "Technical details (English only):"
+msgstr ""
+
 #  heading text
 #, fuzzy
 #~| msgid "File system options:"
@@ -7286,11 +7319,6 @@ msgstr "לא ידוע"
 #~| msgid "&Add Volume"
 #~ msgid "BtrFS Subvolume"
 #~ msgstr "^הוסף כרך"
-
-#  popup text
-#, fuzzy
-#~ msgid "The volume group does not contain logical volumes."
-#~ msgstr "האם באמת להסיר את הכרך הלוגי \"%1\"?"
 
 #  popup text %1 is replaced by a disk name e.g. /dev/hda
 #, fuzzy

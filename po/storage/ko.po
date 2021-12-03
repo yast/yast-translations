@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: storage-ng.ko\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-25 02:29+0000\n"
+"POT-Creation-Date: 2021-12-03 02:30+0000\n"
 "PO-Revision-Date: 2019-03-21 11:20+0000\n"
 "Last-Translator: Hwajin Kim <hwajin.kim@e4net.net>\n"
 "Language-Team: Korean <https://l10n.opensuse.org/projects/yast-storage/"
@@ -2099,6 +2099,11 @@ msgstr "확장 파티션(&E)"
 msgid "&Logical Partition"
 msgstr "논리적 파티션(&L)"
 
+#. Dialog to show the probing issues detected in the system
+#: src/lib/y2partitioner/dialogs/probing_issues.rb:34
+msgid "Issues Detected in the System"
+msgstr ""
+
 #. @macro seeAbstractWidget
 #: src/lib/y2partitioner/dialogs/settings.rb:37
 msgid "Settings"
@@ -3858,7 +3863,6 @@ msgstr ""
 #. FIXME: improve Yast2::Popup to allow some text before the buttons
 #: src/lib/y2partitioner/widgets/fstab_selector.rb:70
 #: src/lib/y2partitioner/widgets/overview.rb:210
-#: src/lib/y2storage/callbacks/sanitize.rb:52
 msgid "Do you want to continue?"
 msgstr "계속하시겠습니까?"
 
@@ -4673,34 +4677,38 @@ msgid "&Finish (Save and Exit)"
 msgstr ""
 
 #. TRANSLATORS: Partitioner menu with some special dialogs
-#: src/lib/y2partitioner/widgets/menus/view.rb:41
+#: src/lib/y2partitioner/widgets/menus/view.rb:43
 msgid "&View"
 msgstr ""
 
 #. @see Base
-#: src/lib/y2partitioner/widgets/menus/view.rb:50
+#: src/lib/y2partitioner/widgets/menus/view.rb:52
 #, fuzzy
 #| msgid "Device Graphs"
 msgid "Device &Graphs..."
 msgstr "장치 그래프"
 
-#: src/lib/y2partitioner/widgets/menus/view.rb:56
+#: src/lib/y2partitioner/widgets/menus/view.rb:58
 #, fuzzy
 #| msgid "Installation Summary"
 msgid "Installation &Summary..."
 msgstr "설치 요약"
 
-#: src/lib/y2partitioner/widgets/menus/view.rb:57
+#: src/lib/y2partitioner/widgets/menus/view.rb:59
 #, fuzzy
 #| msgid "Settings"
 msgid "Se&ttings..."
 msgstr "설정"
 
-#: src/lib/y2partitioner/widgets/menus/view.rb:58
+#: src/lib/y2partitioner/widgets/menus/view.rb:60
 #, fuzzy
 #| msgid "Change Caching..."
 msgid "&Bcache Caching Sets..."
 msgstr "캐싱 변경..."
+
+#: src/lib/y2partitioner/widgets/menus/view.rb:61
+msgid "&System Issues..."
+msgstr ""
 
 #. help text, richtext format
 #: src/lib/y2partitioner/widgets/mkfs_optiondata.rb:56
@@ -5649,7 +5657,7 @@ msgstr "없음"
 #. @param looks_like_real_multipath [Boolean] true if the system seems to
 #. contain a Multipath
 #. @return [Boolean]
-#: src/lib/y2storage/callbacks/activate.rb:56
+#: src/lib/y2storage/callbacks/activate.rb:75
 msgid ""
 "The system seems to have multipath hardware.\n"
 "Do you want to activate multipath?"
@@ -5660,13 +5668,60 @@ msgstr ""
 #. Error popup when the LUKS could not be activated
 #.
 #. @param attempt [Numeric] current attempt
-#: src/lib/y2storage/callbacks/activate.rb:93
+#: src/lib/y2storage/callbacks/activate.rb:112
 #, perl-brace-format
 msgid ""
 "The encrypted volume could not be activated (attempt number %{attempt}).\n"
 "\n"
 "Please, make sure you are entering the correct password."
 msgstr ""
+
+#. Human-readable description to use if the LVM tools report that the same PV is found more than
+#. once.
+#.
+#. @return [String]
+#: src/lib/y2storage/callbacks/activate.rb:148
+msgid "The same LVM physical volume was found in several devices.\n"
+msgstr "여러 장치에서 동일한 LVM 물리적 볼륨이 발견되었습니다.\n"
+
+#. The user already tried LIBSTORAGE_MULTIPATH_AUTOSTART (and is not
+#. using AutoYaST), there is nothing else we can advise.
+#: src/lib/y2storage/callbacks/activate.rb:153
+#, fuzzy
+#| msgid ""
+#| "Maybe there are multipath devices in the system but multipath support\n"
+#| "was not enabled.\n"
+#| "\n"
+msgid ""
+"Maybe there are multipath devices in the system but multipath support was "
+"not enabled.\n"
+"\n"
+msgstr ""
+"시스템에 다중 경로 장치가 있을 수 있지만 다중 경로 지원이\n"
+"활성화되지 않았습니다.\n"
+"\n"
+
+#: src/lib/y2storage/callbacks/activate.rb:159
+msgid "Use 'start_multipath' in the AutoYaST profile to enable multipath."
+msgstr ""
+"AutoYaST 프로파일에서 'start_multipath'를 사용하여 다중 경로를 활성화하십시"
+"오."
+
+#: src/lib/y2storage/callbacks/activate.rb:163
+#, fuzzy
+#| msgid ""
+#| "If YaST didn't offer the opportunity to enable multipath in a previous "
+#| "step,\n"
+#| "try the 'LIBSTORAGE_MULTIPATH_AUTOSTART=ON' boot parameter.\n"
+#| "More information at https://en.opensuse.org/SDB:Linuxrc"
+msgid ""
+"If YaST didn't offer the opportunity to enable multipath in a previous step, "
+"try the 'LIBSTORAGE_MULTIPATH_AUTOSTART=ON' boot parameter.\n"
+"More information at https://en.opensuse.org/SDB:Linuxrc"
+msgstr ""
+"YaST가 이전 단계에서 다중 경로를 활성화할 기회를 제공하지 않은 경우,\n"
+"'LIBSTORAGE_MULTIPATH_AUTOSTART=ON' 부트 매개변수를 시도하십시오.\n"
+"자세한 내용은 https://en.opensuse.org/SDB:Linuxrc를 참조하십시오."
 
 #. Callback to ask the user whether to retry or abort when the storage lock
 #. cannot be acquired.
@@ -5702,81 +5757,6 @@ msgstr ""
 "계속하기 전에 응용프로그램을 종료해야 합니다. \n"
 "\n"
 "중단하거나 다시 시도하시겠습니까?"
-
-#. force the UTF-8 encoding to avoid Encoding::CompatibilityError exception (bsc#1096758)
-#: src/lib/y2storage/callbacks/libstorage_callback.rb:80
-msgid "Continue despite the error?"
-msgstr "오류를 무시하고 계속하시겠습니까?"
-
-#. Human-readable description of the problem reported by libstorage-ng,
-#. hopefully with some hint on how to resolve it or continue.
-#.
-#. A generic message is returned if no concrete problem can be identified.
-#.
-#. @see #error
-#.
-#. @param what [String] details coming from libstorage-ng
-#. @return [String]
-#: src/lib/y2storage/callbacks/libstorage_callback.rb:124
-msgid "Unexpected situation found in the system."
-msgstr "예기치 못한 상황이 시스템에서 발견되었습니다."
-
-#. Human-readable description to use if the LVM tools report that the same
-#. PV is found more than once.
-#.
-#. @see #error_description
-#.
-#. @return [String]
-#: src/lib/y2storage/callbacks/libstorage_callback.rb:135
-msgid "The same LVM physical volume was found in several devices.\n"
-msgstr "여러 장치에서 동일한 LVM 물리적 볼륨이 발견되었습니다.\n"
-
-#. The user already tried LIBSTORAGE_MULTIPATH_AUTOSTART (and is not
-#. using AutoYaST), there is nothing else we can advise.
-#: src/lib/y2storage/callbacks/libstorage_callback.rb:140
-msgid ""
-"Maybe there are multipath devices in the system but multipath support\n"
-"was not enabled.\n"
-"\n"
-msgstr ""
-"시스템에 다중 경로 장치가 있을 수 있지만 다중 경로 지원이\n"
-"활성화되지 않았습니다.\n"
-"\n"
-
-#: src/lib/y2storage/callbacks/libstorage_callback.rb:146
-msgid "Use 'start_multipath' in the AutoYaST profile to enable multipath."
-msgstr ""
-"AutoYaST 프로파일에서 'start_multipath'를 사용하여 다중 경로를 활성화하십시"
-"오."
-
-#: src/lib/y2storage/callbacks/libstorage_callback.rb:150
-msgid ""
-"If YaST didn't offer the opportunity to enable multipath in a previous "
-"step,\n"
-"try the 'LIBSTORAGE_MULTIPATH_AUTOSTART=ON' boot parameter.\n"
-"More information at https://en.opensuse.org/SDB:Linuxrc"
-msgstr ""
-"YaST가 이전 단계에서 다중 경로를 활성화할 기회를 제공하지 않은 경우,\n"
-"'LIBSTORAGE_MULTIPATH_AUTOSTART=ON' 부트 매개변수를 시도하십시오.\n"
-"자세한 내용은 https://en.opensuse.org/SDB:Linuxrc를 참조하십시오."
-
-#. Generate the full message for the error popup.
-#.
-#. @return [String] Full message.
-#: src/lib/y2storage/callbacks/libstorage_callback.rb:176
-#: src/lib/y2storage/dialogs/proposal.rb:320
-msgid "Click below to see more details (English only)."
-msgstr "자세한 내용을 보려면 아래를 클릭하십시오(영어만)."
-
-#. Callback to report probed devicegraph errors to the user.
-#.
-#. It offers the user the possibility to sanitize the devicegraph.
-#.
-#. @param errors [Array<String>] Errors detected in probed devicegraph.
-#. @return [Boolean] true if the user decides to sanitize the devicegraph.
-#: src/lib/y2storage/callbacks/sanitize.rb:50
-msgid "The following errors were detected in the system:"
-msgstr "시스템에서 다음과 같은 오류가 감지됨:"
 
 # Translators: dialog caption
 #. progress step title
@@ -5849,72 +5829,6 @@ msgstr "현재 설정으로 가능한 제안 없음"
 #: src/lib/y2storage/clients/partitions_proposal.rb:160
 msgid "Custom"
 msgstr "사용자 정의"
-
-#. TRANSLATORS: %{name} is the name of an LVM Volume Group (e.g., /dev/vg1)
-#: src/lib/y2storage/devicegraph_sanitizer.rb:194
-#, perl-brace-format
-msgid ""
-"The volume group %{name} is incomplete because some physical volumes are "
-"missing.\n"
-"If you continue, the volume group will be deleted later as part of the "
-"installation\n"
-"process. Moreover, incomplete volume groups are ignored by the partitioning "
-"proposal\n"
-"and are not visible in the Expert Partitioner."
-msgstr ""
-"일부 물리적 볼륨이 누락되었기 때문에 %{name} 볼륨 그룹이 불완전합니다.\n"
-"계속 진행하면 볼륨 그룹은 설치 프로세스의 일부로 이후에 삭제됩니다.\n"
-"또한, 불완전한 볼륨 그룹은 파티셔닝 제안에 의해 무시되며 고급 파티션 도구에"
-"서 표시되지 않습니다."
-
-#. TRANSLATORS: %{name} is the name of an LVM Volume Group (e.g., /dev/vg1)
-#: src/lib/y2storage/devicegraph_sanitizer.rb:203
-#, perl-brace-format
-msgid ""
-"The volume group %{name} is incomplete because some physical volumes are "
-"missing.\n"
-"Incomplete volume groups are not visible in the Partitioner and will be "
-"deleted at the\n"
-"final step, when all the changes are performed in the system."
-msgstr ""
-"일부 물리적 볼륨이 누락되었기 때문에 %{name} 볼륨 그룹이 불완전합니다.\n"
-"불완전한 볼륨 그룹은 파티션 도구에서 표시되지 않으며 이 시스템에서 모든 변경"
-"사항이 적용되는 마지막 단계에서 삭제됩니다."
-
-#. Error message for missing Bcache support on the current platform
-#.
-#. @return [String]
-#: src/lib/y2storage/devicegraph_sanitizer.rb:250
-msgid "Bcache detected, but bcache is not supported on this platform!"
-msgstr "Bcache가 감지되었지만, bcache가 이 플랫폼에서 지원되지 않습니다!"
-
-#: src/lib/y2storage/devicegraph_sanitizer.rb:252
-msgid ""
-"This may or may not work. Use at your own risk.\n"
-"The safe way is to remove this bcache manually\n"
-"with command line tools and then restart YaST."
-msgstr ""
-"작동할 수도 있고 작동하지 않을 수도 있습니다. 그에 따른 위험은 사용자가 부담"
-"합니다.\n"
-"안전한 방법은 명령줄 도구를 사용하여 수동으로 이 bcache를\n"
-"제거한 다음 YaST를 다시 시작하는 것입니다."
-
-#. Error message
-#.
-#. @return [String]
-#: src/lib/y2storage/devicegraph_sanitizer.rb:284
-#, fuzzy
-#| msgid "The file system is currently mounted on %1."
-msgid "The root filesystem looks like not currently mounted!"
-msgstr "현재 %1에 파일 시스템이 마운트되어 있습니다."
-
-#: src/lib/y2storage/devicegraph_sanitizer.rb:287
-msgid ""
-"\n"
-"\n"
-"If you have executed a snapshot rollback, please reboot your system before "
-"continuing."
-msgstr ""
 
 #. Constructor
 #.
@@ -6653,6 +6567,14 @@ msgstr ""
 "표시된 정보가 정확하지 않을 수 있으며\n"
 "계속할 경우 설치에 실패할 수 있습니다."
 
+#. Hint to use when there are details
+#.
+#. @return [String]
+#: src/lib/y2storage/dialogs/proposal.rb:320
+#: src/lib/y2storage/issues_reporter.rb:195
+msgid "Click below to see more details (English only)."
+msgstr "자세한 내용을 보려면 아래를 클릭하십시오(영어만)."
+
 #. Password is considered strong when cracklib returns an empty message.
 #: src/lib/y2storage/encrypt_password_checker.rb:84
 msgid "The password is too simple:"
@@ -6820,6 +6742,66 @@ msgstr ""
 msgid "%{type} %{mount_path}"
 msgstr ""
 
+#. Builds the message
+#.
+#. @return [String]
+#: src/lib/y2storage/inactive_root_issue.rb:41
+#, fuzzy
+#| msgid "The file system is currently mounted on %1."
+msgid "The root filesystem looks like not currently mounted."
+msgstr "현재 %1에 파일 시스템이 마운트되어 있습니다."
+
+#. Builds the description
+#.
+#. @param filesystem [Filesystems::Base]
+#. @return [String, nil]
+#: src/lib/y2storage/inactive_root_issue.rb:51
+msgid ""
+"If you have executed a snapshot rollback, please reboot your system before "
+"continuing."
+msgstr ""
+
+#. Message to show when reporting probing issues
+#.
+#. @return [String]
+#: src/lib/y2storage/issues_manager.rb:69
+msgid "Issues found while analyzing the storage devices."
+msgstr ""
+
+#. Overloads {Y2Issues::Reporter} in order to use other footer and buttons
+#.
+#. @see Y2Issues::Reporter
+#: src/lib/y2storage/issues_reporter.rb:81
+#, fuzzy
+#| msgid "Continue despite the error?"
+msgid "Continue despite the issue?"
+msgid_plural "Continue despite the issues?"
+msgstr[0] "오류를 무시하고 계속하시겠습니까?"
+
+#. Description for the issue
+#.
+#. @return [String]
+#: src/lib/y2storage/issues_reporter.rb:188
+msgid "Unexpected situation found in the system."
+msgstr "예기치 못한 상황이 시스템에서 발견되었습니다."
+
+#. Intro to use when no one is given
+#.
+#. @return [String]
+#: src/lib/y2storage/issues_reporter.rb:242
+msgid "Issues found."
+msgstr ""
+
+#. Hint to use when there are issues (the popup will contain a details button to show the details of
+#. the issues)
+#.
+#. @return [String]
+#: src/lib/y2storage/issues_reporter.rb:250
+#, fuzzy
+#| msgid "Click below to see more details (English only)."
+msgid "Click below to see more details."
+msgstr "자세한 내용을 보려면 아래를 클릭하십시오(영어만)."
+
 #. TRANSLATORS: display name when the PV has no associated VG, where %{device} is replaced by a
 #. device name (e.g., "/dev/sda1").
 #: src/lib/y2storage/lvm_pv.rb:84
@@ -6908,6 +6890,54 @@ msgstr "2개 복사본 원거리"
 #: src/lib/y2storage/md_parity.rb:56
 msgid "Three copies far"
 msgstr "3개 복사본 원거리"
+
+#. TRANSLATORS: %{name} is the name of an LVM Volume Group (e.g., /dev/vg1)
+#: src/lib/y2storage/missing_lvm_pv_issue.rb:47
+#, fuzzy, perl-brace-format
+#| msgid "The volume group does not contain logical volumes."
+msgid ""
+"The volume group %{name} is incomplete because some physical volumes are "
+"missing."
+msgstr "볼륨 그룹에 논리 볼륨이 없습니다."
+
+#. Builds the description of the issue
+#.
+#. @return [String]
+#: src/lib/y2storage/missing_lvm_pv_issue.rb:57
+#, fuzzy
+#| msgid ""
+#| "The volume group %{name} is incomplete because some physical volumes are "
+#| "missing.\n"
+#| "If you continue, the volume group will be deleted later as part of the "
+#| "installation\n"
+#| "process. Moreover, incomplete volume groups are ignored by the "
+#| "partitioning proposal\n"
+#| "and are not visible in the Expert Partitioner."
+msgid ""
+"If you continue, the volume group will be deleted later as part of the "
+"installation process. Moreover, incomplete volume groups are ignored by the "
+"partitioning proposal and are not visible in the Expert Partitioner."
+msgstr ""
+"일부 물리적 볼륨이 누락되었기 때문에 %{name} 볼륨 그룹이 불완전합니다.\n"
+"계속 진행하면 볼륨 그룹은 설치 프로세스의 일부로 이후에 삭제됩니다.\n"
+"또한, 불완전한 볼륨 그룹은 파티셔닝 제안에 의해 무시되며 고급 파티션 도구에"
+"서 표시되지 않습니다."
+
+#: src/lib/y2storage/missing_lvm_pv_issue.rb:61
+#, fuzzy
+#| msgid ""
+#| "The volume group %{name} is incomplete because some physical volumes are "
+#| "missing.\n"
+#| "Incomplete volume groups are not visible in the Partitioner and will be "
+#| "deleted at the\n"
+#| "final step, when all the changes are performed in the system."
+msgid ""
+"Incomplete volume groups are not visible in the Partitioner and will be "
+"deleted at the final step, when all the changes are performed in the system."
+msgstr ""
+"일부 물리적 볼륨이 누락되었기 때문에 %{name} 볼륨 그룹이 불완전합니다.\n"
+"불완전한 볼륨 그룹은 파티션 도구에서 표시되지 않으며 이 시스템에서 모든 변경"
+"사항이 적용되는 마지막 단계에서 삭제됩니다."
 
 # error popup
 #. This message is not very informative, but the Package module does
@@ -7056,6 +7086,51 @@ msgstr "암호화 비밀번호 입력"
 msgid "Unknown reason"
 msgstr "알 수 없는 이유"
 
+#. Builds message of the issue
+#.
+#. @return [String]
+#: src/lib/y2storage/unsupported_bcache_issue.rb:38
+#, fuzzy
+#| msgid "Bcache detected, but bcache is not supported on this platform!"
+msgid "Bcache detected, but bcache is not supported on this platform."
+msgstr "Bcache가 감지되었지만, bcache가 이 플랫폼에서 지원되지 않습니다!"
+
+#. Builds description of the issue
+#.
+#. @return [String]
+#: src/lib/y2storage/unsupported_bcache_issue.rb:45
+#, fuzzy
+#| msgid ""
+#| "This may or may not work. Use at your own risk.\n"
+#| "The safe way is to remove this bcache manually\n"
+#| "with command line tools and then restart YaST."
+msgid ""
+"This may or may not work. Use at your own risk. The safe way is to remove "
+"this bcache manually with command line tools and then restart YaST."
+msgstr ""
+"작동할 수도 있고 작동하지 않을 수도 있습니다. 그에 따른 위험은 사용자가 부담"
+"합니다.\n"
+"안전한 방법은 명령줄 도구를 사용하여 수동으로 이 bcache를\n"
+"제거한 다음 YaST를 다시 시작하는 것입니다."
+
+#. @return [Yast::Term]
+#: src/lib/y2storage/widgets/issues.rb:85
+msgid "Issues"
+msgstr ""
+
+#. Information of the given issue
+#.
+#. @param issue [Issue]
+#. @return [String]
+#: src/lib/y2storage/widgets/issues.rb:124
+#, fuzzy
+#| msgid "Click below to see more details (English only)."
+msgid "Technical details (English only):"
+msgstr "자세한 내용을 보려면 아래를 클릭하십시오(영어만)."
+
+#~ msgid "The following errors were detected in the system:"
+#~ msgstr "시스템에서 다음과 같은 오류가 감지됨:"
+
 #~ msgid "File System for Root Partition"
 #~ msgstr "루트 파티션에 대한 파일 시스템"
 
@@ -7076,9 +7151,6 @@ msgstr "알 수 없는 이유"
 #~| msgid "New Subvolume"
 #~ msgid "BtrFS Subvolume"
 #~ msgstr "새 하위 볼륨"
-
-#~ msgid "The volume group does not contain logical volumes."
-#~ msgstr "볼륨 그룹에 논리 볼륨이 없습니다."
 
 #~ msgid "Really delete all these devices?"
 #~ msgstr "이 장치를 모두 삭제하시겠습니까?"

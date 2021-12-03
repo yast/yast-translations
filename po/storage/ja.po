@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: storage\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-25 02:29+0000\n"
+"POT-Creation-Date: 2021-12-03 02:30+0000\n"
 "PO-Revision-Date: 2021-11-29 10:12+0000\n"
 "Last-Translator: Yasuhiko Kamata <belphegor@belbel.or.jp>\n"
 "Language-Team: Japanese <https://l10n.opensuse.org/projects/yast-storage/"
@@ -2069,6 +2069,11 @@ msgstr "拡張パーティション (&E)"
 msgid "&Logical Partition"
 msgstr "論理パーティション (&L)"
 
+#. Dialog to show the probing issues detected in the system
+#: src/lib/y2partitioner/dialogs/probing_issues.rb:34
+msgid "Issues Detected in the System"
+msgstr ""
+
 #. @macro seeAbstractWidget
 #: src/lib/y2partitioner/dialogs/settings.rb:37
 msgid "Settings"
@@ -3833,7 +3838,6 @@ msgstr ""
 #. FIXME: improve Yast2::Popup to allow some text before the buttons
 #: src/lib/y2partitioner/widgets/fstab_selector.rb:70
 #: src/lib/y2partitioner/widgets/overview.rb:210
-#: src/lib/y2storage/callbacks/sanitize.rb:52
 msgid "Do you want to continue?"
 msgstr "続行しますか？"
 
@@ -4634,26 +4638,30 @@ msgid "&Finish (Save and Exit)"
 msgstr "完了 (保存して終了) (&F)"
 
 #. TRANSLATORS: Partitioner menu with some special dialogs
-#: src/lib/y2partitioner/widgets/menus/view.rb:41
+#: src/lib/y2partitioner/widgets/menus/view.rb:43
 msgid "&View"
 msgstr "表示 (&V)"
 
 #. @see Base
-#: src/lib/y2partitioner/widgets/menus/view.rb:50
+#: src/lib/y2partitioner/widgets/menus/view.rb:52
 msgid "Device &Graphs..."
 msgstr "デバイスグラフ (&G)..."
 
-#: src/lib/y2partitioner/widgets/menus/view.rb:56
+#: src/lib/y2partitioner/widgets/menus/view.rb:58
 msgid "Installation &Summary..."
 msgstr "インストールの概要 (&S)..."
 
-#: src/lib/y2partitioner/widgets/menus/view.rb:57
+#: src/lib/y2partitioner/widgets/menus/view.rb:59
 msgid "Se&ttings..."
 msgstr "設定 (&T)..."
 
-#: src/lib/y2partitioner/widgets/menus/view.rb:58
+#: src/lib/y2partitioner/widgets/menus/view.rb:60
 msgid "&Bcache Caching Sets..."
 msgstr "bcache キャッシュセット (&B)..."
+
+#: src/lib/y2partitioner/widgets/menus/view.rb:61
+msgid "&System Issues..."
+msgstr ""
 
 #. help text, richtext format
 #: src/lib/y2partitioner/widgets/mkfs_optiondata.rb:56
@@ -5617,7 +5625,7 @@ msgstr "なし"
 #. @param looks_like_real_multipath [Boolean] true if the system seems to
 #. contain a Multipath
 #. @return [Boolean]
-#: src/lib/y2storage/callbacks/activate.rb:56
+#: src/lib/y2storage/callbacks/activate.rb:75
 msgid ""
 "The system seems to have multipath hardware.\n"
 "Do you want to activate multipath?"
@@ -5628,7 +5636,7 @@ msgstr ""
 #. Error popup when the LUKS could not be activated
 #.
 #. @param attempt [Numeric] current attempt
-#: src/lib/y2storage/callbacks/activate.rb:93
+#: src/lib/y2storage/callbacks/activate.rb:112
 #, perl-brace-format
 msgid ""
 "The encrypted volume could not be activated (attempt number %{attempt}).\n"
@@ -5638,6 +5646,55 @@ msgstr ""
 "暗号化されたボリュームを有効化できませんでした (試行回数: %{attempt}) 。\n"
 "\n"
 "正しいパスワードを入力しているかどうかご確認ください。"
+
+#. Human-readable description to use if the LVM tools report that the same PV is found more than
+#. once.
+#.
+#. @return [String]
+#: src/lib/y2storage/callbacks/activate.rb:148
+msgid "The same LVM physical volume was found in several devices.\n"
+msgstr "複数のデバイスで同じ LVM 物理ボリュームが検出されました。\n"
+
+#. The user already tried LIBSTORAGE_MULTIPATH_AUTOSTART (and is not
+#. using AutoYaST), there is nothing else we can advise.
+#: src/lib/y2storage/callbacks/activate.rb:153
+#, fuzzy
+#| msgid ""
+#| "Maybe there are multipath devices in the system but multipath support\n"
+#| "was not enabled.\n"
+#| "\n"
+msgid ""
+"Maybe there are multipath devices in the system but multipath support was "
+"not enabled.\n"
+"\n"
+msgstr ""
+"システムにはマルチパスデバイスが存在しているものと思われますが、マルチパス"
+"の\n"
+"サポートが有効化されていません。\n"
+"\n"
+
+#: src/lib/y2storage/callbacks/activate.rb:159
+msgid "Use 'start_multipath' in the AutoYaST profile to enable multipath."
+msgstr ""
+"AutoYaST プロファイル内に 'start_multipath' を追加することで、マルチパスを有"
+"効化できます。"
+
+#: src/lib/y2storage/callbacks/activate.rb:163
+#, fuzzy
+#| msgid ""
+#| "If YaST didn't offer the opportunity to enable multipath in a previous "
+#| "step,\n"
+#| "try the 'LIBSTORAGE_MULTIPATH_AUTOSTART=ON' boot parameter.\n"
+#| "More information at https://en.opensuse.org/SDB:Linuxrc"
+msgid ""
+"If YaST didn't offer the opportunity to enable multipath in a previous step, "
+"try the 'LIBSTORAGE_MULTIPATH_AUTOSTART=ON' boot parameter.\n"
+"More information at https://en.opensuse.org/SDB:Linuxrc"
+msgstr ""
+"ここまでの手順で、 YaST がマルチパスを有効化するよう促していない場合は、\n"
+"起動時のパラメータに 'LIBSTORAGE_MULTIPATH_AUTOSTART=ON' を追加してくださ"
+"い。\n"
+"詳しくは https://ja.opensuse.org/SDB:Linuxrc をお読みください。"
 
 #. Callback to ask the user whether to retry or abort when the storage lock
 #. cannot be acquired.
@@ -5675,83 +5732,6 @@ msgstr ""
 "続行するには該当のアプリケーションを終了する必要があります。\n"
 "\n"
 "設定を中止しますか？それとも、再試行しますか？"
-
-#. force the UTF-8 encoding to avoid Encoding::CompatibilityError exception (bsc#1096758)
-#: src/lib/y2storage/callbacks/libstorage_callback.rb:80
-msgid "Continue despite the error?"
-msgstr "エラーを無視して続行しますか？"
-
-#. Human-readable description of the problem reported by libstorage-ng,
-#. hopefully with some hint on how to resolve it or continue.
-#.
-#. A generic message is returned if no concrete problem can be identified.
-#.
-#. @see #error
-#.
-#. @param what [String] details coming from libstorage-ng
-#. @return [String]
-#: src/lib/y2storage/callbacks/libstorage_callback.rb:124
-msgid "Unexpected situation found in the system."
-msgstr "システム内で予期しない状況が発生しました。"
-
-#. Human-readable description to use if the LVM tools report that the same
-#. PV is found more than once.
-#.
-#. @see #error_description
-#.
-#. @return [String]
-#: src/lib/y2storage/callbacks/libstorage_callback.rb:135
-msgid "The same LVM physical volume was found in several devices.\n"
-msgstr "複数のデバイスで同じ LVM 物理ボリュームが検出されました。\n"
-
-#. The user already tried LIBSTORAGE_MULTIPATH_AUTOSTART (and is not
-#. using AutoYaST), there is nothing else we can advise.
-#: src/lib/y2storage/callbacks/libstorage_callback.rb:140
-msgid ""
-"Maybe there are multipath devices in the system but multipath support\n"
-"was not enabled.\n"
-"\n"
-msgstr ""
-"システムにはマルチパスデバイスが存在しているものと思われますが、マルチパス"
-"の\n"
-"サポートが有効化されていません。\n"
-"\n"
-
-#: src/lib/y2storage/callbacks/libstorage_callback.rb:146
-msgid "Use 'start_multipath' in the AutoYaST profile to enable multipath."
-msgstr ""
-"AutoYaST プロファイル内に 'start_multipath' を追加することで、マルチパスを有"
-"効化できます。"
-
-#: src/lib/y2storage/callbacks/libstorage_callback.rb:150
-msgid ""
-"If YaST didn't offer the opportunity to enable multipath in a previous "
-"step,\n"
-"try the 'LIBSTORAGE_MULTIPATH_AUTOSTART=ON' boot parameter.\n"
-"More information at https://en.opensuse.org/SDB:Linuxrc"
-msgstr ""
-"ここまでの手順で、 YaST がマルチパスを有効化するよう促していない場合は、\n"
-"起動時のパラメータに 'LIBSTORAGE_MULTIPATH_AUTOSTART=ON' を追加してくださ"
-"い。\n"
-"詳しくは https://ja.opensuse.org/SDB:Linuxrc をお読みください。"
-
-#. Generate the full message for the error popup.
-#.
-#. @return [String] Full message.
-#: src/lib/y2storage/callbacks/libstorage_callback.rb:176
-#: src/lib/y2storage/dialogs/proposal.rb:320
-msgid "Click below to see more details (English only)."
-msgstr "下記を押すと詳細を表示することができます (英語のみ) 。"
-
-#. Callback to report probed devicegraph errors to the user.
-#.
-#. It offers the user the possibility to sanitize the devicegraph.
-#.
-#. @param errors [Array<String>] Errors detected in probed devicegraph.
-#. @return [Boolean] true if the user decides to sanitize the devicegraph.
-#: src/lib/y2storage/callbacks/sanitize.rb:50
-msgid "The following errors were detected in the system:"
-msgstr "システム内で下記のエラーが検出されました:"
 
 #. progress step title
 #: src/lib/y2storage/clients/finish.rb:40
@@ -5821,81 +5801,6 @@ msgstr "現在の設定では提案できる項目がありません"
 #: src/lib/y2storage/clients/partitions_proposal.rb:160
 msgid "Custom"
 msgstr "カスタム"
-
-#. TRANSLATORS: %{name} is the name of an LVM Volume Group (e.g., /dev/vg1)
-#: src/lib/y2storage/devicegraph_sanitizer.rb:194
-#, perl-brace-format
-msgid ""
-"The volume group %{name} is incomplete because some physical volumes are "
-"missing.\n"
-"If you continue, the volume group will be deleted later as part of the "
-"installation\n"
-"process. Moreover, incomplete volume groups are ignored by the partitioning "
-"proposal\n"
-"and are not visible in the Expert Partitioner."
-msgstr ""
-"ボリュームグループ %{name} は、いくつかの物理ボリュームが検出されないため、不"
-"完全な状態になっています。\n"
-"このまま続行すると、ボリュームグループは後ほど、インストール処理の一部で削除"
-"されます。\n"
-"また、不完全なボリュームグループはパーティション設定の提案で無視されるほ"
-"か、\n"
-"熟練者向けパーティション設定でも表示されなくなります。"
-
-#. TRANSLATORS: %{name} is the name of an LVM Volume Group (e.g., /dev/vg1)
-#: src/lib/y2storage/devicegraph_sanitizer.rb:203
-#, perl-brace-format
-msgid ""
-"The volume group %{name} is incomplete because some physical volumes are "
-"missing.\n"
-"Incomplete volume groups are not visible in the Partitioner and will be "
-"deleted at the\n"
-"final step, when all the changes are performed in the system."
-msgstr ""
-"ボリュームグループ %{name} は、いくつかの物理ボリュームが検出されないため、不"
-"完全な状態になっています。\n"
-"不完全なボリュームグループはパーティション設定の提案で表示されなくなるほ"
-"か、\n"
-"システムに対して全ての作業が完了した時点で、最終的に削除されます。"
-
-#. Error message for missing Bcache support on the current platform
-#.
-#. @return [String]
-#: src/lib/y2storage/devicegraph_sanitizer.rb:250
-msgid "Bcache detected, but bcache is not supported on this platform!"
-msgstr ""
-"Bcache を検出しましたが、このプラットフォームでは Bcache をサポートしていませ"
-"ん！"
-
-#: src/lib/y2storage/devicegraph_sanitizer.rb:252
-msgid ""
-"This may or may not work. Use at your own risk.\n"
-"The safe way is to remove this bcache manually\n"
-"with command line tools and then restart YaST."
-msgstr ""
-"この設定のまま動くこともありますが、ご自身のリスク管理のもとお使いくださ"
-"い。\n"
-"安全に使用を続けるには、コマンドラインツールを利用して\n"
-"Bcache を手作業で削除し、その後 YaST を起動しなおしてください。"
-
-#. Error message
-#.
-#. @return [String]
-#: src/lib/y2storage/devicegraph_sanitizer.rb:284
-msgid "The root filesystem looks like not currently mounted!"
-msgstr "現在ルートファイルシステムがマウントされていないものと思われます！"
-
-#: src/lib/y2storage/devicegraph_sanitizer.rb:287
-msgid ""
-"\n"
-"\n"
-"If you have executed a snapshot rollback, please reboot your system before "
-"continuing."
-msgstr ""
-"\n"
-"\n"
-"スナップショットのロールバックを実行していた場合は、続行する前にシステムの再"
-"起動を行ってください。"
 
 #. Constructor
 #.
@@ -6561,6 +6466,14 @@ msgstr ""
 "表示される情報は必ずしも正確なものではありませんので、\n"
 "続行してインストールを行っても、正常に終了しないかもしれません。"
 
+#. Hint to use when there are details
+#.
+#. @return [String]
+#: src/lib/y2storage/dialogs/proposal.rb:320
+#: src/lib/y2storage/issues_reporter.rb:195
+msgid "Click below to see more details (English only)."
+msgstr "下記を押すと詳細を表示することができます (英語のみ) 。"
+
 #. Password is considered strong when cracklib returns an empty message.
 #: src/lib/y2storage/encrypt_password_checker.rb:84
 msgid "The password is too simple:"
@@ -6717,6 +6630,76 @@ msgstr "%{fs_type} %{device_name}"
 msgid "%{type} %{mount_path}"
 msgstr "%{type} %{mount_path}"
 
+#. Builds the message
+#.
+#. @return [String]
+#: src/lib/y2storage/inactive_root_issue.rb:41
+#, fuzzy
+#| msgid "The root filesystem looks like not currently mounted!"
+msgid "The root filesystem looks like not currently mounted."
+msgstr "現在ルートファイルシステムがマウントされていないものと思われます！"
+
+#. Builds the description
+#.
+#. @param filesystem [Filesystems::Base]
+#. @return [String, nil]
+#: src/lib/y2storage/inactive_root_issue.rb:51
+#, fuzzy
+#| msgid ""
+#| "\n"
+#| "\n"
+#| "If you have executed a snapshot rollback, please reboot your system "
+#| "before continuing."
+msgid ""
+"If you have executed a snapshot rollback, please reboot your system before "
+"continuing."
+msgstr ""
+"\n"
+"\n"
+"スナップショットのロールバックを実行していた場合は、続行する前にシステムの再"
+"起動を行ってください。"
+
+#. Message to show when reporting probing issues
+#.
+#. @return [String]
+#: src/lib/y2storage/issues_manager.rb:69
+msgid "Issues found while analyzing the storage devices."
+msgstr ""
+
+#. Overloads {Y2Issues::Reporter} in order to use other footer and buttons
+#.
+#. @see Y2Issues::Reporter
+#: src/lib/y2storage/issues_reporter.rb:81
+#, fuzzy
+#| msgid "Continue despite the error?"
+msgid "Continue despite the issue?"
+msgid_plural "Continue despite the issues?"
+msgstr[0] "エラーを無視して続行しますか？"
+
+#. Description for the issue
+#.
+#. @return [String]
+#: src/lib/y2storage/issues_reporter.rb:188
+msgid "Unexpected situation found in the system."
+msgstr "システム内で予期しない状況が発生しました。"
+
+#. Intro to use when no one is given
+#.
+#. @return [String]
+#: src/lib/y2storage/issues_reporter.rb:242
+msgid "Issues found."
+msgstr ""
+
+#. Hint to use when there are issues (the popup will contain a details button to show the details of
+#. the issues)
+#.
+#. @return [String]
+#: src/lib/y2storage/issues_reporter.rb:250
+#, fuzzy
+#| msgid "Click below to see more details (English only)."
+msgid "Click below to see more details."
+msgstr "下記を押すと詳細を表示することができます (英語のみ) 。"
+
 #. TRANSLATORS: display name when the PV has no associated VG, where %{device} is replaced by a
 #. device name (e.g., "/dev/sda1").
 #: src/lib/y2storage/lvm_pv.rb:84
@@ -6804,6 +6787,59 @@ msgstr "2 部コピー遠隔"
 #: src/lib/y2storage/md_parity.rb:56
 msgid "Three copies far"
 msgstr "3 部コピー遠隔"
+
+#. TRANSLATORS: %{name} is the name of an LVM Volume Group (e.g., /dev/vg1)
+#: src/lib/y2storage/missing_lvm_pv_issue.rb:47
+#, fuzzy, perl-brace-format
+#| msgid "The volume group does not contain logical volumes."
+msgid ""
+"The volume group %{name} is incomplete because some physical volumes are "
+"missing."
+msgstr "ボリュームグループには論理ボリュームが含まれていません。"
+
+#. Builds the description of the issue
+#.
+#. @return [String]
+#: src/lib/y2storage/missing_lvm_pv_issue.rb:57
+#, fuzzy
+#| msgid ""
+#| "The volume group %{name} is incomplete because some physical volumes are "
+#| "missing.\n"
+#| "If you continue, the volume group will be deleted later as part of the "
+#| "installation\n"
+#| "process. Moreover, incomplete volume groups are ignored by the "
+#| "partitioning proposal\n"
+#| "and are not visible in the Expert Partitioner."
+msgid ""
+"If you continue, the volume group will be deleted later as part of the "
+"installation process. Moreover, incomplete volume groups are ignored by the "
+"partitioning proposal and are not visible in the Expert Partitioner."
+msgstr ""
+"ボリュームグループ %{name} は、いくつかの物理ボリュームが検出されないため、不"
+"完全な状態になっています。\n"
+"このまま続行すると、ボリュームグループは後ほど、インストール処理の一部で削除"
+"されます。\n"
+"また、不完全なボリュームグループはパーティション設定の提案で無視されるほ"
+"か、\n"
+"熟練者向けパーティション設定でも表示されなくなります。"
+
+#: src/lib/y2storage/missing_lvm_pv_issue.rb:61
+#, fuzzy
+#| msgid ""
+#| "The volume group %{name} is incomplete because some physical volumes are "
+#| "missing.\n"
+#| "Incomplete volume groups are not visible in the Partitioner and will be "
+#| "deleted at the\n"
+#| "final step, when all the changes are performed in the system."
+msgid ""
+"Incomplete volume groups are not visible in the Partitioner and will be "
+"deleted at the final step, when all the changes are performed in the system."
+msgstr ""
+"ボリュームグループ %{name} は、いくつかの物理ボリュームが検出されないため、不"
+"完全な状態になっています。\n"
+"不完全なボリュームグループはパーティション設定の提案で表示されなくなるほ"
+"か、\n"
+"システムに対して全ての作業が完了した時点で、最終的に削除されます。"
 
 #. This message is not very informative, but the Package module does
 #. not provide any more information.
@@ -6945,6 +6981,53 @@ msgstr "暗号化パスワードが必要です。"
 msgid "Unknown reason"
 msgstr "不明な理由"
 
+#. Builds message of the issue
+#.
+#. @return [String]
+#: src/lib/y2storage/unsupported_bcache_issue.rb:38
+#, fuzzy
+#| msgid "Bcache detected, but bcache is not supported on this platform!"
+msgid "Bcache detected, but bcache is not supported on this platform."
+msgstr ""
+"Bcache を検出しましたが、このプラットフォームでは Bcache をサポートしていませ"
+"ん！"
+
+#. Builds description of the issue
+#.
+#. @return [String]
+#: src/lib/y2storage/unsupported_bcache_issue.rb:45
+#, fuzzy
+#| msgid ""
+#| "This may or may not work. Use at your own risk.\n"
+#| "The safe way is to remove this bcache manually\n"
+#| "with command line tools and then restart YaST."
+msgid ""
+"This may or may not work. Use at your own risk. The safe way is to remove "
+"this bcache manually with command line tools and then restart YaST."
+msgstr ""
+"この設定のまま動くこともありますが、ご自身のリスク管理のもとお使いくださ"
+"い。\n"
+"安全に使用を続けるには、コマンドラインツールを利用して\n"
+"Bcache を手作業で削除し、その後 YaST を起動しなおしてください。"
+
+#. @return [Yast::Term]
+#: src/lib/y2storage/widgets/issues.rb:85
+msgid "Issues"
+msgstr ""
+
+#. Information of the given issue
+#.
+#. @param issue [Issue]
+#. @return [String]
+#: src/lib/y2storage/widgets/issues.rb:124
+#, fuzzy
+#| msgid "Click below to see more details (English only)."
+msgid "Technical details (English only):"
+msgstr "下記を押すと詳細を表示することができます (英語のみ) 。"
+
+#~ msgid "The following errors were detected in the system:"
+#~ msgstr "システム内で下記のエラーが検出されました:"
+
 #~ msgid "File System for Root Partition"
 #~ msgstr "ルートパーティションに対するファイルシステム"
 
@@ -6959,9 +7042,6 @@ msgstr "不明な理由"
 
 #~ msgid "BtrFS Subvolume"
 #~ msgstr "btrfs サブボリューム"
-
-#~ msgid "The volume group does not contain logical volumes."
-#~ msgstr "ボリュームグループには論理ボリュームが含まれていません。"
 
 #~ msgid "Really delete all these devices?"
 #~ msgstr "これら全てのデバイスを削除してよろしいですか？"
