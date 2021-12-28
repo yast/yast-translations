@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: security\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-17 02:29+0000\n"
+"POT-Creation-Date: 2021-12-28 02:28+0000\n"
 "PO-Revision-Date: 2021-05-09 00:40+0000\n"
 "Last-Translator: Yasuhiko Kamata <belphegor@belbel.or.jp>\n"
 "Language-Team: Japanese <https://l10n.opensuse.org/projects/yast-security/"
@@ -209,20 +209,20 @@ msgstr "有効"
 
 #. All known SELinux modes
 #.
-#. This is _the main_ or _base_ configuration for known SELinux modes. However, note that, for
-#. example, a permissive mode could be set by just setting the "security" module; i.e.,
-#. "security=selinux" means "enable SELinux using the permissive mode". Or even setting
-#. the enforcing param to a value equal or less than 0; i.e., "security=selinux enforcing=0".
+#. This is _the main_ or _base_ configuration for known SELinux modes. However, note that,
+#. for example, a permissive mode could be set by just setting the Linux Security Module;
+#. i.e., "lsm=selinux" means "enable SELinux using the permissive mode". Or even setting the
+#. enforcing param to a value equal or less than 0; i.e., "lsm=selinux enforcing=0".
 #.
-#. Additionally, removing the "security" from the kernel params does not mean to use none
-#. security module. Instead, it just fallback to the kernel configuration at the compile time,
-#. which in SUSE is to use AppArmor according to the CONFIG_LSM variable. So, it could be said
-#. that dropping all mode param to disabling SELinux is safe enough.
+#. Additionally, removing the "lsm" from the kernel params does not mean to use none
+#. LSM module. Instead, it just fallback to the kernel configuration at the compile
+#. time, which in SUSE is to use AppArmor according to the CONFIG_LSM variable. So, it
+#. could be said that dropping all mode param to disabling SELinux is safe enough.
 #.
 #. To know more, please visit the LSM Usage documentation at
 #. https://www.kernel.org/doc/html/latest/admin-guide/LSM/index.html
 #. and/or grep for CONFIG_LSM in /boot/config-*
-#: src/include/security/dialogs.rb:155 src/lib/y2security/selinux.rb:444
+#: src/include/security/dialogs.rb:155 src/lib/y2security/lsm/selinux.rb:434
 msgid "Disabled"
 msgstr "無効"
 
@@ -1487,81 +1487,96 @@ msgstr "セキュリティ設定"
 msgid "Initializing..."
 msgstr "しばらくお待ちください..."
 
-#: src/lib/y2security/selinux.rb:445
+#. @see Base#label
+#: src/lib/y2security/lsm/app_armor.rb:38
+msgid "AppArmor"
+msgstr ""
+
+#. @see Base#label
+#: src/lib/y2security/lsm/none.rb:38
+msgid "None"
+msgstr ""
+
+#. @see Base#label
+#: src/lib/y2security/lsm/selinux.rb:94
+msgid "SELinux"
+msgstr ""
+
+#: src/lib/y2security/lsm/selinux.rb:435
 msgid "Permissive"
 msgstr "Permissive"
 
-#: src/lib/y2security/selinux.rb:446
+#: src/lib/y2security/lsm/selinux.rb:436
 msgid "Enforcing"
 msgstr "Enforcing"
 
 #. Security read dialog caption
-#: src/modules/Security.rb:693
+#: src/modules/Security.rb:686
 msgid "Saving Security Configuration"
 msgstr "セキュリティの設定を保存しています"
 
 #. Progress stage 1/5
-#: src/modules/Security.rb:702
+#: src/modules/Security.rb:695
 msgid "Write security settings"
 msgstr "セキュリティ設定の書き込み"
 
 #. Progress stage 2/5
-#: src/modules/Security.rb:704
+#: src/modules/Security.rb:697
 msgid "Write shutdown settings"
 msgstr "シャットダウン設定の書き込み"
 
 #. Progress stage 3/5
-#: src/modules/Security.rb:706
+#: src/modules/Security.rb:699
 msgid "Write PAM settings"
 msgstr "PAM 設定の書き込み"
 
 #. Progress stage 4/5
-#: src/modules/Security.rb:708
+#: src/modules/Security.rb:701
 msgid "Update system settings"
 msgstr "システム設定の更新"
 
 #. Progress stage 5/5
-#: src/modules/Security.rb:710
+#: src/modules/Security.rb:703
 msgid "Write SELinux settings"
 msgstr "SELinux 設定の書き込み"
 
 #. Progress step 1/6
-#: src/modules/Security.rb:714
+#: src/modules/Security.rb:707
 msgid "Writing security settings..."
 msgstr "セキュリティの設定を書き込んでいます..."
 
 #. Progress step 2/6
-#: src/modules/Security.rb:716
+#: src/modules/Security.rb:709
 msgid "Writing shutdown settings..."
 msgstr "シャットダウン設定を書き込んでいます..."
 
 #. Progress step 3/6
-#: src/modules/Security.rb:718
+#: src/modules/Security.rb:711
 msgid "Writing PAM settings..."
 msgstr "PAM の設定を書き込んでいます..."
 
 #. Progress step 4/6
-#: src/modules/Security.rb:720
+#: src/modules/Security.rb:713
 msgid "Updating system settings..."
 msgstr "システム設定を更新しています..."
 
 #. Progress step 5/6
-#: src/modules/Security.rb:722
+#: src/modules/Security.rb:715
 msgid "Writing  settings..."
 msgstr "設定を書き込んでいます..."
 
 #. Progress step 6/6
-#: src/modules/Security.rb:724
+#: src/modules/Security.rb:717
 msgid "Finished"
 msgstr "完了"
 
 #. Summary text
-#: src/modules/Security.rb:872
+#: src/modules/Security.rb:867
 msgid "Current Security Level: Custom settings"
 msgstr "現在のセキュリティレベル: カスタム設定"
 
 #. Summary text
-#: src/modules/Security.rb:876
+#: src/modules/Security.rb:871
 #, ycp-format
 msgid "Current Security Level: %1"
 msgstr "現在のセキュリティレベル: %1"

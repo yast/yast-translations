@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: security.pa\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-17 02:29+0000\n"
+"POT-Creation-Date: 2021-12-28 02:28+0000\n"
 "PO-Revision-Date: 2009-07-10 16:41+0530\n"
 "Last-Translator: A S Alam <aalam@users.sf.net>\n"
 "Language-Team: Punjabi/Panjabi <punjabi-l10n@users.sf.net>\n"
@@ -223,20 +223,20 @@ msgstr "ਯੋਗ"
 
 #. All known SELinux modes
 #.
-#. This is _the main_ or _base_ configuration for known SELinux modes. However, note that, for
-#. example, a permissive mode could be set by just setting the "security" module; i.e.,
-#. "security=selinux" means "enable SELinux using the permissive mode". Or even setting
-#. the enforcing param to a value equal or less than 0; i.e., "security=selinux enforcing=0".
+#. This is _the main_ or _base_ configuration for known SELinux modes. However, note that,
+#. for example, a permissive mode could be set by just setting the Linux Security Module;
+#. i.e., "lsm=selinux" means "enable SELinux using the permissive mode". Or even setting the
+#. enforcing param to a value equal or less than 0; i.e., "lsm=selinux enforcing=0".
 #.
-#. Additionally, removing the "security" from the kernel params does not mean to use none
-#. security module. Instead, it just fallback to the kernel configuration at the compile time,
-#. which in SUSE is to use AppArmor according to the CONFIG_LSM variable. So, it could be said
-#. that dropping all mode param to disabling SELinux is safe enough.
+#. Additionally, removing the "lsm" from the kernel params does not mean to use none
+#. LSM module. Instead, it just fallback to the kernel configuration at the compile
+#. time, which in SUSE is to use AppArmor according to the CONFIG_LSM variable. So, it
+#. could be said that dropping all mode param to disabling SELinux is safe enough.
 #.
 #. To know more, please visit the LSM Usage documentation at
 #. https://www.kernel.org/doc/html/latest/admin-guide/LSM/index.html
 #. and/or grep for CONFIG_LSM in /boot/config-*
-#: src/include/security/dialogs.rb:155 src/lib/y2security/selinux.rb:444
+#: src/include/security/dialogs.rb:155 src/lib/y2security/lsm/selinux.rb:434
 msgid "Disabled"
 msgstr "ਅਯੋਗ"
 
@@ -1421,95 +1421,110 @@ msgstr "ਸੁਰੱਖਿਆ ਸੰਰਚਨਾ"
 msgid "Initializing..."
 msgstr "ਸ਼ੁਰੂ ਕੀਤਾ ਜਾ ਰਿਹਾ ਹੈ..."
 
-#: src/lib/y2security/selinux.rb:445
+#. @see Base#label
+#: src/lib/y2security/lsm/app_armor.rb:38
+msgid "AppArmor"
+msgstr ""
+
+#. @see Base#label
+#: src/lib/y2security/lsm/none.rb:38
+msgid "None"
+msgstr ""
+
+#. @see Base#label
+#: src/lib/y2security/lsm/selinux.rb:94
+msgid "SELinux"
+msgstr ""
+
+#: src/lib/y2security/lsm/selinux.rb:435
 #, fuzzy
 #| msgid "Boot Permissions"
 msgid "Permissive"
 msgstr "ਬੂਟ ਮਨਜ਼ੂਰੀ"
 
-#: src/lib/y2security/selinux.rb:446
+#: src/lib/y2security/lsm/selinux.rb:436
 msgid "Enforcing"
 msgstr ""
 
 #. Security read dialog caption
-#: src/modules/Security.rb:693
+#: src/modules/Security.rb:686
 msgid "Saving Security Configuration"
 msgstr "ਸੁਰੱਖਿਆ ਸੰਰਚਨਾ ਸੰਭਾਲੀ ਜਾ ਰਹੀ ਹੈ"
 
 #. Progress stage 1/5
-#: src/modules/Security.rb:702
+#: src/modules/Security.rb:695
 msgid "Write security settings"
 msgstr "ਸੁਰੱਖਿਆ ਸੈਟਿੰਗ ਲਿਖੋ"
 
 #. Progress stage 2/5
-#: src/modules/Security.rb:704
+#: src/modules/Security.rb:697
 #, fuzzy
 #| msgid "Write security settings"
 msgid "Write shutdown settings"
 msgstr "ਸੁਰੱਖਿਆ ਸੈਟਿੰਗ ਲਿਖੋ"
 
 #. Progress stage 3/5
-#: src/modules/Security.rb:706
+#: src/modules/Security.rb:699
 msgid "Write PAM settings"
 msgstr "PAM ਸੈਟਿੰਗ ਲਿਖੋ"
 
 #. Progress stage 4/5
-#: src/modules/Security.rb:708
+#: src/modules/Security.rb:701
 #, fuzzy
 #| msgid "Save system settings"
 msgid "Update system settings"
 msgstr "ਸਿਸਟਮ ਸੈਟਿੰਗ ਸੰਭਾਲੋ"
 
 #. Progress stage 5/5
-#: src/modules/Security.rb:710
+#: src/modules/Security.rb:703
 #, fuzzy
 #| msgid "Write inittab settings"
 msgid "Write SELinux settings"
 msgstr "inittab ਸੈਟਿੰਗ ਲਿਖੋ"
 
 #. Progress step 1/6
-#: src/modules/Security.rb:714
+#: src/modules/Security.rb:707
 msgid "Writing security settings..."
 msgstr "ਸੁਰੱਖਿਆ ਸੈਟਿੰਗ ਲਿਖੀ ਜਾ ਰਹੀ ਹੈ..."
 
 #. Progress step 2/6
-#: src/modules/Security.rb:716
+#: src/modules/Security.rb:709
 #, fuzzy
 #| msgid "Writing security settings..."
 msgid "Writing shutdown settings..."
 msgstr "ਸੁਰੱਖਿਆ ਸੈਟਿੰਗ ਲਿਖੀ ਜਾ ਰਹੀ ਹੈ..."
 
 #. Progress step 3/6
-#: src/modules/Security.rb:718
+#: src/modules/Security.rb:711
 msgid "Writing PAM settings..."
 msgstr "PAM ਸੈਟਿੰਗ ਲਿਖੀ ਜਾ ਰਹੀ ਹੈ..."
 
 #. Progress step 4/6
-#: src/modules/Security.rb:720
+#: src/modules/Security.rb:713
 #, fuzzy
 #| msgid "Saving system settings..."
 msgid "Updating system settings..."
 msgstr "ਸਿਸਟਮ ਸੈਟਿੰਗ ਸੰਭਾਲੀ ਜਾ ਰਹੀ ਹੈ..."
 
 #. Progress step 5/6
-#: src/modules/Security.rb:722
+#: src/modules/Security.rb:715
 #, fuzzy
 #| msgid "Writing PAM settings..."
 msgid "Writing  settings..."
 msgstr "PAM ਸੈਟਿੰਗ ਲਿਖੀ ਜਾ ਰਹੀ ਹੈ..."
 
 #. Progress step 6/6
-#: src/modules/Security.rb:724
+#: src/modules/Security.rb:717
 msgid "Finished"
 msgstr "ਮੁਕੰਮਲ"
 
 #. Summary text
-#: src/modules/Security.rb:872
+#: src/modules/Security.rb:867
 msgid "Current Security Level: Custom settings"
 msgstr "ਮੌਜੂਦਾ ਸੁਰੱਖਿਆ ਲੈਵਲ: ਕਸਟਮ ਸੈਟਿੰਗ"
 
 #. Summary text
-#: src/modules/Security.rb:876
+#: src/modules/Security.rb:871
 #, ycp-format
 msgid "Current Security Level: %1"
 msgstr "ਮੌਜੂਦਾ ਸੁਰੱਖਿਆ ਲੈਵਲ: %1"
