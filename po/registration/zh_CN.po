@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: YaST (@memory@)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-18 02:08+0100\n"
+"POT-Creation-Date: 2022-01-18 02:29+0000\n"
 "PO-Revision-Date: 2021-03-19 09:57+0000\n"
 "Last-Translator: Grace Yu <grace.yu@excel-gits.com>\n"
 "Language-Team: Chinese (China) <https://l10n.opensuse.org/projects/yast-"
@@ -30,13 +30,7 @@ msgstr ""
 msgid "Use '%s' instead of this YaST module."
 msgstr "使用“%s”而不是此 YaST 模块。"
 
-#. Let the user manually fix the broken repositories
-#. @return [Boolean] true if the repository manager was successfuly closed,
-#. false after pressing [Cancel]
 #. TRANSLATORS: Error message in RichText format, %s contains the details from libzypp
-#. Let the user manually fix the broken repositories
-#. @return [Boolean] true if the repository manager was successfuly closed,
-#. false after pressing [Cancel]
 #. TRANSLATORS: Error message in RichText format, %s contains the details from libzypp
 #: src/clients/registration.rb:85 src/clients/scc.rb:85
 #, c-format
@@ -108,12 +102,10 @@ msgid "Extensions and Modules"
 msgstr "扩展和模块"
 
 #: src/data/registration/certificate_error.erb:6
-#: src/lib/registration/ui/import_certificate_dialog.rb:112
 msgid "Secure Connection Error"
 msgstr "安全连接错误"
 
 #: src/data/registration/certificate_error.erb:10
-#: src/lib/registration/ui/import_certificate_dialog.rb:113
 msgid "Details:"
 msgstr "细节："
 
@@ -136,7 +128,6 @@ msgid "Run registration again"
 msgstr "再次注册"
 
 #: src/data/registration/certificate_error.erb:47
-#: src/lib/registration/ui/import_certificate_dialog.rb:114
 msgid "Failed Certificate Details"
 msgstr "失败的证书细节"
 
@@ -316,7 +307,6 @@ msgstr "正在下载 SSL 证书"
 msgid "Importing SSL Certificate"
 msgstr "正在导入 SSL 证书"
 
-#. Intentionally use blocking popup as it is fatal error that stops installation.
 #. TRANSLATORS: profile wants to do registration, but old system is not registered.
 #: src/lib/registration/clients/scc_auto.rb:406
 msgid ""
@@ -450,10 +440,6 @@ msgstr ""
 msgid "Network error, check the network configuration."
 msgstr "网络错误，请检查网络配置。"
 
-#. Add SCC synchronization hint into the text message when using the SCC
-#. registration server.
-#. @param error_msg [String] the error message from the registratino server,
-#. the hint is appended at the end
 #. TRANSLATORS: additional hint for an error message
 #: src/lib/registration/connect_helpers.rb:336
 msgid "Check that this system is known to the registration server."
@@ -645,6 +631,10 @@ msgstr "正在更新到 %s..."
 msgid "Synchronizing Products..."
 msgstr "正在同步产品..."
 
+#. load available addons from SCC server
+#. the result is cached to avoid reloading when going back and forth in the
+#. installation workflow
+#. @return [Array<Registration::Addon>] available addons
 #. download the addons from SCC, let the user select addons to install
 #. @return [Symbol] the user input
 #: src/lib/registration/registration_ui.rb:181
@@ -652,23 +642,19 @@ msgstr "正在同步产品..."
 msgid "Loading Available Extensions and Modules..."
 msgstr "正在加载可用扩展和模块..."
 
+#. According to the official SUSE terminology, "online" refers to a running
+#. system and (offline) to a system that is not running. It's NOT about the
+#. network connectivity
 #: src/lib/registration/registration_ui.rb:196
 #: src/lib/registration/registration_ui.rb:208
 msgid "Loading Migration Products..."
 msgstr "正在加载迁移产品..."
 
-#. Register the selected addons, asks for reg. codes if required, known_reg_codes
-#. @param selected_addons [Array<Addon>] list of addons selected for registration,
-#. successfully registered addons are removed from the list
-#. @param known_reg_codes [Hash] remembered reg. code, it's updated with the
-#. user entered values
-#. @return [Symbol]
 #. dialog title
 #: src/lib/registration/registration_ui.rb:223
 msgid "Register Extensions and Modules"
 msgstr "注册扩展和模块"
 
-#. display only the products which need a registration code
 #. help text
 #: src/lib/registration/registration_ui.rb:227
 msgid "<p>Extensions and Modules are being registered.</p>"
@@ -724,6 +710,7 @@ msgstr ""
 msgid "Reading the Activated Products..."
 msgstr "正在读取激活的产品..."
 
+#. then register the product(s)
 #. %s is name of given product
 #: src/lib/registration/registration_ui.rb:354
 #: src/lib/registration/registration_ui.rb:397
@@ -844,7 +831,6 @@ msgstr "%s 许可协议"
 msgid "Extension and Module Registration Codes"
 msgstr "扩展和模块注册码"
 
-#. display only the products which need a registration code
 #. help text
 #: src/lib/registration/ui/addon_reg_codes_dialog.rb:50
 msgid ""
@@ -884,8 +870,6 @@ msgstr "详细信息（仅限英语）"
 msgid "Select an extension or a module to show details here"
 msgstr "在此处选择扩展或模块以显示细节"
 
-#. @param [<Addon>] addon the addon
-#. @return [String] a Value for a RichText
 #. checkbox label for an unavailable extension
 #. (%s is an extension name)
 #: src/lib/registration/ui/addon_selection_base_dialog.rb:123
@@ -1206,7 +1190,6 @@ msgstr ""
 "<p>若要安装而不注册系统，请使用 %{download_url} 上的 %{media_name} 安装媒体进"
 "行安装。</p>"
 
-#. these cannot be nil
 #. TRANSLATORS: a popup message (3/3) the user wants to skip the registration
 #: src/lib/registration/ui/base_system_registration_dialog.rb:451
 msgid ""
@@ -1471,9 +1454,6 @@ msgstr ""
 msgid "<p>Please use the Full medium instead of the Online.</p>"
 msgstr "<p>请使用完整媒体，不要使用联机媒体。</p>"
 
-#. Informative message
-#. @param registered [Boolean] is the system registered?
-#. @return [String] translated message
 #. TRANSLATORS: Media based upgrade requested by user (1/3)
 #. User requested media based upgrade which does not use SCC/SMT/RMT
 #. but the downloaded media (physical DVD or shared repo on a local server).
