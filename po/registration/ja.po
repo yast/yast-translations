@@ -10,11 +10,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: registration\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-12-17 02:29+0000\n"
+"POT-Creation-Date: 2022-01-18 02:08+0100\n"
 "PO-Revision-Date: 2021-12-17 05:13+0000\n"
 "Last-Translator: Yasuhiko Kamata <belphegor@belbel.or.jp>\n"
-"Language-Team: Japanese <https://l10n.opensuse.org/projects/"
-"yast-registration/master/ja/>\n"
+"Language-Team: Japanese <https://l10n.opensuse.org/projects/yast-"
+"registration/master/ja/>\n"
 "Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -29,7 +29,13 @@ msgstr ""
 msgid "Use '%s' instead of this YaST module."
 msgstr "このYaSTモジュールではなく '%s' をお使いください。"
 
+#. Let the user manually fix the broken repositories
+#. @return [Boolean] true if the repository manager was successfuly closed,
+#. false after pressing [Cancel]
 #. TRANSLATORS: Error message in RichText format, %s contains the details from libzypp
+#. Let the user manually fix the broken repositories
+#. @return [Boolean] true if the repository manager was successfuly closed,
+#. false after pressing [Cancel]
 #. TRANSLATORS: Error message in RichText format, %s contains the details from libzypp
 #: src/clients/registration.rb:85 src/clients/scc.rb:85
 #, c-format
@@ -101,10 +107,12 @@ msgid "Extensions and Modules"
 msgstr "拡張機能とモジュール"
 
 #: src/data/registration/certificate_error.erb:6
+#: src/lib/registration/ui/import_certificate_dialog.rb:112
 msgid "Secure Connection Error"
 msgstr "セキュア接続エラー"
 
 #: src/data/registration/certificate_error.erb:10
+#: src/lib/registration/ui/import_certificate_dialog.rb:113
 msgid "Details:"
 msgstr "詳細:"
 
@@ -128,6 +136,7 @@ msgid "Run registration again"
 msgstr "登録を再実施します"
 
 #: src/data/registration/certificate_error.erb:47
+#: src/lib/registration/ui/import_certificate_dialog.rb:114
 msgid "Failed Certificate Details"
 msgstr "失敗した証明書の詳細"
 
@@ -309,6 +318,7 @@ msgstr "SSL証明書をダウンロードしています"
 msgid "Importing SSL Certificate"
 msgstr "SSL証明書をインポートしています"
 
+#. Intentionally use blocking popup as it is fatal error that stops installation.
 #. TRANSLATORS: profile wants to do registration, but old system is not registered.
 #: src/lib/registration/clients/scc_auto.rb:406
 msgid ""
@@ -443,6 +453,10 @@ msgstr ""
 msgid "Network error, check the network configuration."
 msgstr "ネットワークエラーです。ネットワーク環境設定を確認してください。"
 
+#. Add SCC synchronization hint into the text message when using the SCC
+#. registration server.
+#. @param error_msg [String] the error message from the registratino server,
+#. the hint is appended at the end
 #. TRANSLATORS: additional hint for an error message
 #: src/lib/registration/connect_helpers.rb:336
 msgid "Check that this system is known to the registration server."
@@ -645,10 +659,6 @@ msgstr "%s にアップデートしています..."
 msgid "Synchronizing Products..."
 msgstr "製品を同期しています..."
 
-#. load available addons from SCC server
-#. the result is cached to avoid reloading when going back and forth in the
-#. installation workflow
-#. @return [Array<Registration::Addon>] available addons
 #. download the addons from SCC, let the user select addons to install
 #. @return [Symbol] the user input
 #: src/lib/registration/registration_ui.rb:181
@@ -656,19 +666,23 @@ msgstr "製品を同期しています..."
 msgid "Loading Available Extensions and Modules..."
 msgstr "利用可能な拡張機能とモジュールをロードしています..."
 
-#. According to the official SUSE terminology, "online" refers to a running
-#. system and (offline) to a system that is not running. It's NOT about the
-#. network connectivity
 #: src/lib/registration/registration_ui.rb:196
 #: src/lib/registration/registration_ui.rb:208
 msgid "Loading Migration Products..."
 msgstr "マイグレーション製品をロードしています..."
 
+#. Register the selected addons, asks for reg. codes if required, known_reg_codes
+#. @param selected_addons [Array<Addon>] list of addons selected for registration,
+#. successfully registered addons are removed from the list
+#. @param known_reg_codes [Hash] remembered reg. code, it's updated with the
+#. user entered values
+#. @return [Symbol]
 #. dialog title
 #: src/lib/registration/registration_ui.rb:223
 msgid "Register Extensions and Modules"
 msgstr "拡張機能とモジュールの登録"
 
+#. display only the products which need a registration code
 #. help text
 #: src/lib/registration/registration_ui.rb:227
 msgid "<p>Extensions and Modules are being registered.</p>"
@@ -728,7 +742,6 @@ msgstr ""
 msgid "Reading the Activated Products..."
 msgstr "有効化されている製品をロードしています..."
 
-#. then register the product(s)
 #. %s is name of given product
 #: src/lib/registration/registration_ui.rb:354
 #: src/lib/registration/registration_ui.rb:397
@@ -850,6 +863,7 @@ msgstr "%s のライセンス契約"
 msgid "Extension and Module Registration Codes"
 msgstr "拡張機能とモジュールの登録コード"
 
+#. display only the products which need a registration code
 #. help text
 #: src/lib/registration/ui/addon_reg_codes_dialog.rb:50
 msgid ""
@@ -889,6 +903,8 @@ msgstr "詳細 (英語のみ)"
 msgid "Select an extension or a module to show details here"
 msgstr "ここでは詳細情報を表示する拡張機能またはモジュールを選択します"
 
+#. @param [<Addon>] addon the addon
+#. @return [String] a Value for a RichText
 #. checkbox label for an unavailable extension
 #. (%s is an extension name)
 #: src/lib/registration/ui/addon_selection_base_dialog.rb:123
@@ -961,7 +977,9 @@ msgstr "拡張機能とモジュールの選択"
 #: src/lib/registration/ui/addon_selection_registration_dialog.rb:34
 msgid ""
 "<p>Here you can select available extensions and modules for your system.</p>"
-msgstr "<p>ここでは、お使いのシステムで利用可能な拡張機能とモジュールを選択できます。</p>"
+msgstr ""
+"<p>ここでは、お使いのシステムで利用可能な拡張機能とモジュールを選択できます。"
+"</p>"
 
 #. @return [String] the main dialog label
 #: src/lib/registration/ui/addon_selection_registration_dialog.rb:50
@@ -1223,6 +1241,7 @@ msgstr ""
 "<p>システムを登録せずにインストールを行いたい場合は、 %{download_url} にある "
 "%{media_name} インストールメディアをお使いください。</p>"
 
+#. these cannot be nil
 #. TRANSLATORS: a popup message (3/3) the user wants to skip the registration
 #: src/lib/registration/ui/base_system_registration_dialog.rb:451
 msgid ""
@@ -1504,6 +1523,9 @@ msgstr ""
 msgid "<p>Please use the Full medium instead of the Online.</p>"
 msgstr "<p>オンラインメディアではなくフルメディアをお使いください。</p>"
 
+#. Informative message
+#. @param registered [Boolean] is the system registered?
+#. @return [String] translated message
 #. TRANSLATORS: Media based upgrade requested by user (1/3)
 #. User requested media based upgrade which does not use SCC/SMT/RMT
 #. but the downloaded media (physical DVD or shared repo on a local server).
