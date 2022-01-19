@@ -7,7 +7,7 @@
 # This check is not included here.
 
 APIURL=
-REPO=openSUSE:Leap:15.0
+REPO=openSUSE:Leap:15.4
 
 # For Tumbleweed
 APIURL=
@@ -15,7 +15,7 @@ REPO=openSUSE:Factory
 
 # This is for SLE 15 inside the intranet
 APIURL=https://api.suse.de/
-REPO=SUSE:SLE-15:GA
+REPO=SUSE:SLE-15-SP4:GA
 
 # Check product
 # true: check packages listed in 000product package.
