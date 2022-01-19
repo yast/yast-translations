@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: users\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-18 02:29+0000\n"
+"POT-Creation-Date: 2022-01-19 02:24+0100\n"
 "PO-Revision-Date: 2008-03-27 22:31+0000\n"
 "Last-Translator: Benjamin Weber <b.weber@warwick.ac.uk>\n"
 "Language-Team:  <en@li.org>\n"
@@ -19,6 +19,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: KBabel 1.11.4\n"
 
+#. the command line description map
 #. translators: command line help text for Users module
 #: src/clients/groups.rb:100
 msgid "Group configuration module"
@@ -132,6 +133,7 @@ msgstr "Password for LDAP server"
 msgid "Do not ask for missing data; return error instead."
 msgstr ""
 
+#. the command line description map
 #. translators: command line help text for Users module
 #: src/clients/users.rb:102
 msgid "User configuration module"
@@ -531,6 +533,7 @@ msgstr "&Soft limit"
 msgid "&Hard limit"
 msgstr "&Hard limit"
 
+#. 2 small spaces instead of one big because of ncurses:
 #. frame label
 #: src/clients/users_plugin_quota.rb:231
 #, fuzzy
@@ -749,6 +752,10 @@ msgstr ""
 "The passwords do not match.\n"
 "Try again."
 
+#. helper function: show a popup if existing home directory should be used
+#. and its ownership should be changed
+#. @param dir [String]
+#. @param chown_default [Boolean]
 #. popup label, %1 is path to directory
 #: src/include/users/dialogs.rb:181
 #, fuzzy, ycp-format
@@ -771,6 +778,7 @@ msgstr "Change home directory to %1?"
 msgid "Force Password Change"
 msgstr "Last Password Change: %1"
 
+#. generate contents for User Data Dialog
 #. text entry
 #. text entry
 #: src/include/users/dialogs.rb:484
@@ -1105,6 +1113,9 @@ msgstr ""
 
 #. TRANSLATORS: title of the dialog to select a public key to be used when logging
 #. via SSH
+#. Reads a key from the given directory
+#.
+#. @note Asks the user to select a file and tries to read it.
 #. TRANSLATORS: title of a dialog which allows to select a file to be used
 #. as SSH public key
 #: src/include/users/dialogs.rb:2559
@@ -1145,6 +1156,13 @@ msgstr ""
 
 #. encryption type
 #. encryption type
+#. "blowfish" is also known to UsersSimple, but it's not longer offered
+#. as a valid option. See fate#312321
+#.
+#. This code is only executed once (when the class is loaded), but YaST
+#. allows to change the language in execution time. Thus, we use N_() here
+#. to mark the code as translatable and _() in the #label method to perform
+#. the real translation on execution time.
 #. TRANSLATORS: encryption type
 #: src/include/users/helps.rb:52 src/include/users/helps.rb:54
 #: src/lib/users/encryption_method.rb:51
@@ -1483,6 +1501,9 @@ msgstr ""
 "<p>To forbid this user to\n"
 "log in, check <b>Disable User Login</b>.</p>"
 
+#. Help for EditGroupDialog.
+#. @param [Boolean] more if the widget with more_users will be shown
+#. @return [String] help text
 #. help text 1/6
 #: src/include/users/helps.rb:303
 msgid ""
@@ -1892,6 +1913,7 @@ msgstr ""
 "b>, and <b>Lockout Policies</b> tabs to choose LDAP password policy groups "
 "of attributes to configure.</p>"
 
+#. tab-specific help texts
 #. help text for pwdInHistory attribute
 #: src/include/users/ldap_dialogs.rb:70
 msgid ""
@@ -2104,6 +2126,7 @@ msgstr "&Only Accept Checked Passwords"
 msgid "&Minimum Password Length"
 msgstr "&Minimum Password Length"
 
+#. generate the term of password aging tab
 #. frame label
 #: src/include/users/ldap_dialogs.rb:373
 msgid "Minimum Password Age"
@@ -2266,6 +2289,7 @@ msgstr ""
 "The Policy '%1' already exists.\n"
 "Please select another one."
 
+#. values to MenuItem in Summary dialog
 #. the type of user set
 #: src/include/users/widgets.rb:63
 msgid "&System Users"
@@ -2297,6 +2321,7 @@ msgstr "Sam&ba Users"
 msgid "&Custom"
 msgstr "&Custom"
 
+#. values to Label (no shortcut sign)
 #. the type of user set
 #: src/include/users/widgets.rb:79
 msgid "System Users"
@@ -2331,6 +2356,7 @@ msgstr "Samba Users"
 msgid "Custom"
 msgstr "Custom"
 
+#. values to MenuItem in Summary dialog
 #. the type of group set
 #: src/include/users/widgets.rb:95
 msgid "&System Groups"
@@ -2396,6 +2422,7 @@ msgstr ""
 msgid "Samba"
 msgstr "Samba"
 
+#. auth methods and respective module calls
 #. menubutton label
 #: src/include/users/widgets.rb:149
 msgid "&NIS"
@@ -2653,6 +2680,7 @@ msgstr ""
 "<br>\n"
 "only obtain users with a username beginning with 'u'.</p>\n"
 
+#. max 65 with help on left side...
 #. radiobutton label
 #: src/include/users/widgets.rb:727
 msgid "Search Filter for &Users"
@@ -2774,6 +2802,7 @@ msgstr "Display Manager Login Settings"
 msgid "&Auto Login"
 msgstr "&Auto Login"
 
+#. move text under the checkbox
 #. textentry label
 #: src/include/users/widgets.rb:989
 msgid "&User to Log In"
@@ -3231,6 +3260,10 @@ msgid "User and Group Administration"
 msgstr "User and Group Administration"
 
 #. init dialog caption
+#. Whole configuration of users/groups but without reading and writing.
+#. For use with autoinstallation.
+#. @param [String] start the first dialog
+#. @return sequence result
 #. dialog caption
 #: src/include/users/wizards.rb:261 src/include/users/wizards.rb:284
 msgid "User and Group Configuration"
@@ -3643,6 +3676,7 @@ msgstr ""
 "No password entered.\n"
 "Try again."
 
+#. rubocop:enable Metrics/CyclomaticComplexity
 #. rubocop:disable Metrics/MethodLength
 #. help text ( explain what the user "root" is and does ) 1
 #: src/lib/users/widgets.rb:146
@@ -3851,6 +3885,7 @@ msgstr "Do not create home directory for new user"
 msgid "The group %{group} could not be deleted"
 msgstr ""
 
+#. @return [Y2Issues::Issue]
 #. TRANSLATORS: %{user} is replaced by a username
 #: src/lib/y2users/linux/delete_user_action.rb:95
 #, fuzzy, perl-brace-format
@@ -3864,6 +3899,8 @@ msgstr ""
 "because the user is currently logged in.\n"
 "Log the user out first."
 
+#. @param error [Cheetah::ExecutionFailed]
+#. @return [Y2Issues::Issue]
 #. TRANSLATORS: %{user} is replaced by a username and %{error} is replaced by an error
 #. message.
 #: src/lib/y2users/linux/delete_user_action.rb:108
@@ -3871,6 +3908,8 @@ msgstr ""
 msgid "The home or mail spool of the user %{user} cannot be deleted: %{error}"
 msgstr ""
 
+#. @param error [Cheetah::ExecutionFailed]
+#. @return [Y2Issues::Issue]
 #. TRANSLATORS: %{user} is replaced by a username and %{error} is replaced by an error
 #. message.
 #: src/lib/y2users/linux/delete_user_action.rb:122
@@ -4082,6 +4121,8 @@ msgstr ""
 msgid "Authorized keys will not be written."
 msgstr "File %s was not read correctly, so it will not be written."
 
+#. Return the translated name for system user
+#. TODO users are added manualy.... :-(
 #. User name for user: "root"
 #: src/modules/UsersUI.rb:44
 msgid "root"
@@ -4445,6 +4486,9 @@ msgstr "User for uuidd"
 msgid "Novell Customer Center User"
 msgstr "Novell Customer Centre User"
 
+#. Ask user for configuration type (standard or NIS)
+#. @param [String] dir string directory with NIS settings
+#. @return [Symbol] `passwd or `nis or `abort
 #. label
 #: src/modules/UsersUI.rb:343
 msgid ""
@@ -4486,6 +4530,10 @@ msgstr "Group Templates"
 msgid "Multiple templates are defined as default. Select the one to read."
 msgstr "Multiple templates are defined as default. Select the one to read."
 
+#. Error messages for errors detected during reading via .passwd agent
+#. @param errno [Integer] number returned by passwd-agent
+#. @param more [String] additional information
+#. @return error message
 #. error message 2/2 (= next sentence)
 #: src/modules/UsersUI.rb:492
 #, fuzzy

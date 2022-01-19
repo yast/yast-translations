@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: users.ko\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-18 02:29+0000\n"
+"POT-Creation-Date: 2022-01-19 02:24+0100\n"
 "PO-Revision-Date: 2019-03-21 11:20+0000\n"
 "Last-Translator: Hwajin Kim <hwajin.kim@e4net.net>\n"
 "Language-Team: Korean <https://l10n.opensuse.org/projects/yast-users/master/"
@@ -20,6 +20,7 @@ msgstr ""
 "X-Poedit-SourceCharset: utf-8\n"
 
 #  translators: command line help text for Users module
+#. the command line description map
 #. translators: command line help text for Users module
 #: src/clients/groups.rb:100
 msgid "Group configuration module"
@@ -146,6 +147,7 @@ msgid "Do not ask for missing data; return error instead."
 msgstr "누락된 데이터를 요청하지 않습니다. 대신 오류를 반환합니다."
 
 #  translators: command line help text for Users module
+#. the command line description map
 #. translators: command line help text for Users module
 #: src/clients/users.rb:102
 msgid "User configuration module"
@@ -566,6 +568,7 @@ msgstr "소프트 한도(&S)"
 msgid "&Hard limit"
 msgstr "하드 한도(&H)"
 
+#. 2 small spaces instead of one big because of ncurses:
 #. frame label
 #: src/clients/users_plugin_quota.rb:231
 msgid "I-nodes Limit"
@@ -806,6 +809,10 @@ msgstr ""
 "다시 시도하십시오."
 
 #  yes/no popup
+#. helper function: show a popup if existing home directory should be used
+#. and its ownership should be changed
+#. @param dir [String]
+#. @param chown_default [Boolean]
 #. popup label, %1 is path to directory
 #: src/include/users/dialogs.rb:181
 #, ycp-format
@@ -828,6 +835,7 @@ msgid "Force Password Change"
 msgstr "강제 비밀번호 변경"
 
 # src/dsl/dialogs.ycp:140
+#. generate contents for User Data Dialog
 #. text entry
 #. text entry
 #: src/include/users/dialogs.rb:484
@@ -1220,6 +1228,9 @@ msgstr "선택한 공용 키는 이미 목록에 있습니다."
 
 #. TRANSLATORS: title of the dialog to select a public key to be used when logging
 #. via SSH
+#. Reads a key from the given directory
+#.
+#. @note Asks the user to select a file and tries to read it.
 #. TRANSLATORS: title of a dialog which allows to select a file to be used
 #. as SSH public key
 #: src/include/users/dialogs.rb:2559
@@ -1261,6 +1272,13 @@ msgstr "추가(&A)..."
 #  encryption type
 #. encryption type
 #. encryption type
+#. "blowfish" is also known to UsersSimple, but it's not longer offered
+#. as a valid option. See fate#312321
+#.
+#. This code is only executed once (when the class is loaded), but YaST
+#. allows to change the language in execution time. Thus, we use N_() here
+#. to mark the code as translatable and _() in the #label method to perform
+#. the real translation on execution time.
 #. TRANSLATORS: encryption type
 #: src/include/users/helps.rb:52 src/include/users/helps.rb:54
 #: src/lib/users/encryption_method.rb:51
@@ -1620,6 +1638,9 @@ msgstr ""
 "<p>이 사용자가 로그인하지 못하게 하려면\n"
 "<b>사용자 로그인 비활성화</b>를 선택하십시오.</p>"
 
+#. Help for EditGroupDialog.
+#. @param [Boolean] more if the widget with more_users will be shown
+#. @return [String] help text
 #. help text 1/6
 #: src/include/users/helps.rb:303
 msgid ""
@@ -2063,6 +2084,7 @@ msgstr ""
 "<p>구성할 속성의 LDAP 비밀번호 정책 그룹을 선택하려면 <b>비밀번호 변경 정책</"
 "b>, <b>비밀번호 에이징 정책</b> 및 <b>잠금 정책</b> 탭을 선택합니다.</p>"
 
+#. tab-specific help texts
 #. help text for pwdInHistory attribute
 #: src/include/users/ldap_dialogs.rb:70
 msgid ""
@@ -2265,6 +2287,7 @@ msgstr "확인된 비밀번호만 허용(&O)"
 msgid "&Minimum Password Length"
 msgstr "최소 비밀번호 길이(&M)"
 
+#. generate the term of password aging tab
 #. frame label
 #: src/include/users/ldap_dialogs.rb:373
 msgid "Minimum Password Age"
@@ -2427,6 +2450,7 @@ msgstr ""
 "다른 정책을 선택하십시오."
 
 #  the type of user set
+#. values to MenuItem in Summary dialog
 #. the type of user set
 #: src/include/users/widgets.rb:63
 msgid "&System Users"
@@ -2465,6 +2489,7 @@ msgid "&Custom"
 msgstr "사용자 설정(&C)"
 
 #  the type of user set
+#. values to Label (no shortcut sign)
 #. the type of user set
 #: src/include/users/widgets.rb:79
 msgid "System Users"
@@ -2504,6 +2529,7 @@ msgid "Custom"
 msgstr "사용자 정의"
 
 #  the type of group set
+#. values to MenuItem in Summary dialog
 #. the type of group set
 #: src/include/users/widgets.rb:95
 msgid "&System Groups"
@@ -2579,6 +2605,7 @@ msgid "Samba"
 msgstr "Samba"
 
 #  just the name (do not translate)
+#. auth methods and respective module calls
 #. menubutton label
 #: src/include/users/widgets.rb:149
 msgid "&NIS"
@@ -2856,6 +2883,7 @@ msgstr ""
 " 사용자 이름이 'u'로 시작하는 사용자 목록만 가져올 수 있습니다.</p>\n"
 
 #  Multi select box item 6/12
+#. max 65 with help on left side...
 #. radiobutton label
 #: src/include/users/widgets.rb:727
 msgid "Search Filter for &Users"
@@ -2989,6 +3017,7 @@ msgid "&Auto Login"
 msgstr "자동 로그인(&A)"
 
 #  textentry label
+#. move text under the checkbox
 #. textentry label
 #: src/include/users/widgets.rb:989
 msgid "&User to Log In"
@@ -3500,6 +3529,10 @@ msgid "User and Group Administration"
 msgstr "사용자 및 그룹 관리"
 
 #. init dialog caption
+#. Whole configuration of users/groups but without reading and writing.
+#. For use with autoinstallation.
+#. @param [String] start the first dialog
+#. @return sequence result
 #. dialog caption
 #: src/include/users/wizards.rb:261 src/include/users/wizards.rb:284
 msgid "User and Group Configuration"
@@ -3913,6 +3946,7 @@ msgstr ""
 "다시 시도하십시오."
 
 #  help text ( explain what the user "root" is and does ) 1/5
+#. rubocop:enable Metrics/CyclomaticComplexity
 #. rubocop:disable Metrics/MethodLength
 #. help text ( explain what the user "root" is and does ) 1
 #: src/lib/users/widgets.rb:146
@@ -4135,6 +4169,7 @@ msgid "The group %{group} could not be deleted"
 msgstr ""
 
 #  error popup
+#. @return [Y2Issues::Issue]
 #. TRANSLATORS: %{user} is replaced by a username
 #: src/lib/y2users/linux/delete_user_action.rb:95
 #, fuzzy, perl-brace-format
@@ -4148,6 +4183,8 @@ msgstr ""
 "홈 디렉터리 암호화를 해제할 수 없습니다.\n"
 "우선 로그아웃을 해주세요."
 
+#. @param error [Cheetah::ExecutionFailed]
+#. @return [Y2Issues::Issue]
 #. TRANSLATORS: %{user} is replaced by a username and %{error} is replaced by an error
 #. message.
 #: src/lib/y2users/linux/delete_user_action.rb:108
@@ -4155,6 +4192,8 @@ msgstr ""
 msgid "The home or mail spool of the user %{user} cannot be deleted: %{error}"
 msgstr ""
 
+#. @param error [Cheetah::ExecutionFailed]
+#. @return [Y2Issues::Issue]
 #. TRANSLATORS: %{user} is replaced by a username and %{error} is replaced by an error
 #. message.
 #: src/lib/y2users/linux/delete_user_action.rb:122
@@ -4379,6 +4418,8 @@ msgid "Authorized keys will not be written."
 msgstr "인증된 키를 기록할 수 없습니다."
 
 #  User name for user: "root"
+#. Return the translated name for system user
+#. TODO users are added manualy.... :-(
 #. User name for user: "root"
 #: src/modules/UsersUI.rb:44
 msgid "root"
@@ -4780,6 +4821,9 @@ msgid "Novell Customer Center User"
 msgstr "Novell 고객 센터 사용자"
 
 #  label
+#. Ask user for configuration type (standard or NIS)
+#. @param [String] dir string directory with NIS settings
+#. @return [Symbol] `passwd or `nis or `abort
 #. label
 #: src/modules/UsersUI.rb:343
 msgid ""
@@ -4829,6 +4873,10 @@ msgstr ""
 "오."
 
 #  error message 2/2 (= next sentence)
+#. Error messages for errors detected during reading via .passwd agent
+#. @param errno [Integer] number returned by passwd-agent
+#. @param more [String] additional information
+#. @return error message
 #. error message 2/2 (= next sentence)
 #: src/modules/UsersUI.rb:492
 msgid "Correct them manually before running the YaST users module again."
