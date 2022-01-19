@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: storage\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-18 02:29+0000\n"
+"POT-Creation-Date: 2022-01-19 02:23+0100\n"
 "PO-Revision-Date: 2022-01-13 13:12+0000\n"
 "Last-Translator: Yasuhiko Kamata <belphegor@belbel.or.jp>\n"
 "Language-Team: Japanese <https://l10n.opensuse.org/projects/yast-storage/"
@@ -537,6 +537,8 @@ msgstr "LVM Thin プールの削除確認"
 msgid "Confirm Deleting of LVM Logical Volume"
 msgstr "LVM 論理ボリュームの削除確認"
 
+#. FIXME: unify message for recursive deleting devices instead of having one specific message for
+#. each case.
 #. TRANSLATORS: Confirmation message when a LVM logical volume is going to be deleted,
 #. where %{name} is replaced by the name of the volume (e.g., /dev/system/pool)
 #: src/lib/y2partitioner/actions/delete_lvm_lv.rb:83
@@ -859,6 +861,7 @@ msgstr ""
 msgid "An extended partition cannot be moved."
 msgstr "拡張パーティションは移動できません。"
 
+#. FIXME: This message is copied from old partitioner, but it could be improved.
 #. TRANSLATORS: error message where %{name} is replaced by a partition name (e.g. /dev/sda1)
 #: src/lib/y2partitioner/actions/move_partition.rb:130
 #, perl-brace-format
@@ -1428,6 +1431,7 @@ msgstr "サイズ制限"
 msgid "Applying Changes to the System"
 msgstr "システムに対する変更点の適用"
 
+#. Possible page titles, based on the type of device
 #. TRANSLATORS: Heading. String followed by a device name like /dev/bcache0
 #: src/lib/y2partitioner/dialogs/device_description.rb:50
 #, c-format
@@ -2149,6 +2153,10 @@ msgstr ""
 "ます。\n"
 "特別な事情がある場合を除き、ここではキャンセルを押してください。"
 
+#. Sentence describing a mounted device
+#.
+#. @param device [Y2Storage::Mountable]
+#. @return [String]
 #. TRANSLATORS: %{device} is replaced by a device name (e.g., /dev/sda1) and %{mount_point}
 #. is replaced by a mount path (e.g., /home).
 #: src/lib/y2partitioner/dialogs/unmount.rb:188
@@ -2156,6 +2164,10 @@ msgstr ""
 msgid "%{name} mounted at %{mount_point}"
 msgstr "%{name} が %{mount_point} にマウントされています"
 
+#. Generates the label for a Btrfs subvolume
+#.
+#. @param subvolume [Y2Storage::BtrfsSubvolume]
+#. @return [String]
 #. TRANSLATORS: %{path} is replaced by a Btrfs subvolume path (e.g., @home).
 #: src/lib/y2partitioner/dialogs/unmount.rb:211
 #, perl-brace-format
@@ -2229,6 +2241,7 @@ msgstr "EFI 起動パーティション"
 msgid "Raw Volume (unformatted)"
 msgstr "何もしないボリューム (フォーマットしない)"
 
+#. All possible instances
 #. TRANSLATORS: name of a key derivation function used by LUKS
 #: src/lib/y2partitioner/pbkd_function.rb:43
 msgid "Argon2id"
@@ -2769,6 +2782,10 @@ msgstr "%{origin} のスナップショット"
 msgid "%{fs_type} Journal (%{data_device_name})"
 msgstr "%{fs_type} ジャーナル (%{data_device_name})"
 
+#. Label when the device belongs to a multi-device filesystem
+#.
+#. @param filesystem [Y2Storage::BlkFilesystem]
+#. @return [String]
 #. TRANSLATORS: %{fs_name} is the filesystem name. E.g., Btrfs, Ext4, etc.
 #. %{blk_device_name} is a device base name. E.g., sda1...
 #: src/lib/y2partitioner/widgets/columns/type.rb:261
@@ -2776,6 +2793,9 @@ msgstr "%{fs_type} ジャーナル (%{data_device_name})"
 msgid "Part of %{fs_name} %{blk_device_name}"
 msgstr "%{fs_name} の一部 (%{blk_device_name})"
 
+#. Label when the device is used as backing device of a Bcache
+#.
+#. @param [Y2Storage::Device] device
 #. TRANSLATORS: %{bcache} is replaced by a device name (e.g., bcache0).
 #: src/lib/y2partitioner/widgets/columns/type.rb:272
 #, perl-brace-format
@@ -4438,8 +4458,8 @@ msgstr ""
 "物理ボリューム %{pvs} は既に使用されている可能性があるため、\n"
 "ボリュームグループ %{vg} から物理ボリュームを削除することはできません"
 
-#. TRANSLATORS: html text containing the help for the Partitioner menubar, make
-#. sure the titles match the menu names
+#. @macro seeAbstractWidget
+#. @return [String] localized help text
 #: src/lib/y2partitioner/widgets/main_menu_bar.rb:87
 msgid ""
 "<p>All the possible Partitioner actions are represented in the\n"
@@ -4777,6 +4797,9 @@ msgstr ""
 msgid "Enable Regular &Checks"
 msgstr "定期チェックを有効にする (&C)"
 
+#. NOTE: the default is 'off', so we have to come up with some values.
+#. 30/180 is more or less what mke2fs would use on its own.
+#. Remember to adjust the help text if you change this.
 #. help text, richtext format
 #: src/lib/y2partitioner/widgets/mkfs_optiondata.rb:146
 msgid ""
@@ -4922,8 +4945,8 @@ msgstr ""
 "'auto' を指定してください。ただし、ここで設定する値は最小値であり、実際のルー"
 "トディレクトリはもっと大きくすることができます。"
 
-#. TRANSLATORS: html text of the Partitioner Help. Please make sure the menu
-#. names actually match the ones in the menubar widget
+#. @macro seeAbstractWidget
+#. @return [String] localized help text
 #: src/lib/y2partitioner/widgets/overview.rb:169
 msgid ""
 "<p>Below the menu bar, the main element of the interface is the table\n"
@@ -5371,6 +5394,9 @@ msgstr ""
 "新しい %{device_type} に対しては、追加の領域 (%{diff}) が必要でした。そのた"
 "め、いくつかのデバイスのサイズは下記のように調整されています: "
 
+#. Build a string containing a device shrinkage details
+#.
+#. @param device_shrinkage [Proposal::DeviceShrinkage] Shrinkage information
 #. TRANSLATORS: identifier: partition/logical volume (eg. /dev/sda1, /dev/system/root);
 #. size and diff: disk space (eg. 5.00 GiB)
 #: src/lib/y2storage/autoinst_issues/shrinked_planned_devices.rb:84
@@ -6817,6 +6843,10 @@ msgstr "2 部コピー遠隔"
 msgid "Three copies far"
 msgstr "3 部コピー遠隔"
 
+#. Builds the message of the issue
+#.
+#. @param device [LvmVg]
+#. @return [String]
 #. TRANSLATORS: %{name} is the name of an LVM Volume Group (e.g., /dev/vg1)
 #: src/lib/y2storage/missing_lvm_pv_issue.rb:47
 #, perl-brace-format
