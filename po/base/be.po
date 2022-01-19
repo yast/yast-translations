@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: base.be\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-18 02:29+0000\n"
+"POT-Creation-Date: 2022-01-19 02:24+0100\n"
 "PO-Revision-Date: 2009-09-06 01:02-0700\n"
 "Last-Translator: \n"
 "Language-Team:  <ru@li.org>\n"
@@ -17,11 +17,6 @@ msgstr ""
 "%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: KBabel 1.11.4\n"
 
-#. do not read the real translations from the system
-#: tests/i18n_spec.rb:55
-msgid "foo"
-msgstr ""
-
 #. Translators: a warning message in a continue-cancel question
 #. Opscode Chef is a different way to configure the system.
 #: library/commandline/src/clients/other_tools_warning.rb:41
@@ -31,6 +26,7 @@ msgid ""
 "Continue configuration with YaST?"
 msgstr ""
 
+#. Map of commands for every module. ATM the list of commands this module handles internally.
 #. translators: help for 'help' option on command line
 #: library/commandline/src/modules/CommandLine.rb:54
 msgid "Print the help for this module"
@@ -407,6 +403,7 @@ msgstr ""
 msgid "More information can be found near the end of the '%1' file."
 msgstr "Больш інфармацыі можна знайсці бліжэй да канца файла '%1'."
 
+#. `VSpacing (1),
 #. TRANSLATORS: part of an error message
 #. %1 - link to our bugzilla
 #. %2 - directory where YaST logs are stored
@@ -426,6 +423,13 @@ msgstr ""
 #. link to the Yast Bug Reporting HOWTO
 #. for translators: use the localized page for your language if it exists,
 #. check the combo box "In other laguages" on top of the page
+#. TRANSLATORS: an error message
+#. this should not happen, but life is cruel...
+#. %1 - (failed) module name
+#. %2 - logfile, possibly with errors
+#. %3 - link to our bugzilla
+#. %4 - directory where YaST logs are stored
+#. %5 - link to the Yast Bug Reporting HOWTO Web page
 #. link to the Yast Bug Reporting HOWTO
 #. for translators: use the localized page for your language if it exists,
 #. check the combo box "In other laguages" on top of the page
@@ -588,6 +592,7 @@ msgstr "Hipersockets"
 msgid "Via &socket"
 msgstr "Праз &xinetd"
 
+#. Frame label (service starting)
 #. frame
 #: library/cwm/src/modules/CWMServiceStart.rb:373
 msgid "Service Start"
@@ -603,6 +608,9 @@ msgstr "Служба запушчана"
 msgid "Service is not running"
 msgstr "Служба не запушчана"
 
+#. Get the template for the help text to the start/stop widget
+#. @param [Boolean] restart_displayed shold be true if "Save and restart" is displayed
+#. @return [String] help text template with %1 and %2 placeholders
 #. help text for service status displaying and switching  widget 1/2
 #. %1 and %2 are push button labels
 #. %1 is eg. "Start the Service Now"
@@ -632,6 +640,9 @@ msgstr ""
 "<p>Каб захаваць усе змены і неадкладна\n"
 "перазапусціць службу, выкарыстоўвайце <b>%3</b>.</p>\n"
 
+#. Get the help text to the start/stop widget
+#. @param [Boolean] restart_displayed shold be true if "Save and restart" is displayed
+#. @return [String] help text
 #. part of help text - push button label, NO SHORTCUT!!!
 #: library/cwm/src/modules/CWMServiceStart.rb:529
 msgid "Start the Service Now"
@@ -1378,6 +1389,14 @@ msgid "Using '%{fallback}' instead."
 msgstr ""
 
 #. use this way merge to have details as first place button
+#. Generic message popup with Details button - internal
+#.
+#. Show a message with optional headline above and
+#. wait until user clicked "OK" or "Details". On "Details", show window with detailed information.
+#.
+#. @param [String] headline  optional headline or Popup::NoHeadline()
+#. @param [String] message  the message (maybe multi-line) to display.
+#. @param [String] details  the detailed information text
 #. FIXME: BNC #422612, Use `opt(`noSanityCheck) later
 #. button label
 #: library/general/src/lib/yast2/popup.rb:142
@@ -1385,6 +1404,7 @@ msgstr ""
 msgid "&Details..."
 msgstr "&Падрабязнасці..."
 
+#. Continue despite the error?
 #. TRANSLATORS: popup question (with continue / cancel buttons)
 #. %1 is the filesystem path
 #: library/general/src/modules/FileUtils.rb:285
@@ -1413,6 +1433,7 @@ msgstr ""
 "Шлях %1 не існуе.\n"
 "Стварыць яго?\n"
 
+#. Continue despite the error?
 #. TRANSLATORS: popup question (with continue / cancel buttons)
 #. %1 is the name (path) of the directory
 #: library/general/src/modules/FileUtils.rb:317
@@ -1665,6 +1686,9 @@ msgstr ""
 "не ўсталёўваючы патрабаваныя пакеты."
 
 #  translators: error message
+#. Cannot start 'service_name' service
+#. @param [String] service_name
+#. @return [String] Cannot start 'service_name' service
 #. TRANSLATORS: Popup message, %1 is a service name like "smbd"
 #: library/general/src/modules/Message.rb:54
 #, ycp-format
@@ -1672,6 +1696,9 @@ msgid "Cannot start '%1' service"
 msgstr "Немагчыма запусціць службу '%1'"
 
 #  translators: error message
+#. Cannot restart 'service_name' service
+#. @param [String] service_name
+#. @return [String] Cannot restart 'service_name' service
 #. TRANSLATORS: Popup message, %1 is a service name like "smbd"
 #: library/general/src/modules/Message.rb:62
 #, ycp-format
@@ -1679,12 +1706,18 @@ msgid "Cannot restart '%1' service"
 msgstr "Немагчыма перазапусціць службу '%1'"
 
 #  translators: error message
+#. Cannot stop 'service_name' service
+#. @param [String] service_name
+#. @return [String] Cannot stop 'service_name' service
 #. TRANSLATORS: Popup message, %1 is a service name like "smbd"
 #: library/general/src/modules/Message.rb:70
 #, ycp-format
 msgid "Cannot stop '%1' service"
 msgstr "Немагчыма спыніць службу '%1'"
 
+#. Cannot write settings to 'destination'
+#. @param [String] destination
+#. @return [String] Cannot write settings to 'destination'
 #. TRANSLATORS: Popup message, %1 is file or service name like "/tmp/out" or "LDAP"
 #. For Right-To-Left languages, you want to put %1 into its own empty line so
 #. the text renderer doesn't get trip with the English filename
@@ -1694,6 +1727,10 @@ msgstr "Немагчыма спыніць службу '%1'"
 msgid "Cannot write settings to '%1'"
 msgstr "Немагчыма запісаць параметры налады ў '%1'."
 
+#. Cannot write settings to 'destination'\n\nReason: reason
+#. @param [String] destination
+#. @param [String] reason
+#. @return [String] Cannot write settings to 'destination'\n\nReason: reason
 #. TRANSLATORS: Popup message, %1 is file or service name like "/tmp/out" or "LDAP", %2 is the reason of error
 #. For Right-To-Left languages, you want to put %1 into its own empty line so
 #. the text renderer doesn't get trip with the English filename
@@ -1710,6 +1747,9 @@ msgstr ""
 "Чыннік: %2"
 
 #  Translators: error message
+#. Error writing file 'file'
+#. @param [String] file
+#. @return [String] Error writing file 'file'
 #. TRANSLATORS: Popup message, %1 is a file name like "/tmp/out"
 #. For Right-To-Left languages, you want to put %1 into its own empty line so
 #. the text renderer doesn't get trip with the English filename
@@ -1719,6 +1759,10 @@ msgstr ""
 msgid "Error writing file '%1'"
 msgstr "Памылка запісу файла '%1'"
 
+#. Error writing file 'file'\n\nReason: reason
+#. @param [String] file
+#. @param [String] reason
+#. @return [String] Error writing file 'file'\n\nReason: reason
 #. TRANSLATORS: Popup message, %1 is a file name like "/tmp/out", %2 is the reason of error
 #. For Right-To-Left languages, you want to put %1 into its own empty line so
 #. the text renderer doesn't get trip with the English filename
@@ -1734,6 +1778,9 @@ msgstr ""
 "\n"
 "Чыннік: %2"
 
+#. Cannot open file 'file'
+#. @param [String] file
+#. @return [String] Cannot open file 'file'
 #. TRANSLATORS: Popup message, %1 is the name of file like "/tmp/in"
 #. For Right-To-Left languages, you want to put %1 into its own empty line so
 #. the text renderer doesn't get trip with the English filename
@@ -1743,6 +1790,10 @@ msgstr ""
 msgid "Cannot open file '%1'"
 msgstr "Немагчыма адкрыць файл '%1'"
 
+#. Cannot open file 'file'\n\nReason: reason
+#. @param [String] file
+#. @param [String] reason
+#. @return [String] Cannot open file 'file'\n\nReason: reason
 #. TRANSLATORS: Popup message, %1 is the name of file like "/tmp/in", %2 is the reason of error
 #. For Right-To-Left languages, you want to put %1 into its own empty line so
 #. the text renderer doesn't get trip with the English filename
@@ -1768,6 +1819,9 @@ msgstr "Гатова"
 msgid "Check the environment"
 msgstr "Праверка асяроддзя"
 
+#. UnknownError\n\nReason: reason
+#. @param [String] reason
+#. @return [String] UnknownError\n\nReason: reason
 #. TRANSLATORS: Popup message, %1 is the description of error
 #: library/general/src/modules/Message.rb:173
 #, ycp-format
@@ -1785,6 +1839,8 @@ msgstr ""
 msgid "This item must be completed."
 msgstr "Гэты пункт павінен быць запоўнены."
 
+#. Question: Directory does not exist. Create it?
+#. @return [String] The directory '%1' does not exist.\nCreate it?
 #. TRANSLATORS: Popup question
 #. For Right-To-Left languages, you want to put %1 into its own empty line so
 #. the text renderer doesn't get trip with the English directory
@@ -1814,12 +1870,18 @@ msgid "Do Not Show This Message &Again"
 msgstr "Больш не пак&азваць гэта паведамленне"
 
 #  translators: error message
+#. Cannot ajust 'service_name' service
+#. @param [String] service_name
+#. @return [String] Cannot adjust 'service_name' service
 #. TRANSLATORS: Popup message, %1 is a service name like "smbd"
 #: library/general/src/modules/Message.rb:218
 #, ycp-format
 msgid "Cannot adjust '%1' service."
 msgstr "Немагчыма наладзіць службу '%1'."
 
+#. When some parameter is missing
+#. @param [String] parameter
+#. @return [String] Missing parameter '%1'.
 #. TRANSLATORS: Popup message, %1 is a missing-parameter name
 #: library/general/src/modules/Message.rb:226
 #, ycp-format
@@ -1827,6 +1889,9 @@ msgid "Missing parameter '%1'."
 msgstr "Адсутнічае параметр '%1'."
 
 #  error message
+#. When is is not able to create directory
+#. @param [String] directory
+#. @return [String] Unable to create directory '%1'.
 #. TRANSLATORS: Popup message, %1 is a directory name
 #. For Right-To-Left languages, you want to put %1 into its own empty line so
 #. the text renderer doesn't get trip with the English directory
@@ -1972,6 +2037,8 @@ msgstr "Паказваць паведамленні: %1"
 #. translators: summary if the warnings should be written to log file
 #. translators: summary if the errors should be displayed
 #. translators: summary if the errors should be written to log file
+#. @param [Boolean] value boolean
+#. @return [Boolean] value as "Yes" or "No"
 #. TRANSLATORS: human text for Boolean value
 #: library/general/src/modules/Report.rb:116
 #: library/general/src/modules/Report.rb:132
@@ -2160,6 +2227,8 @@ msgstr "ID карыстача"
 
 #. table header - GPG key fingerprint
 #. table header - GPG key fingerprint
+#. --------------------------- Don't show this dialog again Magic ---------------------------
+#. /etc/sysconfig/security:CHECK_SIGNATURES
 #. lazy
 #. Standard text strings
 #. GnuPG fingerprint used as "Fingerprint: AAA BBB CCC"
@@ -2220,6 +2289,9 @@ msgstr ""
 " Для адмены націсніце Ctrl+C.\n"
 " </p>"
 
+#. Return definition of the passphrase CWM widget.
+#. @param [String] key key ID displayed in the label
+#. @return [Hash{String => map<String,Object>}] widget definition
 #. text entry
 #: library/gpg/src/modules/GPGWidgets.rb:321
 #, ycp-format
@@ -2267,6 +2339,10 @@ msgstr ""
 "<p><b><big>Часопіс</big></b><br>\n"
 "Тут вы можаце паглядзець часопіс.</p>"
 
+#. Get the second part of the help for the log in case of advanced functions
+#. and save support
+#. @param [String] label tge label of the menu button
+#. @return [String] part of the log
 #. help for the log widget, part 2, alt. 1, %1 is a menu button label
 #: library/log/src/modules/LogView.rb:128
 #, ycp-format
@@ -2279,6 +2355,9 @@ msgstr ""
 "Каб выканаць дадатковыя дзеянні ці захаваць часопіс у файл,\n"
 "націсніце <b>%1</b> і абярыце выкананае дзеянне.</p>"
 
+#. Get the second part of the help for the log in case of advanced functions
+#. @param [String] label tge label of the menu button
+#. @return [String] part of the log
 #. help for the log widget, part 2, alt. 2, %1 is a menu button label
 #: library/log/src/modules/LogView.rb:143
 #, ycp-format
@@ -2346,6 +2425,14 @@ msgstr "Захаваць часопіс як..."
 msgid "Error occurred while reading the log."
 msgstr "Паўстала памылка пры чытанні часопіса."
 
+#. Function returns localized name of the zone identified by zone shortname.
+#.
+#. @param  string short name
+#. @return  [String] zone name
+#.
+#. @example
+#. LANG=en_US GetZoneFullName ("EXT") -> "External Zone"
+#. LANG=cs_CZ GetZoneFullName ("EXT") -> "Externí Zóna"
 #. TRANSLATORS: Firewall zone full-name, used as combo box item or dialog title
 #: library/network/src/lib/network/susefirewall.rb:512
 msgid "Unknown Zone"
@@ -2363,6 +2450,7 @@ msgstr ""
 "Інтэрфейс '%1' не прысвоены якой-небудзь зоне брандмаўара.\n"
 "Запусціце брэндмаўар YaST2 і прысвойце яго.\n"
 
+#. map defines zone name for all known firewall zones
 #. TRANSLATORS: Firewall zone name - used in combo box or dialog title
 #: library/network/src/lib/network/susefirewall2.rb:117
 #: library/network/src/lib/network/susefirewalld.rb:99
@@ -2539,6 +2627,7 @@ msgstr ""
 msgid "Service: %{filename}"
 msgstr "Служба: %1"
 
+#. map defines zone name for all known firewall zones
 #. TRANSLATORS: Firewall zone name - used in combo box or dialog title
 #: library/network/src/lib/network/susefirewalld.rb:90
 #, fuzzy
@@ -2619,6 +2708,7 @@ msgstr ""
 "\n"
 "Працягнуць?"
 
+#. to hide that special string
 #. yes-no popup
 #: library/network/src/modules/CWMFirewallInterfaces.rb:408
 #, fuzzy, ycp-format
@@ -2641,6 +2731,7 @@ msgstr ""
 "\n"
 "Працягнуць?"
 
+#. to hide that special string
 #. yes-no popup
 #: library/network/src/modules/CWMFirewallInterfaces.rb:425
 #, fuzzy, ycp-format
@@ -2678,6 +2769,9 @@ msgstr "Абраць &Усё"
 msgid "Select &None"
 msgstr "&Не выбіраць нічога"
 
+#. Get the template for the help text to the firewall opening widget
+#. @param [Boolean] restart_displayed shold be true if "Save and restart" is displayed
+#. @return [String] help text template with %1 and %2 placeholders
 #. help text for firewall settings widget 1/3,
 #. %1 is check box label, eg. "Open Port in Firewall" (without quotes)
 #: library/network/src/modules/CWMFirewallInterfaces.rb:755
@@ -2713,6 +2807,9 @@ msgstr ""
 "Гэты параметр даступны, толькі калі брандмаўар\n"
 "уключаны.</p>"
 
+#. Get the help text to the firewall opening widget
+#. @param [Boolean] restart_displayed shold be true if "Save and restart" is displayed
+#. @return [String] help text
 #. part of help text - check box label, NO SHORTCUT!!!
 #: library/network/src/modules/CWMFirewallInterfaces.rb:785
 msgid "Open Port in Firewall"
@@ -2850,6 +2947,11 @@ msgstr ""
 msgid "These services must be defined in order to configure the firewall."
 msgstr ""
 
+#. Return device type in human readable form :-)
+#. @param [String] dev device
+#. @return device type
+#. @example GetDeviceTypeName(eth-bus-pci-0000:01:07.0) -> "Network Card"
+#. @example GetDeviceTypeName(modem0) -> "Modem"
 #. pppN must be tried before pN, modem before netcard
 #. Device type label
 #. Device type label
@@ -3785,6 +3887,7 @@ msgid "Applying delta RPM package %1..."
 msgstr "Ужыванне рознаснага пакета RPM %1..."
 
 #. popup heading
+#. popup heading
 #: library/packages/src/modules/PackageCallbacks.rb:1507
 msgid "Applying delta RPM package"
 msgstr "Ужыванне рознаснага пакета RPM"
@@ -3942,6 +4045,7 @@ msgid "RPM database read"
 msgstr "Чытанне базы дадзеных RPM"
 
 #  summary item
+#. enforce width
 #. heading in a popup window
 #: library/packages/src/modules/PackageCallbacks.rb:2279
 msgid "User Authentication"
@@ -3963,6 +4067,7 @@ msgstr ""
 msgid "&User Name"
 msgstr "Імя &карыстача"
 
+#. enforce width
 #. check box
 #: library/packages/src/modules/PackageCallbacks.rb:3079
 msgid "Show &details"
@@ -4770,11 +4875,13 @@ msgstr ""
 "УВАГА: Тэрмін дзеяння ключа мінуў!\n"
 "Дата канчатка: %1"
 
+#. dialog
 #. popup heading
 #: library/packages/src/modules/SignatureCheckDialogs.rb:709
 msgid "Import Untrusted GnuPG Key"
 msgstr "Імпартаваць неправераны ключ GnuPG"
 
+#. dialog buttons
 #. push button
 #: library/packages/src/modules/SignatureCheckDialogs.rb:723
 msgid "&Trust"
@@ -5700,6 +5807,17 @@ msgstr ""
 "Перазагрузіце вашу сістэму\n"
 "для актывацыі новага ядра.\n"
 
+#. Popup-Box for manual driver installation.
+#. If the user selects 'manual installation' when
+#. booting from CD, YaST2 does not load any modules
+#. automatically, but asks the user for confirmation
+#. about every module.
+#. The popup box informs the user about the detected
+#. hardware and suggests a module to load.
+#. The user can confirm the module or change
+#. the suggested load command
+#.
+#. This is the heading of the popup box
 #. bnc #421002
 #: library/system/src/modules/ModuleLoading.rb:175
 msgid "Confirm driver activation"
@@ -5961,6 +6079,17 @@ msgstr "%1 (у сярэднім %2)"
 msgid "..."
 msgstr "..."
 
+#. Return a pretty description of a download rate
+#.
+#. Return a pretty description of a download rate, with two fraction digits
+#. and using B/s, KiB/s, MiB/s, GiB/s or TiB/s as unit as appropriate.
+#.
+#. @param [Fixnum] bytes_per_second download rate (in B/s)
+#. @return formatted string
+#.
+#. @example format_rate(6780) -> ""
+#. @example format_rate(0) -> ""
+#. @example format_rate(895321) -> ""
 #. covert a number to download rate string
 #. %1 is string - size in bytes, B, KiB, MiB, GiB or TiB
 #: library/types/src/modules/String.rb:844
@@ -6014,6 +6143,13 @@ msgstr "Неабходны прывілеі суперкарыстача"
 msgid "Really delete selected entry?"
 msgstr "Сапраўды выдаліць абраны запіс?"
 
+#. * Opens a popup yes/no confirmation.
+#.
+#. * If users confirms deleting of named entry/file/etc.,
+#. * return true, else return false
+#. *
+#. * @param string file/entry name/etc.
+#. * @return boolean delete selected entry
 #. Popup question, %1 is an item to delete (or filename, etc.)
 #: library/wizard/src/modules/Confirm.rb:215
 #, ycp-format
@@ -6028,6 +6164,7 @@ msgstr "Сапраўды выдаліць '%1'?"
 msgid "&Apply"
 msgstr "&Ужыць"
 
+#. Layout trick: Lower layout priority with weight
 #. translators: dialog title to appear before any content is initialized
 #: library/wizard/src/modules/Wizard.rb:287
 msgid "Initializing ..."
@@ -6046,6 +6183,12 @@ msgstr ""
 "YaST2\n"
 "Ініцыялізацыя..."
 
+#. Open a popup dialog that displays a help text (rich text format).
+#.
+#. @note This is a stable API function
+#.
+#. @param [String] help_text the text to display
+#.
 #. Heading for help popup window
 #: library/wizard/src/modules/Wizard.rb:377
 msgid "Help"
@@ -6842,6 +6985,10 @@ msgid ""
 msgstr ""
 "Не зададзена зваротная зона для %1, кіраванай вашым DNS-серверам.\n"
 "Імя хаста %2 не можа быць дададзена."
+
+#: tests/i18n_spec.rb:55
+msgid "foo"
+msgstr ""
 
 #~ msgid "Media"
 #~ msgstr "Носьбіт"
