@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: packager\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-18 02:29+0000\n"
+"POT-Creation-Date: 2022-01-19 02:23+0100\n"
 "PO-Revision-Date: 2021-03-19 09:57+0000\n"
 "Last-Translator: Grace Yu <grace.yu@excel-gits.com>\n"
 "Language-Team: Chinese (China) <https://l10n.opensuse.org/projects/yast-"
@@ -24,6 +24,7 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Weblate 3.6.1\n"
 
+#. Command line definition - minimal command line support
 #. module description
 #: src/clients/checkmedia.rb:25
 msgid "Check CD or DVD media integrity"
@@ -146,6 +147,9 @@ msgstr "正在读取软件包信息..."
 msgid "No Valid Installation Media"
 msgstr "没有有效的安装媒体"
 
+#. Fill return map.
+#.
+#. Static values do just nicely here, no need to call a function.
 #. this is a heading
 #: src/clients/media_proposal.rb:77
 msgid "Installation Media"
@@ -163,7 +167,9 @@ msgstr "媒体(&M)"
 msgid "The software proposal is reset to the default values."
 msgstr "关于应安装软件的建议案将被重置成默认值。"
 
+#. the proposal for the packages requires manual intervention
 #. warning text
+#. the proposal for the packages requires manual intervention
 #. warning text
 #: src/clients/software_simple_proposal.rb:43
 #: src/lib/packager/clients/software_proposal.rb:77
@@ -421,11 +427,13 @@ msgid ""
 "to avoid installation problems. To skip this step press 'Next'"
 msgstr "建议您检查全部安装媒体以避免安装问题。要跳过此步骤请按“下一步”"
 
+#. combobox label
 #. combo box
 #: src/include/checkmedia/ui.rb:340
 msgid "&CD or DVD Drive"
 msgstr "&CD 或 DVD 驱动器"
 
+#. empty label for aligning the widgets
 #. push button label
 #: src/include/checkmedia/ui.rb:348
 msgid "&Start Check"
@@ -711,6 +719,10 @@ msgstr ""
 "正确的位置。\n"
 "若要让位于指定位置的 rpm 软件包出现在可选软件包列表中，请继续。\n"
 
+#. Ask user whether to change the entered URL and try again
+#. @param url [String] repository URL
+#. @param scheme [String] scheme part of the URL
+#. @return [Boolean] true to try again
 #. TRANSLATORS: error message (1/3), %1 is repository URL
 #. Import GPG keys found in the inst-sys
 #. Pkg.SourceScan can return Array with repos or -1 if failed. So be more
@@ -830,6 +842,7 @@ msgstr "未知的软件源名称"
 msgid "Category: %1"
 msgstr "类别：%1"
 
+#. store repositories and services in the persistent libzypp storage
 #. #176013
 #: src/lib/packager/clients/repositories.rb:686
 msgid "All repositories"
@@ -1250,6 +1263,7 @@ msgstr "中止配置在线软件源"
 msgid "Are you sure you want to abort the configuration?"
 msgstr "确定要中止配置？"
 
+#. Network is not running
 #. TRANSLATORS: popup header
 #: src/lib/y2packager/clients/inst_productsources.rb:320
 msgid "Network is not configured."
@@ -1266,6 +1280,7 @@ msgstr ""
 "\n"
 "您要配置网络连接吗？"
 
+#. TRANSLATORS: progress step
 #. TRANSLATORS: progress step
 #: src/lib/y2packager/clients/inst_productsources.rb:626
 msgid "Check network configuration"
@@ -1612,7 +1627,21 @@ msgstr "%s 许可协议"
 #. @see CWM::CustomWidget#contents
 #. #459391
 #. If a progress is running open another dialog
+#. Ask user to confirm license agreement
+#. @param [Array<String>] dirs - directories to look for the licenses
+#. @param [Array<String>] patterns a list of patterns for the files, regular expressions
+#. with %1 for the language
+#. @param [String] action what to do if the license is declined,
+#. can be "continue", "abort" or "halt"
+#. @param [Boolean] enable_back sets the back_button status
+#. @param [Boolean] base_product defines whether it is a base or add-on product
+#. true means base product, false add-on product
+#. @param [Boolean] require_agreement means that even if the license (or the very same license)
+#. has been already accepetd, ask user to accept it again (because of 'going back'
+#. in the installation proposal).
 #. dialog caption
+#. Displays License dialog
+#. @param licenses [ArgRef<Hash{String, String}>] a map $[ lang_code : filename ]
 #. dialog title
 #: src/lib/y2packager/dialogs/product_license_translations.rb:47
 #: src/lib/y2packager/dialogs/product_license_translations.rb:87
@@ -1700,6 +1729,9 @@ msgstr "准备装机系统时出错。"
 msgid "Control file %1 not found on media."
 msgstr "在媒体上找不到控制文件 %1。"
 
+#. Calls registration client if needed.
+#.
+#. @param [Fixnum] src_id source id
 #. FATE #305578: Add-On Product Requiring Registration
 #: src/modules/AddOnProduct.rb:825
 #, c-format
@@ -1809,6 +1841,8 @@ msgstr ""
 msgid "Cannot copy the key to the temporary directory."
 msgstr "无法将密钥复制到临时目录。"
 
+#. Show a dialog with either the list of failed packages (string failed_packages) or
+#. the complete log (string full_log).
 #. button label
 #: src/modules/PackageInstallation.rb:45
 msgid "&Show Failed Packages List"
@@ -1987,6 +2021,8 @@ msgstr "<b>警告：</b>将移除产品 <b>%s</b>。"
 msgid "<b>Error:</b> Product <b>%s</b> will be automatically removed."
 msgstr "<b>错误：</b>将自动移除产品 <b>%s</b>。"
 
+#. Automatic product removal MUST be confirmed by user, otherwise update
+#. cannot be started.
 #. TRANSLATORS: update proposal warning, do NOT translate "-release",
 #. it is part of a package name (like "sles-release")
 #: src/modules/Packages.rb:702
@@ -2189,6 +2225,9 @@ msgstr ""
 "<p>请仔细阅读许可协议并选择同意或拒绝。若您不同意此许可协议，配置将中止。</"
 "p>\n"
 
+#. crate a label describing the license URL location
+#. @param [String] display_url URL to display
+#. return [String] translated label
 #. TRANSLATORS: %{license_url} is an URL where the displayed license can be found
 #: src/modules/ProductLicense.rb:763
 #, perl-brace-format
@@ -2280,6 +2319,7 @@ msgstr ""
 "分区 %1 的磁盘空间几乎用罄。\n"
 "仍继续安装？"
 
+#. at start of file providal
 #. remote
 #: src/modules/SlideShowCallbacks.rb:437
 #, ycp-format
@@ -2298,6 +2338,7 @@ msgstr "下载增量 RPM 失败：%1"
 msgid "Failed to apply delta RPM: %1"
 msgstr "应用增量 RPM 失败：%1"
 
+#. widget ID => translatable label (needs to be translated by _())
 #. radio button
 #: src/modules/SourceDialogs.rb:25
 msgid "&Scan Using SLP..."
@@ -2395,6 +2436,7 @@ msgstr ""
 "<p>若该软件源位于多个媒体上，\n"
 "请设置组合中第一个媒体的位置。</p>\n"
 
+#. NFS editation widget
 #. text entry
 #: src/modules/SourceDialogs.rb:133
 msgid "&Server Name"
@@ -2430,6 +2472,7 @@ msgstr "（默认）"
 msgid "URL of the Repository"
 msgstr "软件源 URL"
 
+#. dialog contents for different views
 #. frame
 #: src/modules/SourceDialogs.rb:181
 msgid "P&rotocol"
@@ -2440,6 +2483,7 @@ msgstr "协议(&R)"
 msgid "&URL of the Repository"
 msgstr "软件源 &URL"
 
+#. Captions for individual protocols
 #. label / dialog caption
 #. bugzilla #219759
 #. service label can be empty (not defined)
@@ -2655,6 +2699,7 @@ msgstr ""
 "（如，无产品信息），则可选中\n"
 "<b>纯 RPM 目录</b>选项。</p>\n"
 
+#. combobox title
 #. `opt(`hstretch),
 #: src/modules/SourceDialogs.rb:1305
 msgid "&USB Mass Storage Device"
@@ -2948,6 +2993,7 @@ msgstr "URL 规则 ‘%s’ 无效。"
 msgid "Initializing Available Repositories"
 msgstr "初始化可用软件源"
 
+#. We do not set help text here, because it was set outside
 #. Progress stage 1/3
 #: src/modules/SourceManager.rb:100
 msgid "Read configured repositories"
@@ -2989,6 +3035,7 @@ msgstr "无法保存对软件源的修改。\n"
 msgid "Saving Repository Configuration"
 msgstr "保存软件源配置"
 
+#. We do not set help text here, because it was set outside
 #. Progress stage 1/1
 #: src/modules/SourceManager.rb:175
 msgid "Write repository settings"

@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: packager.ru\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-18 02:29+0000\n"
+"POT-Creation-Date: 2022-01-19 02:23+0100\n"
 "PO-Revision-Date: 2021-03-29 21:57+0000\n"
 "Last-Translator: Alex Minton <alex239@gmail.com>\n"
 "Language-Team: Russian <https://l10n.opensuse.org/projects/yast-packager/"
@@ -24,6 +24,7 @@ msgstr ""
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 "X-Generator: Weblate 3.6.1\n"
 
+#. Command line definition - minimal command line support
 #. module description
 #: src/clients/checkmedia.rb:25
 msgid "Check CD or DVD media integrity"
@@ -149,6 +150,9 @@ msgstr "Чтение информация о пакете..."
 msgid "No Valid Installation Media"
 msgstr "Нет допустимого носителя установки"
 
+#. Fill return map.
+#.
+#. Static values do just nicely here, no need to call a function.
 #. this is a heading
 #: src/clients/media_proposal.rb:77
 msgid "Installation Media"
@@ -166,7 +170,9 @@ msgstr "&Носитель"
 msgid "The software proposal is reset to the default values."
 msgstr "Выбор приложений сброшен на значения по умолчанию."
 
+#. the proposal for the packages requires manual intervention
 #. warning text
+#. the proposal for the packages requires manual intervention
 #. warning text
 #: src/clients/software_simple_proposal.rb:43
 #: src/lib/packager/clients/software_proposal.rb:77
@@ -445,11 +451,13 @@ msgstr ""
 "Рекомендуется проверить все носители, чтобы избежать проблем при установке.\n"
 "Чтобы пропустить этот шаг, нажмите \"Далее\""
 
+#. combobox label
 #. combo box
 #: src/include/checkmedia/ui.rb:340
 msgid "&CD or DVD Drive"
 msgstr "&CD или DVD привод"
 
+#. empty label for aligning the widgets
 #. push button label
 #: src/include/checkmedia/ui.rb:348
 msgid "&Start Check"
@@ -740,6 +748,10 @@ msgstr ""
 "Чтобы сделать RPM-пакеты в указанном месте доступными\n"
 "в выборе пакетов, продолжите.\n"
 
+#. Ask user whether to change the entered URL and try again
+#. @param url [String] repository URL
+#. @param scheme [String] scheme part of the URL
+#. @return [Boolean] true to try again
 #. TRANSLATORS: error message (1/3), %1 is repository URL
 #. Import GPG keys found in the inst-sys
 #. Pkg.SourceScan can return Array with repos or -1 if failed. So be more
@@ -861,6 +873,7 @@ msgstr "Неизвестное имя репозитория"
 msgid "Category: %1"
 msgstr "Категория: %1"
 
+#. store repositories and services in the persistent libzypp storage
 #. #176013
 #: src/lib/packager/clients/repositories.rb:686
 msgid "All repositories"
@@ -1304,6 +1317,7 @@ msgstr "Прерывание конфигурирования сетевого �
 msgid "Are you sure you want to abort the configuration?"
 msgstr "Действительно прервать конфигурирование?"
 
+#. Network is not running
 #. TRANSLATORS: popup header
 #: src/lib/y2packager/clients/inst_productsources.rb:320
 msgid "Network is not configured."
@@ -1320,6 +1334,7 @@ msgstr ""
 "\n"
 "Настроить его сейчас?"
 
+#. TRANSLATORS: progress step
 #. TRANSLATORS: progress step
 #: src/lib/y2packager/clients/inst_productsources.rb:626
 msgid "Check network configuration"
@@ -1677,7 +1692,21 @@ msgstr "Лицензионное соглашение %s"
 #. @see CWM::CustomWidget#contents
 #. #459391
 #. If a progress is running open another dialog
+#. Ask user to confirm license agreement
+#. @param [Array<String>] dirs - directories to look for the licenses
+#. @param [Array<String>] patterns a list of patterns for the files, regular expressions
+#. with %1 for the language
+#. @param [String] action what to do if the license is declined,
+#. can be "continue", "abort" or "halt"
+#. @param [Boolean] enable_back sets the back_button status
+#. @param [Boolean] base_product defines whether it is a base or add-on product
+#. true means base product, false add-on product
+#. @param [Boolean] require_agreement means that even if the license (or the very same license)
+#. has been already accepetd, ask user to accept it again (because of 'going back'
+#. in the installation proposal).
 #. dialog caption
+#. Displays License dialog
+#. @param licenses [ArgRef<Hash{String, String}>] a map $[ lang_code : filename ]
 #. dialog title
 #: src/lib/y2packager/dialogs/product_license_translations.rb:47
 #: src/lib/y2packager/dialogs/product_license_translations.rb:87
@@ -1767,6 +1796,9 @@ msgstr "Произошла ошибка при подготовке устано
 msgid "Control file %1 not found on media."
 msgstr "Файл управления %1 не найден на носителе."
 
+#. Calls registration client if needed.
+#.
+#. @param [Fixnum] src_id source id
 #. FATE #305578: Add-On Product Requiring Registration
 #: src/modules/AddOnProduct.rb:825
 #, c-format
@@ -1876,6 +1908,8 @@ msgstr ""
 msgid "Cannot copy the key to the temporary directory."
 msgstr "Невозможно скопировать ключ во временный каталог."
 
+#. Show a dialog with either the list of failed packages (string failed_packages) or
+#. the complete log (string full_log).
 #. button label
 #: src/modules/PackageInstallation.rb:45
 msgid "&Show Failed Packages List"
@@ -2066,6 +2100,8 @@ msgstr "<b>Внимание:</b> Продукт <b>%s</b> будет удале�
 msgid "<b>Error:</b> Product <b>%s</b> will be automatically removed."
 msgstr "<b>Ошибка:</b> Продукт <b>%s</b> будет автоматически удален."
 
+#. Automatic product removal MUST be confirmed by user, otherwise update
+#. cannot be started.
 #. TRANSLATORS: update proposal warning, do NOT translate "-release",
 #. it is part of a package name (like "sles-release")
 #: src/modules/Packages.rb:702
@@ -2278,6 +2314,9 @@ msgstr ""
 "одну из доступных опций. Если вы не согласны с лицензионным соглашением,\n"
 "конфигурирование будет прервано.</p>\n"
 
+#. crate a label describing the license URL location
+#. @param [String] display_url URL to display
+#. return [String] translated label
 #. TRANSLATORS: %{license_url} is an URL where the displayed license can be found
 #: src/modules/ProductLicense.rb:763
 #, perl-brace-format
@@ -2373,6 +2412,7 @@ msgstr ""
 "Дисковое пространство в разделе %1 почти исчерпано.\n"
 "Продолжить установку?"
 
+#. at start of file providal
 #. remote
 #: src/modules/SlideShowCallbacks.rb:437
 #, ycp-format
@@ -2391,6 +2431,7 @@ msgstr "Не удалось загрузить разностный RPM: %1"
 msgid "Failed to apply delta RPM: %1"
 msgstr "Не удалось применить разностный RPM: %1"
 
+#. widget ID => translatable label (needs to be translated by _())
 #. radio button
 #: src/modules/SourceDialogs.rb:25
 msgid "&Scan Using SLP..."
@@ -2490,6 +2531,7 @@ msgstr ""
 "<p>Если репозиторий находится на нескольких носителях,\n"
 "задайте расположение первого носителя.</p>\n"
 
+#. NFS editation widget
 #. text entry
 #: src/modules/SourceDialogs.rb:133
 msgid "&Server Name"
@@ -2525,6 +2567,7 @@ msgstr "(по умолчанию)"
 msgid "URL of the Repository"
 msgstr "URL репозитория"
 
+#. dialog contents for different views
 #. frame
 #: src/modules/SourceDialogs.rb:181
 msgid "P&rotocol"
@@ -2535,6 +2578,7 @@ msgstr "П&ротокол"
 msgid "&URL of the Repository"
 msgstr "&URL репозитория"
 
+#. Captions for individual protocols
 #. label / dialog caption
 #. bugzilla #219759
 #. service label can be empty (not defined)
@@ -2759,6 +2803,7 @@ msgstr ""
 "каких-либо метаданных (т.е. нет информации о продукте), отметьте опцию\n"
 "<b>Просто каталог RPM</b>.</p>\n"
 
+#. combobox title
 #. `opt(`hstretch),
 #: src/modules/SourceDialogs.rb:1305
 msgid "&USB Mass Storage Device"
@@ -3063,6 +3108,7 @@ msgstr "Недопустимая схема URL %s."
 msgid "Initializing Available Repositories"
 msgstr "Инициализация доступных репозиториев"
 
+#. We do not set help text here, because it was set outside
 #. Progress stage 1/3
 #: src/modules/SourceManager.rb:100
 msgid "Read configured repositories"
@@ -3104,6 +3150,7 @@ msgstr "Не удалось сохранить изменения в репоз�
 msgid "Saving Repository Configuration"
 msgstr "Сохранение конфигурации репозитория"
 
+#. We do not set help text here, because it was set outside
 #. Progress stage 1/1
 #: src/modules/SourceManager.rb:175
 msgid "Write repository settings"
