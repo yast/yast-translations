@@ -114,13 +114,19 @@ DBG "Check 1: Are all packages properly translated?"
 DBG "=============================================="
 exec <product-check-list-repo.lst
 while read RPMNAME ; do
-	GITNAME=$(gitname $RPMNAME)
+	GITNAMES=$(gitname $RPMNAME)
 
-	if test -z "$GITNAME" ; then
+	if test -z "$GITNAMES" ; then
 		continue
 	fi
+
+	if echo "$GITNAMES" | grep -q -F " " ; then
+		echo "More projects use the same RPMNAME $RPMNAME: $GITNAMES."
+	fi
+
+	for GITNAME in $GITNAMES ; do
 	DBG "Checking $RPMNAME (GitHub $GITNAME)..."
-	if test $GITNAME = ruby-bindings ; then
+	if test "$GITNAME" = ruby-bindings ; then
 		DBG "  skipping (see https://bugzilla.suse.com/show_bug.cgi?id=1066999)"
 		continue
 	fi
@@ -146,6 +152,7 @@ while read RPMNAME ; do
 	if grep -q -x -F "$GITNAME" po/SKIP_PROJECTS ; then
 		echo "$RPMNAME is in product, $GITNAME in checkout, but also in SKIP_PROJECTS"
 	fi
+	done
 done
 
 DBG "Check 2: Are all domains in yast-translations really used?"
