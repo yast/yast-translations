@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: registration\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-19 02:23+0100\n"
+"POT-Creation-Date: 2022-01-19 02:28+0000\n"
 "PO-Revision-Date: 2021-03-25 10:57+0000\n"
 "Last-Translator: Sophie Leroy <sophie@stoquart.com>\n"
 "Language-Team: French <https://l10n.opensuse.org/projects/yast-registration/"
@@ -34,13 +34,7 @@ msgstr ""
 msgid "Use '%s' instead of this YaST module."
 msgstr "Utilisez '%s' plutôt que ce module YaST."
 
-#. Let the user manually fix the broken repositories
-#. @return [Boolean] true if the repository manager was successfuly closed,
-#. false after pressing [Cancel]
 #. TRANSLATORS: Error message in RichText format, %s contains the details from libzypp
-#. Let the user manually fix the broken repositories
-#. @return [Boolean] true if the repository manager was successfuly closed,
-#. false after pressing [Cancel]
 #. TRANSLATORS: Error message in RichText format, %s contains the details from libzypp
 #: src/clients/registration.rb:85 src/clients/scc.rb:85
 #, c-format
@@ -114,13 +108,11 @@ msgid "Extensions and Modules"
 msgstr "Extensions et modules"
 
 #: src/data/registration/certificate_error.erb:6
-#: src/lib/registration/ui/import_certificate_dialog.rb:112
 msgid "Secure Connection Error"
 msgstr "Erreur de connexion sécurisée"
 
 # TLABEL packages_2002_01_04_0147__201
 #: src/data/registration/certificate_error.erb:10
-#: src/lib/registration/ui/import_certificate_dialog.rb:113
 msgid "Details:"
 msgstr "Détails :"
 
@@ -147,7 +139,6 @@ msgid "Run registration again"
 msgstr "Exécuter à nouveau l'enregistrement"
 
 #: src/data/registration/certificate_error.erb:47
-#: src/lib/registration/ui/import_certificate_dialog.rb:114
 msgid "Failed Certificate Details"
 msgstr "Détails de certificat ayant échoué"
 
@@ -332,7 +323,6 @@ msgstr "Téléchargement du certificat SSL"
 msgid "Importing SSL Certificate"
 msgstr "Importation du certificat SSL"
 
-#. Intentionally use blocking popup as it is fatal error that stops installation.
 #. TRANSLATORS: profile wants to do registration, but old system is not registered.
 #: src/lib/registration/clients/scc_auto.rb:406
 msgid ""
@@ -470,10 +460,6 @@ msgstr ""
 msgid "Network error, check the network configuration."
 msgstr "Erreur réseau. Vérifiez la configuration du réseau."
 
-#. Add SCC synchronization hint into the text message when using the SCC
-#. registration server.
-#. @param error_msg [String] the error message from the registratino server,
-#. the hint is appended at the end
 #. TRANSLATORS: additional hint for an error message
 #: src/lib/registration/connect_helpers.rb:336
 msgid "Check that this system is known to the registration server."
@@ -684,6 +670,10 @@ msgstr "Mise à jour vers %s..."
 msgid "Synchronizing Products..."
 msgstr "Synchronisation des produits..."
 
+#. load available addons from SCC server
+#. the result is cached to avoid reloading when going back and forth in the
+#. installation workflow
+#. @return [Array<Registration::Addon>] available addons
 #. download the addons from SCC, let the user select addons to install
 #. @return [Symbol] the user input
 #: src/lib/registration/registration_ui.rb:181
@@ -691,23 +681,19 @@ msgstr "Synchronisation des produits..."
 msgid "Loading Available Extensions and Modules..."
 msgstr "Chargement des extensions et modules disponibles..."
 
+#. According to the official SUSE terminology, "online" refers to a running
+#. system and (offline) to a system that is not running. It's NOT about the
+#. network connectivity
 #: src/lib/registration/registration_ui.rb:196
 #: src/lib/registration/registration_ui.rb:208
 msgid "Loading Migration Products..."
 msgstr "Chargement des produits de migration…"
 
-#. Register the selected addons, asks for reg. codes if required, known_reg_codes
-#. @param selected_addons [Array<Addon>] list of addons selected for registration,
-#. successfully registered addons are removed from the list
-#. @param known_reg_codes [Hash] remembered reg. code, it's updated with the
-#. user entered values
-#. @return [Symbol]
 #. dialog title
 #: src/lib/registration/registration_ui.rb:223
 msgid "Register Extensions and Modules"
 msgstr "Enregistrer des extensions et modules"
 
-#. display only the products which need a registration code
 #. help text
 #: src/lib/registration/registration_ui.rb:227
 msgid "<p>Extensions and Modules are being registered.</p>"
@@ -768,6 +754,7 @@ msgstr ""
 msgid "Reading the Activated Products..."
 msgstr "Lecture des produits activés..."
 
+#. then register the product(s)
 #. %s is name of given product
 #: src/lib/registration/registration_ui.rb:354
 #: src/lib/registration/registration_ui.rb:397
@@ -889,7 +876,6 @@ msgstr "Accord de licence relatif à %s"
 msgid "Extension and Module Registration Codes"
 msgstr "Codes d'enregistrement des extensions et modules"
 
-#. display only the products which need a registration code
 #. help text
 #: src/lib/registration/ui/addon_reg_codes_dialog.rb:50
 msgid ""
@@ -938,8 +924,6 @@ msgstr "Détails (en anglais uniquement)"
 msgid "Select an extension or a module to show details here"
 msgstr "Sélectionnez une extension ou un module pour en afficher les détails"
 
-#. @param [<Addon>] addon the addon
-#. @return [String] a Value for a RichText
 #. checkbox label for an unavailable extension
 #. (%s is an extension name)
 #: src/lib/registration/ui/addon_selection_base_dialog.rb:123
@@ -1287,7 +1271,6 @@ msgstr ""
 "<p>Pour effectuer l'installation sans enregistrer le système, utilisez le "
 "support %{media_name} disponible à l'adresse %{download_url}.</p>"
 
-#. these cannot be nil
 #. TRANSLATORS: a popup message (3/3) the user wants to skip the registration
 #: src/lib/registration/ui/base_system_registration_dialog.rb:451
 msgid ""
@@ -1577,9 +1560,6 @@ msgstr ""
 msgid "<p>Please use the Full medium instead of the Online.</p>"
 msgstr "<p>Utilisez le support complet plutôt que le support en ligne.</p>"
 
-#. Informative message
-#. @param registered [Boolean] is the system registered?
-#. @return [String] translated message
 #. TRANSLATORS: Media based upgrade requested by user (1/3)
 #. User requested media based upgrade which does not use SCC/SMT/RMT
 #. but the downloaded media (physical DVD or shared repo on a local server).
