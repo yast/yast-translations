@@ -125,33 +125,33 @@ while read RPMNAME ; do
 	fi
 
 	for GITNAME in $GITNAMES ; do
-	DBG "Checking $RPMNAME (GitHub $GITNAME)..."
-	if test "$GITNAME" = ruby-bindings ; then
-		DBG "  skipping (see https://bugzilla.suse.com/show_bug.cgi?id=1066999)"
-		continue
-	fi
-	if grep -q -x -F "$GITNAME" product-check-list-checkout.lst ; then
-		DBG "  found in checkout"
-		if test -d "$YAST_CHECKOUT/$GITNAME" ; then
-			cd $YAST_CHECKOUT/$GITNAME
-			for DOMAIN in *.pot ; do
-				DOMAIN=${DOMAIN%.pot}
-				DBG "    checking $DOMAIN..."
-				if ! test -d $OLDPWD/po/$DOMAIN ; then
-					echo "$RPMNAME is in product, $GITNAME in checkout, but $DOMAIN is not in yast-translations."
-				fi
-				if grep -q -x -F "$DOMAIN.pot" $OLDPWD/po/OBSOLETE_POT_FILES ; then
-					echo "$RPMNAME is in product, $GITNAME in checkout, but $DOMAIN is in po/OBSOLETE_POT_FILES."
-				fi
-			done
-			cd - >/dev/null
-		else
-			echo "$RPMNAME is in product, but $GITNAME missing in checkout"
+		DBG "Checking $RPMNAME (GitHub $GITNAME)..."
+		if test "$GITNAME" = ruby-bindings ; then
+			DBG "  skipping (see https://bugzilla.suse.com/show_bug.cgi?id=1066999)"
+			continue
 		fi
-	fi
-	if grep -q -x -F "$GITNAME" po/SKIP_PROJECTS ; then
-		echo "$RPMNAME is in product, $GITNAME in checkout, but also in SKIP_PROJECTS"
-	fi
+		if grep -q -x -F "$GITNAME" product-check-list-checkout.lst ; then
+			DBG "  found in checkout"
+			if test -d "$YAST_CHECKOUT/$GITNAME" ; then
+				cd $YAST_CHECKOUT/$GITNAME
+				for DOMAIN in *.pot ; do
+					DOMAIN=${DOMAIN%.pot}
+					DBG "    checking $DOMAIN..."
+					if ! test -d $OLDPWD/po/$DOMAIN ; then
+						echo "$RPMNAME is in product, $GITNAME in checkout, but $DOMAIN is not in yast-translations."
+					fi
+					if grep -q -x -F "$DOMAIN.pot" $OLDPWD/po/OBSOLETE_POT_FILES ; then
+						echo "$RPMNAME is in product, $GITNAME in checkout, but $DOMAIN is in po/OBSOLETE_POT_FILES."
+					fi
+				done
+				cd - >/dev/null
+			else
+				echo "$RPMNAME is in product, but $GITNAME missing in checkout"
+			fi
+		fi
+		if grep -q -x -F "$GITNAME" po/SKIP_PROJECTS ; then
+			echo "$RPMNAME is in product, $GITNAME in checkout, but also in SKIP_PROJECTS"
+		fi
 	done
 done
 
