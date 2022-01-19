@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bootloader.ru\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-18 02:28+0000\n"
+"POT-Creation-Date: 2022-01-19 02:22+0100\n"
 "PO-Revision-Date: 2021-05-13 00:57+0000\n"
 "Last-Translator: Alex Minton <alex239@gmail.com>\n"
 "Language-Team: Russian <https://l10n.opensuse.org/projects/yast-bootloader/"
@@ -23,6 +23,7 @@ msgstr ""
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 "X-Generator: Weblate 4.6.2\n"
 
+#. the command line description map
 #. command line help text for Bootloader module
 #: src/clients/bootloader.rb:32
 msgid "Boot loader configuration module"
@@ -64,6 +65,8 @@ msgstr "Выйти"
 
 #. F#300779 - Install diskless client (NFS-root)
 #. additional warning that root partition is nfs type -> bootloader will not be installed
+#. Display bootloader summary
+#. @return a list of summary lines
 #. kokso: additional warning that root partition is nfs type -> bootloader will not be installed
 #: src/lib/bootloader/config_dialog.rb:69 src/modules/Bootloader.rb:228
 msgid "The boot partition is of type NFS. Bootloader cannot be installed."
@@ -847,9 +850,37 @@ msgstr "Параметры &загрузчика"
 msgid "File /etc/default/grub missing on system"
 msgstr "Файл /etc/default/grub в системе отсутствует"
 
+#. Secure boot setting shown in summary screen.
+#.
+#. @return [String]
+#. Trusted boot setting shown in summary screen.
+#.
+#. @return [String]
 #. Update nvram shown in summary screen
 #.
 #. @return [String]
+#: src/lib/bootloader/grub2base.rb:418 src/lib/bootloader/grub2base.rb:431
+#: src/lib/bootloader/grub2base.rb:444
+msgid "disable"
+msgstr "отключить"
+
+#: src/lib/bootloader/grub2base.rb:420 src/lib/bootloader/grub2base.rb:433
+#: src/lib/bootloader/grub2base.rb:446
+msgid "enable"
+msgstr "включить"
+
+#: src/lib/bootloader/grub2base.rb:423
+msgid "Secure Boot:"
+msgstr "Безопасная загрузка:"
+
+#: src/lib/bootloader/grub2base.rb:436
+msgid "Trusted Boot:"
+msgstr "Доверенная загрузка:"
+
+#: src/lib/bootloader/grub2base.rb:449
+msgid "Update NVRAM:"
+msgstr "Обновить NVRAM:"
+
 #: src/lib/bootloader/grub2base.rb:454
 msgid "enabled"
 msgstr "включена"
@@ -928,6 +959,11 @@ msgstr "&Загрузка"
 msgid "Cannot detect device mounted as root. Please check partitioning."
 msgstr "Не могу обнаружить корневой раздел, проверьте разметку."
 
+#. Result of {#make_proposal} if a {Bootloader::BrokenConfiguration} exception
+#. is raised while calculating the proposal
+#.
+#. @param err [Bootloader::BrokenConfiguration] raised exception
+#. @return [Hash]
 #. TRANSLATORS: %s is a string containing the technical details of the error
 #: src/lib/bootloader/proposal_client.rb:288
 #, c-format
@@ -1024,6 +1060,7 @@ msgstr ""
 "Установщик не внесет никаких изменений в раздел MBR диска. Если там уже нет "
 "загрузочного кода, BIOS не сможет загрузить диск."
 
+#. run Progress bar
 #. progress stage, text in dialog (short, infinitiv)
 #: src/modules/Bootloader.rb:114
 msgid "Check boot loader"
@@ -1071,6 +1108,9 @@ msgstr ""
 msgid "Use"
 msgstr "Использовать"
 
+#. If the access to any needed file (e.g., grub.cfg when using GRUB bootloader) is not
+#. allowed, just abort the execution. Using Yast::Confirm.MustBeRoot early in the
+#. wizard/client is not enough since it allows continue.
 #. TRANSLATORS: pop-up message, beware the line breaks
 #: src/modules/Bootloader.rb:181
 msgid ""
@@ -1127,21 +1167,6 @@ msgid ""
 msgstr ""
 "Выбранный загрузчик не поддерживается на этой архитектуре. Возможные "
 "варианты: "
-
-#~ msgid "disable"
-#~ msgstr "отключить"
-
-#~ msgid "enable"
-#~ msgstr "включить"
-
-#~ msgid "Secure Boot:"
-#~ msgstr "Безопасная загрузка:"
-
-#~ msgid "Trusted Boot:"
-#~ msgstr "Доверенная загрузка:"
-
-#~ msgid "Update NVRAM:"
-#~ msgstr "Обновить NVRAM:"
 
 #~ msgid " (/boot)"
 #~ msgstr " (/boot)"

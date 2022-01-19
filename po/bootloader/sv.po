@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bootloader\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-18 02:28+0000\n"
+"POT-Creation-Date: 2022-01-19 02:22+0100\n"
 "PO-Revision-Date: 2020-05-12 12:08+0000\n"
 "Last-Translator: Luna Jernberg <droidbittin@gmail.com>\n"
 "Language-Team: Swedish <https://l10n.opensuse.org/projects/yast-bootloader/"
@@ -23,6 +23,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 3.6.1\n"
 
+#. the command line description map
 #. command line help text for Bootloader module
 #: src/clients/bootloader.rb:32
 msgid "Boot loader configuration module"
@@ -62,6 +63,8 @@ msgstr "Avsluta"
 
 #. F#300779 - Install diskless client (NFS-root)
 #. additional warning that root partition is nfs type -> bootloader will not be installed
+#. Display bootloader summary
+#. @return a list of summary lines
 #. kokso: additional warning that root partition is nfs type -> bootloader will not be installed
 #: src/lib/bootloader/config_dialog.rb:69 src/modules/Bootloader.rb:228
 msgid "The boot partition is of type NFS. Bootloader cannot be installed."
@@ -892,9 +895,41 @@ msgstr "Alternativ för start&hanterare"
 msgid "File /etc/default/grub missing on system"
 msgstr "Filen /etc/default/grub saknas på systemet"
 
+#. Secure boot setting shown in summary screen.
+#.
+#. @return [String]
+#. Trusted boot setting shown in summary screen.
+#.
+#. @return [String]
 #. Update nvram shown in summary screen
 #.
 #. @return [String]
+#: src/lib/bootloader/grub2base.rb:418 src/lib/bootloader/grub2base.rb:431
+#: src/lib/bootloader/grub2base.rb:444
+msgid "disable"
+msgstr "inaktivera"
+
+#: src/lib/bootloader/grub2base.rb:420 src/lib/bootloader/grub2base.rb:433
+#: src/lib/bootloader/grub2base.rb:446
+msgid "enable"
+msgstr "aktivera"
+
+#: src/lib/bootloader/grub2base.rb:423
+#, fuzzy
+#| msgid "Secure"
+msgid "Secure Boot:"
+msgstr "Säker"
+
+#: src/lib/bootloader/grub2base.rb:436
+#, fuzzy
+#| msgid "Enable Trusted Boot: %1"
+msgid "Trusted Boot:"
+msgstr "Aktivera tillförlitlig start: %1"
+
+#: src/lib/bootloader/grub2base.rb:449
+msgid "Update NVRAM:"
+msgstr ""
+
 #: src/lib/bootloader/grub2base.rb:454
 msgid "enabled"
 msgstr "aktiverad"
@@ -975,6 +1010,11 @@ msgstr ""
 "Det går inte att upptäcka den monterade enheten som rot. Kontrollera "
 "partitionen."
 
+#. Result of {#make_proposal} if a {Bootloader::BrokenConfiguration} exception
+#. is raised while calculating the proposal
+#.
+#. @param err [Bootloader::BrokenConfiguration] raised exception
+#. @return [Hash]
 #. TRANSLATORS: %s is a string containing the technical details of the error
 #: src/lib/bootloader/proposal_client.rb:288
 #, fuzzy, c-format
@@ -1079,6 +1119,7 @@ msgstr ""
 "innehåller startkod (boot-kod), kommer inte BIOS att kunna starta från "
 "disken."
 
+#. run Progress bar
 #. progress stage, text in dialog (short, infinitiv)
 #: src/modules/Bootloader.rb:114
 msgid "Check boot loader"
@@ -1126,6 +1167,9 @@ msgstr ""
 msgid "Use"
 msgstr "Använd"
 
+#. If the access to any needed file (e.g., grub.cfg when using GRUB bootloader) is not
+#. allowed, just abort the execution. Using Yast::Confirm.MustBeRoot early in the
+#. wizard/client is not enough since it allows continue.
 #. TRANSLATORS: pop-up message, beware the line breaks
 #: src/modules/Bootloader.rb:181
 msgid ""
@@ -1176,22 +1220,6 @@ msgid ""
 "The selected bootloader is not supported on this architecture. Possible "
 "values: "
 msgstr "Vald starthanterare stöds inte på denna arkitektur. Möjliga värden: "
-
-#~ msgid "disable"
-#~ msgstr "inaktivera"
-
-#~ msgid "enable"
-#~ msgstr "aktivera"
-
-#, fuzzy
-#~| msgid "Secure"
-#~ msgid "Secure Boot:"
-#~ msgstr "Säker"
-
-#, fuzzy
-#~| msgid "Enable Trusted Boot: %1"
-#~ msgid "Trusted Boot:"
-#~ msgstr "Aktivera tillförlitlig start: %1"
 
 #~ msgid " (/boot)"
 #~ msgstr " (/boot)"
