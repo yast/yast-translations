@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: storage\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-02-01 02:30+0000\n"
+"POT-Creation-Date: 2022-02-03 02:30+0000\n"
 "PO-Revision-Date: 2019-09-13 20:52+0000\n"
 "Last-Translator: Mariusz Fik <fisiu@opensuse.org>\n"
 "Language-Team: Polish <https://l10n.opensuse.org/projects/yast-storage/"
@@ -527,7 +527,10 @@ msgid "Really delete %s and all the affected devices?"
 msgstr "Czy na pewno usunąć %s oraz wszystkie powiązane urządzenia?"
 
 #. TRANSLATORS %s is the name of the device (e.g., /dev/sda1)
+#. TRANSLATORS: Confirmation to delete an NFS mount, %s is replaced by
+#. something like 'server:/path'
 #: src/lib/y2partitioner/actions/delete_device.rb:144
+#: src/lib/y2partitioner/actions/delete_nfs.rb:47
 #, c-format
 msgid "Really delete %s?"
 msgstr "Czy na pewno usunąć %s?"
@@ -1522,7 +1525,7 @@ msgstr "Edytuj podwoluminy btrfs"
 #. Entry data about the LVM VG name
 #.
 #. @return [String]
-#: src/lib/y2partitioner/dialogs/device_description.rb:101
+#: src/lib/y2partitioner/dialogs/device_description.rb:102
 #: src/lib/y2partitioner/widgets/blk_device_attributes.rb:44
 #: src/lib/y2partitioner/widgets/description_section/lvm_vg_device.rb:56
 #, c-format
@@ -1906,6 +1909,28 @@ msgstr ""
 #: src/lib/y2partitioner/dialogs/mkfs_options.rb:38
 msgid "Format Options:"
 msgstr "Opcje formatowania:"
+
+#. TRANSLATORS: wizard title
+#: src/lib/y2partitioner/dialogs/nfs.rb:76
+#, fuzzy
+#| msgid "Add New NFS Path"
+msgid "Add NFS mount"
+msgstr "Dodaj nową ścieżkę NFS"
+
+#. TRANSLATORS: wizard title
+#: src/lib/y2partitioner/dialogs/nfs.rb:79
+msgid "Edit NFS mount"
+msgstr ""
+
+#. TRANSLATORS: pop-up message. %s is replaced for something like 'server:/path'
+#: src/lib/y2partitioner/dialogs/nfs.rb:183
+#, c-format
+msgid ""
+"Test mount of NFS share '%s' failed.\n"
+"Save it anyway?"
+msgstr ""
+"Testowe montowanie udziału NFS '%s' nie powiodło się.\n"
+"Czy mimo to zapisać?"
 
 #. TRANSLATORS: %{name} is replaced by a partition name (e.g. /dev/sda1)
 #: src/lib/y2partitioner/dialogs/partition_move.rb:72
@@ -2635,12 +2660,43 @@ msgstr "Etykieta"
 msgid "F"
 msgstr "F"
 
-#. TRANSLATORS: table header, where is device mounted. Can be empty. E.g. "/" or "/home"
+#. TRANSLATORS: table header
+#: src/lib/y2partitioner/widgets/columns/mount_options.rb:39
+#, fuzzy
+#| msgid "Mounting Options"
+msgid "Mount Options"
+msgstr "Opcje montowania"
+
+#. TRANSLATORS: table header, where the device is mounted.
 #. Synchronize the widget with the information from the controller
-#: src/lib/y2partitioner/widgets/columns/mount_point.rb:37
+#: src/lib/y2partitioner/widgets/columns/mount_point.rb:38
 #: src/lib/y2partitioner/widgets/format_and_mount.rb:615
 msgid "Mount Point"
 msgstr "Punkt montowania"
+
+#. @see Columns::Base#title
+#: src/lib/y2partitioner/widgets/columns/nfs_path.rb:37
+msgid "Remote Directory"
+msgstr ""
+
+#. @see Columns::Base#title
+#: src/lib/y2partitioner/widgets/columns/nfs_server.rb:37
+msgid "Server"
+msgstr ""
+
+#. TRANSLATORS: table header
+#: src/lib/y2partitioner/widgets/columns/nfs_version.rb:37
+#, fuzzy
+#| msgid "RAID Version"
+msgid "NFS Version"
+msgstr "Typ RAID"
+
+#. TRANSLATORS: %s is a string representing the NFS version used, but
+#. maybe it's not the one the user wanted.
+#: src/lib/y2partitioner/widgets/columns/nfs_version.rb:49
+#, c-format
+msgid "%s (Please Check)"
+msgstr ""
 
 #. TRANSLATORS: table header, type of metadata
 #: src/lib/y2partitioner/widgets/columns/pe_size.rb:37
@@ -2675,7 +2731,7 @@ msgstr "Wielościeżkowy"
 
 #. @macro seeAbstractWidget
 #: src/lib/y2partitioner/widgets/columns/type.rb:56
-#: src/lib/y2partitioner/widgets/pages/nfs_mounts.rb:48
+#: src/lib/y2partitioner/widgets/pages/nfs_mounts.rb:40
 msgid "NFS"
 msgstr "NFS"
 
@@ -3133,7 +3189,7 @@ msgstr ""
 #. TRANSLATORS: label for the button to edit a device
 #. @see Base
 #: src/lib/y2partitioner/widgets/device_edit_button.rb:31
-#: src/lib/y2partitioner/widgets/menus/modify.rb:65
+#: src/lib/y2partitioner/widgets/menus/modify.rb:67
 #, fuzzy
 #| msgid "Edit..."
 msgid "&Edit..."
@@ -3838,7 +3894,7 @@ msgstr ""
 #. so only warnings there
 #. FIXME: improve Yast2::Popup to allow some text before the buttons
 #: src/lib/y2partitioner/widgets/fstab_selector.rb:71
-#: src/lib/y2partitioner/widgets/overview.rb:210
+#: src/lib/y2partitioner/widgets/overview.rb:195
 msgid "Do you want to continue?"
 msgstr "Czy chcesz kontynuować?"
 
@@ -4059,13 +4115,19 @@ msgstr ""
 
 #: src/lib/y2partitioner/widgets/help.rb:110
 msgid ""
+"<b>Mount Options</b> shows the options used to mount the volume, typically "
+"specified at <tt>/etc/fstab</tt>."
+msgstr ""
+
+#: src/lib/y2partitioner/widgets/help.rb:113
+msgid ""
 "<b>Mount Point</b> shows where the file system\n"
 "is mounted."
 msgstr ""
 "<b>Punkt montowania</b> wskazuje miejsce\n"
 "zamontowania system plików."
 
-#: src/lib/y2partitioner/widgets/help.rb:112
+#: src/lib/y2partitioner/widgets/help.rb:115
 msgid ""
 "<b>Number of Cylinders</b> shows how many\n"
 "cylinders the hard disk has."
@@ -4073,7 +4135,7 @@ msgstr ""
 "<b>Liczba cylindrów</b> wskazuje liczbę cylindrów\n"
 "dysku twardego."
 
-#: src/lib/y2partitioner/widgets/help.rb:115
+#: src/lib/y2partitioner/widgets/help.rb:118
 msgid ""
 "<b>Parity Algorithm</b> shows the parity\n"
 "algorithm for RAID devices with RAID type 5, 6 or 10."
@@ -4081,7 +4143,7 @@ msgstr ""
 "<b>Algorytm parzystości</b> wyświetla algorytm\n"
 "parzystości dla urządzeń RAID z macierzą RAID typu 5, 6 lub 10."
 
-#: src/lib/y2partitioner/widgets/help.rb:118
+#: src/lib/y2partitioner/widgets/help.rb:121
 msgid ""
 "<b>PE Size</b> shows the physical extent size\n"
 "for LVM volume groups."
@@ -4089,11 +4151,11 @@ msgstr ""
 "<b>Rozmiar PE</b> wskazuje fizyczny rozmiar\n"
 "grup woluminów LVM."
 
-#: src/lib/y2partitioner/widgets/help.rb:121
+#: src/lib/y2partitioner/widgets/help.rb:124
 msgid "<b>RAID Version</b> shows the RAID version."
 msgstr "<b>Wersja RAID</b> wyświetla wersję RAID."
 
-#: src/lib/y2partitioner/widgets/help.rb:123
+#: src/lib/y2partitioner/widgets/help.rb:126
 msgid ""
 "<b>RAID Type</b> shows the RAID type, also\n"
 "called RAID level, for RAID devices."
@@ -4101,11 +4163,11 @@ msgstr ""
 "<b>Typ RAID</b> wskazuje typ macierzy RAID, nazywany\n"
 "również poziomem RAID, w przypadku urządzeń RAID."
 
-#: src/lib/y2partitioner/widgets/help.rb:126
+#: src/lib/y2partitioner/widgets/help.rb:129
 msgid "<b>Size</b> shows the size of the device."
 msgstr "<b>Rozmiar</b> wskazuje rozmiar urządzenia."
 
-#: src/lib/y2partitioner/widgets/help.rb:128
+#: src/lib/y2partitioner/widgets/help.rb:131
 msgid ""
 "<b>Start</b> shows the start block\n"
 "of the partition."
@@ -4113,7 +4175,7 @@ msgstr ""
 "<b>Początek</b> wskazuje\n"
 "blok początkowy partycji."
 
-#: src/lib/y2partitioner/widgets/help.rb:130
+#: src/lib/y2partitioner/widgets/help.rb:133
 #, fuzzy
 #| msgid ""
 #| "<b>Stripes</b> shows the stripe number for LVM\n"
@@ -4127,12 +4189,12 @@ msgstr ""
 "Jeśli jest ona większa od jeden, rozmiar stripe zostanie podany w "
 "nawiasach.\n"
 
-#: src/lib/y2partitioner/widgets/help.rb:134
+#: src/lib/y2partitioner/widgets/help.rb:137
 msgid ""
 "<b>Snapshots</b> shows the snapshots, if any, for an LVM logical volume."
 msgstr ""
 
-#: src/lib/y2partitioner/widgets/help.rb:137
+#: src/lib/y2partitioner/widgets/help.rb:140
 msgid ""
 "<b>Type</b> gives a general overview about the\n"
 "device type."
@@ -4140,7 +4202,7 @@ msgstr ""
 "<b>Typ</b> zawiera ogólne informacje\n"
 "o typie urządzenia."
 
-#: src/lib/y2partitioner/widgets/help.rb:139
+#: src/lib/y2partitioner/widgets/help.rb:142
 msgid ""
 "<b>Device ID</b> shows the persistent device\n"
 "IDs. This field can be empty."
@@ -4148,7 +4210,7 @@ msgstr ""
 "<b>Identyfikator urządzenia</b> wskazuje trwałe\n"
 "identyfikatory urządzenia. To pole może być puste."
 
-#: src/lib/y2partitioner/widgets/help.rb:142
+#: src/lib/y2partitioner/widgets/help.rb:145
 msgid ""
 "<b>Device Path</b> shows the persistent device\n"
 "path. This field can be empty."
@@ -4157,7 +4219,7 @@ msgstr ""
 "urządzenia. To pole może być puste."
 
 # Co w PL msg robi EVMS?
-#: src/lib/y2partitioner/widgets/help.rb:145
+#: src/lib/y2partitioner/widgets/help.rb:148
 msgid ""
 "<b>Used By</b> shows if a device is used by\n"
 "e.g. RAID or LVM. If not, this column is empty."
@@ -4165,7 +4227,7 @@ msgstr ""
 "<b>Używane przez</b> wskazuje, czy urządzenie jest używane,\n"
 "np. przez RAID lub LVM. Jeśli nie są używane, kolumna jest pusta."
 
-#: src/lib/y2partitioner/widgets/help.rb:148
+#: src/lib/y2partitioner/widgets/help.rb:151
 msgid ""
 "<b>UUID</b> shows the Universally Unique\n"
 "Identifier of the file system."
@@ -4173,18 +4235,18 @@ msgstr ""
 "<b>UUID</b> wskazuje uniwersalny unikatowy\n"
 "identyfikator systemu plików."
 
-#: src/lib/y2partitioner/widgets/help.rb:151
+#: src/lib/y2partitioner/widgets/help.rb:154
 msgid "<b>Vendor</b> shows the device vendor."
 msgstr "<b>Dostawca</b> wskazuje nazwę dostawcy urządzenia."
 
-#: src/lib/y2partitioner/widgets/help.rb:153
+#: src/lib/y2partitioner/widgets/help.rb:156
 msgid ""
 "<b>Backing Device</b> shows the device used as backing device for bcache."
 msgstr ""
 "<b>Urządzenie buforowane</b> wyświetla urządzenie używane jako urządzenie "
 "buforowane pamięci podręcznej Bcache."
 
-#: src/lib/y2partitioner/widgets/help.rb:156
+#: src/lib/y2partitioner/widgets/help.rb:159
 msgid ""
 "<b>Caching UUID</b> shows the UUID of the used caching set. This field is "
 "empty if no caching is used."
@@ -4193,7 +4255,7 @@ msgstr ""
 "sekcji pamięci podręcznej. To pole jest puste, jeśli nie jest używane żadne "
 "buforowanie."
 
-#: src/lib/y2partitioner/widgets/help.rb:159
+#: src/lib/y2partitioner/widgets/help.rb:162
 msgid ""
 "<b>Caching Device</b> shows the device used for caching. This field is empty "
 "if no caching is used."
@@ -4201,7 +4263,7 @@ msgstr ""
 "<b>Urządzenie buforujące</b> wyświetla urządzenie używane jako buforujące. "
 "To pole jest puste, jeśli nie jest używane żadne buforowanie."
 
-#: src/lib/y2partitioner/widgets/help.rb:162
+#: src/lib/y2partitioner/widgets/help.rb:165
 msgid ""
 "<b>Cache Mode</b> shows the operating mode for bcache. Currently there are "
 "four supported modes: Writethrough, Writeback, Writearound and None."
@@ -4210,7 +4272,7 @@ msgstr ""
 "Bcache. Aktualnie obsługiwane są cztery tryby: Writethrough, Writeback, "
 "Writearound oraz Brak."
 
-#: src/lib/y2partitioner/widgets/help.rb:166
+#: src/lib/y2partitioner/widgets/help.rb:169
 #, fuzzy
 #| msgid ""
 #| "<b>Backing Device</b> shows the device used as backing device for bcache."
@@ -4219,7 +4281,7 @@ msgstr ""
 "<b>Urządzenie buforowane</b> wyświetla urządzenie używane jako urządzenie "
 "buforowane pamięci podręcznej Bcache."
 
-#: src/lib/y2partitioner/widgets/help.rb:169
+#: src/lib/y2partitioner/widgets/help.rb:172
 #, fuzzy
 #| msgid ""
 #| "<b>Device</b> shows the kernel name of the\n"
@@ -4231,53 +4293,48 @@ msgstr ""
 "<b>Urządzenie</b> wyświetla główną nazwę\n"
 "urządzenia."
 
-#: src/lib/y2partitioner/widgets/help.rb:172
+#: src/lib/y2partitioner/widgets/help.rb:175
 msgid "<b>Metadata RAID Level</b> shows the RAID level for the Btrfs metadata."
 msgstr ""
 
-#: src/lib/y2partitioner/widgets/help.rb:175
+#: src/lib/y2partitioner/widgets/help.rb:178
 #, fuzzy
 #| msgid "<b>RAID Version</b> shows the RAID version."
 msgid "<b>Data RAID Level</b> shows the RAID level for the Btrfs data."
 msgstr "<b>Wersja RAID</b> wyświetla wersję RAID."
 
-#: src/lib/y2partitioner/widgets/help.rb:177
+#: src/lib/y2partitioner/widgets/help.rb:180
 #, fuzzy
 #| msgid ""
 #| "<b>Device</b> shows the kernel name of the\n"
 #| "device."
-msgid "<b>Server</b> host name or IP address of the NFS server."
+msgid "<b>Server</b> shows host name or IP address of the NFS server."
 msgstr ""
 "<b>Urządzenie</b> wyświetla główną nazwę\n"
 "urządzenia."
 
-#: src/lib/y2partitioner/widgets/help.rb:179
-msgid "<b>Remote Directory</b> the directory on the NFS server."
-msgstr ""
-
-#: src/lib/y2partitioner/widgets/help.rb:181
+#: src/lib/y2partitioner/widgets/help.rb:182
 #, fuzzy
 #| msgid ""
-#| "<b>Mount Point</b> shows where the file system\n"
-#| "is mounted."
-msgid ""
-"<b>Mount Point</b> shows path in the local filesystem where the\n"
-" directory is mounted."
+#| "<b>Device</b> shows the kernel name of the\n"
+#| "device."
+msgid "<b>Remote Directory</b> shows the directory on the NFS server."
 msgstr ""
-"<b>Punkt montowania</b> wskazuje miejsce\n"
-"zamontowania system plików."
+"<b>Urządzenie</b> wyświetla główną nazwę\n"
+"urządzenia."
 
 #: src/lib/y2partitioner/widgets/help.rb:184
-#, fuzzy
-#| msgid "<b>FS Type</b> shows the file system type."
-msgid "<b>NFS Type</b> the filesystem type; typically \"nfs\"."
-msgstr "<b>FS Type</b> wyświetla typ systemu plików."
-
-#: src/lib/y2partitioner/widgets/help.rb:186
-msgid "<b>Options</b> Mount options. See also \"man 5 nfs\"."
+msgid ""
+"<b>NFS Version</b> shows the version of the protocol used to connect to the "
+"server. It may happen that some NFS share is mounted using an old method to "
+"specify the protocol version, like the usage of 'nfs4' as file system type "
+"or the usage of 'minorversion' in the mount options. Those methods do not "
+"longer work as they used to. So if such circumstance is detected, the real "
+"used version is displayed next to a warning message. Those entries can be "
+"edited to make sure they use more current ways of specifying the version."
 msgstr ""
 
-#: src/lib/y2partitioner/widgets/help.rb:189
+#: src/lib/y2partitioner/widgets/help.rb:195
 msgid ""
 "An asterisk (*) after the mount point\n"
 "indicates a file system that is currently not mounted (for example, because "
@@ -4289,7 +4346,7 @@ msgstr ""
 "w pliku <tt>/etc/fstab</tt> jest dla niego ustawiona opcja <tt>noauto</tt>)."
 
 #. help texts that are appended to the common help only in Mode.normal
-#: src/lib/y2partitioner/widgets/help.rb:195
+#: src/lib/y2partitioner/widgets/help.rb:201
 msgid ""
 "A question mark (?) indicates that\n"
 "the file system is not listed in <tt>/etc/fstab</tt>. It is either mounted\n"
@@ -4489,36 +4546,36 @@ msgid "Bottom"
 msgstr "Dół"
 
 #. TRANSLATORS: Partitioner menu to create new devices
-#: src/lib/y2partitioner/widgets/menus/add.rb:45
+#: src/lib/y2partitioner/widgets/menus/add.rb:46
 msgid "&Add"
 msgstr ""
 
 #. @see Base
-#: src/lib/y2partitioner/widgets/menus/add.rb:51
+#: src/lib/y2partitioner/widgets/menus/add.rb:52
 #, fuzzy
 #| msgid "Add RAID..."
 msgid "&RAID..."
 msgstr "Dodaj RAID..."
 
-#: src/lib/y2partitioner/widgets/menus/add.rb:52
+#: src/lib/y2partitioner/widgets/menus/add.rb:53
 #, fuzzy
 #| msgid "Add Volume Group..."
 msgid "LVM &Volume Group..."
 msgstr "Dodaj grupę woluminów..."
 
-#: src/lib/y2partitioner/widgets/menus/add.rb:53
+#: src/lib/y2partitioner/widgets/menus/add.rb:54
 #, fuzzy
 #| msgid "Add Bcache..."
 msgid "&Btrfs..."
 msgstr "Dodaj bcache..."
 
-#: src/lib/y2partitioner/widgets/menus/add.rb:54
+#: src/lib/y2partitioner/widgets/menus/add.rb:55
 #, fuzzy
 #| msgid "Add Bcache..."
 msgid "B&cache..."
 msgstr "Dodaj bcache..."
 
-#: src/lib/y2partitioner/widgets/menus/add.rb:55
+#: src/lib/y2partitioner/widgets/menus/add.rb:56
 #, fuzzy
 #| msgid "Add Bcache..."
 msgid "&Tmpfs..."
@@ -4526,17 +4583,23 @@ msgstr "Dodaj bcache..."
 
 #: src/lib/y2partitioner/widgets/menus/add.rb:57
 #, fuzzy
+#| msgid "Add Bcache..."
+msgid "&Nfs..."
+msgstr "Dodaj bcache..."
+
+#: src/lib/y2partitioner/widgets/menus/add.rb:59
+#, fuzzy
 #| msgid "&Partitions"
 msgid "&Partition..."
 msgstr "&Partycje"
 
-#: src/lib/y2partitioner/widgets/menus/add.rb:58
+#: src/lib/y2partitioner/widgets/menus/add.rb:60
 #, fuzzy
 #| msgid "&Logical Volumes"
 msgid "&Logical Volume..."
 msgstr "Woluminy &logiczne"
 
-#: src/lib/y2partitioner/widgets/menus/add.rb:59
+#: src/lib/y2partitioner/widgets/menus/add.rb:61
 #, fuzzy
 #| msgid "Edit Btrfs subvolumes"
 msgid "Btrfs &Subvolume..."
@@ -4577,49 +4640,49 @@ msgstr "Konfiguruj..."
 
 #. TRANSLATORS: Partitioner menu with actions to perform on the
 #. currently selected device
-#: src/lib/y2partitioner/widgets/menus/modify.rb:59
+#: src/lib/y2partitioner/widgets/menus/modify.rb:61
 #, fuzzy
 #| msgid "Device"
 msgid "&Device"
 msgstr "Urządzenie"
 
-#: src/lib/y2partitioner/widgets/menus/modify.rb:66
+#: src/lib/y2partitioner/widgets/menus/modify.rb:68
 #, fuzzy
 #| msgid "Show &Next"
 msgid "&Show Details"
 msgstr "Pokaż &następne"
 
-#: src/lib/y2partitioner/widgets/menus/modify.rb:67
+#: src/lib/y2partitioner/widgets/menus/modify.rb:69
 #, fuzzy
 #| msgid "Delete"
 msgid "&Delete"
 msgstr "Usuń"
 
-#: src/lib/y2partitioner/widgets/menus/modify.rb:69
+#: src/lib/y2partitioner/widgets/menus/modify.rb:71
 #, fuzzy
 #| msgid "Resize..."
 msgid "&Resize..."
 msgstr "Zmień rozmiar..."
 
-#: src/lib/y2partitioner/widgets/menus/modify.rb:70
+#: src/lib/y2partitioner/widgets/menus/modify.rb:72
 #, fuzzy
 #| msgid "Move..."
 msgid "&Move..."
 msgstr "Przesuń..."
 
-#: src/lib/y2partitioner/widgets/menus/modify.rb:71
+#: src/lib/y2partitioner/widgets/menus/modify.rb:73
 #, fuzzy
 #| msgid "Change Used Devices..."
 msgid "Change &Used Devices..."
 msgstr "Zmień używane urządzenia..."
 
-#: src/lib/y2partitioner/widgets/menus/modify.rb:73
+#: src/lib/y2partitioner/widgets/menus/modify.rb:75
 #, fuzzy
 #| msgid "Create New Partition Table..."
 msgid "Create New &Partition Table..."
 msgstr "Utwórz nową tablicę partycji..."
 
-#: src/lib/y2partitioner/widgets/menus/modify.rb:74
+#: src/lib/y2partitioner/widgets/menus/modify.rb:76
 #, fuzzy
 #| msgid "Clone Partitions to Other Devices..."
 msgid "&Clone Partitions to Another Device..."
@@ -4923,9 +4986,16 @@ msgstr ""
 "najmniej 16 lub opcję auto. Należy pamiętać, że wartość określa dolny limit "
 "i rzeczywisty katalog root może być większy."
 
+#. TRANSLATORS: button label
+#: src/lib/y2partitioner/widgets/nfs_buttons.rb:36
+#, fuzzy
+#| msgid "Add RAID..."
+msgid "Add NFS..."
+msgstr "Dodaj RAID..."
+
 #. TRANSLATORS: html text of the Partitioner Help. Please make sure the menu
 #. names actually match the ones in the menubar widget
-#: src/lib/y2partitioner/widgets/overview.rb:168
+#: src/lib/y2partitioner/widgets/overview.rb:153
 msgid ""
 "<p>Below the menu bar, the main element of the interface is the table\n"
 "that represents the available devices, with some buttons to provide quick\n"
@@ -4981,12 +5051,6 @@ msgstr " Grupa woluminów "
 #: src/lib/y2partitioner/widgets/pages/lvm_vg.rb:100
 msgid "&Physical Volumes"
 msgstr "Woluminy &fizyczne"
-
-#. TRANSLATORS: %s is the name of a package (i.g. 'yast2-nfs-client')
-#: src/lib/y2partitioner/widgets/pages/nfs_mounts.rb:103
-#, c-format
-msgid "NFS configuration is not available. Check %s package installation."
-msgstr "Konfiguracja NFS jest niedostępna. Sprawdź instalację pakietu %s."
 
 #. TRANSLATORS: label of the first element of the Partitioner left tree
 #: src/lib/y2partitioner/widgets/pages/system.rb:51
@@ -5089,16 +5153,6 @@ msgstr ""
 #: src/lib/y2partitioner/widgets/used_devices_tab.rb:43
 msgid "&Used Devices"
 msgstr "Używane &urządzenia"
-
-#. TRANSLATORS: pop-up message. %s is replaced for something like 'server:/path'
-#: src/lib/y2partitioner/yast_nfs_client.rb:223
-#, c-format
-msgid ""
-"Test mount of NFS share '%s' failed.\n"
-"Save it anyway?"
-msgstr ""
-"Testowe montowanie udziału NFS '%s' nie powiodło się.\n"
-"Czy mimo to zapisać?"
 
 #. TRANSLATORS: %d is the amount of actions, %s an URL
 #: src/lib/y2storage/actions_presenter.rb:141
@@ -7180,6 +7234,25 @@ msgstr ""
 msgid "Technical details (English only):"
 msgstr ""
 "Kliknij poniżej, aby zobaczyć więcej szczegółów (tylko język angielski)."
+
+#, fuzzy
+#~| msgid ""
+#~| "<b>Mount Point</b> shows where the file system\n"
+#~| "is mounted."
+#~ msgid ""
+#~ "<b>Mount Point</b> shows path in the local filesystem where the\n"
+#~ " directory is mounted."
+#~ msgstr ""
+#~ "<b>Punkt montowania</b> wskazuje miejsce\n"
+#~ "zamontowania system plików."
+
+#, fuzzy
+#~| msgid "<b>FS Type</b> shows the file system type."
+#~ msgid "<b>NFS Type</b> the filesystem type; typically \"nfs\"."
+#~ msgstr "<b>FS Type</b> wyświetla typ systemu plików."
+
+#~ msgid "NFS configuration is not available. Check %s package installation."
+#~ msgstr "Konfiguracja NFS jest niedostępna. Sprawdź instalację pakietu %s."
 
 #~ msgid "Encrypted Volume Activation"
 #~ msgstr "Aktywacja zaszyfrowanego woluminu"
@@ -11025,9 +11098,6 @@ msgstr ""
 #~ msgid "Metadata"
 #~ msgstr "Metadane"
 
-#~ msgid "RAID Version"
-#~ msgstr "Typ RAID"
-
 #~ msgid "Vendor"
 #~ msgstr "Dostawca"
 
@@ -13802,9 +13872,6 @@ msgstr ""
 
 #~ msgid "Change NFS Path Setup"
 #~ msgstr "Zmień ustawienia ścieżki NFS"
-
-#~ msgid "Add New NFS Path"
-#~ msgstr "Dodaj nową ścieżkę NFS"
 
 #~ msgid "&Name of NFS Server"
 #~ msgstr "&Nazwa serwera NFS"

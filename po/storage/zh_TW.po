@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: storage\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-02-01 02:30+0000\n"
+"POT-Creation-Date: 2022-02-03 02:30+0000\n"
 "PO-Revision-Date: 2021-04-01 05:57+0000\n"
 "Last-Translator: Grace Yu <grace.yu@excel-gits.com>\n"
 "Language-Team: Chinese (Taiwan) <https://l10n.opensuse.org/projects/yast-"
@@ -491,7 +491,10 @@ msgid "Really delete %s and all the affected devices?"
 msgstr "確定要刪除 %s 及所有受影響的裝置嗎？"
 
 #. TRANSLATORS %s is the name of the device (e.g., /dev/sda1)
+#. TRANSLATORS: Confirmation to delete an NFS mount, %s is replaced by
+#. something like 'server:/path'
 #: src/lib/y2partitioner/actions/delete_device.rb:144
+#: src/lib/y2partitioner/actions/delete_nfs.rb:47
 #, c-format
 msgid "Really delete %s?"
 msgstr "確定要刪除 %s 嗎？"
@@ -1403,7 +1406,7 @@ msgstr "Btrfs 子磁碟區：%s"
 #. Entry data about the LVM VG name
 #.
 #. @return [String]
-#: src/lib/y2partitioner/dialogs/device_description.rb:101
+#: src/lib/y2partitioner/dialogs/device_description.rb:102
 #: src/lib/y2partitioner/widgets/blk_device_attributes.rb:44
 #: src/lib/y2partitioner/widgets/description_section/lvm_vg_device.rb:56
 #, c-format
@@ -1779,6 +1782,28 @@ msgstr ""
 #: src/lib/y2partitioner/dialogs/mkfs_options.rb:38
 msgid "Format Options:"
 msgstr "格式化選項："
+
+#. TRANSLATORS: wizard title
+#: src/lib/y2partitioner/dialogs/nfs.rb:76
+#, fuzzy
+#| msgid "Add New NFS Path"
+msgid "Add NFS mount"
+msgstr "加入新的 NFS 路徑"
+
+#. TRANSLATORS: wizard title
+#: src/lib/y2partitioner/dialogs/nfs.rb:79
+msgid "Edit NFS mount"
+msgstr ""
+
+#. TRANSLATORS: pop-up message. %s is replaced for something like 'server:/path'
+#: src/lib/y2partitioner/dialogs/nfs.rb:183
+#, c-format
+msgid ""
+"Test mount of NFS share '%s' failed.\n"
+"Save it anyway?"
+msgstr ""
+"NFS 共用「%s'」的測試掛接失敗。\n"
+"仍要儲存嗎？"
 
 #. TRANSLATORS: %{name} is replaced by a partition name (e.g. /dev/sda1)
 #: src/lib/y2partitioner/dialogs/partition_move.rb:72
@@ -2482,12 +2507,43 @@ msgstr "標籤"
 msgid "F"
 msgstr "F"
 
-#. TRANSLATORS: table header, where is device mounted. Can be empty. E.g. "/" or "/home"
+#. TRANSLATORS: table header
+#: src/lib/y2partitioner/widgets/columns/mount_options.rb:39
+#, fuzzy
+#| msgid "Mounting Options"
+msgid "Mount Options"
+msgstr "掛接選項"
+
+#. TRANSLATORS: table header, where the device is mounted.
 #. Synchronize the widget with the information from the controller
-#: src/lib/y2partitioner/widgets/columns/mount_point.rb:37
+#: src/lib/y2partitioner/widgets/columns/mount_point.rb:38
 #: src/lib/y2partitioner/widgets/format_and_mount.rb:615
 msgid "Mount Point"
 msgstr "裝載點"
+
+#. @see Columns::Base#title
+#: src/lib/y2partitioner/widgets/columns/nfs_path.rb:37
+msgid "Remote Directory"
+msgstr ""
+
+#. @see Columns::Base#title
+#: src/lib/y2partitioner/widgets/columns/nfs_server.rb:37
+msgid "Server"
+msgstr ""
+
+#. TRANSLATORS: table header
+#: src/lib/y2partitioner/widgets/columns/nfs_version.rb:37
+#, fuzzy
+#| msgid "RAID Version"
+msgid "NFS Version"
+msgstr "RAID 版本"
+
+#. TRANSLATORS: %s is a string representing the NFS version used, but
+#. maybe it's not the one the user wanted.
+#: src/lib/y2partitioner/widgets/columns/nfs_version.rb:49
+#, c-format
+msgid "%s (Please Check)"
+msgstr ""
 
 #. TRANSLATORS: table header, type of metadata
 #: src/lib/y2partitioner/widgets/columns/pe_size.rb:37
@@ -2522,7 +2578,7 @@ msgstr "多重路徑"
 
 #. @macro seeAbstractWidget
 #: src/lib/y2partitioner/widgets/columns/type.rb:56
-#: src/lib/y2partitioner/widgets/pages/nfs_mounts.rb:48
+#: src/lib/y2partitioner/widgets/pages/nfs_mounts.rb:40
 msgid "NFS"
 msgstr "NFS"
 
@@ -2946,7 +3002,7 @@ msgstr ""
 #. TRANSLATORS: label for the button to edit a device
 #. @see Base
 #: src/lib/y2partitioner/widgets/device_edit_button.rb:31
-#: src/lib/y2partitioner/widgets/menus/modify.rb:65
+#: src/lib/y2partitioner/widgets/menus/modify.rb:67
 msgid "&Edit..."
 msgstr "編輯(&E)..."
 
@@ -3689,7 +3745,7 @@ msgstr ""
 #. so only warnings there
 #. FIXME: improve Yast2::Popup to allow some text before the buttons
 #: src/lib/y2partitioner/widgets/fstab_selector.rb:71
-#: src/lib/y2partitioner/widgets/overview.rb:210
+#: src/lib/y2partitioner/widgets/overview.rb:195
 msgid "Do you want to continue?"
 msgstr "是否要繼續？"
 
@@ -3914,13 +3970,19 @@ msgstr ""
 
 #: src/lib/y2partitioner/widgets/help.rb:110
 msgid ""
+"<b>Mount Options</b> shows the options used to mount the volume, typically "
+"specified at <tt>/etc/fstab</tt>."
+msgstr ""
+
+#: src/lib/y2partitioner/widgets/help.rb:113
+msgid ""
 "<b>Mount Point</b> shows where the file system\n"
 "is mounted."
 msgstr ""
 "<b>「掛接點」</b>顯示檔案系統的\n"
 "安裝位置。"
 
-#: src/lib/y2partitioner/widgets/help.rb:112
+#: src/lib/y2partitioner/widgets/help.rb:115
 msgid ""
 "<b>Number of Cylinders</b> shows how many\n"
 "cylinders the hard disk has."
@@ -3928,7 +3990,7 @@ msgstr ""
 "<b>「磁柱數」</b>顯示硬碟有多少個\n"
 "磁柱。"
 
-#: src/lib/y2partitioner/widgets/help.rb:115
+#: src/lib/y2partitioner/widgets/help.rb:118
 msgid ""
 "<b>Parity Algorithm</b> shows the parity\n"
 "algorithm for RAID devices with RAID type 5, 6 or 10."
@@ -3936,7 +3998,7 @@ msgstr ""
 "<b>「同位演算法」</b>顯示 RAID 類型為 5、6 或 10 之\n"
 "RAID 裝置的同位演算法。"
 
-#: src/lib/y2partitioner/widgets/help.rb:118
+#: src/lib/y2partitioner/widgets/help.rb:121
 msgid ""
 "<b>PE Size</b> shows the physical extent size\n"
 "for LVM volume groups."
@@ -3944,11 +4006,11 @@ msgstr ""
 "<b>「PE 大小」</b>顯示 LVM 磁碟區群組的\n"
 "實體範圍大小。"
 
-#: src/lib/y2partitioner/widgets/help.rb:121
+#: src/lib/y2partitioner/widgets/help.rb:124
 msgid "<b>RAID Version</b> shows the RAID version."
 msgstr "<b>「RAID 版本」</b>顯示 RAID 版本。"
 
-#: src/lib/y2partitioner/widgets/help.rb:123
+#: src/lib/y2partitioner/widgets/help.rb:126
 msgid ""
 "<b>RAID Type</b> shows the RAID type, also\n"
 "called RAID level, for RAID devices."
@@ -3956,17 +4018,17 @@ msgstr ""
 "<b>「RAID 類型」</b>顯示 RAID 裝置的 RAID 類型，\n"
 "也稱為 RAID 層級。"
 
-#: src/lib/y2partitioner/widgets/help.rb:126
+#: src/lib/y2partitioner/widgets/help.rb:129
 msgid "<b>Size</b> shows the size of the device."
 msgstr "<b>「大小」</b>顯示裝置的大小。"
 
-#: src/lib/y2partitioner/widgets/help.rb:128
+#: src/lib/y2partitioner/widgets/help.rb:131
 msgid ""
 "<b>Start</b> shows the start block\n"
 "of the partition."
 msgstr "<b>啟始</b>顯示分割區的啟始區塊。"
 
-#: src/lib/y2partitioner/widgets/help.rb:130
+#: src/lib/y2partitioner/widgets/help.rb:133
 msgid ""
 "<b>Stripes</b> shows the stripe number for LVM\n"
 "logical volumes and, if greater than one, the stripe size in parenthesis."
@@ -3974,12 +4036,12 @@ msgstr ""
 "<b>等量磁碟區</b>顯示 LVM 邏輯磁碟區的等量磁碟區數，\n"
 "如果大於 1，則用括弧括住等量磁碟區大小。"
 
-#: src/lib/y2partitioner/widgets/help.rb:134
+#: src/lib/y2partitioner/widgets/help.rb:137
 msgid ""
 "<b>Snapshots</b> shows the snapshots, if any, for an LVM logical volume."
 msgstr "<b>快照</b>顯示 LVM 邏輯磁碟區的快照 (如果有)。"
 
-#: src/lib/y2partitioner/widgets/help.rb:137
+#: src/lib/y2partitioner/widgets/help.rb:140
 msgid ""
 "<b>Type</b> gives a general overview about the\n"
 "device type."
@@ -3987,7 +4049,7 @@ msgstr ""
 "<b>「類型」</b>提供裝置類型的\n"
 "一般綜覽。"
 
-#: src/lib/y2partitioner/widgets/help.rb:139
+#: src/lib/y2partitioner/widgets/help.rb:142
 msgid ""
 "<b>Device ID</b> shows the persistent device\n"
 "IDs. This field can be empty."
@@ -3995,7 +4057,7 @@ msgstr ""
 "<b>裝置 ID</b>顯示永久的裝置 ID。\n"
 "此欄位可以為空。"
 
-#: src/lib/y2partitioner/widgets/help.rb:142
+#: src/lib/y2partitioner/widgets/help.rb:145
 msgid ""
 "<b>Device Path</b> shows the persistent device\n"
 "path. This field can be empty."
@@ -4003,7 +4065,7 @@ msgstr ""
 "<b>「裝置路徑」</b>顯示永久的裝置路徑。\n"
 "此欄位可以為空白。"
 
-#: src/lib/y2partitioner/widgets/help.rb:145
+#: src/lib/y2partitioner/widgets/help.rb:148
 msgid ""
 "<b>Used By</b> shows if a device is used by\n"
 "e.g. RAID or LVM. If not, this column is empty."
@@ -4011,7 +4073,7 @@ msgstr ""
 "<b>使用者</b>顯示裝置是否\n"
 "由 RAID 或 LVM 等所使用。如果不是，則此欄為空。"
 
-#: src/lib/y2partitioner/widgets/help.rb:148
+#: src/lib/y2partitioner/widgets/help.rb:151
 msgid ""
 "<b>UUID</b> shows the Universally Unique\n"
 "Identifier of the file system."
@@ -4019,29 +4081,29 @@ msgstr ""
 "<b>「UUID」</b>顯示檔案系統的\n"
 "通用唯一識別碼。"
 
-#: src/lib/y2partitioner/widgets/help.rb:151
+#: src/lib/y2partitioner/widgets/help.rb:154
 msgid "<b>Vendor</b> shows the device vendor."
 msgstr "<b>「廠商」</b>顯示裝置廠商。"
 
-#: src/lib/y2partitioner/widgets/help.rb:153
+#: src/lib/y2partitioner/widgets/help.rb:156
 msgid ""
 "<b>Backing Device</b> shows the device used as backing device for bcache."
 msgstr "<b>備用裝置</b>顯示充當 bcache 備用裝置的裝置。"
 
-#: src/lib/y2partitioner/widgets/help.rb:156
+#: src/lib/y2partitioner/widgets/help.rb:159
 msgid ""
 "<b>Caching UUID</b> shows the UUID of the used caching set. This field is "
 "empty if no caching is used."
 msgstr ""
 "<b>快取 UUID</b>顯示所使用快取集的 UUID。如果未使用快取則此欄位為空白。"
 
-#: src/lib/y2partitioner/widgets/help.rb:159
+#: src/lib/y2partitioner/widgets/help.rb:162
 msgid ""
 "<b>Caching Device</b> shows the device used for caching. This field is empty "
 "if no caching is used."
 msgstr "<b>快取裝置</b>顯示用於快取的裝置。如果未使用快取則此欄位為空白。"
 
-#: src/lib/y2partitioner/widgets/help.rb:162
+#: src/lib/y2partitioner/widgets/help.rb:165
 msgid ""
 "<b>Cache Mode</b> shows the operating mode for bcache. Currently there are "
 "four supported modes: Writethrough, Writeback, Writearound and None."
@@ -4049,47 +4111,48 @@ msgstr ""
 "<b>快取模式</b>顯示 bcache 的操作模式。目前支援的模式有四種：直寫、回寫、繞寫"
 "和無。"
 
-#: src/lib/y2partitioner/widgets/help.rb:166
+#: src/lib/y2partitioner/widgets/help.rb:169
 msgid "<b>Journal Device</b> shows the device holding the external journal."
 msgstr "<b>記錄裝置</b>顯示存放外部記錄的裝置。"
 
-#: src/lib/y2partitioner/widgets/help.rb:169
+#: src/lib/y2partitioner/widgets/help.rb:172
 msgid ""
 "<b>Devices</b> shows the kernel name of the devices used by a Btrfs file "
 "system."
 msgstr "<b>裝置</b>顯示 Btrfs 檔案系統使用的裝置核心名稱。"
 
-#: src/lib/y2partitioner/widgets/help.rb:172
+#: src/lib/y2partitioner/widgets/help.rb:175
 msgid "<b>Metadata RAID Level</b> shows the RAID level for the Btrfs metadata."
 msgstr "<b>中繼資料 RAID 層級</b>顯示 Btrfs 中繼資料的 RAID 層級。"
 
-#: src/lib/y2partitioner/widgets/help.rb:175
+#: src/lib/y2partitioner/widgets/help.rb:178
 msgid "<b>Data RAID Level</b> shows the RAID level for the Btrfs data."
 msgstr "<b>資料 RAID 層級</b>顯示 Btrfs 資料的 RAID 層級。"
 
-#: src/lib/y2partitioner/widgets/help.rb:177
-msgid "<b>Server</b> host name or IP address of the NFS server."
+#: src/lib/y2partitioner/widgets/help.rb:180
+#, fuzzy
+#| msgid "<b>Server</b> host name or IP address of the NFS server."
+msgid "<b>Server</b> shows host name or IP address of the NFS server."
 msgstr "<b>伺服器</b> NFS 伺服器的主機名稱或 IP 位址。"
 
-#: src/lib/y2partitioner/widgets/help.rb:179
-msgid "<b>Remote Directory</b> the directory on the NFS server."
+#: src/lib/y2partitioner/widgets/help.rb:182
+#, fuzzy
+#| msgid "<b>Remote Directory</b> the directory on the NFS server."
+msgid "<b>Remote Directory</b> shows the directory on the NFS server."
 msgstr "<b>遠端目錄</b> NFS 伺服器上的目錄。"
 
-#: src/lib/y2partitioner/widgets/help.rb:181
-msgid ""
-"<b>Mount Point</b> shows path in the local filesystem where the\n"
-" directory is mounted."
-msgstr "<b>掛接點</b>顯示本地檔案系統中掛接目錄的路徑。"
-
 #: src/lib/y2partitioner/widgets/help.rb:184
-msgid "<b>NFS Type</b> the filesystem type; typically \"nfs\"."
-msgstr "<b>NFS 類型</b>檔案系統類型；通常為「nfs」。"
+msgid ""
+"<b>NFS Version</b> shows the version of the protocol used to connect to the "
+"server. It may happen that some NFS share is mounted using an old method to "
+"specify the protocol version, like the usage of 'nfs4' as file system type "
+"or the usage of 'minorversion' in the mount options. Those methods do not "
+"longer work as they used to. So if such circumstance is detected, the real "
+"used version is displayed next to a warning message. Those entries can be "
+"edited to make sure they use more current ways of specifying the version."
+msgstr ""
 
-#: src/lib/y2partitioner/widgets/help.rb:186
-msgid "<b>Options</b> Mount options. See also \"man 5 nfs\"."
-msgstr "<b>選項</b>掛接選項。另請參閱「man 5 nfs」。"
-
-#: src/lib/y2partitioner/widgets/help.rb:189
+#: src/lib/y2partitioner/widgets/help.rb:195
 msgid ""
 "An asterisk (*) after the mount point\n"
 "indicates a file system that is currently not mounted (for example, because "
@@ -4101,7 +4164,7 @@ msgstr ""
 "已設定 <tt>noauto</tt> 選項)。"
 
 #. help texts that are appended to the common help only in Mode.normal
-#: src/lib/y2partitioner/widgets/help.rb:195
+#: src/lib/y2partitioner/widgets/help.rb:201
 msgid ""
 "A question mark (?) indicates that\n"
 "the file system is not listed in <tt>/etc/fstab</tt>. It is either mounted\n"
@@ -4316,40 +4379,46 @@ msgid "Bottom"
 msgstr "底端"
 
 #. TRANSLATORS: Partitioner menu to create new devices
-#: src/lib/y2partitioner/widgets/menus/add.rb:45
+#: src/lib/y2partitioner/widgets/menus/add.rb:46
 msgid "&Add"
 msgstr "新增(&A)"
 
 #. @see Base
-#: src/lib/y2partitioner/widgets/menus/add.rb:51
+#: src/lib/y2partitioner/widgets/menus/add.rb:52
 msgid "&RAID..."
 msgstr "RAID(&R)..."
 
-#: src/lib/y2partitioner/widgets/menus/add.rb:52
+#: src/lib/y2partitioner/widgets/menus/add.rb:53
 msgid "LVM &Volume Group..."
 msgstr "LVM 磁碟區群組(&V)..."
 
-#: src/lib/y2partitioner/widgets/menus/add.rb:53
+#: src/lib/y2partitioner/widgets/menus/add.rb:54
 msgid "&Btrfs..."
 msgstr "Btrfs(&B)..."
 
-#: src/lib/y2partitioner/widgets/menus/add.rb:54
+#: src/lib/y2partitioner/widgets/menus/add.rb:55
 msgid "B&cache..."
 msgstr "Bcache(&C)..."
 
-#: src/lib/y2partitioner/widgets/menus/add.rb:55
+#: src/lib/y2partitioner/widgets/menus/add.rb:56
 msgid "&Tmpfs..."
 msgstr "Tmpfs(&T)..."
 
 #: src/lib/y2partitioner/widgets/menus/add.rb:57
+#, fuzzy
+#| msgid "&Btrfs..."
+msgid "&Nfs..."
+msgstr "Btrfs(&B)..."
+
+#: src/lib/y2partitioner/widgets/menus/add.rb:59
 msgid "&Partition..."
 msgstr "分割區(&P)..."
 
-#: src/lib/y2partitioner/widgets/menus/add.rb:58
+#: src/lib/y2partitioner/widgets/menus/add.rb:60
 msgid "&Logical Volume..."
 msgstr "邏輯磁碟區(&L)..."
 
-#: src/lib/y2partitioner/widgets/menus/add.rb:59
+#: src/lib/y2partitioner/widgets/menus/add.rb:61
 msgid "Btrfs &Subvolume..."
 msgstr "Btrfs 子磁碟區(&S)..."
 
@@ -4386,37 +4455,37 @@ msgstr "設定(&C)"
 
 #. TRANSLATORS: Partitioner menu with actions to perform on the
 #. currently selected device
-#: src/lib/y2partitioner/widgets/menus/modify.rb:59
+#: src/lib/y2partitioner/widgets/menus/modify.rb:61
 msgid "&Device"
 msgstr "裝置(&D)"
 
-#: src/lib/y2partitioner/widgets/menus/modify.rb:66
+#: src/lib/y2partitioner/widgets/menus/modify.rb:68
 msgid "&Show Details"
 msgstr "顯示詳細資料(&S)"
 
-#: src/lib/y2partitioner/widgets/menus/modify.rb:67
+#: src/lib/y2partitioner/widgets/menus/modify.rb:69
 msgid "&Delete"
 msgstr "刪除(&D)"
 
-#: src/lib/y2partitioner/widgets/menus/modify.rb:69
+#: src/lib/y2partitioner/widgets/menus/modify.rb:71
 msgid "&Resize..."
 msgstr "調整大小(&R)..."
 
-#: src/lib/y2partitioner/widgets/menus/modify.rb:70
+#: src/lib/y2partitioner/widgets/menus/modify.rb:72
 msgid "&Move..."
 msgstr "移動(&M)..."
 
-#: src/lib/y2partitioner/widgets/menus/modify.rb:71
+#: src/lib/y2partitioner/widgets/menus/modify.rb:73
 #, fuzzy
 #| msgid "Change Used Devices..."
 msgid "Change &Used Devices..."
 msgstr "變更使用的裝置..."
 
-#: src/lib/y2partitioner/widgets/menus/modify.rb:73
+#: src/lib/y2partitioner/widgets/menus/modify.rb:75
 msgid "Create New &Partition Table..."
 msgstr "建立新分割區表(&P)..."
 
-#: src/lib/y2partitioner/widgets/menus/modify.rb:74
+#: src/lib/y2partitioner/widgets/menus/modify.rb:76
 msgid "&Clone Partitions to Another Device..."
 msgstr "將分割區克隆至其他裝置(&C)..."
 
@@ -4678,9 +4747,16 @@ msgstr ""
 "指定根目錄中可用項目的數量。請選擇一個最小為 16 的值或「自動」。請注意，該值"
 "為下限，實際的根目錄可能更大。"
 
+#. TRANSLATORS: button label
+#: src/lib/y2partitioner/widgets/nfs_buttons.rb:36
+#, fuzzy
+#| msgid "&NFS..."
+msgid "Add NFS..."
+msgstr "NFS(&N)..."
+
 #. TRANSLATORS: html text of the Partitioner Help. Please make sure the menu
 #. names actually match the ones in the menubar widget
-#: src/lib/y2partitioner/widgets/overview.rb:168
+#: src/lib/y2partitioner/widgets/overview.rb:153
 msgid ""
 "<p>Below the menu bar, the main element of the interface is the table\n"
 "that represents the available devices, with some buttons to provide quick\n"
@@ -4739,12 +4815,6 @@ msgstr "LVM 磁碟區群組"
 #: src/lib/y2partitioner/widgets/pages/lvm_vg.rb:100
 msgid "&Physical Volumes"
 msgstr "實體磁碟區(&P)"
-
-#. TRANSLATORS: %s is the name of a package (i.g. 'yast2-nfs-client')
-#: src/lib/y2partitioner/widgets/pages/nfs_mounts.rb:103
-#, c-format
-msgid "NFS configuration is not available. Check %s package installation."
-msgstr "NFS 組態無法使用。請檢查 %s 套件安裝。"
 
 #. TRANSLATORS: label of the first element of the Partitioner left tree
 #: src/lib/y2partitioner/widgets/pages/system.rb:51
@@ -4843,16 +4913,6 @@ msgstr "不支援安裝到暫存檔案系統中。"
 #: src/lib/y2partitioner/widgets/used_devices_tab.rb:43
 msgid "&Used Devices"
 msgstr "使用的裝置(&U)"
-
-#. TRANSLATORS: pop-up message. %s is replaced for something like 'server:/path'
-#: src/lib/y2partitioner/yast_nfs_client.rb:223
-#, c-format
-msgid ""
-"Test mount of NFS share '%s' failed.\n"
-"Save it anyway?"
-msgstr ""
-"NFS 共用「%s'」的測試掛接失敗。\n"
-"仍要儲存嗎？"
 
 #. TRANSLATORS: %d is the amount of actions, %s an URL
 #: src/lib/y2storage/actions_presenter.rb:141
@@ -6749,6 +6809,20 @@ msgstr ""
 #| msgid "Click below to see more details (English only)."
 msgid "Technical details (English only):"
 msgstr "按一下下方查看更多詳細資料 (僅提供英語版本)。"
+
+#~ msgid ""
+#~ "<b>Mount Point</b> shows path in the local filesystem where the\n"
+#~ " directory is mounted."
+#~ msgstr "<b>掛接點</b>顯示本地檔案系統中掛接目錄的路徑。"
+
+#~ msgid "<b>NFS Type</b> the filesystem type; typically \"nfs\"."
+#~ msgstr "<b>NFS 類型</b>檔案系統類型；通常為「nfs」。"
+
+#~ msgid "<b>Options</b> Mount options. See also \"man 5 nfs\"."
+#~ msgstr "<b>選項</b>掛接選項。另請參閱「man 5 nfs」。"
+
+#~ msgid "NFS configuration is not available. Check %s package installation."
+#~ msgstr "NFS 組態無法使用。請檢查 %s 套件安裝。"
 
 #~ msgid "Encrypted Volume Activation"
 #~ msgstr "啟動加密的磁碟區"
@@ -10395,9 +10469,6 @@ msgstr "按一下下方查看更多詳細資料 (僅提供英語版本)。"
 #~ msgid "Metadata"
 #~ msgstr "中繼資料"
 
-#~ msgid "RAID Version"
-#~ msgstr "RAID 版本"
-
 #~ msgid "Vendor"
 #~ msgstr "廠商"
 
@@ -13004,9 +13075,6 @@ msgstr "按一下下方查看更多詳細資料 (僅提供英語版本)。"
 #~ msgid "Change NFS Path Setup"
 #~ msgstr "變更 NFS 路徑設定"
 
-#~ msgid "Add New NFS Path"
-#~ msgstr "加入新的 NFS 路徑"
-
 #~ msgid "&Name of NFS Server"
 #~ msgstr "NFS 伺服器的名稱(&N)"
 
@@ -13790,9 +13858,6 @@ msgstr "按一下下方查看更多詳細資料 (僅提供英語版本)。"
 
 #~ msgid "&LVM..."
 #~ msgstr "LVM(&L)..."
-
-#~ msgid "&NFS..."
-#~ msgstr "NFS(&N)..."
 
 #~ msgid ""
 #~ "It is not possible to create a partition on %1.\n"

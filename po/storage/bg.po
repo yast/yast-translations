@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: storage-ng.bg\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-02-01 02:30+0000\n"
+"POT-Creation-Date: 2022-02-03 02:30+0000\n"
 "PO-Revision-Date: 2012-08-08 12:29+0300\n"
 "Last-Translator: Borislav Mitev <morbid_viper@tkzs.org>\n"
 "Language-Team: Bulgarian <kde-i18n-doc@kde.org>\n"
@@ -596,7 +596,10 @@ msgid "Really delete %s and all the affected devices?"
 msgstr "Наистина ли желаете да изтриете тези дялове?"
 
 #. TRANSLATORS %s is the name of the device (e.g., /dev/sda1)
+#. TRANSLATORS: Confirmation to delete an NFS mount, %s is replaced by
+#. something like 'server:/path'
 #: src/lib/y2partitioner/actions/delete_device.rb:144
+#: src/lib/y2partitioner/actions/delete_nfs.rb:47
 #, fuzzy, c-format
 #| msgid "Really delete %1?"
 msgid "Really delete %s?"
@@ -1607,7 +1610,7 @@ msgstr "Btrfs масиви"
 #. Entry data about the LVM VG name
 #.
 #. @return [String]
-#: src/lib/y2partitioner/dialogs/device_description.rb:101
+#: src/lib/y2partitioner/dialogs/device_description.rb:102
 #: src/lib/y2partitioner/widgets/blk_device_attributes.rb:44
 #: src/lib/y2partitioner/widgets/description_section/lvm_vg_device.rb:56
 #, fuzzy, c-format
@@ -2019,6 +2022,30 @@ msgstr ""
 #| msgid "Formatting Options"
 msgid "Format Options:"
 msgstr "Параметри на форматирането"
+
+#. TRANSLATORS: wizard title
+#: src/lib/y2partitioner/dialogs/nfs.rb:76
+#, fuzzy
+msgid "Add NFS mount"
+msgstr "Добавяне на нов споделен ресурс"
+
+#. TRANSLATORS: wizard title
+#: src/lib/y2partitioner/dialogs/nfs.rb:79
+msgid "Edit NFS mount"
+msgstr ""
+
+#. TRANSLATORS: pop-up message. %s is replaced for something like 'server:/path'
+#: src/lib/y2partitioner/dialogs/nfs.rb:183
+#, fuzzy, c-format
+#| msgid ""
+#| "Test mount of NFS share '%1' failed.\n"
+#| "Save it anyway?"
+msgid ""
+"Test mount of NFS share '%s' failed.\n"
+"Save it anyway?"
+msgstr ""
+"Пробното монтиране на на „%1“ бе неуспешно.\n"
+"Желаете ли да го запазите въпреки това?"
 
 #. TRANSLATORS: %{name} is replaced by a partition name (e.g. /dev/sda1)
 #: src/lib/y2partitioner/dialogs/partition_move.rb:72
@@ -2797,12 +2824,43 @@ msgstr "Етикет"
 msgid "F"
 msgstr "Ф"
 
-#. TRANSLATORS: table header, where is device mounted. Can be empty. E.g. "/" or "/home"
+#. TRANSLATORS: table header
+#: src/lib/y2partitioner/widgets/columns/mount_options.rb:39
+#, fuzzy
+#| msgid "Mounting Options"
+msgid "Mount Options"
+msgstr "Параметри на монтирането"
+
+#. TRANSLATORS: table header, where the device is mounted.
 #. Synchronize the widget with the information from the controller
-#: src/lib/y2partitioner/widgets/columns/mount_point.rb:37
+#: src/lib/y2partitioner/widgets/columns/mount_point.rb:38
 #: src/lib/y2partitioner/widgets/format_and_mount.rb:615
 msgid "Mount Point"
 msgstr "Път за монтиране"
+
+#. @see Columns::Base#title
+#: src/lib/y2partitioner/widgets/columns/nfs_path.rb:37
+msgid "Remote Directory"
+msgstr ""
+
+#. @see Columns::Base#title
+#: src/lib/y2partitioner/widgets/columns/nfs_server.rb:37
+msgid "Server"
+msgstr ""
+
+#. TRANSLATORS: table header
+#: src/lib/y2partitioner/widgets/columns/nfs_version.rb:37
+#, fuzzy
+#| msgid "RAID Version"
+msgid "NFS Version"
+msgstr "Версия на RAID"
+
+#. TRANSLATORS: %s is a string representing the NFS version used, but
+#. maybe it's not the one the user wanted.
+#: src/lib/y2partitioner/widgets/columns/nfs_version.rb:49
+#, c-format
+msgid "%s (Please Check)"
+msgstr ""
 
 #. TRANSLATORS: table header, type of metadata
 #: src/lib/y2partitioner/widgets/columns/pe_size.rb:37
@@ -2839,7 +2897,7 @@ msgstr "Множество монитори"
 
 #. @macro seeAbstractWidget
 #: src/lib/y2partitioner/widgets/columns/type.rb:56
-#: src/lib/y2partitioner/widgets/pages/nfs_mounts.rb:48
+#: src/lib/y2partitioner/widgets/pages/nfs_mounts.rb:40
 msgid "NFS"
 msgstr "NFS"
 
@@ -3319,7 +3377,7 @@ msgstr ""
 #. TRANSLATORS: label for the button to edit a device
 #. @see Base
 #: src/lib/y2partitioner/widgets/device_edit_button.rb:31
-#: src/lib/y2partitioner/widgets/menus/modify.rb:65
+#: src/lib/y2partitioner/widgets/menus/modify.rb:67
 #, fuzzy
 #| msgid "Edit..."
 msgid "&Edit..."
@@ -4069,7 +4127,7 @@ msgstr ""
 #. so only warnings there
 #. FIXME: improve Yast2::Popup to allow some text before the buttons
 #: src/lib/y2partitioner/widgets/fstab_selector.rb:71
-#: src/lib/y2partitioner/widgets/overview.rb:210
+#: src/lib/y2partitioner/widgets/overview.rb:195
 #, fuzzy
 #| msgid "Do you want to provide encryption passwords?"
 msgid "Do you want to continue?"
@@ -4328,13 +4386,19 @@ msgstr ""
 
 #: src/lib/y2partitioner/widgets/help.rb:110
 msgid ""
+"<b>Mount Options</b> shows the options used to mount the volume, typically "
+"specified at <tt>/etc/fstab</tt>."
+msgstr ""
+
+#: src/lib/y2partitioner/widgets/help.rb:113
+msgid ""
 "<b>Mount Point</b> shows where the file system\n"
 "is mounted."
 msgstr ""
 "<b>Точка на монтиране</b> показва къде ще бъде\n"
 "монтирана файловата система."
 
-#: src/lib/y2partitioner/widgets/help.rb:112
+#: src/lib/y2partitioner/widgets/help.rb:115
 msgid ""
 "<b>Number of Cylinders</b> shows how many\n"
 "cylinders the hard disk has."
@@ -4342,7 +4406,7 @@ msgstr ""
 "<b>Броят цилиндри</b> показва колко \n"
 "цилиндъра има дадения твърд диск."
 
-#: src/lib/y2partitioner/widgets/help.rb:115
+#: src/lib/y2partitioner/widgets/help.rb:118
 msgid ""
 "<b>Parity Algorithm</b> shows the parity\n"
 "algorithm for RAID devices with RAID type 5, 6 or 10."
@@ -4350,7 +4414,7 @@ msgstr ""
 "<b>Алгоритъмът за четност</b> показва какво ще бъде \n"
 "използвано за RAID устройствата от тип 5, 6 или 10."
 
-#: src/lib/y2partitioner/widgets/help.rb:118
+#: src/lib/y2partitioner/widgets/help.rb:121
 msgid ""
 "<b>PE Size</b> shows the physical extent size\n"
 "for LVM volume groups."
@@ -4358,11 +4422,11 @@ msgstr ""
 "<b>Физическият размер</b> показва този \n"
 "параметър за дадената LVM група от масиви."
 
-#: src/lib/y2partitioner/widgets/help.rb:121
+#: src/lib/y2partitioner/widgets/help.rb:124
 msgid "<b>RAID Version</b> shows the RAID version."
 msgstr "<b>Версията на RAID</b> показва версията."
 
-#: src/lib/y2partitioner/widgets/help.rb:123
+#: src/lib/y2partitioner/widgets/help.rb:126
 msgid ""
 "<b>RAID Type</b> shows the RAID type, also\n"
 "called RAID level, for RAID devices."
@@ -4370,13 +4434,13 @@ msgstr ""
 "<b>Типът на RAID</b> показва типа,\n"
 "също известен като ниво на RAID."
 
-#: src/lib/y2partitioner/widgets/help.rb:126
+#: src/lib/y2partitioner/widgets/help.rb:129
 msgid "<b>Size</b> shows the size of the device."
 msgstr ""
 "<b>Размерът</b> показва какъв е\n"
 "обемът на устройството."
 
-#: src/lib/y2partitioner/widgets/help.rb:128
+#: src/lib/y2partitioner/widgets/help.rb:131
 #, fuzzy
 #| msgid ""
 #| "<b>Start Cylinder</b> shows the start cylinder\n"
@@ -4388,7 +4452,7 @@ msgstr ""
 "<b>Началният цилиндър</b> показва с\n"
 "кой цилиндър започва даденият дял."
 
-#: src/lib/y2partitioner/widgets/help.rb:130
+#: src/lib/y2partitioner/widgets/help.rb:133
 #, fuzzy
 #| msgid ""
 #| "<b>Stripes</b> shows the stripe number for LVM\n"
@@ -4402,18 +4466,18 @@ msgstr ""
 "LVM логически дялове и ако е повече от един, в скоби\n"
 "се показва и размерът на лентата.\n"
 
-#: src/lib/y2partitioner/widgets/help.rb:134
+#: src/lib/y2partitioner/widgets/help.rb:137
 msgid ""
 "<b>Snapshots</b> shows the snapshots, if any, for an LVM logical volume."
 msgstr ""
 
-#: src/lib/y2partitioner/widgets/help.rb:137
+#: src/lib/y2partitioner/widgets/help.rb:140
 msgid ""
 "<b>Type</b> gives a general overview about the\n"
 "device type."
 msgstr "<b>Тип</b> дава общ поглед върху типа на устройството."
 
-#: src/lib/y2partitioner/widgets/help.rb:139
+#: src/lib/y2partitioner/widgets/help.rb:142
 #, fuzzy
 #| msgid ""
 #| "<b>Device ID</b> shows the persistent device\n"
@@ -4425,7 +4489,7 @@ msgstr ""
 "<b>ID на устройството</b> показва постоянните идентификатори\n"
 "на устройството. Полето може да бъде и празно.\n"
 
-#: src/lib/y2partitioner/widgets/help.rb:142
+#: src/lib/y2partitioner/widgets/help.rb:145
 msgid ""
 "<b>Device Path</b> shows the persistent device\n"
 "path. This field can be empty."
@@ -4433,7 +4497,7 @@ msgstr ""
 "<b>Път до устройството</b> показва този параметър\n"
 "на устройството. Полето може да бъде и празно."
 
-#: src/lib/y2partitioner/widgets/help.rb:145
+#: src/lib/y2partitioner/widgets/help.rb:148
 #, fuzzy
 #| msgid ""
 #| "<b>Used By</b> shows if a device is used by\n"
@@ -4446,7 +4510,7 @@ msgstr ""
 "от LVM или RAID. Ако не ги използвате е напълно\n"
 "нормално тази колона да бъде празна.\n"
 
-#: src/lib/y2partitioner/widgets/help.rb:148
+#: src/lib/y2partitioner/widgets/help.rb:151
 msgid ""
 "<b>UUID</b> shows the Universally Unique\n"
 "Identifier of the file system."
@@ -4454,13 +4518,13 @@ msgstr ""
 "<b>UUID</b> показва универсалния уникален\n"
 "идентификатор на файловата система."
 
-#: src/lib/y2partitioner/widgets/help.rb:151
+#: src/lib/y2partitioner/widgets/help.rb:154
 msgid "<b>Vendor</b> shows the device vendor."
 msgstr ""
 "<b>Доставчикът</b> показва кой е \n"
 "произвел устройството."
 
-#: src/lib/y2partitioner/widgets/help.rb:153
+#: src/lib/y2partitioner/widgets/help.rb:156
 #, fuzzy
 #| msgid ""
 #| "<b>Device</b> shows the kernel name of the\n"
@@ -4471,7 +4535,7 @@ msgstr ""
 "<b>Устройство</b> показва името на ядрото\n"
 "за това устройство."
 
-#: src/lib/y2partitioner/widgets/help.rb:156
+#: src/lib/y2partitioner/widgets/help.rb:159
 #, fuzzy
 #| msgid ""
 #| "<b>BIOS ID</b> shows the BIOS ID of the hard\n"
@@ -4483,19 +4547,19 @@ msgstr ""
 "<b>BIOS ID</b> показва ID на твърдия диск\n"
 "така както го подава BIOS-ът. Полето може да е празно."
 
-#: src/lib/y2partitioner/widgets/help.rb:159
+#: src/lib/y2partitioner/widgets/help.rb:162
 msgid ""
 "<b>Caching Device</b> shows the device used for caching. This field is empty "
 "if no caching is used."
 msgstr ""
 
-#: src/lib/y2partitioner/widgets/help.rb:162
+#: src/lib/y2partitioner/widgets/help.rb:165
 msgid ""
 "<b>Cache Mode</b> shows the operating mode for bcache. Currently there are "
 "four supported modes: Writethrough, Writeback, Writearound and None."
 msgstr ""
 
-#: src/lib/y2partitioner/widgets/help.rb:166
+#: src/lib/y2partitioner/widgets/help.rb:169
 #, fuzzy
 #| msgid ""
 #| "<b>Device</b> shows the kernel name of the\n"
@@ -4505,7 +4569,7 @@ msgstr ""
 "<b>Устройство</b> показва името на ядрото\n"
 "за това устройство."
 
-#: src/lib/y2partitioner/widgets/help.rb:169
+#: src/lib/y2partitioner/widgets/help.rb:172
 #, fuzzy
 #| msgid ""
 #| "<b>Device</b> shows the kernel name of the\n"
@@ -4517,55 +4581,48 @@ msgstr ""
 "<b>Устройство</b> показва името на ядрото\n"
 "за това устройство."
 
-#: src/lib/y2partitioner/widgets/help.rb:172
+#: src/lib/y2partitioner/widgets/help.rb:175
 msgid "<b>Metadata RAID Level</b> shows the RAID level for the Btrfs metadata."
 msgstr ""
 
-#: src/lib/y2partitioner/widgets/help.rb:175
+#: src/lib/y2partitioner/widgets/help.rb:178
 #, fuzzy
 #| msgid "<b>RAID Version</b> shows the RAID version."
 msgid "<b>Data RAID Level</b> shows the RAID level for the Btrfs data."
 msgstr "<b>Версията на RAID</b> показва версията."
 
-#: src/lib/y2partitioner/widgets/help.rb:177
+#: src/lib/y2partitioner/widgets/help.rb:180
 #, fuzzy
 #| msgid ""
 #| "<b>Device</b> shows the kernel name of the\n"
 #| "device."
-msgid "<b>Server</b> host name or IP address of the NFS server."
+msgid "<b>Server</b> shows host name or IP address of the NFS server."
 msgstr ""
 "<b>Устройство</b> показва името на ядрото\n"
 "за това устройство."
 
-#: src/lib/y2partitioner/widgets/help.rb:179
-msgid "<b>Remote Directory</b> the directory on the NFS server."
-msgstr ""
-
-#: src/lib/y2partitioner/widgets/help.rb:181
+#: src/lib/y2partitioner/widgets/help.rb:182
 #, fuzzy
 #| msgid ""
-#| "<b>Mount Point</b> shows where the file system\n"
-#| "is mounted."
-msgid ""
-"<b>Mount Point</b> shows path in the local filesystem where the\n"
-" directory is mounted."
+#| "<b>Device</b> shows the kernel name of the\n"
+#| "device."
+msgid "<b>Remote Directory</b> shows the directory on the NFS server."
 msgstr ""
-"<b>Точка на монтиране</b> показва къде ще бъде\n"
-"монтирана файловата система."
+"<b>Устройство</b> показва името на ядрото\n"
+"за това устройство."
 
 #: src/lib/y2partitioner/widgets/help.rb:184
-#, fuzzy
-#| msgid "<b>FS Type</b> shows the file system type."
-msgid "<b>NFS Type</b> the filesystem type; typically \"nfs\"."
+msgid ""
+"<b>NFS Version</b> shows the version of the protocol used to connect to the "
+"server. It may happen that some NFS share is mounted using an old method to "
+"specify the protocol version, like the usage of 'nfs4' as file system type "
+"or the usage of 'minorversion' in the mount options. Those methods do not "
+"longer work as they used to. So if such circumstance is detected, the real "
+"used version is displayed next to a warning message. Those entries can be "
+"edited to make sure they use more current ways of specifying the version."
 msgstr ""
-"<b>Типът на ФС</b> показва типа на\n"
-"файловата система."
 
-#: src/lib/y2partitioner/widgets/help.rb:186
-msgid "<b>Options</b> Mount options. See also \"man 5 nfs\"."
-msgstr ""
-
-#: src/lib/y2partitioner/widgets/help.rb:189
+#: src/lib/y2partitioner/widgets/help.rb:195
 msgid ""
 "An asterisk (*) after the mount point\n"
 "indicates a file system that is currently not mounted (for example, because "
@@ -4577,7 +4634,7 @@ msgstr ""
 "защото е бил зададен параметър <tt>noauto</tt> в <tt>/etc/fstab</tt>."
 
 #. help texts that are appended to the common help only in Mode.normal
-#: src/lib/y2partitioner/widgets/help.rb:195
+#: src/lib/y2partitioner/widgets/help.rb:201
 msgid ""
 "A question mark (?) indicates that\n"
 "the file system is not listed in <tt>/etc/fstab</tt>. It is either mounted\n"
@@ -4762,48 +4819,53 @@ msgid "Bottom"
 msgstr "Най-долу"
 
 #. TRANSLATORS: Partitioner menu to create new devices
-#: src/lib/y2partitioner/widgets/menus/add.rb:45
+#: src/lib/y2partitioner/widgets/menus/add.rb:46
 msgid "&Add"
 msgstr ""
 
 #. @see Base
-#: src/lib/y2partitioner/widgets/menus/add.rb:51
+#: src/lib/y2partitioner/widgets/menus/add.rb:52
 msgid "&RAID..."
 msgstr "&RAID"
 
-#: src/lib/y2partitioner/widgets/menus/add.rb:52
+#: src/lib/y2partitioner/widgets/menus/add.rb:53
 #, fuzzy
 msgid "LVM &Volume Group..."
 msgstr "Добавяне на група от масиви "
 
-#: src/lib/y2partitioner/widgets/menus/add.rb:53
+#: src/lib/y2partitioner/widgets/menus/add.rb:54
 #, fuzzy
 msgid "&Btrfs..."
 msgstr "Добавяне на нов споделен ресурс"
 
-#: src/lib/y2partitioner/widgets/menus/add.rb:54
+#: src/lib/y2partitioner/widgets/menus/add.rb:55
 #, fuzzy
 msgid "B&cache..."
 msgstr "Добавяне на нов споделен ресурс"
 
-#: src/lib/y2partitioner/widgets/menus/add.rb:55
+#: src/lib/y2partitioner/widgets/menus/add.rb:56
 #, fuzzy
 msgid "&Tmpfs..."
 msgstr "Добавяне на нов споделен ресурс"
 
 #: src/lib/y2partitioner/widgets/menus/add.rb:57
 #, fuzzy
+msgid "&Nfs..."
+msgstr "Добавяне на нов споделен ресурс"
+
+#: src/lib/y2partitioner/widgets/menus/add.rb:59
+#, fuzzy
 #| msgid "&Partitions"
 msgid "&Partition..."
 msgstr "&Дялове"
 
-#: src/lib/y2partitioner/widgets/menus/add.rb:58
+#: src/lib/y2partitioner/widgets/menus/add.rb:60
 #, fuzzy
 #| msgid "&Logical Volumes"
 msgid "&Logical Volume..."
 msgstr "&Логически масиви"
 
-#: src/lib/y2partitioner/widgets/menus/add.rb:59
+#: src/lib/y2partitioner/widgets/menus/add.rb:61
 #, fuzzy
 #| msgid "Btrfs Volumes"
 msgid "Btrfs &Subvolume..."
@@ -4846,45 +4908,45 @@ msgstr "Настройване"
 
 #. TRANSLATORS: Partitioner menu with actions to perform on the
 #. currently selected device
-#: src/lib/y2partitioner/widgets/menus/modify.rb:59
+#: src/lib/y2partitioner/widgets/menus/modify.rb:61
 #, fuzzy
 #| msgid "Device"
 msgid "&Device"
 msgstr "Устройство"
 
-#: src/lib/y2partitioner/widgets/menus/modify.rb:66
+#: src/lib/y2partitioner/widgets/menus/modify.rb:68
 msgid "&Show Details"
 msgstr "Показване на &подробности"
 
-#: src/lib/y2partitioner/widgets/menus/modify.rb:67
+#: src/lib/y2partitioner/widgets/menus/modify.rb:69
 msgid "&Delete"
 msgstr "&Изтриване"
 
-#: src/lib/y2partitioner/widgets/menus/modify.rb:69
+#: src/lib/y2partitioner/widgets/menus/modify.rb:71
 #, fuzzy
 #| msgid "Resize..."
 msgid "&Resize..."
 msgstr "Промяна на размера…"
 
-#: src/lib/y2partitioner/widgets/menus/modify.rb:70
+#: src/lib/y2partitioner/widgets/menus/modify.rb:72
 #, fuzzy
 #| msgid "Move..."
 msgid "&Move..."
 msgstr "Преместване…"
 
-#: src/lib/y2partitioner/widgets/menus/modify.rb:71
+#: src/lib/y2partitioner/widgets/menus/modify.rb:73
 #, fuzzy
 #| msgid "&Used Devices"
 msgid "Change &Used Devices..."
 msgstr "&Използвани устройства"
 
-#: src/lib/y2partitioner/widgets/menus/modify.rb:73
+#: src/lib/y2partitioner/widgets/menus/modify.rb:75
 #, fuzzy
 #| msgid "Create New Partition Table"
 msgid "Create New &Partition Table..."
 msgstr "Нова таблица с дялове"
 
-#: src/lib/y2partitioner/widgets/menus/modify.rb:74
+#: src/lib/y2partitioner/widgets/menus/modify.rb:76
 #, fuzzy
 #| msgid "Add Partition..."
 msgid "&Clone Partitions to Another Device..."
@@ -5227,9 +5289,16 @@ msgid ""
 "actual root directory may be larger."
 msgstr ""
 
+#. TRANSLATORS: button label
+#: src/lib/y2partitioner/widgets/nfs_buttons.rb:36
+#, fuzzy
+#| msgid "&NFS..."
+msgid "Add NFS..."
+msgstr "&NFS"
+
 #. TRANSLATORS: html text of the Partitioner Help. Please make sure the menu
 #. names actually match the ones in the menubar widget
-#: src/lib/y2partitioner/widgets/overview.rb:168
+#: src/lib/y2partitioner/widgets/overview.rb:153
 msgid ""
 "<p>Below the menu bar, the main element of the interface is the table\n"
 "that represents the available devices, with some buttons to provide quick\n"
@@ -5287,17 +5356,6 @@ msgstr "Група от масиви"
 #: src/lib/y2partitioner/widgets/pages/lvm_vg.rb:100
 msgid "&Physical Volumes"
 msgstr "&Физически дялове"
-
-#. TRANSLATORS: %s is the name of a package (i.g. 'yast2-nfs-client')
-#: src/lib/y2partitioner/widgets/pages/nfs_mounts.rb:103
-#, fuzzy, c-format
-#| msgid ""
-#| "NFS configuration is not available. Check yast2-nfs-client package "
-#| "installation."
-msgid "NFS configuration is not available. Check %s package installation."
-msgstr ""
-"Не може да се направи настройка за NFS. \n"
-"Проверете дали е инсталиран пакета yast2-nfs-client."
 
 #. TRANSLATORS: label of the first element of the Partitioner left tree
 #: src/lib/y2partitioner/widgets/pages/system.rb:51
@@ -5397,19 +5455,6 @@ msgstr ""
 #: src/lib/y2partitioner/widgets/used_devices_tab.rb:43
 msgid "&Used Devices"
 msgstr "&Използвани устройства"
-
-#. TRANSLATORS: pop-up message. %s is replaced for something like 'server:/path'
-#: src/lib/y2partitioner/yast_nfs_client.rb:223
-#, fuzzy, c-format
-#| msgid ""
-#| "Test mount of NFS share '%1' failed.\n"
-#| "Save it anyway?"
-msgid ""
-"Test mount of NFS share '%s' failed.\n"
-"Save it anyway?"
-msgstr ""
-"Пробното монтиране на на „%1“ бе неуспешно.\n"
-"Желаете ли да го запазите въпреки това?"
 
 #. TRANSLATORS: %d is the amount of actions, %s an URL
 #: src/lib/y2storage/actions_presenter.rb:141
@@ -7400,6 +7445,33 @@ msgstr ""
 #: src/lib/y2storage/widgets/issues.rb:124
 msgid "Technical details (English only):"
 msgstr ""
+
+#, fuzzy
+#~| msgid ""
+#~| "<b>Mount Point</b> shows where the file system\n"
+#~| "is mounted."
+#~ msgid ""
+#~ "<b>Mount Point</b> shows path in the local filesystem where the\n"
+#~ " directory is mounted."
+#~ msgstr ""
+#~ "<b>Точка на монтиране</b> показва къде ще бъде\n"
+#~ "монтирана файловата система."
+
+#, fuzzy
+#~| msgid "<b>FS Type</b> shows the file system type."
+#~ msgid "<b>NFS Type</b> the filesystem type; typically \"nfs\"."
+#~ msgstr ""
+#~ "<b>Типът на ФС</b> показва типа на\n"
+#~ "файловата система."
+
+#, fuzzy
+#~| msgid ""
+#~| "NFS configuration is not available. Check yast2-nfs-client package "
+#~| "installation."
+#~ msgid "NFS configuration is not available. Check %s package installation."
+#~ msgstr ""
+#~ "Не може да се направи настройка за NFS. \n"
+#~ "Проверете дали е инсталиран пакета yast2-nfs-client."
 
 #~ msgid "Encrypted Volume Activation"
 #~ msgstr "Активиране на криптиран масив"
@@ -11120,9 +11192,6 @@ msgstr ""
 #~ msgid "Metadata"
 #~ msgstr "Метаданни"
 
-#~ msgid "RAID Version"
-#~ msgstr "Версия на RAID"
-
 #~ msgid "Vendor"
 #~ msgstr "Доставчик"
 
@@ -13697,10 +13766,6 @@ msgstr ""
 #~ "файл ще има този размер.</p>\n"
 
 #, fuzzy
-#~ msgid "Add New NFS Path"
-#~ msgstr "Добавяне на нов споделен ресурс"
-
-#, fuzzy
 #~ msgid "&Name of NFS Server"
 #~ msgstr "D&NS услуга"
 
@@ -14485,9 +14550,6 @@ msgstr ""
 
 #~ msgid "&LVM..."
 #~ msgstr "&LVM"
-
-#~ msgid "&NFS..."
-#~ msgstr "&NFS"
 
 #~ msgid ""
 #~ "It is not possible to create a partition on %1.\n"
