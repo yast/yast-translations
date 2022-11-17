@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: security\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-02-01 02:30+0000\n"
+"POT-Creation-Date: 2022-11-17 02:30+0000\n"
 "PO-Revision-Date: 2021-12-31 06:11+0000\n"
 "Last-Translator: Yasuhiko Kamata <belphegor@belbel.or.jp>\n"
 "Language-Team: Japanese <https://l10n.opensuse.org/projects/yast-security/"
@@ -1487,6 +1487,116 @@ msgstr "セキュリティ設定"
 msgid "Initializing..."
 msgstr "しばらくお待ちください..."
 
+#. Proposal title
+#: src/lib/y2security/clients/security_policy_proposal.rb:65
+#, fuzzy
+#| msgid "Security Settings"
+msgid "Security Policies"
+msgstr "セキュリティ設定"
+
+#. Menu entry label
+#: src/lib/y2security/clients/security_policy_proposal.rb:67
+#, fuzzy
+#| msgid "Security Settings"
+msgid "&Security Policies"
+msgstr "セキュリティ設定"
+
+#. Returns the warning message
+#.
+#. @return [String,nil] warning message or nil if there are no failing rules
+#: src/lib/y2security/clients/security_policy_proposal.rb:146
+msgid ""
+"The current configuration does not comply with the enabled security policies."
+msgstr ""
+
+#. Runs the bootloader configuration dialog and configures bootloader
+#.
+#. @return [Symbol] result
+#: src/lib/y2security/clients/security_policy_proposal.rb:284
+msgid ""
+"<p><b>Security Policies</b</p>\n"
+"<p>This section allows to configure the installed system to conform with the "
+"guidelines of a given security policy like the Security Technical "
+"Implementation Guide (STIG) of the Defense Information Systems Agency (DISA)."
+"</p>\n"
+"<p>Enabling a policy allows to configure the new system to execute a full "
+"security scan using the OpenSCAP tools in the first boot. By default, that "
+"will generate a report at <tt>/var/log/ssg-apply/</tt> listing the rules "
+"that would need some kind of remediation. The system can also be configured "
+"to automatically apply remediations right after the initial scan. Note that "
+"may lead to a system that is secure to the point of being unusable for some "
+"use cases. It is also possible to completely skip the automatic scan.</p>\n"
+"<p>Enabling a security policy will also cause the installer to check some "
+"rules that can hardly be remediated after installation. For each failing "
+"rule the installer will display several well-known identifiers and a link to "
+"the functionality of the installer that can be used to manually remediate "
+"the issue before installing.<p>"
+msgstr ""
+
+#. TRANSLATORS: 'policy' is a security policy name; 'link' is just an HTML-like link
+#: src/lib/y2security/clients/security_policy_proposal.rb:423
+#, perl-brace-format
+msgid "%{policy} is enabled (<a href=\"%{link}\">disable</a>)"
+msgstr ""
+
+#. TRANSLATORS: 'policy' is a security policy name; 'link' is just an HTML-like link
+#: src/lib/y2security/clients/security_policy_proposal.rb:430
+#, perl-brace-format
+msgid "%{policy} is disabled (<a href=\"%{link}\">enable</a>)"
+msgstr ""
+
+#. HTML section describing the failing rules
+#.
+#. @see Yast::HTML
+#.
+#. @return [String]
+#: src/lib/y2security/clients/security_policy_proposal.rb:471
+msgid ""
+"The following rules were already checked by the installer and are failing:"
+msgstr ""
+
+#. HTML section describing the disabled rules
+#.
+#. @note Unknown rules are filtered out.
+#.
+#. @see Yast::HTML
+#.
+#. @return [String]
+#: src/lib/y2security/clients/security_policy_proposal.rb:489
+msgid "The following rules are disabled:"
+msgstr ""
+
+#. Describes the action that will be performed on first boot
+#.
+#. @return [String]
+#: src/lib/y2security/clients/security_policy_proposal.rb:519
+msgid "No SCAP scan will be performed on first boot"
+msgstr ""
+
+#: src/lib/y2security/clients/security_policy_proposal.rb:522
+msgid "A full SCAP scan will be performed on first boot"
+msgstr ""
+
+#: src/lib/y2security/clients/security_policy_proposal.rb:525
+msgid "A full SCAP remediation will be performed on first boot"
+msgstr ""
+
+#. Returns a link to set the SCAP action to the given value
+#.
+#. @param action [Symbol] SCAP action
+#. @return [String]
+#: src/lib/y2security/clients/security_policy_proposal.rb:541
+msgid "do nothing"
+msgstr ""
+
+#: src/lib/y2security/clients/security_policy_proposal.rb:543
+msgid "scan only"
+msgstr ""
+
+#: src/lib/y2security/clients/security_policy_proposal.rb:545
+msgid "scan and remediate"
+msgstr ""
+
 #. @see Base#label
 #: src/lib/y2security/lsm/app_armor.rb:38
 msgid "AppArmor"
@@ -1510,73 +1620,148 @@ msgstr "Permissive"
 msgid "Enforcing"
 msgstr "Enforcing"
 
+#. TRANSLATORS: security policy rule
+#: src/lib/y2security/security_policies/bootloader_password_rule.rb:31
+msgid ""
+"Boot loader must be protected by password and menu editing must be restricted"
+msgstr ""
+
+#. TRANSLATORS: This is a security policy name.
+#. "Defense Information Systems Agency" is from the USA, https://disa.mil/
+#. STIG = Security Technical Implementation Guides
+#: src/lib/y2security/security_policies/disa_stig_policy.rb:44
+msgid "Defense Information Systems Agency STIG"
+msgstr ""
+
+#. TRANSLATORS: Security policy rule
+#: src/lib/y2security/security_policies/encrypted_filesystems_rule.rb:31
+msgid "All file systems must be encrypted"
+msgstr ""
+
+#. TRANSLATORS: security policy rule, %s is a placeholder.
+#: src/lib/y2security/security_policies/filesystem_size_rule.rb:51
+#, c-format
+msgid "The minimum size for the file system %s must be %s"
+msgstr ""
+
+#. TRANSLATORS: security policy rule
+#: src/lib/y2security/security_policies/firewall_enabled_rule.rb:30
+msgid "Firewall must be enabled"
+msgstr ""
+
+#. TRANSLATORS: Security policy rule
+#: src/lib/y2security/security_policies/no_wireless_rule.rb:32
+msgid "Wireless network interfaces must be deactivated"
+msgstr ""
+
+#. TRANSLATORS: text for an action hyperlink
+#: src/lib/y2security/security_policies/rule_presenter.rb:75
+#, fuzzy
+#| msgid "Disable"
+msgid "disable rule"
+msgstr "無効"
+
+#: src/lib/y2security/security_policies/rule_presenter.rb:75
+msgid "enable rule"
+msgstr ""
+
+#. TRANSLATORS: text for an action hyperlink
+#: src/lib/y2security/security_policies/rule_presenter.rb:84
+msgid "fix rule"
+msgstr ""
+
+#: src/lib/y2security/security_policies/rule_presenter.rb:84
+#, fuzzy
+#| msgid "Login Settings"
+msgid "modify settings"
+msgstr "ログイン設定"
+
+#. TRANSLATORS: security policy rule, %s is a placeholder.
+#: src/lib/y2security/security_policies/separate_filesystem_rule.rb:41
+#, c-format
+msgid "There must be a separate file system for %s"
+msgstr ""
+
+#. TRANSLATORS: security policy rule
+#: src/lib/y2security/security_policies/separate_mount_point_rule.rb:40
+#, c-format
+msgid "There must be a separate mount point for %s"
+msgstr ""
+
+#. @param id [String] see {Rule#id}
+#: src/lib/y2security/security_policies/unknown_rule.rb:38
+#, fuzzy
+#| msgid "Unknown"
+msgid "Unknown rule"
+msgstr "不明"
+
 #. Security read dialog caption
-#: src/modules/Security.rb:686
+#: src/modules/Security.rb:689
 msgid "Saving Security Configuration"
 msgstr "セキュリティの設定を保存しています"
 
 #. Progress stage 1/5
-#: src/modules/Security.rb:695
+#: src/modules/Security.rb:698
 msgid "Write security settings"
 msgstr "セキュリティ設定の書き込み"
 
 #. Progress stage 2/5
-#: src/modules/Security.rb:697
+#: src/modules/Security.rb:700
 msgid "Write shutdown settings"
 msgstr "シャットダウン設定の書き込み"
 
 #. Progress stage 3/5
-#: src/modules/Security.rb:699
+#: src/modules/Security.rb:702
 msgid "Write PAM settings"
 msgstr "PAM 設定の書き込み"
 
 #. Progress stage 4/5
-#: src/modules/Security.rb:701
+#: src/modules/Security.rb:704
 msgid "Update system settings"
 msgstr "システム設定の更新"
 
 #. Progress stage 5/5
-#: src/modules/Security.rb:703
+#: src/modules/Security.rb:706
 msgid "Write SELinux settings"
 msgstr "SELinux 設定の書き込み"
 
 #. Progress step 1/6
-#: src/modules/Security.rb:707
+#: src/modules/Security.rb:710
 msgid "Writing security settings..."
 msgstr "セキュリティの設定を書き込んでいます..."
 
 #. Progress step 2/6
-#: src/modules/Security.rb:709
+#: src/modules/Security.rb:712
 msgid "Writing shutdown settings..."
 msgstr "シャットダウン設定を書き込んでいます..."
 
 #. Progress step 3/6
-#: src/modules/Security.rb:711
+#: src/modules/Security.rb:714
 msgid "Writing PAM settings..."
 msgstr "PAM の設定を書き込んでいます..."
 
 #. Progress step 4/6
-#: src/modules/Security.rb:713
+#: src/modules/Security.rb:716
 msgid "Updating system settings..."
 msgstr "システム設定を更新しています..."
 
 #. Progress step 5/6
-#: src/modules/Security.rb:715
+#: src/modules/Security.rb:718
 msgid "Writing  settings..."
 msgstr "設定を書き込んでいます..."
 
 #. Progress step 6/6
-#: src/modules/Security.rb:717
+#: src/modules/Security.rb:720
 msgid "Finished"
 msgstr "完了"
 
 #. Summary text
-#: src/modules/Security.rb:868
+#: src/modules/Security.rb:876
 msgid "Current Security Level: Custom settings"
 msgstr "現在のセキュリティレベル: カスタム設定"
 
 #. Summary text
-#: src/modules/Security.rb:872
+#: src/modules/Security.rb:880
 #, ycp-format
 msgid "Current Security Level: %1"
 msgstr "現在のセキュリティレベル: %1"
