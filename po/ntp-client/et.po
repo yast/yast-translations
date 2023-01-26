@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ntp-client.et\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-22 02:30+0000\n"
+"POT-Creation-Date: 2023-01-26 02:30+0000\n"
 "PO-Revision-Date: 2007-07-23 11:39+0300\n"
 "Last-Translator: Ain Vagula <avagula@gmail.com>\n"
 "Language-Team: Estonian <linux-ee@lists.eenet.ee>\n"
@@ -20,14 +20,14 @@ msgstr ""
 "X-Generator: KBabel 1.11.4\n"
 
 #. help text
-#: src/clients/ntp-client_proposal.rb:92
+#: src/clients/ntp-client_proposal.rb:111
 msgid ""
 "<p>Press <b>Synchronize Now</b>, to get your system time set correctly using "
 "the selected NTP server. If you want to make use of NTP permanently, enable "
 "the <b>Save NTP Configuration</b> option</p>"
 msgstr ""
 
-#: src/clients/ntp-client_proposal.rb:96
+#: src/clients/ntp-client_proposal.rb:115
 msgid ""
 "<p>Enabling <b>Run NTP as daemon</b> option, the NTP service will be started "
 "as daemon. Otherwise the system time will be synchronized periodically. The "
@@ -35,14 +35,14 @@ msgid ""
 "<b>yast2 ntp-client module</b>.</p>"
 msgstr ""
 
-#: src/clients/ntp-client_proposal.rb:101
+#: src/clients/ntp-client_proposal.rb:120
 msgid ""
 "<p>Synchronization with the NTP server can be done only when the network is "
 "configured.</p>"
 msgstr ""
 
 #. help text
-#: src/clients/ntp-client_proposal.rb:107
+#: src/clients/ntp-client_proposal.rb:126
 #, fuzzy
 msgid ""
 "<p>Using the <b>Configure</b> button, open the advanced NTP configuration.</"
@@ -50,77 +50,59 @@ msgid ""
 msgstr "<p>Sisesta oma tõmmise häälestuse <b>versioon</b>.</p>"
 
 #. translators: error popup
-#: src/clients/ntp-client_proposal.rb:139
+#: src/clients/ntp-client_proposal.rb:165
 #, fuzzy, ycp-format
 msgid "Invalid NTP server hostname %1"
 msgstr "Vigane serveri nimi."
 
-#. TRANSLATORS: combo box label
-#: src/clients/ntp-client_proposal.rb:202
-#, fuzzy
-msgid "&NTP Server Address"
-msgstr "NTP serveri aadress"
-
-#. Only show all ntp servers
-#: src/clients/ntp-client_proposal.rb:206
-#, fuzzy
-#| msgid "Synchronization Type"
-msgid "Synchronization Servers:\n"
-msgstr "Sünkroonimise tüüp"
-
-#. TRANSLATOR %{count} number of additional servers
-#: src/clients/ntp-client_proposal.rb:214
-#, perl-brace-format
-msgid "... (%{count} more servers)"
-msgstr ""
-
 #. TRANSLATORS: push button label
-#: src/clients/ntp-client_proposal.rb:222
+#: src/clients/ntp-client_proposal.rb:298
 #, fuzzy
 msgid "S&ynchronize now"
 msgstr "Sünkroonimine"
 
 #. TRANSLATORS: check box label
-#: src/clients/ntp-client_proposal.rb:230
+#: src/clients/ntp-client_proposal.rb:306
 #, fuzzy
 #| msgid "Restart NTP daemon"
 msgid "&Run NTP as daemon"
 msgstr "NTP deemoni taaskäivitamine"
 
 #. TRANSLATORS: check box label
-#: src/clients/ntp-client_proposal.rb:239
+#: src/clients/ntp-client_proposal.rb:315
 #, fuzzy
 msgid "&Save NTP Configuration"
 msgstr "NTP häälestamine"
 
 #. TRANSLATORS: push button label
 #. bnc#449615: only simple config for inst-sys
-#: src/clients/ntp-client_proposal.rb:246
+#: src/clients/ntp-client_proposal.rb:322
 msgid "&Configure..."
 msgstr "&Häälesta..."
 
-#. Taking also the rest of the ntp servers, configured in the ntp client module.
-#: src/clients/ntp-client_proposal.rb:401
+#. Only if network is running try to synchronize
+#. the ntp server.
+#: src/clients/ntp-client_proposal.rb:476
 #, fuzzy
 msgid "Synchronizing with NTP server..."
 msgstr "Sünkroonimine NTP serveriga..."
 
 #. update time widgets
-#: src/clients/ntp-client_proposal.rb:439
+#: src/clients/ntp-client_proposal.rb:529
 #, fuzzy
 #| msgid "Connection to LDAP server cannot be established."
 msgid "Connection to selected NTP server failed."
 msgstr "Ühenduse loomine LDAP-i serveriga nurjus."
 
 #. TRANSLATORS: Popup message. %1 is the missing package name.
-#: src/clients/ntp-client_proposal.rb:447
+#: src/clients/ntp-client_proposal.rb:537
 #, ycp-format
 msgid "Cannot save NTP configuration because the package %1 is not available."
 msgstr ""
 
 #. Translators: yes-no popup,
 #. ntpdate is a command, %1 is the server address
-#: src/clients/ntp-client_proposal.rb:483
+#: src/clients/ntp-client_proposal.rb:576
 #, ycp-format
 msgid ""
 "Test query to server '%1' failed.\n"
@@ -129,12 +111,18 @@ msgid ""
 msgstr ""
 
 #. Otherwise, prompt user for confirming pkg installation
-#: src/clients/ntp-client_proposal.rb:515
+#: src/clients/ntp-client_proposal.rb:609
 #, ycp-format
 msgid ""
 "Synchronization with NTP server is not possible\n"
 "without package %1 installed."
 msgstr ""
+
+#. TRANSLATORS: combo box label, ntp source can be either "server" or "pool"
+#: src/clients/ntp-client_proposal.rb:688
+#, fuzzy
+msgid "&NTP Source Address"
+msgstr "NTP serveri aadress"
 
 #. command line help text for NTP client module
 #: src/include/ntp-client/commandline.rb:20
@@ -444,55 +432,91 @@ msgstr ""
 msgid "NTP Servers"
 msgstr "NTP server"
 
+#. TODO: validation of the input
+#: src/lib/y2ntp_client/widgets/sources_table.rb:45
+msgid "Type"
+msgstr "Tüüp"
+
+#: src/lib/y2ntp_client/widgets/sources_table.rb:46
+msgid "Address"
+msgstr "Aadress"
+
+#. A button for adding an item into @see SourcesTable
+#: src/lib/y2ntp_client/widgets/sources_table.rb:85
+#, fuzzy
+#| msgid "&Address"
+msgid "Add"
+msgstr "&Aadress"
+
+#. A button for removing an item from @see SourcesTable
+#: src/lib/y2ntp_client/widgets/sources_table.rb:100
+msgid "Remove"
+msgstr ""
+
+#. A ComboBox containing varius supported types of NTP Sources
+#: src/lib/y2ntp_client/widgets/sources_table.rb:115
+#, fuzzy
+#| msgid "Clock &Type"
+msgid "Source Type"
+msgstr "Kella &tüüp"
+
+#: src/lib/y2ntp_client/widgets/sources_table.rb:120
+msgid "Pool"
+msgstr ""
+
+#: src/lib/y2ntp_client/widgets/sources_table.rb:121
+msgid "Server"
+msgstr "Server"
+
 #. Poke to /var/lib/YaST if there is Active Directory controller address dumped in .ycp file
 #. restart daemon
 #. progress step
 #. progress step
-#: src/modules/NtpClient.rb:374 src/modules/NtpClient.rb:415
-#: src/modules/NtpClient.rb:769 src/modules/NtpClient.rb:793
+#: src/modules/NtpClient.rb:374 src/modules/NtpClient.rb:421
+#: src/modules/NtpClient.rb:775 src/modules/NtpClient.rb:799
 msgid "Finished"
 msgstr "Lõpetatud"
 
 #. TRANSLATORS: error report. %s stands for invalid content.
-#: src/modules/NtpClient.rb:452
+#: src/modules/NtpClient.rb:458
 #, c-format
 msgid "Invalid value for ntp_sync key: '%s'"
 msgstr ""
 
 #. Summary text about ntp configuration
-#: src/modules/NtpClient.rb:490
+#: src/modules/NtpClient.rb:496
 msgid "The NTP daemon starts when starting the system."
 msgstr "NTP deemon käivitub süstemi käivitamisel."
 
 #. TRANSLATORS %i is number of seconds.
-#: src/modules/NtpClient.rb:493
+#: src/modules/NtpClient.rb:499
 #, c-format
 msgid "The NTP will be synchronized every %i seconds."
 msgstr ""
 
-#: src/modules/NtpClient.rb:495
+#: src/modules/NtpClient.rb:501
 #, fuzzy
 #| msgid "The NTP daemon does not start automatically."
 msgid "The NTP won't be automatically synchronized."
 msgstr "NTP deemon ei käivitu automaatselt."
 
-#: src/modules/NtpClient.rb:500
+#: src/modules/NtpClient.rb:506
 #, fuzzy
 msgid "Combine static and DHCP configuration."
 msgstr "Masinanime ja DNS-i häälestuse kirjutamine"
 
-#: src/modules/NtpClient.rb:502
+#: src/modules/NtpClient.rb:508
 #, fuzzy
 msgid "Static configuration only."
 msgstr "Staatilised häälestusfailid"
 
-#: src/modules/NtpClient.rb:504
+#: src/modules/NtpClient.rb:510
 #, fuzzy, c-format
 msgid "Custom configuration policy: '%s'."
 msgstr "Hiire häälestamise kokkuvõte."
 
 #. TRANSLATORS: summary line. %s is formatted list of addresses.
-#: src/modules/NtpClient.rb:508
+#: src/modules/NtpClient.rb:514
 #, fuzzy, c-format
 #| msgid "Servers: %1"
 msgid "Servers: %s."
@@ -503,23 +527,23 @@ msgstr "Serverid: %1"
 #. @param [Symbol] verbosity `no_ui: ..., `transient_popup: pop up while scanning,
 #. `result_popup: also final pop up about the result
 #. @return [Boolean] true if NTP server answers properly
-#: src/modules/NtpClient.rb:574
+#: src/modules/NtpClient.rb:580
 msgid "Testing the NTP server..."
 msgstr "NTP serveri testimine..."
 
 #. message report - result of test of connection to NTP server
-#: src/modules/NtpClient.rb:582
+#: src/modules/NtpClient.rb:588
 msgid "Server is reachable and responds properly."
 msgstr "Server on kättesaadav ja vastab korralikult."
 
 #. error message  - result of test of connection to NTP server
 #. report error instead of simple message (#306018)
-#: src/modules/NtpClient.rb:586
+#: src/modules/NtpClient.rb:592
 msgid "Server is unreachable or does not respond properly."
 msgstr "Server pole kättesaadav või ei vasta korralikult."
 
 #. if package is not installed (in the inst-sys, it is: bnc#399659)
-#: src/modules/NtpClient.rb:604
+#: src/modules/NtpClient.rb:610
 #, ycp-format
 msgid ""
 "Cannot search for NTP server in local network\n"
@@ -527,52 +551,52 @@ msgid ""
 msgstr ""
 
 #. Start a new progress for Read NTP Configuration
-#: src/modules/NtpClient.rb:754
+#: src/modules/NtpClient.rb:760
 msgid "Initializing NTP Client Configuration"
 msgstr "NTP kliendi häälestuse initsialiseerimine"
 
 #. progress stage
-#: src/modules/NtpClient.rb:759
+#: src/modules/NtpClient.rb:765
 msgid "Read network configuration"
 msgstr "Võrgu häälestuse lugemine"
 
 #. progress stage
-#: src/modules/NtpClient.rb:761
+#: src/modules/NtpClient.rb:767
 msgid "Read NTP settings"
 msgstr "NTP sätete lugemine"
 
 #. progress step
-#: src/modules/NtpClient.rb:765
+#: src/modules/NtpClient.rb:771
 msgid "Reading network configuration..."
 msgstr "Võrgu häälestuse lugemine..."
 
 #. progress step
-#: src/modules/NtpClient.rb:767
+#: src/modules/NtpClient.rb:773
 msgid "Reading NTP settings..."
 msgstr "NTP sätete lugemine..."
 
 #. Start a new progress for Write NTP Configuration
-#: src/modules/NtpClient.rb:778
+#: src/modules/NtpClient.rb:784
 msgid "Saving NTP Client Configuration"
 msgstr "NTP kliendi häälestuse salvestamine"
 
 #. progress stage
-#: src/modules/NtpClient.rb:783
+#: src/modules/NtpClient.rb:789
 msgid "Write NTP settings"
 msgstr "NTP sätete kirjutamine"
 
 #. progress stage
-#: src/modules/NtpClient.rb:785
+#: src/modules/NtpClient.rb:791
 msgid "Restart NTP daemon"
 msgstr "NTP deemoni taaskäivitamine"
 
 #. progress step
-#: src/modules/NtpClient.rb:789
+#: src/modules/NtpClient.rb:795
 msgid "Writing the settings..."
 msgstr "Sätete kirjutamine..."
 
 #. progress step
-#: src/modules/NtpClient.rb:791
+#: src/modules/NtpClient.rb:797
 msgid "Restarting NTP daemon..."
 msgstr "NTP deemoni taaskäivitamine..."
 
@@ -580,25 +604,30 @@ msgstr "NTP deemoni taaskäivitamine..."
 #. error if some of the call fails.
 #.
 #. @return [Boolean] true if write and update success
-#: src/modules/NtpClient.rb:843
+#: src/modules/NtpClient.rb:849
 #, fuzzy
 msgid "Cannot update the dynamic configuration policy."
 msgstr "Virtuaalmasina häälestust ei saa uuendada."
 
 #. Enable and run services
-#: src/modules/NtpClient.rb:867 src/modules/NtpClient.rb:869
+#: src/modules/NtpClient.rb:873 src/modules/NtpClient.rb:875
 #, fuzzy, c-format
 #| msgid "Cannot restart the NTP daemon."
 msgid "Cannot restart \"%s\" service."
 msgstr "NTP deemonit ei saa taaskäivitada."
 
 #. TRANSLATORS: error report. %s stands unsupported keys.
-#: src/modules/NtpClient.rb:980
+#: src/modules/NtpClient.rb:987
 #, c-format
 msgid ""
 "Ignoring the NTP configuration. The profile format has changed in an "
 "incompatible way. These keys are no longer supported: '%s'."
 msgstr ""
+
+#, fuzzy
+#~| msgid "Synchronization Type"
+#~ msgid "Synchronization Servers:\n"
+#~ msgstr "Sünkroonimise tüüp"
 
 #~ msgid "Trak 8820 GPS Receiver"
 #~ msgstr "Trak 8820 GPS vastuvõtja"
@@ -735,9 +764,6 @@ msgstr ""
 #~ msgid "NTP daemon is disabled."
 #~ msgstr "NTP deemon on keelatud."
 
-#~ msgid "Server"
-#~ msgstr "Server"
-
 #~ msgid "Peer"
 #~ msgstr "Masin"
 
@@ -833,9 +859,6 @@ msgstr ""
 #~ msgid "No NTP server has been found on your network."
 #~ msgstr "Sinu võrgust ei leitud ühtki NTP serverit."
 
-#~ msgid "Address"
-#~ msgstr "Aadress"
-
 #~ msgid "Ad&vanced Configuration"
 #~ msgstr "&Täpsem häälestus"
 
@@ -867,9 +890,6 @@ msgstr ""
 #~ msgid "Display &Log..."
 #~ msgstr "Näita &logi..."
 
-#~ msgid "Clock &Type"
-#~ msgstr "Kella &tüüp"
-
 #~ msgid "Unit &Number"
 #~ msgstr "Ühiku &number"
 
@@ -888,9 +908,6 @@ msgstr ""
 
 #~ msgid "&Peer"
 #~ msgstr "&Masin"
-
-#~ msgid "Type"
-#~ msgstr "Tüüp"
 
 #~ msgid "Loc&al Network"
 #~ msgstr "Koh&alik võrk"
