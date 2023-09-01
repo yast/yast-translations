@@ -7,11 +7,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: YaST (@memory@)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-27 02:28+0000\n"
+"POT-Creation-Date: 2023-09-01 02:28+0000\n"
 "PO-Revision-Date: 2023-06-30 14:15+0000\n"
 "Last-Translator: Arif Budiman <arifpedia@gmail.com>\n"
-"Language-Team: Indonesian <https://l10n.opensuse.org/projects/"
-"yast-bootloader/master/id/>\n"
+"Language-Team: Indonesian <https://l10n.opensuse.org/projects/yast-"
+"bootloader/master/id/>\n"
 "Language: id\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -25,7 +25,7 @@ msgid "Boot loader configuration module"
 msgstr "Konfigurasi modul boot loader"
 
 #. param initial_tab [:boot_code|:kernel|:bootloader] initial tab when dialog open
-#: src/lib/bootloader/config_dialog.rb:31
+#: src/lib/bootloader/config_dialog.rb:32
 msgid ""
 "YaST cannot configure the bootloader because it failed to find the root file "
 "system."
@@ -35,7 +35,7 @@ msgstr ""
 
 #. TRANSLATORS: %s stands for readon why yast cannot process it
 #. TRANSLATORS: %s stands for readon why yast cannot process it
-#: src/lib/bootloader/config_dialog.rb:37 src/modules/Bootloader.rb:159
+#: src/lib/bootloader/config_dialog.rb:38 src/modules/Bootloader.rb:159
 #, c-format
 msgid ""
 "YaST cannot process current bootloader configuration (%s). Propose new "
@@ -44,16 +44,16 @@ msgstr ""
 "YaST tidak dapat memproses konfigurasi saat ini dari bootloader (%s). "
 "Usulkan konfigurasi baru dari awal?"
 
-#: src/lib/bootloader/config_dialog.rb:43 src/modules/Bootloader.rb:165
+#: src/lib/bootloader/config_dialog.rb:44 src/modules/Bootloader.rb:165
 msgid "Unsupported Configuration"
 msgstr "Konfigurasi Tidak Didukung"
 
 #. TRANSLATORS: %s stands for readon why yast cannot process it
-#: src/lib/bootloader/config_dialog.rb:45 src/modules/Bootloader.rb:168
+#: src/lib/bootloader/config_dialog.rb:46 src/modules/Bootloader.rb:168
 msgid "Propose"
 msgstr "Usulan"
 
-#: src/lib/bootloader/config_dialog.rb:46 src/modules/Bootloader.rb:150
+#: src/lib/bootloader/config_dialog.rb:47 src/modules/Bootloader.rb:150
 #: src/modules/Bootloader.rb:169
 msgid "Quit"
 msgstr "Keluar"
@@ -61,12 +61,12 @@ msgstr "Keluar"
 #. F#300779 - Install diskless client (NFS-root)
 #. additional warning that root partition is nfs type -> bootloader will not be installed
 #. kokso: additional warning that root partition is nfs type -> bootloader will not be installed
-#: src/lib/bootloader/config_dialog.rb:69 src/modules/Bootloader.rb:229
+#: src/lib/bootloader/config_dialog.rb:70 src/modules/Bootloader.rb:229
 msgid "The boot partition is of type NFS. Bootloader cannot be installed."
 msgstr "Partisi boot adalah tipe NFS. Bootloader tidak dapat diinstal."
 
 #. F#300779: end
-#: src/lib/bootloader/config_dialog.rb:80
+#: src/lib/bootloader/config_dialog.rb:81
 msgid "Boot Loader Settings"
 msgstr "Pengaturan bootloader"
 
@@ -168,7 +168,7 @@ msgstr "Menyimpan konfigurasi bootloader...."
 
 #. TRANSLATORS: reboot message
 #. %1 is replaced with additional message from reIPL
-#: src/lib/bootloader/finish_client.rb:113
+#: src/lib/bootloader/finish_client.rb:118
 #, ycp-format
 msgid ""
 "\n"
@@ -185,7 +185,7 @@ msgstr ""
 #. and we're ready to start (boot into) the installed system
 #. Message that will be displayed along with information
 #. how the boot loader was installed
-#: src/lib/bootloader/finish_client.rb:126
+#: src/lib/bootloader/finish_client.rb:131
 msgid "The system will reboot now..."
 msgstr "Sistem akan dihidupkan kembali..."
 
@@ -204,15 +204,21 @@ msgstr "GRUB2 for EFI"
 
 #. Translators: option in combo box when bootloader is not managed by yast2
 #: src/lib/bootloader/generic_widgets.rb:46
+#, fuzzy
+#| msgid "Enable Trusted Boot: %1"
+msgid "Systemd Boot"
+msgstr "Hidupkan Boot Terpercaya: %1"
+
+#: src/lib/bootloader/generic_widgets.rb:47
 msgid "Not Managed"
 msgstr "Tidak dikelola"
 
-#: src/lib/bootloader/generic_widgets.rb:47
+#: src/lib/bootloader/generic_widgets.rb:48
 msgid "Default"
 msgstr "Bawaan"
 
 #. popup - Continue/Cancel
-#: src/lib/bootloader/generic_widgets.rb:61
+#: src/lib/bootloader/generic_widgets.rb:64
 msgid ""
 "\n"
 "If you do not install any boot loader, the system\n"
@@ -226,7 +232,25 @@ msgstr ""
 "\n"
 "Lanjut?\n"
 
-#: src/lib/bootloader/generic_widgets.rb:79
+#. popup - Continue/Cancel
+#: src/lib/bootloader/generic_widgets.rb:77
+msgid ""
+"\n"
+"Systemd-boot support is currently work in progress and\n"
+"may not work as expected. Use at your own risk.\n"
+"\n"
+"Currently we do not provide official maintenance or support.\n"
+"Proceed?\n"
+msgstr ""
+
+#: src/lib/bootloader/generic_widgets.rb:90
+msgid ""
+"Switching from systemd-boot to another bootloader\n"
+"is currently not supported.\n"
+msgstr ""
+
+#. rubocop:enable Metrics/MethodLength
+#: src/lib/bootloader/generic_widgets.rb:105
 msgid ""
 "<p><b>Boot Loader</b>\n"
 "specifies which boot loader to install. Can be also set to <tt>None</tt> "
@@ -244,7 +268,10 @@ msgstr ""
 #. @return a list of summary lines
 #. Display bootloader summary
 #. @return a list of summary lines
+#. Display bootloader summary
+#. @return a list of summary lines
 #: src/lib/bootloader/grub2.rb:107 src/lib/bootloader/grub2efi.rb:56
+#: src/lib/bootloader/systemdboot.rb:97
 #, ycp-format
 msgid "Boot Loader Type: %1"
 msgstr "Tipe Bootloader: %1"
@@ -280,8 +307,8 @@ msgid ""
 "Write it into partition with /boot - %s (<a href=\"disable_boot_boot\">do "
 "not write</a>)"
 msgstr ""
-"Tuliskan ke dalam partisi dengan /boot - %s (<a href=\"disable_boot_boot\""
-">jangan menulis</a>)"
+"Tuliskan ke dalam partisi dengan /boot - %s (<a href=\"disable_boot_boot"
+"\">jangan menulis</a>)"
 
 #. TRANSLATORS: summary line where %s is partition specified, can be more disks,
 #. separated by comma
@@ -354,11 +381,14 @@ msgid "Boot Code: %s"
 msgstr "Kode Boot: %s"
 
 #. Represents bootloader timeout value
-#: src/lib/bootloader/grub2_widgets.rb:63
+#. Represents bootloader timeout value
+#: src/lib/bootloader/grub2_widgets.rb:64
+#: src/lib/bootloader/systemdboot_widgets.rb:35
 msgid "&Timeout in Seconds"
 msgstr "&Waktu habis dalam beberapa detik"
 
-#: src/lib/bootloader/grub2_widgets.rb:67
+#: src/lib/bootloader/grub2_widgets.rb:68
+#: src/lib/bootloader/systemdboot_widgets.rb:39
 msgid ""
 "<p><b>Timeout in Seconds</b>\n"
 "specifies the time the boot loader will wait until the default kernel is "
@@ -368,11 +398,11 @@ msgstr ""
 "tentukan waktu bootloader akan menunggu sampai kernel default dimuat.</p>\n"
 
 #. Represents decision if bootloader need activated partition
-#: src/lib/bootloader/grub2_widgets.rb:101
+#: src/lib/bootloader/grub2_widgets.rb:102
 msgid "Set &active Flag in Partition Table for Boot Partition"
 msgstr "Mengatur Flag &aktif pada tabel partisi untuk partisi boot"
 
-#: src/lib/bootloader/grub2_widgets.rb:105
+#: src/lib/bootloader/grub2_widgets.rb:106
 msgid ""
 "<p><b>Set Active Flag in Partition Table for Boot Partition</b>\n"
 "specifies whether the partition containing the boot loader will have the "
@@ -389,11 +419,11 @@ msgstr ""
 "meskipun boot loader telah terinstal di dalam MBR.</p>"
 
 #. Represents decision if smt is enabled
-#: src/lib/bootloader/grub2_widgets.rb:135
+#: src/lib/bootloader/grub2_widgets.rb:136
 msgid "CPU Mitigations"
 msgstr "Mitigasi CPU"
 
-#: src/lib/bootloader/grub2_widgets.rb:145
+#: src/lib/bootloader/grub2_widgets.rb:146
 msgid ""
 "<p><b>CPU Mitigations</b><br>\n"
 "The option selects which default settings should be used for CPU \n"
@@ -430,8 +460,8 @@ msgstr ""
 "mitigasi saluran sisi CPU. Deskripsi tingkat tinggi ada di Dokumen Informasi "
 "Teknis kami \n"
 "TID 7023836. Pilihan berikut tersedia:<ul>\n"
-"<li><b>Auto</b>: Opsi ini mengaktifkan semua mitigasi yang diperlukan untuk "
-"\n"
+"<li><b>Auto</b>: Opsi ini mengaktifkan semua mitigasi yang diperlukan "
+"untuk \n"
 "model CPU Anda. Pengaturan ini dapat memengaruhi kinerja hingga tingkat "
 "tertentu, \n"
 "tergantung pada model CPU dan beban kerja. Opsi ini menyediakan semua "
@@ -443,8 +473,8 @@ msgstr ""
 "serangan saluran samping di beberapa thread CPU. \n"
 "Setelan ini selanjutnya dapat memengaruhi performa, bergantung pada beban "
 "kerja Anda. \n"
-"Pengaturan ini menyediakan set lengkap mitigasi keamanan yang tersedia.</li>"
-"\n"
+"Pengaturan ini menyediakan set lengkap mitigasi keamanan yang tersedia.</"
+"li>\n"
 "<li><b>Off</b>: Semua Mitigasi CPU dinonaktifkan. Pengaturan ini tidak "
 "berdampak \n"
 "pada kinerja, tetapi serangan saluran samping terhadap CPU Anda mungkin "
@@ -456,11 +486,11 @@ msgstr ""
 "Semua opsi khusus mitigasi CPU dapat diatur secara manual.</li></ul></p>"
 
 #. Represents decision if generic MBR have to be installed on disk
-#: src/lib/bootloader/grub2_widgets.rb:195
+#: src/lib/bootloader/grub2_widgets.rb:196
 msgid "Write &generic Boot Code to MBR"
 msgstr "Menulis kode boot &generik ke MBR"
 
-#: src/lib/bootloader/grub2_widgets.rb:199
+#: src/lib/bootloader/grub2_widgets.rb:200
 msgid ""
 "<p><b>Write generic Boot Code to MBR</b> replace the master boot record of "
 "your disk with generic code (OS independent code which\n"
@@ -471,22 +501,22 @@ msgstr ""
 "menjalankan partisi aktif).</p>"
 
 #. Represents decision if menu should be hidden or visible
-#: src/lib/bootloader/grub2_widgets.rb:226
+#: src/lib/bootloader/grub2_widgets.rb:227
 msgid "&Hide Menu on Boot"
 msgstr "&Sembunyikan menu pada Boot"
 
-#: src/lib/bootloader/grub2_widgets.rb:230
+#: src/lib/bootloader/grub2_widgets.rb:231
 msgid "<p>Selecting <b>Hide Menu on Boot</b> will hide the boot menu.</p>"
 msgstr ""
 "<p>Memilih <b>Sembunyikan menu pada boot</b> akan menyembunyikan menu boot</"
 "p>"
 
 #. Represents if os prober should be run
-#: src/lib/bootloader/grub2_widgets.rb:251
+#: src/lib/bootloader/grub2_widgets.rb:252
 msgid "Pro&be Foreign OS"
 msgstr "Memeriksa Sistem Operasi Asing"
 
-#: src/lib/bootloader/grub2_widgets.rb:255
+#: src/lib/bootloader/grub2_widgets.rb:256
 msgid ""
 "<p><b>Probe Foreign OS</b> by means of os-prober for multiboot with other "
 "foreign distribution </p>"
@@ -495,11 +525,11 @@ msgstr ""
 "multiboot dengan distribusi asing lainnya</p>"
 
 #. represents kernel command line
-#: src/lib/bootloader/grub2_widgets.rb:281
+#: src/lib/bootloader/grub2_widgets.rb:282
 msgid "O&ptional Kernel Command Line Parameter"
 msgstr "Parameter baris perintah kernel O&psional"
 
-#: src/lib/bootloader/grub2_widgets.rb:285
+#: src/lib/bootloader/grub2_widgets.rb:286
 msgid ""
 "<p><b>Optional Kernel Command Line Parameter</b> lets you define additional "
 "parameters to pass to the kernel.</p>"
@@ -508,11 +538,11 @@ msgstr ""
 "menentukan parameter tambahan untuk melewati kernel.</p>"
 
 #. Represents Protective MBR action
-#: src/lib/bootloader/grub2_widgets.rb:311
+#: src/lib/bootloader/grub2_widgets.rb:312
 msgid "&Protective MBR flag"
 msgstr "&Pelindung Flag MBR"
 
-#: src/lib/bootloader/grub2_widgets.rb:315
+#: src/lib/bootloader/grub2_widgets.rb:316
 msgid ""
 "<p><b>Protective MBR flag</b> is expert only settings, that is needed only "
 "on exotic hardware. For details see Protective MBR in GPT disks. Do not "
@@ -523,12 +553,12 @@ msgstr ""
 "GPT. Jangan ubah bila anda tidak yakin.</p>"
 
 #. TRANSLATORS: set flag on disk
-#: src/lib/bootloader/grub2_widgets.rb:329
+#: src/lib/bootloader/grub2_widgets.rb:330
 msgid "set"
 msgstr "set"
 
 #. TRANSLATORS: remove flag from disk
-#: src/lib/bootloader/grub2_widgets.rb:331
+#: src/lib/bootloader/grub2_widgets.rb:332
 msgid "remove"
 msgstr "Hapus"
 
@@ -536,17 +566,19 @@ msgstr "Hapus"
 #. force re-calculation of bootloader proposal
 #. this deletes any internally cached values, a new proposal will
 #. not be partially based on old data now any more
-#: src/lib/bootloader/grub2_widgets.rb:333
-#: src/lib/bootloader/proposal_client.rb:164
+#: src/lib/bootloader/grub2_widgets.rb:334
+#: src/lib/bootloader/proposal_client.rb:166
 msgid "do not change"
 msgstr "Jangan diubah"
 
 #. Represents switcher for secure boot on EFI
-#: src/lib/bootloader/grub2_widgets.rb:353
+#. Represents switcher for secure boot on EFI
+#: src/lib/bootloader/grub2_widgets.rb:354
+#: src/lib/bootloader/systemdboot_widgets.rb:63
 msgid "&Secure Boot Support"
 msgstr "Dukungan boot &Aman"
 
-#: src/lib/bootloader/grub2_widgets.rb:358
+#: src/lib/bootloader/grub2_widgets.rb:359
 msgid ""
 "<p><b>Secure Boot Support</b> if checked enables Secure Boot support."
 "<br>This does not turn on secure booting. It only switches to the new secure-"
@@ -555,7 +587,8 @@ msgid ""
 "requirements are not met.</p>"
 msgstr ""
 
-#: src/lib/bootloader/grub2_widgets.rb:366
+#: src/lib/bootloader/grub2_widgets.rb:367
+#: src/lib/bootloader/systemdboot_widgets.rb:67
 msgid ""
 "<p><b>Secure Boot Support</b> if checked enables Secure Boot support."
 "<br>This does not turn on secure booting. It only sets up the boot loader in "
@@ -563,8 +596,8 @@ msgid ""
 "the UEFI Firmware.</p> "
 msgstr ""
 
-#: src/lib/bootloader/grub2_widgets.rb:390
-#: src/lib/bootloader/proposal_client.rb:382
+#: src/lib/bootloader/grub2_widgets.rb:391
+#: src/lib/bootloader/proposal_client.rb:384
 msgid ""
 "The new secure-boot enabled boot data format works only on z15 and later and "
 "only for zFCP disks.\n"
@@ -577,11 +610,11 @@ msgstr ""
 "Sistem tidak dapat melakukan booting jika persyaratan ini tidak dipenuhi."
 
 #. Represents switcher for Trusted Boot
-#: src/lib/bootloader/grub2_widgets.rb:410
+#: src/lib/bootloader/grub2_widgets.rb:411
 msgid "&Trusted Boot Support"
 msgstr "Dukungan Boot &Terpercaya"
 
-#: src/lib/bootloader/grub2_widgets.rb:414
+#: src/lib/bootloader/grub2_widgets.rb:415
 #, fuzzy
 #| msgid ""
 #| "<p><b>Trusted Boot</b> will install TrustedGRUB2\n"
@@ -600,7 +633,7 @@ msgstr ""
 "dengan bantuan dari perangkat keras (a TPM, Trusted Platform Module,\n"
 "chip).</p>\n"
 
-#: src/lib/bootloader/grub2_widgets.rb:419
+#: src/lib/bootloader/grub2_widgets.rb:420
 #, fuzzy
 #| msgid ""
 #| "<p>First you need to make sure Trusted Boot is enabled in the BIOS\n"
@@ -616,7 +649,7 @@ msgstr ""
 #. check for file size does not work, since FS reports it 4096
 #. even if the file is in fact empty and a single byte cannot
 #. be read, therefore testing real reading (details: bsc#994556)
-#: src/lib/bootloader/grub2_widgets.rb:447
+#: src/lib/bootloader/grub2_widgets.rb:448
 msgid ""
 "Trusted Platform Module not found.\n"
 "Make sure it is enabled in BIOS.\n"
@@ -627,49 +660,49 @@ msgstr ""
 "Jika tidak, sistem tidak akan berjalan."
 
 #. Represents switcher for NVRAM update
-#: src/lib/bootloader/grub2_widgets.rb:464
+#: src/lib/bootloader/grub2_widgets.rb:465
 msgid "Update &NVRAM Entry"
 msgstr "Perbarui Entri &NVRAM"
 
-#: src/lib/bootloader/grub2_widgets.rb:468
+#: src/lib/bootloader/grub2_widgets.rb:469
 msgid ""
 "<p><b>Update NVRAM Entry</b> will add nvram entry for the bootloader\n"
 "in the firmware.\n"
 "This is usually desirable unless you want to preserve specific settings\n"
 "or need to work around firmware issues.</p>\n"
 msgstr ""
-"<p><b>Perbarui Entri NVRAM</b> akan menambahkan entri nvram untuk bootloader "
-"\n"
+"<p><b>Perbarui Entri NVRAM</b> akan menambahkan entri nvram untuk "
+"bootloader \n"
 "di firmware. \n"
 "Ini biasanya diinginkan kecuali jika Anda ingin mempertahankan setelan "
 "tertentu \n"
 "atau perlu mengatasi masalah firmware.</p>\n"
 
 #. Represents grub password protection widget
-#: src/lib/bootloader/grub2_widgets.rb:499
+#: src/lib/bootloader/grub2_widgets.rb:500
 msgid "Prot&ect Boot Loader with Password"
 msgstr "&Lindungi Boot Loader dengan password"
 
 #. TRANSLATORS: checkbox entry
-#: src/lib/bootloader/grub2_widgets.rb:505
+#: src/lib/bootloader/grub2_widgets.rb:506
 msgid "P&rotect Entry Modification Only"
 msgstr "Hanya &melindungi Pada Modifikasi Entri"
 
 #. TRANSLATORS: text entry, please keep it short
-#: src/lib/bootloader/grub2_widgets.rb:511
+#: src/lib/bootloader/grub2_widgets.rb:512
 msgid "&Password for GRUB2 User 'root'"
 msgstr "&Password untuk user GRUB2 'root'"
 
 #. text entry
-#: src/lib/bootloader/grub2_widgets.rb:514
+#: src/lib/bootloader/grub2_widgets.rb:515
 msgid "Re&type Password"
 msgstr "Ketik &ulang password"
 
-#: src/lib/bootloader/grub2_widgets.rb:526
+#: src/lib/bootloader/grub2_widgets.rb:527
 msgid "The password must not be empty."
 msgstr "Password tidak boleh kosong."
 
-#: src/lib/bootloader/grub2_widgets.rb:534
+#: src/lib/bootloader/grub2_widgets.rb:535
 msgid ""
 "'Password' and 'Retype password'\n"
 "do not match. Retype the password."
@@ -678,7 +711,7 @@ msgstr ""
 "Tidak sesuai. Ketik ulang password."
 
 #. special value as we do not know password, so it mean user do not change it
-#: src/lib/bootloader/grub2_widgets.rb:587
+#: src/lib/bootloader/grub2_widgets.rb:588
 #, fuzzy
 #| msgid ""
 #| "<p><b>Protect Boot Loader with Password</b><br>\n"
@@ -717,7 +750,7 @@ msgstr ""
 "skrip GRUB2 terpisah.</p>"
 
 #. Translators: do not translate the quoted parts like "unit"
-#: src/lib/bootloader/grub2_widgets.rb:629
+#: src/lib/bootloader/grub2_widgets.rb:630
 #, fuzzy, c-format
 #| msgid ""
 #| "<p>When a graphical console is used it allows to use various display "
@@ -750,13 +783,13 @@ msgstr ""
 "angka positif seperti 8. Contoh parameternya adalah <tt>serial --speed=38400 "
 "--unit=0</tt>.</p>"
 
-#: src/lib/bootloader/grub2_widgets.rb:657
+#: src/lib/bootloader/grub2_widgets.rb:658
 msgid "To enable serial console you must provide the corresponding arguments."
 msgstr ""
 "Untuk menghidupkan konsol serial anda harus menyajikan argumen yang sesuai."
 
 #. Translators: do not translate "unit"
-#: src/lib/bootloader/grub2_widgets.rb:664
+#: src/lib/bootloader/grub2_widgets.rb:665
 #, c-format
 msgid ""
 "To enable the serial console you must provide the corresponding arguments.\n"
@@ -767,7 +800,7 @@ msgstr ""
 "Argumen \"unit\" diperlukan, sintaks yang lengkap adalah:\n"
 "%s"
 
-#: src/lib/bootloader/grub2_widgets.rb:705
+#: src/lib/bootloader/grub2_widgets.rb:706
 msgid "Choose new graphical theme file"
 msgstr "Pilih file tema grafis baru"
 
@@ -775,44 +808,44 @@ msgstr "Pilih file tema grafis baru"
 #. to be substituted in a command like
 #. "serial --unit=NUM --speed=NUM --parity={odd|even|no} --word=NUM --stop=NUM"
 #. so do not use punctuation
-#: src/lib/bootloader/grub2_widgets.rb:741
+#: src/lib/bootloader/grub2_widgets.rb:742
 msgid "NUM"
 msgstr "NUM"
 
-#: src/lib/bootloader/grub2_widgets.rb:748
+#: src/lib/bootloader/grub2_widgets.rb:749
 #, fuzzy
 #| msgid "Use &graphical console"
 msgid "&Graphical console"
 msgstr "Gunakan konsol &grafis"
 
-#: src/lib/bootloader/grub2_widgets.rb:753
+#: src/lib/bootloader/grub2_widgets.rb:754
 msgid "&Console resolution"
 msgstr "Resolusi &Konsol"
 
-#: src/lib/bootloader/grub2_widgets.rb:758
+#: src/lib/bootloader/grub2_widgets.rb:759
 msgid "&Console theme"
 msgstr "Tema &Konsol"
 
-#: src/lib/bootloader/grub2_widgets.rb:789
+#: src/lib/bootloader/grub2_widgets.rb:790
 msgid "Autodetect by grub2"
 msgstr "Deteksi otomatis oleh grub2"
 
-#: src/lib/bootloader/grub2_widgets.rb:797
+#: src/lib/bootloader/grub2_widgets.rb:798
 #, fuzzy
 #| msgid "Use &serial console"
 msgid "&Serial console"
 msgstr "Gunakan konsol &serial"
 
-#: src/lib/bootloader/grub2_widgets.rb:804
+#: src/lib/bootloader/grub2_widgets.rb:805
 msgid "&Console arguments"
 msgstr "Argumen &konsol"
 
 #. represent choosing default section to boot
-#: src/lib/bootloader/grub2_widgets.rb:823
+#: src/lib/bootloader/grub2_widgets.rb:824
 msgid "&Default Boot Section"
 msgstr "Bagian boot &standar"
 
-#: src/lib/bootloader/grub2_widgets.rb:827
+#: src/lib/bootloader/grub2_widgets.rb:828
 msgid ""
 "<p><b>Default Boot Section</b> selects the default section for booting.\n"
 " If sections are not generated yet ( e.g. during installation) \n"
@@ -820,19 +853,19 @@ msgid ""
 msgstr ""
 
 #. Represents stage1 location for bootloader
-#: src/lib/bootloader/grub2_widgets.rb:858
+#: src/lib/bootloader/grub2_widgets.rb:859
 #, fuzzy
 #| msgid "Boot Loader Location"
 msgid "Boot Code Location"
 msgstr "Lokasi Boot Loader"
 
-#: src/lib/bootloader/grub2_widgets.rb:909
+#: src/lib/bootloader/grub2_widgets.rb:913
 #, fuzzy
 #| msgid "Custom boot device have to be specied if checked"
 msgid "Custom boot device has to be specified if checked"
 msgstr "Perangkat boot kustom harus ditentukan jika diperiksa"
 
-#: src/lib/bootloader/grub2_widgets.rb:918
+#: src/lib/bootloader/grub2_widgets.rb:922
 #, c-format
 msgid ""
 "These custom devices can be invalid: %s.Please check if exist and spelled "
@@ -840,7 +873,7 @@ msgid ""
 msgstr ""
 
 #. TRANSLATORS: %s is used to specify exact devices
-#: src/lib/bootloader/grub2_widgets.rb:994
+#: src/lib/bootloader/grub2_widgets.rb:998
 #, fuzzy, c-format
 msgid "Wri&te to Partition (%s)"
 msgstr ""
@@ -848,36 +881,36 @@ msgstr ""
 "Harap ulangi lagi."
 
 #. TRANSLATORS: %s is used to specify exact devices
-#: src/lib/bootloader/grub2_widgets.rb:997
+#: src/lib/bootloader/grub2_widgets.rb:1001
 #, fuzzy, c-format
 #| msgid "Boo&t from Boot Partition"
 msgid "Wri&te to Logical Partition (%s)"
 msgstr "Boo&t dari Partisi Boot"
 
 #. TRANSLATORS: %s is used to specify exact devices
-#: src/lib/bootloader/grub2_widgets.rb:1000
+#: src/lib/bootloader/grub2_widgets.rb:1004
 #, fuzzy, c-format
 #| msgid "Boot from &Extended Partition"
 msgid "Write to &Extended Partition (%s)"
 msgstr "Boot dari Partisi &Extended"
 
 #. TRANSLATORS: %s is used to specify exact devices
-#: src/lib/bootloader/grub2_widgets.rb:1004
+#: src/lib/bootloader/grub2_widgets.rb:1008
 #, fuzzy, c-format
 #| msgid "Boot from &Master Boot Record"
 msgid "Write to &Master Boot Record (%s)"
 msgstr "Boot dari &Master Boot Record"
 
-#: src/lib/bootloader/grub2_widgets.rb:1015
+#: src/lib/bootloader/grub2_widgets.rb:1019
 msgid "C&ustom Boot Partition"
 msgstr "Partisi Boot K&ustom"
 
 #. Represents button that open Device Map edit dialog
-#: src/lib/bootloader/grub2_widgets.rb:1028
+#: src/lib/bootloader/grub2_widgets.rb:1032
 msgid "&Edit Disk Boot Order"
 msgstr "&Edit Urutan kandar boot"
 
-#: src/lib/bootloader/grub2_widgets.rb:1034
+#: src/lib/bootloader/grub2_widgets.rb:1038
 #, fuzzy
 #| msgid ""
 #| "<p><big><b>Disks Order</b></big><br>\n"
@@ -900,17 +933,25 @@ msgstr ""
 "Untuk menghapus kandar, tekan <b>Hapus</b>.</p>"
 
 #. represents Tab with kernel related configuration
-#: src/lib/bootloader/grub2_widgets.rb:1055
+#. represents Tab with kernel related configuration
+#: src/lib/bootloader/grub2_widgets.rb:1059
+#: src/lib/bootloader/systemdboot_widgets.rb:89
 msgid "&Kernel Parameters"
 msgstr "Parameter &Kernel"
 
 #. Represent tab with options related to stage1 location and bootloader type
-#: src/lib/bootloader/grub2_widgets.rb:1077
+#. Represent tab with options related to stage1 location and bootloader type
+#: src/lib/bootloader/grub2_widgets.rb:1081
+#: src/lib/bootloader/systemdboot_widgets.rb:111
 msgid "Boot Co&de Options"
 msgstr "Opsi Ko&de Boot"
 
-#. Represents bootloader specific options like its timeout, default section or password protection
-#: src/lib/bootloader/grub2_widgets.rb:1167
+#. Represents bootloader specific options like its timeout,
+#. default section or password protection
+#. Represents bootloader specific options like its timeout,
+#. default section or password protection
+#: src/lib/bootloader/grub2_widgets.rb:1172
+#: src/lib/bootloader/systemdboot_widgets.rb:156
 msgid "Boot&loader Options"
 msgstr "Opsi Boot&Loader"
 
@@ -924,11 +965,12 @@ msgstr ""
 #. Update nvram shown in summary screen
 #.
 #. @return [String]
-#: src/lib/bootloader/grub2base.rb:460
+#. while new installation only (currently)
+#: src/lib/bootloader/grub2base.rb:460 src/lib/bootloader/systemdboot.rb:72
 msgid "enabled"
 msgstr ""
 
-#: src/lib/bootloader/grub2base.rb:462
+#: src/lib/bootloader/grub2base.rb:462 src/lib/bootloader/systemdboot.rb:74
 msgid "disabled"
 msgstr ""
 
@@ -964,8 +1006,13 @@ msgstr ""
 msgid "EFI boot"
 msgstr ""
 
+#. TRANSLATORS: kind of boot. It is term for way how can boot.
+#: src/lib/bootloader/proposal_client.rb:39
+msgid "Systemd boot"
+msgstr ""
+
 #. TRANSLATORS: keep %{} intact. It will be replaced by kind of boot
-#: src/lib/bootloader/proposal_client.rb:45
+#: src/lib/bootloader/proposal_client.rb:47
 #, perl-brace-format
 msgid ""
 "Cannot upgrade the bootloader because of a mismatch of the boot technology. "
@@ -976,12 +1023,12 @@ msgid ""
 msgstr ""
 
 #. proposal part - bootloader label
-#: src/lib/bootloader/proposal_client.rb:127
+#: src/lib/bootloader/proposal_client.rb:129
 msgid "Booting"
 msgstr "Booting"
 
 #. menubutton entry
-#: src/lib/bootloader/proposal_client.rb:129
+#: src/lib/bootloader/proposal_client.rb:131
 msgid "&Booting"
 msgstr "&Booting"
 
@@ -989,14 +1036,14 @@ msgstr "&Booting"
 #. while calculating the proposal
 #.
 #. @return [Hash]
-#: src/lib/bootloader/proposal_client.rb:275
+#: src/lib/bootloader/proposal_client.rb:277
 msgid "Cannot detect device mounted as root. Please check partitioning."
 msgstr ""
 "Tidak dapat mendeteksi perangkat yang terpasang sebagai root. Silakan "
 "periksa partisi."
 
 #. TRANSLATORS: %s is a string containing the technical details of the error
-#: src/lib/bootloader/proposal_client.rb:289
+#: src/lib/bootloader/proposal_client.rb:291
 #, fuzzy, c-format
 #| msgid ""
 #| "Error reading the bootloader configuration files. Please use YaST2 "
@@ -1009,7 +1056,7 @@ msgstr ""
 "bootloader untuk memperbaikinya. Detail: %s"
 
 #. warning text in the summary richtext
-#: src/lib/bootloader/proposal_client.rb:333
+#: src/lib/bootloader/proposal_client.rb:335
 msgid ""
 "No boot loader is selected for installation. Your system might not be "
 "bootable."
@@ -1017,7 +1064,7 @@ msgstr ""
 "Tidak ada boot loader yang dipilih untuk instalasi. Sistem anda mungkin "
 "tidak akan dapat memulai."
 
-#: src/lib/bootloader/proposal_client.rb:341
+#: src/lib/bootloader/proposal_client.rb:343
 msgid ""
 "Because of the partitioning, the bootloader cannot be installed properly"
 msgstr "Karena partisi, bootloader tidak dapat dipasang dengan benar"
@@ -1030,6 +1077,28 @@ msgid ""
 msgstr ""
 "<P><BIG><B>Alat Konfigurasi Boot Loader</B></BIG><BR>\n"
 "Membaca konfigurasi saat ini...</P>"
+
+#. sdbootutil script needs the "root=<device>" entry in kernel parameters.
+#. This will be written to /etc/kernel/cmdline which will be used in an
+#. installed system by the administrator only. So we can use it because
+#. the system will be installed new. This file will be deleted after
+#. calling sdbootutil.
+#: src/lib/bootloader/systemdboot.rb:155
+#, perl-brace-format
+msgid ""
+"Cannot create systemd-boot menue entry:\n"
+"Command `%{command}`.\n"
+"Error output: %{stderr}"
+msgstr ""
+
+#. see above
+#: src/lib/bootloader/systemdboot.rb:181
+#, perl-brace-format
+msgid ""
+"Cannot install systemd bootloader:\n"
+"Command `%{command}`.\n"
+"Error output: %{stderr}"
+msgstr ""
 
 #. TRANSLATORS: error message, %s stands for problematic device.
 #: src/lib/bootloader/udev_mapping.rb:73
@@ -1050,7 +1119,7 @@ msgstr ""
 "Silahkan Tunggu...<br></p>"
 
 #. grub2 is sooo cool...
-#: src/modules/BootSupportCheck.rb:91
+#: src/modules/BootSupportCheck.rb:97
 #, ycp-format
 msgid "Unsupported combination of hardware platform %1 and bootloader %2"
 msgstr ""
@@ -1058,7 +1127,7 @@ msgstr ""
 "bootloader %2"
 
 #. TRANSLATORS: description of technical problem. Do not translate technical terms unless native language have well known translation.
-#: src/modules/BootSupportCheck.rb:116
+#: src/modules/BootSupportCheck.rb:122
 #, fuzzy
 #| msgid ""
 #| "Boot from MBR does not work together with btrfs filesystem and GPT disk "
@@ -1082,7 +1151,7 @@ msgstr ""
 "memasangl tahap 1 pada MBR."
 
 #. do not activate for ppc and GPT see bsc#983194
-#: src/modules/BootSupportCheck.rb:160
+#: src/modules/BootSupportCheck.rb:166
 msgid ""
 "Activate flag is not set by installer. If it is not set at all, some BIOSes "
 "could refuse to boot."
@@ -1090,7 +1159,7 @@ msgstr ""
 "Mengaktifkan flag tidak di atur oleh pemasang. Jika itu tidak diatur semua, "
 "beberapa BIOSes akan menolak untuk boot."
 
-#: src/modules/BootSupportCheck.rb:167
+#: src/modules/BootSupportCheck.rb:173
 msgid ""
 "The installer will not modify the MBR of the disk. Unless it already "
 "contains boot code, the BIOS won't be able to boot from this disk."
@@ -1200,11 +1269,6 @@ msgstr ""
 #~| msgid "During Boot"
 #~ msgid "Secure Boot:"
 #~ msgstr "Selama Boot"
-
-#, fuzzy
-#~| msgid "Enable Trusted Boot: %1"
-#~ msgid "Trusted Boot:"
-#~ msgstr "Hidupkan Boot Terpercaya: %1"
 
 #~ msgid " (MBR)"
 #~ msgstr " (MBR)"

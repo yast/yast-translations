@@ -32,7 +32,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bootloader\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-27 02:28+0000\n"
+"POT-Creation-Date: 2023-09-01 02:28+0000\n"
 "PO-Revision-Date: 2022-10-09 16:13+0000\n"
 "Last-Translator: Paolo Za <zapaolo@email.it>\n"
 "Language-Team: Italian <https://l10n.opensuse.org/projects/yast-bootloader/"
@@ -53,7 +53,7 @@ msgid "Boot loader configuration module"
 msgstr "Modulo di configurazione del boot loader"
 
 #. param initial_tab [:boot_code|:kernel|:bootloader] initial tab when dialog open
-#: src/lib/bootloader/config_dialog.rb:31
+#: src/lib/bootloader/config_dialog.rb:32
 msgid ""
 "YaST cannot configure the bootloader because it failed to find the root file "
 "system."
@@ -63,7 +63,7 @@ msgstr ""
 
 #. TRANSLATORS: %s stands for readon why yast cannot process it
 #. TRANSLATORS: %s stands for readon why yast cannot process it
-#: src/lib/bootloader/config_dialog.rb:37 src/modules/Bootloader.rb:159
+#: src/lib/bootloader/config_dialog.rb:38 src/modules/Bootloader.rb:159
 #, c-format
 msgid ""
 "YaST cannot process current bootloader configuration (%s). Propose new "
@@ -74,16 +74,16 @@ msgstr ""
 
 # #-#-#-#-#  bootloader.it.po (bootloader)  #-#-#-#-#
 # TLABEL modules/dialup/dialup.ycp:752
-#: src/lib/bootloader/config_dialog.rb:43 src/modules/Bootloader.rb:165
+#: src/lib/bootloader/config_dialog.rb:44 src/modules/Bootloader.rb:165
 msgid "Unsupported Configuration"
 msgstr "Configurazione non supportata"
 
 #. TRANSLATORS: %s stands for readon why yast cannot process it
-#: src/lib/bootloader/config_dialog.rb:45 src/modules/Bootloader.rb:168
+#: src/lib/bootloader/config_dialog.rb:46 src/modules/Bootloader.rb:168
 msgid "Propose"
 msgstr "Proponi"
 
-#: src/lib/bootloader/config_dialog.rb:46 src/modules/Bootloader.rb:150
+#: src/lib/bootloader/config_dialog.rb:47 src/modules/Bootloader.rb:150
 #: src/modules/Bootloader.rb:169
 msgid "Quit"
 msgstr "Esci"
@@ -91,7 +91,7 @@ msgstr "Esci"
 #. F#300779 - Install diskless client (NFS-root)
 #. additional warning that root partition is nfs type -> bootloader will not be installed
 #. kokso: additional warning that root partition is nfs type -> bootloader will not be installed
-#: src/lib/bootloader/config_dialog.rb:69 src/modules/Bootloader.rb:229
+#: src/lib/bootloader/config_dialog.rb:70 src/modules/Bootloader.rb:229
 msgid "The boot partition is of type NFS. Bootloader cannot be installed."
 msgstr ""
 "Partizione di avvio di tipo NFS. Impossibile installare il boot loader."
@@ -99,7 +99,7 @@ msgstr ""
 # #-#-#-#-#  bootloader.it.po (bootloader)  #-#-#-#-#
 # TLABEL modules/inst_config_x11.ycp:578
 #. F#300779: end
-#: src/lib/bootloader/config_dialog.rb:80
+#: src/lib/bootloader/config_dialog.rb:81
 msgid "Boot Loader Settings"
 msgstr "Impostazioni boot loader"
 
@@ -204,7 +204,7 @@ msgstr "Salvataggio configurazione del boot loader in corso..."
 
 #. TRANSLATORS: reboot message
 #. %1 is replaced with additional message from reIPL
-#: src/lib/bootloader/finish_client.rb:113
+#: src/lib/bootloader/finish_client.rb:118
 #, ycp-format
 msgid ""
 "\n"
@@ -221,7 +221,7 @@ msgstr ""
 #. and we're ready to start (boot into) the installed system
 #. Message that will be displayed along with information
 #. how the boot loader was installed
-#: src/lib/bootloader/finish_client.rb:126
+#: src/lib/bootloader/finish_client.rb:131
 msgid "The system will reboot now..."
 msgstr "Il sistema verrà riavviato ora..."
 
@@ -240,15 +240,21 @@ msgstr "GRUB2 per EFI"
 
 #. Translators: option in combo box when bootloader is not managed by yast2
 #: src/lib/bootloader/generic_widgets.rb:46
+#, fuzzy
+#| msgid "Trusted Boot:"
+msgid "Systemd Boot"
+msgstr "Avvio attendibile:"
+
+#: src/lib/bootloader/generic_widgets.rb:47
 msgid "Not Managed"
 msgstr "Non gestito"
 
-#: src/lib/bootloader/generic_widgets.rb:47
+#: src/lib/bootloader/generic_widgets.rb:48
 msgid "Default"
 msgstr "Predefinito"
 
 #. popup - Continue/Cancel
-#: src/lib/bootloader/generic_widgets.rb:61
+#: src/lib/bootloader/generic_widgets.rb:64
 msgid ""
 "\n"
 "If you do not install any boot loader, the system\n"
@@ -262,7 +268,25 @@ msgstr ""
 " \n"
 " Procedere?\n"
 
-#: src/lib/bootloader/generic_widgets.rb:79
+#. popup - Continue/Cancel
+#: src/lib/bootloader/generic_widgets.rb:77
+msgid ""
+"\n"
+"Systemd-boot support is currently work in progress and\n"
+"may not work as expected. Use at your own risk.\n"
+"\n"
+"Currently we do not provide official maintenance or support.\n"
+"Proceed?\n"
+msgstr ""
+
+#: src/lib/bootloader/generic_widgets.rb:90
+msgid ""
+"Switching from systemd-boot to another bootloader\n"
+"is currently not supported.\n"
+msgstr ""
+
+#. rubocop:enable Metrics/MethodLength
+#: src/lib/bootloader/generic_widgets.rb:105
 msgid ""
 "<p><b>Boot Loader</b>\n"
 "specifies which boot loader to install. Can be also set to <tt>None</tt> "
@@ -282,7 +306,10 @@ msgstr ""
 #. @return a list of summary lines
 #. Display bootloader summary
 #. @return a list of summary lines
+#. Display bootloader summary
+#. @return a list of summary lines
 #: src/lib/bootloader/grub2.rb:107 src/lib/bootloader/grub2efi.rb:56
+#: src/lib/bootloader/systemdboot.rb:97
 #, ycp-format
 msgid "Boot Loader Type: %1"
 msgstr "Tipo di boot loader: %1"
@@ -392,11 +419,14 @@ msgid "Boot Code: %s"
 msgstr "Codice di avvio: %s"
 
 #. Represents bootloader timeout value
-#: src/lib/bootloader/grub2_widgets.rb:63
+#. Represents bootloader timeout value
+#: src/lib/bootloader/grub2_widgets.rb:64
+#: src/lib/bootloader/systemdboot_widgets.rb:35
 msgid "&Timeout in Seconds"
 msgstr "&Tempo di attesa in secondi"
 
-#: src/lib/bootloader/grub2_widgets.rb:67
+#: src/lib/bootloader/grub2_widgets.rb:68
+#: src/lib/bootloader/systemdboot_widgets.rb:39
 msgid ""
 "<p><b>Timeout in Seconds</b>\n"
 "specifies the time the boot loader will wait until the default kernel is "
@@ -407,13 +437,13 @@ msgstr ""
 "caricamento del kernel predefinito.</p>\n"
 
 #. Represents decision if bootloader need activated partition
-#: src/lib/bootloader/grub2_widgets.rb:101
+#: src/lib/bootloader/grub2_widgets.rb:102
 msgid "Set &active Flag in Partition Table for Boot Partition"
 msgstr ""
 "Imposta flag &attivo nella tabella delle partizioni per la partizione di "
 "avvio"
 
-#: src/lib/bootloader/grub2_widgets.rb:105
+#: src/lib/bootloader/grub2_widgets.rb:106
 msgid ""
 "<p><b>Set Active Flag in Partition Table for Boot Partition</b>\n"
 "specifies whether the partition containing the boot loader will have the "
@@ -431,11 +461,11 @@ msgstr ""
 "anche se il boot loader è installato nell'MBR.</p>"
 
 #. Represents decision if smt is enabled
-#: src/lib/bootloader/grub2_widgets.rb:135
+#: src/lib/bootloader/grub2_widgets.rb:136
 msgid "CPU Mitigations"
 msgstr "Mitigazioni CPU"
 
-#: src/lib/bootloader/grub2_widgets.rb:145
+#: src/lib/bootloader/grub2_widgets.rb:146
 msgid ""
 "<p><b>CPU Mitigations</b><br>\n"
 "The option selects which default settings should be used for CPU \n"
@@ -504,11 +534,11 @@ msgstr ""
 "impostate manualmente.</li></ul></p>"
 
 #. Represents decision if generic MBR have to be installed on disk
-#: src/lib/bootloader/grub2_widgets.rb:195
+#: src/lib/bootloader/grub2_widgets.rb:196
 msgid "Write &generic Boot Code to MBR"
 msgstr "Scrivi codice di avvio &generico su MBR"
 
-#: src/lib/bootloader/grub2_widgets.rb:199
+#: src/lib/bootloader/grub2_widgets.rb:200
 msgid ""
 "<p><b>Write generic Boot Code to MBR</b> replace the master boot record of "
 "your disk with generic code (OS independent code which\n"
@@ -519,22 +549,22 @@ msgstr ""
 "dal sistema operativo che si avvia dalla partizione attiva).</p>"
 
 #. Represents decision if menu should be hidden or visible
-#: src/lib/bootloader/grub2_widgets.rb:226
+#: src/lib/bootloader/grub2_widgets.rb:227
 msgid "&Hide Menu on Boot"
 msgstr "&Nascondi menu all'avvio"
 
-#: src/lib/bootloader/grub2_widgets.rb:230
+#: src/lib/bootloader/grub2_widgets.rb:231
 msgid "<p>Selecting <b>Hide Menu on Boot</b> will hide the boot menu.</p>"
 msgstr ""
 "<p>Selezionare <b>Nascondi menu all'avvio</b> per nascondere il menu di "
 "avvio.</p>"
 
 #. Represents if os prober should be run
-#: src/lib/bootloader/grub2_widgets.rb:251
+#: src/lib/bootloader/grub2_widgets.rb:252
 msgid "Pro&be Foreign OS"
 msgstr "&Verifica altro OS"
 
-#: src/lib/bootloader/grub2_widgets.rb:255
+#: src/lib/bootloader/grub2_widgets.rb:256
 msgid ""
 "<p><b>Probe Foreign OS</b> by means of os-prober for multiboot with other "
 "foreign distribution </p>"
@@ -543,11 +573,11 @@ msgstr ""
 "multiplo con altra distribuzione </p>"
 
 #. represents kernel command line
-#: src/lib/bootloader/grub2_widgets.rb:281
+#: src/lib/bootloader/grub2_widgets.rb:282
 msgid "O&ptional Kernel Command Line Parameter"
 msgstr "&Parametro facoltativo della riga di comando del kernel"
 
-#: src/lib/bootloader/grub2_widgets.rb:285
+#: src/lib/bootloader/grub2_widgets.rb:286
 msgid ""
 "<p><b>Optional Kernel Command Line Parameter</b> lets you define additional "
 "parameters to pass to the kernel.</p>"
@@ -556,11 +586,11 @@ msgstr ""
 "definire parametri aggiuntivi da passare al kernel.</p>"
 
 #. Represents Protective MBR action
-#: src/lib/bootloader/grub2_widgets.rb:311
+#: src/lib/bootloader/grub2_widgets.rb:312
 msgid "&Protective MBR flag"
 msgstr "&Flag MBR di protezione"
 
-#: src/lib/bootloader/grub2_widgets.rb:315
+#: src/lib/bootloader/grub2_widgets.rb:316
 msgid ""
 "<p><b>Protective MBR flag</b> is expert only settings, that is needed only "
 "on exotic hardware. For details see Protective MBR in GPT disks. Do not "
@@ -572,12 +602,12 @@ msgstr ""
 "impostazione se non si è certi di come procedere.</p>"
 
 #. TRANSLATORS: set flag on disk
-#: src/lib/bootloader/grub2_widgets.rb:329
+#: src/lib/bootloader/grub2_widgets.rb:330
 msgid "set"
 msgstr "imposta"
 
 #. TRANSLATORS: remove flag from disk
-#: src/lib/bootloader/grub2_widgets.rb:331
+#: src/lib/bootloader/grub2_widgets.rb:332
 msgid "remove"
 msgstr "rimuovi"
 
@@ -585,17 +615,19 @@ msgstr "rimuovi"
 #. force re-calculation of bootloader proposal
 #. this deletes any internally cached values, a new proposal will
 #. not be partially based on old data now any more
-#: src/lib/bootloader/grub2_widgets.rb:333
-#: src/lib/bootloader/proposal_client.rb:164
+#: src/lib/bootloader/grub2_widgets.rb:334
+#: src/lib/bootloader/proposal_client.rb:166
 msgid "do not change"
 msgstr "non modificare"
 
 #. Represents switcher for secure boot on EFI
-#: src/lib/bootloader/grub2_widgets.rb:353
+#. Represents switcher for secure boot on EFI
+#: src/lib/bootloader/grub2_widgets.rb:354
+#: src/lib/bootloader/systemdboot_widgets.rb:63
 msgid "&Secure Boot Support"
 msgstr "Supporto all'avvio &sicuro"
 
-#: src/lib/bootloader/grub2_widgets.rb:358
+#: src/lib/bootloader/grub2_widgets.rb:359
 msgid ""
 "<p><b>Secure Boot Support</b> if checked enables Secure Boot support."
 "<br>This does not turn on secure booting. It only switches to the new secure-"
@@ -609,7 +641,8 @@ msgstr ""
 "esso funziona solamente sui dischi zFCP z15 o successivi. Il sistema non si "
 "avvia se questi requisiti non vengono soddisfatti.</p>"
 
-#: src/lib/bootloader/grub2_widgets.rb:366
+#: src/lib/bootloader/grub2_widgets.rb:367
+#: src/lib/bootloader/systemdboot_widgets.rb:67
 msgid ""
 "<p><b>Secure Boot Support</b> if checked enables Secure Boot support."
 "<br>This does not turn on secure booting. It only sets up the boot loader in "
@@ -621,8 +654,8 @@ msgstr ""
 "semplicemente il boot loader in un modo che supporta l'avvio sicuro. È "
 "ancora necessario abilitare l'avvio protetto nel firmware UEFI.</p> "
 
-#: src/lib/bootloader/grub2_widgets.rb:390
-#: src/lib/bootloader/proposal_client.rb:382
+#: src/lib/bootloader/grub2_widgets.rb:391
+#: src/lib/bootloader/proposal_client.rb:384
 msgid ""
 "The new secure-boot enabled boot data format works only on z15 and later and "
 "only for zFCP disks.\n"
@@ -635,11 +668,11 @@ msgstr ""
 "il sistema non verrà avviato se questi requisiti non sono soddisfatti."
 
 #. Represents switcher for Trusted Boot
-#: src/lib/bootloader/grub2_widgets.rb:410
+#: src/lib/bootloader/grub2_widgets.rb:411
 msgid "&Trusted Boot Support"
 msgstr "Suppor&to all'avvio attendibile"
 
-#: src/lib/bootloader/grub2_widgets.rb:414
+#: src/lib/bootloader/grub2_widgets.rb:415
 msgid ""
 "<p><b>Trusted Boot</b> means measuring the integrity of the boot process,\n"
 "with the help from the hardware (a TPM, Trusted Platform Module,\n"
@@ -650,7 +683,7 @@ msgstr ""
 "con l'aiuto dell'hardware (un chip TPM, ovvero Trusted Platform\n"
 "Module).\n"
 
-#: src/lib/bootloader/grub2_widgets.rb:419
+#: src/lib/bootloader/grub2_widgets.rb:420
 msgid ""
 "First you need to make sure Trusted Boot is enabled in the BIOS\n"
 "setup (the setting may be named \"Security Chip\", for example).\n"
@@ -662,7 +695,7 @@ msgstr ""
 #. check for file size does not work, since FS reports it 4096
 #. even if the file is in fact empty and a single byte cannot
 #. be read, therefore testing real reading (details: bsc#994556)
-#: src/lib/bootloader/grub2_widgets.rb:447
+#: src/lib/bootloader/grub2_widgets.rb:448
 msgid ""
 "Trusted Platform Module not found.\n"
 "Make sure it is enabled in BIOS.\n"
@@ -673,11 +706,11 @@ msgstr ""
 "In caso contrario, il sistema non si avvierà."
 
 #. Represents switcher for NVRAM update
-#: src/lib/bootloader/grub2_widgets.rb:464
+#: src/lib/bootloader/grub2_widgets.rb:465
 msgid "Update &NVRAM Entry"
 msgstr "Aggiorna voce &NVRAM"
 
-#: src/lib/bootloader/grub2_widgets.rb:468
+#: src/lib/bootloader/grub2_widgets.rb:469
 msgid ""
 "<p><b>Update NVRAM Entry</b> will add nvram entry for the bootloader\n"
 "in the firmware.\n"
@@ -693,30 +726,30 @@ msgstr ""
 # #-#-#-#-#  bootloader.it.po (bootloader)  #-#-#-#-#
 # TLABEL modules/inst_user.ycp:27
 #. Represents grub password protection widget
-#: src/lib/bootloader/grub2_widgets.rb:499
+#: src/lib/bootloader/grub2_widgets.rb:500
 msgid "Prot&ect Boot Loader with Password"
 msgstr "Prot&eggi il boot loader con password"
 
 #. TRANSLATORS: checkbox entry
-#: src/lib/bootloader/grub2_widgets.rb:505
+#: src/lib/bootloader/grub2_widgets.rb:506
 msgid "P&rotect Entry Modification Only"
 msgstr "P&roteggi solo modifica della voce"
 
 #. TRANSLATORS: text entry, please keep it short
-#: src/lib/bootloader/grub2_widgets.rb:511
+#: src/lib/bootloader/grub2_widgets.rb:512
 msgid "&Password for GRUB2 User 'root'"
 msgstr "&Configurazione password per utente 'root' GRUB2"
 
 #. text entry
-#: src/lib/bootloader/grub2_widgets.rb:514
+#: src/lib/bootloader/grub2_widgets.rb:515
 msgid "Re&type Password"
 msgstr "Con&ferma Password"
 
-#: src/lib/bootloader/grub2_widgets.rb:526
+#: src/lib/bootloader/grub2_widgets.rb:527
 msgid "The password must not be empty."
 msgstr "La password non può essere vuota."
 
-#: src/lib/bootloader/grub2_widgets.rb:534
+#: src/lib/bootloader/grub2_widgets.rb:535
 msgid ""
 "'Password' and 'Retype password'\n"
 "do not match. Retype the password."
@@ -725,7 +758,7 @@ msgstr ""
 "Immettere nuovamente la password."
 
 #. special value as we do not know password, so it mean user do not change it
-#: src/lib/bootloader/grub2_widgets.rb:587
+#: src/lib/bootloader/grub2_widgets.rb:588
 msgid ""
 "<p><b>Protect Boot Loader with Password</b>\n"
 "at boot time, modifying or even booting any entry will require the password. "
@@ -752,7 +785,7 @@ msgstr ""
 "p>"
 
 #. Translators: do not translate the quoted parts like "unit"
-#: src/lib/bootloader/grub2_widgets.rb:629
+#: src/lib/bootloader/grub2_widgets.rb:630
 #, c-format
 msgid ""
 "<p><b>Graphical console</b> when checked it allows to use various display "
@@ -776,14 +809,14 @@ msgstr ""
 "comandi sta per un numero positivo come 8. Parametri di esempio sono "
 "<tt>serial --speed=38400 --unit=0</tt>.</p>"
 
-#: src/lib/bootloader/grub2_widgets.rb:657
+#: src/lib/bootloader/grub2_widgets.rb:658
 msgid "To enable serial console you must provide the corresponding arguments."
 msgstr ""
 "Per abilitare la console seriale è necessario fornire gli argomenti "
 "corrispondenti."
 
 #. Translators: do not translate "unit"
-#: src/lib/bootloader/grub2_widgets.rb:664
+#: src/lib/bootloader/grub2_widgets.rb:665
 #, c-format
 msgid ""
 "To enable the serial console you must provide the corresponding arguments.\n"
@@ -795,7 +828,7 @@ msgstr ""
 "L'argomento \"unit\" è obbligatorio, la sintassi completa è:\n"
 "%s"
 
-#: src/lib/bootloader/grub2_widgets.rb:705
+#: src/lib/bootloader/grub2_widgets.rb:706
 msgid "Choose new graphical theme file"
 msgstr "Scegliere il nuovo file del tema grafico"
 
@@ -803,42 +836,42 @@ msgstr "Scegliere il nuovo file del tema grafico"
 #. to be substituted in a command like
 #. "serial --unit=NUM --speed=NUM --parity={odd|even|no} --word=NUM --stop=NUM"
 #. so do not use punctuation
-#: src/lib/bootloader/grub2_widgets.rb:741
+#: src/lib/bootloader/grub2_widgets.rb:742
 msgid "NUM"
 msgstr "NUM"
 
-#: src/lib/bootloader/grub2_widgets.rb:748
+#: src/lib/bootloader/grub2_widgets.rb:749
 msgid "&Graphical console"
 msgstr "Console &grafica"
 
-#: src/lib/bootloader/grub2_widgets.rb:753
+#: src/lib/bootloader/grub2_widgets.rb:754
 msgid "&Console resolution"
 msgstr "Risoluzione della &console"
 
-#: src/lib/bootloader/grub2_widgets.rb:758
+#: src/lib/bootloader/grub2_widgets.rb:759
 msgid "&Console theme"
 msgstr "Tema della &console"
 
-#: src/lib/bootloader/grub2_widgets.rb:789
+#: src/lib/bootloader/grub2_widgets.rb:790
 msgid "Autodetect by grub2"
 msgstr "Rileva automaticamente con grub2"
 
-#: src/lib/bootloader/grub2_widgets.rb:797
+#: src/lib/bootloader/grub2_widgets.rb:798
 msgid "&Serial console"
 msgstr "Console &seriale"
 
-#: src/lib/bootloader/grub2_widgets.rb:804
+#: src/lib/bootloader/grub2_widgets.rb:805
 msgid "&Console arguments"
 msgstr "Argomenti della &console"
 
 # #-#-#-#-#  bootloader.it.po (bootloader)  #-#-#-#-#
 # TLABEL modules/lan/lan.ycp:1093
 #. represent choosing default section to boot
-#: src/lib/bootloader/grub2_widgets.rb:823
+#: src/lib/bootloader/grub2_widgets.rb:824
 msgid "&Default Boot Section"
 msgstr "Sezione di a&vvio predefinita"
 
-#: src/lib/bootloader/grub2_widgets.rb:827
+#: src/lib/bootloader/grub2_widgets.rb:828
 msgid ""
 "<p><b>Default Boot Section</b> selects the default section for booting.\n"
 " If sections are not generated yet ( e.g. during installation) \n"
@@ -852,17 +885,17 @@ msgstr ""
 "stesso.</p>\n"
 
 #. Represents stage1 location for bootloader
-#: src/lib/bootloader/grub2_widgets.rb:858
+#: src/lib/bootloader/grub2_widgets.rb:859
 msgid "Boot Code Location"
 msgstr "Posizione del codice di avvio"
 
-#: src/lib/bootloader/grub2_widgets.rb:909
+#: src/lib/bootloader/grub2_widgets.rb:913
 msgid "Custom boot device has to be specified if checked"
 msgstr ""
 "Se l'opzione è selezionata, è necessario specificare il dispositivo di avvio "
 "personalizzato"
 
-#: src/lib/bootloader/grub2_widgets.rb:918
+#: src/lib/bootloader/grub2_widgets.rb:922
 #, c-format
 msgid ""
 "These custom devices can be invalid: %s.Please check if exist and spelled "
@@ -872,39 +905,39 @@ msgstr ""
 "Controllare se esistono e se sono scritti correttamente. Si vuole continuare?"
 
 #. TRANSLATORS: %s is used to specify exact devices
-#: src/lib/bootloader/grub2_widgets.rb:994
+#: src/lib/bootloader/grub2_widgets.rb:998
 #, c-format
 msgid "Wri&te to Partition (%s)"
 msgstr "Scrivi nella par&tizione (%s)"
 
 #. TRANSLATORS: %s is used to specify exact devices
-#: src/lib/bootloader/grub2_widgets.rb:997
+#: src/lib/bootloader/grub2_widgets.rb:1001
 #, c-format
 msgid "Wri&te to Logical Partition (%s)"
 msgstr "Scrivi nella par&tizione logica (%s)"
 
 #. TRANSLATORS: %s is used to specify exact devices
-#: src/lib/bootloader/grub2_widgets.rb:1000
+#: src/lib/bootloader/grub2_widgets.rb:1004
 #, c-format
 msgid "Write to &Extended Partition (%s)"
 msgstr "Scrivi nella partizione &estesa (%s)"
 
 #. TRANSLATORS: %s is used to specify exact devices
-#: src/lib/bootloader/grub2_widgets.rb:1004
+#: src/lib/bootloader/grub2_widgets.rb:1008
 #, c-format
 msgid "Write to &Master Boot Record (%s)"
 msgstr "Scrivi nel &master boot record (%s)"
 
-#: src/lib/bootloader/grub2_widgets.rb:1015
+#: src/lib/bootloader/grub2_widgets.rb:1019
 msgid "C&ustom Boot Partition"
 msgstr "Personalizza partizione &avvio"
 
 #. Represents button that open Device Map edit dialog
-#: src/lib/bootloader/grub2_widgets.rb:1028
+#: src/lib/bootloader/grub2_widgets.rb:1032
 msgid "&Edit Disk Boot Order"
 msgstr "Modifica ordin&e avvio disco"
 
-#: src/lib/bootloader/grub2_widgets.rb:1034
+#: src/lib/bootloader/grub2_widgets.rb:1038
 msgid ""
 "<p><b>Edit Disk Boot Order</b>\n"
 "allows to specify the order of the disks according to the order in BIOS. "
@@ -921,17 +954,25 @@ msgstr ""
 "Per rimuovere un disco, premere <b>Rimuovi</b>.</p>"
 
 #. represents Tab with kernel related configuration
-#: src/lib/bootloader/grub2_widgets.rb:1055
+#. represents Tab with kernel related configuration
+#: src/lib/bootloader/grub2_widgets.rb:1059
+#: src/lib/bootloader/systemdboot_widgets.rb:89
 msgid "&Kernel Parameters"
 msgstr "Parametri &kernel"
 
 #. Represent tab with options related to stage1 location and bootloader type
-#: src/lib/bootloader/grub2_widgets.rb:1077
+#. Represent tab with options related to stage1 location and bootloader type
+#: src/lib/bootloader/grub2_widgets.rb:1081
+#: src/lib/bootloader/systemdboot_widgets.rb:111
 msgid "Boot Co&de Options"
 msgstr "Opzioni co&dice di avvio"
 
-#. Represents bootloader specific options like its timeout, default section or password protection
-#: src/lib/bootloader/grub2_widgets.rb:1167
+#. Represents bootloader specific options like its timeout,
+#. default section or password protection
+#. Represents bootloader specific options like its timeout,
+#. default section or password protection
+#: src/lib/bootloader/grub2_widgets.rb:1172
+#: src/lib/bootloader/systemdboot_widgets.rb:156
 msgid "Boot&loader Options"
 msgstr "&Opzioni boot loader"
 
@@ -945,11 +986,12 @@ msgstr "File /etc/default/grub mancante nel sistema"
 #. Update nvram shown in summary screen
 #.
 #. @return [String]
-#: src/lib/bootloader/grub2base.rb:460
+#. while new installation only (currently)
+#: src/lib/bootloader/grub2base.rb:460 src/lib/bootloader/systemdboot.rb:72
 msgid "enabled"
 msgstr "abilitato"
 
-#: src/lib/bootloader/grub2base.rb:462
+#: src/lib/bootloader/grub2base.rb:462 src/lib/bootloader/systemdboot.rb:74
 msgid "disabled"
 msgstr "disabilitato"
 
@@ -990,8 +1032,13 @@ msgstr "Boot del BIOS tradizionale"
 msgid "EFI boot"
 msgstr "Boot EFI"
 
+#. TRANSLATORS: kind of boot. It is term for way how can boot.
+#: src/lib/bootloader/proposal_client.rb:39
+msgid "Systemd boot"
+msgstr ""
+
 #. TRANSLATORS: keep %{} intact. It will be replaced by kind of boot
-#: src/lib/bootloader/proposal_client.rb:45
+#: src/lib/bootloader/proposal_client.rb:47
 #, perl-brace-format
 msgid ""
 "Cannot upgrade the bootloader because of a mismatch of the boot technology. "
@@ -1008,12 +1055,12 @@ msgstr ""
 "successivo."
 
 #. proposal part - bootloader label
-#: src/lib/bootloader/proposal_client.rb:127
+#: src/lib/bootloader/proposal_client.rb:129
 msgid "Booting"
 msgstr "Avvio"
 
 #. menubutton entry
-#: src/lib/bootloader/proposal_client.rb:129
+#: src/lib/bootloader/proposal_client.rb:131
 msgid "&Booting"
 msgstr "&Avvio"
 
@@ -1021,14 +1068,14 @@ msgstr "&Avvio"
 #. while calculating the proposal
 #.
 #. @return [Hash]
-#: src/lib/bootloader/proposal_client.rb:275
+#: src/lib/bootloader/proposal_client.rb:277
 msgid "Cannot detect device mounted as root. Please check partitioning."
 msgstr ""
 "Impossibile rilevare il dispositivo montato come radice. Si prega di "
 "verificare il partizionamento."
 
 #. TRANSLATORS: %s is a string containing the technical details of the error
-#: src/lib/bootloader/proposal_client.rb:289
+#: src/lib/bootloader/proposal_client.rb:291
 #, c-format
 msgid ""
 "Error reading the bootloader configuration files. Please open the booting "
@@ -1038,7 +1085,7 @@ msgstr ""
 "le opzioni di avvio per correggerlo. Dettagli: %s"
 
 #. warning text in the summary richtext
-#: src/lib/bootloader/proposal_client.rb:333
+#: src/lib/bootloader/proposal_client.rb:335
 msgid ""
 "No boot loader is selected for installation. Your system might not be "
 "bootable."
@@ -1046,7 +1093,7 @@ msgstr ""
 "Nessun boot loader è stato selezionato per l'installazione. Potrebbe essere "
 "impossibile avviare il sistema."
 
-#: src/lib/bootloader/proposal_client.rb:341
+#: src/lib/bootloader/proposal_client.rb:343
 msgid ""
 "Because of the partitioning, the bootloader cannot be installed properly"
 msgstr ""
@@ -1061,6 +1108,42 @@ msgid ""
 msgstr ""
 "<P><BIG><B>Strumento di configurazione boot loader</B></BIG><BR>\n"
 "Lettura configurazione corrente in corso...</P>"
+
+#. sdbootutil script needs the "root=<device>" entry in kernel parameters.
+#. This will be written to /etc/kernel/cmdline which will be used in an
+#. installed system by the administrator only. So we can use it because
+#. the system will be installed new. This file will be deleted after
+#. calling sdbootutil.
+#: src/lib/bootloader/systemdboot.rb:155
+#, fuzzy, perl-brace-format
+#| msgid ""
+#| "Installing GRUB2 to device failed.\n"
+#| "Command `%{command}`.\n"
+#| "Error output: %{stderr}"
+msgid ""
+"Cannot create systemd-boot menue entry:\n"
+"Command `%{command}`.\n"
+"Error output: %{stderr}"
+msgstr ""
+"Installazione di GRUB2 nel dispositivo non riuscita.\n"
+"Comando `%{command}`.\n"
+"Output errori: %{stderr}"
+
+#. see above
+#: src/lib/bootloader/systemdboot.rb:181
+#, fuzzy, perl-brace-format
+#| msgid ""
+#| "Installing GRUB2 to device failed.\n"
+#| "Command `%{command}`.\n"
+#| "Error output: %{stderr}"
+msgid ""
+"Cannot install systemd bootloader:\n"
+"Command `%{command}`.\n"
+"Error output: %{stderr}"
+msgstr ""
+"Installazione di GRUB2 nel dispositivo non riuscita.\n"
+"Comando `%{command}`.\n"
+"Output errori: %{stderr}"
 
 #. TRANSLATORS: error message, %s stands for problematic device.
 #: src/lib/bootloader/udev_mapping.rb:73
@@ -1081,7 +1164,7 @@ msgstr ""
 "Attendere...<br></p>"
 
 #. grub2 is sooo cool...
-#: src/modules/BootSupportCheck.rb:91
+#: src/modules/BootSupportCheck.rb:97
 #, ycp-format
 msgid "Unsupported combination of hardware platform %1 and bootloader %2"
 msgstr ""
@@ -1089,7 +1172,7 @@ msgstr ""
 "%2"
 
 #. TRANSLATORS: description of technical problem. Do not translate technical terms unless native language have well known translation.
-#: src/modules/BootSupportCheck.rb:116
+#: src/modules/BootSupportCheck.rb:122
 msgid ""
 "Boot from MBR does not work together with Btrfs filesystem and GPT disk "
 "label\n"
@@ -1112,7 +1195,7 @@ msgstr ""
 " - non installare la fase 1 in MBR."
 
 #. do not activate for ppc and GPT see bsc#983194
-#: src/modules/BootSupportCheck.rb:160
+#: src/modules/BootSupportCheck.rb:166
 msgid ""
 "Activate flag is not set by installer. If it is not set at all, some BIOSes "
 "could refuse to boot."
@@ -1120,7 +1203,7 @@ msgstr ""
 "Flag di attivazione non impostato dall'installatore. Se non è impostato, "
 "alcuni BIOS potrebbero non avviarsi."
 
-#: src/modules/BootSupportCheck.rb:167
+#: src/modules/BootSupportCheck.rb:173
 msgid ""
 "The installer will not modify the MBR of the disk. Unless it already "
 "contains boot code, the BIOS won't be able to boot from this disk."
@@ -1243,9 +1326,6 @@ msgstr ""
 # #-#-#-#-#  security.it.po (security)  #-#-#-#-# TLABEL modules/inst_sw_single.ycp:83
 #~ msgid "Secure Boot:"
 #~ msgstr "Avvio sicuro:"
-
-#~ msgid "Trusted Boot:"
-#~ msgstr "Avvio attendibile:"
 
 #~ msgid "Update NVRAM:"
 #~ msgstr "Aggiorna NVRAM:"
