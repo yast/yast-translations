@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: network.tr\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-09 02:30+0000\n"
+"POT-Creation-Date: 2025-03-06 02:29+0000\n"
 "PO-Revision-Date: 2024-11-07 21:48+0000\n"
 "Last-Translator: yok4 <y50003377@gmail.com>\n"
 "Language-Team: Turkish <https://l10n.opensuse.org/projects/yast-network/"
@@ -122,7 +122,8 @@ msgstr "Önek uzunluğu"
 
 #. Commandline option help
 #. TRANSLATORS: text label before list of included devices
-#: src/clients/lan.rb:160 src/lib/y2network/presenters/interface_summary.rb:70
+#: src/clients/lan.rb:160 src/lib/y2network/dialogs/bonding_fix.rb:78
+#: src/lib/y2network/presenters/interface_summary.rb:70
 msgid "Bond Ports"
 msgstr "Bond Portlar"
 
@@ -349,7 +350,7 @@ msgstr ""
 #. it is basically useful if user aborts dialog and he has done some
 #. changes already. Calling this function may results in confirmation
 #. popup.
-#: src/include/network/lan/complex.rb:225
+#: src/include/network/lan/complex.rb:232
 msgid "Network Settings"
 msgstr "Ağ ayarları"
 
@@ -537,8 +538,8 @@ msgstr ""
 "<p>DNS yapılandırmasının nasıl değiştirileceğini seçin (ad sunucuları,\n"
 "arama listesi, <i>/etc/resolv.conf</i> içeriği). Normalde, statik\n"
 "olarak tanımlanmış verileri dinamik\n"
-"olarak elde edilen verilerle (örneğin DHCP istemcisinden, NetworkManager'dan,"
-"\n"
+"olarak elde edilen verilerle (örneğin DHCP istemcisinden, "
+"NetworkManager'dan,\n"
 "vb.) birleştiren <i>netconfig</i> betiği tarafından işlenir. Bu "
 "varsayılandır. <b>Varsayılan Politikayı\n"
 " Kullan</b> çoğuyapılandırma için yeterlidir.</p>\n"
@@ -1392,6 +1393,36 @@ msgstr "&Adres Etiketi"
 msgid "Label is too long."
 msgstr "Etiket çok uzun."
 
+#. RichText with the config summary of the given bonds mainly focused in
+#. the ports naming mechanism
+#: src/lib/y2network/dialogs/bonding_fix.rb:57
+#: src/lib/y2network/presenters/interface_summary.rb:92
+msgid "No hardware information"
+msgstr "Donanım bilgisi yok"
+
+#: src/lib/y2network/dialogs/bonding_fix.rb:77
+#, fuzzy, c-format
+#| msgid "Bonds: %s"
+msgid "Bond Name: %s"
+msgstr "Bondlar: %s"
+
+#. @see CWM::AbstractWidget
+#: src/lib/y2network/dialogs/bonding_fix.rb:103
+msgid "Bond ports using MAC address"
+msgstr ""
+
+#. @see CWM::CustomWidget
+#: src/lib/y2network/dialogs/bonding_fix.rb:153
+msgid ""
+"There are some bond ports using an udev rule based on MAC address for "
+"renaming\n"
+"the device which is not recommended and could cause some naming problem."
+msgstr ""
+
+#: src/lib/y2network/dialogs/bonding_fix.rb:162
+msgid "Would you like to change the bond ports renaming mechanism to BusID?"
+msgstr ""
+
 # clients/hwinfo.ycp:80
 #. @param settings [InterfaceBuilder] object holding interface configuration
 #. modified by the dialog.
@@ -1781,7 +1812,7 @@ msgstr "%s protokolü ile yapılandırıldı"
 #. @param config [Y2Network::Config]
 #. TODO: physical port id. Probably in hardware?
 #: src/lib/y2network/presenters/interface_summary.rb:63
-#: src/lib/y2network/presenters/interface_summary.rb:105
+#: src/lib/y2network/presenters/interface_summary.rb:109
 #, c-format
 msgid "Device Name: %s"
 msgstr "Aygıt adı: %s"
@@ -1796,16 +1827,12 @@ msgstr "Köprü Bağlantı Noktaları"
 msgid "Bond device"
 msgstr "Bond cihazı"
 
-#: src/lib/y2network/presenters/interface_summary.rb:92
-msgid "No hardware information"
-msgstr "Donanım bilgisi yok"
-
 # include/sound/ui.ycp:280
 #: src/lib/y2network/presenters/interface_summary.rb:94
 msgid "Not connected"
 msgstr "Bağlı değil"
 
-#: src/lib/y2network/presenters/interface_summary.rb:111
+#: src/lib/y2network/presenters/interface_summary.rb:115
 msgid ""
 "The device is not configured. Press <b>Edit</b>\n"
 "to configure.\n"
@@ -1813,7 +1840,7 @@ msgstr ""
 "Aygıt yapılandırılmamış. Yapılandırmak için\n"
 "<b>Düzenle</b>'ye basın.\n"
 
-#: src/lib/y2network/presenters/interface_summary.rb:117
+#: src/lib/y2network/presenters/interface_summary.rb:121
 msgid "The device is configured by: "
 msgstr "Aygıt şu şekilde yapılandırıldı:: "
 
@@ -2194,8 +2221,15 @@ msgstr ""
 "En az bir seçili cihaz zaten yapılandırılmış.\n"
 "Yapılandırmayı bağlama için uyarla?\n"
 
+#: src/lib/y2network/widgets/bond_port.rb:143
+msgid ""
+"At least one selected device is using a MAC address for renaming the "
+"device.\n"
+"Would you like to change the renaming mechanism to BusID?\n"
+msgstr ""
+
 #. Translators: Warn the user about not desired effect
-#: src/lib/y2network/widgets/bond_port.rb:239
+#: src/lib/y2network/widgets/bond_port.rb:246
 #, c-format
 msgid ""
 "The interfaces selected share the same physical port and bonding them \n"
@@ -2380,8 +2414,8 @@ msgstr ""
 "<p>Bir IP adresini aramak ve statik olarak atamak için\n"
 "<b>Zeroconf</b>'u seçin. DHCP kullanmak ve zeroconf'a geri dönmek için "
 "<b>DHCP + Zeroconf\n"
-"</b>'u seçin. Aksi takdirde, ağ adresleri <b>Statik</b> olarak "
-"atanmalıdır.</p>\n"
+"</b>'u seçin. Aksi takdirde, ağ adresleri <b>Statik</b> olarak atanmalıdır.</"
+"p>\n"
 
 #: src/lib/y2network/widgets/boot_protocol.rb:295
 msgid ""
@@ -3043,8 +3077,8 @@ msgid ""
 " <b>Remote IP Address</b> (for example: <tt>192.168.100.254</tt>)\n"
 "for your peer.</p>\n"
 msgstr ""
-"<p>Bilgisayarınız için <b>IP Adresi</b>'ni (örneğin: <tt>192.168.100.99</tt>)"
-" ve eşiniz için\n"
+"<p>Bilgisayarınız için <b>IP Adresi</b>'ni (örneğin: <tt>192.168.100.99</"
+"tt>) ve eşiniz için\n"
 "<b>Uzak IP Adresi</b>'ni (örneğin: <tt>192.168.100.254</tt>)\n"
 "girin.</p>\n"
 
@@ -3399,8 +3433,8 @@ msgid ""
 "(for\n"
 "example, eth1, wlan0 ) and assures a persistent device name upon reboot.\n"
 msgstr ""
-"<p><b>Udev Kuralları</b>, ağ aygıtının MAC adresini veya BusID'sini adıyla ("
-"örneğin, eth1, wlan0)\n"
+"<p><b>Udev Kuralları</b>, ağ aygıtının MAC adresini veya BusID'sini adıyla "
+"(örneğin, eth1, wlan0)\n"
 " ilişkilendirmeye izin veren ve yeniden başlatma sırasında kalıcı bir aygıt "
 "adı sağlayan çekirdek aygıt\n"
 " yöneticisi için kurallardır.\n"
@@ -3822,8 +3856,8 @@ msgstr ""
 "yönetebilirsiniz. krdc\n"
 " (<tt>&lt;hostname&gt;:%1</tt> adresine bağlan) gibi bir VNC istemcisi veya "
 "Java özellikli bir Web\n"
-" tarayıcısı (<tt>https://&lt;hostname&gt;:%2/</tt> adresine bağlan) "
-"kullanın.</p>\n"
+" tarayıcısı (<tt>https://&lt;hostname&gt;:%2/</tt> adresine bağlan) kullanın."
+"</p>\n"
 "<p>Oturum Yönetimi olmadan, bir oturuma aynı anda yalnızca bir kullanıcı "
 "bağlanabilir ve VNC\n"
 " istemcisi bağlantısı kesildiğinde bu oturum sonlandırılır.</p><p>Oturum "
