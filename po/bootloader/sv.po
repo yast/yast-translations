@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bootloader\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-03-04 02:28+0000\n"
+"POT-Creation-Date: 2025-05-07 02:28+0000\n"
 "PO-Revision-Date: 2025-02-08 05:04+0000\n"
 "Last-Translator: Luna  Jernberg <bittin@opensuse.org>\n"
 "Language-Team: Swedish <https://l10n.opensuse.org/projects/yast-bootloader/"
@@ -74,6 +74,7 @@ msgstr ""
 "Kommando `%{command}`.\n"
 "Felutdata: %{stderr}"
 
+#. -1 will be returned from sdbootutil for menu-force
 #: src/lib/bootloader/bls.rb:81
 #, perl-brace-format
 msgid ""
@@ -95,6 +96,28 @@ msgstr ""
 "Kan inte läsa standard meny:\n"
 "Kommando `%{command}`.\n"
 "Felutdata: %{stderr}"
+
+#. Represents bootloader timeout value
+#: src/lib/bootloader/bls_widgets.rb:30
+msgid "Automatically boot the default entry after a timeout"
+msgstr "Starta automatiskt standardposten efter en timeout"
+
+#. Represents bootloader timeout value
+#: src/lib/bootloader/bls_widgets.rb:33 src/lib/bootloader/grub2_widgets.rb:60
+msgid "&Timeout in Seconds"
+msgstr "&Timeout i sekunder"
+
+#: src/lib/bootloader/bls_widgets.rb:41
+msgid ""
+"<p>Continue boot process after defined seconds.</p><p><b>Timeout in Seconds</"
+"b>\n"
+"specifies the time the boot loader will wait until the default kernel is "
+"loaded.</p>\n"
+msgstr ""
+"<p>Fortsätt uppstartsprocessen efter definierade sekunder.</"
+"p><p><b>Tidsgräns i sekunder</b>\n"
+"anger hur länge starthanteraren gör uppehåll innan standardkärnan läses in.</"
+"p>\n"
 
 #. Writes the sysconfig readed in the initialization
 #.
@@ -352,12 +375,89 @@ msgstr ""
 "YaST och även att kernelskript efter installationen inte uppdaterar "
 "startinläsarkonfiguration."
 
-#. Represents decision if smt is enabled
+#. represent choosing default section to boot
 #: src/lib/bootloader/generic_widgets.rb:117
+msgid "&Default Boot Section"
+msgstr "&Förvald startsektion"
+
+#: src/lib/bootloader/generic_widgets.rb:121
+msgid ""
+"<p><b>Default Boot Section</b> selects the default section for booting.\n"
+" If sections are not generated yet ( e.g. during installation) \n"
+"then the box is empty and the default is picked by grub2 itself.</p>\n"
+msgstr ""
+"<p><b>Standardstartsektor</b> väljer standardsektorn för start.\n"
+" Om sektorer inte har skapats ännu (t.ex. under installation) \n"
+"är rutan tom och standardinställningen hämtas av grub2.</p>\n"
+
+#. Represents switcher for secure boot on EFI
+#: src/lib/bootloader/generic_widgets.rb:152
+msgid "&Secure Boot Support"
+msgstr "&Säker start stöd"
+
+#: src/lib/bootloader/generic_widgets.rb:157
+#, fuzzy
+#| msgid ""
+#| "<p><b>Secure Boot Support</b> if checked enables Secure Boot support."
+#| "<br>This does not turn on secure booting. It only switches to the new "
+#| "secure-boot enabled boot data format. Note that this new format works "
+#| "only on z15 or later and only for zFCP disks. The system does not boot if "
+#| "these requirements are not met.</p>"
+msgid ""
+"<p><b>Secure Boot Support</b> if checked enables Secure Boot support."
+"<br>This does not turn on secure booting. It only switches to the new secure-"
+"boot enabled boot data format. Note that this new format works only on z15 "
+"or later and only for some disk types. For more details see the requirements "
+"at  https://www.ibm.com/docs/en/linux-on-systems?topic=introduction-"
+"requirements</p>"
+msgstr ""
+"<p><b>Stöd för säker start</b> om markerat aktiverar stöd för säker start."
+"<br>Detta aktiverar inte säker uppstart. Den växlar bara till det nya "
+"bootdataformatet med säker start. Observera att detta nya format endast "
+"fungerar på z15 eller senare och endast för zFCP-diskar. Systemet startar "
+"inte om dessa krav inte uppfylls.</p>"
+
+#: src/lib/bootloader/generic_widgets.rb:167
+msgid ""
+"<p><b>Secure Boot Support</b> if checked enables Secure Boot support."
+"<br>This does not turn on secure booting. It only sets up the boot loader in "
+"a way that supports secure booting. You still have to enable Secure Boot in "
+"the UEFI Firmware.</p> "
+msgstr ""
+"<p><b>Stöd för säker start</b> om markerat aktiverar stöd för säker start."
+"<br>Detta aktiverar inte säker uppstart. Den ställer bara in starthanteraren "
+"på ett sätt som stöder säker uppstart. Du måste fortfarande aktivera Secure "
+"Boot i UEFI fastprogramvara.</p> "
+
+#. text is identical like one in proposal client. Keep in sync!
+#. TRANSLATORS: IPL stands for Initial Program Load, IBM speak for system boot
+#. text is identical like one in grub2_widgets. Keep in sync!
+#. TRANSLATORS: IPL stands for Initial Program Load, IBM speak for system boot
+#: src/lib/bootloader/generic_widgets.rb:193
+#: src/lib/bootloader/proposal_client.rb:386
+msgid ""
+"Secure boot IPL has the following minimum system requirements,\n"
+"depending on the boot device to be IPLed:\n"
+"NVMe disk: IBM LinuxONE III or newer.\n"
+"FC-attached SCSI disk: IBM LinuxONE III, IBM z15 or newer.\n"
+"ECKD DASD with CDL layout: IBM z16, LinuxONE 4 or newer.\n"
+"If these requirements are not met, the system can be IPLed in non-secure "
+"mode only."
+msgstr ""
+"Säker start IPL har följande minimi-systemkrav,\n"
+"beroende på om startenheten behöver bli IPL:ad:\n"
+"NVMe-disk: IBM LinuxONE III eller nyare.\n"
+"FC-ansluten SCSI-disk: IBM LinuxONE III, IBM z15 eller nyare.\n"
+"ECKD DASD med CDL-layout: IBM z16, LinuxONE 4 eller nyare.\n"
+"Om dessa krav ej är tillgodosedda så kan systemet endast bli\n"
+"IPL:ad i icke-säkert läge."
+
+#. Represents decision if smt is enabled
+#: src/lib/bootloader/generic_widgets.rb:214
 msgid "CPU Mitigations"
 msgstr "CPU-mitigeringar"
 
-#: src/lib/bootloader/generic_widgets.rb:127
+#: src/lib/bootloader/generic_widgets.rb:224
 msgid ""
 "<p><b>CPU Mitigations</b><br>\n"
 "The option selects which default settings should be used for CPU \n"
@@ -419,11 +519,11 @@ msgstr ""
 "Alla specifika CPU-mitigeringar kan aktiveras manuellt.</li></ul></p>"
 
 #. Represents Protective MBR action
-#: src/lib/bootloader/generic_widgets.rb:176
+#: src/lib/bootloader/generic_widgets.rb:273
 msgid "&Protective MBR flag"
 msgstr "&MBR-skyddsflagga"
 
-#: src/lib/bootloader/generic_widgets.rb:180
+#: src/lib/bootloader/generic_widgets.rb:277
 msgid ""
 "<p><b>Protective MBR flag</b> is expert only settings, that is needed only "
 "on exotic hardware. For details see Protective MBR in GPT disks. Do not "
@@ -434,12 +534,12 @@ msgstr ""
 "inget här om du är osäker.</p>"
 
 #. TRANSLATORS: set flag on disk
-#: src/lib/bootloader/generic_widgets.rb:200
+#: src/lib/bootloader/generic_widgets.rb:297
 msgid "set"
 msgstr "inställt"
 
 #. TRANSLATORS: remove flag from disk
-#: src/lib/bootloader/generic_widgets.rb:202
+#: src/lib/bootloader/generic_widgets.rb:299
 msgid "remove"
 msgstr "ta bort"
 
@@ -447,17 +547,17 @@ msgstr "ta bort"
 #. force re-calculation of bootloader proposal
 #. this deletes any internally cached values, a new proposal will
 #. not be partially based on old data now any more
-#: src/lib/bootloader/generic_widgets.rb:204
+#: src/lib/bootloader/generic_widgets.rb:301
 #: src/lib/bootloader/proposal_client.rb:166
 msgid "do not change"
 msgstr "ändra inte"
 
 #. represents kernel command line
-#: src/lib/bootloader/generic_widgets.rb:227
+#: src/lib/bootloader/generic_widgets.rb:324
 msgid "O&ptional Kernel Command Line Parameter"
 msgstr "&Valfri kärnkommandoradsparameter"
 
-#: src/lib/bootloader/generic_widgets.rb:231
+#: src/lib/bootloader/generic_widgets.rb:328
 msgid ""
 "<p><b>Optional Kernel Command Line Parameter</b> lets you define additional "
 "parameters to pass to the kernel.</p>"
@@ -474,7 +574,7 @@ msgstr ""
 #. Display bootloader summary
 #. @return a list of summary lines
 #: src/lib/bootloader/grub2.rb:107 src/lib/bootloader/grub2bls.rb:50
-#: src/lib/bootloader/grub2efi.rb:57 src/lib/bootloader/systemdboot.rb:164
+#: src/lib/bootloader/grub2efi.rb:57 src/lib/bootloader/systemdboot.rb:177
 #, ycp-format
 msgid "Boot Loader Type: %1"
 msgstr "Typ av starthanterare: %1"
@@ -583,13 +683,7 @@ msgstr ""
 msgid "Boot Code: %s"
 msgstr "Startkod: %s"
 
-#. Represents bootloader timeout value
 #: src/lib/bootloader/grub2_widgets.rb:64
-#: src/lib/bootloader/systemdboot_widgets.rb:42
-msgid "&Timeout in Seconds"
-msgstr "&Timeout i sekunder"
-
-#: src/lib/bootloader/grub2_widgets.rb:68
 msgid ""
 "<p><b>Timeout in Seconds</b>\n"
 "specifies the time the boot loader will wait until the default kernel is "
@@ -600,11 +694,11 @@ msgstr ""
 "p>\n"
 
 #. Represents decision if bootloader need activated partition
-#: src/lib/bootloader/grub2_widgets.rb:104
+#: src/lib/bootloader/grub2_widgets.rb:100
 msgid "Set &active Flag in Partition Table for Boot Partition"
 msgstr "Ange &aktiv flagga i partitionstabell för startpartition"
 
-#: src/lib/bootloader/grub2_widgets.rb:108
+#: src/lib/bootloader/grub2_widgets.rb:104
 msgid ""
 "<p><b>Set Active Flag in Partition Table for Boot Partition</b>\n"
 "specifies whether the partition containing the boot loader will have the "
@@ -620,11 +714,11 @@ msgstr ""
 "starthanteraren installerats i MBR.</p>"
 
 #. Represents decision if generic MBR have to be installed on disk
-#: src/lib/bootloader/grub2_widgets.rb:138
+#: src/lib/bootloader/grub2_widgets.rb:134
 msgid "Write &generic Boot Code to MBR"
 msgstr "Skriv &generisk startkod till MBR"
 
-#: src/lib/bootloader/grub2_widgets.rb:142
+#: src/lib/bootloader/grub2_widgets.rb:138
 msgid ""
 "<p><b>Write generic Boot Code to MBR</b> replace the master boot record of "
 "your disk with generic code (OS independent code which\n"
@@ -635,20 +729,20 @@ msgstr ""
 "startar den aktiva partitionen).</p>"
 
 #. Represents decision if menu should be hidden or visible
-#: src/lib/bootloader/grub2_widgets.rb:169
+#: src/lib/bootloader/grub2_widgets.rb:165
 msgid "&Hide Menu on Boot"
 msgstr "&Dölj meny vid start"
 
-#: src/lib/bootloader/grub2_widgets.rb:173
+#: src/lib/bootloader/grub2_widgets.rb:169
 msgid "<p>Selecting <b>Hide Menu on Boot</b> will hide the boot menu.</p>"
 msgstr "<p>Om du väljer <b>Dölj menyn vid start</b> visas inte startmenyn.</p>"
 
 #. Represents if os prober should be run
-#: src/lib/bootloader/grub2_widgets.rb:194
+#: src/lib/bootloader/grub2_widgets.rb:190
 msgid "Pro&be Foreign OS"
 msgstr "Identif&iera främmande OS"
 
-#: src/lib/bootloader/grub2_widgets.rb:198
+#: src/lib/bootloader/grub2_widgets.rb:194
 msgid ""
 "<p><b>Probe Foreign OS</b> by means of os-prober for multiboot with other "
 "foreign distribution </p>"
@@ -656,77 +750,12 @@ msgstr ""
 "<p><b>Identifiera främmande OS</b> med en OS-identifierare för flervalsstart "
 "med en främmande distribution </p>"
 
-#. Represents switcher for secure boot on EFI
-#. Represents switcher for secure boot on EFI
-#: src/lib/bootloader/grub2_widgets.rb:224
-#: src/lib/bootloader/systemdboot_widgets.rb:88
-msgid "&Secure Boot Support"
-msgstr "&Säker start stöd"
-
-#: src/lib/bootloader/grub2_widgets.rb:229
-#, fuzzy
-#| msgid ""
-#| "<p><b>Secure Boot Support</b> if checked enables Secure Boot support."
-#| "<br>This does not turn on secure booting. It only switches to the new "
-#| "secure-boot enabled boot data format. Note that this new format works "
-#| "only on z15 or later and only for zFCP disks. The system does not boot if "
-#| "these requirements are not met.</p>"
-msgid ""
-"<p><b>Secure Boot Support</b> if checked enables Secure Boot support."
-"<br>This does not turn on secure booting. It only switches to the new secure-"
-"boot enabled boot data format. Note that this new format works only on z15 "
-"or later and only for some disk types. For more details see the requirements "
-"at  https://www.ibm.com/docs/en/linux-on-systems?topic=introduction-"
-"requirements</p>"
-msgstr ""
-"<p><b>Stöd för säker start</b> om markerat aktiverar stöd för säker start."
-"<br>Detta aktiverar inte säker uppstart. Den växlar bara till det nya "
-"bootdataformatet med säker start. Observera att detta nya format endast "
-"fungerar på z15 eller senare och endast för zFCP-diskar. Systemet startar "
-"inte om dessa krav inte uppfylls.</p>"
-
-#: src/lib/bootloader/grub2_widgets.rb:239
-#: src/lib/bootloader/systemdboot_widgets.rb:92
-msgid ""
-"<p><b>Secure Boot Support</b> if checked enables Secure Boot support."
-"<br>This does not turn on secure booting. It only sets up the boot loader in "
-"a way that supports secure booting. You still have to enable Secure Boot in "
-"the UEFI Firmware.</p> "
-msgstr ""
-"<p><b>Stöd för säker start</b> om markerat aktiverar stöd för säker start."
-"<br>Detta aktiverar inte säker uppstart. Den ställer bara in starthanteraren "
-"på ett sätt som stöder säker uppstart. Du måste fortfarande aktivera Secure "
-"Boot i UEFI fastprogramvara.</p> "
-
-#. text is identical like one in proposal client. Keep in sync!
-#. TRANSLATORS: IPL stands for Initial Program Load, IBM speak for system boot
-#. text is identical like one in grub2_widgets. Keep in sync!
-#. TRANSLATORS: IPL stands for Initial Program Load, IBM speak for system boot
-#: src/lib/bootloader/grub2_widgets.rb:265
-#: src/lib/bootloader/proposal_client.rb:386
-msgid ""
-"Secure boot IPL has the following minimum system requirements,\n"
-"depending on the boot device to be IPLed:\n"
-"NVMe disk: IBM LinuxONE III or newer.\n"
-"FC-attached SCSI disk: IBM LinuxONE III, IBM z15 or newer.\n"
-"ECKD DASD with CDL layout: IBM z16, LinuxONE 4 or newer.\n"
-"If these requirements are not met, the system can be IPLed in non-secure "
-"mode only."
-msgstr ""
-"Säker start IPL har följande minimi-systemkrav,\n"
-"beroende på om startenheten behöver bli IPL:ad:\n"
-"NVMe-disk: IBM LinuxONE III eller nyare.\n"
-"FC-ansluten SCSI-disk: IBM LinuxONE III, IBM z15 eller nyare.\n"
-"ECKD DASD med CDL-layout: IBM z16, LinuxONE 4 eller nyare.\n"
-"Om dessa krav ej är tillgodosedda så kan systemet endast bli\n"
-"IPL:ad i icke-säkert läge."
-
 #. Represents switcher for Trusted Boot
-#: src/lib/bootloader/grub2_widgets.rb:288
+#: src/lib/bootloader/grub2_widgets.rb:220
 msgid "&Trusted Boot Support"
 msgstr "&Tillförlitlig start stöd"
 
-#: src/lib/bootloader/grub2_widgets.rb:292
+#: src/lib/bootloader/grub2_widgets.rb:224
 msgid ""
 "<p><b>Trusted Boot</b> means measuring the integrity of the boot process,\n"
 "with the help from the hardware (a TPM, Trusted Platform Module,\n"
@@ -736,7 +765,7 @@ msgstr ""
 "med hjälp av maskinvara (TPM, Trusted Platform Module,\n"
 "chip).\n"
 
-#: src/lib/bootloader/grub2_widgets.rb:297
+#: src/lib/bootloader/grub2_widgets.rb:229
 msgid ""
 "First you need to make sure Trusted Boot is enabled in the BIOS\n"
 "setup (the setting may be named \"Security Chip\", for example).\n"
@@ -747,7 +776,7 @@ msgstr ""
 #. check for file size does not work, since FS reports it 4096
 #. even if the file is in fact empty and a single byte cannot
 #. be read, therefore testing real reading (details: bsc#994556)
-#: src/lib/bootloader/grub2_widgets.rb:326
+#: src/lib/bootloader/grub2_widgets.rb:258
 msgid ""
 "Trusted Platform Module not found.\n"
 "Make sure it is enabled in BIOS.\n"
@@ -758,11 +787,11 @@ msgstr ""
 "Annars går det inte att starta systemet."
 
 #. Represents switcher for NVRAM update
-#: src/lib/bootloader/grub2_widgets.rb:343
+#: src/lib/bootloader/grub2_widgets.rb:275
 msgid "Update &NVRAM Entry"
 msgstr "Uppdatera &NVRAM-post"
 
-#: src/lib/bootloader/grub2_widgets.rb:347
+#: src/lib/bootloader/grub2_widgets.rb:279
 msgid ""
 "<p><b>Update NVRAM Entry</b> will add nvram entry for the bootloader\n"
 "in the firmware.\n"
@@ -777,30 +806,30 @@ msgstr ""
 "eller behöver lösa problem med den fasta programvaran.</p>\n"
 
 #. Represents grub password protection widget
-#: src/lib/bootloader/grub2_widgets.rb:378
+#: src/lib/bootloader/grub2_widgets.rb:310
 msgid "Prot&ect Boot Loader with Password"
 msgstr "Lös&enordsskydda starthanterare"
 
 #. TRANSLATORS: checkbox entry
-#: src/lib/bootloader/grub2_widgets.rb:384
+#: src/lib/bootloader/grub2_widgets.rb:316
 msgid "P&rotect Entry Modification Only"
 msgstr "Skydda endast änd&ring av poster"
 
 #. TRANSLATORS: text entry, please keep it short
-#: src/lib/bootloader/grub2_widgets.rb:390
+#: src/lib/bootloader/grub2_widgets.rb:322
 msgid "&Password for GRUB2 User 'root'"
 msgstr "&Lösenord för GRUB2-användare \"rot\""
 
 #. text entry
-#: src/lib/bootloader/grub2_widgets.rb:393
+#: src/lib/bootloader/grub2_widgets.rb:325
 msgid "Re&type Password"
 msgstr "&Upprepa lösenord"
 
-#: src/lib/bootloader/grub2_widgets.rb:405
+#: src/lib/bootloader/grub2_widgets.rb:337
 msgid "The password must not be empty."
 msgstr "Lösenordet kan inte vara tomt."
 
-#: src/lib/bootloader/grub2_widgets.rb:413
+#: src/lib/bootloader/grub2_widgets.rb:345
 msgid ""
 "'Password' and 'Retype password'\n"
 "do not match. Retype the password."
@@ -809,7 +838,7 @@ msgstr ""
 "är inte lika. Ange lösenordet igen."
 
 #. special value as we do not know password, so it mean user do not change it
-#: src/lib/bootloader/grub2_widgets.rb:466
+#: src/lib/bootloader/grub2_widgets.rb:398
 msgid ""
 "<p><b>Protect Boot Loader with Password</b>\n"
 "at boot time, modifying or even booting any entry will require the password. "
@@ -835,7 +864,7 @@ msgstr ""
 "GRUB2-skript.</p>"
 
 #. Translators: do not translate the quoted parts like "unit"
-#: src/lib/bootloader/grub2_widgets.rb:508
+#: src/lib/bootloader/grub2_widgets.rb:440
 #, c-format
 msgid ""
 "<p><b>Graphical console</b> when checked it allows to use various display "
@@ -858,12 +887,12 @@ msgstr ""
 "anges. <tt>NUM</tt> i kommandon står för ett positivt nummer, som 8. "
 "Exempelparametrar är <tt>serial --speed=38400 --unit=0</tt>.</p>"
 
-#: src/lib/bootloader/grub2_widgets.rb:536
+#: src/lib/bootloader/grub2_widgets.rb:468
 msgid "To enable serial console you must provide the corresponding arguments."
 msgstr "För att aktivera seriekonsolen måste du ange motsvarande argument."
 
 #. Translators: do not translate "unit"
-#: src/lib/bootloader/grub2_widgets.rb:543
+#: src/lib/bootloader/grub2_widgets.rb:475
 #, c-format
 msgid ""
 "To enable the serial console you must provide the corresponding arguments.\n"
@@ -874,7 +903,7 @@ msgstr ""
 "Argumentet \"enhet\" krävs och den fullständiga syntaxen är:\n"
 "%s"
 
-#: src/lib/bootloader/grub2_widgets.rb:584
+#: src/lib/bootloader/grub2_widgets.rb:516
 msgid "Choose new graphical theme file"
 msgstr "Välj ny grafisk temafil"
 
@@ -882,59 +911,44 @@ msgstr "Välj ny grafisk temafil"
 #. to be substituted in a command like
 #. "serial --unit=NUM --speed=NUM --parity={odd|even|no} --word=NUM --stop=NUM"
 #. so do not use punctuation
-#: src/lib/bootloader/grub2_widgets.rb:620
+#: src/lib/bootloader/grub2_widgets.rb:552
 msgid "NUM"
 msgstr "NUM"
 
-#: src/lib/bootloader/grub2_widgets.rb:627
+#: src/lib/bootloader/grub2_widgets.rb:559
 msgid "&Graphical console"
 msgstr "Använd &Grafisk konsol"
 
-#: src/lib/bootloader/grub2_widgets.rb:632
+#: src/lib/bootloader/grub2_widgets.rb:564
 msgid "&Console resolution"
 msgstr "&Konsolupplösning"
 
-#: src/lib/bootloader/grub2_widgets.rb:637
+#: src/lib/bootloader/grub2_widgets.rb:569
 msgid "&Console theme"
 msgstr "&Konsoltema"
 
-#: src/lib/bootloader/grub2_widgets.rb:668
+#: src/lib/bootloader/grub2_widgets.rb:600
 msgid "Autodetect by grub2"
 msgstr "Identifiera automatiskt med grub2"
 
-#: src/lib/bootloader/grub2_widgets.rb:676
+#: src/lib/bootloader/grub2_widgets.rb:608
 msgid "&Serial console"
 msgstr "Använd &Seriell konsol"
 
-#: src/lib/bootloader/grub2_widgets.rb:683
+#: src/lib/bootloader/grub2_widgets.rb:615
 msgid "&Console arguments"
 msgstr "&Konsolargument"
 
-#. represent choosing default section to boot
-#: src/lib/bootloader/grub2_widgets.rb:702
-msgid "&Default Boot Section"
-msgstr "&Förvald startsektion"
-
-#: src/lib/bootloader/grub2_widgets.rb:706
-msgid ""
-"<p><b>Default Boot Section</b> selects the default section for booting.\n"
-" If sections are not generated yet ( e.g. during installation) \n"
-"then the box is empty and the default is picked by grub2 itself.</p>\n"
-msgstr ""
-"<p><b>Standardstartsektor</b> väljer standardsektorn för start.\n"
-" Om sektorer inte har skapats ännu (t.ex. under installation) \n"
-"är rutan tom och standardinställningen hämtas av grub2.</p>\n"
-
 #. Represents stage1 location for bootloader
-#: src/lib/bootloader/grub2_widgets.rb:737
+#: src/lib/bootloader/grub2_widgets.rb:632
 msgid "Boot Code Location"
 msgstr "Plats för startkod"
 
-#: src/lib/bootloader/grub2_widgets.rb:791
+#: src/lib/bootloader/grub2_widgets.rb:686
 msgid "Custom boot device has to be specified if checked"
 msgstr "Anpassad startenhet måste anges om markerad"
 
-#: src/lib/bootloader/grub2_widgets.rb:800
+#: src/lib/bootloader/grub2_widgets.rb:695
 #, c-format
 msgid ""
 "These custom devices can be invalid: %s.Please check if exist and spelled "
@@ -944,39 +958,39 @@ msgstr ""
 "stavas korrekt. Vill du fortsätta?"
 
 #. TRANSLATORS: %s is used to specify exact devices
-#: src/lib/bootloader/grub2_widgets.rb:876
+#: src/lib/bootloader/grub2_widgets.rb:771
 #, c-format
 msgid "Wri&te to Partition (%s)"
 msgstr "Skr&iv till Partition (%s)"
 
 #. TRANSLATORS: %s is used to specify exact devices
-#: src/lib/bootloader/grub2_widgets.rb:879
+#: src/lib/bootloader/grub2_widgets.rb:774
 #, c-format
 msgid "Wri&te to Logical Partition (%s)"
 msgstr "Skr&iv till logisk partition (%s)"
 
 #. TRANSLATORS: %s is used to specify exact devices
-#: src/lib/bootloader/grub2_widgets.rb:882
+#: src/lib/bootloader/grub2_widgets.rb:777
 #, c-format
 msgid "Write to &Extended Partition (%s)"
 msgstr "Skriv till &utökad partition (%s)"
 
 #. TRANSLATORS: %s is used to specify exact devices
-#: src/lib/bootloader/grub2_widgets.rb:886
+#: src/lib/bootloader/grub2_widgets.rb:781
 #, c-format
 msgid "Write to &Master Boot Record (%s)"
 msgstr "Skriv till &Master Boot Record (%s)"
 
-#: src/lib/bootloader/grub2_widgets.rb:897
+#: src/lib/bootloader/grub2_widgets.rb:792
 msgid "C&ustom Boot Partition"
 msgstr "A&npassad startpartition"
 
 #. Represents button that open Device Map edit dialog
-#: src/lib/bootloader/grub2_widgets.rb:910
+#: src/lib/bootloader/grub2_widgets.rb:805
 msgid "&Edit Disk Boot Order"
 msgstr "&Redigera diskstartsorder"
 
-#: src/lib/bootloader/grub2_widgets.rb:916
+#: src/lib/bootloader/grub2_widgets.rb:811
 msgid ""
 "<p><b>Edit Disk Boot Order</b>\n"
 "allows to specify the order of the disks according to the order in BIOS. "
@@ -993,15 +1007,15 @@ msgstr ""
 
 #. represents Tab with kernel related configuration
 #. represents Tab with kernel related configuration
-#: src/lib/bootloader/grub2_widgets.rb:939
-#: src/lib/bootloader/systemdboot_widgets.rb:114
+#: src/lib/bootloader/grub2_widgets.rb:834
+#: src/lib/bootloader/systemdboot_widgets.rb:26
 msgid "&Kernel Parameters"
 msgstr "&Kärnparametrar"
 
 #. Represent tab with options related to stage1 location and bootloader type
 #. Represent tab with options related to stage1 location and bootloader type
-#: src/lib/bootloader/grub2_widgets.rb:970
-#: src/lib/bootloader/systemdboot_widgets.rb:134
+#: src/lib/bootloader/grub2_widgets.rb:865
+#: src/lib/bootloader/systemdboot_widgets.rb:46
 msgid "Boot Co&de Options"
 msgstr "Alternativ för startko&d"
 
@@ -1009,8 +1023,8 @@ msgstr "Alternativ för startko&d"
 #. default section or password protection
 #. Represents bootloader specific options like its timeout,
 #. default section or password protection
-#: src/lib/bootloader/grub2_widgets.rb:1062
-#: src/lib/bootloader/systemdboot_widgets.rb:191
+#: src/lib/bootloader/grub2_widgets.rb:957
+#: src/lib/bootloader/systemdboot_widgets.rb:99
 msgid "Boot&loader Options"
 msgstr "Alternativ för start&hanterare"
 
@@ -1129,23 +1143,6 @@ msgid ""
 msgstr ""
 "<P><BIG><B>Konfigurationssverktyg för starthanterare</B></BIG><BR>\n"
 "Läser aktuell konfiguration...</p>"
-
-#. Represents bootloader timeout value
-#: src/lib/bootloader/systemdboot_widgets.rb:39
-msgid "Automatically boot the default entry after a timeout"
-msgstr "Starta automatiskt standardposten efter en timeout"
-
-#: src/lib/bootloader/systemdboot_widgets.rb:50
-msgid ""
-"<p>Continue boot process after defined seconds.</p><p><b>Timeout in Seconds</"
-"b>\n"
-"specifies the time the boot loader will wait until the default kernel is "
-"loaded.</p>\n"
-msgstr ""
-"<p>Fortsätt uppstartsprocessen efter definierade sekunder.</"
-"p><p><b>Tidsgräns i sekunder</b>\n"
-"anger hur länge starthanteraren gör uppehåll innan standardkärnan läses in.</"
-"p>\n"
 
 #. TRANSLATORS: error message, %s stands for problematic device.
 #: src/lib/bootloader/udev_mapping.rb:73

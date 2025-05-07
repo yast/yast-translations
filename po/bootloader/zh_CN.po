@@ -12,11 +12,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bootloader\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-03-04 02:28+0000\n"
+"POT-Creation-Date: 2025-05-07 02:28+0000\n"
 "PO-Revision-Date: 2025-04-08 10:56+0000\n"
 "Last-Translator: Grace Yu <grace.yu@excel-gits.com>\n"
-"Language-Team: Chinese (China) <https://l10n.opensuse.org/projects/"
-"yast-bootloader/master/zh_CN/>\n"
+"Language-Team: Chinese (China) <https://l10n.opensuse.org/projects/yast-"
+"bootloader/master/zh_CN/>\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -75,6 +75,7 @@ msgstr ""
 "命令 `%{command}`。\n"
 "错误输出：%{stderr}"
 
+#. -1 will be returned from sdbootutil for menu-force
 #: src/lib/bootloader/bls.rb:81
 #, perl-brace-format
 msgid ""
@@ -96,6 +97,26 @@ msgstr ""
 "无法读取默认菜单：\n"
 "命令 `%{command}`。\n"
 "错误输出：%{stderr}"
+
+#. Represents bootloader timeout value
+#: src/lib/bootloader/bls_widgets.rb:30
+msgid "Automatically boot the default entry after a timeout"
+msgstr "超时后自动引导默认项"
+
+#. Represents bootloader timeout value
+#: src/lib/bootloader/bls_widgets.rb:33 src/lib/bootloader/grub2_widgets.rb:60
+msgid "&Timeout in Seconds"
+msgstr "超时（以秒计）(&T)"
+
+#: src/lib/bootloader/bls_widgets.rb:41
+msgid ""
+"<p>Continue boot process after defined seconds.</p><p><b>Timeout in Seconds</"
+"b>\n"
+"specifies the time the boot loader will wait until the default kernel is "
+"loaded.</p>\n"
+msgstr ""
+"<p>经过指定秒数后继续引导过程。</p><p><b>超时（秒）</b>\n"
+"指定在默认内核加载前引导加载程序将等待的时间。</p>\n"
 
 #. Writes the sysconfig readed in the initialization
 #.
@@ -344,12 +365,80 @@ msgstr ""
 "指定要安装的引导加载器。也可以设为<tt>无</tt>意思是引导加载器配置不由 YaST 管"
 "理，内核安装后执行的脚本也不会更新引导加载器配置。"
 
-#. Represents decision if smt is enabled
+#. represent choosing default section to boot
 #: src/lib/bootloader/generic_widgets.rb:117
+msgid "&Default Boot Section"
+msgstr "默认引导项(&D)"
+
+#: src/lib/bootloader/generic_widgets.rb:121
+msgid ""
+"<p><b>Default Boot Section</b> selects the default section for booting.\n"
+" If sections are not generated yet ( e.g. during installation) \n"
+"then the box is empty and the default is picked by grub2 itself.</p>\n"
+msgstr ""
+"<p><b>默认引导项</b>选择默认引导项。\n"
+"如果尚未生成引导项（例如在安装期间），\n"
+"则该下拉列表为空，grub2 自己会选择默认引导项。</p>\n"
+
+#. Represents switcher for secure boot on EFI
+#: src/lib/bootloader/generic_widgets.rb:152
+msgid "&Secure Boot Support"
+msgstr "安全引导支持(&S)"
+
+#: src/lib/bootloader/generic_widgets.rb:157
+msgid ""
+"<p><b>Secure Boot Support</b> if checked enables Secure Boot support."
+"<br>This does not turn on secure booting. It only switches to the new secure-"
+"boot enabled boot data format. Note that this new format works only on z15 "
+"or later and only for some disk types. For more details see the requirements "
+"at  https://www.ibm.com/docs/en/linux-on-systems?topic=introduction-"
+"requirements</p>"
+msgstr ""
+"<p><b>安全引导支持</b>如果选中，则会启用安全引导支持。<br>此选项并不会开启安"
+"全引导。它只是切换到启用了安全引导的新引导数据格式。请注意，这个新格式只适用"
+"于 z15 或更新的处理器，且只能用于某些磁盘类型。有关更多细节，请参见 https://"
+"www.ibm.com/docs/en/linux-on-systems?topic=introduction-requirements 上的要求"
+"</p>"
+
+#: src/lib/bootloader/generic_widgets.rb:167
+msgid ""
+"<p><b>Secure Boot Support</b> if checked enables Secure Boot support."
+"<br>This does not turn on secure booting. It only sets up the boot loader in "
+"a way that supports secure booting. You still have to enable Secure Boot in "
+"the UEFI Firmware.</p> "
+msgstr ""
+"<p><b>安全引导支持</b>如果选中，则会启用安全引导支持。<br>此选项并不会开启安"
+"全引导。它只是将引导加载器设置为支持安全引导。您仍需要在 UEFI 固件中启用 \"安"
+"全引导\"。</p> "
+
+#. text is identical like one in proposal client. Keep in sync!
+#. TRANSLATORS: IPL stands for Initial Program Load, IBM speak for system boot
+#. text is identical like one in grub2_widgets. Keep in sync!
+#. TRANSLATORS: IPL stands for Initial Program Load, IBM speak for system boot
+#: src/lib/bootloader/generic_widgets.rb:193
+#: src/lib/bootloader/proposal_client.rb:386
+msgid ""
+"Secure boot IPL has the following minimum system requirements,\n"
+"depending on the boot device to be IPLed:\n"
+"NVMe disk: IBM LinuxONE III or newer.\n"
+"FC-attached SCSI disk: IBM LinuxONE III, IBM z15 or newer.\n"
+"ECKD DASD with CDL layout: IBM z16, LinuxONE 4 or newer.\n"
+"If these requirements are not met, the system can be IPLed in non-secure "
+"mode only."
+msgstr ""
+"根据要进行 IPL 的引导设备，\n"
+"安全引导 IPL 具有以下最低系统版本要求：\n"
+"NVMe 磁盘：IBM LinuxONE III 或更新型号。\n"
+"通过 FC 挂接的 SCSI 磁盘：IBM LinuxONE III、IBM z15 或更新型号。\n"
+"使用 CDL 布局的 ECKD DASD：IBM z16、LinuxONE 4 或更新型号。\n"
+"如果不满足这些要求，系统只能在非安全模式下进行 IPL。"
+
+#. Represents decision if smt is enabled
+#: src/lib/bootloader/generic_widgets.rb:214
 msgid "CPU Mitigations"
 msgstr "CPU 缓解策略"
 
-#: src/lib/bootloader/generic_widgets.rb:127
+#: src/lib/bootloader/generic_widgets.rb:224
 msgid ""
 "<p><b>CPU Mitigations</b><br>\n"
 "The option selects which default settings should be used for CPU \n"
@@ -403,11 +492,11 @@ msgstr ""
 "所有缓解 CPU 安全压力的特定选项均需手动设置。</li></ul></p>"
 
 #. Represents Protective MBR action
-#: src/lib/bootloader/generic_widgets.rb:176
+#: src/lib/bootloader/generic_widgets.rb:273
 msgid "&Protective MBR flag"
 msgstr "保护性 MBR 标志(&P)"
 
-#: src/lib/bootloader/generic_widgets.rb:180
+#: src/lib/bootloader/generic_widgets.rb:277
 msgid ""
 "<p><b>Protective MBR flag</b> is expert only settings, that is needed only "
 "on exotic hardware. For details see Protective MBR in GPT disks. Do not "
@@ -417,12 +506,12 @@ msgstr ""
 "考 GPT 磁盘中的保护性 MBR。若您不确定则请不要碰它。</p>"
 
 #. TRANSLATORS: set flag on disk
-#: src/lib/bootloader/generic_widgets.rb:200
+#: src/lib/bootloader/generic_widgets.rb:297
 msgid "set"
 msgstr "设置"
 
 #. TRANSLATORS: remove flag from disk
-#: src/lib/bootloader/generic_widgets.rb:202
+#: src/lib/bootloader/generic_widgets.rb:299
 msgid "remove"
 msgstr "移除"
 
@@ -430,17 +519,17 @@ msgstr "移除"
 #. force re-calculation of bootloader proposal
 #. this deletes any internally cached values, a new proposal will
 #. not be partially based on old data now any more
-#: src/lib/bootloader/generic_widgets.rb:204
+#: src/lib/bootloader/generic_widgets.rb:301
 #: src/lib/bootloader/proposal_client.rb:166
 msgid "do not change"
 msgstr "不变动"
 
 #. represents kernel command line
-#: src/lib/bootloader/generic_widgets.rb:227
+#: src/lib/bootloader/generic_widgets.rb:324
 msgid "O&ptional Kernel Command Line Parameter"
 msgstr "可选内核命令行参数(&P)"
 
-#: src/lib/bootloader/generic_widgets.rb:231
+#: src/lib/bootloader/generic_widgets.rb:328
 msgid ""
 "<p><b>Optional Kernel Command Line Parameter</b> lets you define additional "
 "parameters to pass to the kernel.</p>"
@@ -455,7 +544,7 @@ msgstr "<p><b>可选内核命令行参数</b>可让您定义要传递给内核�
 #. Display bootloader summary
 #. @return a list of summary lines
 #: src/lib/bootloader/grub2.rb:107 src/lib/bootloader/grub2bls.rb:50
-#: src/lib/bootloader/grub2efi.rb:57 src/lib/bootloader/systemdboot.rb:164
+#: src/lib/bootloader/grub2efi.rb:57 src/lib/bootloader/systemdboot.rb:177
 #, ycp-format
 msgid "Boot Loader Type: %1"
 msgstr "引导加载器类型：%1"
@@ -560,13 +649,7 @@ msgstr ""
 msgid "Boot Code: %s"
 msgstr "引导代码：%s"
 
-#. Represents bootloader timeout value
 #: src/lib/bootloader/grub2_widgets.rb:64
-#: src/lib/bootloader/systemdboot_widgets.rb:42
-msgid "&Timeout in Seconds"
-msgstr "超时（以秒计）(&T)"
-
-#: src/lib/bootloader/grub2_widgets.rb:68
 msgid ""
 "<p><b>Timeout in Seconds</b>\n"
 "specifies the time the boot loader will wait until the default kernel is "
@@ -576,11 +659,11 @@ msgstr ""
 "指定在默认内核加载前引导加载器将等待的时间。</p>\n"
 
 #. Represents decision if bootloader need activated partition
-#: src/lib/bootloader/grub2_widgets.rb:104
+#: src/lib/bootloader/grub2_widgets.rb:100
 msgid "Set &active Flag in Partition Table for Boot Partition"
 msgstr "在分区表中为引导分区设置活动旗标(&A)"
 
-#: src/lib/bootloader/grub2_widgets.rb:108
+#: src/lib/bootloader/grub2_widgets.rb:104
 msgid ""
 "<p><b>Set Active Flag in Partition Table for Boot Partition</b>\n"
 "specifies whether the partition containing the boot loader will have the "
@@ -595,11 +678,11 @@ msgstr ""
 "即使引导加载器就安装在 MBR 中也是如此。</p>"
 
 #. Represents decision if generic MBR have to be installed on disk
-#: src/lib/bootloader/grub2_widgets.rb:138
+#: src/lib/bootloader/grub2_widgets.rb:134
 msgid "Write &generic Boot Code to MBR"
 msgstr "将通用引导代码写入主引导记录(&G)"
 
-#: src/lib/bootloader/grub2_widgets.rb:142
+#: src/lib/bootloader/grub2_widgets.rb:138
 msgid ""
 "<p><b>Write generic Boot Code to MBR</b> replace the master boot record of "
 "your disk with generic code (OS independent code which\n"
@@ -610,88 +693,32 @@ msgstr ""
 "您磁盘的主引导记录。</p>"
 
 #. Represents decision if menu should be hidden or visible
-#: src/lib/bootloader/grub2_widgets.rb:169
+#: src/lib/bootloader/grub2_widgets.rb:165
 msgid "&Hide Menu on Boot"
 msgstr "引导时隐藏菜单(&H)"
 
-#: src/lib/bootloader/grub2_widgets.rb:173
+#: src/lib/bootloader/grub2_widgets.rb:169
 msgid "<p>Selecting <b>Hide Menu on Boot</b> will hide the boot menu.</p>"
 msgstr "<p>选择<b>引导时隐藏菜单</b>将隐藏引导菜单。</p>"
 
 #. Represents if os prober should be run
-#: src/lib/bootloader/grub2_widgets.rb:194
+#: src/lib/bootloader/grub2_widgets.rb:190
 msgid "Pro&be Foreign OS"
 msgstr "探测外来操作系统(&B)"
 
-#: src/lib/bootloader/grub2_widgets.rb:198
+#: src/lib/bootloader/grub2_widgets.rb:194
 msgid ""
 "<p><b>Probe Foreign OS</b> by means of os-prober for multiboot with other "
 "foreign distribution </p>"
 msgstr ""
 "<p>可通过 os-prober <b>探测外来操作系统</b>以与其他外来操作系统多重引导</p>"
 
-#. Represents switcher for secure boot on EFI
-#. Represents switcher for secure boot on EFI
-#: src/lib/bootloader/grub2_widgets.rb:224
-#: src/lib/bootloader/systemdboot_widgets.rb:88
-msgid "&Secure Boot Support"
-msgstr "安全引导支持(&S)"
-
-#: src/lib/bootloader/grub2_widgets.rb:229
-msgid ""
-"<p><b>Secure Boot Support</b> if checked enables Secure Boot support."
-"<br>This does not turn on secure booting. It only switches to the new secure-"
-"boot enabled boot data format. Note that this new format works only on z15 "
-"or later and only for some disk types. For more details see the requirements "
-"at  https://www.ibm.com/docs/en/linux-on-systems?topic=introduction-"
-"requirements</p>"
-msgstr ""
-"<p><b>安全引导支持</b>如果选中，则会启用安全引导支持。<br>此选项并不会开启安"
-"全引导。它只是切换到启用了安全引导的新引导数据格式。请注意，这个新格式只适用"
-"于 z15 或更新的处理器，且只能用于某些磁盘类型。有关更多细节，请参见 https://"
-"www.ibm.com/docs/en/linux-on-systems?topic=introduction-requirements 上的要求"
-"</p>"
-
-#: src/lib/bootloader/grub2_widgets.rb:239
-#: src/lib/bootloader/systemdboot_widgets.rb:92
-msgid ""
-"<p><b>Secure Boot Support</b> if checked enables Secure Boot support."
-"<br>This does not turn on secure booting. It only sets up the boot loader in "
-"a way that supports secure booting. You still have to enable Secure Boot in "
-"the UEFI Firmware.</p> "
-msgstr ""
-"<p><b>安全引导支持</b>如果选中，则会启用安全引导支持。<br>此选项并不会开启安"
-"全引导。它只是将引导加载器设置为支持安全引导。您仍需要在 UEFI 固件中启用 \"安"
-"全引导\"。</p> "
-
-#. text is identical like one in proposal client. Keep in sync!
-#. TRANSLATORS: IPL stands for Initial Program Load, IBM speak for system boot
-#. text is identical like one in grub2_widgets. Keep in sync!
-#. TRANSLATORS: IPL stands for Initial Program Load, IBM speak for system boot
-#: src/lib/bootloader/grub2_widgets.rb:265
-#: src/lib/bootloader/proposal_client.rb:386
-msgid ""
-"Secure boot IPL has the following minimum system requirements,\n"
-"depending on the boot device to be IPLed:\n"
-"NVMe disk: IBM LinuxONE III or newer.\n"
-"FC-attached SCSI disk: IBM LinuxONE III, IBM z15 or newer.\n"
-"ECKD DASD with CDL layout: IBM z16, LinuxONE 4 or newer.\n"
-"If these requirements are not met, the system can be IPLed in non-secure "
-"mode only."
-msgstr ""
-"根据要进行 IPL 的引导设备，\n"
-"安全引导 IPL 具有以下最低系统版本要求：\n"
-"NVMe 磁盘：IBM LinuxONE III 或更新型号。\n"
-"通过 FC 挂接的 SCSI 磁盘：IBM LinuxONE III、IBM z15 或更新型号。\n"
-"使用 CDL 布局的 ECKD DASD：IBM z16、LinuxONE 4 或更新型号。\n"
-"如果不满足这些要求，系统只能在非安全模式下进行 IPL。"
-
 #. Represents switcher for Trusted Boot
-#: src/lib/bootloader/grub2_widgets.rb:288
+#: src/lib/bootloader/grub2_widgets.rb:220
 msgid "&Trusted Boot Support"
 msgstr "可信引导支持(&T)"
 
-#: src/lib/bootloader/grub2_widgets.rb:292
+#: src/lib/bootloader/grub2_widgets.rb:224
 msgid ""
 "<p><b>Trusted Boot</b> means measuring the integrity of the boot process,\n"
 "with the help from the hardware (a TPM, Trusted Platform Module,\n"
@@ -701,7 +728,7 @@ msgstr ""
 "模块 (TPM) 芯片）衡量引导进程的\n"
 "完整性。\n"
 
-#: src/lib/bootloader/grub2_widgets.rb:297
+#: src/lib/bootloader/grub2_widgets.rb:229
 msgid ""
 "First you need to make sure Trusted Boot is enabled in the BIOS\n"
 "setup (the setting may be named \"Security Chip\", for example).\n"
@@ -712,7 +739,7 @@ msgstr ""
 #. check for file size does not work, since FS reports it 4096
 #. even if the file is in fact empty and a single byte cannot
 #. be read, therefore testing real reading (details: bsc#994556)
-#: src/lib/bootloader/grub2_widgets.rb:326
+#: src/lib/bootloader/grub2_widgets.rb:258
 msgid ""
 "Trusted Platform Module not found.\n"
 "Make sure it is enabled in BIOS.\n"
@@ -723,11 +750,11 @@ msgstr ""
 "否则，系统将不会引导。"
 
 #. Represents switcher for NVRAM update
-#: src/lib/bootloader/grub2_widgets.rb:343
+#: src/lib/bootloader/grub2_widgets.rb:275
 msgid "Update &NVRAM Entry"
 msgstr "更新 NVRAM 项(&N)"
 
-#: src/lib/bootloader/grub2_widgets.rb:347
+#: src/lib/bootloader/grub2_widgets.rb:279
 msgid ""
 "<p><b>Update NVRAM Entry</b> will add nvram entry for the bootloader\n"
 "in the firmware.\n"
@@ -740,30 +767,30 @@ msgstr ""
 "否则通常需要选中此项。</p>\n"
 
 #. Represents grub password protection widget
-#: src/lib/bootloader/grub2_widgets.rb:378
+#: src/lib/bootloader/grub2_widgets.rb:310
 msgid "Prot&ect Boot Loader with Password"
 msgstr "使用密码保护引导加载器(&E)"
 
 #. TRANSLATORS: checkbox entry
-#: src/lib/bootloader/grub2_widgets.rb:384
+#: src/lib/bootloader/grub2_widgets.rb:316
 msgid "P&rotect Entry Modification Only"
 msgstr "仅保护启动项不被修改(&R)"
 
 #. TRANSLATORS: text entry, please keep it short
-#: src/lib/bootloader/grub2_widgets.rb:390
+#: src/lib/bootloader/grub2_widgets.rb:322
 msgid "&Password for GRUB2 User 'root'"
 msgstr "GRUB2 用户 root 的口令(&P)"
 
 #. text entry
-#: src/lib/bootloader/grub2_widgets.rb:393
+#: src/lib/bootloader/grub2_widgets.rb:325
 msgid "Re&type Password"
 msgstr "再次键入密码(&T)"
 
-#: src/lib/bootloader/grub2_widgets.rb:405
+#: src/lib/bootloader/grub2_widgets.rb:337
 msgid "The password must not be empty."
 msgstr "密码不能为空。"
 
-#: src/lib/bootloader/grub2_widgets.rb:413
+#: src/lib/bootloader/grub2_widgets.rb:345
 msgid ""
 "'Password' and 'Retype password'\n"
 "do not match. Retype the password."
@@ -772,7 +799,7 @@ msgstr ""
 "请再次键入密码。"
 
 #. special value as we do not know password, so it mean user do not change it
-#: src/lib/bootloader/grub2_widgets.rb:466
+#: src/lib/bootloader/grub2_widgets.rb:398
 msgid ""
 "<p><b>Protect Boot Loader with Password</b>\n"
 "at boot time, modifying or even booting any entry will require the password. "
@@ -794,7 +821,7 @@ msgstr ""
 "户。若您需要用到它们，请使用一个单独的 GRUB2 脚本。</p>"
 
 #. Translators: do not translate the quoted parts like "unit"
-#: src/lib/bootloader/grub2_widgets.rb:508
+#: src/lib/bootloader/grub2_widgets.rb:440
 #, c-format
 msgid ""
 "<p><b>Graphical console</b> when checked it allows to use various display "
@@ -814,12 +841,12 @@ msgstr ""
 "其他均为可选部分，如果未设置，将会使用默认值。命令中的 <tt>NUM</tt> 代表一个"
 "正数，例如 8。示例参数为 <tt>serial --speed=38400 --unit=0</tt>。</p>"
 
-#: src/lib/bootloader/grub2_widgets.rb:536
+#: src/lib/bootloader/grub2_widgets.rb:468
 msgid "To enable serial console you must provide the corresponding arguments."
 msgstr "要启用串行控制台，您必须提供相应的参数。"
 
 #. Translators: do not translate "unit"
-#: src/lib/bootloader/grub2_widgets.rb:543
+#: src/lib/bootloader/grub2_widgets.rb:475
 #, c-format
 msgid ""
 "To enable the serial console you must provide the corresponding arguments.\n"
@@ -830,7 +857,7 @@ msgstr ""
 "\"unit\" 参数是必填项，完整的语法如下：\n"
 "%s"
 
-#: src/lib/bootloader/grub2_widgets.rb:584
+#: src/lib/bootloader/grub2_widgets.rb:516
 msgid "Choose new graphical theme file"
 msgstr "选择新图形主题文件"
 
@@ -838,59 +865,44 @@ msgstr "选择新图形主题文件"
 #. to be substituted in a command like
 #. "serial --unit=NUM --speed=NUM --parity={odd|even|no} --word=NUM --stop=NUM"
 #. so do not use punctuation
-#: src/lib/bootloader/grub2_widgets.rb:620
+#: src/lib/bootloader/grub2_widgets.rb:552
 msgid "NUM"
 msgstr "数值"
 
-#: src/lib/bootloader/grub2_widgets.rb:627
+#: src/lib/bootloader/grub2_widgets.rb:559
 msgid "&Graphical console"
 msgstr "图形控制台(&G)"
 
-#: src/lib/bootloader/grub2_widgets.rb:632
+#: src/lib/bootloader/grub2_widgets.rb:564
 msgid "&Console resolution"
 msgstr "控制台分辨率(&C)"
 
-#: src/lib/bootloader/grub2_widgets.rb:637
+#: src/lib/bootloader/grub2_widgets.rb:569
 msgid "&Console theme"
 msgstr "控制台主题(&C)"
 
-#: src/lib/bootloader/grub2_widgets.rb:668
+#: src/lib/bootloader/grub2_widgets.rb:600
 msgid "Autodetect by grub2"
 msgstr "由 grub2 自动检测"
 
-#: src/lib/bootloader/grub2_widgets.rb:676
+#: src/lib/bootloader/grub2_widgets.rb:608
 msgid "&Serial console"
 msgstr "串行控制台(&S)"
 
-#: src/lib/bootloader/grub2_widgets.rb:683
+#: src/lib/bootloader/grub2_widgets.rb:615
 msgid "&Console arguments"
 msgstr "控制台参数(&C)"
 
-#. represent choosing default section to boot
-#: src/lib/bootloader/grub2_widgets.rb:702
-msgid "&Default Boot Section"
-msgstr "默认引导项(&D)"
-
-#: src/lib/bootloader/grub2_widgets.rb:706
-msgid ""
-"<p><b>Default Boot Section</b> selects the default section for booting.\n"
-" If sections are not generated yet ( e.g. during installation) \n"
-"then the box is empty and the default is picked by grub2 itself.</p>\n"
-msgstr ""
-"<p><b>默认引导项</b>选择默认引导项。\n"
-"如果尚未生成引导项（例如在安装期间），\n"
-"则该下拉列表为空，grub2 自己会选择默认引导项。</p>\n"
-
 #. Represents stage1 location for bootloader
-#: src/lib/bootloader/grub2_widgets.rb:737
+#: src/lib/bootloader/grub2_widgets.rb:632
 msgid "Boot Code Location"
 msgstr "引导代码位置"
 
-#: src/lib/bootloader/grub2_widgets.rb:791
+#: src/lib/bootloader/grub2_widgets.rb:686
 msgid "Custom boot device has to be specified if checked"
 msgstr "如果选中，则必须指定自定义引导设备"
 
-#: src/lib/bootloader/grub2_widgets.rb:800
+#: src/lib/bootloader/grub2_widgets.rb:695
 #, c-format
 msgid ""
 "These custom devices can be invalid: %s.Please check if exist and spelled "
@@ -899,39 +911,39 @@ msgstr ""
 "以下自定义设备可能无效：%s。请检查它们是否存在以及拼写是否正确。要继续吗？"
 
 #. TRANSLATORS: %s is used to specify exact devices
-#: src/lib/bootloader/grub2_widgets.rb:876
+#: src/lib/bootloader/grub2_widgets.rb:771
 #, c-format
 msgid "Wri&te to Partition (%s)"
 msgstr "写入分区 (%s)(&T)"
 
 #. TRANSLATORS: %s is used to specify exact devices
-#: src/lib/bootloader/grub2_widgets.rb:879
+#: src/lib/bootloader/grub2_widgets.rb:774
 #, c-format
 msgid "Wri&te to Logical Partition (%s)"
 msgstr "写入逻辑分区 (%s)(&T)"
 
 #. TRANSLATORS: %s is used to specify exact devices
-#: src/lib/bootloader/grub2_widgets.rb:882
+#: src/lib/bootloader/grub2_widgets.rb:777
 #, c-format
 msgid "Write to &Extended Partition (%s)"
 msgstr "写入扩展分区 (%s)(&E)"
 
 #. TRANSLATORS: %s is used to specify exact devices
-#: src/lib/bootloader/grub2_widgets.rb:886
+#: src/lib/bootloader/grub2_widgets.rb:781
 #, c-format
 msgid "Write to &Master Boot Record (%s)"
 msgstr "写入主引导记录 (%s)(&M)"
 
-#: src/lib/bootloader/grub2_widgets.rb:897
+#: src/lib/bootloader/grub2_widgets.rb:792
 msgid "C&ustom Boot Partition"
 msgstr "自定义引导分区(&U)"
 
 #. Represents button that open Device Map edit dialog
-#: src/lib/bootloader/grub2_widgets.rb:910
+#: src/lib/bootloader/grub2_widgets.rb:805
 msgid "&Edit Disk Boot Order"
 msgstr "编辑磁盘引导顺序(&E)"
 
-#: src/lib/bootloader/grub2_widgets.rb:916
+#: src/lib/bootloader/grub2_widgets.rb:811
 msgid ""
 "<p><b>Edit Disk Boot Order</b>\n"
 "allows to specify the order of the disks according to the order in BIOS. "
@@ -948,15 +960,15 @@ msgstr ""
 
 #. represents Tab with kernel related configuration
 #. represents Tab with kernel related configuration
-#: src/lib/bootloader/grub2_widgets.rb:939
-#: src/lib/bootloader/systemdboot_widgets.rb:114
+#: src/lib/bootloader/grub2_widgets.rb:834
+#: src/lib/bootloader/systemdboot_widgets.rb:26
 msgid "&Kernel Parameters"
 msgstr "内核参数(&K)"
 
 #. Represent tab with options related to stage1 location and bootloader type
 #. Represent tab with options related to stage1 location and bootloader type
-#: src/lib/bootloader/grub2_widgets.rb:970
-#: src/lib/bootloader/systemdboot_widgets.rb:134
+#: src/lib/bootloader/grub2_widgets.rb:865
+#: src/lib/bootloader/systemdboot_widgets.rb:46
 msgid "Boot Co&de Options"
 msgstr "引导代码选项(&D)"
 
@@ -964,8 +976,8 @@ msgstr "引导代码选项(&D)"
 #. default section or password protection
 #. Represents bootloader specific options like its timeout,
 #. default section or password protection
-#: src/lib/bootloader/grub2_widgets.rb:1062
-#: src/lib/bootloader/systemdboot_widgets.rb:191
+#: src/lib/bootloader/grub2_widgets.rb:957
+#: src/lib/bootloader/systemdboot_widgets.rb:99
 msgid "Boot&loader Options"
 msgstr "引导加载程序选项(&L)"
 
@@ -1074,21 +1086,6 @@ msgid ""
 msgstr ""
 "<P><BIG><B>引导加载程序配置工具</B></BIG><BR>\n"
 "正在读取当前配置...</P>"
-
-#. Represents bootloader timeout value
-#: src/lib/bootloader/systemdboot_widgets.rb:39
-msgid "Automatically boot the default entry after a timeout"
-msgstr "超时后自动引导默认项"
-
-#: src/lib/bootloader/systemdboot_widgets.rb:50
-msgid ""
-"<p>Continue boot process after defined seconds.</p><p><b>Timeout in Seconds</"
-"b>\n"
-"specifies the time the boot loader will wait until the default kernel is "
-"loaded.</p>\n"
-msgstr ""
-"<p>经过指定秒数后继续引导过程。</p><p><b>超时（秒）</b>\n"
-"指定在默认内核加载前引导加载程序将等待的时间。</p>\n"
 
 #. TRANSLATORS: error message, %s stands for problematic device.
 #: src/lib/bootloader/udev_mapping.rb:73

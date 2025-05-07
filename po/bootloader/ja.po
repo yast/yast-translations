@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bootloader\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-03-04 02:28+0000\n"
+"POT-Creation-Date: 2025-05-07 02:28+0000\n"
 "PO-Revision-Date: 2025-01-15 02:48+0000\n"
 "Last-Translator: Yasuhiko Kamata <belphegor@belbel.or.jp>\n"
 "Language-Team: Japanese <https://l10n.opensuse.org/projects/yast-bootloader/"
@@ -76,6 +76,7 @@ msgstr ""
 "コマンド: `%{command}`\n"
 "エラー出力: %{stderr}"
 
+#. -1 will be returned from sdbootutil for menu-force
 #: src/lib/bootloader/bls.rb:81
 #, perl-brace-format
 msgid ""
@@ -97,6 +98,28 @@ msgstr ""
 "既定のメニューを読み込めません:\n"
 "コマンド: `%{command}`\n"
 "エラー出力: %{stderr}"
+
+#. Represents bootloader timeout value
+#: src/lib/bootloader/bls_widgets.rb:30
+msgid "Automatically boot the default entry after a timeout"
+msgstr "指定した時間が経過すると、自動的に既定の項目を選択して起動します"
+
+#. Represents bootloader timeout value
+#: src/lib/bootloader/bls_widgets.rb:33 src/lib/bootloader/grub2_widgets.rb:60
+msgid "&Timeout in Seconds"
+msgstr "タイムアウト (秒) (&T)"
+
+#: src/lib/bootloader/bls_widgets.rb:41
+msgid ""
+"<p>Continue boot process after defined seconds.</p><p><b>Timeout in Seconds</"
+"b>\n"
+"specifies the time the boot loader will wait until the default kernel is "
+"loaded.</p>\n"
+msgstr ""
+"<p>指定した時間が経過すると、自動的に起動処理が開始されます。</p><p><b>タイム"
+"アウト (秒)</b>\n"
+"では、ブートローダが既定のカーネルを読み込む前に待機する時間を指定します。</"
+"p>\n"
 
 #. Writes the sysconfig readed in the initialization
 #.
@@ -356,12 +379,86 @@ msgstr ""
 "トールした後に動作するスクリプトでも、ブートローダの設定を更新しないようにな"
 "ります。"
 
-#. Represents decision if smt is enabled
+#. represent choosing default section to boot
 #: src/lib/bootloader/generic_widgets.rb:117
+msgid "&Default Boot Section"
+msgstr "既定のブートセクション (&D)"
+
+#: src/lib/bootloader/generic_widgets.rb:121
+msgid ""
+"<p><b>Default Boot Section</b> selects the default section for booting.\n"
+" If sections are not generated yet ( e.g. during installation) \n"
+"then the box is empty and the default is picked by grub2 itself.</p>\n"
+msgstr ""
+"<p><b>既定のブートセクション</b> では、起動時に既定で選択するセクションを指定"
+"します。\n"
+" インストール時などのように、まだセクションが作成されていない場合、\n"
+"ドロップダウンボックスには何も表示されず、 grub2 側で自動設定されます。</p>\n"
+
+#. Represents switcher for secure boot on EFI
+#: src/lib/bootloader/generic_widgets.rb:152
+msgid "&Secure Boot Support"
+msgstr "Secure Boot サポート (&S)"
+
+#: src/lib/bootloader/generic_widgets.rb:157
+msgid ""
+"<p><b>Secure Boot Support</b> if checked enables Secure Boot support."
+"<br>This does not turn on secure booting. It only switches to the new secure-"
+"boot enabled boot data format. Note that this new format works only on z15 "
+"or later and only for some disk types. For more details see the requirements "
+"at  https://www.ibm.com/docs/en/linux-on-systems?topic=introduction-"
+"requirements</p>"
+msgstr ""
+"<p><b>Secure Boot サポート</b> この項目にチェックを入れると、 Secure Boot に"
+"対応するようになります。<br>ただし、コンピュータの Secure Boot 機能そのものを"
+"有効化する仕組みでは無いことに注意してください。ここでは Secure Boot に対応し"
+"た起動データ形式を設定する処理までを行うことができます。また、この新しい形式"
+"は z15 もしくはそれ以降で、かつ特定のディスクタイプを使用した場合にのみ適用す"
+"ることができます。詳しい要件については https://www.ibm.com/docs/ja/linux-on-"
+"systems?topic=introduction-requirements をお読みください。</p>"
+
+#: src/lib/bootloader/generic_widgets.rb:167
+msgid ""
+"<p><b>Secure Boot Support</b> if checked enables Secure Boot support."
+"<br>This does not turn on secure booting. It only sets up the boot loader in "
+"a way that supports secure booting. You still have to enable Secure Boot in "
+"the UEFI Firmware.</p> "
+msgstr ""
+"<p><b>Secure Boot サポート</b> この項目にチェックを入れると、 Secure Boot に"
+"対応するようになります。<br>ただし、コンピュータの Secure Boot 機能そのものを"
+"有効化する仕組みでは無いことに注意してください。ここでは Secure Boot に対応し"
+"た起動データ形式を設定する処理までを行うことができます。 Secure Boot 機能その"
+"ものを有効化するには、 UEFI ファームウエア内で設定を行ってください。</p> "
+
+#. text is identical like one in proposal client. Keep in sync!
+#. TRANSLATORS: IPL stands for Initial Program Load, IBM speak for system boot
+#. text is identical like one in grub2_widgets. Keep in sync!
+#. TRANSLATORS: IPL stands for Initial Program Load, IBM speak for system boot
+#: src/lib/bootloader/generic_widgets.rb:193
+#: src/lib/bootloader/proposal_client.rb:386
+msgid ""
+"Secure boot IPL has the following minimum system requirements,\n"
+"depending on the boot device to be IPLed:\n"
+"NVMe disk: IBM LinuxONE III or newer.\n"
+"FC-attached SCSI disk: IBM LinuxONE III, IBM z15 or newer.\n"
+"ECKD DASD with CDL layout: IBM z16, LinuxONE 4 or newer.\n"
+"If these requirements are not met, the system can be IPLed in non-secure "
+"mode only."
+msgstr ""
+"Secure Boot IPL には、 IPL に使用する起動デバイスの種類に応じて、\n"
+"下記の最小要件が存在しています:\n"
+"NVMe ディスク: IBM LinuxONE III またはそれ以降\n"
+"FC 接続の SCSI ディスク: IBM LinuxONE III, IBM z15 もしくはそれ以降\n"
+"CDL レイアウトの EKCD DASD: IBM z16, Linux ONE 4 もしくはそれ以降\n"
+"これらの要件が満たされていない場合、システムは非 Secure モードでのみ IPL する"
+"ことができます。"
+
+#. Represents decision if smt is enabled
+#: src/lib/bootloader/generic_widgets.rb:214
 msgid "CPU Mitigations"
 msgstr "CPU 緩和策"
 
-#: src/lib/bootloader/generic_widgets.rb:127
+#: src/lib/bootloader/generic_widgets.rb:224
 msgid ""
 "<p><b>CPU Mitigations</b><br>\n"
 "The option selects which default settings should be used for CPU \n"
@@ -420,11 +517,11 @@ msgstr ""
 "なります。</li></ul></p>"
 
 #. Represents Protective MBR action
-#: src/lib/bootloader/generic_widgets.rb:176
+#: src/lib/bootloader/generic_widgets.rb:273
 msgid "&Protective MBR flag"
 msgstr "プロテクティブ MBR フラグ (&P)"
 
-#: src/lib/bootloader/generic_widgets.rb:180
+#: src/lib/bootloader/generic_widgets.rb:277
 msgid ""
 "<p><b>Protective MBR flag</b> is expert only settings, that is needed only "
 "on exotic hardware. For details see Protective MBR in GPT disks. Do not "
@@ -436,12 +533,12 @@ msgstr ""
 "しないでください。 </p>"
 
 #. TRANSLATORS: set flag on disk
-#: src/lib/bootloader/generic_widgets.rb:200
+#: src/lib/bootloader/generic_widgets.rb:297
 msgid "set"
 msgstr "設定"
 
 #. TRANSLATORS: remove flag from disk
-#: src/lib/bootloader/generic_widgets.rb:202
+#: src/lib/bootloader/generic_widgets.rb:299
 msgid "remove"
 msgstr "削除"
 
@@ -449,17 +546,17 @@ msgstr "削除"
 #. force re-calculation of bootloader proposal
 #. this deletes any internally cached values, a new proposal will
 #. not be partially based on old data now any more
-#: src/lib/bootloader/generic_widgets.rb:204
+#: src/lib/bootloader/generic_widgets.rb:301
 #: src/lib/bootloader/proposal_client.rb:166
 msgid "do not change"
 msgstr "変更しない"
 
 #. represents kernel command line
-#: src/lib/bootloader/generic_widgets.rb:227
+#: src/lib/bootloader/generic_widgets.rb:324
 msgid "O&ptional Kernel Command Line Parameter"
 msgstr "オプションのカーネルコマンドラインパラメータ (&P)"
 
-#: src/lib/bootloader/generic_widgets.rb:231
+#: src/lib/bootloader/generic_widgets.rb:328
 msgid ""
 "<p><b>Optional Kernel Command Line Parameter</b> lets you define additional "
 "parameters to pass to the kernel.</p>"
@@ -476,7 +573,7 @@ msgstr ""
 #. Display bootloader summary
 #. @return a list of summary lines
 #: src/lib/bootloader/grub2.rb:107 src/lib/bootloader/grub2bls.rb:50
-#: src/lib/bootloader/grub2efi.rb:57 src/lib/bootloader/systemdboot.rb:164
+#: src/lib/bootloader/grub2efi.rb:57 src/lib/bootloader/systemdboot.rb:177
 #, ycp-format
 msgid "Boot Loader Type: %1"
 msgstr "ブートローダの種類: %1"
@@ -586,13 +683,7 @@ msgstr ""
 msgid "Boot Code: %s"
 msgstr "ブートコード: %s"
 
-#. Represents bootloader timeout value
 #: src/lib/bootloader/grub2_widgets.rb:64
-#: src/lib/bootloader/systemdboot_widgets.rb:42
-msgid "&Timeout in Seconds"
-msgstr "タイムアウト (秒) (&T)"
-
-#: src/lib/bootloader/grub2_widgets.rb:68
 msgid ""
 "<p><b>Timeout in Seconds</b>\n"
 "specifies the time the boot loader will wait until the default kernel is "
@@ -603,11 +694,11 @@ msgstr ""
 "p>\n"
 
 #. Represents decision if bootloader need activated partition
-#: src/lib/bootloader/grub2_widgets.rb:104
+#: src/lib/bootloader/grub2_widgets.rb:100
 msgid "Set &active Flag in Partition Table for Boot Partition"
 msgstr "ブートパーティションをアクティブに設定 (&A)"
 
-#: src/lib/bootloader/grub2_widgets.rb:108
+#: src/lib/bootloader/grub2_widgets.rb:104
 msgid ""
 "<p><b>Set Active Flag in Partition Table for Boot Partition</b>\n"
 "specifies whether the partition containing the boot loader will have the "
@@ -625,11 +716,11 @@ msgstr ""
 "でも 1 つのパーティションのみをアクティブに設定する必要があります。 </p>"
 
 #. Represents decision if generic MBR have to be installed on disk
-#: src/lib/bootloader/grub2_widgets.rb:138
+#: src/lib/bootloader/grub2_widgets.rb:134
 msgid "Write &generic Boot Code to MBR"
 msgstr "MBR に汎用ブートコードを書き込む (&G)"
 
-#: src/lib/bootloader/grub2_widgets.rb:142
+#: src/lib/bootloader/grub2_widgets.rb:138
 msgid ""
 "<p><b>Write generic Boot Code to MBR</b> replace the master boot record of "
 "your disk with generic code (OS independent code which\n"
@@ -641,22 +732,22 @@ msgstr ""
 "む場合は、これを選択してください。</p>"
 
 #. Represents decision if menu should be hidden or visible
-#: src/lib/bootloader/grub2_widgets.rb:169
+#: src/lib/bootloader/grub2_widgets.rb:165
 msgid "&Hide Menu on Boot"
 msgstr "ブート時にメニューを隠す (&H)"
 
-#: src/lib/bootloader/grub2_widgets.rb:173
+#: src/lib/bootloader/grub2_widgets.rb:169
 msgid "<p>Selecting <b>Hide Menu on Boot</b> will hide the boot menu.</p>"
 msgstr ""
 "<p><b>起動時にメニューを隠す</b> を選択すると、起動メニューを表示しなくなりま"
 "す。</p>"
 
 #. Represents if os prober should be run
-#: src/lib/bootloader/grub2_widgets.rb:194
+#: src/lib/bootloader/grub2_widgets.rb:190
 msgid "Pro&be Foreign OS"
 msgstr "その他の OS の検出 (&B)"
 
-#: src/lib/bootloader/grub2_widgets.rb:198
+#: src/lib/bootloader/grub2_widgets.rb:194
 msgid ""
 "<p><b>Probe Foreign OS</b> by means of os-prober for multiboot with other "
 "foreign distribution </p>"
@@ -664,73 +755,12 @@ msgstr ""
 "<p><b>その他の OS の検出</b> を選択すると、他のディストリビューションを起動す"
 "るために os-prober を実行します。</p>"
 
-#. Represents switcher for secure boot on EFI
-#. Represents switcher for secure boot on EFI
-#: src/lib/bootloader/grub2_widgets.rb:224
-#: src/lib/bootloader/systemdboot_widgets.rb:88
-msgid "&Secure Boot Support"
-msgstr "Secure Boot サポート (&S)"
-
-#: src/lib/bootloader/grub2_widgets.rb:229
-msgid ""
-"<p><b>Secure Boot Support</b> if checked enables Secure Boot support."
-"<br>This does not turn on secure booting. It only switches to the new secure-"
-"boot enabled boot data format. Note that this new format works only on z15 "
-"or later and only for some disk types. For more details see the requirements "
-"at  https://www.ibm.com/docs/en/linux-on-systems?topic=introduction-"
-"requirements</p>"
-msgstr ""
-"<p><b>Secure Boot サポート</b> この項目にチェックを入れると、 Secure Boot に"
-"対応するようになります。<br>ただし、コンピュータの Secure Boot 機能そのものを"
-"有効化する仕組みでは無いことに注意してください。ここでは Secure Boot に対応し"
-"た起動データ形式を設定する処理までを行うことができます。また、この新しい形式"
-"は z15 もしくはそれ以降で、かつ特定のディスクタイプを使用した場合にのみ適用す"
-"ることができます。詳しい要件については https://www.ibm.com/docs/ja/linux-on-"
-"systems?topic=introduction-requirements をお読みください。</p>"
-
-#: src/lib/bootloader/grub2_widgets.rb:239
-#: src/lib/bootloader/systemdboot_widgets.rb:92
-msgid ""
-"<p><b>Secure Boot Support</b> if checked enables Secure Boot support."
-"<br>This does not turn on secure booting. It only sets up the boot loader in "
-"a way that supports secure booting. You still have to enable Secure Boot in "
-"the UEFI Firmware.</p> "
-msgstr ""
-"<p><b>Secure Boot サポート</b> この項目にチェックを入れると、 Secure Boot に"
-"対応するようになります。<br>ただし、コンピュータの Secure Boot 機能そのものを"
-"有効化する仕組みでは無いことに注意してください。ここでは Secure Boot に対応し"
-"た起動データ形式を設定する処理までを行うことができます。 Secure Boot 機能その"
-"ものを有効化するには、 UEFI ファームウエア内で設定を行ってください。</p> "
-
-#. text is identical like one in proposal client. Keep in sync!
-#. TRANSLATORS: IPL stands for Initial Program Load, IBM speak for system boot
-#. text is identical like one in grub2_widgets. Keep in sync!
-#. TRANSLATORS: IPL stands for Initial Program Load, IBM speak for system boot
-#: src/lib/bootloader/grub2_widgets.rb:265
-#: src/lib/bootloader/proposal_client.rb:386
-msgid ""
-"Secure boot IPL has the following minimum system requirements,\n"
-"depending on the boot device to be IPLed:\n"
-"NVMe disk: IBM LinuxONE III or newer.\n"
-"FC-attached SCSI disk: IBM LinuxONE III, IBM z15 or newer.\n"
-"ECKD DASD with CDL layout: IBM z16, LinuxONE 4 or newer.\n"
-"If these requirements are not met, the system can be IPLed in non-secure "
-"mode only."
-msgstr ""
-"Secure Boot IPL には、 IPL に使用する起動デバイスの種類に応じて、\n"
-"下記の最小要件が存在しています:\n"
-"NVMe ディスク: IBM LinuxONE III またはそれ以降\n"
-"FC 接続の SCSI ディスク: IBM LinuxONE III, IBM z15 もしくはそれ以降\n"
-"CDL レイアウトの EKCD DASD: IBM z16, Linux ONE 4 もしくはそれ以降\n"
-"これらの要件が満たされていない場合、システムは非 Secure モードでのみ IPL する"
-"ことができます。"
-
 #. Represents switcher for Trusted Boot
-#: src/lib/bootloader/grub2_widgets.rb:288
+#: src/lib/bootloader/grub2_widgets.rb:220
 msgid "&Trusted Boot Support"
 msgstr "Trusted Boot サポート (&T)"
 
-#: src/lib/bootloader/grub2_widgets.rb:292
+#: src/lib/bootloader/grub2_widgets.rb:224
 msgid ""
 "<p><b>Trusted Boot</b> means measuring the integrity of the boot process,\n"
 "with the help from the hardware (a TPM, Trusted Platform Module,\n"
@@ -740,7 +770,7 @@ msgstr ""
 "ハードウエア (TPM; Trusted Platform Module) の支援のもと、\n"
 "起動処理の正当性を確認できるようになります。\n"
 
-#: src/lib/bootloader/grub2_widgets.rb:297
+#: src/lib/bootloader/grub2_widgets.rb:229
 msgid ""
 "First you need to make sure Trusted Boot is enabled in the BIOS\n"
 "setup (the setting may be named \"Security Chip\", for example).\n"
@@ -753,7 +783,7 @@ msgstr ""
 #. check for file size does not work, since FS reports it 4096
 #. even if the file is in fact empty and a single byte cannot
 #. be read, therefore testing real reading (details: bsc#994556)
-#: src/lib/bootloader/grub2_widgets.rb:326
+#: src/lib/bootloader/grub2_widgets.rb:258
 msgid ""
 "Trusted Platform Module not found.\n"
 "Make sure it is enabled in BIOS.\n"
@@ -764,11 +794,11 @@ msgstr ""
 "有効化されていないと、システムを起動することができません。"
 
 #. Represents switcher for NVRAM update
-#: src/lib/bootloader/grub2_widgets.rb:343
+#: src/lib/bootloader/grub2_widgets.rb:275
 msgid "Update &NVRAM Entry"
 msgstr "NVRAM の項目を更新する (&N)"
 
-#: src/lib/bootloader/grub2_widgets.rb:347
+#: src/lib/bootloader/grub2_widgets.rb:279
 msgid ""
 "<p><b>Update NVRAM Entry</b> will add nvram entry for the bootloader\n"
 "in the firmware.\n"
@@ -783,30 +813,30 @@ msgstr ""
 "場合を除いて、通常は選択しておいてください。</p>\n"
 
 #. Represents grub password protection widget
-#: src/lib/bootloader/grub2_widgets.rb:378
+#: src/lib/bootloader/grub2_widgets.rb:310
 msgid "Prot&ect Boot Loader with Password"
 msgstr "ブートローダをパスワードで保護する (&E)"
 
 #. TRANSLATORS: checkbox entry
-#: src/lib/bootloader/grub2_widgets.rb:384
+#: src/lib/bootloader/grub2_widgets.rb:316
 msgid "P&rotect Entry Modification Only"
 msgstr "項目の修正のみを保護する (&R)"
 
 #. TRANSLATORS: text entry, please keep it short
-#: src/lib/bootloader/grub2_widgets.rb:390
+#: src/lib/bootloader/grub2_widgets.rb:322
 msgid "&Password for GRUB2 User 'root'"
 msgstr "GRUB2 ユーザ 'root' のパスワード (&P)"
 
 #. text entry
-#: src/lib/bootloader/grub2_widgets.rb:393
+#: src/lib/bootloader/grub2_widgets.rb:325
 msgid "Re&type Password"
 msgstr "パスワードの再入力 (&T) :"
 
-#: src/lib/bootloader/grub2_widgets.rb:405
+#: src/lib/bootloader/grub2_widgets.rb:337
 msgid "The password must not be empty."
 msgstr "パスワードを設定してください。"
 
-#: src/lib/bootloader/grub2_widgets.rb:413
+#: src/lib/bootloader/grub2_widgets.rb:345
 msgid ""
 "'Password' and 'Retype password'\n"
 "do not match. Retype the password."
@@ -815,7 +845,7 @@ msgstr ""
 "入力したパスワードが異なっています。もう一度入力してください。"
 
 #. special value as we do not know password, so it mean user do not change it
-#: src/lib/bootloader/grub2_widgets.rb:466
+#: src/lib/bootloader/grub2_widgets.rb:398
 msgid ""
 "<p><b>Protect Boot Loader with Password</b>\n"
 "at boot time, modifying or even booting any entry will require the password. "
@@ -841,7 +871,7 @@ msgstr ""
 "他のユーザを作成したい場合は、個別の GRUB2 スクリプトをお使いください。</p>"
 
 #. Translators: do not translate the quoted parts like "unit"
-#: src/lib/bootloader/grub2_widgets.rb:508
+#: src/lib/bootloader/grub2_widgets.rb:440
 #, c-format
 msgid ""
 "<p><b>Graphical console</b> when checked it allows to use various display "
@@ -864,14 +894,14 @@ msgstr ""
 "た、 <tt>数値</tt> には 8 のように数字を入力してください。たとえば下記のよう"
 "に設定します: <tt>serial --speed=38400 --unit=0</tt>.</p>"
 
-#: src/lib/bootloader/grub2_widgets.rb:536
+#: src/lib/bootloader/grub2_widgets.rb:468
 msgid "To enable serial console you must provide the corresponding arguments."
 msgstr ""
 "シリアルコンソールを有効化するには、関連するパラメータを設定しなければなりま"
 "せん。"
 
 #. Translators: do not translate "unit"
-#: src/lib/bootloader/grub2_widgets.rb:543
+#: src/lib/bootloader/grub2_widgets.rb:475
 #, c-format
 msgid ""
 "To enable the serial console you must provide the corresponding arguments.\n"
@@ -883,7 +913,7 @@ msgstr ""
 "少なくとも \"unit\" パラメータが必要です。書式は下記のとおりです:\n"
 "%s"
 
-#: src/lib/bootloader/grub2_widgets.rb:584
+#: src/lib/bootloader/grub2_widgets.rb:516
 msgid "Choose new graphical theme file"
 msgstr "新しいグラフィカルなテーマファイルの選択"
 
@@ -891,60 +921,44 @@ msgstr "新しいグラフィカルなテーマファイルの選択"
 #. to be substituted in a command like
 #. "serial --unit=NUM --speed=NUM --parity={odd|even|no} --word=NUM --stop=NUM"
 #. so do not use punctuation
-#: src/lib/bootloader/grub2_widgets.rb:620
+#: src/lib/bootloader/grub2_widgets.rb:552
 msgid "NUM"
 msgstr "数値"
 
-#: src/lib/bootloader/grub2_widgets.rb:627
+#: src/lib/bootloader/grub2_widgets.rb:559
 msgid "&Graphical console"
 msgstr "グラフィカルコンソール (&G)"
 
-#: src/lib/bootloader/grub2_widgets.rb:632
+#: src/lib/bootloader/grub2_widgets.rb:564
 msgid "&Console resolution"
 msgstr "コンソールの解像度 (&C)"
 
-#: src/lib/bootloader/grub2_widgets.rb:637
+#: src/lib/bootloader/grub2_widgets.rb:569
 msgid "&Console theme"
 msgstr "コンソールのテーマ (&C)"
 
-#: src/lib/bootloader/grub2_widgets.rb:668
+#: src/lib/bootloader/grub2_widgets.rb:600
 msgid "Autodetect by grub2"
 msgstr "grub2 で自動検出"
 
-#: src/lib/bootloader/grub2_widgets.rb:676
+#: src/lib/bootloader/grub2_widgets.rb:608
 msgid "&Serial console"
 msgstr "シリアルコンソール (&S)"
 
-#: src/lib/bootloader/grub2_widgets.rb:683
+#: src/lib/bootloader/grub2_widgets.rb:615
 msgid "&Console arguments"
 msgstr "コンソールのパラメータ (&C)"
 
-#. represent choosing default section to boot
-#: src/lib/bootloader/grub2_widgets.rb:702
-msgid "&Default Boot Section"
-msgstr "既定のブートセクション (&D)"
-
-#: src/lib/bootloader/grub2_widgets.rb:706
-msgid ""
-"<p><b>Default Boot Section</b> selects the default section for booting.\n"
-" If sections are not generated yet ( e.g. during installation) \n"
-"then the box is empty and the default is picked by grub2 itself.</p>\n"
-msgstr ""
-"<p><b>既定のブートセクション</b> では、起動時に既定で選択するセクションを指定"
-"します。\n"
-" インストール時などのように、まだセクションが作成されていない場合、\n"
-"ドロップダウンボックスには何も表示されず、 grub2 側で自動設定されます。</p>\n"
-
 #. Represents stage1 location for bootloader
-#: src/lib/bootloader/grub2_widgets.rb:737
+#: src/lib/bootloader/grub2_widgets.rb:632
 msgid "Boot Code Location"
 msgstr "ブートコードの場所"
 
-#: src/lib/bootloader/grub2_widgets.rb:791
+#: src/lib/bootloader/grub2_widgets.rb:686
 msgid "Custom boot device has to be specified if checked"
 msgstr "チェックした場合は、独自の起動デバイスを指定しなければなりません"
 
-#: src/lib/bootloader/grub2_widgets.rb:800
+#: src/lib/bootloader/grub2_widgets.rb:695
 #, c-format
 msgid ""
 "These custom devices can be invalid: %s.Please check if exist and spelled "
@@ -954,39 +968,39 @@ msgstr ""
 "および誤った指定をしていないかどうかをご確認ください。続行しますか？"
 
 #. TRANSLATORS: %s is used to specify exact devices
-#: src/lib/bootloader/grub2_widgets.rb:876
+#: src/lib/bootloader/grub2_widgets.rb:771
 #, c-format
 msgid "Wri&te to Partition (%s)"
 msgstr "パーティション (%s) に書き込む (&T)"
 
 #. TRANSLATORS: %s is used to specify exact devices
-#: src/lib/bootloader/grub2_widgets.rb:879
+#: src/lib/bootloader/grub2_widgets.rb:774
 #, c-format
 msgid "Wri&te to Logical Partition (%s)"
 msgstr "論理パーティション (%s) に書き込む (&T)"
 
 #. TRANSLATORS: %s is used to specify exact devices
-#: src/lib/bootloader/grub2_widgets.rb:882
+#: src/lib/bootloader/grub2_widgets.rb:777
 #, c-format
 msgid "Write to &Extended Partition (%s)"
 msgstr "拡張パーティション (%s) に書き込む (&E)"
 
 #. TRANSLATORS: %s is used to specify exact devices
-#: src/lib/bootloader/grub2_widgets.rb:886
+#: src/lib/bootloader/grub2_widgets.rb:781
 #, c-format
 msgid "Write to &Master Boot Record (%s)"
 msgstr "マスターブートレコード (MBR) (%s) に書き込む (&M)"
 
-#: src/lib/bootloader/grub2_widgets.rb:897
+#: src/lib/bootloader/grub2_widgets.rb:792
 msgid "C&ustom Boot Partition"
 msgstr "独自の起動パーティション (&U)"
 
 #. Represents button that open Device Map edit dialog
-#: src/lib/bootloader/grub2_widgets.rb:910
+#: src/lib/bootloader/grub2_widgets.rb:805
 msgid "&Edit Disk Boot Order"
 msgstr "ディスク順序の編集 (&E)"
 
-#: src/lib/bootloader/grub2_widgets.rb:916
+#: src/lib/bootloader/grub2_widgets.rb:811
 msgid ""
 "<p><b>Edit Disk Boot Order</b>\n"
 "allows to specify the order of the disks according to the order in BIOS. "
@@ -1004,15 +1018,15 @@ msgstr ""
 
 #. represents Tab with kernel related configuration
 #. represents Tab with kernel related configuration
-#: src/lib/bootloader/grub2_widgets.rb:939
-#: src/lib/bootloader/systemdboot_widgets.rb:114
+#: src/lib/bootloader/grub2_widgets.rb:834
+#: src/lib/bootloader/systemdboot_widgets.rb:26
 msgid "&Kernel Parameters"
 msgstr "カーネルのパラメータ (&K)"
 
 #. Represent tab with options related to stage1 location and bootloader type
 #. Represent tab with options related to stage1 location and bootloader type
-#: src/lib/bootloader/grub2_widgets.rb:970
-#: src/lib/bootloader/systemdboot_widgets.rb:134
+#: src/lib/bootloader/grub2_widgets.rb:865
+#: src/lib/bootloader/systemdboot_widgets.rb:46
 msgid "Boot Co&de Options"
 msgstr "ブートコードのオプション (&D)"
 
@@ -1020,8 +1034,8 @@ msgstr "ブートコードのオプション (&D)"
 #. default section or password protection
 #. Represents bootloader specific options like its timeout,
 #. default section or password protection
-#: src/lib/bootloader/grub2_widgets.rb:1062
-#: src/lib/bootloader/systemdboot_widgets.rb:191
+#: src/lib/bootloader/grub2_widgets.rb:957
+#: src/lib/bootloader/systemdboot_widgets.rb:99
 msgid "Boot&loader Options"
 msgstr "ブートローダのオプション (&L)"
 
@@ -1142,23 +1156,6 @@ msgid ""
 msgstr ""
 "<P><BIG><B>ブートローダ設定ツール</B></BIG><BR>\n"
 "現在の設定を読み込んでいます...</P>"
-
-#. Represents bootloader timeout value
-#: src/lib/bootloader/systemdboot_widgets.rb:39
-msgid "Automatically boot the default entry after a timeout"
-msgstr "指定した時間が経過すると、自動的に既定の項目を選択して起動します"
-
-#: src/lib/bootloader/systemdboot_widgets.rb:50
-msgid ""
-"<p>Continue boot process after defined seconds.</p><p><b>Timeout in Seconds</"
-"b>\n"
-"specifies the time the boot loader will wait until the default kernel is "
-"loaded.</p>\n"
-msgstr ""
-"<p>指定した時間が経過すると、自動的に起動処理が開始されます。</p><p><b>タイム"
-"アウト (秒)</b>\n"
-"では、ブートローダが既定のカーネルを読み込む前に待機する時間を指定します。</"
-"p>\n"
 
 #. TRANSLATORS: error message, %s stands for problematic device.
 #: src/lib/bootloader/udev_mapping.rb:73

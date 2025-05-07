@@ -10,11 +10,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bootloader\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-03-04 02:28+0000\n"
+"POT-Creation-Date: 2025-05-07 02:28+0000\n"
 "PO-Revision-Date: 2025-04-08 10:56+0000\n"
 "Last-Translator: Emily Dong <Emily.Dong@excel-gits.com>\n"
-"Language-Team: Chinese (Taiwan) <https://l10n.opensuse.org/projects/"
-"yast-bootloader/master/zh_TW/>\n"
+"Language-Team: Chinese (Taiwan) <https://l10n.opensuse.org/projects/yast-"
+"bootloader/master/zh_TW/>\n"
 "Language: zh_TW\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -73,6 +73,7 @@ msgstr ""
 "指令 `%{command}`。\n"
 "錯誤輸出：%{stderr}"
 
+#. -1 will be returned from sdbootutil for menu-force
 #: src/lib/bootloader/bls.rb:81
 #, perl-brace-format
 msgid ""
@@ -94,6 +95,26 @@ msgstr ""
 "無法讀取預設功能表：\n"
 "指令 `%{command}`。\n"
 "錯誤輸出：%{stderr}"
+
+#. Represents bootloader timeout value
+#: src/lib/bootloader/bls_widgets.rb:30
+msgid "Automatically boot the default entry after a timeout"
+msgstr "逾時後自動將預設項目開機"
+
+#. Represents bootloader timeout value
+#: src/lib/bootloader/bls_widgets.rb:33 src/lib/bootloader/grub2_widgets.rb:60
+msgid "&Timeout in Seconds"
+msgstr "逾時秒數(&T)"
+
+#: src/lib/bootloader/bls_widgets.rb:41
+msgid ""
+"<p>Continue boot process after defined seconds.</p><p><b>Timeout in Seconds</"
+"b>\n"
+"specifies the time the boot loader will wait until the default kernel is "
+"loaded.</p>\n"
+msgstr ""
+"<p>經過指定秒數後繼續開機程序。</p><p><b>逾時秒數</b>\n"
+"指定在載入預設核心前開機載入程式等待的時間。</p>\n"
 
 #. Writes the sysconfig readed in the initialization
 #.
@@ -344,12 +365,80 @@ msgstr ""
 "指定要安裝的開機載入程式。也可以設為<tt>無</tt>，這表示開機載入程式組態不受 "
 "YaST 管理，同時核心安裝後程序檔不會更新開機載入程式組態。"
 
-#. Represents decision if smt is enabled
+#. represent choosing default section to boot
 #: src/lib/bootloader/generic_widgets.rb:117
+msgid "&Default Boot Section"
+msgstr "預設開機區段(&D)"
+
+#: src/lib/bootloader/generic_widgets.rb:121
+msgid ""
+"<p><b>Default Boot Section</b> selects the default section for booting.\n"
+" If sections are not generated yet ( e.g. during installation) \n"
+"then the box is empty and the default is picked by grub2 itself.</p>\n"
+msgstr ""
+"<p><b>預設開機區段</b>會選取預設要開機的區段。\n"
+"如果尚未產生區段 (例如，安裝期間) \n"
+"則方塊將為空白，預設值將由 grub2 自己選取。</p>\n"
+
+#. Represents switcher for secure boot on EFI
+#: src/lib/bootloader/generic_widgets.rb:152
+msgid "&Secure Boot Support"
+msgstr "安全開機支援(&S)"
+
+#: src/lib/bootloader/generic_widgets.rb:157
+msgid ""
+"<p><b>Secure Boot Support</b> if checked enables Secure Boot support."
+"<br>This does not turn on secure booting. It only switches to the new secure-"
+"boot enabled boot data format. Note that this new format works only on z15 "
+"or later and only for some disk types. For more details see the requirements "
+"at  https://www.ibm.com/docs/en/linux-on-systems?topic=introduction-"
+"requirements</p>"
+msgstr ""
+"<p><b>安全開機支援</b>如果核取此選項，則會啟用安全開機支援。<br>此選項並不會"
+"開啟安全開機。它只是切換到啟用了安全開機的新開機資料格式。請注意，此新格式僅"
+"適用於 z15 或更新的處理器，且只能用於部分磁碟類型。如需瞭解詳細資料，請參閱 "
+"https://www.ibm.com/docs/en/linux-on-systems?topic=introduction-requirements "
+"上的要求</p>"
+
+#: src/lib/bootloader/generic_widgets.rb:167
+msgid ""
+"<p><b>Secure Boot Support</b> if checked enables Secure Boot support."
+"<br>This does not turn on secure booting. It only sets up the boot loader in "
+"a way that supports secure booting. You still have to enable Secure Boot in "
+"the UEFI Firmware.</p> "
+msgstr ""
+"<p><b>安全開機支援</b>如果核取，則會啟用安全開機支援。<br>此選項並不會開啟安"
+"全開機。它只是將開機載入程式設定為支援安全開機。您仍需要在 UEFI 韌體中啟用 "
+"\"安全開機\"。</p> "
+
+#. text is identical like one in proposal client. Keep in sync!
+#. TRANSLATORS: IPL stands for Initial Program Load, IBM speak for system boot
+#. text is identical like one in grub2_widgets. Keep in sync!
+#. TRANSLATORS: IPL stands for Initial Program Load, IBM speak for system boot
+#: src/lib/bootloader/generic_widgets.rb:193
+#: src/lib/bootloader/proposal_client.rb:386
+msgid ""
+"Secure boot IPL has the following minimum system requirements,\n"
+"depending on the boot device to be IPLed:\n"
+"NVMe disk: IBM LinuxONE III or newer.\n"
+"FC-attached SCSI disk: IBM LinuxONE III, IBM z15 or newer.\n"
+"ECKD DASD with CDL layout: IBM z16, LinuxONE 4 or newer.\n"
+"If these requirements are not met, the system can be IPLed in non-secure "
+"mode only."
+msgstr ""
+"安全開機 IPL 具有以下最低系統版本要求，\n"
+"具體視要進行 IPL 的開機裝置而定：\n"
+"NVMe 磁碟：IBM LinuxONE III 或更新型號。\n"
+"透過 FC 連接的 SCSI 磁碟：IBM LinuxONE III、IBM z15 或更新型號。\n"
+"使用 CDL 配置的 ECKD DASD：IBM z16、LinuxONE 4 或更新型號。\n"
+"如果不符合這些要求，將只能在非安全模式下對系統進行 IPL。"
+
+#. Represents decision if smt is enabled
+#: src/lib/bootloader/generic_widgets.rb:214
 msgid "CPU Mitigations"
 msgstr "CPU 減緩"
 
-#: src/lib/bootloader/generic_widgets.rb:127
+#: src/lib/bootloader/generic_widgets.rb:224
 msgid ""
 "<p><b>CPU Mitigations</b><br>\n"
 "The option selects which default settings should be used for CPU \n"
@@ -403,11 +492,11 @@ msgstr ""
 "您可以手動設定所有專用於 CPU 緩解策略的選項。</li></ul></p>"
 
 #. Represents Protective MBR action
-#: src/lib/bootloader/generic_widgets.rb:176
+#: src/lib/bootloader/generic_widgets.rb:273
 msgid "&Protective MBR flag"
 msgstr "保護性 MBR 旗標(&P)"
 
-#: src/lib/bootloader/generic_widgets.rb:180
+#: src/lib/bootloader/generic_widgets.rb:277
 msgid ""
 "<p><b>Protective MBR flag</b> is expert only settings, that is needed only "
 "on exotic hardware. For details see Protective MBR in GPT disks. Do not "
@@ -417,12 +506,12 @@ msgstr ""
 "細資料，請參閱 GPT 磁碟中的「保護性 MBR」。若不確定，請勿進行任何變更。</p>"
 
 #. TRANSLATORS: set flag on disk
-#: src/lib/bootloader/generic_widgets.rb:200
+#: src/lib/bootloader/generic_widgets.rb:297
 msgid "set"
 msgstr "設定"
 
 #. TRANSLATORS: remove flag from disk
-#: src/lib/bootloader/generic_widgets.rb:202
+#: src/lib/bootloader/generic_widgets.rb:299
 msgid "remove"
 msgstr "移除"
 
@@ -430,17 +519,17 @@ msgstr "移除"
 #. force re-calculation of bootloader proposal
 #. this deletes any internally cached values, a new proposal will
 #. not be partially based on old data now any more
-#: src/lib/bootloader/generic_widgets.rb:204
+#: src/lib/bootloader/generic_widgets.rb:301
 #: src/lib/bootloader/proposal_client.rb:166
 msgid "do not change"
 msgstr "不變更"
 
 #. represents kernel command line
-#: src/lib/bootloader/generic_widgets.rb:227
+#: src/lib/bootloader/generic_widgets.rb:324
 msgid "O&ptional Kernel Command Line Parameter"
 msgstr "選擇性的核心指令行參數(&P)"
 
-#: src/lib/bootloader/generic_widgets.rb:231
+#: src/lib/bootloader/generic_widgets.rb:328
 msgid ""
 "<p><b>Optional Kernel Command Line Parameter</b> lets you define additional "
 "parameters to pass to the kernel.</p>"
@@ -455,7 +544,7 @@ msgstr "<p><b>選擇性的核心指令行參數</b>可讓您定義其他要傳�
 #. Display bootloader summary
 #. @return a list of summary lines
 #: src/lib/bootloader/grub2.rb:107 src/lib/bootloader/grub2bls.rb:50
-#: src/lib/bootloader/grub2efi.rb:57 src/lib/bootloader/systemdboot.rb:164
+#: src/lib/bootloader/grub2efi.rb:57 src/lib/bootloader/systemdboot.rb:177
 #, ycp-format
 msgid "Boot Loader Type: %1"
 msgstr "開機載入程式類型：%1"
@@ -561,13 +650,7 @@ msgstr ""
 msgid "Boot Code: %s"
 msgstr "開機代碼：%s"
 
-#. Represents bootloader timeout value
 #: src/lib/bootloader/grub2_widgets.rb:64
-#: src/lib/bootloader/systemdboot_widgets.rb:42
-msgid "&Timeout in Seconds"
-msgstr "逾時秒數(&T)"
-
-#: src/lib/bootloader/grub2_widgets.rb:68
 msgid ""
 "<p><b>Timeout in Seconds</b>\n"
 "specifies the time the boot loader will wait until the default kernel is "
@@ -577,11 +660,11 @@ msgstr ""
 "指定在載入預設核心前開機載入程式的等待時間。</p>\n"
 
 #. Represents decision if bootloader need activated partition
-#: src/lib/bootloader/grub2_widgets.rb:104
+#: src/lib/bootloader/grub2_widgets.rb:100
 msgid "Set &active Flag in Partition Table for Boot Partition"
 msgstr "在分割區表中為開機分割區設定使用中旗標(&A)"
 
-#: src/lib/bootloader/grub2_widgets.rb:108
+#: src/lib/bootloader/grub2_widgets.rb:104
 msgid ""
 "<p><b>Set Active Flag in Partition Table for Boot Partition</b>\n"
 "specifies whether the partition containing the boot loader will have the "
@@ -597,11 +680,11 @@ msgstr ""
 "即使開機載入程式是安裝在 MBR 中也是如此。</p>"
 
 #. Represents decision if generic MBR have to be installed on disk
-#: src/lib/bootloader/grub2_widgets.rb:138
+#: src/lib/bootloader/grub2_widgets.rb:134
 msgid "Write &generic Boot Code to MBR"
 msgstr "將一般開機碼寫入 MBR(&G)"
 
-#: src/lib/bootloader/grub2_widgets.rb:142
+#: src/lib/bootloader/grub2_widgets.rb:138
 msgid ""
 "<p><b>Write generic Boot Code to MBR</b> replace the master boot record of "
 "your disk with generic code (OS independent code which\n"
@@ -612,20 +695,20 @@ msgstr ""
 "用於將使用中分割區開機)。</p>"
 
 #. Represents decision if menu should be hidden or visible
-#: src/lib/bootloader/grub2_widgets.rb:169
+#: src/lib/bootloader/grub2_widgets.rb:165
 msgid "&Hide Menu on Boot"
 msgstr "開機時隱藏功能表(&H)"
 
-#: src/lib/bootloader/grub2_widgets.rb:173
+#: src/lib/bootloader/grub2_widgets.rb:169
 msgid "<p>Selecting <b>Hide Menu on Boot</b> will hide the boot menu.</p>"
 msgstr "<p>選取<b>開機時隱藏功能表</b>將隱藏開機功能表。</p>"
 
 #. Represents if os prober should be run
-#: src/lib/bootloader/grub2_widgets.rb:194
+#: src/lib/bootloader/grub2_widgets.rb:190
 msgid "Pro&be Foreign OS"
 msgstr "查探外來作業系統(&B)"
 
-#: src/lib/bootloader/grub2_widgets.rb:198
+#: src/lib/bootloader/grub2_widgets.rb:194
 msgid ""
 "<p><b>Probe Foreign OS</b> by means of os-prober for multiboot with other "
 "foreign distribution </p>"
@@ -633,68 +716,12 @@ msgstr ""
 "<p><b>偵測外來作業系統</b>藉由 os-prober 與其他外來套裝作業系統進行多重開機</"
 "p>"
 
-#. Represents switcher for secure boot on EFI
-#. Represents switcher for secure boot on EFI
-#: src/lib/bootloader/grub2_widgets.rb:224
-#: src/lib/bootloader/systemdboot_widgets.rb:88
-msgid "&Secure Boot Support"
-msgstr "安全開機支援(&S)"
-
-#: src/lib/bootloader/grub2_widgets.rb:229
-msgid ""
-"<p><b>Secure Boot Support</b> if checked enables Secure Boot support."
-"<br>This does not turn on secure booting. It only switches to the new secure-"
-"boot enabled boot data format. Note that this new format works only on z15 "
-"or later and only for some disk types. For more details see the requirements "
-"at  https://www.ibm.com/docs/en/linux-on-systems?topic=introduction-"
-"requirements</p>"
-msgstr ""
-"<p><b>安全開機支援</b>如果核取此選項，則會啟用安全開機支援。<br>此選項並不會"
-"開啟安全開機。它只是切換到啟用了安全開機的新開機資料格式。請注意，此新格式僅"
-"適用於 z15 或更新的處理器，且只能用於部分磁碟類型。如需瞭解詳細資料，請參閱 "
-"https://www.ibm.com/docs/en/linux-on-systems?topic=introduction-requirements "
-"上的要求</p>"
-
-#: src/lib/bootloader/grub2_widgets.rb:239
-#: src/lib/bootloader/systemdboot_widgets.rb:92
-msgid ""
-"<p><b>Secure Boot Support</b> if checked enables Secure Boot support."
-"<br>This does not turn on secure booting. It only sets up the boot loader in "
-"a way that supports secure booting. You still have to enable Secure Boot in "
-"the UEFI Firmware.</p> "
-msgstr ""
-"<p><b>安全開機支援</b>如果核取，則會啟用安全開機支援。<br>此選項並不會開啟安"
-"全開機。它只是將開機載入程式設定為支援安全開機。您仍需要在 UEFI 韌體中啟用 "
-"\"安全開機\"。</p> "
-
-#. text is identical like one in proposal client. Keep in sync!
-#. TRANSLATORS: IPL stands for Initial Program Load, IBM speak for system boot
-#. text is identical like one in grub2_widgets. Keep in sync!
-#. TRANSLATORS: IPL stands for Initial Program Load, IBM speak for system boot
-#: src/lib/bootloader/grub2_widgets.rb:265
-#: src/lib/bootloader/proposal_client.rb:386
-msgid ""
-"Secure boot IPL has the following minimum system requirements,\n"
-"depending on the boot device to be IPLed:\n"
-"NVMe disk: IBM LinuxONE III or newer.\n"
-"FC-attached SCSI disk: IBM LinuxONE III, IBM z15 or newer.\n"
-"ECKD DASD with CDL layout: IBM z16, LinuxONE 4 or newer.\n"
-"If these requirements are not met, the system can be IPLed in non-secure "
-"mode only."
-msgstr ""
-"安全開機 IPL 具有以下最低系統版本要求，\n"
-"具體視要進行 IPL 的開機裝置而定：\n"
-"NVMe 磁碟：IBM LinuxONE III 或更新型號。\n"
-"透過 FC 連接的 SCSI 磁碟：IBM LinuxONE III、IBM z15 或更新型號。\n"
-"使用 CDL 配置的 ECKD DASD：IBM z16、LinuxONE 4 或更新型號。\n"
-"如果不符合這些要求，將只能在非安全模式下對系統進行 IPL。"
-
 #. Represents switcher for Trusted Boot
-#: src/lib/bootloader/grub2_widgets.rb:288
+#: src/lib/bootloader/grub2_widgets.rb:220
 msgid "&Trusted Boot Support"
 msgstr "可信開機支援(&T)"
 
-#: src/lib/bootloader/grub2_widgets.rb:292
+#: src/lib/bootloader/grub2_widgets.rb:224
 msgid ""
 "<p><b>Trusted Boot</b> means measuring the integrity of the boot process,\n"
 "with the help from the hardware (a TPM, Trusted Platform Module,\n"
@@ -704,7 +731,7 @@ msgstr ""
 "模組 (TPM) 晶片) 測量開機程序的\n"
 "完整性。\n"
 
-#: src/lib/bootloader/grub2_widgets.rb:297
+#: src/lib/bootloader/grub2_widgets.rb:229
 msgid ""
 "First you need to make sure Trusted Boot is enabled in the BIOS\n"
 "setup (the setting may be named \"Security Chip\", for example).\n"
@@ -715,7 +742,7 @@ msgstr ""
 #. check for file size does not work, since FS reports it 4096
 #. even if the file is in fact empty and a single byte cannot
 #. be read, therefore testing real reading (details: bsc#994556)
-#: src/lib/bootloader/grub2_widgets.rb:326
+#: src/lib/bootloader/grub2_widgets.rb:258
 msgid ""
 "Trusted Platform Module not found.\n"
 "Make sure it is enabled in BIOS.\n"
@@ -726,11 +753,11 @@ msgstr ""
 "否則，系統將不會開機。"
 
 #. Represents switcher for NVRAM update
-#: src/lib/bootloader/grub2_widgets.rb:343
+#: src/lib/bootloader/grub2_widgets.rb:275
 msgid "Update &NVRAM Entry"
 msgstr "更新 NVRAM 項目(&N)"
 
-#: src/lib/bootloader/grub2_widgets.rb:347
+#: src/lib/bootloader/grub2_widgets.rb:279
 msgid ""
 "<p><b>Update NVRAM Entry</b> will add nvram entry for the bootloader\n"
 "in the firmware.\n"
@@ -743,30 +770,30 @@ msgstr ""
 "否則通常需要選取此項。</p>\n"
 
 #. Represents grub password protection widget
-#: src/lib/bootloader/grub2_widgets.rb:378
+#: src/lib/bootloader/grub2_widgets.rb:310
 msgid "Prot&ect Boot Loader with Password"
 msgstr "使用密碼保護開機載入程式(&E)"
 
 #. TRANSLATORS: checkbox entry
-#: src/lib/bootloader/grub2_widgets.rb:384
+#: src/lib/bootloader/grub2_widgets.rb:316
 msgid "P&rotect Entry Modification Only"
 msgstr "僅啟用項目修改防護(&R)"
 
 #. TRANSLATORS: text entry, please keep it short
-#: src/lib/bootloader/grub2_widgets.rb:390
+#: src/lib/bootloader/grub2_widgets.rb:322
 msgid "&Password for GRUB2 User 'root'"
 msgstr "GRUB2 使用者 root 的密碼(&P)"
 
 #. text entry
-#: src/lib/bootloader/grub2_widgets.rb:393
+#: src/lib/bootloader/grub2_widgets.rb:325
 msgid "Re&type Password"
 msgstr "再次輸入密碼(&T)"
 
-#: src/lib/bootloader/grub2_widgets.rb:405
+#: src/lib/bootloader/grub2_widgets.rb:337
 msgid "The password must not be empty."
 msgstr "密碼不可為空白。"
 
-#: src/lib/bootloader/grub2_widgets.rb:413
+#: src/lib/bootloader/grub2_widgets.rb:345
 msgid ""
 "'Password' and 'Retype password'\n"
 "do not match. Retype the password."
@@ -775,7 +802,7 @@ msgstr ""
 "不相符。請重新輸入密碼。"
 
 #. special value as we do not know password, so it mean user do not change it
-#: src/lib/bootloader/grub2_widgets.rb:466
+#: src/lib/bootloader/grub2_widgets.rb:398
 msgid ""
 "<p><b>Protect Boot Loader with Password</b>\n"
 "at boot time, modifying or even booting any entry will require the password. "
@@ -798,7 +825,7 @@ msgstr ""
 "檔。</p>"
 
 #. Translators: do not translate the quoted parts like "unit"
-#: src/lib/bootloader/grub2_widgets.rb:508
+#: src/lib/bootloader/grub2_widgets.rb:440
 #, c-format
 msgid ""
 "<p><b>Graphical console</b> when checked it allows to use various display "
@@ -818,12 +845,12 @@ msgstr ""
 "其他均為選擇性部分，如果未設定，將會使用預設值。指令中的 <tt>NUM</tt> 代表一"
 "個正數，例如 8。範例參數為 <tt>serial --speed=38400 --unit=0</tt>。</p>"
 
-#: src/lib/bootloader/grub2_widgets.rb:536
+#: src/lib/bootloader/grub2_widgets.rb:468
 msgid "To enable serial console you must provide the corresponding arguments."
 msgstr "若要啟用序列主控台，則必須提供相應的引數。"
 
 #. Translators: do not translate "unit"
-#: src/lib/bootloader/grub2_widgets.rb:543
+#: src/lib/bootloader/grub2_widgets.rb:475
 #, c-format
 msgid ""
 "To enable the serial console you must provide the corresponding arguments.\n"
@@ -834,7 +861,7 @@ msgstr ""
 "需要指定「unit」引數，完整的語法為：\n"
 "%s"
 
-#: src/lib/bootloader/grub2_widgets.rb:584
+#: src/lib/bootloader/grub2_widgets.rb:516
 msgid "Choose new graphical theme file"
 msgstr "選擇新的圖形化主題檔案"
 
@@ -842,59 +869,44 @@ msgstr "選擇新的圖形化主題檔案"
 #. to be substituted in a command like
 #. "serial --unit=NUM --speed=NUM --parity={odd|even|no} --word=NUM --stop=NUM"
 #. so do not use punctuation
-#: src/lib/bootloader/grub2_widgets.rb:620
+#: src/lib/bootloader/grub2_widgets.rb:552
 msgid "NUM"
 msgstr "NUM"
 
-#: src/lib/bootloader/grub2_widgets.rb:627
+#: src/lib/bootloader/grub2_widgets.rb:559
 msgid "&Graphical console"
 msgstr "圖形主控台(&G)"
 
-#: src/lib/bootloader/grub2_widgets.rb:632
+#: src/lib/bootloader/grub2_widgets.rb:564
 msgid "&Console resolution"
 msgstr "主控台解析度(&C)"
 
-#: src/lib/bootloader/grub2_widgets.rb:637
+#: src/lib/bootloader/grub2_widgets.rb:569
 msgid "&Console theme"
 msgstr "主控台主題(&C)"
 
-#: src/lib/bootloader/grub2_widgets.rb:668
+#: src/lib/bootloader/grub2_widgets.rb:600
 msgid "Autodetect by grub2"
 msgstr "由 grub2 自動偵測"
 
-#: src/lib/bootloader/grub2_widgets.rb:676
+#: src/lib/bootloader/grub2_widgets.rb:608
 msgid "&Serial console"
 msgstr "序列主控台(&S)"
 
-#: src/lib/bootloader/grub2_widgets.rb:683
+#: src/lib/bootloader/grub2_widgets.rb:615
 msgid "&Console arguments"
 msgstr "主控台引數(&C)"
 
-#. represent choosing default section to boot
-#: src/lib/bootloader/grub2_widgets.rb:702
-msgid "&Default Boot Section"
-msgstr "預設開機區段(&D)"
-
-#: src/lib/bootloader/grub2_widgets.rb:706
-msgid ""
-"<p><b>Default Boot Section</b> selects the default section for booting.\n"
-" If sections are not generated yet ( e.g. during installation) \n"
-"then the box is empty and the default is picked by grub2 itself.</p>\n"
-msgstr ""
-"<p><b>預設開機區段</b>會選取預設要開機的區段。\n"
-"如果尚未產生區段 (例如，安裝期間) \n"
-"則方塊將為空白，預設值將由 grub2 自己選取。</p>\n"
-
 #. Represents stage1 location for bootloader
-#: src/lib/bootloader/grub2_widgets.rb:737
+#: src/lib/bootloader/grub2_widgets.rb:632
 msgid "Boot Code Location"
 msgstr "開機代碼位置"
 
-#: src/lib/bootloader/grub2_widgets.rb:791
+#: src/lib/bootloader/grub2_widgets.rb:686
 msgid "Custom boot device has to be specified if checked"
 msgstr "如果核取，則必須指定自訂開機裝置"
 
-#: src/lib/bootloader/grub2_widgets.rb:800
+#: src/lib/bootloader/grub2_widgets.rb:695
 #, c-format
 msgid ""
 "These custom devices can be invalid: %s.Please check if exist and spelled "
@@ -903,39 +915,39 @@ msgstr ""
 "以下自訂裝置可能無效：%s。請檢查它們是否存在以及拼字是否正確。要繼續嗎？"
 
 #. TRANSLATORS: %s is used to specify exact devices
-#: src/lib/bootloader/grub2_widgets.rb:876
+#: src/lib/bootloader/grub2_widgets.rb:771
 #, c-format
 msgid "Wri&te to Partition (%s)"
 msgstr "寫入分割區 (%s)(&T)"
 
 #. TRANSLATORS: %s is used to specify exact devices
-#: src/lib/bootloader/grub2_widgets.rb:879
+#: src/lib/bootloader/grub2_widgets.rb:774
 #, c-format
 msgid "Wri&te to Logical Partition (%s)"
 msgstr "寫入邏輯分割區 (%s)(&T)"
 
 #. TRANSLATORS: %s is used to specify exact devices
-#: src/lib/bootloader/grub2_widgets.rb:882
+#: src/lib/bootloader/grub2_widgets.rb:777
 #, c-format
 msgid "Write to &Extended Partition (%s)"
 msgstr "寫入延伸分割區 (%s)(&E)"
 
 #. TRANSLATORS: %s is used to specify exact devices
-#: src/lib/bootloader/grub2_widgets.rb:886
+#: src/lib/bootloader/grub2_widgets.rb:781
 #, c-format
 msgid "Write to &Master Boot Record (%s)"
 msgstr "寫入主開機記錄 (%s)(&M)"
 
-#: src/lib/bootloader/grub2_widgets.rb:897
+#: src/lib/bootloader/grub2_widgets.rb:792
 msgid "C&ustom Boot Partition"
 msgstr "自訂開機分割區(&U)"
 
 #. Represents button that open Device Map edit dialog
-#: src/lib/bootloader/grub2_widgets.rb:910
+#: src/lib/bootloader/grub2_widgets.rb:805
 msgid "&Edit Disk Boot Order"
 msgstr "編輯磁碟開機順序(&E)"
 
-#: src/lib/bootloader/grub2_widgets.rb:916
+#: src/lib/bootloader/grub2_widgets.rb:811
 msgid ""
 "<p><b>Edit Disk Boot Order</b>\n"
 "allows to specify the order of the disks according to the order in BIOS. "
@@ -952,15 +964,15 @@ msgstr ""
 
 #. represents Tab with kernel related configuration
 #. represents Tab with kernel related configuration
-#: src/lib/bootloader/grub2_widgets.rb:939
-#: src/lib/bootloader/systemdboot_widgets.rb:114
+#: src/lib/bootloader/grub2_widgets.rb:834
+#: src/lib/bootloader/systemdboot_widgets.rb:26
 msgid "&Kernel Parameters"
 msgstr "核心參數(&K)"
 
 #. Represent tab with options related to stage1 location and bootloader type
 #. Represent tab with options related to stage1 location and bootloader type
-#: src/lib/bootloader/grub2_widgets.rb:970
-#: src/lib/bootloader/systemdboot_widgets.rb:134
+#: src/lib/bootloader/grub2_widgets.rb:865
+#: src/lib/bootloader/systemdboot_widgets.rb:46
 msgid "Boot Co&de Options"
 msgstr "開機碼選項(&D)"
 
@@ -968,8 +980,8 @@ msgstr "開機碼選項(&D)"
 #. default section or password protection
 #. Represents bootloader specific options like its timeout,
 #. default section or password protection
-#: src/lib/bootloader/grub2_widgets.rb:1062
-#: src/lib/bootloader/systemdboot_widgets.rb:191
+#: src/lib/bootloader/grub2_widgets.rb:957
+#: src/lib/bootloader/systemdboot_widgets.rb:99
 msgid "Boot&loader Options"
 msgstr "開機載入程式選項(&L)"
 
@@ -1078,21 +1090,6 @@ msgid ""
 msgstr ""
 "<P><BIG><B>開機載入程式組態工具</B></BIG><BR>\n"
 "正在讀取目前組態...</P>"
-
-#. Represents bootloader timeout value
-#: src/lib/bootloader/systemdboot_widgets.rb:39
-msgid "Automatically boot the default entry after a timeout"
-msgstr "逾時後自動將預設項目開機"
-
-#: src/lib/bootloader/systemdboot_widgets.rb:50
-msgid ""
-"<p>Continue boot process after defined seconds.</p><p><b>Timeout in Seconds</"
-"b>\n"
-"specifies the time the boot loader will wait until the default kernel is "
-"loaded.</p>\n"
-msgstr ""
-"<p>經過指定秒數後繼續開機程序。</p><p><b>逾時秒數</b>\n"
-"指定在載入預設核心前開機載入程式等待的時間。</p>\n"
 
 #. TRANSLATORS: error message, %s stands for problematic device.
 #: src/lib/bootloader/udev_mapping.rb:73
