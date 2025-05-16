@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: storage-ng.ko\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-12 02:29+0000\n"
+"POT-Creation-Date: 2025-05-16 02:30+0000\n"
 "PO-Revision-Date: 2019-03-21 11:20+0000\n"
 "Last-Translator: Hwajin Kim <hwajin.kim@e4net.net>\n"
 "Language-Team: Korean <https://l10n.opensuse.org/projects/yast-storage/"
@@ -237,20 +237,20 @@ msgstr "입력한 지역이 잘못되었습니다. 크기를 늘리거나 시작
 #. Title to display in the dialog during the process
 #.
 #. @return [String]
-#: src/lib/y2partitioner/actions/controllers/encryption.rb:200
+#: src/lib/y2partitioner/actions/controllers/encryption.rb:206
 #, fuzzy, c-format
 #| msgid "Encryption password for %s"
 msgid "Encryption for %s"
 msgstr "%s에 대한 암호화 비밀번호"
 
 # Text entry label
-#: src/lib/y2partitioner/actions/controllers/encryption.rb:202
+#: src/lib/y2partitioner/actions/controllers/encryption.rb:208
 #, fuzzy, c-format
 #| msgid "Encryption"
 msgid "Modify encryption of %s"
 msgstr "암호화"
 
-#: src/lib/y2partitioner/actions/controllers/encryption.rb:204
+#: src/lib/y2partitioner/actions/controllers/encryption.rb:210
 #, fuzzy, c-format
 #| msgid "Encrypted: %1"
 msgid "Encrypt %s"
@@ -3132,8 +3132,19 @@ msgid ""
 "if PBKDF2 is used.</p>"
 msgstr ""
 
-#. TRANSLATORS: help text for Random Swap encryption method.
+#. TRANSLATORS: help text for Regular Luks2 encryption method together wit TPM2 support
 #: src/lib/y2partitioner/widgets/encrypt.rb:235
+#, perl-brace-format
+msgid ""
+"<p><b>%{label}</b>: allows to encrypt the device using LUKS2. You have to "
+"provide the encryption password and the password-based key derivation "
+"function (PBKDF) that will be used to protect that passphrase.</"
+"p><p>Additional <b>authentication</b> methods can be used for unlocking the "
+"device:</p>%{auth_list}"
+msgstr ""
+
+#. TRANSLATORS: help text for Random Swap encryption method.
+#: src/lib/y2partitioner/widgets/encrypt.rb:253
 #, perl-brace-format
 msgid ""
 "<p><b>%{label}</b>: this encryption method uses randomly generated keys at "
@@ -3159,7 +3170,7 @@ msgstr ""
 #. TRANSLATORS: help text for encryption method with protected keys for z Systems. See
 #. https://www.ibm.com/support/knowledgecenter/en/linuxonibm/com.ibm.linux.z.lxdc/
 #. lxdc_swapdisks_scenario.html
-#: src/lib/y2partitioner/widgets/encrypt.rb:268
+#: src/lib/y2partitioner/widgets/encrypt.rb:286
 #, perl-brace-format
 msgid ""
 "<p><b>%{label}</b>: this encryption method uses a volatile protected AES key "
@@ -3171,7 +3182,7 @@ msgstr ""
 #. TRANSLATORS: help for encryption method with secure keys for z Systems. See
 #. https://www.ibm.com/support/knowledgecenter/en/linuxonibm/com.ibm.linux.z.lxdc/
 #. lxdc_swapdisks_scenario.html
-#: src/lib/y2partitioner/widgets/encrypt.rb:288
+#: src/lib/y2partitioner/widgets/encrypt.rb:306
 #, perl-brace-format
 msgid ""
 "<p><b>%{label}</b>: this encryption method uses a volatile secure AES key "
@@ -3179,6 +3190,15 @@ msgid ""
 "This is an improvement over %{random_swap_label} method and all "
 "considerations for such method still apply.</p>"
 msgstr ""
+
+#. @macro seeAbstractWidget
+#. TRANSLATORS: label for the widget to set authentication type for encrypted devices.
+#: src/lib/y2partitioner/widgets/encrypt_auth_selector.rb:43
+#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:43
+#, fuzzy
+#| msgid "After Installation"
+msgid "Authentication"
+msgstr "설치 후"
 
 #. @macro seeAbstractWidget
 #: src/lib/y2partitioner/widgets/encrypt_label.rb:43
@@ -3203,7 +3223,7 @@ msgid "Encryption method"
 msgstr "암호화 비밀번호"
 
 #. @macro seeCustomWidget
-#: src/lib/y2partitioner/widgets/encrypt_method_options.rb:115
+#: src/lib/y2partitioner/widgets/encrypt_method_options.rb:118
 msgid ""
 "Be careful: the system cannot hibernate when\n"
 "encrypting swap with randomly generated keys.\n"
@@ -3219,7 +3239,7 @@ msgstr ""
 #. An error is reported to the user when the secure key cannot be generated.
 #.
 #. @return [Boolean]
-#: src/lib/y2partitioner/widgets/encrypt_method_options.rb:391
+#: src/lib/y2partitioner/widgets/encrypt_method_options.rb:410
 #, fuzzy
 #| msgid "This device cannot be resized:"
 msgid "The secure key cannot be generated."
@@ -5347,11 +5367,13 @@ msgstr "캐시 세트(%s)"
 #. @return [Array<SetupError>]
 #: src/lib/y2storage/boot_requirements_strategies/base.rb:89
 msgid ""
-"The boot loader cannot access the file system mounted at /boot. Only LUKS1 "
-"encryption is supported."
+"The grub boot loader cannot access the file system mounted at /boot. Only "
+"LUKS1 and LUKS2 with PBKDF2 encryption is supported. Another boot loader can "
+"be selected in the boot loader section, for example systemd_boot or "
+"grub2_bls."
 msgstr ""
 
-#: src/lib/y2storage/boot_requirements_strategies/base.rb:98
+#: src/lib/y2storage/boot_requirements_strategies/base.rb:99
 #, fuzzy
 #| msgid ""
 #| "The device mounted at '/boot' does not have enough space to contain a "
@@ -5360,7 +5382,7 @@ msgid ""
 "The device mounted at '/boot' should not be in a thinly provisioned LVM VG."
 msgstr "'/boot'에 마운트된 장치는 커널을 포함할 충분한 공간이 없습니다."
 
-#: src/lib/y2storage/boot_requirements_strategies/base.rb:104
+#: src/lib/y2storage/boot_requirements_strategies/base.rb:105
 #, fuzzy
 #| msgid ""
 #| "The device mounted at '/boot' does not have enough space to contain a "
@@ -5379,17 +5401,17 @@ msgstr "'/boot'에 마운트된 장치는 커널을 포함할 충분한 공간�
 #. @see SetupError
 #.
 #. @return [Array<SetupError>]
-#: src/lib/y2storage/boot_requirements_strategies/base.rb:126
+#: src/lib/y2storage/boot_requirements_strategies/base.rb:127
 msgid "There is no device mounted at '/'"
 msgstr "'/'에 마운트된 장치가 없습니다."
 
-#: src/lib/y2storage/boot_requirements_strategies/base.rb:132
+#: src/lib/y2storage/boot_requirements_strategies/base.rb:133
 msgid ""
 "The device mounted at '/boot' does not have enough space to contain a kernel."
 msgstr "'/boot'에 마운트된 장치는 커널을 포함할 충분한 공간이 없습니다."
 
 #. TRANSLATORS: error message
-#: src/lib/y2storage/boot_requirements_strategies/base.rb:218
+#: src/lib/y2storage/boot_requirements_strategies/base.rb:219
 msgid ""
 "Boot requirements cannot be determined because there is no '/' mount point"
 msgstr "'/' 마운트 포인트가 없으므로 부팅 요구사항을 확인할 수 없습니다."
@@ -5739,7 +5761,7 @@ msgstr ""
 
 # Input field + caption for "Mount Point"
 #. TRANSLATORS: %s is the path of a system mount like "/dev", "/proc", "/sys"
-#: src/lib/y2storage/clients/inst_prepdisk.rb:103
+#: src/lib/y2storage/clients/inst_prepdisk.rb:107
 #, fuzzy, c-format
 #| msgid "Mount Point: %s"
 msgid "Could not mount %s"
@@ -6195,40 +6217,40 @@ msgstr "파티션 삭제..."
 
 # Text entry label
 #. TRANSLATORS: label for the widget that allows to enable the disk encryption
-#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:35
+#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:39
 msgid "Enable Disk Encryption"
 msgstr "디스크 암호화 사용"
 
 #. TRANSLATORS: label for the widget that allows to use separated volume groups
-#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:37
+#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:41
 msgid "Use Separate LVM Volume Groups for Some Special Paths"
 msgstr ""
 
 #. @return [EncryptPasswordChecker]
-#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:75
+#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:84
 msgid "Partitioning Scheme"
 msgstr "스키마 파티션"
 
-#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:91
+#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:100
 #, fuzzy
 #| msgid "Enable Logical Volume Management (LVM)"
 msgid "Enable Logical Volume Management (LVM) for the Base System"
 msgstr "LVM(논리 볼륨 관리) 사용"
 
-#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:93
+#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:102
 msgid "Enable Logical Volume Management (LVM)"
 msgstr "LVM(논리 볼륨 관리) 사용"
 
-#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:129
+#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:153
 msgid "Password"
 msgstr "비밀번호"
 
-#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:135
+#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:159
 msgid "Verify Password"
 msgstr "비밀번호 확인"
 
 #. TRANSLATORS: Help text for the partitioning scheme (LVM / encryption)
-#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:170
+#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:206
 #, fuzzy, perl-brace-format
 #| msgid ""
 #| "<p>Select the partitioning scheme:</p><p><ul><li>Plain partitions (no "
@@ -6257,10 +6279,10 @@ msgid ""
 "(Btrfs, Ext2/3/4, XFS) on.</p><p>In this <i>Guided Setup</i>, all this is "
 "done for you for the standard filesystem layout if you check <b>Enable LVM</"
 "b>.</li></ul></p><p><b>%{disk_encryption_label}</b> (with or without LVM) "
-"adds a LUKS  disk encryption layer to the partitioning setup. Notice that "
-"you will have to enter the correct password each time you boot the system. </"
-"p><p><i>If you lose the password, there is no way to recover it, so make "
-"sure not to lose it!</i></p>"
+"adds a %{encrption_method}  disk encryption layer to the partitioning setup. "
+"Notice that you will have to enter the correct password each time you boot "
+"the system. </p><p><i>If you lose the password, there is no way to recover "
+"it, so make sure not to lose it!</i></p>"
 msgstr ""
 "<p>파티셔닝 스키마 선택:</p><p><ul><li>일반 파티션(LVM 없음), 간단한 기존 방"
 "법</li><li>LVM(논리적 볼륨 관리): <p>디스크 공간을 관리하는 보다 유연한 방법"
@@ -6276,7 +6298,15 @@ msgstr ""
 "시오!</i></p>"
 
 #. TRANSLATORS: %{widget_label} refers to the label of the described widget
-#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:210
+#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:246
+#, perl-brace-format
+msgid ""
+"<p><b>%{widget_label}:</b> Which method will be used for unlocking the "
+"devices:</p>%{auth_list}"
+msgstr ""
+
+#. TRANSLATORS: %{widget_label} refers to the label of the described widget
+#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:254
 #, perl-brace-format
 msgid ""
 "<p><b>%{widget_label}:</b> indicates to the <i>Guided Setup</i> that you "
@@ -6285,7 +6315,7 @@ msgstr ""
 
 # / yes-no popup contents
 #. User has the last word to decide whether to use a weak password.
-#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:243
+#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:286
 msgid "Really use this password?"
 msgstr "이 비밀번호를 사용하시겠습니까?"
 
@@ -6652,7 +6682,7 @@ msgstr "\"가이드 설정\" 또는 \"고급 파티션 도구\"를 사용하십�
 
 #. TRANSLATORS: %s is a linux device name (eg. /dev/sda) (singular),
 #. or a list of comma-separated device names (eg. "/dev/sda, /dev/sdb") (plural)
-#: src/lib/y2storage/dialogs/proposal.rb:153
+#: src/lib/y2storage/dialogs/proposal.rb:154
 #, fuzzy, c-format
 #| msgid "<p>This view shows all Btrfs volumes.</p>"
 msgid "<p>The device %s is a Dell BOSS drive.</p>"
@@ -6660,23 +6690,23 @@ msgid_plural "<p>The following devices are Dell BOSS drives: %s.</p>"
 msgstr[0] "<p>이 보기는 모든 BTRFS 볼륨을 표시합니다.</p>"
 
 #. @see #actions_html
-#: src/lib/y2storage/dialogs/proposal.rb:170
+#: src/lib/y2storage/dialogs/proposal.rb:171
 msgid "Initial layout proposed after adjusting the Guided Setup settings:"
 msgstr "안내에 따른 설정을 조정한 후 제안된 초기 레이아웃:"
 
 #. @see #actions_source_html
-#: src/lib/y2storage/dialogs/proposal.rb:176
+#: src/lib/y2storage/dialogs/proposal.rb:177
 msgid "Layout configured manually using the Expert Partitioner."
 msgstr "고급 파티션 도구를 사용하여 수동으로 구성된 레이아웃."
 
 #. @see #actions_source_html
-#: src/lib/y2storage/dialogs/proposal.rb:181
+#: src/lib/y2storage/dialogs/proposal.rb:182
 msgid ""
 "Layout proposed by the Guided Setup with the settings provided by the user."
 msgstr "사용자가 제공한 설정을 사용하여 안내에 따른 설정에서 제안한 레이아웃."
 
 #. @see #actions_source_html
-#: src/lib/y2storage/dialogs/proposal.rb:186
+#: src/lib/y2storage/dialogs/proposal.rb:187
 msgid "Initial layout proposed with the default Guided Setup settings."
 msgstr "기본 안내 설치 설정으로 제안된 초기 레이아웃입니다."
 
@@ -6686,7 +6716,7 @@ msgstr "기본 안내 설치 설정으로 제안된 초기 레이아웃입니다
 #. @see #summary
 #.
 #. @return [String] HTML-formatted text
-#: src/lib/y2storage/dialogs/proposal.rb:207
+#: src/lib/y2storage/dialogs/proposal.rb:208
 msgid ""
 "Please, use \"Guided Setup\" to adjust the proposal settings or \"Expert "
 "Partitioner\" to create a custom layout."
@@ -6696,14 +6726,14 @@ msgstr ""
 
 #. Just in case the initial proposal is configured to never adjust any
 #. setting automatically
-#: src/lib/y2storage/dialogs/proposal.rb:221
+#: src/lib/y2storage/dialogs/proposal.rb:222
 msgid ""
 "It was not possible to propose an initial partitioning layout based on the "
 "default Guided Setup settings."
 msgstr ""
 "안내에 따른 기본 설정을 기반으로 초기 파티셔닝 레이아웃을 제안할 수 없습니다."
 
-#: src/lib/y2storage/dialogs/proposal.rb:228
+#: src/lib/y2storage/dialogs/proposal.rb:229
 msgid ""
 "It was not possible to propose an initial partitioning layout even after "
 "adjusting the Guided Setup settings:"
@@ -6711,7 +6741,7 @@ msgstr ""
 "가이드 설치 설정을 조정한 후에도 초기 파티셔닝 레이아웃을 제안할 수 없었습니"
 "다."
 
-#: src/lib/y2storage/dialogs/proposal.rb:236
+#: src/lib/y2storage/dialogs/proposal.rb:237
 msgid ""
 "The Guided Setup was not able to propose a layout using the provided "
 "settings."
@@ -6719,7 +6749,7 @@ msgstr ""
 "안내에 따른 설정에서 제공된 설정을 사용하여 레이아웃을 제안할 수 없습니다."
 
 #  Title for dialogue
-#: src/lib/y2storage/dialogs/proposal.rb:245
+#: src/lib/y2storage/dialogs/proposal.rb:246
 msgid "Suggested Partitioning"
 msgstr "추천하는 파티션 구성"
 
@@ -6729,7 +6759,7 @@ msgstr "추천하는 파티션 구성"
 #. @note This button might not be shown (see {#excluded_buttons}).
 #.
 #. @return [Yast::UI::Term]
-#: src/lib/y2storage/dialogs/proposal.rb:256
+#: src/lib/y2storage/dialogs/proposal.rb:257
 msgid "&Guided Setup"
 msgstr "안내된 설치(&G)"
 
@@ -6738,19 +6768,19 @@ msgstr "안내된 설치(&G)"
 #. @note This button might not be shown (see {#excluded_buttons}).
 #.
 #. @return [Yast::UI::Term]
-#: src/lib/y2storage/dialogs/proposal.rb:268
+#: src/lib/y2storage/dialogs/proposal.rb:269
 msgid "Start with &Current Proposal"
 msgstr "현재 제안으로 시작(&C)"
 
-#: src/lib/y2storage/dialogs/proposal.rb:272
+#: src/lib/y2storage/dialogs/proposal.rb:273
 msgid "Start with Existing &Partitions"
 msgstr "기존 파티션으로 시작(&P)"
 
-#: src/lib/y2storage/dialogs/proposal.rb:277
+#: src/lib/y2storage/dialogs/proposal.rb:278
 msgid "&Expert Partitioner"
 msgstr "고급 파티션 도구(&E)"
 
-#: src/lib/y2storage/dialogs/proposal.rb:292
+#: src/lib/y2storage/dialogs/proposal.rb:293
 msgid ""
 "<p>\n"
 "Your hard disks have been checked. The partition setup\n"
@@ -6760,13 +6790,23 @@ msgstr ""
 "하드 디스크 검사를 완료했습니다. 표시된 파티션 설정이\n"
 " 하드 드라이브에 대해 제안되었습니다.</p>"
 
+#. Shortcut for Yast::HTML.List
+#: src/lib/y2storage/dialogs/proposal.rb:318
+#, c-format
+msgid "using %s for %s"
+msgstr ""
+
+#: src/lib/y2storage/dialogs/proposal.rb:324
+msgid "Authentication for encrypted devices:"
+msgstr ""
+
 #. TODO: the code capturing the exception and displaying the error pop-up
 #. should not be directly in this dialog. It should be in some common
 #. place ensuring we also catch the exception in other places where we
 #. calculate/display the actiongraph (like the Expert Partitioner).
 #. That should be part of a bigger effort in reporting invalid devicegraphs.
 #. See https://trello.com/c/iMoOGVxg/
-#: src/lib/y2storage/dialogs/proposal.rb:328
+#: src/lib/y2storage/dialogs/proposal.rb:342
 msgid ""
 "An error was found in one of the devices in the system.\n"
 "The information displayed may not be accurate and the\n"
@@ -6779,7 +6819,7 @@ msgstr ""
 #. Hint to use when there are details
 #.
 #. @return [String]
-#: src/lib/y2storage/dialogs/proposal.rb:333
+#: src/lib/y2storage/dialogs/proposal.rb:347
 #: src/lib/y2storage/issues_reporter.rb:195
 msgid "Click below to see more details (English only)."
 msgstr "자세한 내용을 보려면 아래를 클릭하십시오(영어만)."
@@ -6813,6 +6853,41 @@ msgid ""
 msgstr ""
 "비밀번호에는 다음 문자만 사용할 수 있습니다.\n"
 "0..9, a..z, A..Z 및 \"@#* ,.;:._-+=!$%&/|?{[()]}^\\<>\""
+
+#. Instance of the function to be always returned by the class
+#. TRANSLATORS: authentication type for encrypted devices.
+#: src/lib/y2storage/encryption_authentication.rb:47
+#, fuzzy
+#| msgid "Password"
+msgid "Only Password"
+msgstr "비밀번호"
+
+#. TRANSLATORS: authentication type for encrypted devices.
+#: src/lib/y2storage/encryption_authentication.rb:49
+msgid "TPM2"
+msgstr ""
+
+#. TRANSLATORS: authentication type for encrypted devices.
+#: src/lib/y2storage/encryption_authentication.rb:51
+msgid "TPM2 and PIN"
+msgstr ""
+
+#. TRANSLATORS: authenticationtype for encrypted devices.
+#: src/lib/y2storage/encryption_authentication.rb:53
+msgid "FIDO2"
+msgstr ""
+
+#. Help text with a list of all supported authentications.
+#.
+#. @return [String] help text
+#: src/lib/y2storage/encryption_authentication.rb:80
+#, perl-brace-format
+msgid ""
+"<ul><li><i>%{only_password}: </i>Password is required.</li><li><i>%{tpm2}: </"
+"i>A crypto-device that is already present in your system.</li><li><i>"
+"%{tpm2_and_pin}: </i>Like TPM2, but a password must be enter together.</"
+"li><li><i>%{fido2}: </i>External key device.</li></ul>"
+msgstr ""
 
 #. The encryption method that allows to create and identify an encrypted
 #. device using LUKS1
@@ -6849,6 +6924,18 @@ msgstr ""
 #: src/lib/y2storage/encryption_method/secure_swap.rb:38
 msgid "Encryption with Volatile Secure Key"
 msgstr ""
+
+# Text entry label
+#. Encryption method that allows to encrypt a device using LUKS2 and configure the unlocking
+#. process via the system TPM or FIDO2 using the sdbootutil created by SUSE.
+#.
+#. Check the documentation of sdbootutil for further information.
+#. https://github.com/openSUSE/sdbootutil
+#: src/lib/y2storage/encryption_method/systemd_fde.rb:43
+#, fuzzy
+#| msgid "Enable Disk Encryption"
+msgid "Systemd-Based Full Disk Encryption"
+msgstr "디스크 암호화 사용"
 
 # Text entry label
 #. Encryption method that allows to encrypt a device using LUKS2 and configure the unlocking
@@ -8344,9 +8431,6 @@ msgstr "자세한 내용을 보려면 아래를 클릭하십시오(영어만)."
 
 #~ msgid "Now"
 #~ msgstr "현재"
-
-#~ msgid "After Installation"
-#~ msgstr "설치 후"
 
 #~ msgid ""
 #~ "\n"

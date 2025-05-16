@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: YaST (@memory@)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-12 02:29+0000\n"
+"POT-Creation-Date: 2025-05-16 02:30+0000\n"
 "PO-Revision-Date: 2002-10-08 13:38+0200\n"
 "Last-Translator: i18n@suse.de\n"
 "Language-Team: Indonesian <i18n@suse.de>\n"
@@ -192,17 +192,17 @@ msgstr ""
 #. Title to display in the dialog during the process
 #.
 #. @return [String]
-#: src/lib/y2partitioner/actions/controllers/encryption.rb:200
+#: src/lib/y2partitioner/actions/controllers/encryption.rb:206
 #, c-format
 msgid "Encryption for %s"
 msgstr ""
 
-#: src/lib/y2partitioner/actions/controllers/encryption.rb:202
+#: src/lib/y2partitioner/actions/controllers/encryption.rb:208
 #, c-format
 msgid "Modify encryption of %s"
 msgstr ""
 
-#: src/lib/y2partitioner/actions/controllers/encryption.rb:204
+#: src/lib/y2partitioner/actions/controllers/encryption.rb:210
 #, c-format
 msgid "Encrypt %s"
 msgstr ""
@@ -2654,8 +2654,19 @@ msgid ""
 "if PBKDF2 is used.</p>"
 msgstr ""
 
-#. TRANSLATORS: help text for Random Swap encryption method.
+#. TRANSLATORS: help text for Regular Luks2 encryption method together wit TPM2 support
 #: src/lib/y2partitioner/widgets/encrypt.rb:235
+#, perl-brace-format
+msgid ""
+"<p><b>%{label}</b>: allows to encrypt the device using LUKS2. You have to "
+"provide the encryption password and the password-based key derivation "
+"function (PBKDF) that will be used to protect that passphrase.</"
+"p><p>Additional <b>authentication</b> methods can be used for unlocking the "
+"device:</p>%{auth_list}"
+msgstr ""
+
+#. TRANSLATORS: help text for Random Swap encryption method.
+#: src/lib/y2partitioner/widgets/encrypt.rb:253
 #, perl-brace-format
 msgid ""
 "<p><b>%{label}</b>: this encryption method uses randomly generated keys at "
@@ -2681,7 +2692,7 @@ msgstr ""
 #. TRANSLATORS: help text for encryption method with protected keys for z Systems. See
 #. https://www.ibm.com/support/knowledgecenter/en/linuxonibm/com.ibm.linux.z.lxdc/
 #. lxdc_swapdisks_scenario.html
-#: src/lib/y2partitioner/widgets/encrypt.rb:268
+#: src/lib/y2partitioner/widgets/encrypt.rb:286
 #, perl-brace-format
 msgid ""
 "<p><b>%{label}</b>: this encryption method uses a volatile protected AES key "
@@ -2693,13 +2704,20 @@ msgstr ""
 #. TRANSLATORS: help for encryption method with secure keys for z Systems. See
 #. https://www.ibm.com/support/knowledgecenter/en/linuxonibm/com.ibm.linux.z.lxdc/
 #. lxdc_swapdisks_scenario.html
-#: src/lib/y2partitioner/widgets/encrypt.rb:288
+#: src/lib/y2partitioner/widgets/encrypt.rb:306
 #, perl-brace-format
 msgid ""
 "<p><b>%{label}</b>: this encryption method uses a volatile secure AES key "
 "(generated from a cryptographic co-processor) for encrypting a swap device. "
 "This is an improvement over %{random_swap_label} method and all "
 "considerations for such method still apply.</p>"
+msgstr ""
+
+#. @macro seeAbstractWidget
+#. TRANSLATORS: label for the widget to set authentication type for encrypted devices.
+#: src/lib/y2partitioner/widgets/encrypt_auth_selector.rb:43
+#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:43
+msgid "Authentication"
 msgstr ""
 
 #. @macro seeAbstractWidget
@@ -2718,7 +2736,7 @@ msgid "Encryption method"
 msgstr ""
 
 #. @macro seeCustomWidget
-#: src/lib/y2partitioner/widgets/encrypt_method_options.rb:115
+#: src/lib/y2partitioner/widgets/encrypt_method_options.rb:118
 msgid ""
 "Be careful: the system cannot hibernate when\n"
 "encrypting swap with randomly generated keys.\n"
@@ -2734,7 +2752,7 @@ msgstr ""
 #. An error is reported to the user when the secure key cannot be generated.
 #.
 #. @return [Boolean]
-#: src/lib/y2partitioner/widgets/encrypt_method_options.rb:391
+#: src/lib/y2partitioner/widgets/encrypt_method_options.rb:410
 msgid "The secure key cannot be generated."
 msgstr ""
 
@@ -4519,16 +4537,18 @@ msgstr ""
 #. @return [Array<SetupError>]
 #: src/lib/y2storage/boot_requirements_strategies/base.rb:89
 msgid ""
-"The boot loader cannot access the file system mounted at /boot. Only LUKS1 "
-"encryption is supported."
+"The grub boot loader cannot access the file system mounted at /boot. Only "
+"LUKS1 and LUKS2 with PBKDF2 encryption is supported. Another boot loader can "
+"be selected in the boot loader section, for example systemd_boot or "
+"grub2_bls."
 msgstr ""
 
-#: src/lib/y2storage/boot_requirements_strategies/base.rb:98
+#: src/lib/y2storage/boot_requirements_strategies/base.rb:99
 msgid ""
 "The device mounted at '/boot' should not be in a thinly provisioned LVM VG."
 msgstr ""
 
-#: src/lib/y2storage/boot_requirements_strategies/base.rb:104
+#: src/lib/y2storage/boot_requirements_strategies/base.rb:105
 msgid "The device mounted at '/boot' should not be in a BCache."
 msgstr ""
 
@@ -4543,17 +4563,17 @@ msgstr ""
 #. @see SetupError
 #.
 #. @return [Array<SetupError>]
-#: src/lib/y2storage/boot_requirements_strategies/base.rb:126
+#: src/lib/y2storage/boot_requirements_strategies/base.rb:127
 msgid "There is no device mounted at '/'"
 msgstr ""
 
-#: src/lib/y2storage/boot_requirements_strategies/base.rb:132
+#: src/lib/y2storage/boot_requirements_strategies/base.rb:133
 msgid ""
 "The device mounted at '/boot' does not have enough space to contain a kernel."
 msgstr ""
 
 #. TRANSLATORS: error message
-#: src/lib/y2storage/boot_requirements_strategies/base.rb:218
+#: src/lib/y2storage/boot_requirements_strategies/base.rb:219
 msgid ""
 "Boot requirements cannot be determined because there is no '/' mount point"
 msgstr ""
@@ -4851,7 +4871,7 @@ msgid ""
 msgstr ""
 
 #. TRANSLATORS: %s is the path of a system mount like "/dev", "/proc", "/sys"
-#: src/lib/y2storage/clients/inst_prepdisk.rb:103
+#: src/lib/y2storage/clients/inst_prepdisk.rb:107
 #, c-format
 msgid "Could not mount %s"
 msgstr ""
@@ -5247,38 +5267,38 @@ msgid "Select Partition(s) Actions"
 msgstr ""
 
 #. TRANSLATORS: label for the widget that allows to enable the disk encryption
-#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:35
+#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:39
 msgid "Enable Disk Encryption"
 msgstr ""
 
 #. TRANSLATORS: label for the widget that allows to use separated volume groups
-#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:37
+#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:41
 msgid "Use Separate LVM Volume Groups for Some Special Paths"
 msgstr ""
 
 #. @return [EncryptPasswordChecker]
-#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:75
+#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:84
 msgid "Partitioning Scheme"
 msgstr ""
 
-#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:91
+#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:100
 msgid "Enable Logical Volume Management (LVM) for the Base System"
 msgstr ""
 
-#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:93
+#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:102
 msgid "Enable Logical Volume Management (LVM)"
 msgstr ""
 
-#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:129
+#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:153
 msgid "Password"
 msgstr ""
 
-#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:135
+#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:159
 msgid "Verify Password"
 msgstr ""
 
 #. TRANSLATORS: Help text for the partitioning scheme (LVM / encryption)
-#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:170
+#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:206
 #, perl-brace-format
 msgid ""
 "<p>Select the partitioning scheme:</p><p><ul><li>Plain partitions (no LVM), "
@@ -5291,14 +5311,22 @@ msgid ""
 "(Btrfs, Ext2/3/4, XFS) on.</p><p>In this <i>Guided Setup</i>, all this is "
 "done for you for the standard filesystem layout if you check <b>Enable LVM</"
 "b>.</li></ul></p><p><b>%{disk_encryption_label}</b> (with or without LVM) "
-"adds a LUKS  disk encryption layer to the partitioning setup. Notice that "
-"you will have to enter the correct password each time you boot the system. </"
-"p><p><i>If you lose the password, there is no way to recover it, so make "
-"sure not to lose it!</i></p>"
+"adds a %{encrption_method}  disk encryption layer to the partitioning setup. "
+"Notice that you will have to enter the correct password each time you boot "
+"the system. </p><p><i>If you lose the password, there is no way to recover "
+"it, so make sure not to lose it!</i></p>"
 msgstr ""
 
 #. TRANSLATORS: %{widget_label} refers to the label of the described widget
-#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:210
+#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:246
+#, perl-brace-format
+msgid ""
+"<p><b>%{widget_label}:</b> Which method will be used for unlocking the "
+"devices:</p>%{auth_list}"
+msgstr ""
+
+#. TRANSLATORS: %{widget_label} refers to the label of the described widget
+#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:254
 #, perl-brace-format
 msgid ""
 "<p><b>%{widget_label}:</b> indicates to the <i>Guided Setup</i> that you "
@@ -5306,7 +5334,7 @@ msgid ""
 msgstr ""
 
 #. User has the last word to decide whether to use a weak password.
-#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:243
+#: src/lib/y2storage/dialogs/guided_setup/select_scheme.rb:286
 msgid "Really use this password?"
 msgstr ""
 
@@ -5602,30 +5630,30 @@ msgstr ""
 
 #. TRANSLATORS: %s is a linux device name (eg. /dev/sda) (singular),
 #. or a list of comma-separated device names (eg. "/dev/sda, /dev/sdb") (plural)
-#: src/lib/y2storage/dialogs/proposal.rb:153
+#: src/lib/y2storage/dialogs/proposal.rb:154
 #, c-format
 msgid "<p>The device %s is a Dell BOSS drive.</p>"
 msgid_plural "<p>The following devices are Dell BOSS drives: %s.</p>"
 msgstr[0] ""
 
 #. @see #actions_html
-#: src/lib/y2storage/dialogs/proposal.rb:170
+#: src/lib/y2storage/dialogs/proposal.rb:171
 msgid "Initial layout proposed after adjusting the Guided Setup settings:"
 msgstr ""
 
 #. @see #actions_source_html
-#: src/lib/y2storage/dialogs/proposal.rb:176
+#: src/lib/y2storage/dialogs/proposal.rb:177
 msgid "Layout configured manually using the Expert Partitioner."
 msgstr ""
 
 #. @see #actions_source_html
-#: src/lib/y2storage/dialogs/proposal.rb:181
+#: src/lib/y2storage/dialogs/proposal.rb:182
 msgid ""
 "Layout proposed by the Guided Setup with the settings provided by the user."
 msgstr ""
 
 #. @see #actions_source_html
-#: src/lib/y2storage/dialogs/proposal.rb:186
+#: src/lib/y2storage/dialogs/proposal.rb:187
 msgid "Initial layout proposed with the default Guided Setup settings."
 msgstr ""
 
@@ -5635,7 +5663,7 @@ msgstr ""
 #. @see #summary
 #.
 #. @return [String] HTML-formatted text
-#: src/lib/y2storage/dialogs/proposal.rb:207
+#: src/lib/y2storage/dialogs/proposal.rb:208
 msgid ""
 "Please, use \"Guided Setup\" to adjust the proposal settings or \"Expert "
 "Partitioner\" to create a custom layout."
@@ -5643,25 +5671,25 @@ msgstr ""
 
 #. Just in case the initial proposal is configured to never adjust any
 #. setting automatically
-#: src/lib/y2storage/dialogs/proposal.rb:221
+#: src/lib/y2storage/dialogs/proposal.rb:222
 msgid ""
 "It was not possible to propose an initial partitioning layout based on the "
 "default Guided Setup settings."
 msgstr ""
 
-#: src/lib/y2storage/dialogs/proposal.rb:228
+#: src/lib/y2storage/dialogs/proposal.rb:229
 msgid ""
 "It was not possible to propose an initial partitioning layout even after "
 "adjusting the Guided Setup settings:"
 msgstr ""
 
-#: src/lib/y2storage/dialogs/proposal.rb:236
+#: src/lib/y2storage/dialogs/proposal.rb:237
 msgid ""
 "The Guided Setup was not able to propose a layout using the provided "
 "settings."
 msgstr ""
 
-#: src/lib/y2storage/dialogs/proposal.rb:245
+#: src/lib/y2storage/dialogs/proposal.rb:246
 msgid "Suggested Partitioning"
 msgstr ""
 
@@ -5670,7 +5698,7 @@ msgstr ""
 #. @note This button might not be shown (see {#excluded_buttons}).
 #.
 #. @return [Yast::UI::Term]
-#: src/lib/y2storage/dialogs/proposal.rb:256
+#: src/lib/y2storage/dialogs/proposal.rb:257
 msgid "&Guided Setup"
 msgstr ""
 
@@ -5679,23 +5707,33 @@ msgstr ""
 #. @note This button might not be shown (see {#excluded_buttons}).
 #.
 #. @return [Yast::UI::Term]
-#: src/lib/y2storage/dialogs/proposal.rb:268
+#: src/lib/y2storage/dialogs/proposal.rb:269
 msgid "Start with &Current Proposal"
 msgstr ""
 
-#: src/lib/y2storage/dialogs/proposal.rb:272
+#: src/lib/y2storage/dialogs/proposal.rb:273
 msgid "Start with Existing &Partitions"
 msgstr ""
 
-#: src/lib/y2storage/dialogs/proposal.rb:277
+#: src/lib/y2storage/dialogs/proposal.rb:278
 msgid "&Expert Partitioner"
 msgstr ""
 
-#: src/lib/y2storage/dialogs/proposal.rb:292
+#: src/lib/y2storage/dialogs/proposal.rb:293
 msgid ""
 "<p>\n"
 "Your hard disks have been checked. The partition setup\n"
 "displayed is proposed for your hard drive.</p>"
+msgstr ""
+
+#. Shortcut for Yast::HTML.List
+#: src/lib/y2storage/dialogs/proposal.rb:318
+#, c-format
+msgid "using %s for %s"
+msgstr ""
+
+#: src/lib/y2storage/dialogs/proposal.rb:324
+msgid "Authentication for encrypted devices:"
 msgstr ""
 
 #. TODO: the code capturing the exception and displaying the error pop-up
@@ -5704,7 +5742,7 @@ msgstr ""
 #. calculate/display the actiongraph (like the Expert Partitioner).
 #. That should be part of a bigger effort in reporting invalid devicegraphs.
 #. See https://trello.com/c/iMoOGVxg/
-#: src/lib/y2storage/dialogs/proposal.rb:328
+#: src/lib/y2storage/dialogs/proposal.rb:342
 msgid ""
 "An error was found in one of the devices in the system.\n"
 "The information displayed may not be accurate and the\n"
@@ -5714,7 +5752,7 @@ msgstr ""
 #. Hint to use when there are details
 #.
 #. @return [String]
-#: src/lib/y2storage/dialogs/proposal.rb:333
+#: src/lib/y2storage/dialogs/proposal.rb:347
 #: src/lib/y2storage/issues_reporter.rb:195
 msgid "Click below to see more details (English only)."
 msgstr ""
@@ -5744,6 +5782,39 @@ msgstr ""
 msgid ""
 "The password may only contain the following characters:\n"
 "0..9, a..z, A..Z, and any of \"@#* ,.;:._-+=!$%&/|?{[()]}^\\<>\"."
+msgstr ""
+
+#. Instance of the function to be always returned by the class
+#. TRANSLATORS: authentication type for encrypted devices.
+#: src/lib/y2storage/encryption_authentication.rb:47
+msgid "Only Password"
+msgstr ""
+
+#. TRANSLATORS: authentication type for encrypted devices.
+#: src/lib/y2storage/encryption_authentication.rb:49
+msgid "TPM2"
+msgstr ""
+
+#. TRANSLATORS: authentication type for encrypted devices.
+#: src/lib/y2storage/encryption_authentication.rb:51
+msgid "TPM2 and PIN"
+msgstr ""
+
+#. TRANSLATORS: authenticationtype for encrypted devices.
+#: src/lib/y2storage/encryption_authentication.rb:53
+msgid "FIDO2"
+msgstr ""
+
+#. Help text with a list of all supported authentications.
+#.
+#. @return [String] help text
+#: src/lib/y2storage/encryption_authentication.rb:80
+#, perl-brace-format
+msgid ""
+"<ul><li><i>%{only_password}: </i>Password is required.</li><li><i>%{tpm2}: </"
+"i>A crypto-device that is already present in your system.</li><li><i>"
+"%{tpm2_and_pin}: </i>Like TPM2, but a password must be enter together.</"
+"li><li><i>%{fido2}: </i>External key device.</li></ul>"
 msgstr ""
 
 #. The encryption method that allows to create and identify an encrypted
@@ -5777,6 +5848,15 @@ msgstr ""
 #. Encryption swap process (see {Swap}) for z Systems to encrypt a device by using secure keys
 #: src/lib/y2storage/encryption_method/secure_swap.rb:38
 msgid "Encryption with Volatile Secure Key"
+msgstr ""
+
+#. Encryption method that allows to encrypt a device using LUKS2 and configure the unlocking
+#. process via the system TPM or FIDO2 using the sdbootutil created by SUSE.
+#.
+#. Check the documentation of sdbootutil for further information.
+#. https://github.com/openSUSE/sdbootutil
+#: src/lib/y2storage/encryption_method/systemd_fde.rb:43
+msgid "Systemd-Based Full Disk Encryption"
 msgstr ""
 
 #. Encryption method that allows to encrypt a device using LUKS2 and configure the unlocking
