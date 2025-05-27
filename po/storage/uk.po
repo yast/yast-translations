@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: storage.uk\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-05-16 02:30+0000\n"
-"PO-Revision-Date: 2025-05-26 17:59+0000\n"
+"PO-Revision-Date: 2025-05-27 19:25+0000\n"
 "Last-Translator: Eugene Krater <lachend@gmail.com>\n"
 "Language-Team: Ukrainian <https://l10n.opensuse.org/projects/yast-storage/"
 "master/uk/>\n"
@@ -792,6 +792,8 @@ msgid ""
 "The RAID %{name} is partitioned. To modify the used devices,\n"
 "make sure %{name} has no partitions."
 msgstr ""
+"RAID-масив %{name} уже розмічений. Щоб змінити\n"
+"використовувані пристрої, переконайтеся, що на %{name} немає розділів."
 
 #. TRANSLATORS: wizard title when editing a tmpfs filesystem, where %s is
 #. replaced by the path where tmpfs is mounted
@@ -805,7 +807,7 @@ msgstr "Редагувати Tmpfs за адресою %s"
 #. @return [String, nil] nil if there is some fstab
 #: src/lib/y2partitioner/actions/import_mount_points.rb:82
 msgid "YaST has scanned your hard disks but no fstab file was found."
-msgstr ""
+msgstr "YaST просканував ваші жорсткі диски, але не знайшов файл fstab."
 
 #. FIXME: This message is copied from old partitioner, but it could be improved.
 #: src/lib/y2partitioner/actions/move_partition.rb:108
@@ -887,6 +889,10 @@ msgid ""
 "storage system that is not supported by YaST, resizing will\n"
 "most likely cause data loss. Really continue?"
 msgstr ""
+"Ні файлова система, ні система зберігання не були виявлені на\n"
+"пристрої. Якщо пристрій містить файлову систему або\n"
+"систему зберігання, яка не підтримується YaST, зміна розміру\n"
+"швидше за все призведе до втрати даних. Дійсно продовжити?"
 
 #. Resizing a thin snapshot does not make too much sense. The user has to confirm a warning
 #. before continue.
@@ -896,6 +902,8 @@ msgstr ""
 msgid ""
 "Selected device is an LVM Thin Snapshot. Do you really want to resize it?"
 msgstr ""
+"Обраний пристрій є знімком тонкого тому LVM. Ви дійсно хочете змінити його "
+"розмір?"
 
 #. TRANSLATORS: %{name} is replaced by a device name (e.g., /dev/sda1) and %{users} is replaced
 #. by a list of name devices (devices using the first one).
@@ -966,7 +974,7 @@ msgstr ""
 #. TRANSLATORS: this comment is only for testing purposes. Do not care too much.
 #: src/lib/y2partitioner/clients/main.rb:129
 msgid "Nothing gets written because commit is not allowed."
-msgstr ""
+msgstr "Жодних даних не буде записано, оскільки фіксація не дозволена."
 
 #. @macro seeDialog
 #: src/lib/y2partitioner/dialogs/bcache.rb:48
@@ -986,15 +994,18 @@ msgid ""
 "bcache. It will define the size of the resulting bcache device. The device "
 "will be formatted so any previous content will be wiped out.</p>"
 msgstr ""
+"<p><b>%{label}</b> - це резервний пристрій для bcache. Він визначає розмір "
+"результуючого пристрою bcache. Пристрій буде відформатовано, так що весь "
+"вміст буде видалено.</p>"
 
 #. Value can be an empty string if there is no items
 #: src/lib/y2partitioner/dialogs/bcache.rb:235
 msgid "Backing and Caching devices cannot be identical."
-msgstr ""
+msgstr "Резервний і кешувальний пристрої не можуть збігатися."
 
 #: src/lib/y2partitioner/dialogs/bcache.rb:236
 msgid "Cannot Create Bcache"
-msgstr ""
+msgstr "Неможливо створити Bcache"
 
 #. @macro seeAbstractWidget
 #. TRANSLATORS: table column label.
@@ -1014,15 +1025,21 @@ msgid ""
 "bcache later, it is recommended to setup your slow devices as bcache backing "
 "devices without a cache. You can add a caching device later.</p>"
 msgstr ""
+"<p><b>%{label}</b> - це кешуючий пристрій для bcache. Він має працювати "
+"швидше і бути меншим за резервний, але це не обов'язково. Пристрій буде "
+"відформатовано, тож увесь вміст буде стерто.</p><p>Якщо Ви роздумуєте над "
+"застосуванням bcache надалі, то рекомендується налаштовувати свої повільні "
+"пристрої як резервні пристрої bcache без кешування. Пристрій, що кешує, "
+"можна додати потім.</p>"
 
 #: src/lib/y2partitioner/dialogs/bcache.rb:289
 msgid "Without caching"
-msgstr ""
+msgstr "Без кешування"
 
 #. @macro seeAbstractWidget
 #: src/lib/y2partitioner/dialogs/bcache.rb:320
 msgid "Cache Mode"
-msgstr ""
+msgstr "Режим кешування"
 
 #. TRANSLATORS: %{label} is replaced by the label of the option to select a cache mode.
 #: src/lib/y2partitioner/dialogs/bcache.rb:336
@@ -1040,6 +1057,17 @@ msgid ""
 "sequential read or write, otherwise that would result in intensive "
 "overwriting on the cache device.</li></p>"
 msgstr ""
+"<p><b>%{label}</b> — це робочий режим bcache. Зараз підтримуються чотири "
+"режими. <ul><li><i>Writethrough</i>: операції читання кешуються, запис "
+"здійснюється паралельно на обидва пристрої. У разі збою кешувального "
+"пристрою втрати даних не відбудеться. Це режим за замовчуванням.</li> "
+"<li><i>Writeback</i>: кешуються операції і читання, і запису. Це підвищує "
+"продуктивність під час запису.</li> <li><i>Writearound</i>: читання "
+"кешується, нові дані пишуться тільки на резервний пристрій.</li> "
+"<li><i>None</i> означає, що кеш не використовується ні під час читання, ні "
+"під час запису. Це корисно здебільшого у випадках, коли потрібно тимчасово "
+"вимкнути кеш перед великим послідовним читанням або записом, інакше це "
+"призведе до інтенсивного перезапису на кешувальному пристрої.</li></p>"
 
 #. Title of the dialog
 #.
@@ -6402,15 +6430,15 @@ msgstr "Без шифрування"
 
 #: src/lib/y2storage/encryption_type.rb:58
 msgid "Twofish"
-msgstr ""
+msgstr "Twofish"
 
 #: src/lib/y2storage/encryption_type.rb:59
 msgid "Old Twofish (loop_fish2)"
-msgstr ""
+msgstr "Старий Twofish (loop_fish2)"
 
 #: src/lib/y2storage/encryption_type.rb:60
 msgid "Old Twofish (loop_fish2) 256-bit"
-msgstr ""
+msgstr "Старий Twofish (loop_fish2) 256-біт"
 
 #: src/lib/y2storage/encryption_type.rb:61
 msgid "LUKS1"
@@ -6422,7 +6450,7 @@ msgstr "LUKS2"
 
 #: src/lib/y2storage/encryption_type.rb:63
 msgid "BitLocker"
-msgstr ""
+msgstr "BitLocker"
 
 #: src/lib/y2storage/encryption_type.rb:64
 msgid "Plain encryption"
