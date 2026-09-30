@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: opensuse-i 18n\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-08-29 02:28+0000\n"
+"POT-Creation-Date: 2026-09-30 02:27+0000\n"
 "PO-Revision-Date: 2025-08-30 11:10+0000\n"
 "Last-Translator: Freek de Kruijf <freek@opensuse.org>\n"
 "Language-Team: Dutch <https://l10n.opensuse.org/projects/yast-auth-client/"
@@ -22,7 +22,7 @@ msgstr ""
 "X-Generator: Weblate 5.13\n"
 
 #. Enable and start the service.
-#: src/lib/auth/authconf.rb:157
+#: src/lib/auth/authconf.rb:155
 #, c-format
 msgid ""
 "Failed to start service %s. Please use system journal (journalctl -n -u %s) "
@@ -32,35 +32,46 @@ msgstr ""
 "-n -u %s) voor diagnose."
 
 #. Disable and stop the service.
-#: src/lib/auth/authconf.rb:165
+#: src/lib/auth/authconf.rb:163
 #, c-format
 msgid ""
 "Failed to stop service %s. Please use system journal (journalctl -n -u %s) "
 "to diagnose."
 msgstr ""
-"Stoppen van service %s is mislukt. Gebruik het systeemjournaal (journalctl "
-"-n -u %s) voor diagnose."
+"Stoppen van service %s is mislukt. Gebruik het systeemjournaal (journalctl -"
+"n -u %s) voor diagnose."
 
 #. Only install the required provider packages. By convention, they are named 'sssd-*'.
-#: src/lib/auth/authconf.rb:410
+#: src/lib/auth/authconf.rb:408
 msgid "Failed to install software packages required for running SSSD."
 msgstr ""
 "Installeren van softwarepakketten vereist voor uitvoeren van SSSD is mislukt."
 
+#. provides /etc/openldap/ldap.conf
+#: src/lib/auth/authconf.rb:522
+msgid "Failed to install software packages required for LDAP."
+msgstr "Installeren van softwarepakketten vereist voor LDAP is mislukt."
+
+#. Run ldapsearch with password bind
+#: src/lib/auth/authconf.rb:587
+msgid "ERROR: "
+msgstr "FOUT: "
+
+#. Calculate package requirements
+#: src/lib/auth/authconf.rb:771
+msgid "Failed to install software packages required for Kerberos."
+msgstr "Installeren van softwarepakketten vereist voor Kerberos is mislukt."
+
 #. Install required packages
-#: src/lib/auth/authconf.rb:731
-msgid "Failed to install software packages required by autofs daemon."
+#: src/lib/auth/authconf.rb:845
+#, fuzzy
+#| msgid "Failed to install software packages required by autofs daemon."
+msgid "Failed to install software packages required by autofs/nscd daemons."
 msgstr ""
 "Installeren van softwarepakketten vereist door autofs-daemon is mislukt."
 
-#. Create a temporary file holding smb.conf for the specified AD domain.
-#. @return [File] a closed file, caller should #unlink after it is no longer used.
-#: src/lib/auth/authconf.rb:788
-msgid "Failed to check the installed samba version."
-msgstr "Controleren van de geïnstalleerde versie van samba is mislukt."
-
 #. Call package installer to install Samba and Kerberos if it has not yet been installed.
-#: src/lib/auth/authconf.rb:824
+#: src/lib/auth/authconf.rb:896
 msgid ""
 "Failed to install Samba & Kerberos required by Active Directory operations."
 msgstr ""
@@ -70,16 +81,16 @@ msgstr ""
 #. Run "net ads join". Return tuple of boolean success status and command output.
 #. Kerberos configuration must have been read before calling this function.
 #. Kerberos configuration will be written.
-#: src/lib/auth/authconf.rb:898
+#: src/lib/auth/authconf.rb:955
 msgid "Nothing is done because AD is not configured"
 msgstr "Er is niets gedaan omdat AD niet is geconfigureerd"
 
-#: src/lib/auth/authconf.rb:901
+#: src/lib/auth/authconf.rb:958
 msgid "Failed to install Samba"
 msgstr "Installeren van Samba is mislukt"
 
 #. Configure Kerberos
-#: src/lib/auth/authconf.rb:906
+#: src/lib/auth/authconf.rb:963
 msgid ""
 "Cannot locate Active Directory's Kerberos via DNS lookup.\n"
 "Please configure your network environment to use AD server as the name "
@@ -89,94 +100,507 @@ msgstr ""
 "Configureer uw netwerkomgeving om AD-server te gebruiken als de oplosser van "
 "namen."
 
-#. Create a temporary smb.conf to join this computer
-#: src/lib/auth/authconf.rb:915
-msgid "Failed to create temporary smb.conf"
-msgstr "Aanmaken van een tijdelijke smb.conf is mislukt"
-
 #. Local only
-#: src/lib/auth/authconf.rb:1008
+#: src/lib/auth/authconf.rb:1076
 msgid "Only use local authentication"
 msgstr "Alleen lokale authenticatie gebruiken"
 
 #. SSSD is configured
-#: src/lib/auth/authconf.rb:1013
+#: src/lib/auth/authconf.rb:1081
 msgid "(daemon is inactive)"
 msgstr "(daemon is inactief)"
 
-#: src/lib/auth/authconf.rb:1018
-msgid "NSS LDAP"
-msgstr "NSS LDAP"
+#. LDAP and/or Kerberos is configured
+#: src/lib/auth/authconf.rb:1087
+msgid "LDAP is enabled but the setup is incomplete"
+msgstr "LDAP is ingeschakeld maar het instellen is onvolledig"
 
-#: src/lib/auth/authconf.rb:1022
-msgid "PAM + NSS LDAP"
-msgstr "PAM + NSS LDAP"
+#: src/lib/auth/authconf.rb:1089
+#, c-format
+msgid "via LDAP on %s"
+msgstr "via LDAP op %s"
 
-#: src/lib/auth/authconf.rb:1024
-msgid "PAM LDAP"
-msgstr "PAM LDAP"
+#. 'and' as in "authenticate via LDAP and Kerberos"
+#: src/lib/auth/authconf.rb:1095
+msgid " and "
+msgstr " en "
 
-#: src/lib/auth/authconf.rb:1029
-msgid "and PAM KRB5"
-msgstr "en PAM KRB5"
+#: src/lib/auth/authconf.rb:1099
+msgid "via Kerberos"
+msgstr "via Kerberos"
 
-#: src/lib/auth/authconf.rb:1031
-msgid "PAM KRB5"
-msgstr "PAM KRB5"
+#: src/lib/auth/authconf.rb:1101
+#, c-format
+msgid "via Kerberos on %s"
+msgstr "via Kerberos op %s"
 
-#: src/lib/auth/authconf.rb:1034
+#. Edit Kerberos realm configuration
+#: src/lib/authui/ldapkrb/edit_realm_dialog.rb:52
+msgid "Realm name"
+msgstr "Naam van realm"
+
+#: src/lib/authui/ldapkrb/edit_realm_dialog.rb:53
+msgid "Map Domain Name to the Realm (example.com -> EXAMPLE.COM)"
+msgstr "Domeinnaam toewijzen aan realm (example.com -> EXAMPLE.COM)"
+
+#: src/lib/authui/ldapkrb/edit_realm_dialog.rb:55
+msgid "Map Wild Card Domain Name to the Realm (*.example.com -> EXAMPLE.COM)"
+msgstr ""
+"Domeinnaam met wildcard toewijzen aan realm (*.example.com -> EXAMPLE.COM)"
+
+#: src/lib/authui/ldapkrb/edit_realm_dialog.rb:58
+msgid "Host Name of Administration Server (Optional)"
+msgstr "Hostnaam van beheerserver (optioneel)"
+
+#: src/lib/authui/ldapkrb/edit_realm_dialog.rb:60
+msgid "Host Name of Master Key Distribution Center (Optional)"
+msgstr "Hostnaam van distributiecentrum voor hoofdsleutel (optioneel)"
+
+#: src/lib/authui/ldapkrb/edit_realm_dialog.rb:62
+msgid ""
+"Key Distribution Centers (Optional If Auto-Discovery via DNS is Enabled)"
+msgstr ""
+"Distributiecentra voor sleutels (optioneel als automatische detectie via DNS "
+"is ingeschakeld)"
+
+#: src/lib/authui/ldapkrb/edit_realm_dialog.rb:68
+msgid "Custom Mappings of Principal Names to User Names"
+msgstr "Aangepaste toewijzingen van hoofdnamen aan gebruikersnamen"
+
+#: src/lib/authui/ldapkrb/edit_realm_dialog.rb:69
+msgid "Principal Name"
+msgstr "Hoofdnaam"
+
+#: src/lib/authui/ldapkrb/edit_realm_dialog.rb:69
+msgid "User Name"
+msgstr "Gebruikersnaam"
+
+#: src/lib/authui/ldapkrb/edit_realm_dialog.rb:74
+msgid "Custom Rules for Mapping Principal Names to User Names"
+msgstr ""
+"Aangepaste regels voor het toewijzen van hoofdnamen aan gebruikersnamen"
+
+#. Add a KDC
+#: src/lib/authui/ldapkrb/edit_realm_dialog.rb:89
+msgid "Please type in the host name of Key Distribution Centre:"
+msgstr "Voer de hostnaam van het distributiecentrum voor sleutels in:"
+
+#. Add an auth_to_local
+#: src/lib/authui/ldapkrb/edit_realm_dialog.rb:102
+msgid ""
+"Please type the new rule string (e.g. \"RULE:[2:$1](johndoe)s/^.*$/guest/\")"
+msgstr ""
+"Voer de nieuwe regeltekenreeks in (bijv. \"RULE:[2:$1](johndoe)s/^.*$/guest/"
+"\")"
+
+#. Add an auth_to_local_names
+#: src/lib/authui/ldapkrb/edit_realm_dialog.rb:115
+msgid ""
+"Please type in the principal name and user name in the format of "
+"\"princ_name = user_name\":"
+msgstr ""
+"Voer de hoofdnaam en gebruikersnaam in het formaat \"hoofd_naam = gebr_naam"
+"\" in:"
+
+#. Save realm settings
+#: src/lib/authui/ldapkrb/edit_realm_dialog.rb:135
+msgid "Please enter realm name."
+msgstr "Voer de realmnaam in."
+
+#. Edit more configuration items for Kerberos.
+#: src/lib/authui/ldapkrb/krb_extended_opts_dialog.rb:48
+msgid "Default Location of Keytab File"
+msgstr "Standaardlocatie van keytabbestand"
+
+#: src/lib/authui/ldapkrb/krb_extended_opts_dialog.rb:50
+msgid "Encryption Types for TGS (Space separated)"
+msgstr "Coderingstypen voor TGS (gescheiden door spaties)"
+
+#: src/lib/authui/ldapkrb/krb_extended_opts_dialog.rb:52
+msgid "Encryption Types for Ticket (Space separated)"
+msgstr "Coderingstypen voor ticket (gescheiden door spaties)"
+
+#: src/lib/authui/ldapkrb/krb_extended_opts_dialog.rb:54
+msgid "Encryption Types for Sessions (Space separated)"
+msgstr "Coderingstypen voor sessies (gescheiden door spaties)"
+
+#: src/lib/authui/ldapkrb/krb_extended_opts_dialog.rb:56
+msgid "Additional Addresses to be put in Ticket (Comma separated)"
+msgstr ""
+"Aanvullende adressen die in het ticket moeten worden geplaatst (gescheiden "
+"door komma's)"
+
+#: src/lib/authui/ldapkrb/krb_extended_opts_dialog.rb:59
+msgid "Reset"
+msgstr "Terugzetten"
+
+#. The user cannot possibly understand the implication of 0 in search timeout if the user uses YaST
+#: src/lib/authui/ldapkrb/ldap_extended_opts_dialog.rb:49
+msgid "Timeout for Bind Operations in Seconds"
+msgstr "Time-out voor bindingsbewerkingen in seconden"
+
+#: src/lib/authui/ldapkrb/ldap_extended_opts_dialog.rb:51
+msgid "Timeout for Search Operations in Seconds"
+msgstr "Time-out voor zoekbewerkingen in seconden"
+
+#. the last saved tab
+#: src/lib/authui/ldapkrb/main_dialog.rb:44
+#: src/lib/authui/ldapkrb/main_dialog.rb:63
+msgid "Use a Directory as Identity Provider (LDAP)"
+msgstr "Een directory gebruiken als identiteitsprovider (LDAP)"
+
+#: src/lib/authui/ldapkrb/main_dialog.rb:44
+#: src/lib/authui/ldapkrb/main_dialog.rb:67
+msgid "Authentication via Kerberos"
+msgstr "Verificatie via Kerberos"
+
+#. LDAP tab events
+#: src/lib/authui/ldapkrb/main_dialog.rb:76
+msgid ""
+"This computer is currently using SSSD to authenticate users.\n"
+"Before you may use legacy LDAP authentication (pam_ldap), please disable "
+"SSSD from \"User Logon Management\"."
+msgstr ""
+"Deze computer gebruikt momenteel SSSD om gebruikers te verifiëren. \n"
+"Voordat u legacy LDAP-verificatie kunt gebruiken (pam_ldap), dient u SSSD "
+"uit te schakelen in \"Beheer gebruikersaanmelding\"."
+
+#: src/lib/authui/ldapkrb/main_dialog.rb:84
+msgid ""
+"This computer is currently reading user database from SSSD identity "
+"provider.\n"
+"Before you may use LDAP user database (nss_ldap), please disable SSSD user "
+"database from \"User Logon Management\"."
+msgstr ""
+"Deze computer leest momenteel de gebruikersdatabase van een SSSD-"
+"identiteitsprovider.\n"
+"Voordat u een LDAP-gebruikersdatabase kunt gebruiken (nss_ldap), dient u de "
+"SSSD-gebruikersdatabase uit te schakelen in \"Beheer gebruikersaanmelding\"."
+
+#: src/lib/authui/ldapkrb/main_dialog.rb:92
+msgid ""
+"This computer is currently reading group database from SSSD identity "
+"provider.\n"
+"Before you may use LDAP group database (nss_ldap), please disable SSSD group "
+"database from \"User Logon Management\"."
+msgstr ""
+"Deze computer leest momenteel de groepsdatabase van een SSSD-"
+"identiteitsprovider.\n"
+"Voordat u een LDAP-groepsdatabase kunt gebruiken (nss_ldap), dient u de SSSD-"
+"groepsdatabase uit te schakelen in \"Beheer gebruikersaanmelding\"."
+
+#: src/lib/authui/ldapkrb/main_dialog.rb:100
+msgid ""
+"This computer is currently reading sudoers database from SSSD identity "
+"provider.\n"
+"Before you may use LDAP sudoers database (nss_ldap), please disable SSSD "
+"sudo database from \"User Logon Management\"."
+msgstr ""
+"Deze computer leest momenteel de sudoers-database van een SSSD-"
+"identiteitsprovider.\n"
+"Voordat u een LDAP-sudoers-database kunt gebruiken (nss_ldap), dient u de "
+"SSSD-sudo-database uit te schakelen in \"Beheer gebruikersaanmelding\"."
+
+#: src/lib/authui/ldapkrb/main_dialog.rb:108
+msgid ""
+"This computer is currently reading automount database from SSSD identity "
+"provider.\n"
+"Before you may use LDAP automount database (nss_ldap), please disable SSSD "
+"automount database from \"User Logon Management\"."
+msgstr ""
+"Deze computer leest momenteel de automount-database van een SSSD-"
+"identiteitsprovider.\n"
+"Voordat u een LDAP-automount-database kunt gebruiken (nss_ldap), dient u de "
+"SSSD-automount-database uit te schakelen in \"Beheer gebruikersaanmelding\"."
+
+#: src/lib/authui/ldapkrb/main_dialog.rb:118
+msgid "Please enter server URI."
+msgstr "Voer de server-URI in."
+
+#: src/lib/authui/ldapkrb/main_dialog.rb:126
+msgid "Please enter DN of search base."
+msgstr "Voer de DN van de zoekbasis in."
+
+#. Test URI input
+#: src/lib/authui/ldapkrb/main_dialog.rb:133
+#, c-format
+msgid "Successfully contacted LDAP server on URI %s!"
+msgstr "Contact met LDAP-server op URI %s is gemaakt!"
+
+#: src/lib/authui/ldapkrb/main_dialog.rb:135
 #, c-format
 msgid ""
-"⚠️  Use of %s detected. These modules can no longer be configured and you "
-"MUST migrate to SSSD"
+"Connection check has failed on URI %s.\n"
+"\n"
+"%s"
 msgstr ""
-"⚠️  Gebruik van %s gedetecteerd. Deze modulen kunnen niet langer "
-"geconfigureerd worden en u MOET naar SSSD migreren"
+"Verbindingscontrole is mislukt op URI %s.\n"
+"\n"
+"%s"
+
+#. Test host address input, construct URI for each one.
+#: src/lib/authui/ldapkrb/main_dialog.rb:154
+#, c-format
+msgid "Successfully contacted LDAP server on host %s"
+msgstr "Contact met LDAP-server op host %s is gemaakt"
+
+#: src/lib/authui/ldapkrb/main_dialog.rb:156
+#, c-format
+msgid ""
+"Connection check has failed on host %s.\n"
+"\n"
+"%s"
+msgstr ""
+"Verbindingscontrole is mislukt op host %s.\n"
+"\n"
+"%s"
+
+#: src/lib/authui/ldapkrb/main_dialog.rb:163
+msgid ""
+"The name service cache is should only used with legacy LDAP identity "
+"provider,\n"
+"but your system currently has authentication domain enabled, which is not "
+"compatible with the cache.\n"
+"\n"
+"Do you still wish to enable the cache?"
+msgstr ""
+"De naamservicecache dient alleen te worden gebruikt met legacy LDAP-"
+"identiteitsproviders,\n"
+"maar op uw systeem is momenteel een verificatiedomein ingeschakeld en dit is "
+"niet compatibel met de cache.\n"
+"\n"
+"Wilt u de cache toch inschakelen?"
+
+#. Kerberos tab events
+#: src/lib/authui/ldapkrb/main_dialog.rb:176
+msgid ""
+"This computer is currently using SSSD to authenticate users.\n"
+"Before you may use Kerberos authentication (pam_krb5), please disable SSSD "
+"from \"User Logon Management\"."
+msgstr ""
+"Op deze computer wordt momenteel SSSD gebruikt om gebruikers te verifiëren.\n"
+"Voordat u Kerberos-verificatie kunt gebruiken (pam_krb5), dient u SSSD uit "
+"te schakelen in \"Beheer gebruikersaanmelding\"."
+
+#. Save Kerberos
+#: src/lib/authui/ldapkrb/main_dialog.rb:184
+#: src/lib/authui/ldapkrb/main_dialog.rb:194
+#: src/lib/authui/ldapkrb/main_dialog.rb:205
+#: src/lib/authui/ldapkrb/main_dialog.rb:210
+#: src/lib/authui/ldapkrb/main_dialog.rb:322
+#: src/lib/authui/ldapkrb/main_dialog.rb:414
+#: src/lib/authui/ldapkrb/main_dialog.rb:438
+msgid "(not specified)"
+msgstr "(niet gespecificeerd)"
+
+#: src/lib/authui/ldapkrb/main_dialog.rb:202
+#, c-format
+msgid "Are you sure to delete realm %s?"
+msgstr "Wilt u de realm %s verwijderen?"
+
+#: src/lib/authui/ldapkrb/main_dialog.rb:340
+msgid "Allow LDAP Users To Authenticate (pam_ldap)"
+msgstr "Sta toe om LDAP gebruikers te authenticeren (pam_ldap)"
+
+#: src/lib/authui/ldapkrb/main_dialog.rb:341
+msgid "Cache LDAP Entries For Faster Response (nscd)"
+msgstr "LDAP-items in cache opslaan voor een snellere respons (nscd)"
+
+#: src/lib/authui/ldapkrb/main_dialog.rb:342
+#: src/lib/authui/ldapkrb/main_dialog.rb:411
+msgid "Automatically Create Home Directory"
+msgstr "Automatisch persoonlijke map aanmaken"
+
+#: src/lib/authui/ldapkrb/main_dialog.rb:344
+msgid "Read the following items from LDAP data source:"
+msgstr "De volgende items uit de LDAP-gegevensbron lezen:"
+
+#: src/lib/authui/ldapkrb/main_dialog.rb:345
+#: src/lib/authui/sssd/main_dialog.rb:80
+msgid "Users"
+msgstr "Gebruikers"
+
+#: src/lib/authui/ldapkrb/main_dialog.rb:346
+#: src/lib/authui/sssd/main_dialog.rb:81
+msgid "Groups"
+msgstr "Groepen"
+
+#: src/lib/authui/ldapkrb/main_dialog.rb:347
+#: src/lib/authui/sssd/main_dialog.rb:82
+msgid "Super-User Commands (sudo)"
+msgstr "Supergebruikersopdrachten (sudo)"
+
+#: src/lib/authui/ldapkrb/main_dialog.rb:348
+msgid "Network Disk Locations (automount)"
+msgstr "Locaties van netwerkschijf (automount)"
+
+#: src/lib/authui/ldapkrb/main_dialog.rb:350
+msgid "Enter LDAP server locations (space separated), in either format:"
+msgstr ""
+"Voer LDAP-serverlocaties in (gescheiden door spaties), in de indeling van uw "
+"keuze:"
+
+#: src/lib/authui/ldapkrb/main_dialog.rb:351
+msgid "- Host name or IP and port number (ip:port)"
+msgstr "- Hostnaam of IP-adres en poortnummer (ip:poort)"
+
+#: src/lib/authui/ldapkrb/main_dialog.rb:352
+msgid "- URI (ldap://server:port, ldaps://server:port)"
+msgstr "- URI (ldap://server:poort, ldaps://server:poort)"
+
+#: src/lib/authui/ldapkrb/main_dialog.rb:354
+msgid "DN of Search Base (e.g. dc=example,dc=com)"
+msgstr "DN van zoekbasis (bijv. dc=voorbeeld,dc=nl)"
+
+#: src/lib/authui/ldapkrb/main_dialog.rb:358
+msgid "DN of Bind User (Leave Empty for Anonymous Bind)"
+msgstr "DN van bindingsgebruiker (leeg laten voor anonieme binding)"
+
+#: src/lib/authui/ldapkrb/main_dialog.rb:360
+msgid "Password of the Bind User (Leave Empty for Anonymous Bind)"
+msgstr "Wachtwoord van de bindingsgebruiker (leeg laten voor anonieme binding)"
+
+#: src/lib/authui/ldapkrb/main_dialog.rb:363
+msgid "Identify Group Members by Their DNs (RFC2307bis)"
+msgstr "Groepsleden identificeren aan de hand van hun DN's (RFC2307bis)"
+
+#: src/lib/authui/ldapkrb/main_dialog.rb:365
+msgid "Leave LDAP Connections Open for Consecutive Requests"
+msgstr "LDAP-verbindingen open laten voor volgende verzoeken"
+
+#: src/lib/authui/ldapkrb/main_dialog.rb:368
+msgid "Secure LDAP communication"
+msgstr "Veilige LDAP-communicatie"
+
+#: src/lib/authui/ldapkrb/main_dialog.rb:369
+msgid "Do Not Use Security"
+msgstr "Geen beveiliging gebruiken"
+
+#: src/lib/authui/ldapkrb/main_dialog.rb:370
+msgid "Secure Communication via TLS"
+msgstr "Veilige communicatie via TLS"
+
+#: src/lib/authui/ldapkrb/main_dialog.rb:371
+msgid "Secure Communication via StartTLS"
+msgstr "Veilige communicatie via StartTLS"
+
+#: src/lib/authui/ldapkrb/main_dialog.rb:374
+msgid "Test Connection"
+msgstr "Test verbinding"
+
+#: src/lib/authui/ldapkrb/main_dialog.rb:374
+#: src/lib/authui/ldapkrb/main_dialog.rb:434
+#: src/lib/authui/sssd/main_dialog.rb:186
+msgid "Extended Options"
+msgstr "Uitgebreide opties"
+
+#. If not specified, append the default port number
+#: src/lib/authui/ldapkrb/main_dialog.rb:409
+msgid "Allow Kerberos Users To Authenticate (pam_krb5)"
+msgstr "Sta toe om Kerberos gebruikers te authenticeren (pam_krb5)"
+
+#: src/lib/authui/ldapkrb/main_dialog.rb:413
+msgid "Default Realm For User Login:"
+msgstr "Standaard realm voor aanmelden van gebruiker:"
+
+#: src/lib/authui/ldapkrb/main_dialog.rb:415
+msgid "All Authentication Realms"
+msgstr "Alle autenticatie-realms"
+
+#: src/lib/authui/ldapkrb/main_dialog.rb:417
+msgid "Add Realm"
+msgstr "Realm toevoegen"
+
+#: src/lib/authui/ldapkrb/main_dialog.rb:417
+msgid "Edit Realm"
+msgstr "Realm bewerken"
+
+#: src/lib/authui/ldapkrb/main_dialog.rb:417
+msgid "Delete Realm"
+msgstr "Realm verwijderen"
+
+#: src/lib/authui/ldapkrb/main_dialog.rb:420
+msgid "Use DNS TXT Record to Discover Realms"
+msgstr "DNS TXT-record gebruiken om realms te detecteren"
+
+#: src/lib/authui/ldapkrb/main_dialog.rb:422
+msgid "Use DNS SRV record to Discover KDC servers"
+msgstr "DNS SRV-record gebruiken om KDC-servers te detecteren"
+
+#: src/lib/authui/ldapkrb/main_dialog.rb:425
+msgid "Allow Insecure Encryption (Windows NT)"
+msgstr "Onveilige versleuteling toestaan (Windows NT)"
+
+#: src/lib/authui/ldapkrb/main_dialog.rb:427
+msgid "Allow KDC on Other Networks to Issue Authentication Tickets"
+msgstr "KDC op andere netwerken toestaan verificatietickets uit te geven"
+
+#: src/lib/authui/ldapkrb/main_dialog.rb:429
+msgid "Allow Kerberos-Enabled Services to Take on The Identity Of a User"
+msgstr ""
+"Services met Kerberos toestaan de identiteit van een gebruiker aan te nemen"
+
+#: src/lib/authui/ldapkrb/main_dialog.rb:431
+msgid "Issue Address-Less Tickets for Computers Behind NAT"
+msgstr "Adresloze tickets uitgeven voor computers achter NAT"
 
 #. Entry point can be :sssd, :ldapkrb, or :auto
 #. In auto mode, there will be two change settings buttons.
-#: src/lib/authui/main_dialog.rb:56
-msgid "Change Settings"
-msgstr "Instellingen wijzigen"
+#: src/lib/authui/main_dialog.rb:46
+msgid "LDAP and Kerberos Client"
+msgstr "LDAP- en Kerberos-client"
 
-#: src/lib/authui/main_dialog.rb:58
+#: src/lib/authui/main_dialog.rb:48
 msgid "User Logon Management"
 msgstr "Beheer gebruikersaanmelding"
 
+#: src/lib/authui/main_dialog.rb:63
+msgid "Change Settings"
+msgstr "Instellingen wijzigen"
+
+#. Allow entering both SSSD and ldapkrb settings
+#: src/lib/authui/main_dialog.rb:67
+msgid "User Logon Configuration"
+msgstr "Configuratie gebruikersaanmelding"
+
+#: src/lib/authui/main_dialog.rb:68
+msgid "LDAP/Kerberos Configuration"
+msgstr "LDAP-/Kerberos-configuratie"
+
 #. Let user choose one additional parameter to customise for domain.
-#: src/lib/authui/main_dialog.rb:74
+#: src/lib/authui/main_dialog.rb:89
 #: src/lib/authui/sssd/extended_param_dialog.rb:54
-#: src/lib/authui/sssd/main_dialog.rb:179
-#: src/lib/authui/sssd/manage_ad_dialog.rb:100
+#: src/lib/authui/sssd/main_dialog.rb:177
+#: src/lib/authui/sssd/manage_ad_dialog.rb:99
 msgid "Name"
 msgstr "Naam"
 
-#: src/lib/authui/main_dialog.rb:74 src/lib/authui/sssd/main_dialog.rb:179
-#: src/lib/authui/sssd/manage_ad_dialog.rb:100
+#: src/lib/authui/main_dialog.rb:89 src/lib/authui/sssd/main_dialog.rb:177
+#: src/lib/authui/sssd/manage_ad_dialog.rb:99
 msgid "Value"
 msgstr "Waarde"
 
-#: src/lib/authui/main_dialog.rb:76
+#: src/lib/authui/main_dialog.rb:91
 msgid "Computer Name"
 msgstr "Computernaam"
 
-#: src/lib/authui/main_dialog.rb:77
+#: src/lib/authui/main_dialog.rb:92
 msgid "Full Computer Name"
 msgstr "Volledige computernaam"
 
-#: src/lib/authui/main_dialog.rb:77 src/lib/authui/main_dialog.rb:78
+#: src/lib/authui/main_dialog.rb:92 src/lib/authui/main_dialog.rb:93
 msgid "(Name is not resolvable)"
 msgstr "(Naam is niet oplosbaar)"
 
-#: src/lib/authui/main_dialog.rb:78
+#: src/lib/authui/main_dialog.rb:93
 msgid "Network Domain"
 msgstr "Netwerkdomein"
 
-#: src/lib/authui/main_dialog.rb:79
+#: src/lib/authui/main_dialog.rb:94
 msgid "IP Addresses"
 msgstr "IP-adressen"
 
-#: src/lib/authui/main_dialog.rb:80
+#: src/lib/authui/main_dialog.rb:95
 msgid "Identity Domains"
 msgstr "Identiteitsdomeinen"
 
@@ -232,125 +656,105 @@ msgstr "Sudo"
 msgid "Auto-Mount"
 msgstr "Automatisch aankoppelen"
 
-#: src/lib/authui/sssd/main_dialog.rb:42 src/lib/authui/sssd/main_dialog.rb:85
+#: src/lib/authui/sssd/main_dialog.rb:42 src/lib/authui/sssd/main_dialog.rb:84
 msgid "SSH Public Keys"
 msgstr "SSH publieke sleutels"
 
-#: src/lib/authui/sssd/main_dialog.rb:43 src/lib/authui/sssd/main_dialog.rb:86
+#: src/lib/authui/sssd/main_dialog.rb:43 src/lib/authui/sssd/main_dialog.rb:85
 msgid "Privilege Account Certificate (MS-PAC)"
 msgstr "Geheim certificaat van account (MS-PAC)"
 
-#: src/lib/authui/sssd/main_dialog.rb:44 src/lib/authui/sssd/main_dialog.rb:87
-msgid "Information Pipe"
-msgstr "Informatiepijp"
-
 #. Render overview and edit buttons on left side, config editor on right side.
-#: src/lib/authui/sssd/main_dialog.rb:68
+#: src/lib/authui/sssd/main_dialog.rb:67
 msgid "Manage Domain User Logon"
 msgstr "Gebruikersaanmelding bij domein beheren"
 
-#: src/lib/authui/sssd/main_dialog.rb:76
+#: src/lib/authui/sssd/main_dialog.rb:75
 msgid "Daemon Status: "
 msgstr "Daemonstatus: "
 
-#: src/lib/authui/sssd/main_dialog.rb:76
+#: src/lib/authui/sssd/main_dialog.rb:75
 msgid "Running"
 msgstr "Actief"
 
-#: src/lib/authui/sssd/main_dialog.rb:76
+#: src/lib/authui/sssd/main_dialog.rb:75
 msgid "Stopped"
 msgstr "Gestopt"
 
-#: src/lib/authui/sssd/main_dialog.rb:77
+#: src/lib/authui/sssd/main_dialog.rb:76
 msgid "Allow Domain User Logon"
 msgstr "Gebruikersaanmelding bij domein toestaan"
 
-#: src/lib/authui/sssd/main_dialog.rb:78
+#: src/lib/authui/sssd/main_dialog.rb:77
 msgid "Create Home Directory"
 msgstr "Persoonlijke map aanmaken"
 
-#: src/lib/authui/sssd/main_dialog.rb:80
+#: src/lib/authui/sssd/main_dialog.rb:79
 msgid "Enable domain data source:"
 msgstr "Gegevensbron domein inschakelen:"
 
-#: src/lib/authui/sssd/main_dialog.rb:81
-msgid "Users"
-msgstr "Gebruikers"
-
-#: src/lib/authui/sssd/main_dialog.rb:82
-msgid "Groups"
-msgstr "Groepen"
-
 #: src/lib/authui/sssd/main_dialog.rb:83
-msgid "Super-User Commands (sudo)"
-msgstr "Supergebruikersopdrachten (sudo)"
-
-#: src/lib/authui/sssd/main_dialog.rb:84
 msgid "Map Network Drives (automount)"
 msgstr "Netwerkschijven toewijzen (automatisch aankoppelen)"
 
-#: src/lib/authui/sssd/main_dialog.rb:93
+#: src/lib/authui/sssd/main_dialog.rb:91
 msgid "Add Domain"
 msgstr "Domein toevoegen"
 
-#: src/lib/authui/sssd/main_dialog.rb:94
+#: src/lib/authui/sssd/main_dialog.rb:92
 msgid "Leave Domain"
 msgstr "Domein verlaten"
 
-#: src/lib/authui/sssd/main_dialog.rb:95
+#: src/lib/authui/sssd/main_dialog.rb:93
 msgid "Clear Domain Cache"
 msgstr "Domeincache wissen"
 
 #. Render overview of all config sections in tree.
 #. For the currently selection config section, render customised parameters and values in a table.
-#: src/lib/authui/sssd/main_dialog.rb:140
-#: src/lib/authui/sssd/main_dialog.rb:152
+#: src/lib/authui/sssd/main_dialog.rb:138
+#: src/lib/authui/sssd/main_dialog.rb:150
 msgid "Service Options"
 msgstr "Serviceopties"
 
-#: src/lib/authui/sssd/main_dialog.rb:141
-#: src/lib/authui/sssd/main_dialog.rb:152
+#: src/lib/authui/sssd/main_dialog.rb:139
+#: src/lib/authui/sssd/main_dialog.rb:150
 msgid "Domain Options"
 msgstr "Domeinopties"
 
-#: src/lib/authui/sssd/main_dialog.rb:153
+#: src/lib/authui/sssd/main_dialog.rb:151
 msgid "Select Global Options, a service, or a domain to customise."
 msgstr ""
 "Een globale optie, een service of een domein selecteren om aan te passen."
 
 #. Additional widgets for a domain
-#: src/lib/authui/sssd/main_dialog.rb:159
+#: src/lib/authui/sssd/main_dialog.rb:157
 msgid "Use this domain"
 msgstr "Dit domein gebruiken"
 
 #. Additiona widgets for an AD domain
-#: src/lib/authui/sssd/main_dialog.rb:164
+#: src/lib/authui/sssd/main_dialog.rb:162
 msgid "Enroll to Active Directory"
 msgstr "Inschrijven bij Active Directory"
 
 #. TRANSLATORS: Label of the area used to customise parameters.
 #. %s is the name of the section being customised.
-#: src/lib/authui/sssd/main_dialog.rb:174
+#: src/lib/authui/sssd/main_dialog.rb:172
 #, c-format
 msgid "Options - %s"
 msgstr "Opties - %s"
 
-#: src/lib/authui/sssd/main_dialog.rb:188
-msgid "Extended Options"
-msgstr "Uitgebreide opties"
-
 #. Delete the chosen domain
-#: src/lib/authui/sssd/main_dialog.rb:219
+#: src/lib/authui/sssd/main_dialog.rb:217
 msgid "Please select a domain among the list."
 msgstr "Selecteer een domein in de lijst."
 
-#: src/lib/authui/sssd/main_dialog.rb:222
+#: src/lib/authui/sssd/main_dialog.rb:220
 #, c-format
 msgid "Do you really wish to erase configuration for domain %s?"
 msgstr "Wilt u de configuratie voor domein %s wissen?"
 
 #. Enable/disable SSSD daemon
-#: src/lib/authui/sssd/main_dialog.rb:255
+#: src/lib/authui/sssd/main_dialog.rb:253
 msgid ""
 "This computer is currently using legacy LDAP or Kerberos method to "
 "authenticate users.\n"
@@ -363,7 +767,7 @@ msgstr ""
 "Kerberos-verificatie uit te schakelen in \"LDAP- en Kerberos-client\"."
 
 #. Enable/disable NSS password database
-#: src/lib/authui/sssd/main_dialog.rb:287
+#: src/lib/authui/sssd/main_dialog.rb:285
 msgid ""
 "This computer is currently reading user database from LDAP identity "
 "provider.\n"
@@ -376,7 +780,7 @@ msgstr ""
 "gebruikersdatabase uit te schakelen in \"LDAP- en Kerberos-client\"."
 
 #. Enable/disable NSS group database
-#: src/lib/authui/sssd/main_dialog.rb:305
+#: src/lib/authui/sssd/main_dialog.rb:303
 msgid ""
 "This computer is currently reading group database from LDAP identity "
 "provider.\n"
@@ -389,7 +793,7 @@ msgstr ""
 "groepsdatabase uit te schakelen in \"LDAP- en Kerberos-client\"."
 
 #. Enable/disable NSS sudoers database
-#: src/lib/authui/sssd/main_dialog.rb:323
+#: src/lib/authui/sssd/main_dialog.rb:321
 msgid ""
 "This computer is currently reading sudoers database from LDAP identity "
 "provider.\n"
@@ -401,7 +805,7 @@ msgstr ""
 "Voordat u een SSSD-sudoers-database kunt gebruiken, dient u de LDAP-sudoers-"
 "database uit te schakelen in \"LDAP- en Kerberos-client\"."
 
-#: src/lib/authui/sssd/main_dialog.rb:331
+#: src/lib/authui/sssd/main_dialog.rb:329
 msgid ""
 "Sudo data source has been globally enabled.\n"
 "Please remember to also customise \"sudo_provider\" parameter in Extended "
@@ -412,7 +816,7 @@ msgstr ""
 "uitgebreide opties van elk domein dat sudo-gegevens levert."
 
 #. Enable/disable NSS automount database
-#: src/lib/authui/sssd/main_dialog.rb:345
+#: src/lib/authui/sssd/main_dialog.rb:343
 msgid ""
 "This computer is currently reading automount database from LDAP identity "
 "provider.\n"
@@ -424,7 +828,7 @@ msgstr ""
 "Voordat u een SSSD-automount-database kunt gebruiken, dient u de LDAP-"
 "automount-database uit te schakelen in \"LDAP- en Kerberos-client\"."
 
-#: src/lib/authui/sssd/main_dialog.rb:353
+#: src/lib/authui/sssd/main_dialog.rb:351
 msgid ""
 "Automount data source has been globally enabled.\n"
 "Please remember to also customise \"autofs_provider\" parameter in Extended "
@@ -435,7 +839,7 @@ msgstr ""
 "uitgebreide opties van elk domein dat automount-gegevens levert."
 
 #. Enable/disable PAC responder
-#: src/lib/authui/sssd/main_dialog.rb:377
+#: src/lib/authui/sssd/main_dialog.rb:375
 msgid ""
 "MS-PAC data source has been globally enabled.\n"
 "This optional feature depends on the capabilities of your Microsoft Active "
@@ -450,16 +854,16 @@ msgstr ""
 "Directory-domein. Schakel deze functie uit als dit het geval is."
 
 #. Forbid removal of mandatory parameters
-#: src/lib/authui/sssd/main_dialog.rb:422
+#: src/lib/authui/sssd/main_dialog.rb:410
 msgid "This is a mandatory parameter and it may not be deleted."
 msgstr "Dit is een verplichte parameter. Verwijderen is niet mogelijk."
 
 #. Warn against removal of important parameters
-#: src/lib/authui/sssd/main_dialog.rb:427
+#: src/lib/authui/sssd/main_dialog.rb:415
 msgid "Confirm parameter removal: "
 msgstr "Verwijdering van parameter bevestigen: "
 
-#: src/lib/authui/sssd/main_dialog.rb:428
+#: src/lib/authui/sssd/main_dialog.rb:416
 msgid ""
 "The parameter is important. Removal of the parameter may cause configuration "
 "failure.\n"
@@ -472,11 +876,11 @@ msgstr ""
 "Wilt u de parameter toch verwijderen?"
 
 #. Save settings - validate
-#: src/lib/authui/sssd/main_dialog.rb:447
+#: src/lib/authui/sssd/main_dialog.rb:435
 msgid "No domain"
 msgstr "Geen domein"
 
-#: src/lib/authui/sssd/main_dialog.rb:448
+#: src/lib/authui/sssd/main_dialog.rb:436
 msgid ""
 "You have not configured any authentication domain, yet you chose to enable "
 "domain authentication.\n"
@@ -490,7 +894,7 @@ msgstr ""
 "Wilt u toch doorgaan?"
 
 #. Remove all SSSD cache files
-#: src/lib/authui/sssd/main_dialog.rb:465
+#: src/lib/authui/sssd/main_dialog.rb:456
 msgid "All cached data have been erased."
 msgstr "Alle in cache opgeslagen gegevens zijn gewist."
 
@@ -521,27 +925,23 @@ msgid "Optional Organisation Unit such as \"Headquarter/HR/BuildingA\""
 msgstr "Optionele organisatie-eenheid zoals \"Hoofdkantoor/HR/GebouwA\""
 
 #: src/lib/authui/sssd/manage_ad_dialog.rb:73
-msgid "Optional dnsHostName attribute during the join"
-msgstr "Optioneel attribuut dnsHostName tijdens het samenvoegen"
-
-#: src/lib/authui/sssd/manage_ad_dialog.rb:74
 msgid "Overwrite Samba configuration to work with this AD"
 msgstr "Samba-configuratie overschrijven om met deze AD te werken"
 
-#: src/lib/authui/sssd/manage_ad_dialog.rb:78
-#: src/lib/authui/sssd/manage_ad_dialog.rb:88
+#: src/lib/authui/sssd/manage_ad_dialog.rb:77
+#: src/lib/authui/sssd/manage_ad_dialog.rb:87
 msgid "(Not applicable in AutoYast editor)"
 msgstr "(Niet van toepassing in AutoYast-editor)"
 
-#: src/lib/authui/sssd/manage_ad_dialog.rb:80
+#: src/lib/authui/sssd/manage_ad_dialog.rb:79
 msgid " (Auto-discovered via DNS)"
 msgstr " (Automatisch gedetecteerd via DNS)"
 
-#: src/lib/authui/sssd/manage_ad_dialog.rb:84
+#: src/lib/authui/sssd/manage_ad_dialog.rb:83
 msgid "(DNS error)"
 msgstr "(DNS-fout)"
 
-#: src/lib/authui/sssd/manage_ad_dialog.rb:85
+#: src/lib/authui/sssd/manage_ad_dialog.rb:84
 msgid ""
 "The name resolution service on this computer does not satisfy AD enrollment "
 "requirements.\n"
@@ -553,49 +953,49 @@ msgstr ""
 "Configureer uw netwerkomgeving zo dat de AD-server als service voor "
 "naamomzetting wordt gebruikt."
 
-#: src/lib/authui/sssd/manage_ad_dialog.rb:91
+#: src/lib/authui/sssd/manage_ad_dialog.rb:90
 msgid "Already enrolled"
 msgstr "Al ingeschreven"
 
-#: src/lib/authui/sssd/manage_ad_dialog.rb:93
+#: src/lib/authui/sssd/manage_ad_dialog.rb:92
 msgid "Not yet enrolled"
 msgstr "Nog niet ingeschreven"
 
-#: src/lib/authui/sssd/manage_ad_dialog.rb:102
+#: src/lib/authui/sssd/manage_ad_dialog.rb:101
 msgid "Active Directory Server"
 msgstr "Active Directory-server"
 
-#: src/lib/authui/sssd/manage_ad_dialog.rb:103
+#: src/lib/authui/sssd/manage_ad_dialog.rb:102
 msgid "Active Directory Domain"
 msgstr "Active Directory-domein"
 
-#: src/lib/authui/sssd/manage_ad_dialog.rb:104
+#: src/lib/authui/sssd/manage_ad_dialog.rb:103
 msgid "Workgroup"
 msgstr "Werkgroep"
 
-#: src/lib/authui/sssd/manage_ad_dialog.rb:105
+#: src/lib/authui/sssd/manage_ad_dialog.rb:104
 msgid "Enrollment Status"
 msgstr "Inschrijvingsstatus"
 
-#: src/lib/authui/sssd/manage_ad_dialog.rb:116
+#: src/lib/authui/sssd/manage_ad_dialog.rb:115
 msgid "Active Directory enrollment"
 msgstr "Inschrijving bij Active Directory"
 
-#: src/lib/authui/sssd/manage_ad_dialog.rb:118
+#: src/lib/authui/sssd/manage_ad_dialog.rb:117
 msgid "Current status"
 msgstr "Huidige status"
 
-#: src/lib/authui/sssd/manage_ad_dialog.rb:118
+#: src/lib/authui/sssd/manage_ad_dialog.rb:117
 msgid "Gathering status..."
 msgstr "Status ophalen..."
 
 #. Enroll the computer, or save the enrollment details
-#: src/lib/authui/sssd/manage_ad_dialog.rb:137
+#: src/lib/authui/sssd/manage_ad_dialog.rb:135
 msgid "Please enter both username and password."
 msgstr "Voer zowel de gebruikersnaam als het wachtwoord in."
 
 #. join_ad will configure and apply Kerberos and then join AD
-#: src/lib/authui/sssd/manage_ad_dialog.rb:149
+#: src/lib/authui/sssd/manage_ad_dialog.rb:146
 msgid ""
 "AD enrollment details have been saved for AutoYast. Please keep in mind that "
 "AD user password is saved in plain text."
@@ -603,7 +1003,7 @@ msgstr ""
 "AD-inschrijvingsdetails zijn opgeslagen voor AutoYast. Let op: het AD-"
 "gebruikerswachtwoord is opgeslagen als tekst zonder opmaak."
 
-#: src/lib/authui/sssd/manage_ad_dialog.rb:155
+#: src/lib/authui/sssd/manage_ad_dialog.rb:152
 msgid ""
 "Enrollment has completed successfully!\n"
 "\n"
@@ -614,7 +1014,7 @@ msgstr ""
 "Opdrachtuitvoer:\n"
 
 #. If user enters this dialog once again, the details should be cleared.
-#: src/lib/authui/sssd/manage_ad_dialog.rb:164
+#: src/lib/authui/sssd/manage_ad_dialog.rb:160
 msgid ""
 "The enrollment process failed.\n"
 "\n"
@@ -2204,337 +2604,40 @@ msgstr ""
 "Kies de interface waarvan het IP-adres moet worden gebruikt voor dynamische "
 "DNS-updates."
 
-#~ msgid "LDAP and Kerberos Client"
-#~ msgstr "LDAP- en Kerberos-client"
+#~ msgid "Failed to check the installed samba version."
+#~ msgstr "Controleren van de geïnstalleerde versie van samba is mislukt."
 
-#~ msgid "User Logon Configuration"
-#~ msgstr "Configuratie gebruikersaanmelding"
+#~ msgid "Failed to create temporary smb.conf"
+#~ msgstr "Aanmaken van een tijdelijke smb.conf is mislukt"
 
-#~ msgid "LDAP/Kerberos Configuration"
-#~ msgstr "LDAP-/Kerberos-configuratie"
+#~ msgid "NSS LDAP"
+#~ msgstr "NSS LDAP"
 
-#~ msgid "Failed to install software packages required for LDAP."
-#~ msgstr "Installeren van softwarepakketten vereist voor LDAP is mislukt."
+#~ msgid "PAM + NSS LDAP"
+#~ msgstr "PAM + NSS LDAP"
 
-#~ msgid "ERROR: "
-#~ msgstr "FOUT: "
+#~ msgid "PAM LDAP"
+#~ msgstr "PAM LDAP"
 
-#~ msgid "Failed to install software packages required for Kerberos."
-#~ msgstr "Installeren van softwarepakketten vereist voor Kerberos is mislukt."
+#~ msgid "and PAM KRB5"
+#~ msgstr "en PAM KRB5"
 
-#~ msgid "LDAP is enabled but the setup is incomplete"
-#~ msgstr "LDAP is ingeschakeld maar het instellen is onvolledig"
+#~ msgid "PAM KRB5"
+#~ msgstr "PAM KRB5"
 
-#~ msgid "via LDAP on %s"
-#~ msgstr "via LDAP op %s"
-
-#~ msgid " and "
-#~ msgstr " en "
-
-#~ msgid "via Kerberos"
-#~ msgstr "via Kerberos"
-
-#~ msgid "via Kerberos on %s"
-#~ msgstr "via Kerberos op %s"
-
-#~ msgid "Realm name"
-#~ msgstr "Naam van realm"
-
-#~ msgid "Map Domain Name to the Realm (example.com -> EXAMPLE.COM)"
-#~ msgstr "Domeinnaam toewijzen aan realm (example.com -> EXAMPLE.COM)"
-
+#, c-format
 #~ msgid ""
-#~ "Map Wild Card Domain Name to the Realm (*.example.com -> EXAMPLE.COM)"
+#~ "⚠️  Use of %s detected. These modules can no longer be configured and you "
+#~ "MUST migrate to SSSD"
 #~ msgstr ""
-#~ "Domeinnaam met wildcard toewijzen aan realm (*.example.com -> EXAMPLE.COM)"
+#~ "⚠️  Gebruik van %s gedetecteerd. Deze modulen kunnen niet langer "
+#~ "geconfigureerd worden en u MOET naar SSSD migreren"
 
-#~ msgid "Host Name of Administration Server (Optional)"
-#~ msgstr "Hostnaam van beheerserver (optioneel)"
+#~ msgid "Information Pipe"
+#~ msgstr "Informatiepijp"
 
-#~ msgid "Host Name of Master Key Distribution Center (Optional)"
-#~ msgstr "Hostnaam van distributiecentrum voor hoofdsleutel (optioneel)"
-
-#~ msgid ""
-#~ "Key Distribution Centers (Optional If Auto-Discovery via DNS is Enabled)"
-#~ msgstr ""
-#~ "Distributiecentra voor sleutels (optioneel als automatische detectie via "
-#~ "DNS is ingeschakeld)"
-
-#~ msgid "Custom Mappings of Principal Names to User Names"
-#~ msgstr "Aangepaste toewijzingen van hoofdnamen aan gebruikersnamen"
-
-#~ msgid "Principal Name"
-#~ msgstr "Hoofdnaam"
-
-#~ msgid "User Name"
-#~ msgstr "Gebruikersnaam"
-
-#~ msgid "Custom Rules for Mapping Principal Names to User Names"
-#~ msgstr ""
-#~ "Aangepaste regels voor het toewijzen van hoofdnamen aan gebruikersnamen"
-
-#~ msgid "Please type in the host name of Key Distribution Centre:"
-#~ msgstr "Voer de hostnaam van het distributiecentrum voor sleutels in:"
-
-#~ msgid ""
-#~ "Please type the new rule string (e.g. \"RULE:[2:$1](johndoe)s/^.*$/guest/"
-#~ "\")"
-#~ msgstr ""
-#~ "Voer de nieuwe regeltekenreeks in (bijv. \"RULE:[2:$1](johndoe)s/^.*$/"
-#~ "guest/\")"
-
-#~ msgid ""
-#~ "Please type in the principal name and user name in the format of "
-#~ "\"princ_name = user_name\":"
-#~ msgstr ""
-#~ "Voer de hoofdnaam en gebruikersnaam in het formaat \"hoofd_naam = "
-#~ "gebr_naam\" in:"
-
-#~ msgid "Please enter realm name."
-#~ msgstr "Voer de realmnaam in."
-
-#~ msgid "Default Location of Keytab File"
-#~ msgstr "Standaardlocatie van keytabbestand"
-
-#~ msgid "Encryption Types for TGS (Space separated)"
-#~ msgstr "Coderingstypen voor TGS (gescheiden door spaties)"
-
-#~ msgid "Encryption Types for Ticket (Space separated)"
-#~ msgstr "Coderingstypen voor ticket (gescheiden door spaties)"
-
-#~ msgid "Encryption Types for Sessions (Space separated)"
-#~ msgstr "Coderingstypen voor sessies (gescheiden door spaties)"
-
-#~ msgid "Additional Addresses to be put in Ticket (Comma separated)"
-#~ msgstr ""
-#~ "Aanvullende adressen die in het ticket moeten worden geplaatst "
-#~ "(gescheiden door komma's)"
-
-#~ msgid "Reset"
-#~ msgstr "Terugzetten"
-
-#~ msgid "Timeout for Bind Operations in Seconds"
-#~ msgstr "Time-out voor bindingsbewerkingen in seconden"
-
-#~ msgid "Timeout for Search Operations in Seconds"
-#~ msgstr "Time-out voor zoekbewerkingen in seconden"
-
-#~ msgid "Use a Directory as Identity Provider (LDAP)"
-#~ msgstr "Een directory gebruiken als identiteitsprovider (LDAP)"
-
-#~ msgid "Authentication via Kerberos"
-#~ msgstr "Verificatie via Kerberos"
-
-#~ msgid ""
-#~ "This computer is currently using SSSD to authenticate users.\n"
-#~ "Before you may use legacy LDAP authentication (pam_ldap), please disable "
-#~ "SSSD from \"User Logon Management\"."
-#~ msgstr ""
-#~ "Deze computer gebruikt momenteel SSSD om gebruikers te verifiëren. \n"
-#~ "Voordat u legacy LDAP-verificatie kunt gebruiken (pam_ldap), dient u SSSD "
-#~ "uit te schakelen in \"Beheer gebruikersaanmelding\"."
-
-#~ msgid ""
-#~ "This computer is currently reading user database from SSSD identity "
-#~ "provider.\n"
-#~ "Before you may use LDAP user database (nss_ldap), please disable SSSD "
-#~ "user database from \"User Logon Management\"."
-#~ msgstr ""
-#~ "Deze computer leest momenteel de gebruikersdatabase van een SSSD-"
-#~ "identiteitsprovider.\n"
-#~ "Voordat u een LDAP-gebruikersdatabase kunt gebruiken (nss_ldap), dient u "
-#~ "de SSSD-gebruikersdatabase uit te schakelen in \"Beheer "
-#~ "gebruikersaanmelding\"."
-
-#~ msgid ""
-#~ "This computer is currently reading group database from SSSD identity "
-#~ "provider.\n"
-#~ "Before you may use LDAP group database (nss_ldap), please disable SSSD "
-#~ "group database from \"User Logon Management\"."
-#~ msgstr ""
-#~ "Deze computer leest momenteel de groepsdatabase van een SSSD-"
-#~ "identiteitsprovider.\n"
-#~ "Voordat u een LDAP-groepsdatabase kunt gebruiken (nss_ldap), dient u de "
-#~ "SSSD-groepsdatabase uit te schakelen in \"Beheer gebruikersaanmelding\"."
-
-#~ msgid ""
-#~ "This computer is currently reading sudoers database from SSSD identity "
-#~ "provider.\n"
-#~ "Before you may use LDAP sudoers database (nss_ldap), please disable SSSD "
-#~ "sudo database from \"User Logon Management\"."
-#~ msgstr ""
-#~ "Deze computer leest momenteel de sudoers-database van een SSSD-"
-#~ "identiteitsprovider.\n"
-#~ "Voordat u een LDAP-sudoers-database kunt gebruiken (nss_ldap), dient u de "
-#~ "SSSD-sudo-database uit te schakelen in \"Beheer gebruikersaanmelding\"."
-
-#~ msgid ""
-#~ "This computer is currently reading automount database from SSSD identity "
-#~ "provider.\n"
-#~ "Before you may use LDAP automount database (nss_ldap), please disable "
-#~ "SSSD automount database from \"User Logon Management\"."
-#~ msgstr ""
-#~ "Deze computer leest momenteel de automount-database van een SSSD-"
-#~ "identiteitsprovider.\n"
-#~ "Voordat u een LDAP-automount-database kunt gebruiken (nss_ldap), dient u "
-#~ "de SSSD-automount-database uit te schakelen in \"Beheer "
-#~ "gebruikersaanmelding\"."
-
-#~ msgid "Please enter server URI."
-#~ msgstr "Voer de server-URI in."
-
-#~ msgid "Please enter DN of search base."
-#~ msgstr "Voer de DN van de zoekbasis in."
-
-#~ msgid "Successfully contacted LDAP server on URI %s!"
-#~ msgstr "Contact met LDAP-server op URI %s is gemaakt!"
-
-#~ msgid ""
-#~ "Connection check has failed on URI %s.\n"
-#~ "\n"
-#~ "%s"
-#~ msgstr ""
-#~ "Verbindingscontrole is mislukt op URI %s.\n"
-#~ "\n"
-#~ "%s"
-
-#~ msgid "Successfully contacted LDAP server on host %s"
-#~ msgstr "Contact met LDAP-server op host %s is gemaakt"
-
-#~ msgid ""
-#~ "Connection check has failed on host %s.\n"
-#~ "\n"
-#~ "%s"
-#~ msgstr ""
-#~ "Verbindingscontrole is mislukt op host %s.\n"
-#~ "\n"
-#~ "%s"
-
-#~ msgid ""
-#~ "The name service cache is should only used with legacy LDAP identity "
-#~ "provider,\n"
-#~ "but your system currently has authentication domain enabled, which is not "
-#~ "compatible with the cache.\n"
-#~ "\n"
-#~ "Do you still wish to enable the cache?"
-#~ msgstr ""
-#~ "De naamservicecache dient alleen te worden gebruikt met legacy LDAP-"
-#~ "identiteitsproviders,\n"
-#~ "maar op uw systeem is momenteel een verificatiedomein ingeschakeld en dit "
-#~ "is niet compatibel met de cache.\n"
-#~ "\n"
-#~ "Wilt u de cache toch inschakelen?"
-
-#~ msgid ""
-#~ "This computer is currently using SSSD to authenticate users.\n"
-#~ "Before you may use Kerberos authentication (pam_krb5), please disable "
-#~ "SSSD from \"User Logon Management\"."
-#~ msgstr ""
-#~ "Op deze computer wordt momenteel SSSD gebruikt om gebruikers te "
-#~ "verifiëren.\n"
-#~ "Voordat u Kerberos-verificatie kunt gebruiken (pam_krb5), dient u SSSD "
-#~ "uit te schakelen in \"Beheer gebruikersaanmelding\"."
-
-#~ msgid "(not specified)"
-#~ msgstr "(niet gespecificeerd)"
-
-#~ msgid "Are you sure to delete realm %s?"
-#~ msgstr "Wilt u de realm %s verwijderen?"
-
-#~ msgid "Allow LDAP Users To Authenticate (pam_ldap)"
-#~ msgstr "Sta toe om LDAP gebruikers te authenticeren (pam_ldap)"
-
-#~ msgid "Cache LDAP Entries For Faster Response (nscd)"
-#~ msgstr "LDAP-items in cache opslaan voor een snellere respons (nscd)"
-
-#~ msgid "Automatically Create Home Directory"
-#~ msgstr "Automatisch persoonlijke map aanmaken"
-
-#~ msgid "Read the following items from LDAP data source:"
-#~ msgstr "De volgende items uit de LDAP-gegevensbron lezen:"
-
-#~ msgid "Network Disk Locations (automount)"
-#~ msgstr "Locaties van netwerkschijf (automount)"
-
-#~ msgid "Enter LDAP server locations (space separated), in either format:"
-#~ msgstr ""
-#~ "Voer LDAP-serverlocaties in (gescheiden door spaties), in de indeling van "
-#~ "uw keuze:"
-
-#~ msgid "- Host name or IP and port number (ip:port)"
-#~ msgstr "- Hostnaam of IP-adres en poortnummer (ip:poort)"
-
-#~ msgid "- URI (ldap://server:port, ldaps://server:port)"
-#~ msgstr "- URI (ldap://server:poort, ldaps://server:poort)"
-
-#~ msgid "DN of Search Base (e.g. dc=example,dc=com)"
-#~ msgstr "DN van zoekbasis (bijv. dc=voorbeeld,dc=nl)"
-
-#~ msgid "DN of Bind User (Leave Empty for Anonymous Bind)"
-#~ msgstr "DN van bindingsgebruiker (leeg laten voor anonieme binding)"
-
-#~ msgid "Password of the Bind User (Leave Empty for Anonymous Bind)"
-#~ msgstr ""
-#~ "Wachtwoord van de bindingsgebruiker (leeg laten voor anonieme binding)"
-
-#~ msgid "Identify Group Members by Their DNs (RFC2307bis)"
-#~ msgstr "Groepsleden identificeren aan de hand van hun DN's (RFC2307bis)"
-
-#~ msgid "Leave LDAP Connections Open for Consecutive Requests"
-#~ msgstr "LDAP-verbindingen open laten voor volgende verzoeken"
-
-#~ msgid "Secure LDAP communication"
-#~ msgstr "Veilige LDAP-communicatie"
-
-#~ msgid "Do Not Use Security"
-#~ msgstr "Geen beveiliging gebruiken"
-
-#~ msgid "Secure Communication via TLS"
-#~ msgstr "Veilige communicatie via TLS"
-
-#~ msgid "Secure Communication via StartTLS"
-#~ msgstr "Veilige communicatie via StartTLS"
-
-#~ msgid "Test Connection"
-#~ msgstr "Test verbinding"
-
-#~ msgid "Allow Kerberos Users To Authenticate (pam_krb5)"
-#~ msgstr "Sta toe om Kerberos gebruikers te authenticeren (pam_krb5)"
-
-#~ msgid "Default Realm For User Login:"
-#~ msgstr "Standaard realm voor aanmelden van gebruiker:"
-
-#~ msgid "All Authentication Realms"
-#~ msgstr "Alle autenticatie-realms"
-
-#~ msgid "Add Realm"
-#~ msgstr "Realm toevoegen"
-
-#~ msgid "Edit Realm"
-#~ msgstr "Realm bewerken"
-
-#~ msgid "Delete Realm"
-#~ msgstr "Realm verwijderen"
-
-#~ msgid "Use DNS TXT Record to Discover Realms"
-#~ msgstr "DNS TXT-record gebruiken om realms te detecteren"
-
-#~ msgid "Use DNS SRV record to Discover KDC servers"
-#~ msgstr "DNS SRV-record gebruiken om KDC-servers te detecteren"
-
-#~ msgid "Allow Insecure Encryption (Windows NT)"
-#~ msgstr "Onveilige versleuteling toestaan (Windows NT)"
-
-#~ msgid "Allow KDC on Other Networks to Issue Authentication Tickets"
-#~ msgstr "KDC op andere netwerken toestaan verificatietickets uit te geven"
-
-#~ msgid "Allow Kerberos-Enabled Services to Take on The Identity Of a User"
-#~ msgstr ""
-#~ "Services met Kerberos toestaan de identiteit van een gebruiker aan te "
-#~ "nemen"
-
-#~ msgid "Issue Address-Less Tickets for Computers Behind NAT"
-#~ msgstr "Adresloze tickets uitgeven voor computers achter NAT"
+#~ msgid "Optional dnsHostName attribute during the join"
+#~ msgstr "Optioneel attribuut dnsHostName tijdens het samenvoegen"
 
 #~ msgid "Please type in the auth_to_local rule:"
 #~ msgstr "Voer de regel auth_to_local in:"
